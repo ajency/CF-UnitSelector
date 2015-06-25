@@ -300,6 +300,7 @@ jQuery(document).ready ($)->
             success :(response)->
 
                 window.svgData = {}
+                window.svgDataClone = {}
                 window.svgData['image'] = svgImg
                 window.svgData['data'] = response.data
                 window.svgData['supported_types'] = JSON.parse supported_types
@@ -307,6 +308,7 @@ jQuery(document).ready ($)->
                 window.svgData['svg_type'] = svg_type
                 window.svgData['building_id'] = building_id
                 window.svgData['project_id'] = project_id
+                window.svgDataClone['data'] = response.data
                 window.loadJSONData()
                 $('.duplicate').hide()
                
@@ -391,7 +393,7 @@ jQuery(document).ready ($)->
             type = $('.property_type').val()  
             if  $('.property_type').val() is 'apartment/penthouse'
                 type = 'apartment'
-            
+
             details['class'] = 'layer '+type        
         
         # canvas_type differences i.e markers vs polygons
@@ -447,6 +449,7 @@ jQuery(document).ready ($)->
                 
                 
                 window.svgData.data.push myObject
+                window.svgDataClone.data.push myObject
 
                 # clear svg 
                 draw.clear()
@@ -1101,6 +1104,7 @@ jQuery(document).ready ($)->
                 window.svgData.data.splice(indexToSplice,1)
                 myObject['id'] =  svgElemId
                 window.svgData.data.push myObject
+                window.svgDataClone.data.push myObject
                 # clear svg 
                 draw.clear()
                 types = window.getPendingObjects(window.svgData)
@@ -1163,7 +1167,7 @@ jQuery(document).ready ($)->
         # clear svg
         draw.clear()
         # regenerate svg
-        window.generateSvg(window.svgData.data) 
+        window.generateSvg(window.svgDataClone.data) 
         window.EDITMODE = false                   
 
     # on click of delete svg element
@@ -1189,6 +1193,7 @@ jQuery(document).ready ($)->
                         obj_type = value.object_type
                         
                 window.svgData.data.splice(indexToSplice,1)
+                window.svgDataClone.data.splice(indexToSplice,1)
                 myObject['id'] =  svgElemId
 
                 if obj_id_deleted>0
