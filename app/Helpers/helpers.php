@@ -186,3 +186,16 @@ function hasPermission($projectId, $userPermission)
     return $flag;
  
 }
+
+function hasUnitAccess($unitId)
+{
+    $flag = false;
+    $userId =  Auth::user()->id;
+    $userUnit = \CommonFloor\AgentUnit::where('user_id',$userId)->where('unit_id',$unitId)->get()->toArray(); 
+    if(!empty($userUnit))
+    {
+        $flag = true;
+    }
+ 
+    return $flag;
+}
