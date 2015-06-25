@@ -817,31 +817,33 @@
               });
               if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
-                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                    console.log(_.isArray(val));
-                    console.log(val);
+                  if (ind === value && val !== "") {
                     if (_.isArray(val)) {
                       return $.each(val, function(ind1, val1) {
-                        flooring.push(val1);
+                        if ($.inArray(val, flooring) === -1) {
+                          flooring.push(val1);
+                          return temp.push({
+                            'name': val1,
+                            'id': 'villa' + s.replaceAll(val1, " ", "_"),
+                            'dataId': s.replaceAll(val1, " ", "_"),
+                            'classname': 'attributes',
+                            'label': ind,
+                            type: 'V'
+                          });
+                        }
+                      });
+                    } else {
+                      if ($.inArray(val, flooring) === -1) {
+                        flooring.push(val);
                         return temp.push({
-                          'name': val1,
-                          'id': 'villa' + s.replaceAll(val1, " ", "_"),
-                          'dataId': s.replaceAll(val1, " ", "_"),
+                          'name': val,
+                          'id': 'villa' + s.replaceAll(val, " ", "_"),
+                          'dataId': s.replaceAll(val, " ", "_"),
                           'classname': 'attributes',
                           'label': ind,
                           type: 'V'
                         });
-                      });
-                    } else {
-                      flooring.push(val);
-                      return temp.push({
-                        'name': val,
-                        'id': 'villa' + s.replaceAll(val, " ", "_"),
-                        'dataId': s.replaceAll(val, " ", "_"),
-                        'classname': 'attributes',
-                        'label': ind,
-                        type: 'V'
-                      });
+                      }
                     }
                   }
                 });
@@ -939,29 +941,33 @@
               });
               if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
-                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                  if (ind === value && val !== "") {
                     if (_.isArray(val)) {
                       return $.each(val, function(ind1, val1) {
-                        flooring.push(val1);
+                        if ($.inArray(val, flooring) === -1) {
+                          flooring.push(val1);
+                          return temp.push({
+                            'name': val1,
+                            'id': 'apt' + s.replaceAll(val1, " ", "_"),
+                            'dataId': s.replaceAll(val1, " ", "_"),
+                            'classname': 'attributes',
+                            'label': ind,
+                            type: 'A'
+                          });
+                        }
+                      });
+                    } else {
+                      if ($.inArray(val, flooring) === -1) {
+                        flooring.push(val);
                         return temp.push({
-                          'name': val1,
-                          'id': 'apt' + s.replaceAll(val1, " ", "_"),
-                          'dataId': s.replaceAll(val1, " ", "_"),
+                          'name': val,
+                          'id': 'apt' + s.replaceAll(val, " ", "_"),
+                          'dataId': s.replaceAll(val, " ", "_"),
                           'classname': 'attributes',
                           'label': ind,
                           type: 'A'
                         });
-                      });
-                    } else {
-                      flooring.push(val);
-                      return temp.push({
-                        'name': val,
-                        'id': 'apt' + s.replaceAll(val, " ", "_"),
-                        'dataId': s.replaceAll(val, " ", "_"),
-                        'classname': 'attributes',
-                        'label': ind,
-                        type: 'A'
-                      });
+                      }
                     }
                   }
                 });
@@ -1054,29 +1060,33 @@
               });
               if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
-                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                  if (ind === value && val !== "") {
                     if (_.isArray(val)) {
                       return $.each(val, function(ind1, val1) {
-                        flooring.push(val1);
-                        return temp.push({
-                          'name': val1,
-                          'id': 'plot' + s.replaceAll(val1, " ", "_"),
-                          'dataId': s.replaceAll(val1, " ", "_"),
-                          'classname': 'attributes',
-                          'label': ind,
-                          type: 'A'
-                        });
+                        if ($.inArray(val, flooring) === -1) {
+                          flooring.push(val1);
+                          return temp.push({
+                            'name': val1,
+                            'id': 'plot' + s.replaceAll(val1, " ", "_"),
+                            'dataId': s.replaceAll(val1, " ", "_"),
+                            'classname': 'attributes',
+                            'label': ind,
+                            type: 'P'
+                          });
+                        }
                       });
                     } else {
-                      flooring.push(val);
-                      return temp.push({
-                        'name': val,
-                        'id': 'plot' + s.replaceAll(val, " ", "_"),
-                        'dataId': s.replaceAll(val, " ", "_"),
-                        'classname': 'attributes',
-                        'label': ind,
-                        type: 'A'
-                      });
+                      if ($.inArray(val, flooring) === -1) {
+                        flooring.push(val);
+                        return temp.push({
+                          'name': val,
+                          'id': 'plot' + s.replaceAll(val, " ", "_"),
+                          'dataId': s.replaceAll(val, " ", "_"),
+                          'classname': 'attributes',
+                          'label': ind,
+                          type: 'P'
+                        });
+                      }
                     }
                   }
                 });

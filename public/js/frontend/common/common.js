@@ -1272,7 +1272,7 @@
             if (_.isString(val1)) {
               temp = val1;
             } else {
-              temp = parseInt(val1);
+              temp = val1.toString();
             }
             if ($.inArray(temp, arr) > -1) {
               return flooring.push(value);
@@ -1282,7 +1282,7 @@
           if (_.isString(val)) {
             temp = val;
           } else {
-            temp = parseInt(val);
+            temp = val.toString();
           }
           if ($.inArray(temp, arr) > -1) {
             return flooring.push(value);
@@ -1346,7 +1346,7 @@
             if (_.isString(val1)) {
               temp = val1;
             } else {
-              temp = parseInt(val1);
+              temp = val1.toString();
             }
             if ($.inArray(temp, arr) > -1) {
               return flooring.push(value);
@@ -1356,7 +1356,7 @@
           if (_.isString(val)) {
             temp = val;
           } else {
-            temp = parseInt(val);
+            temp = val.toString();
           }
           if ($.inArray(temp, arr) > -1) {
             return flooring.push(value);
@@ -1420,7 +1420,7 @@
             if (_.isString(val1)) {
               temp = val1;
             } else {
-              temp = parseInt(val1);
+              temp = val1.toString();
             }
             if ($.inArray(temp, arr) > -1) {
               return flooring.push(value);
@@ -1430,7 +1430,7 @@
           if (_.isString(val)) {
             temp = val;
           } else {
-            temp = parseInt(val);
+            temp = val.toString();
           }
           if ($.inArray(temp, arr) > -1) {
             return flooring.push(value);

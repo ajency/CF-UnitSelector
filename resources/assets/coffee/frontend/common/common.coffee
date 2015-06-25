@@ -1151,14 +1151,14 @@ CommonFloor.filterVillaAttributes = (temp)->
 					if _.isString(val1)
 						temp = val1
 					else
-						temp = parseInt val1
+						temp =  val1.toString()
 					if $.inArray(temp, arr ) > -1
 						flooring.push value
 			else
 				if _.isString(val)
 					temp = val
 				else
-					temp = parseInt val
+					temp =  val.toString()
 				if $.inArray(temp, arr ) > -1
 					flooring.push value
 	flooring	
@@ -1208,14 +1208,14 @@ CommonFloor.filterApartmentAttributes= (temp)->
 					if _.isString(val1)
 						temp = val1
 					else
-						temp = parseInt val1
+						temp = val1.toString()
 					if $.inArray(temp, arr ) > -1
 						flooring.push value
 			else
 				if _.isString(val)
 					temp = val
 				else
-					temp = parseInt val
+					temp = val.toString()
 				if $.inArray(temp, arr ) > -1
 					flooring.push value
 
@@ -1265,14 +1265,14 @@ CommonFloor.filterPlotAttributes= (temp)->
 					if _.isString(val1)
 						temp = val1
 					else
-						temp = parseInt val1
+						temp =  val1.toString()
 					if $.inArray(temp, arr ) > -1
 						flooring.push value
 			else
 				if _.isString(val)
 					temp = val
 				else
-					temp = parseInt val
+					temp =  val.toString()
 				if $.inArray(temp, arr ) > -1
 					flooring.push value
 

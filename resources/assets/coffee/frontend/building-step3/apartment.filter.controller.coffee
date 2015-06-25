@@ -780,15 +780,28 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 						if units.length != 0
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
-								if ind == value && $.inArray(val,flooring) is -1 && val != ""
-									flooring.push val
-									temp.push
-										'name' : val
-										'id' : 'apt'+s.replaceAll(val, " ", "_")
-										'dataId' : s.replaceAll(val, " ", "_")
-										'classname' : 'attributes'
-										'label' : ind
-										type: 'A'
+								if ind == value  && val != ""
+									if _.isArray(val)
+										$.each val, (ind1,val1)->
+											if $.inArray(val,flooring) is -1
+												flooring.push val1
+												temp.push
+													'name' : val1
+													'id' : 'apt'+s.replaceAll(val1, " ", "_")
+													'dataId' : s.replaceAll(val1, " ", "_")
+													'classname' : 'attributes'
+													'label' : ind
+													type: 'A'
+									else
+										if $.inArray(val,flooring) is -1
+											flooring.push val
+											temp.push
+												'name' : val
+												'id' : 'apt'+s.replaceAll(val, " ", "_")
+												'dataId' : s.replaceAll(val, " ", "_")
+												'classname' : 'attributes'
+												'label' : ind
+												type: 'A'
 					if temp.length != 0 
 						newtemp.push 
 							'label' : value.toUpperCase()
