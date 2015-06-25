@@ -1257,6 +1257,7 @@
       temp = [];
       if (value !== "" && index === 'attributes') {
         attributes = [];
+        unitCollection.reset(unitMasterCollection.toArray());
         if (temp.length === 0) {
           temp = bunglowVariantCollection.getBunglowUnits();
         }
