@@ -1306,6 +1306,7 @@
         return newColl.reset(temp);
       }
     });
+    console.log(newColl.toArray());
     return newColl.toArray();
   };
 

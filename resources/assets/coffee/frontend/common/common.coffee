@@ -1180,6 +1180,7 @@ CommonFloor.filterVillas = ()->
 					$.merge temp, unitCollection.where paramkey
 			unitCollection.reset temp
 			newColl.reset temp
+	console.log newColl.toArray()	
 	newColl.toArray()	
 
 
