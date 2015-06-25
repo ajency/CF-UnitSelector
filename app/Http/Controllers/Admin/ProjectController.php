@@ -13,6 +13,7 @@ use CommonFloor\ProjectPropertyType;
 use CommonFloor\Phase;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
+use CommonFloor\Unit;
 use CommonFloor\Building;
 use CommonFloor\ProjectJson;
 use \Input;
@@ -1116,7 +1117,7 @@ class ProjectController extends Controller {
     
   public function unitExport($projectId,$propertyTypeId)
   {
-        $filename = 
+        $filename = '';
         $data = [];
         $flag =false;
         $count =0;                                  //GET HEIGHTEST COUNT 
@@ -1209,6 +1210,46 @@ class ProjectController extends Controller {
         })->export('csv');
       
   }
+    
+  public function agentUnitExport($projectId)
+  {
+
+        $project = Project::find($projectId);
+        $projectPropertyTypes = $project->projectPropertyTypes()->get()->toArray();
+        $data = $projectUnits = [];
+
+        foreach ($projectPropertyTypes as $propertyType) {
+            $propertyTypeId = $propertyType['property_type_id'];
+            $projectpropertyTypeId = $propertyType['id'];
+            $unitTypeIds = UnitType::where( 'project_property_type_id', $projectpropertyTypeId )->get()->lists('id');
+            $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
+            $units = Unit ::whereIn('unit_variant_id',$unitVariantIds)->get()->toArray();
+            $projectUnits [$propertyTypeId] = $units;
+        }
+        
+        $i=1;
+        foreach($projectUnits as $propertyTypeId => $units)
+        {  
+            foreach($units as  $unit)
+            {
+            $data[$i]['Property Type'] = get_property_type($propertyTypeId);
+            $data[$i]['Unit'] = $unit['unit_name'];
+            $data[$i]['Unit Id'] = $unit['id'];
+            $data[$i]['Has Access (Yes/No)'] = '';
+            $i++;
+            }
+        }
+                
+        $filename = property_type_slug($project->project_title.'-units-config'); 
+        Excel::create($filename, function($excel)use($data) {
+
+        $excel->sheet('config', function($sheet)use($data) {
+             $sheet->fromArray($data);
+        });
+
+        })->export('csv');
+      
+  }    
     
   public function getVariants($project ,$propertyTypeId)
   { 

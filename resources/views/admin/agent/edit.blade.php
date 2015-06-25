@@ -90,12 +90,16 @@
     <div class="grid-body no-border user-project">
          
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-8">
               @if(!empty($userProjects))        
                 @foreach($userProjects as $userProject)
                 <div class="row m-b-10 project_block project-{{ $userProject['project_id'] }}">
-                        <div class="col-md-10 ">
+                        <div class="col-md-8 ">
                             <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,'{{ $userProject['project_id'] }}');"><i class="fa fa-upload"></i> Bulk Import</a>
+              
                         </div>
                         <div class="col-md-2 text-center">
                             <a class="text-primary delete-user-project" data-project-id="{{ $userProject['project_id'] }}"><i class="fa fa-close"></i></a>
@@ -165,5 +169,52 @@
         </form>
     </div>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+  <form action="{{ '/admin/agent/'.$user['id'].'/agentunitimport' }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Bulk Import</h4>
+      </div>
+      <div class="modal-body">
+        <a href="" id="unit-export"  target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download config</a>
+         <div class="row m-b-10">
+            <div class="col-md-12">
+             <div class="form-group">
+                        <label class="form-label">Upload File</label>
+                        <input type="file" class="form-control"  name="unit_file" data-parsley-required>
+                    </div>   
+  
+            </div>
+
+        </div>
+                
+      </div>
+
+      <div class="modal-footer">
+        <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+        <input type="hidden" name="project_id" id="project_id" value="" />  
+        <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+        
+      </div>
+    </div>
+    </form>     
+  </div>
+</div>
+<script>
+function openModal(obj, id)
+{
+    if (id)
+    {
+        $(".modal-footer #project_id").val(id);
+        $("#unit-export").attr("href", "/admin/project/" + id + "/agentunitexport");
+        $('#myModal').modal('show');
+    }
+
+}
+</script>
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection

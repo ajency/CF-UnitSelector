@@ -5,9 +5,19 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use CommonFloor\User;
+use CommonFloor\Role;
 use Illuminate\Support\Facades\Mail;
+use CommonFloor\UserRole;
+use CommonFloor\UserProject;
+use CommonFloor\Project;
 use \Session;
-use CommonFloor\Http\Controllers\Admin\UserController;
+use CommonFloor\UnitVariant;
+use CommonFloor\UnitType;
+use CommonFloor\Unit;
+use CommonFloor\AgentUnit;
+use \Excel;
+
+
 
 class AgentController extends Controller {
 
@@ -56,6 +66,11 @@ class AgentController extends Controller {
         $user->status = $user_status;
         $user->save();
         $userId = $user->id;
+        
+        $userRole = new UserRole();
+        $userRole->user_id = $userId;
+        $userRole->role_id = Role :: where('name','cf-agent')->pluck('id');
+        $userRole->save();
  
         $data = UserController::emailTemplate($name,$email,$password); 
         
@@ -172,6 +187,91 @@ class AgentController extends Controller {
             return redirect("/admin/agent/" . $userId . "/profile");
         else
              return redirect("/admin/agent/" . $userId . "/edit");
+    }
+    
+    public function agentUnitImport($userId, Request $request)
+    {
+        
+        $projectId = $request->input('project_id');
+
+        $unit_file = $request->file('unit_file')->getRealPath();
+        $errorMsg = [];
+         
+       
+        if ($request->hasFile('unit_file'))
+        {
+             Excel::load($unit_file, function($reader)use($projectId,$userId) {
+                
+                $agentUnit = AgentUnit :: where('project_id',$projectId)->delete(); 
+                $project = Project::find($projectId); 
+                $projectPropertyTypes = $project->projectPropertyTypes()->get()->toArray(); 
+                $projectUnits = [];
+
+                foreach ($projectPropertyTypes as $propertyType) {
+                    $propertyTypeId = $propertyType['property_type_id'];
+                    $projectpropertyTypeId = $propertyType['id'];
+                    $unitTypeIds = UnitType::where( 'project_property_type_id', $projectpropertyTypeId )->get()->lists('id');
+                    $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
+                    $units = Unit ::whereIn('unit_variant_id',$unitVariantIds)->get()->lists('id');
+                    $projectUnits = array_merge($projectUnits,$units);
+                }    
+                 
+                $results = $reader->toArray(); 
+                $unitIds =[];     
+                
+                 if(count($results[0])==4)
+                 {
+                     $i=0;
+                   foreach($results as $result)
+                   {  $i++;
+                       $unitId = intval($result['unit_id']);
+                       $access = $result['has_access_yesno']; 
+
+
+                       if($unitId =='' || $unitId =='0')
+                       {
+                            $errorMsg[] ='Unit Id Is Empty On Row No '.$i.'<br>';
+                            continue;
+                       }
+
+                       if($access =='')
+                       {
+                           $errorMsg[] ='Has Access Id Is Empty On Row No '.$i;
+                            continue;
+                       }
+
+                       if(!in_array($unitId,$projectUnits))
+                       {
+                           $errorMsg[] ='Invalid Unit Id  On Row No '.$i ;
+                            continue;
+                       }
+                       if($access =='yes')
+                       {
+                          $agentUnit = new AgentUnit();
+                          $agentUnit->user_id = $userId;
+                          $agentUnit->project_id = $projectId;   
+                          $agentUnit->unit_id = $unitId; 
+                          $agentUnit->save();   
+                           
+                           
+                       }
+     
+                     Session::flash('success_message','Unit Successfully Assigned');
+
+                   }
+
+                 }
+                 else
+                     $errorMsg[] ='Column Count does not match';
+ 
+                    Session::flash('error_message',$errorMsg);      
+            });
+            
+          
+        }
+       
+       
+       return redirect("/admin/agent/" . $userId . "/edit/");
     }
     
     

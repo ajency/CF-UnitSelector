@@ -13,6 +13,7 @@ use CommonFloor\UserRole;
 use CommonFloor\UserProject;
 use CommonFloor\Project;
 use \Session;
+use CommonFloor\AgentUnit;
 
 class UserController extends Controller {
 
@@ -345,6 +346,9 @@ class UserController extends Controller {
         $userRoleId = User::find($id)->userRole()->first()->id; 
         
         $userProject = UserProject:: where('role_user_id',$userRoleId)->where('project_id',$projectid)->delete(); 
+        
+        //Agents units to be deleted
+        $userunits = AgentUnit :: where('user_id',$id)->where('project_id',$projectid)->delete(); 
   
         return response()->json([
                     'code' => 'user_project',
