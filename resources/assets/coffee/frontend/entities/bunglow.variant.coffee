@@ -74,7 +74,7 @@ class BunglowVariantCollection extends Backbone.Collection
 		bunglowVariantMasterCollection.each (item)->
 			$.each item.get('variant_attributes') , (index,value)->
 				if _.isArray(value)
-					$.each vale , (ind,val)->
+					$.each value , (ind,val)->
 						if $.inArray(val,attributes) == -1
 							attributes.push value
 				else

@@ -93,7 +93,7 @@
       bunglowVariantMasterCollection.each(function(item) {
         return $.each(item.get('variant_attributes'), function(index, value) {
           if (_.isArray(value)) {
-            return $.each(vale, function(ind, val) {
+            return $.each(value, function(ind, val) {
               if ($.inArray(val, attributes) === -1) {
                 return attributes.push(value);
               }

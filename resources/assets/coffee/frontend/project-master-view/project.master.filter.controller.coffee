@@ -924,7 +924,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 								if ind == value && $.inArray(val,flooring) is -1 && val != ""
 									if _.isArray(val)
 										$.each val, (ind1,val1)->
-											flooring.push val
+											flooring.push val1
 											temp.push
 												'name' : val
 												'id' : 'villa'+s.replaceAll(val, " ", "_")
@@ -1023,7 +1023,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 								if ind == value && $.inArray(val,flooring) is -1 && val != ""
 									if _.isArray(val)
 										$.each val, (ind1,val1)->
-											flooring.push val
+											flooring.push val1
 											temp.push
 												'name' : val
 												'id' : 'apt'+s.replaceAll(val, " ", "_")
@@ -1118,7 +1118,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 								if ind == value && $.inArray(val,flooring) is -1 && val != ""
 									if _.isArray(val)
 										$.each val, (ind1,val1)->
-											flooring.push val
+											flooring.push val1
 											temp.push
 												'name' : val
 												'id' : 'plot'+s.replaceAll(val, " ", "_")
