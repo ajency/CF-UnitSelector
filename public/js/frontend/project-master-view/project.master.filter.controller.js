@@ -820,7 +820,7 @@
                   if (ind === value && val !== "") {
                     if (_.isArray(val)) {
                       return $.each(val, function(ind1, val1) {
-                        if ($.inArray(val, flooring) === -1) {
+                        if ($.inArray(val1, flooring) === -1) {
                           flooring.push(val1);
                           return temp.push({
                             'name': val1,
@@ -944,7 +944,7 @@
                   if (ind === value && val !== "") {
                     if (_.isArray(val)) {
                       return $.each(val, function(ind1, val1) {
-                        if ($.inArray(val, flooring) === -1) {
+                        if ($.inArray(val1, flooring) === -1) {
                           flooring.push(val1);
                           return temp.push({
                             'name': val1,
@@ -1063,7 +1063,7 @@
                   if (ind === value && val !== "") {
                     if (_.isArray(val)) {
                       return $.each(val, function(ind1, val1) {
-                        if ($.inArray(val, flooring) === -1) {
+                        if ($.inArray(val1, flooring) === -1) {
                           flooring.push(val1);
                           return temp.push({
                             'name': val1,
