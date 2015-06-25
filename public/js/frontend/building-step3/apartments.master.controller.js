@@ -662,7 +662,9 @@
           CommonFloor.applyFliterClass();
           CommonFloor.applyOnViewClass();
           if ($(window).width() > 991) {
-            that.undelegateEvents();
+            $(that.el).undelegate('.apartment', 'click');
+            $(that.el).undelegate('.apartment', 'mouseover');
+            that.bindFunctions();
             that.zoomBuilding();
             $('.zoomimage').attr('src', transitionImages[breakpoints[0]]);
           } else {
@@ -693,6 +695,11 @@
       };
     };
 
+    CenterApartmentMasterView.prototype.bindFunctions = function() {
+      $('#next').bind('click');
+      return $('#prev').bind('click');
+    };
+
     CenterApartmentMasterView.prototype.zoomBuilding = function() {
       var that;
       that = this;
@@ -700,7 +707,8 @@
         var temp;
         temp = $(e.target).width();
         if (temp === 398) {
-          that.undelegateEvents();
+          $(that.el).undelegate('.apartment', 'click');
+          $(that.el).undelegate('.apartment', 'mouseover');
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();

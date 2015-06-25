@@ -862,7 +862,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					# CommonFloor.getApartmentsInView()
 					CommonFloor.applyOnViewClass()
 					if $(window).width() > 991
-						that.undelegateEvents()
+						# that.undelegateEvents()
+						$(that.el).undelegate('.apartment', 'click');
+						$(that.el).undelegate('.apartment', 'mouseover');
+						that.bindFunctions()
 						that.zoomBuilding()
 						$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					else
@@ -893,13 +896,18 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		  y: y / $target.height()
 		}
   
+	bindFunctions:->
+		$('#next').bind('click')
+		$('#prev').bind('click')
 
 	zoomBuilding:->
 		that  = @
 		$(".mag-lens").resize (e)->
 			temp = $(e.target).width()
 			if temp == 398
-				that.undelegateEvents()
+				# that.undelegateEvents()
+				$(that.el).undelegate('.apartment', 'click');
+				$(that.el).undelegate('.apartment', 'mouseover');
 				$('.apartment').tooltipster('disable')
 			else 
 				that.delegateEvents()

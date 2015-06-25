@@ -391,6 +391,7 @@ jQuery(document).ready ($)->
             type = $('.property_type').val()  
             if  $('.property_type').val() is 'apartment/penthouse'
                 type = 'apartment'
+            
             details['class'] = 'layer '+type        
         
         # canvas_type differences i.e markers vs polygons
