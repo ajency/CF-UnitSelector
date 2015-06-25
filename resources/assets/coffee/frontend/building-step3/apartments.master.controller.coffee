@@ -573,7 +573,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 													<img class="zoomimage" />
 												</div>
 												<div mag-zoom="outer">
-													<div id="spritespin"></div>
+													<div id="spritespin" class="building-master"></div>
 													<div class="svg-maps animated fadeIn hidden">
 														<img class="first_image img-responsive" />
 														<div class="region inactive"></div>

@@ -1176,7 +1176,7 @@ hr.embossed {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
-#spritespin {
+#spritespin.building-master {
   width: 100% !important;
   height: 100% !important;
 }
