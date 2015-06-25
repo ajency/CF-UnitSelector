@@ -1221,14 +1221,14 @@
   };
 
   CommonFloor.filterVillas = function() {
-    var collection, newColl, temp, tempColl;
+    var collection, newColl, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('villa');
-    temp = [];
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['villa'], function(index, value) {
-      var attributes, param_val;
+      var attributes, param_val, temp;
+      temp = [];
       if (value !== "" && index === 'attributes') {
         if (temp.length === 0) {
           temp = bunglowVariantCollection.getBunglowUnits();
@@ -1294,14 +1294,14 @@
   };
 
   CommonFloor.filterApartments = function() {
-    var collection, newColl, temp, tempColl;
+    var collection, newColl, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('apartment');
-    temp = [];
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
-      var attributes, param_val;
+      var attributes, param_val, temp;
+      temp = [];
       if (value !== "" && index === 'attributes') {
         if (temp.length === 0) {
           temp = apartmentVariantCollection.getApartmentUnits();
@@ -1368,14 +1368,14 @@
   };
 
   CommonFloor.filterPlots = function() {
-    var collection, newColl, temp, tempColl;
+    var collection, newColl, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('plot');
-    temp = [];
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['plot'], function(index, value) {
-      var attributes, param_val;
+      var attributes, param_val, temp;
+      temp = [];
       if (value !== "" && index === 'attributes') {
         if (temp.length === 0) {
           temp = plotVariantCollection.getPlotUnits();
