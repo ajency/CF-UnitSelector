@@ -364,7 +364,6 @@
     if (param === 'plot') {
       $.merge(collection, plotVariantCollection.getPlotUnits());
     }
-    console.log(collection);
     return collection;
   };
 

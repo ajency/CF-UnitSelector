@@ -349,7 +349,6 @@ CommonFloor.resetProperyType = (param)->
 		$.merge collection , apartmentVariantCollection.getApartmentUnits()
 	if param == 'plot'
 		$.merge collection , plotVariantCollection.getPlotUnits()
-	console.log collection
 	collection
 	
 
