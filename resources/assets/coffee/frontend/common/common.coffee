@@ -1181,7 +1181,6 @@ CommonFloor.filterVillas = ()->
 					$.merge temp, unitCollection.where paramkey
 			unitCollection.reset temp
 			newColl.reset temp
-	console.log newColl.toArray()	
 	newColl.toArray()	
 
 
@@ -1213,7 +1212,6 @@ CommonFloor.filterVillaAttributes = (ind1,val1)->
 				temp =  val.toString()
 			if $.inArray(temp, arr ) > -1
 				flooring.push value
-		console.log flooring
 		unitCollection.reset flooring
 	
 				

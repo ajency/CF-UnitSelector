@@ -1306,7 +1306,6 @@
         return newColl.reset(temp);
       }
     });
-    console.log(newColl.toArray());
     return newColl.toArray();
   };
 
@@ -1347,7 +1346,6 @@
           flooring.push(value);
         }
       }
-      console.log(flooring);
       return unitCollection.reset(flooring);
     });
     return unitCollection.toArray();
