@@ -1186,9 +1186,10 @@ CommonFloor.filterVillas = ()->
 
 CommonFloor.filterVillaAttributes = (ind1,val1)->
 	flooring = []
-		
+	
 	tempColl = bunglowVariantCollection.getBunglowUnits()
-	$.each tempColl, (item , value)->
+	newtempColl = _.intersection(tempColl,unitCollection.toArray())
+	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
 		valkey = unitVarinat.get('variant_attributes')

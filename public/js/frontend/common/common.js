@@ -1312,10 +1312,11 @@
   };
 
   CommonFloor.filterVillaAttributes = function(ind1, val1) {
-    var flooring, tempColl;
+    var flooring, newtempColl, tempColl;
     flooring = [];
     tempColl = bunglowVariantCollection.getBunglowUnits();
-    $.each(tempColl, function(item, value) {
+    newtempColl = _.intersection(tempColl, unitCollection.toArray());
+    $.each(newtempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
