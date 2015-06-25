@@ -1284,7 +1284,7 @@
         }
         $.each(CommonFloor.defaults['villa']['attributes'], function(ind1, val1) {
           if (val1 !== "") {
-            return $.merge(attributes, CommonFloor.filterVillaAttributes(ind1, val1));
+            return attributes = CommonFloor.filterVillaAttributes(ind1, val1);
           }
         });
         newColl.reset(attributes);
@@ -1350,7 +1350,7 @@
       console.log(flooring);
       return unitCollection.reset(flooring);
     });
-    return flooring;
+    return unitCollection.toArray();
   };
 
   CommonFloor.filterApartments = function() {

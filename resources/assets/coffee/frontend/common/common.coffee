@@ -1164,9 +1164,10 @@ CommonFloor.filterVillas = ()->
 				temp = bunglowVariantCollection.getBunglowUnits()
 			$.each CommonFloor.defaults['villa']['attributes'] , (ind1,val1)->
 				if val1!= ""
-					$.merge attributes , CommonFloor.filterVillaAttributes(ind1,val1)
+					attributes = CommonFloor.filterVillaAttributes(ind1,val1)
 			# $.merge temp, attributes
 			# unitCollection.reset attributes
+
 			newColl.reset attributes
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
@@ -1216,7 +1217,7 @@ CommonFloor.filterVillaAttributes = (ind1,val1)->
 		unitCollection.reset flooring
 	
 				
-	flooring	
+	unitCollection.toArray()	
 	
 
 CommonFloor.filterApartments = ()->
