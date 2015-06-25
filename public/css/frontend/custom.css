@@ -2377,7 +2377,7 @@ svg .no-fill {
 }
 .mini-map .project_master {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
 }
 @media (max-width: 991px) {
