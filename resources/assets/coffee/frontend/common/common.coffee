@@ -1146,8 +1146,21 @@ CommonFloor.filterVillaAttributes = (temp)->
 		attributes = unitVarinat.get('variant_attributes')
 		arr = CommonFloor.defaults['villa']['attributes'].split(',')
 		$.each attributes,(ind,val)->
-			if $.inArray(val, arr ) > -1
-				flooring.push value
+			if _.isArray(val)
+				$.each val , (ind1,val1)->
+					if _.isString(val1)
+						temp = val1
+					else
+						temp = parseInt val1
+					if $.inArray(temp, arr ) > -1
+						flooring.push value
+			else
+				if _.isString(val)
+					temp = val
+				else
+					temp = parseInt val
+				if $.inArray(temp, arr ) > -1
+					flooring.push value
 	flooring	
 	
 

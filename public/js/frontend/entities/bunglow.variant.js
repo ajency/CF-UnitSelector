@@ -92,8 +92,16 @@
       attributes = [];
       bunglowVariantMasterCollection.each(function(item) {
         return $.each(item.get('variant_attributes'), function(index, value) {
-          if ($.inArray(value, attributes) === -1) {
-            return attributes.push(value);
+          if (_.isArray(value)) {
+            return $.each(vale, function(ind, val) {
+              if ($.inArray(val, attributes) === -1) {
+                return attributes.push(value);
+              }
+            });
+          } else {
+            if ($.inArray(value, attributes) === -1) {
+              return attributes.push(value);
+            }
           }
         });
       });

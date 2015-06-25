@@ -87,8 +87,13 @@ class ApartmentVariantCollection extends Backbone.Collection
 		types = []
 		apartmentVariantMasterCollection.each (item)->
 			$.each item.get('variant_attributes') , (index,value)->
-				if $.inArray(value,attributes) == -1
-					attributes.push value
+				if _.isArray(value)
+					$.each vale , (ind,val)->
+						if $.inArray(val,attributes) == -1
+							attributes.push value
+				else
+					if $.inArray(value,attributes) == -1
+						attributes.push value
 				
 						
 		[attributes]
