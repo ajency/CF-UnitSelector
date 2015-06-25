@@ -922,13 +922,15 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
 								if ind == value && $.inArray(val,flooring) is -1 && val != ""
+									console.log _.isArray(val)
+									console.log val
 									if _.isArray(val)
 										$.each val, (ind1,val1)->
 											flooring.push val1
 											temp.push
-												'name' : val
-												'id' : 'villa'+s.replaceAll(val, " ", "_")
-												'dataId' : s.replaceAll(val, " ", "_")
+												'name' : val1
+												'id' : 'villa'+s.replaceAll(val1, " ", "_")
+												'dataId' : s.replaceAll(val1, " ", "_")
 												'classname' : 'attributes'
 												'label' : ind
 												type: 'V'
@@ -1025,9 +1027,9 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 										$.each val, (ind1,val1)->
 											flooring.push val1
 											temp.push
-												'name' : val
-												'id' : 'apt'+s.replaceAll(val, " ", "_")
-												'dataId' : s.replaceAll(val, " ", "_")
+												'name' : val1
+												'id' : 'apt'+s.replaceAll(val1, " ", "_")
+												'dataId' : s.replaceAll(val1, " ", "_")
 												'classname' : 'attributes'
 												'label' : ind
 												type: 'A'
@@ -1120,9 +1122,9 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 										$.each val, (ind1,val1)->
 											flooring.push val1
 											temp.push
-												'name' : val
-												'id' : 'plot'+s.replaceAll(val, " ", "_")
-												'dataId' : s.replaceAll(val, " ", "_")
+												'name' : val1
+												'id' : 'plot'+s.replaceAll(val1, " ", "_")
+												'dataId' : s.replaceAll(val1, " ", "_")
 												'classname' : 'attributes'
 												'label' : ind
 												type: 'A'
