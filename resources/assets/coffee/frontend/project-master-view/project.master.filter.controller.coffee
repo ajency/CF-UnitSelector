@@ -90,7 +90,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		  {{#flooring}}
 		  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
        		{{#value}}
-           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="villa" > 
+           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-index="{{index}}" data-type="villa" > 
             <label for="{{id}}" class="-lbl">{{name}}</label> 
 		   {{/value}}
 		  </div>
@@ -120,7 +120,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		   {{#flooring}}
 		  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
        		{{#value}}
-           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="apartment" > 
+           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-index="{{index}}" data-type="apartment" > 
             <label for="{{id}}" class="-lbl">{{name}}</label> 
 		   {{/value}}
 		  </div>
@@ -152,7 +152,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		   {{#flooring}}
 		  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
        		{{#value}}
-           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="plot" > 
+           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-index="{{index}}" data-type="plot" > 
             <label for="{{id}}" class="-lbl">{{name}}</label> 
 		   {{/value}}
 		  </div>
@@ -410,15 +410,18 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		'click @ui.flooring':(e)->
 			types = []
 			type = $(e.currentTarget).attr('data-type')
-			if CommonFloor.defaults[type]['attributes']!= ""
-				types = CommonFloor.defaults[type]['attributes'].split(',')
+			console.log index = $(e.currentTarget).attr('data-index')
+			if !_.has(CommonFloor.defaults[type]['attributes'], index)
+				CommonFloor.defaults[type]['attributes'][index] = ''
+			if CommonFloor.defaults[type]['attributes'][index]!= ""
+				types = CommonFloor.defaults[type]['attributes'][index].split(',')
 				
 			if $(e.currentTarget).is(':checked')
 				types.push $(e.currentTarget).attr('data-value')
 			else
 				types = _.without types ,$(e.currentTarget).attr('data-value')
 			types =   _.uniq types
-			CommonFloor.defaults[type]['attributes'] = types.join(',')
+			CommonFloor.defaults[type]['attributes'][index] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
@@ -559,11 +562,11 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 		min = _.min area
-		submin = min % 5
-		min = min - submin
+		# submin = min % 5
+		# min = min - submin
 		max = _.max area
-		submax = max % 5
-		max = max - submax
+		# submax = max % 5
+		# max = max - submax
 		subArea = (max - min)/ 20 
 		subArea = subArea.toFixed(0)
 		sub  = subArea % 5
@@ -715,9 +718,12 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$.merge unitVariants , CommonFloor.defaults['plot']['unit_variant_id'].split(',')
 
 		attributes = []
-		$.merge attributes , CommonFloor.defaults['villa']['attributes'].split(',')
-		$.merge attributes , CommonFloor.defaults['apartment']['attributes'].split(',')
-		$.merge attributes , CommonFloor.defaults['plot']['attributes'].split(',')
+		villValues = _.values(CommonFloor.defaults['villa']['attributes'])
+		aptValues = _.values(CommonFloor.defaults['apartment']['attributes'])
+		plotValues = _.values(CommonFloor.defaults['plot']['attributes'])
+		$.merge attributes , villValues
+		$.merge attributes , aptValues
+		$.merge attributes , plotValues
 
 		views = []
 		$.merge views , CommonFloor.defaults['common']['views'].split(',')
@@ -928,6 +934,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 												flooring.push val1
 												temp.push
 													'name' : val1
+													'index' : value
 													'id' : 'villa'+s.replaceAll(val1, " ", "_")
 													'dataId' : s.replaceAll(val1, " ", "_")
 													'classname' : 'attributes'
@@ -938,6 +945,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 											flooring.push val
 											temp.push
 												'name' : val
+												'index' : value
 												'id' : 'villa'+s.replaceAll(val, " ", "_")
 												'dataId' : s.replaceAll(val, " ", "_")
 												'classname' : 'attributes'
@@ -1029,16 +1037,19 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 												flooring.push val1
 												temp.push
 													'name' : val1
+													'index' : value
 													'id' : 'apt'+s.replaceAll(val1, " ", "_")
 													'dataId' : s.replaceAll(val1, " ", "_")
 													'classname' : 'attributes'
 													'label' : ind
 													type: 'A'
+
 									else
 										if $.inArray(val,flooring) is -1
 											flooring.push val
 											temp.push
 												'name' : val
+												'index' : value
 												'id' : 'apt'+s.replaceAll(val, " ", "_")
 												'dataId' : s.replaceAll(val, " ", "_")
 												'classname' : 'attributes'
@@ -1126,6 +1137,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 												flooring.push val1
 												temp.push
 													'name' : val1
+													'index' : value
 													'id' : 'plot'+s.replaceAll(val1, " ", "_")
 													'dataId' : s.replaceAll(val1, " ", "_")
 													'classname' : 'attributes'
@@ -1136,6 +1148,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 											flooring.push val
 											temp.push
 												'name' : val
+												'index' : value
 												'id' : 'plot'+s.replaceAll(val, " ", "_")
 												'dataId' : s.replaceAll(val, " ", "_")
 												'classname' : 'attributes'
