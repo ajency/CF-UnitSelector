@@ -680,6 +680,7 @@
         'budget': budget,
         'flooring': newtemp
       });
+      console.log(newtemp);
       $.each(filters[0], function(index, value) {
         if ($.inArray(index, project.get('filters').Apartment) === -1 && index !== 'budget' && index !== 'unitVariants' && index !== 'flooring') {
           filters[0][index] = [];
