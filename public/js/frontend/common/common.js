@@ -1287,9 +1287,7 @@
             return $.merge(attributes, CommonFloor.filterVillaAttributes(ind1, val1));
           }
         });
-        if (attributes.length > 0) {
-          newColl.reset(attributes);
-        }
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');

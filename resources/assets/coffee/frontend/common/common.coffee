@@ -1167,8 +1167,7 @@ CommonFloor.filterVillas = ()->
 					$.merge attributes , CommonFloor.filterVillaAttributes(ind1,val1)
 			# $.merge temp, attributes
 			# unitCollection.reset attributes
-			if attributes.length > 0
-				newColl.reset attributes
+			newColl.reset attributes
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
