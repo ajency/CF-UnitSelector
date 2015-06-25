@@ -817,7 +817,7 @@
     flooring = [];
     $.each(CommonFloor.defaults['villa'], function(ind, val) {
       var param_val_arr;
-      if (val !== "") {
+      if (val !== "" && ind !== 'attributes') {
         param_val_arr = val.split(',');
         return $.each(param_val_arr, function(index, value) {
           if (value !== "" && ind === 'unit_variant_id') {
@@ -839,7 +839,7 @@
             unit_type = unitTypeMasterCollection.findWhere({
               'id': parseInt(value)
             });
-            unitTypes.push({
+            return unitTypes.push({
               'typename': 'villa',
               'name': unit_type.get('name'),
               'type': '(V)',
@@ -848,14 +848,23 @@
               'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
-          if (value !== "" && ind === 'attributes' && $.inArray(value, bunglowVariantMasterCollection.getVillaAttributes()) > -1) {
+        });
+      } else if (val !== "" && ind === 'attributes') {
+        return $.each(val, function(ind1, val1) {
+          var temp;
+          if ($.isNumeric(val1)) {
+            temp = parseInt(val1);
+          } else {
+            temp = val1;
+          }
+          if (val1 !== "" && $.inArray(temp, bunglowVariantMasterCollection.getVillaAttributes()) > -1) {
             return flooring.push({
               'typename': 'villa',
-              'name': value,
+              'name': val1,
               'type': '(V)',
               'classname': 'filter_flooring',
-              'id': value,
-              'id_name': 'filter_' + value
+              'id': val1,
+              'id_name': 'filter_' + val1
             });
           }
         });
@@ -866,6 +875,7 @@
       'unitTypes': unitTypes,
       'flooring': flooring
     };
+    console.log(filters);
     return filters;
   };
 
@@ -879,10 +889,10 @@
     flooring = [];
     $.each(CommonFloor.defaults['apartment'], function(ind, val) {
       var param_val_arr;
-      if (val !== "") {
+      if (val !== "" && ind !== 'attributes') {
         param_val_arr = val.split(',');
         return $.each(param_val_arr, function(index, value) {
-          var attributes, pos, type, types, unitTypeModel;
+          var type, unitTypeModel;
           if (value !== "" && ind === 'unit_variant_id') {
             if (!_.isUndefined(apartmentVariantMasterCollection.get(parseInt(value)))) {
               unit_variant = apartmentVariantMasterCollection.findWhere({
@@ -913,7 +923,7 @@
             if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouse') {
               type = 'PH';
             }
-            unitTypes.push({
+            return unitTypes.push({
               'typename': 'apartment',
               'name': unit_type.get('name'),
               'type': '(' + type + ')',
@@ -922,17 +932,24 @@
               'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
+        });
+      } else if (val !== "" && ind === 'attributes') {
+        return $.each(val, function(ind1, val1) {
+          var attributes, temp;
+          if ($.isNumeric(val1)) {
+            temp = parseInt(val1);
+          } else {
+            temp = val1;
+          }
           attributes = apartmentVariantMasterCollection.getApartmentAttributes();
-          if (value !== "" && ind === 'attributes' && $.inArray(value, attributes[0]) > -1) {
-            pos = $.inArray(value, attributes[0]);
-            types = '';
+          if (value !== "" && $.inArray(value, attributes[0]) > -1) {
             return flooring.push({
-              'typename': 'apartment',
-              'name': value,
-              'type': '',
+              'typename': 'villa',
+              'name': val1,
+              'type': '(V)',
               'classname': 'filter_flooring',
-              'id': value,
-              'id_name': 'filter_' + value
+              'id': val1,
+              'id_name': 'filter_' + val1
             });
           }
         });
@@ -956,7 +973,7 @@
     flooring = [];
     $.each(CommonFloor.defaults['plot'], function(ind, val) {
       var param_val_arr;
-      if (val !== "") {
+      if (val !== "" && ind !== 'attributes') {
         param_val_arr = val.split(',');
         return $.each(param_val_arr, function(index, value) {
           if (value !== "" && ind === 'unit_variant_id') {
@@ -978,7 +995,7 @@
             unit_type = unitTypeMasterCollection.findWhere({
               'id': parseInt(value)
             });
-            unitTypes.push({
+            return unitTypes.push({
               'typename': 'plot',
               'name': unit_type.get('name'),
               'type': '(P)',
@@ -987,14 +1004,23 @@
               'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
+        });
+      } else if (val !== "" && ind === 'attributes') {
+        return $.each(val, function(ind1, val1) {
+          var temp;
+          if ($.isNumeric(val1)) {
+            temp = parseInt(val1);
+          } else {
+            temp = val1;
+          }
           if (value !== "" && ind === 'attributes' && $.inArray(value, plotVariantMasterCollection.getPlotAttributes()) > -1) {
             return flooring.push({
-              'typename': 'plot',
-              'name': value,
-              'type': '(P)',
+              'typename': 'villa',
+              'name': val1,
+              'type': '(V)',
               'classname': 'filter_flooring',
-              'id': value,
-              'id_name': 'filter_' + value
+              'id': val1,
+              'id_name': 'filter_' + val1
             });
           }
         });
@@ -1230,12 +1256,18 @@
       var attributes, param_val, temp;
       temp = [];
       if (value !== "" && index === 'attributes') {
+        attributes = [];
         if (temp.length === 0) {
           temp = bunglowVariantCollection.getBunglowUnits();
         }
-        attributes = CommonFloor.filterVillaAttributes(temp);
-        unitCollection.reset(attributes);
-        newColl.reset(attributes);
+        $.each(CommonFloor.defaults['villa']['attributes'], function(ind1, val1) {
+          if (val1 !== "") {
+            return $.merge(attributes, CommonFloor.filterVillaAttributes(ind1, val1));
+          }
+        });
+        if (attributes.length > 0) {
+          newColl.reset(attributes);
+        }
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1257,39 +1289,45 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterVillaAttributes = function(temp) {
-    var flooring;
+  CommonFloor.filterVillaAttributes = function(ind1, val1) {
+    var flooring, tempColl;
     flooring = [];
-    $.each(temp, function(item, value) {
-      var arr, attributes, unitDetails, unitVarinat;
+    tempColl = unitCollection.toArray();
+    $.each(tempColl, function(item, value) {
+      var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
-      attributes = unitVarinat.get('variant_attributes');
-      arr = CommonFloor.defaults['villa']['attributes'].split(',');
-      return $.each(attributes, function(ind, val) {
-        if (_.isArray(val)) {
-          return $.each(val, function(ind1, val1) {
-            if (_.isString(val1)) {
-              temp = val1;
-            } else {
-              temp = val1.toString();
-            }
-            if ($.inArray(temp, arr) > -1) {
-              return flooring.push(value);
-            }
-          });
-        } else {
-          if (_.isString(val)) {
-            temp = val;
+      flooring = [];
+      valkey = unitVarinat.get('variant_attributes');
+      val = _.propertyOf(valkey)(ind1);
+      arr = val1.split(',');
+      if (_.isUndefined(val)) {
+        return;
+      }
+      if (_.isArray(val)) {
+        return $.each(val, function(ind1, val1) {
+          var temp;
+          if (_.isString(val1)) {
+            temp = val1;
           } else {
-            temp = val.toString();
+            temp = val1.toString();
           }
           if ($.inArray(temp, arr) > -1) {
             return flooring.push(value);
           }
+        });
+      } else {
+        if (_.isString(val)) {
+          temp = val;
+        } else {
+          temp = val.toString();
         }
-      });
+        if ($.inArray(temp, arr) > -1) {
+          return flooring.push(value);
+        }
+      }
     });
+    unitCollection.reset(flooring);
     return flooring;
   };
 
@@ -1300,15 +1338,20 @@
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
-      var attributes, param_val, temp;
+      var param_val, temp;
       temp = [];
       if (value !== "" && index === 'attributes') {
         if (temp.length === 0) {
           temp = apartmentVariantCollection.getApartmentUnits();
         }
-        attributes = CommonFloor.filterApartmentAttributes(temp);
-        unitCollection.reset(attributes);
-        newColl.reset(attributes);
+        $.each(CommonFloor.defaults['villa']['attributes'], function(ind1, val1) {
+          if (val1 !== "") {
+            return $.merge(attributes, CommonFloor.filterApartmentAttributes(ind1, val1));
+          }
+        });
+        if (attributes.length > 0) {
+          newColl.reset(attributes);
+        }
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1330,40 +1373,45 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterApartmentAttributes = function(temp) {
-    var flooring, units;
+  CommonFloor.filterApartmentAttributes = function(ind1, val1) {
+    var flooring, tempColl;
     flooring = [];
-    units = apartmentVariantCollection.getApartmentUnits();
-    $.each(temp, function(item, value) {
-      var arr, attributes, unitDetails, unitVarinat;
+    tempColl = unitCollection.toArray();
+    $.each(tempColl, function(item, value) {
+      var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
-      attributes = unitVarinat.get('variant_attributes');
-      arr = CommonFloor.defaults['apartment']['attributes'].split(',');
-      return $.each(attributes, function(ind, val) {
-        if (_.isArray(val)) {
-          return $.each(val, function(ind1, val1) {
-            if (_.isString(val1)) {
-              temp = val1;
-            } else {
-              temp = val1.toString();
-            }
-            if ($.inArray(temp, arr) > -1) {
-              return flooring.push(value);
-            }
-          });
-        } else {
-          if (_.isString(val)) {
-            temp = val;
+      flooring = [];
+      valkey = unitVarinat.get('variant_attributes');
+      val = _.propertyOf(valkey)(ind1);
+      arr = val1.split(',');
+      if (_.isUndefined(val)) {
+        return;
+      }
+      if (_.isArray(val)) {
+        return $.each(val, function(ind1, val1) {
+          var temp;
+          if (_.isString(val1)) {
+            temp = val1;
           } else {
-            temp = val.toString();
+            temp = val1.toString();
           }
           if ($.inArray(temp, arr) > -1) {
             return flooring.push(value);
           }
+        });
+      } else {
+        if (_.isString(val)) {
+          temp = val;
+        } else {
+          temp = val.toString();
         }
-      });
+        if ($.inArray(temp, arr) > -1) {
+          return flooring.push(value);
+        }
+      }
     });
+    unitCollection.reset(flooring);
     return flooring;
   };
 
@@ -1374,15 +1422,20 @@
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['plot'], function(index, value) {
-      var attributes, param_val, temp;
+      var param_val, temp;
       temp = [];
       if (value !== "" && index === 'attributes') {
         if (temp.length === 0) {
           temp = plotVariantCollection.getPlotUnits();
         }
-        attributes = CommonFloor.filterPlotAttributes(temp);
-        unitCollection.reset(attributes);
-        newColl.reset(attributes);
+        $.each(CommonFloor.defaults['villa']['attributes'], function(ind1, val1) {
+          if (val1 !== "") {
+            return $.merge(attributes, CommonFloor.filterPlotAttributes(ind1, val1));
+          }
+        });
+        if (attributes.length > 0) {
+          newColl.reset(attributes);
+        }
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1404,40 +1457,45 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterPlotAttributes = function(temp) {
-    var flooring, units;
+  CommonFloor.filterPlotAttributes = function(ind1, val1) {
+    var flooring, tempColl;
     flooring = [];
-    units = plotVariantCollection.getPlotUnits();
-    $.each(temp, function(item, value) {
-      var arr, attributes, unitDetails, unitVarinat;
+    tempColl = unitCollection.toArray();
+    $.each(tempColl, function(item, value) {
+      var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
-      attributes = unitVarinat.get('variant_attributes');
-      arr = CommonFloor.defaults['plot']['attributes'].split(',');
-      return $.each(attributes, function(ind, val) {
-        if (_.isArray(val)) {
-          return $.each(val, function(ind1, val1) {
-            if (_.isString(val1)) {
-              temp = val1;
-            } else {
-              temp = val1.toString();
-            }
-            if ($.inArray(temp, arr) > -1) {
-              return flooring.push(value);
-            }
-          });
-        } else {
-          if (_.isString(val)) {
-            temp = val;
+      flooring = [];
+      valkey = unitVarinat.get('variant_attributes');
+      val = _.propertyOf(valkey)(ind1);
+      arr = val1.split(',');
+      if (_.isUndefined(val)) {
+        return;
+      }
+      if (_.isArray(val)) {
+        return $.each(val, function(ind1, val1) {
+          var temp;
+          if (_.isString(val1)) {
+            temp = val1;
           } else {
-            temp = val.toString();
+            temp = val1.toString();
           }
           if ($.inArray(temp, arr) > -1) {
             return flooring.push(value);
           }
+        });
+      } else {
+        if (_.isString(val)) {
+          temp = val;
+        } else {
+          temp = val.toString();
         }
-      });
+        if ($.inArray(temp, arr) > -1) {
+          return flooring.push(value);
+        }
+      }
     });
+    unitCollection.reset(flooring);
     return flooring;
   };
 
