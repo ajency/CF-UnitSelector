@@ -922,14 +922,25 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
 								if ind == value && $.inArray(val,flooring) is -1 && val != ""
-									flooring.push val
-									temp.push
-										'name' : val
-										'id' : 'villa'+s.replaceAll(val, " ", "_")
-										'dataId' : s.replaceAll(val, " ", "_")
-										'classname' : 'attributes'
-										'label' : ind
-										type: 'V'
+									if _.isArray(val)
+										$.each val, (ind1,val1)->
+											flooring.push val1
+											temp.push
+												'name' : val
+												'id' : 'villa'+s.replaceAll(val, " ", "_")
+												'dataId' : s.replaceAll(val, " ", "_")
+												'classname' : 'attributes'
+												'label' : ind
+												type: 'V'
+									else
+										flooring.push val
+										temp.push
+											'name' : val
+											'id' : 'villa'+s.replaceAll(val, " ", "_")
+											'dataId' : s.replaceAll(val, " ", "_")
+											'classname' : 'attributes'
+											'label' : ind
+											type: 'V'
 					if temp.length != 0 
 						newtemp.push 
 							'label' : value.toUpperCase()
@@ -1010,14 +1021,25 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
 								if ind == value && $.inArray(val,flooring) is -1 && val != ""
-									flooring.push val
-									temp.push
-										'name' : val
-										'id' : 'villa'+s.replaceAll(val, " ", "_")
-										'dataId' : s.replaceAll(val, " ", "_")
-										'classname' : 'attributes'
-										'label' : ind
-										type: 'A'
+									if _.isArray(val)
+										$.each val, (ind1,val1)->
+											flooring.push val1
+											temp.push
+												'name' : val
+												'id' : 'apt'+s.replaceAll(val, " ", "_")
+												'dataId' : s.replaceAll(val, " ", "_")
+												'classname' : 'attributes'
+												'label' : ind
+												type: 'A'
+									else
+										flooring.push val
+										temp.push
+											'name' : val
+											'id' : 'apt'+s.replaceAll(val, " ", "_")
+											'dataId' : s.replaceAll(val, " ", "_")
+											'classname' : 'attributes'
+											'label' : ind
+											type: 'A'
 					if temp.length != 0 
 						newtemp.push 
 							'label' : value.toUpperCase()
@@ -1094,14 +1116,26 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
 								if ind == value && $.inArray(val,flooring) is -1 && val != ""
-									flooring.push val
-									temp.push
-										'name' : val
-										'id' : 'villa'+s.replaceAll(val, " ", "_")
-										'dataId' : s.replaceAll(val, " ", "_")
-										'classname' : 'attributes'
-										'label' : ind
-										type: 'A'
+									if _.isArray(val)
+										$.each val, (ind1,val1)->
+											flooring.push val1
+											temp.push
+												'name' : val
+												'id' : 'plot'+s.replaceAll(val, " ", "_")
+												'dataId' : s.replaceAll(val, " ", "_")
+												'classname' : 'attributes'
+												'label' : ind
+												type: 'A'
+									else
+
+										flooring.push val
+										temp.push
+											'name' : val
+											'id' : 'plot'+s.replaceAll(val, " ", "_")
+											'dataId' : s.replaceAll(val, " ", "_")
+											'classname' : 'attributes'
+											'label' : ind
+											type: 'A'
 					if temp.length != 0 
 						newtemp.push 
 							'label' : value.toUpperCase()
@@ -1147,7 +1181,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				'id' : val
 				'name' : val
 
-		facings = ['North' , 'South' ,'East' , 'West' , 'North-East','Norht-West','South-East','South-West']						
+		facings = ['North' , 'South' ,'East' , 'West' , 'North-East','North-West','South-East','South-West']						
 
 		$.each facings , (ind,val)->
 			facingsArr.push

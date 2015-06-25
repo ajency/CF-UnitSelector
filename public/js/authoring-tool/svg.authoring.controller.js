@@ -276,6 +276,7 @@
         async: false,
         success: function(response) {
           window.svgData = {};
+          window.svgDataClone = {};
           window.svgData['image'] = svgImg;
           window.svgData['data'] = response.data;
           window.svgData['supported_types'] = JSON.parse(supported_types);
@@ -283,6 +284,7 @@
           window.svgData['svg_type'] = svg_type;
           window.svgData['building_id'] = building_id;
           window.svgData['project_id'] = project_id;
+          window.svgDataClone['data'] = response.data;
           window.loadJSONData();
           $('.duplicate').hide();
           if (response.data.length === 0) {
@@ -415,6 +417,7 @@
             window.is_project_marked = true;
           }
           window.svgData.data.push(myObject);
+          window.svgDataClone.data.push(myObject);
           draw.clear();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
@@ -1024,6 +1027,7 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
+          window.svgDataClone.data.push(myObject);
           draw.clear();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
@@ -1072,7 +1076,7 @@
         return this.fixed();
       }), true);
       draw.clear();
-      window.generateSvg(window.svgData.data);
+      window.generateSvg(window.svgDataClone.data);
       return window.EDITMODE = false;
     });
     $('.delete').on('click', function(e) {
@@ -1102,6 +1106,7 @@
             }
           });
           window.svgData.data.splice(indexToSplice, 1);
+          window.svgDataClone.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           if (obj_id_deleted > 0) {
             if (obj_type === "building") {

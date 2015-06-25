@@ -818,15 +818,29 @@
               if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
                   if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                    flooring.push(val);
-                    return temp.push({
-                      'name': val,
-                      'id': 'villa' + s.replaceAll(val, " ", "_"),
-                      'dataId': s.replaceAll(val, " ", "_"),
-                      'classname': 'attributes',
-                      'label': ind,
-                      type: 'V'
-                    });
+                    if (_.isArray(val)) {
+                      return $.each(val, function(ind1, val1) {
+                        flooring.push(val1);
+                        return temp.push({
+                          'name': val,
+                          'id': 'villa' + s.replaceAll(val, " ", "_"),
+                          'dataId': s.replaceAll(val, " ", "_"),
+                          'classname': 'attributes',
+                          'label': ind,
+                          type: 'V'
+                        });
+                      });
+                    } else {
+                      flooring.push(val);
+                      return temp.push({
+                        'name': val,
+                        'id': 'villa' + s.replaceAll(val, " ", "_"),
+                        'dataId': s.replaceAll(val, " ", "_"),
+                        'classname': 'attributes',
+                        'label': ind,
+                        type: 'V'
+                      });
+                    }
                   }
                 });
               }
@@ -924,15 +938,29 @@
               if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
                   if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                    flooring.push(val);
-                    return temp.push({
-                      'name': val,
-                      'id': 'villa' + s.replaceAll(val, " ", "_"),
-                      'dataId': s.replaceAll(val, " ", "_"),
-                      'classname': 'attributes',
-                      'label': ind,
-                      type: 'A'
-                    });
+                    if (_.isArray(val)) {
+                      return $.each(val, function(ind1, val1) {
+                        flooring.push(val1);
+                        return temp.push({
+                          'name': val,
+                          'id': 'apt' + s.replaceAll(val, " ", "_"),
+                          'dataId': s.replaceAll(val, " ", "_"),
+                          'classname': 'attributes',
+                          'label': ind,
+                          type: 'A'
+                        });
+                      });
+                    } else {
+                      flooring.push(val);
+                      return temp.push({
+                        'name': val,
+                        'id': 'apt' + s.replaceAll(val, " ", "_"),
+                        'dataId': s.replaceAll(val, " ", "_"),
+                        'classname': 'attributes',
+                        'label': ind,
+                        type: 'A'
+                      });
+                    }
                   }
                 });
               }
@@ -1025,15 +1053,29 @@
               if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
                   if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                    flooring.push(val);
-                    return temp.push({
-                      'name': val,
-                      'id': 'villa' + s.replaceAll(val, " ", "_"),
-                      'dataId': s.replaceAll(val, " ", "_"),
-                      'classname': 'attributes',
-                      'label': ind,
-                      type: 'A'
-                    });
+                    if (_.isArray(val)) {
+                      return $.each(val, function(ind1, val1) {
+                        flooring.push(val1);
+                        return temp.push({
+                          'name': val,
+                          'id': 'plot' + s.replaceAll(val, " ", "_"),
+                          'dataId': s.replaceAll(val, " ", "_"),
+                          'classname': 'attributes',
+                          'label': ind,
+                          type: 'A'
+                        });
+                      });
+                    } else {
+                      flooring.push(val);
+                      return temp.push({
+                        'name': val,
+                        'id': 'plot' + s.replaceAll(val, " ", "_"),
+                        'dataId': s.replaceAll(val, " ", "_"),
+                        'classname': 'attributes',
+                        'label': ind,
+                        type: 'A'
+                      });
+                    }
                   }
                 });
               }
@@ -1091,7 +1133,7 @@
           'name': val
         });
       });
-      facings = ['North', 'South', 'East', 'West', 'North-East', 'Norht-West', 'South-East', 'South-West'];
+      facings = ['North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'];
       $.each(facings, function(ind, val) {
         return facingsArr.push({
           'id': val,
