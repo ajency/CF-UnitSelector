@@ -195,7 +195,7 @@ class AgentController extends Controller {
         $projectId = $request->input('project_id');
 
         $unit_file = $request->file('unit_file')->getRealPath();
-        $errorMsg = [];
+        
          
        
         if ($request->hasFile('unit_file'))
@@ -206,6 +206,7 @@ class AgentController extends Controller {
                 $project = Project::find($projectId); 
                 $projectPropertyTypes = $project->projectPropertyTypes()->get()->toArray(); 
                 $projectUnits = [];
+                $errorMsg = []; 
 
                 foreach ($projectPropertyTypes as $propertyType) {
                     $propertyTypeId = $propertyType['property_type_id'];
@@ -263,7 +264,8 @@ class AgentController extends Controller {
                  }
                  else
                      $errorMsg[] ='Column Count does not match';
- 
+                    
+                 if(!empty($errorMsg))
                     Session::flash('error_message',$errorMsg);      
             });
             

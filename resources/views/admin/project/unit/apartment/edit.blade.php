@@ -30,13 +30,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" value="{{ $unit['unit_name'] }}" data-parsley-required>
+                        <input {{ $disabled }} type="text" class="form-control" name="unit_name" placeholder="Enter Name" value="{{ $unit['unit_name'] }}" data-parsley-required>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Building</label>
-                        <select name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required>
+                        <select {{ $disabled }} name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required>
                             <option value="">Select building</option>
                            @foreach($buildings as $building)
                             <option  @if($unit['building_id']==$building['id']){{'selected'}} @endif  data-no-of-floors="{{ $building['no_of_floors'] }}" value="{{ $building['id'] }}">{{ $building['building_name'] }}</option>
@@ -50,7 +50,7 @@
                 <div class="col-md-4">
                     <div class="form-group select-floor @if(!$unit['building_id']){{'hidden'}}@endif" >
                         <label class="form-label">Floor</label>
-                        <select id="floor" name="floor" onchange="getPositions(this);"   class="select2 form-control apartment-unit-floor-no m-b-5">
+                        <select {{ $disabled }} id="floor" name="floor" onchange="getPositions(this);"   class="select2 form-control apartment-unit-floor-no m-b-5">
                             <<option value="">Select Floor</option>
                             @for($i=1; $i<= $floors ; $i++)
                             <option  @if($unit['floor']==$i){{'selected'}} @endif value="{{ $i }}">{{ $i }}</option>
@@ -65,7 +65,7 @@
                 <div class="col-md-4">
                     <div class="form-group @if(!$unit['floor']){{'hidden'}}@endif select-position">
                         <label class="form-label">Position</label>
-                        <select id="flat_position" required="" name="position" class="select2 form-control">
+                        <select {{ $disabled }} id="flat_position" required="" name="position" class="select2 form-control">
                             <option value="">Select Position</option>
                              @foreach($availabelpositions as $availabelposition)
                             <option  @if($unit['position']==$availabelposition){{'selected'}} @endif value="{{ $availabelposition }}">{{ $availabelposition }}</option>
@@ -78,7 +78,7 @@
                     <div class="form-group">
                         <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
 
-                        <select name="unit_variant" class="select2 form-control m-b-5" data-parsley-required>
+                        <select {{ $disabled }} name="unit_variant" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Unit Variant</option>
                              @foreach($unit_variant_arr as $unit_variant)
                             <option @if($unit['unit_variant_id']==$unit_variant['id']){{'selected'}}@endif value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
@@ -89,7 +89,7 @@
                 <div class="col-md-4">
                 <div class="form-group">
                         <label class="form-label">Direction<span class="text-primary">*</span></label>
-                        <select  class="select2 form-control m-b-5" name="direction" data-parsley-required>
+                        <select {{ $disabled }}  class="select2 form-control m-b-5" name="direction" data-parsley-required>
                            <option value="">Select Direction</option>  
                            @foreach($defaultDirection as $direction)
                             <option  @if($unit['direction']==$direction['id']){{'selected'}}@endif value="{{$direction['id']}}">{{$direction['label']}}</option>
@@ -106,6 +106,7 @@
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
                             <option @if($unit['availability']=='not_released'){{'selected'}}@endif value="not_released">Not Released</option>
                             <option @if($unit['availability']=='blocked'){{'selected'}}@endif value="blocked">Blocked</option>
+                            <option @if($unit['availability']=='booked_by_agent'){{'selected'}}@endif value="booked_by_agent">Booked By Agent</option>
                             <option @if($unit['availability']=='archived'){{'selected'}}@endif value="archived">Archived</option>
                         </select>
                     </div>
@@ -124,7 +125,7 @@
             ?>
             <div class="col-md-3">
         <div class="checkbox check-primary" >
-            <input @if($value== $attribute['label']){{'checked'}}@endif type="checkbox" id="{{$attribute['label']}}" value="{{$attribute['label']}}" name="views[{{property_type_slug($attribute['label'])}}]" aria-label="...">
+            <input {{ $disabled }} @if($value== $attribute['label']){{'checked'}}@endif type="checkbox" id="{{$attribute['label']}}" value="{{$attribute['label']}}" name="views[{{property_type_slug($attribute['label'])}}]" aria-label="...">
              <label for="{{$attribute['label']}}">{{$attribute['label']}}</label> 
         </div>
         </div>

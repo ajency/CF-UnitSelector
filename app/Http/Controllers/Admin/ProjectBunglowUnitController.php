@@ -14,6 +14,8 @@ use CommonFloor\Phase;
 use CommonFloor\Defaults;
 use \Session;
 use \Excel;
+use Auth;
+use CommonFloor\AgentUnit;    
 
 class ProjectBunglowUnitController extends Controller {
 
@@ -45,7 +47,14 @@ class ProjectBunglowUnitController extends Controller {
         foreach($unitvariantArr as $unitvariant)
             $unitVariantIdArr[] =$unitvariant['id'];
         
-        $unitArr = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->orderBy('unit_name')->get();
+        if(isAgent())
+        {
+            $userId =Auth::user()->id;
+            $unitIds = AgentUnit :: where(['project_id'=>$id, 'user_id'=>$userId])->get()->lists('unit_id');
+            $unitArr = Unit::whereIn('id',$unitIds)->whereIn('unit_variant_id',$unitVariantIdArr)->orderBy('unit_name')->get();
+        }
+        else
+           $unitArr = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->orderBy('unit_name')->get(); 
   
         return view('admin.project.listunit')
                         ->with('project', $project->toArray())
@@ -178,6 +187,10 @@ class ProjectBunglowUnitController extends Controller {
         
         if(empty($isUnitPhaseInPhases))
             $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
+        
+        
+        $disabled =(isAgent())?'disabled':'';      
+         
       
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())
@@ -188,6 +201,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
                         ->with('projectPropertytypeId', $projectPropertytypeId)
+                        ->with('disabled', $disabled)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -199,20 +213,34 @@ class ProjectBunglowUnitController extends Controller {
      */
     public function update($project_id, $id, Request $request) {
         $unit = Unit::find($id);
-        $unit->unit_name = ucfirst($request->input('unit_name'));
-        $unit->unit_variant_id = $request->input('unit_variant');
-        $unit->availability = $request->input('unit_status');
-        $unit->phase_id = $request->input('phase');
-        $unit->direction = $request->input('direction');
-        $views = $request->input('views');
-        $unitviews=[];
-        if(!empty($views))
+        $status =$request->input('unit_status');
+        if(!isAgent())      //NOT AGENT HE CAN UPDATE OTHER DETAILS
         {
-            foreach ($views as $key=>$view)
-               $unitviews[$key]= ucfirst($view);    
+            $unit->unit_name = ucfirst($request->input('unit_name'));
+            $unit->unit_variant_id = $request->input('unit_variant');
+            $unit->phase_id = $request->input('phase');
+            $unit->direction = $request->input('direction');
+            $views = $request->input('views');
+            $unitviews=[];
+            if(!empty($views))
+            {
+                foreach ($views as $key=>$view)
+                   $unitviews[$key]= ucfirst($view);    
+            }
+            $viewsStr = serialize( $unitviews );
+            $unit->views = $viewsStr;
         }
-        $viewsStr = serialize( $unitviews );
-        $unit->views = $viewsStr;
+        else{
+            if($status=='booked_by_agent')
+            {
+                $unit->agent_id =  Auth::user()->id;
+                $unit->booked_at = date('Y-m-d H:i:s');
+                
+            }
+        
+        }
+        
+        $unit->availability = $status;
         $unit->save();
         Session::flash('success_message','Unit Successfully Updated');
         $addanother = $request->input('addanother');
@@ -275,7 +303,7 @@ class ProjectBunglowUnitController extends Controller {
    {
         $project = Project::find($projectId); 
         $unit_file = $request->file('unit_file')->getRealPath();
-        $errorMsg = [];
+        
          
        
         if ($request->hasFile('unit_file'))
@@ -283,7 +311,7 @@ class ProjectBunglowUnitController extends Controller {
                Excel::load($unit_file, function($reader)use($project) {
             
                $results = $reader->toArray();//dd($results);
-                
+               $errorMsg = []; 
              if(count($results[0])==10)
              {
                  $i=0;
@@ -387,8 +415,8 @@ class ProjectBunglowUnitController extends Controller {
              else
                  $errorMsg[] ='Column Count does not match';
      
-
-                Session::flash('error_message',$errorMsg);      
+                if(!empty($errorMsg))   
+                    Session::flash('error_message',$errorMsg);      
             });
             
           

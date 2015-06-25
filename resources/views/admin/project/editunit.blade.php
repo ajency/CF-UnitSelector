@@ -30,14 +30,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name<span class="text-primary">*</span></label>
-                        <input type="text" class="form-control" name="unit_name" value="{{$unit['unit_name']}}"  placeholder="Enter Name" data-parsley-required onchange="validateUnitName(this,{{ $projectPropertytypeId }},{{ $unit['id'] }});" ><div class="cf-loader hidden"></div>
+                        <input {{ $disabled }} type="text" class="form-control" name="unit_name" value="{{$unit['unit_name']}}"  placeholder="Enter Name" data-parsley-required onchange="validateUnitName(this,{{ $projectPropertytypeId }},{{ $unit['id'] }});" ><div class="cf-loader hidden"></div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
 
-                        <select name="unit_variant" class="select2 form-control m-b-5" data-parsley-required>
+                        <select {{ $disabled }} name="unit_variant" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Unit Variant</option>
                             @foreach($unit_variant_arr as $unit_variant)
                             <option @if($unit['unit_variant_id']==$unit_variant['id']){{'selected'}}@endif value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
@@ -49,14 +49,14 @@
                     <div class="form-group">
                         <label class="form-label">Phase<span class="text-primary">*</span></label>
                         @if($project['has_phase']=='yes')
-                        <select  class="select2 form-control m-b-5" name="phase" data-parsley-required>
+                        <select {{ $disabled }}  class="select2 form-control m-b-5" name="phase" data-parsley-required>
                             <option value="">Select Phase</option>
                            @foreach($phases as $phase)
                             <option @if($unit['phase_id']==$phase['id']){{'selected'}}@endif value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
                             @endforeach
                         </select>
                         @else
-                        <select  class="select2 form-control m-b-5" name="phase" disabled>
+                        <select {{ $disabled }}  class="select2 form-control m-b-5" name="phase" disabled>
                             <option value="">Select Phase</option>
                            @foreach($phases as $phase)
                             <option selected value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
@@ -73,7 +73,7 @@
                 <div class="col-md-4">
                 <div class="form-group">
                         <label class="form-label">Direction<span class="text-primary">*</span></label>
-                        <select  class="select2 form-control m-b-5" name="direction" data-parsley-required>
+                        <select {{ $disabled }}  class="select2 form-control m-b-5" name="direction" data-parsley-required>
                            <option value="">Select Direction</option>  
                            @foreach($defaultDirection as $direction)
                             <option  @if($unit['direction']==$direction['id']){{'selected'}}@endif value="{{$direction['id']}}">{{$direction['label']}}</option>
@@ -82,6 +82,7 @@
                         
                     </div>
                 </div>
+                  
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Status<span class="text-primary">*</span></label>
@@ -90,11 +91,13 @@
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
                             <option @if($unit['availability']=='not_released'){{'selected'}}@endif value="not_released">Not Released</option>
                             <option @if($unit['availability']=='blocked'){{'selected'}}@endif value="blocked">Blocked</option>
+                            <option @if($unit['availability']=='booked_by_agent'){{'selected'}}@endif value="booked_by_agent">Booked By Agent</option>
                             <option @if($unit['availability']=='archived'){{'selected'}}@endif value="archived">Archived</option>
                         </select>
                         
                     </div>
                 </div>
+                
                 </div>
          @if(!empty($projectAttributes))
              <hr>
@@ -109,7 +112,7 @@
             ?>
             <div class="col-md-3">
         <div class="checkbox check-primary" >
-            <input @if($value== $attribute['label']){{'checked'}}@endif type="checkbox" id="{{$attribute['label']}}" value="{{$attribute['label']}}" name="views[{{property_type_slug($attribute['label'])}}]" aria-label="...">
+            <input {{ $disabled }} @if($value== $attribute['label']){{'checked'}}@endif type="checkbox" id="{{$attribute['label']}}" value="{{$attribute['label']}}" name="views[{{property_type_slug($attribute['label'])}}]" aria-label="...">
              <label for="{{$attribute['label']}}">{{$attribute['label']}}</label> 
         </div>
         </div>

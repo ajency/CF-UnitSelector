@@ -141,7 +141,15 @@ function getDefaultRole($userId)
     return $defaultRoleId;
 }
  
-
+function isAgent()
+{
+     if(Auth::user()->is_agent=='yes')
+         $return = true;
+    else
+        $return = false;
+    
+    return $return;
+}
 
 function hasPermission($projectId, $userPermission)
 {  
@@ -166,7 +174,7 @@ function hasPermission($projectId, $userPermission)
             if(in_array('read_project', $userPermission))
                $permissions[$userRoleId]=['read_project'] ;
             else   
-                $permissions[$userRoleId] = \CommonFloor\Role::find($userRoleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
+                $permissions[$userRoleId] = \CommonFloor\Role::find($roleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
         }
     }
     else
@@ -174,7 +182,7 @@ function hasPermission($projectId, $userPermission)
         if(in_array('read_project', $userPermission))
            $permissions[$userRoleId]=['read_project'] ;
         else 
-           $permissions[$userRoleId] = \CommonFloor\Role::find($userRoleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
+           $permissions[$userRoleId] = \CommonFloor\Role::find($roleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
     }
 
     if(!empty($permissions[$userRoleId]))
