@@ -86,7 +86,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Status<span class="text-primary">*</span></label>
-                        <select  class="select2 form-control m-b-5" name="unit_status" data-parsley-required>
+                        <select @if(isAgent() && $unit['availability']=='booked_by_agent'){{'disabled'}}@endif  class="select2 form-control m-b-5" name="unit_status" data-parsley-required>
                             <option @if($unit['availability']=='available'){{'selected'}}@endif value="available">Available</option>
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
                             <option @if($unit['availability']=='not_released'){{'selected'}}@endif value="not_released">Not Released</option>
@@ -97,6 +97,17 @@
                         
                     </div>
                 </div>
+               @if($unit['availability']=='booked_by_agent')     
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Booked By</label>
+                        <br>
+                        {{$unit['agent_name']}}
+                        {{ date('d/m/Y',strtotime($unit['booked_at'])) }}
+                        
+                    </div>
+                </div>
+             @endif        
                 
                 </div>
          @if(!empty($projectAttributes))

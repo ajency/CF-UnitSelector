@@ -178,6 +178,12 @@ class ProjectApartmentUnitController extends Controller {
         $unitVariantArr = UnitVariant::where('unit_type_id',$unitTypeId)->get()->toArray();
         
         $disabled =(isAgent())?'disabled':'';  
+        $unit['agent_name']='';
+        if($unit['availability']=='booked_by_agent')
+        {
+            $username = \CommonFloor\User::find($unit['agent_id'])->name;
+            $unit['agent_name']=$username;
+        }
 
         return view('admin.project.unit.apartment.edit')
                         ->with('project', $project->toArray())

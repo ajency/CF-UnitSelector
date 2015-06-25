@@ -184,6 +184,12 @@ class ProjectPlotUnitController extends Controller {
             $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
         
         $disabled =(isAgent())?'disabled':'';  
+        $unit['agent_name']='';
+        if($unit->availability=='booked_by_agent')
+        {
+            $username = \CommonFloor\User::find($unit->agent_id)->name;
+            $unit['agent_name']=$username;
+        }
 
         return view('admin.project.unit.plot.edit')
                         ->with('project', $project->toArray())
