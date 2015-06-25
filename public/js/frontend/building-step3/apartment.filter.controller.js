@@ -261,7 +261,7 @@
     };
 
     FilterApartmentView.prototype.onShow = function() {
-      var area, budget, building_id, floor, max, min, priceMax, priceMin, sub, subArea, subBudget, submax, submin, units, url;
+      var area, budget, building_id, floor, max, min, priceMax, priceMin, sub, subArea, subBudget, units, url;
       this.loadSelectedFilters();
       $('.filters-content').mCustomScrollbar({
         theme: 'cf-scroll'
@@ -283,11 +283,7 @@
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
       min = _.min(area);
-      submin = min % 5;
-      min = min - submin;
       max = _.max(area);
-      submax = max % 5;
-      max = max - submax;
       subArea = (max - min) / 20;
       subArea = subArea.toFixed(0);
       sub = subArea % 5;

@@ -1112,10 +1112,11 @@ CommonFloor.filterStepNew = ()->
 CommonFloor.filterVillas = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('villa')
-	temp = []
 	newColl = new Backbone.Collection collection	
 	tempColl = []	
 	$.each CommonFloor.defaults['villa'] , (index,value)->
+		temp = []
+	
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
@@ -1167,10 +1168,11 @@ CommonFloor.filterVillaAttributes = (temp)->
 CommonFloor.filterApartments = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('apartment')
-	temp = []
+	
 	newColl = new Backbone.Collection collection	
 	tempColl = []	
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
+		temp = []
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
@@ -1224,10 +1226,11 @@ CommonFloor.filterApartmentAttributes= (temp)->
 CommonFloor.filterPlots = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('plot')
-	temp = []
+	
 	newColl = new Backbone.Collection collection	
 	tempColl = []	
 	$.each CommonFloor.defaults['plot'] , (index,value)->
+		temp = []
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()
