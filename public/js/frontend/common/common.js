@@ -1314,7 +1314,7 @@
   CommonFloor.filterVillaAttributes = function(ind1, val1) {
     var flooring, tempColl;
     flooring = [];
-    tempColl = unitCollection.toArray();
+    tempColl = bunglowVariantCollection.getBunglowUnits();
     $.each(tempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
@@ -1399,7 +1399,7 @@
   CommonFloor.filterApartmentAttributes = function(ind1, val1) {
     var flooring, tempColl;
     flooring = [];
-    tempColl = unitCollection.toArray();
+    tempColl = apartmentVariantCollection.getApartmentUnits();
     $.each(tempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
@@ -1484,7 +1484,7 @@
   CommonFloor.filterPlotAttributes = function(ind1, val1) {
     var flooring, tempColl;
     flooring = [];
-    tempColl = unitCollection.toArray();
+    tempColl = plotVariantCollection.getPlotUnits();
     $.each(tempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));

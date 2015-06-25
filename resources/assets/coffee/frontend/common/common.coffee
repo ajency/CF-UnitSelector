@@ -1186,7 +1186,7 @@ CommonFloor.filterVillas = ()->
 
 CommonFloor.filterVillaAttributes = (ind1,val1)->
 	flooring = []
-	tempColl = unitCollection.toArray()
+	tempColl = bunglowVariantCollection.getBunglowUnits()
 	$.each tempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
@@ -1255,7 +1255,7 @@ CommonFloor.filterApartments = ()->
 
 CommonFloor.filterApartmentAttributes= (ind1,val1)->
 	flooring = []
-	tempColl = unitCollection.toArray()
+	tempColl = apartmentVariantCollection.getApartmentUnits()
 	$.each tempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
@@ -1321,7 +1321,7 @@ CommonFloor.filterPlots = ()->
 
 CommonFloor.filterPlotAttributes= (ind1,val1)->
 	flooring = []
-	tempColl = unitCollection.toArray()
+	tempColl = plotVariantCollection.getPlotUnits()
 	$.each tempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
