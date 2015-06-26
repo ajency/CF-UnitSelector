@@ -1311,7 +1311,7 @@
   CommonFloor.filterVillaAttributes = function(ind1, val1) {
     var flooring, newtempColl, tem;
     flooring = [];
-    newtempColl = unitCollection.toArray();
+    console.log(newtempColl = unitCollection.toArray());
     $.each(newtempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));

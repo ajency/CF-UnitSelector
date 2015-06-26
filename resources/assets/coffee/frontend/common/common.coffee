@@ -1186,7 +1186,7 @@ CommonFloor.filterVillas = ()->
 CommonFloor.filterVillaAttributes = (ind1,val1)->
 	flooring = []
 	
-	newtempColl = unitCollection.toArray()
+	console.log newtempColl = unitCollection.toArray()
 	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
