@@ -1418,9 +1418,9 @@ $("input[name=has_phases]:radio").change(function () {
 $("input[name=has_master]:radio").change(function () {
     var value = $(this).val();
     if(value == 'yes')
-        $(".dataTables_wrapper").removeClass('hidden');
+        $(".object-master-images").removeClass('hidden');
     else
-      $(".dataTables_wrapper").addClass('hidden');  
+      $(".object-master-images").addClass('hidden');  
  
 });
 

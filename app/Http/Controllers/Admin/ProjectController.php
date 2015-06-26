@@ -395,7 +395,7 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData =         $buildingbreakPoint = [];
+        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData = $buildingbreakPoint = $projectBuildings= [];
         $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at', 'updated_at')->first()->toArray();
 
         foreach ($projectpropertyTypes as $propertyType) {
@@ -406,8 +406,9 @@ class ProjectController extends Controller {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
-            $buildings = $phase->projectBuildings()->get(); 
-            $buildingUnits = $buildingBreakpointId =[];
+            $buildings = $phase->projectBuildings()->get();
+            $projectBuildings = array_merge($projectBuildings,$buildings->toArray());
+            $buildingUnits = [];
             
             //Project master total unit count Villa + Plot + Building
             $totalCount += count($units) + count($buildings); 
@@ -418,14 +419,14 @@ class ProjectController extends Controller {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
-            
+                $buildingBreakpointIds =[];
                 $buildingbreakPoint = (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
                  foreach($buildingMediaIds as $position => $buildingMediaId) {
                     if($buildingMediaId!="")
                     {
                         if(in_array($position,$buildingbreakPoint ))
                         {
-                            $buildingBreakpointId[$position]=$buildingMediaId;
+                            $buildingBreakpointIds[$position]=$buildingMediaId;
                         }
                     }
                 }
@@ -433,7 +434,7 @@ class ProjectController extends Controller {
                
                 $totalbuildingUnitCount = count($buildingUnits); 
                 //Building total unit count
-                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
+                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointIds);  
                 foreach($buildingunitSvgCount as $position=> $count)
                 {
                     $buildingunitCount =  $count['apartment'] ;
@@ -442,10 +443,10 @@ class ProjectController extends Controller {
                 }
                 
                  $units = array_merge($units,$buildingUnits);  //Merge All Units of project
-               
+                 
             }
             
-       
+           
             //VILLA + PLOT +Penthouse + APARTMENT
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
@@ -524,7 +525,7 @@ class ProjectController extends Controller {
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
                         ->with('breakPointSvgData', $breakPointSvgData)
-                        ->with('buildings', $buildings->toArray())    
+                        ->with('buildings', $projectBuildings)    
                         ->with('buildingbreakPointSvgData', $buildingbreakPointSvgData) 
                         ->with('current', 'summary');
     }
@@ -578,6 +579,9 @@ class ProjectController extends Controller {
 		           $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
                 else
                   $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')';
+                
+                if(empty($buildingUnits))
+                   $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')'; 
                 
               if (!empty($unitSvgExits)) {
                     

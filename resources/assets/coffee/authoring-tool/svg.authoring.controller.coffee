@@ -139,7 +139,7 @@ jQuery(document).ready ($)->
             units = plotVariantCollection.getPlotMasterUnits()
         if value == 'building'
             units = buildingMasterCollection.toArray()
-         if value == 'apartment/penthouse'
+         if value == 'apartment'
             units = apartmentVariantCollection.getApartmentMasterUnits()
             temp = new Backbone.Collection units
             newUnits = temp.where
@@ -170,10 +170,14 @@ jQuery(document).ready ($)->
         $.each types , (index,value)->
             if svg_type is 'google_earth' && value is 'Project' 
                 return
-            if value is "Apartment"
-                valueText = "Apartment / Penthouse"
+            valueText = value
+            valuetemp = value
+            console.log value
+            if value is "Apartment/Penthouse"
+                valueText = "apartment"
+                valuetemp = 'apartment'
             
-            $('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
+            $('<option />', {value: valuetemp.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
         $('<option />', {value: 'unassign', text: ('Unassign').toUpperCase()}).appendTo(select)
 
     window.resetCollection = ()->
@@ -389,9 +393,9 @@ jQuery(document).ready ($)->
            details['class'] = 'step1-marker' 
         else 
             type = $('.property_type').val()  
-            if  $('.property_type').val() is 'apartment/penthouse'
-                type = 'apartment'
-            
+            # if  $('.property_type').val() is 'apartment/penthouse'
+            #     type = 'apartment'
+
             details['class'] = 'layer '+type        
         
         # canvas_type differences i.e markers vs polygons
@@ -481,7 +485,7 @@ jQuery(document).ready ($)->
         if type is 'amenity'
             new AuthoringTool.AmenityCtrl region : @region
 
-        if type is 'apartment/penthouse'
+        if type is 'apartment'
             new AuthoringTool.ApartmentCtrl 
                 'region' : @region
 
