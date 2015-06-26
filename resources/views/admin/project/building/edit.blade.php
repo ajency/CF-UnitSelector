@@ -94,8 +94,9 @@
                                         </div>
                                     </div>
                                 </div>
-                    <hr>
-                    <div class="row object-master-images" data-object-id="{{ $building->id }}" data-object-type="building">
+                    
+                    <div class="row object-master-images {{ ($building->has_master == 'no')?'hidden':'' }}" data-object-id="{{ $building->id }}" data-object-type="building">
+                        <hr>
                         <div class="col-md-12">
                             <div class="m-l-5 no-border">
                                 <h3 class="inline"><i class=
@@ -114,7 +115,7 @@
                 </div>
                                                                                     
         
-                  <div class="dataTables_wrapper form-inline {{ ($building->has_master == 'no')?'hidden':'' }}" role="grid">
+                  <div class="dataTables_wrapper form-inline" role="grid">
                     <div class="project-master-images">  
                       <div class="alert alert-error hidden ">
                             <button class="close" data-dismiss="alert"></button>
@@ -192,7 +193,11 @@
                 </div>
             
 
-                                <div class="form-actions">
+                                
+                            </div>
+                        </div>
+                    </div>
+                <div class="form-actions">
                                     <div class="text-right">
                                        <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
                            <input type="hidden" name="_method" value="PUT">
@@ -202,9 +207,6 @@
                                             Cancel</button>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 </form>
 

@@ -241,7 +241,7 @@ function addAttributes(keyId, obj)
     str += '</div>';
     
     var delstr = '<div class="col-xs-1 text-right">';
-    delstr += '<a class="text-primary" onclick="deleteAttribute(' + PROJECTID + ',0,this);"><i class="fa fa-close"></i></a>';
+    delstr += '<a class="text-primary" onclick="deleteAttribute(' + PROJECTID + ',0,this);" data-object-type="attribute"><i class="fa fa-close"></i></a>';
     delstr += '</div>';
 
     $(obj).closest('.row').find('.text-right').hide();
@@ -278,7 +278,9 @@ function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
 
 function deleteAttribute(project_id, attributeId, obj)
 {
-    if (confirm('Are you sure you want to delete this attribute?') === false) {
+    var attributeType = $(obj).attr('data-object-type');
+    
+    if (confirm('Are you sure you want to delete this '+attributeType+'?') === false) {
         return;
     }
     if (attributeId)
@@ -1416,9 +1418,9 @@ $("input[name=has_phases]:radio").change(function () {
 $("input[name=has_master]:radio").change(function () {
     var value = $(this).val();
     if(value == 'yes')
-        $(".dataTables_wrapper").removeClass('hidden');
+        $(".object-master-images").removeClass('hidden');
     else
-      $(".dataTables_wrapper").addClass('hidden');  
+      $(".object-master-images").addClass('hidden');  
  
 });
 

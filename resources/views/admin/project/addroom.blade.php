@@ -53,7 +53,7 @@
                           <input type="hidden" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
                     </div>
                     <div class="col-xs-1 text-right">
-                        <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);"><i class="fa fa-close"></i></a>
+                        <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);" data-object-type="attribute"><i class="fa fa-close"></i></a>
 
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                          <input type="hidden" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
                     </div>
                     <div class="col-xs-1 text-right">
-                        <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);"><i class="fa fa-close"></i></a>
+                        <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);" data-object-type="attribute"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
  
