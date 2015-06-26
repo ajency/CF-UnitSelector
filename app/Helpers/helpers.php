@@ -1,10 +1,5 @@
 <?php
-
-/**
- * 
- * @param type $type_id
- * @return string
- */
+//property type defines
 define('BUNGLOWID',  '1');
 define('PLOTID',  '2');
 define('APARTMENTID',  '3');
@@ -25,7 +20,11 @@ define('ADD_BOOKING_UNIT', 'addUnit/');
 define('BOOKING_PORTAL_URL', 'http://dev.commonfloor.com/book-your-property');
 define('CF_API_KEY', 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168');
  
-
+/**
+ * 
+ * @param type $type_id
+ * @return string
+ */
 function get_property_type( $type_id ) {
     $types = [];
     $propertyTypes = CommonFloor\Defaults::where('type','property_types')->get()->toArray();
@@ -166,7 +165,7 @@ function hasPermission($projectId, $userPermission)
             if(in_array('read_project', $userPermission))
                $permissions[$userRoleId]=['read_project'] ;
             else   
-                $permissions[$userRoleId] = \CommonFloor\Role::find($userRoleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
+                $permissions[$userRoleId] = \CommonFloor\Role::find($roleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
         }
     }
     else
@@ -174,7 +173,7 @@ function hasPermission($projectId, $userPermission)
         if(in_array('read_project', $userPermission))
            $permissions[$userRoleId]=['read_project'] ;
         else 
-           $permissions[$userRoleId] = \CommonFloor\Role::find($userRoleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
+           $permissions[$userRoleId] = \CommonFloor\Role::find($roleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
     }
 
     if(!empty($permissions[$userRoleId]))

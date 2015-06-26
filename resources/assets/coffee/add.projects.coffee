@@ -549,8 +549,8 @@ $('.add-project-attributes-btn').click ->
                           <input type="hidden" name="projectattributeId[]" value="" class="form-control">   
                       </div>
                       <div class="col-md-2 text-center">
-                          <a class="text-primary" onclick="deleteAttribute({{ project_id }},0, this);"><i class="
-                                        fa fa-close"></i></a>
+                          <a class="text-primary" onclick="deleteAttribute({{ project_id }},0, this);" data-object-type="view"><i class="
+                                        fa fa-close" ></i></a>
                       </div>
                   </div>'
     compile = Handlebars.compile str

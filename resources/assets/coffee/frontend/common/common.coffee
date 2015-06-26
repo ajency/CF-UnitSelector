@@ -381,13 +381,17 @@ CommonFloor.applyFliterClass = ()->
 			types = CommonFloor.defaults['type'].split(',')
 		id = parseInt item.id
 		if $.inArray('villa',types) ==  -1 && $.inArray('plot',types) ==  -1
-			if $.inArray(id , filterbuildings) > -1 && filterbuildings.length != 0
+			if $.inArray(id , filterbuildings) > -1 && filterbuildings.length != 0 && buildingCollection.length isnt 0
 				setTimeout( ()->
 					$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
 				,Math.random() * 1000)
 				
 			else
 				setTimeout( ()->
+					$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+				,Math.random() * 1000)
+		else
+			setTimeout( ()->
 					$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
 				,Math.random() * 1000)
 
@@ -807,6 +811,7 @@ CommonFloor.getVillaFilters = ()->
 									'classname' : 'variant_names'
 									'id' : unit_variant.get 'id'
 									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
+									'index'  : ''
 				if value != "" && ind == 'unit_type_id' && $.inArray(parseInt(value),bunglowVariantMasterCollection.getVillaUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
@@ -818,26 +823,30 @@ CommonFloor.getVillaFilters = ()->
 								'classname' : 'unit_types'
 								'id' : unit_type.get 'id'
 								'id_name' : 'filter_unit_type'+unit_type.get 'id'
+								'index'  : ''
 		else if val != "" && ind == 'attributes'
 			$.each val ,(ind1,val1)->
-				if $.isNumeric(val1)
-					temp = parseInt val1
-				else
-					temp = val1
-				if val1 != ""  && $.inArray(temp,bunglowVariantMasterCollection.getVillaAttributes()) > -1
-					flooring.push 
-							'typename':'villa'
-							'name' : val1
-							'type'	: '(V)'
-							'classname' : 'filter_flooring'
-							'id' : val1
-							'id_name' : 'filter_'+val1
+				temp_var = val1.split(',')
+				$.each temp_var , (indexkey,valkey)->
+
+					if $.isNumeric(valkey)
+						temp = parseInt valkey
+					else
+						temp = valkey
+					if valkey != ""  && $.inArray(temp,bunglowVariantMasterCollection.getVillaAttributes()) > -1
+						flooring.push 
+								'typename':'villa'
+								'name' : valkey
+								'type'	: '(V)'
+								'classname' : 'filter_flooring'
+								'id' : valkey
+								'id_name' : 'filter_'+valkey
+								'index'  : ind1
 
 	
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes
 			,'flooring' : flooring}
 	
-	console.log filters
 	filters
 
 CommonFloor.getApartmentFilters = ()->
@@ -867,6 +876,7 @@ CommonFloor.getApartmentFilters = ()->
 									'classname' : 'variant_names'
 									'id' : unit_variant.get 'id'
 									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
+									'index'  : ''
 				if value != "" && ind == 'unit_type_id' && $.inArray(parseInt(value),apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
@@ -880,22 +890,28 @@ CommonFloor.getApartmentFilters = ()->
 								'classname' : 'unit_types'
 								'id' : unit_type.get 'id'
 								'id_name' : 'filter_unit_type'+unit_type.get 'id'
+								'index'  : ''
 
 		else if val != "" && ind == 'attributes'
 			$.each val ,(ind1,val1)->
-				if $.isNumeric(val1)
-					temp = parseInt val1
-				else
-					temp = val1
-				attributes = apartmentVariantMasterCollection.getApartmentAttributes()
-				if value != "" && $.inArray(value,attributes[0]) > -1
-					flooring.push 
-							'typename':'villa'
-							'name' : val1
-							'type'	: '(V)'
-							'classname' : 'filter_flooring'
-							'id' : val1
-							'id_name' : 'filter_'+val1
+					temp_var = val1.split(',')
+					$.each temp_var , (indexkey,valkey)->
+
+						if $.isNumeric(valkey)
+							temp = parseInt valkey
+						else
+							temp = valkey
+						attributes = apartmentVariantMasterCollection.getApartmentAttributes()
+						if valkey != "" && $.inArray(temp,attributes[0]) > -1
+							flooring.push 
+									'typename':'apartment'
+									'name' : valkey
+									'type'	: '(A)'
+									'classname' : 'filter_flooring'
+									'id' : valkey
+									'id_name' : 'filter_'+valkey
+									'index'  : ind1
+			
 				
 		
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes 
@@ -927,6 +943,7 @@ CommonFloor.getPlotFilters = ()->
 									'classname' : 'variant_names'
 									'id' : unit_variant.get 'id'
 									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
+									'index'  : ''
 				if value != "" && ind == 'unit_type_id' && $.inArray(parseInt(value),plotVariantMasterCollection.getPlotUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
@@ -938,22 +955,29 @@ CommonFloor.getPlotFilters = ()->
 								'classname' : 'unit_types'
 								'id' : unit_type.get 'id'
 								'id_name' : 'filter_unit_type'+unit_type.get 'id'
+								'index'  : ''
+
 
 		else if val != "" && ind == 'attributes'
 			$.each val ,(ind1,val1)->
-				if $.isNumeric(val1)
-					temp = parseInt val1
-				else
-					temp = val1
-				if value != "" && ind == 'attributes' && $.inArray(value,plotVariantMasterCollection.getPlotAttributes()) > -1
-					flooring.push 
-							'typename':'villa'
-							'name' : val1
-							'type'	: '(V)'
-							'classname' : 'filter_flooring'
-							'id' : val1
-							'id_name' : 'filter_'+val1
+					temp_var = val1.split(',')
+					$.each temp_var , (indexkey,valkey)->
 
+						if $.isNumeric(valkey)
+							temp = parseInt valkey
+						else
+							temp = valkey
+						if valkey != ""  && $.inArray(temp,plotVariantMasterCollection.getPlotAttributes()) > -1
+							flooring.push 
+									'typename':'plot'
+									'name' : valkey
+									'type'	: '(P)'
+									'classname' : 'filter_flooring'
+									'id' : valkey
+									'id_name' : 'filter_'+valkey
+									'index'  : ind1
+
+		
 				
 
 		
@@ -1137,16 +1161,16 @@ CommonFloor.filterVillas = ()->
 		temp = []
 	
 		if value != "" && index == 'attributes'
-			attributes = []
+			attributes = bunglowVariantCollection.getBunglowUnits()
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
 			$.each CommonFloor.defaults['villa']['attributes'] , (ind1,val1)->
 				if val1!= ""
-					$.merge attributes , CommonFloor.filterVillaAttributes(ind1,val1)
+					attributes = CommonFloor.filterVillaAttributes(ind1,val1)
 			# $.merge temp, attributes
 			# unitCollection.reset attributes
-			if attributes.length > 0
-				newColl.reset attributes
+
+			newColl.reset attributes
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1164,11 +1188,12 @@ CommonFloor.filterVillas = ()->
 
 CommonFloor.filterVillaAttributes = (ind1,val1)->
 	flooring = []
-	tempColl = unitCollection.toArray()
-	$.each tempColl, (item , value)->
+	
+	tempColl = bunglowVariantCollection.getBunglowUnits()
+	newtempColl = _.intersection(tempColl,unitCollection.toArray())
+	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
-		flooring = []
 		valkey = unitVarinat.get('variant_attributes')
 		val = _.propertyOf(valkey)(ind1)
 		arr = val1.split(',')
@@ -1189,10 +1214,10 @@ CommonFloor.filterVillaAttributes = (ind1,val1)->
 				temp =  val.toString()
 			if $.inArray(temp, arr ) > -1
 				flooring.push value
-	unitCollection.reset flooring
+		unitCollection.reset flooring
 	
-				
-	flooring	
+	tem = 	unitCollection.toArray()			
+	tem
 	
 
 CommonFloor.filterApartments = ()->
@@ -1204,16 +1229,17 @@ CommonFloor.filterApartments = ()->
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		temp = []
 		if value != "" && index == 'attributes'
+			attributes = apartmentVariantCollection.getApartmentUnits()
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
-			$.each CommonFloor.defaults['villa']['attributes'] , (ind1,val1)->
+			$.each CommonFloor.defaults['apartment']['attributes'] , (ind1,val1)->
 				if val1!= ""
-					$.merge attributes , CommonFloor.filterApartmentAttributes(ind1,val1)
-			
+					attributes = CommonFloor.filterApartmentAttributes(ind1,val1)
 			# $.merge temp, attributes
 			# unitCollection.reset attributes
-			if attributes.length > 0
-				newColl.reset attributes
+
+			newColl.reset attributes
+		
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1232,11 +1258,11 @@ CommonFloor.filterApartments = ()->
 
 CommonFloor.filterApartmentAttributes= (ind1,val1)->
 	flooring = []
-	tempColl = unitCollection.toArray()
-	$.each tempColl, (item , value)->
+	tempColl = apartmentVariantCollection.getApartmentUnits()
+	newtempColl = _.intersection(tempColl,unitCollection.toArray())
+	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
-		flooring = []
 		valkey = unitVarinat.get('variant_attributes')
 		val = _.propertyOf(valkey)(ind1)
 		arr = val1.split(',')
@@ -1257,30 +1283,31 @@ CommonFloor.filterApartmentAttributes= (ind1,val1)->
 				temp =  val.toString()
 			if $.inArray(temp, arr ) > -1
 				flooring.push value
-	unitCollection.reset flooring
+		unitCollection.reset flooring
 	
 				
-	flooring
+	tem = 	unitCollection.toArray()			
+	tem
 
 CommonFloor.filterPlots = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('plot')
-	
 	newColl = new Backbone.Collection collection	
 	tempColl = []	
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		temp = []
 		if value != "" && index == 'attributes'
+			attributes = plotVariantCollection.getPlotUnits()
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()
-			$.each CommonFloor.defaults['villa']['attributes'] , (ind1,val1)->
+			$.each CommonFloor.defaults['plot']['attributes'] , (ind1,val1)->
 				if val1!= ""
-					$.merge attributes , CommonFloor.filterPlotAttributes(ind1,val1)
-			
+					attributes = CommonFloor.filterPlotAttributes(ind1,val1)
 			# $.merge temp, attributes
 			# unitCollection.reset attributes
-			if attributes.length > 0
-				newColl.reset attributes
+
+			newColl.reset attributes
+		
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1294,16 +1321,15 @@ CommonFloor.filterPlots = ()->
 				
 			unitCollection.reset temp
 			newColl.reset temp
-			
 	newColl.toArray()
 
 CommonFloor.filterPlotAttributes= (ind1,val1)->
 	flooring = []
-	tempColl = unitCollection.toArray()
-	$.each tempColl, (item , value)->
+	tempColl = plotVariantCollection.getPlotUnits()
+	newtempColl = _.intersection(tempColl,unitCollection.toArray())
+	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
-		flooring = []
 		valkey = unitVarinat.get('variant_attributes')
 		val = _.propertyOf(valkey)(ind1)
 		arr = val1.split(',')
@@ -1324,10 +1350,11 @@ CommonFloor.filterPlotAttributes= (ind1,val1)->
 				temp =  val.toString()
 			if $.inArray(temp, arr ) > -1
 				flooring.push value
-	unitCollection.reset flooring
+		unitCollection.reset flooring
 	
 				
-	flooring
+	tem = 	unitCollection.toArray()			
+	tem
 
 
 CommonFloor.removeStepFilters = ()->

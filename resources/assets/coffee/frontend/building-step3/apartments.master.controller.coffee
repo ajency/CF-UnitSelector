@@ -42,7 +42,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 																{{#each this}}
 																{{#each this}}
 															
-																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> 
 															{{/each}}
 															 {{/each}}
 															 {{/filters}}
@@ -249,13 +249,16 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			@trigger  'render:view'
 
 		'click @ui.filter_flooring':(e)->
-			flooring = CommonFloor.defaults['apartment']['flooring'].split(',')
-			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
-			CommonFloor.defaults['apartment']['flooring'] = flooring.join(',')
+			types = []
+			index = $(e.currentTarget).attr('data-index')
+			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
+				types = CommonFloor.defaults['apartment']['attributes'][index].split(',')
+			console.log flooring = _.without types , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
 			CommonFloor.filterStepNew()
-			unitCollection.trigger('filter_available')
+			unitTempCollection.trigger('filter_available')
 			@trigger  'render:view'
 
 	onShow:->
@@ -751,11 +754,16 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			# $('#apartment'+id).attr('class' ,'unit blocks '+availability)
 			$('#apartment'+id).removeClass ' active'
 
-		'mouseover .marker-grp':(e)->
-			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
-					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
+			
+		'mouseover .amenity':(e)->
+			html = '<div class="row">
+						<div class="col-sm-12 b-r">
+							<h4 class="text-warning margin-none">'+$(e.currentTarget).attr('data-amenity-title')+'</h4>
+							<h6 class="text-muted">'+$(e.currentTarget).attr('data-amenity-desc')+'</h6>
+						</div>
+					</div>'
 
-			$('.layer').tooltipster('content', html)
+			$('.amenity').tooltipster('content', html)
 
 		'click .apartment':(e)->
 			id = parseInt e.currentTarget.id
@@ -1097,6 +1105,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				trigger: 'hover'
 				position: 'right'
 				delay: 50				
+		)
+		$('.amenity').tooltipster(
+			theme: 'tooltipster-shadow marker-tooltip'
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			# animation : 'grow'
+			trigger: 'hover'
 		)
 
 	loadZoom:->
