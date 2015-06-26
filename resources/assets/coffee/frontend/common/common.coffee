@@ -1225,18 +1225,17 @@ CommonFloor.filterApartments = ()->
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		temp = []
 		if value != "" && index == 'attributes'
-			attributes = []
-			unitCollection.reset unitMasterCollection.toArray()
+			attributes = apartmentVariantCollection.getApartmentUnits()
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
-			$.each CommonFloor.defaults['villa']['attributes'] , (ind1,val1)->
+			$.each CommonFloor.defaults['apartment']['attributes'] , (ind1,val1)->
 				if val1!= ""
-					$.merge attributes , CommonFloor.filterApartmentAttributes(ind1,val1)
-			
+					attributes = CommonFloor.filterApartmentAttributes(ind1,val1)
 			# $.merge temp, attributes
 			# unitCollection.reset attributes
-			if attributes.length > 0
-				newColl.reset attributes
+
+			newColl.reset attributes
+		
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1256,7 +1255,8 @@ CommonFloor.filterApartments = ()->
 CommonFloor.filterApartmentAttributes= (ind1,val1)->
 	flooring = []
 	tempColl = apartmentVariantCollection.getApartmentUnits()
-	$.each tempColl, (item , value)->
+	newtempColl = _.intersection(tempColl,unitCollection.toArray())
+	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
 		valkey = unitVarinat.get('variant_attributes')
@@ -1279,10 +1279,11 @@ CommonFloor.filterApartmentAttributes= (ind1,val1)->
 				temp =  val.toString()
 			if $.inArray(temp, arr ) > -1
 				flooring.push value
-	unitCollection.reset flooring
+		unitCollection.reset flooring
 	
 				
-	flooring
+	tem = 	unitCollection.toArray()			
+	tem
 
 CommonFloor.filterPlots = ()->
 	collection = []
@@ -1292,18 +1293,17 @@ CommonFloor.filterPlots = ()->
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		temp = []
 		if value != "" && index == 'attributes'
-			attributes = []
-			unitCollection.reset unitMasterCollection.toArray()
+			attributes = plotVariantCollection.getPlotUnits()
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()
 			$.each CommonFloor.defaults['plot']['attributes'] , (ind1,val1)->
 				if val1!= ""
-					$.merge attributes , CommonFloor.filterPlotAttributes(ind1,val1)
-			
+					attributes = CommonFloor.filterPlotAttributes(ind1,val1)
 			# $.merge temp, attributes
 			# unitCollection.reset attributes
-			if attributes.length > 0
-				newColl.reset attributes
+
+			newColl.reset attributes
+		
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1322,7 +1322,8 @@ CommonFloor.filterPlots = ()->
 CommonFloor.filterPlotAttributes= (ind1,val1)->
 	flooring = []
 	tempColl = plotVariantCollection.getPlotUnits()
-	$.each tempColl, (item , value)->
+	newtempColl = _.intersection(tempColl,unitCollection.toArray())
+	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
 		valkey = unitVarinat.get('variant_attributes')
@@ -1345,10 +1346,11 @@ CommonFloor.filterPlotAttributes= (ind1,val1)->
 				temp =  val.toString()
 			if $.inArray(temp, arr ) > -1
 				flooring.push value
-	unitCollection.reset flooring
+		unitCollection.reset flooring
 	
 				
-	flooring
+	tem = 	unitCollection.toArray()			
+	tem
 
 
 CommonFloor.removeStepFilters = ()->

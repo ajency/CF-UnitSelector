@@ -1360,19 +1360,16 @@
       var attributes, param_val, temp;
       temp = [];
       if (value !== "" && index === 'attributes') {
-        attributes = [];
-        unitCollection.reset(unitMasterCollection.toArray());
+        attributes = apartmentVariantCollection.getApartmentUnits();
         if (temp.length === 0) {
           temp = apartmentVariantCollection.getApartmentUnits();
         }
-        $.each(CommonFloor.defaults['villa']['attributes'], function(ind1, val1) {
+        $.each(CommonFloor.defaults['apartment']['attributes'], function(ind1, val1) {
           if (val1 !== "") {
-            return $.merge(attributes, CommonFloor.filterApartmentAttributes(ind1, val1));
+            return attributes = CommonFloor.filterApartmentAttributes(ind1, val1);
           }
         });
-        if (attributes.length > 0) {
-          newColl.reset(attributes);
-        }
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1395,10 +1392,11 @@
   };
 
   CommonFloor.filterApartmentAttributes = function(ind1, val1) {
-    var flooring, tempColl;
+    var flooring, newtempColl, tem, tempColl;
     flooring = [];
     tempColl = apartmentVariantCollection.getApartmentUnits();
-    $.each(tempColl, function(item, value) {
+    newtempColl = _.intersection(tempColl, unitCollection.toArray());
+    $.each(newtempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
@@ -1409,7 +1407,7 @@
         return;
       }
       if (_.isArray(val)) {
-        return $.each(val, function(ind1, val1) {
+        $.each(val, function(ind1, val1) {
           var temp;
           if (_.isString(val1)) {
             temp = val1;
@@ -1427,12 +1425,13 @@
           temp = val.toString();
         }
         if ($.inArray(temp, arr) > -1) {
-          return flooring.push(value);
+          flooring.push(value);
         }
       }
+      return unitCollection.reset(flooring);
     });
-    unitCollection.reset(flooring);
-    return flooring;
+    tem = unitCollection.toArray();
+    return tem;
   };
 
   CommonFloor.filterPlots = function() {
@@ -1445,19 +1444,16 @@
       var attributes, param_val, temp;
       temp = [];
       if (value !== "" && index === 'attributes') {
-        attributes = [];
-        unitCollection.reset(unitMasterCollection.toArray());
+        attributes = plotVariantCollection.getPlotUnits();
         if (temp.length === 0) {
           temp = plotVariantCollection.getPlotUnits();
         }
         $.each(CommonFloor.defaults['plot']['attributes'], function(ind1, val1) {
           if (val1 !== "") {
-            return $.merge(attributes, CommonFloor.filterPlotAttributes(ind1, val1));
+            return attributes = CommonFloor.filterPlotAttributes(ind1, val1);
           }
         });
-        if (attributes.length > 0) {
-          newColl.reset(attributes);
-        }
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1480,10 +1476,11 @@
   };
 
   CommonFloor.filterPlotAttributes = function(ind1, val1) {
-    var flooring, tempColl;
+    var flooring, newtempColl, tem, tempColl;
     flooring = [];
     tempColl = plotVariantCollection.getPlotUnits();
-    $.each(tempColl, function(item, value) {
+    newtempColl = _.intersection(tempColl, unitCollection.toArray());
+    $.each(newtempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
@@ -1494,7 +1491,7 @@
         return;
       }
       if (_.isArray(val)) {
-        return $.each(val, function(ind1, val1) {
+        $.each(val, function(ind1, val1) {
           var temp;
           if (_.isString(val1)) {
             temp = val1;
@@ -1512,12 +1509,13 @@
           temp = val.toString();
         }
         if ($.inArray(temp, arr) > -1) {
-          return flooring.push(value);
+          flooring.push(value);
         }
       }
+      return unitCollection.reset(flooring);
     });
-    unitCollection.reset(flooring);
-    return flooring;
+    tem = unitCollection.toArray();
+    return tem;
   };
 
   CommonFloor.removeStepFilters = function() {

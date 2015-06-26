@@ -46,13 +46,13 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 													         	{{#each this}}
 													         	{{#each this}}
 													        
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}" data-index="{{index}}"></span> </div> 
 													        {{/each}}
 													         {{/each}}
 													         {{/filters}}
 													          {{#area}}
 													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}" ></span> </div> 
 													         
 													         {{/area}}
 													     {{#budget}}
@@ -258,14 +258,16 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			@trigger  'render:view'
 
 		'click @ui.filter_flooring':(e)->
-			flooring = CommonFloor.defaultsfilterNew['flooring'].split(',')
-			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
-			CommonFloor.defaultsfilterNew['flooring'] = flooring.join(',')
+			types = []
+			index = $(e.currentTarget).attr('data-index')
+			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
+				types = CommonFloor.defaults['apartment']['attributes'][index].split(',')
+			flooring = _.without types , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
-			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
-			unitTempCollection.trigger( "filter_available") 
+			unitCollection.trigger('filter_available')
 			@trigger  'render:view'
 
 	onShow:->

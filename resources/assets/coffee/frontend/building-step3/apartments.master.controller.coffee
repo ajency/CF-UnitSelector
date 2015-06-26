@@ -42,7 +42,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 																{{#each this}}
 																{{#each this}}
 															
-																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> 
 															{{/each}}
 															 {{/each}}
 															 {{/filters}}
@@ -249,9 +249,12 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			@trigger  'render:view'
 
 		'click @ui.filter_flooring':(e)->
-			flooring = CommonFloor.defaults['apartment']['flooring'].split(',')
-			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
-			CommonFloor.defaults['apartment']['flooring'] = flooring.join(',')
+			types = []
+			index = $(e.currentTarget).attr('data-index')
+			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
+				types = CommonFloor.defaults['apartment']['attributes'][index].split(',')
+			flooring = _.without types , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
 			CommonFloor.filterStepNew()
