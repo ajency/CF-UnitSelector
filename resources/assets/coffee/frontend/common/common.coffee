@@ -390,6 +390,10 @@ CommonFloor.applyFliterClass = ()->
 				setTimeout( ()->
 					$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
 				,Math.random() * 1000)
+		else
+			setTimeout( ()->
+					$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+				,Math.random() * 1000)
 
 CommonFloor.applyNonFilterClass = ()->
 	flag = 0
