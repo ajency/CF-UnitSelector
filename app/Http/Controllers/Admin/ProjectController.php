@@ -395,7 +395,7 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData =         $buildingbreakPoint = [];
+        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData = $buildingbreakPoint = $projectBuildings= [];
         $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at', 'updated_at')->first()->toArray();
 
         foreach ($projectpropertyTypes as $propertyType) {
@@ -406,7 +406,8 @@ class ProjectController extends Controller {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
-            $buildings = $phase->projectBuildings()->get(); 
+            $buildings = $phase->projectBuildings()->get();
+            $projectBuildings = array_merge($projectBuildings,$buildings->toArray());
             $buildingUnits = $buildingBreakpointId =[];
             
             //Project master total unit count Villa + Plot + Building
@@ -442,7 +443,7 @@ class ProjectController extends Controller {
                 }
                 
                  $units = array_merge($units,$buildingUnits);  //Merge All Units of project
-               
+                 
             }
             
        
@@ -524,7 +525,7 @@ class ProjectController extends Controller {
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
                         ->with('breakPointSvgData', $breakPointSvgData)
-                        ->with('buildings', $buildings->toArray())    
+                        ->with('buildings', $projectBuildings)    
                         ->with('buildingbreakPointSvgData', $buildingbreakPointSvgData) 
                         ->with('current', 'summary');
     }
