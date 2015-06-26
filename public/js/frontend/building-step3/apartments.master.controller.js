@@ -52,7 +52,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill">  <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#views}} <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> {{/views}} {{#facings}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> {{/facings}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill">  <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#views}} <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> {{/views}} {{#facings}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> {{/facings}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
 
     TopApartmentMasterView.prototype.ui = {
       unitBack: '.unit_back',
@@ -218,14 +218,18 @@
           return this.trigger('render:view');
         },
         'click @ui.filter_flooring': function(e) {
-          var flooring;
-          flooring = CommonFloor.defaults['apartment']['flooring'].split(',');
-          flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
-          CommonFloor.defaults['apartment']['flooring'] = flooring.join(',');
+          var flooring, index, types;
+          types = [];
+          index = $(e.currentTarget).attr('data-index');
+          if (CommonFloor.defaults['apartment']['attributes'][index] !== "") {
+            types = CommonFloor.defaults['apartment']['attributes'][index].split(',');
+          }
+          console.log(flooring = _.without(types, $(e.currentTarget).attr('data-id')));
+          CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
-          unitCollection.trigger('filter_available');
+          unitTempCollection.trigger('filter_available');
           return this.trigger('render:view');
         }
       };
@@ -573,10 +577,10 @@
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).removeClass(' active');
       },
-      'mouseover .marker-grp': function(e) {
+      'mouseover .amenity': function(e) {
         var html;
-        html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
-        return $('.layer').tooltipster('content', html);
+        html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
+        return $('.amenity').tooltipster('content', html);
       },
       'click .apartment': function(e) {
         var id, unit;
@@ -888,7 +892,7 @@
         position: 'left',
         delay: 50
       });
-      return $('.prev').tooltipster({
+      $('.prev').tooltipster({
         theme: 'tooltipster-shadow circle-tooltip',
         contentAsHTML: true,
         onlyOne: true,
@@ -897,6 +901,13 @@
         trigger: 'hover',
         position: 'right',
         delay: 50
+      });
+      return $('.amenity').tooltipster({
+        theme: 'tooltipster-shadow marker-tooltip',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        trigger: 'hover'
       });
     };
 

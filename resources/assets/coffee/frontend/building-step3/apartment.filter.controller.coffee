@@ -38,7 +38,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 					                                       	{{#flooring}}
 															  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
 													       		{{#value}}
-													           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="apartment" > 
+													           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-index="{{index}}" data-type="apartment" > 
 													            <label for="{{id}}" class="-lbl">{{name}}</label> 
 															   {{/value}}
 															  </div>
@@ -266,13 +266,19 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 
 		'click @ui.flooring':(e)->
+			types = []
+			index = $(e.currentTarget).attr('data-index')
+			if !_.has(CommonFloor.defaults['apartment']['attributes'], index)
+				CommonFloor.defaults['apartment']['attributes'][index] = ''
+			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
+				types = CommonFloor.defaults[type]['attributes'][index].split(',')
 			if $(e.currentTarget).is(':checked')
-				window.flooring.push $(e.currentTarget).attr('data-value')
+				types.push $(e.currentTarget).attr('data-value')
 			else
-				window.flooring = _.without window.flooring ,$(e.currentTarget).attr('data-value')
-			window.flooring =   _.uniq window.flooring 
+				types = _.without window.flooring ,$(e.currentTarget).attr('data-value')
+			window.flooring =   _.uniq types
 			# CommonFloor.defaults['type'] = 'apartment'
-			CommonFloor.defaults['apartment']['attributes'] = window.flooring.join(',')
+			CommonFloor.defaults['apartment']['attributes'][index] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
@@ -584,7 +590,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			unittypesColl.push parseInt unitDetails[1].get 'id'
 
 		attributes = []
-		$.merge attributes , CommonFloor.defaults['apartment']['attributes'].split(',')
+		aptValues = _.values(CommonFloor.defaults['apartment']['attributes'])
+		$.merge attributes , aptValues
 		
 		views = []
 		$.merge views , CommonFloor.defaults['common']['views'].split(',')
@@ -787,6 +794,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 												flooring.push val1
 												temp.push
 													'name' : val1
+													'index' : value
 													'id' : 'apt'+s.replaceAll(val1, " ", "_")
 													'dataId' : s.replaceAll(val1, " ", "_")
 													'classname' : 'attributes'
@@ -797,6 +805,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 											flooring.push val
 											temp.push
 												'name' : val
+												'index' : value
 												'id' : 'apt'+s.replaceAll(val, " ", "_")
 												'dataId' : s.replaceAll(val, " ", "_")
 												'classname' : 'attributes'
