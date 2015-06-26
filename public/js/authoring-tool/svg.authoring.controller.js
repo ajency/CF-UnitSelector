@@ -116,7 +116,7 @@
       if (value === 'building') {
         units = buildingMasterCollection.toArray();
       }
-      if (value === 'apartment/penthouse') {
+      if (value === 'apartment') {
         units = apartmentVariantCollection.getApartmentMasterUnits();
         temp = new Backbone.Collection(units);
         newUnits = temp.where({
@@ -147,15 +147,19 @@
         text: 'Select option'
       }).appendTo(select);
       $.each(types, function(index, value) {
-        var valueText;
+        var valueText, valuetemp;
         if (svg_type === 'google_earth' && value === 'Project') {
           return;
         }
-        if (value === "Apartment") {
-          valueText = "Apartment / Penthouse";
+        valueText = value;
+        valuetemp = value;
+        console.log(value);
+        if (value === "Apartment/Penthouse") {
+          valueText = "apartment";
+          valuetemp = 'apartment';
         }
         return $('<option />', {
-          value: value.toLowerCase(),
+          value: valuetemp.toLowerCase(),
           text: value.toUpperCase()
         }).appendTo(select);
       });
@@ -361,9 +365,6 @@
         details['class'] = 'step1-marker';
       } else {
         type = $('.property_type').val();
-        if ($('.property_type').val() === 'apartment/penthouse') {
-          type = 'apartment';
-        }
         details['class'] = 'layer ' + type;
       }
       if (window.canvas_type === "concentricMarker") {
@@ -453,7 +454,7 @@
           region: this.region
         });
       }
-      if (type === 'apartment/penthouse') {
+      if (type === 'apartment') {
         new AuthoringTool.ApartmentCtrl({
           'region': this.region
         });
