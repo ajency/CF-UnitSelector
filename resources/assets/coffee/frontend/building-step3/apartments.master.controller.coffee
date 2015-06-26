@@ -754,11 +754,16 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			# $('#apartment'+id).attr('class' ,'unit blocks '+availability)
 			$('#apartment'+id).removeClass ' active'
 
-		'mouseover .marker-grp':(e)->
-			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
-					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
+			
+		'mouseover .amenity':(e)->
+			html = '<div class="row">
+						<div class="col-sm-12 b-r">
+							<h4 class="text-warning margin-none">'+$(e.currentTarget).attr('data-amenity-title')+'</h4>
+							<h6 class="text-muted">'+$(e.currentTarget).attr('data-amenity-desc')+'</h6>
+						</div>
+					</div>'
 
-			$('.layer').tooltipster('content', html)
+			$('.amenity').tooltipster('content', html)
 
 		'click .apartment':(e)->
 			id = parseInt e.currentTarget.id
@@ -1100,6 +1105,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				trigger: 'hover'
 				position: 'right'
 				delay: 50				
+		)
+		$('.amenity').tooltipster(
+			theme: 'tooltipster-shadow marker-tooltip'
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			# animation : 'grow'
+			trigger: 'hover'
 		)
 
 	loadZoom:->

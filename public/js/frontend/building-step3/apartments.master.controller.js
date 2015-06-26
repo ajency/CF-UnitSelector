@@ -577,10 +577,10 @@
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).removeClass(' active');
       },
-      'mouseover .marker-grp': function(e) {
+      'mouseover .amenity': function(e) {
         var html;
-        html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
-        return $('.layer').tooltipster('content', html);
+        html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
+        return $('.amenity').tooltipster('content', html);
       },
       'click .apartment': function(e) {
         var id, unit;
@@ -892,7 +892,7 @@
         position: 'left',
         delay: 50
       });
-      return $('.prev').tooltipster({
+      $('.prev').tooltipster({
         theme: 'tooltipster-shadow circle-tooltip',
         contentAsHTML: true,
         onlyOne: true,
@@ -901,6 +901,13 @@
         trigger: 'hover',
         position: 'right',
         delay: 50
+      });
+      return $('.amenity').tooltipster({
+        theme: 'tooltipster-shadow marker-tooltip',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        trigger: 'hover'
       });
     };
 
