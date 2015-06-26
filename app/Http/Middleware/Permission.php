@@ -146,6 +146,7 @@ class Permission {
                               'admin/project/{project}/plots-unit/unitimport'=>'configure_unit',
                               'admin/project/{project}/unitexport/{id}'=>'configure_unit',
                               'admin/project/getprojectname'=>'manage_users',
+                              'admin/project/{project}/downloadsamplefile/{filename}'=>'configure_unit',
                               
                 ];
                
