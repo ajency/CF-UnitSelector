@@ -266,16 +266,19 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 
 		'click @ui.flooring':(e)->
+			types = []
 			index = $(e.currentTarget).attr('data-index')
 			if !_.has(CommonFloor.defaults['apartment']['attributes'], index)
 				CommonFloor.defaults['apartment']['attributes'][index] = ''
+			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
+				types = CommonFloor.defaults[type]['attributes'][index].split(',')
 			if $(e.currentTarget).is(':checked')
-				window.flooring.push $(e.currentTarget).attr('data-value')
+				types.push $(e.currentTarget).attr('data-value')
 			else
-				window.flooring = _.without window.flooring ,$(e.currentTarget).attr('data-value')
-			window.flooring =   _.uniq window.flooring 
+				types = _.without window.flooring ,$(e.currentTarget).attr('data-value')
+			window.flooring =   _.uniq types
 			# CommonFloor.defaults['type'] = 'apartment'
-			CommonFloor.defaults['apartment']['attributes'][index] = window.flooring.join(',')
+			CommonFloor.defaults['apartment']['attributes'][index] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)

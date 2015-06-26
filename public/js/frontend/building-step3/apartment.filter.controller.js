@@ -188,18 +188,22 @@
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.flooring': function(e) {
-        var index;
+        var index, types;
+        types = [];
         index = $(e.currentTarget).attr('data-index');
         if (!_.has(CommonFloor.defaults['apartment']['attributes'], index)) {
           CommonFloor.defaults['apartment']['attributes'][index] = '';
         }
-        if ($(e.currentTarget).is(':checked')) {
-          window.flooring.push($(e.currentTarget).attr('data-value'));
-        } else {
-          window.flooring = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
+        if (CommonFloor.defaults['apartment']['attributes'][index] !== "") {
+          types = CommonFloor.defaults[type]['attributes'][index].split(',');
         }
-        window.flooring = _.uniq(window.flooring);
-        CommonFloor.defaults['apartment']['attributes'][index] = window.flooring.join(',');
+        if ($(e.currentTarget).is(':checked')) {
+          types.push($(e.currentTarget).attr('data-value'));
+        } else {
+          types = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
+        }
+        window.flooring = _.uniq(types);
+        CommonFloor.defaults['apartment']['attributes'][index] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
