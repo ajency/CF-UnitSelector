@@ -1157,7 +1157,7 @@ CommonFloor.filterVillas = ()->
 		temp = []
 	
 		if value != "" && index == 'attributes'
-			attributes = unitCollection.toArray()
+			attributes = bunglowVariantCollection.getBunglowUnits()
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
 			$.each CommonFloor.defaults['villa']['attributes'] , (ind1,val1)->
