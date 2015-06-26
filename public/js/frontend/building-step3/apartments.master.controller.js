@@ -224,12 +224,12 @@
           if (CommonFloor.defaults['apartment']['attributes'][index] !== "") {
             types = CommonFloor.defaults['apartment']['attributes'][index].split(',');
           }
-          flooring = _.without(types, $(e.currentTarget).attr('data-id'));
+          console.log(flooring = _.without(types, $(e.currentTarget).attr('data-id')));
           CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
-          unitCollection.trigger('filter_available');
+          unitTempCollection.trigger('filter_available');
           return this.trigger('render:view');
         }
       };

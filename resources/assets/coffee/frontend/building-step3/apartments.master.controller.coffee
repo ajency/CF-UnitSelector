@@ -253,12 +253,12 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			index = $(e.currentTarget).attr('data-index')
 			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
 				types = CommonFloor.defaults['apartment']['attributes'][index].split(',')
-			flooring = _.without types , $(e.currentTarget).attr('data-id')
+			console.log flooring = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
 			CommonFloor.filterStepNew()
-			unitCollection.trigger('filter_available')
+			unitTempCollection.trigger('filter_available')
 			@trigger  'render:view'
 
 	onShow:->
