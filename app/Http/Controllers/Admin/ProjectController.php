@@ -408,7 +408,7 @@ class ProjectController extends Controller {
             $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
             $buildings = $phase->projectBuildings()->get();
             $projectBuildings = array_merge($projectBuildings,$buildings->toArray());
-            $buildingUnits = $buildingBreakpointId =[];
+            $buildingUnits = [];
             
             //Project master total unit count Villa + Plot + Building
             $totalCount += count($units) + count($buildings); 
@@ -419,14 +419,14 @@ class ProjectController extends Controller {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
-            
+                $buildingBreakpointIds =[];
                 $buildingbreakPoint = (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
                  foreach($buildingMediaIds as $position => $buildingMediaId) {
                     if($buildingMediaId!="")
                     {
                         if(in_array($position,$buildingbreakPoint ))
                         {
-                            $buildingBreakpointId[$position]=$buildingMediaId;
+                            $buildingBreakpointIds[$position]=$buildingMediaId;
                         }
                     }
                 }
@@ -434,7 +434,7 @@ class ProjectController extends Controller {
                
                 $totalbuildingUnitCount = count($buildingUnits); 
                 //Building total unit count
-                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
+                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointIds);  
                 foreach($buildingunitSvgCount as $position=> $count)
                 {
                     $buildingunitCount =  $count['apartment'] ;
@@ -446,7 +446,7 @@ class ProjectController extends Controller {
                  
             }
             
-       
+           
             //VILLA + PLOT +Penthouse + APARTMENT
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
@@ -579,6 +579,9 @@ class ProjectController extends Controller {
 		           $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
                 else
                   $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')';
+                
+                if(empty($buildingUnits))
+                   $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')'; 
                 
               if (!empty($unitSvgExits)) {
                     
