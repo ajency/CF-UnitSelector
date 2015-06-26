@@ -463,6 +463,7 @@ class ProjectController extends Controller {
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] = 0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['booked_by_agent'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['archived'] = 0;
                 }
 
@@ -470,6 +471,7 @@ class ProjectController extends Controller {
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] +=($unit['availability'] == 'sold') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] +=($unit['availability'] == 'not_released') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] +=($unit['availability'] == 'blocked') ? 1 : 0;
+                $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['booked_by_agent'] +=($unit['availability'] == 'booked_by_agent') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['archived'] +=($unit['availability'] == 'archived') ? 1 : 0;
             }
             
@@ -1130,6 +1132,7 @@ class ProjectController extends Controller {
         $status[] =['id'=>'sold','name'=>'Sold'] ;
         $status[] =['id'=>'not_released','name'=>'Not Released'] ;
         $status[] =['id'=>'blocked','name'=>'Blocked'] ;
+        $status[] =['id'=>'booked_by_agent','name'=>'Booked By Agent'] ;
         $status[] =['id'=>'archived','name'=>'Archived'] ;
 
         if($propertyTypeId==APARTMENTID || $propertyTypeId==PENTHOUSEID)

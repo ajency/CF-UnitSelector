@@ -88,7 +88,7 @@
                             <input type="hidden" name="projectattributeId[]" value="{{ $projectAttribute['id'] }}" class="form-control">
                         </div>
                         <div class="col-md-2 text-center">
-                            <a class="text-primary" onclick="deleteAttribute({{$project['id']}},{{$projectAttribute['id']}}, this);"><i class="
+                            <a class="text-primary" onclick="deleteAttribute({{$project['id']}},{{$projectAttribute['id']}}, this);" data-object-type="view"><i class="
                                         fa fa-close"></i></a>
                         </div>
 
