@@ -953,7 +953,7 @@
               temp = valkey;
             }
             attributes = apartmentVariantMasterCollection.getApartmentAttributes();
-            if (value !== "" && $.inArray(value, attributes[0]) > -1) {
+            if (valkey !== "" && $.inArray(temp, attributes[0]) > -1) {
               return flooring.push({
                 'typename': 'apartment',
                 'name': valkey,
@@ -1031,7 +1031,7 @@
             } else {
               temp = valkey;
             }
-            if (value !== "" && $.inArray(value, plotVariantMasterCollection.getPlotAttributes()) > -1) {
+            if (valkey !== "" && $.inArray(temp, plotVariantMasterCollection.getPlotAttributes()) > -1) {
               return flooring.push({
                 'typename': 'plot',
                 'name': valkey,
