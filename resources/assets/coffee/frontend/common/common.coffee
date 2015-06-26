@@ -1186,12 +1186,12 @@ CommonFloor.filterVillas = ()->
 CommonFloor.filterVillaAttributes = (ind1,val1)->
 	flooring = []
 	
-	console.log tempColl = bunglowVariantCollection.getBunglowUnits()
-	console.log unitCollection.toArray()
-	newtempColl = _.intersection(tempColl,unitCollection.toArray())
+	newtempColl = unitCollection.toArray()
 	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
+		if unitDetails[2] isnt 'villa'
+			return
 		valkey = unitVarinat.get('variant_attributes')
 		val = _.propertyOf(valkey)(ind1)
 		arr = val1.split(',')
@@ -1214,8 +1214,8 @@ CommonFloor.filterVillaAttributes = (ind1,val1)->
 				flooring.push value
 		unitCollection.reset flooring
 	
-				
-	unitCollection.toArray()	
+	tem = 	unitCollection.toArray()			
+	tem
 	
 
 CommonFloor.filterApartments = ()->

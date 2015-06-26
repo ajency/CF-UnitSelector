@@ -1309,15 +1309,16 @@
   };
 
   CommonFloor.filterVillaAttributes = function(ind1, val1) {
-    var flooring, newtempColl, tempColl;
+    var flooring, newtempColl, tem;
     flooring = [];
-    console.log(tempColl = bunglowVariantCollection.getBunglowUnits());
-    console.log(unitCollection.toArray());
-    newtempColl = _.intersection(tempColl, unitCollection.toArray());
+    newtempColl = unitCollection.toArray();
     $.each(newtempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
+      if (unitDetails[2] !== 'villa') {
+        return;
+      }
       valkey = unitVarinat.get('variant_attributes');
       val = _.propertyOf(valkey)(ind1);
       arr = val1.split(',');
@@ -1348,7 +1349,8 @@
       }
       return unitCollection.reset(flooring);
     });
-    return unitCollection.toArray();
+    tem = unitCollection.toArray();
+    return tem;
   };
 
   CommonFloor.filterApartments = function() {
