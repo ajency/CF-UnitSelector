@@ -207,3 +207,26 @@ function hasUnitAccess($unitId)
  
     return $flag;
 }
+
+function isValidUnit($projectId,$unitId)
+{
+    
+    $variantId = \CommonFloor\Unit::find($unitId)->unit_variant_id;
+    $unitTypeId = \CommonFloor\UnitVariant::find($variantId)->unitType()->first()->id;
+    $project= \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->where('project_id',$projectId)->first();  
+    
+    if($project==null)
+    { 
+        abort(404);
+    }
+}
+
+function isValidVariant($projectId,$variantId)
+{
+    $unitTypeId = \CommonFloor\UnitVariant::find($variantId)->unitType()->first()->id;
+    $project= \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->where('project_id',$projectId)->first();
+    
+    if($project==null)
+        abort(404);
+ 
+}
