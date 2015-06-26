@@ -1349,7 +1349,7 @@
       }
       return unitCollection.reset(flooring);
     });
-    tem = unitCollection.toArray();
+    console.log(tem = unitCollection.toArray());
     return tem;
   };
 

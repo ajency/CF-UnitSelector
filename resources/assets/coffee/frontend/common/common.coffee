@@ -1214,7 +1214,7 @@ CommonFloor.filterVillaAttributes = (ind1,val1)->
 				flooring.push value
 		unitCollection.reset flooring
 	
-	tem = 	unitCollection.toArray()			
+	console.log tem = unitCollection.toArray()			
 	tem
 	
 
