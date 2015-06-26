@@ -456,7 +456,7 @@
     };
 
     FilterApartmentView.prototype.loadSelectedFilters = function() {
-      var attributes, facings, id, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl, views;
+      var aptValues, attributes, facings, id, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl, views;
       unittypesArray = [];
       unitTypes = CommonFloor.defaults['apartment']['unit_type_id'].split(',');
       unitVariantsArray = [];
@@ -474,7 +474,8 @@
         return unittypesColl.push(parseInt(unitDetails[1].get('id')));
       });
       attributes = [];
-      $.merge(attributes, CommonFloor.defaults['apartment']['attributes'].split(','));
+      aptValues = _.values(CommonFloor.defaults['apartment']['attributes']);
+      $.merge(attributes, aptValues);
       views = [];
       $.merge(views, CommonFloor.defaults['common']['views'].split(','));
       facings = [];

@@ -587,7 +587,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			unittypesColl.push parseInt unitDetails[1].get 'id'
 
 		attributes = []
-		$.merge attributes , CommonFloor.defaults['apartment']['attributes'].split(',')
+		aptValues = _.values(CommonFloor.defaults['apartment']['attributes'])
+		$.merge attributes , aptValues
 		
 		views = []
 		$.merge views , CommonFloor.defaults['common']['views'].split(',')
