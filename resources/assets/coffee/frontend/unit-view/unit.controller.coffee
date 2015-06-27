@@ -72,7 +72,7 @@ class TopUnitView extends Marionette.ItemView
 							'id' :  unit.get('unit_type_id')
 			property = window.propertyTypes[unitType.get('property_type_id')]
 			
-			if s.decapitalize(property) == 'penthouse' || s.decapitalize(property) == 'apartments'
+			if s.decapitalize(property) == 'penthouses' || s.decapitalize(property) == 'apartments'
 				buildingModel = buildingCollection.findWhere
 							'id' : unit.get 'building_id'
 				building_id = buildingModel.get 'id'
@@ -298,7 +298,7 @@ class LeftUnitView extends Marionette.ItemView
 		unitsArr = unitColl[0]
 		text = unitColl[1]
 		$.each unitsArr.toArray(), (index, value)->
-			if value.id != unitid
+			if value.id != unitid && value.availability is 'available'
 				units.push value
 				i++
 			if i == 3

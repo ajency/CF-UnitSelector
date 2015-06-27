@@ -617,7 +617,7 @@
             'id': item.get('unit_type_id')
           });
           type = 'A';
-          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouses') {
             type = 'PH';
           }
           if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {

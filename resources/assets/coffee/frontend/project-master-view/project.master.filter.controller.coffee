@@ -410,7 +410,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		'click @ui.flooring':(e)->
 			types = []
 			type = $(e.currentTarget).attr('data-type')
-			console.log index = $(e.currentTarget).attr('data-index')
+			index = $(e.currentTarget).attr('data-index')
 			if !_.has(CommonFloor.defaults[type]['attributes'], index)
 				CommonFloor.defaults[type]['attributes'][index] = ''
 			if CommonFloor.defaults[type]['attributes'][index]!= ""
@@ -1002,7 +1002,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				unitTypeModel = unitTypeMasterCollection.findWhere
 									'id' : item.get 'unit_type_id'
 				type = 'A'
-				if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
+				if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouses'
 						type = 'PH'
 				if $.inArray(item.get('unit_type_id'),unit_types) == -1
 					unit_types.push parseInt unitTypeModel.get 'id'

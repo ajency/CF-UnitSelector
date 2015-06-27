@@ -477,7 +477,7 @@
         buildings.push(building);
       }
       property = window.propertyTypes[unitType.get('property_type_id')];
-      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
+      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouses') {
         apartments.push(apartmentVariantMasterCollection.get(item.get('unit_variant_id')));
       }
       if (s.decapitalize(property) === 'villas/Bungalows') {
@@ -912,7 +912,7 @@
                 'id': parseInt(unit_variant.get('unit_type_id'))
               });
               type = 'A';
-              if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+              if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouses') {
                 type = 'PH';
               }
               unitVariants.push({
@@ -931,7 +931,7 @@
               'id': parseInt(value)
             });
             type = 'A';
-            if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouse') {
+            if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouses') {
               type = 'PH';
             }
             return unitTypes.push({
@@ -1108,7 +1108,7 @@
   };
 
   CommonFloor.getUnitsProperty = function(unitModel) {
-    var property, text, type, unitType;
+    var property, temp, text, type, unitType;
     unitType = unitTypeMasterCollection.findWhere({
       'id': unitModel.get('unit_type_id')
     });
@@ -1117,22 +1117,46 @@
     type = '';
     window.tempColl = unitCollection.clone();
     if (s.decapitalize(property) === 'apartments') {
-      window.tempColl.reset(apartmentVariantCollection.getApartmentUnits());
+      temp = [];
+      $.each(apartmentVariantCollection.getApartmentUnits(), function(index, value) {
+        if (value.get('availability') === 'available') {
+          return temp.push(value);
+        }
+      });
+      window.tempColl.reset(temp);
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = 'apartment';
     }
-    if (s.decapitalize(property) === 'penthouse') {
-      window.tempColl.reset(apartmentVariantCollection.getPenthouseUnits());
+    if (s.decapitalize(property) === 'penthouses') {
+      temp = [];
+      $.each(apartmentVariantCollection.getPenthouseUnits(), function(index, value) {
+        if (value.get('availability') === 'available') {
+          return temp.push(value);
+        }
+      });
+      window.tempColl.reset(temp);
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = s.decapitalize(property);
     }
     if (s.decapitalize(property) === 'villas/Bungalows') {
-      window.tempColl.reset(bunglowVariantCollection.getBunglowUnits());
+      temp = [];
+      $.each(bunglowVariantCollection.getBunglowUnits(), function(index, value) {
+        if (value.get('availability') === 'available') {
+          return temp.push(value);
+        }
+      });
+      window.tempColl.reset(temp);
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = 'villa';
     }
     if (s.decapitalize(property) === 'plot') {
-      window.tempColl.reset(plotVariantCollection.getPlotUnits());
+      temp = [];
+      $.each(plotVariantCollection.getPlotUnits(), function(index, value) {
+        if (value.get('availability') === 'available') {
+          return temp.push(value);
+        }
+      });
+      window.tempColl.reset(temp);
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = s.decapitalize(property);
     }

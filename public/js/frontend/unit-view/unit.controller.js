@@ -82,7 +82,7 @@
             'id': unit.get('unit_type_id')
           });
           property = window.propertyTypes[unitType.get('property_type_id')];
-          if (s.decapitalize(property) === 'penthouse' || s.decapitalize(property) === 'apartments') {
+          if (s.decapitalize(property) === 'penthouses' || s.decapitalize(property) === 'apartments') {
             buildingModel = buildingCollection.findWhere({
               'id': unit.get('building_id')
             });
@@ -212,7 +212,7 @@
       unitsArr = unitColl[0];
       text = unitColl[1];
       $.each(unitsArr.toArray(), function(index, value) {
-        if (value.id !== unitid) {
+        if (value.id !== unitid && value.availability === 'available') {
           units.push(value);
           i++;
         }

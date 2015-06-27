@@ -64,7 +64,7 @@
           'id': model.get('unit_type_id')
         });
         property = window.propertyTypes[unitType.get('property_type_id')];
-        if (s.decapitalize(property) === 'penthouse') {
+        if (s.decapitalize(property) === 'penthouses') {
           return units.push(model);
         }
       });

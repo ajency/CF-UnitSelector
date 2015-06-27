@@ -270,7 +270,7 @@
         var index, type, types;
         types = [];
         type = $(e.currentTarget).attr('data-type');
-        console.log(index = $(e.currentTarget).attr('data-index'));
+        index = $(e.currentTarget).attr('data-index');
         if (!_.has(CommonFloor.defaults[type]['attributes'], index)) {
           CommonFloor.defaults[type]['attributes'][index] = '';
         }
@@ -915,7 +915,7 @@
             'id': item.get('unit_type_id')
           });
           type = 'A';
-          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouses') {
             type = 'PH';
           }
           if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
