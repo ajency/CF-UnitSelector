@@ -443,7 +443,7 @@ CommonFloor.resetCollections = ()->
 			apartments.push apartmentVariantMasterCollection.get(item.get('unit_variant_id'))
 		if s.decapitalize(property) == 'villas/Bungalows'
 			bunglows.push bunglowVariantMasterCollection.get(item.get('unit_variant_id'))
-		if s.decapitalize(property) == 'plot'
+		if s.decapitalize(property) == 'plots'
 			plots.push plotVariantMasterCollection.get(item.get('unit_variant_id'))
 		unitTypes.push unitType
 		
@@ -1052,7 +1052,7 @@ CommonFloor.getUnitsProperty = (unitModel)->
 		window.tempColl.reset temp
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
 		type = 'villa'
-	if s.decapitalize(property) == 'plot'
+	if s.decapitalize(property) == 'plots'
 		temp = []
 		$.each plotVariantCollection.getPlotUnits() , (index,value)->
 			if value.get('availability') is 'available'
