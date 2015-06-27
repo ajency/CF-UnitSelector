@@ -106,22 +106,22 @@
                 @foreach($userProjects as $userProject)
                 <div class="row m-b-10 project_block project-{{ $userProject['project_id'] }}">
                         <div class="col-md-10 ">
-                            <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
+                            <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" {{ ($flag)?'disabled':'' }} class="form-control">
                         </div>
-                        <div class="col-md-2 text-center">
+                        <div class="col-md-2 text-center {{ ($flag)?'hidden':'' }}">
                             <a class="text-primary delete-user-project" data-project-id="{{ $userProject['project_id'] }}"><i class="fa fa-close"></i></a>
                         </div>
 
                     </div>
                 @endforeach
               @endif
-                <div class="row m-b-10 no-projects {{ (!empty($userProjects))?'hidden':'' }}">
+                <div class="row m-b-10 no-projects {{ (!empty($userProjects))?'hidden':'' }} ">
                     <div class="col-md-12 ">
                     No Project Assigned To User
                     </div>
                 </div>    
                       
-                    <div class="add-unit add_user_project_block">
+                    <div class="add-unit add_user_project_block {{ ($flag)?'hidden':'' }}">
                         <div class="row p-t-10 p-r-15 p-l-15">
                             <div class="col-md-12">
                             <input type="text" name="project_name" id="project_name" value="" class="form-control">
