@@ -80,7 +80,7 @@
           CommonFloor.defaults['apartment'][index] = "";
           if (index === 'attributes') {
             return $.each(value, function(ind, val) {
-              return CommonFloor.defaults['apartment'][index][ind] = {};
+              return CommonFloor.defaults['apartment'][index] = {};
             });
           }
         });

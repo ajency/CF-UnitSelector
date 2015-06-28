@@ -153,7 +153,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				CommonFloor.defaults['apartment'][index] = ""
 				if index is 'attributes'
 					$.each value ,(ind,val)->
-						CommonFloor.defaults['apartment'][index][ind] = {}
+						CommonFloor.defaults['apartment'][index] = {}
 			$.each CommonFloor.defaults['common'],(index,value)->
 				CommonFloor.defaults['common'][index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
