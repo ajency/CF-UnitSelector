@@ -601,15 +601,15 @@
           return window.numDifferentiation(num);
         }
       });
-      $(this.ui.villa).removeClass('villa-check');
-      $(this.ui.villa).removeClass('villa-wrapper');
-      $(this.ui.villa).removeClass('villa-btn');
-      $(this.ui.apt).removeClass('apartment-check');
-      $(this.ui.apt).removeClass('apartment-wrapper');
-      $(this.ui.apt).removeClass('apartment-btn');
-      $(this.ui.plot).removeClass('plot-check');
-      $(this.ui.plot).removeClass('plot-wrapper');
-      return $(this.ui.plotplot).removeClass('plot-btn');
+      $(this.ui.villa).parent().removeClass('villa-check');
+      $(this.ui.villa).parent().removeClass('villa-wrapper');
+      $(this.ui.villa).parent().removeClass('villa-btn');
+      $(this.ui.apt).parent().removeClass('apartment-check');
+      $(this.ui.apt).parent().removeClass('apartment-wrapper');
+      $(this.ui.apt).parent().removeClass('apartment-btn');
+      $(this.ui.plot).parent().removeClass('plot-check');
+      $(this.ui.plot).parent().removeClass('plot-wrapper');
+      return $(this.ui.plotplot).parent().removeClass('plot-btn');
     };
 
     FilterMsterView.prototype.loadSelectedFilters = function() {

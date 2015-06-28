@@ -707,15 +707,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
-		$(@ui.villa).removeClass 'villa-check'
-		$(@ui.villa).removeClass 'villa-wrapper'
-		$(@ui.villa).removeClass 'villa-btn'
-		$(@ui.apt).removeClass 'apartment-check'
-		$(@ui.apt).removeClass 'apartment-wrapper'
-		$(@ui.apt).removeClass 'apartment-btn'
-		$(@ui.plot).removeClass 'plot-check'
-		$(@ui.plot).removeClass 'plot-wrapper'
-		$(@ui.plotplot).removeClass 'plot-btn'
+		$(@ui.villa).parent().removeClass 'villa-check'
+		$(@ui.villa).parent().removeClass 'villa-wrapper'
+		$(@ui.villa).parent().removeClass 'villa-btn'
+		$(@ui.apt).parent().removeClass 'apartment-check'
+		$(@ui.apt).parent().removeClass 'apartment-wrapper'
+		$(@ui.apt).parent().removeClass 'apartment-btn'
+		$(@ui.plot).parent().removeClass 'plot-check'
+		$(@ui.plot).parent().removeClass 'plot-wrapper'
+		$(@ui.plotplot).parent().removeClass 'plot-btn'
 
 		
 
