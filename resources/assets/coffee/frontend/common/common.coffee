@@ -400,16 +400,16 @@ CommonFloor.applyNonFilterClass = ()->
 	if CommonFloor.defaults['type']  != ""
 				flag = 1
 	$.each CommonFloor.defaults['apartment'],(index,value)->
-		if value  != ""
+		if value  != "" && !(_.isEmpty value)
 			flag = 1
 	$.each CommonFloor.defaults['plot'],(index,value)->
-		if value  != ""
+		if value  != "" && !(_.isEmpty value)
 			flag = 1
 	$.each CommonFloor.defaults['villa'],(index,value)->
-		if value  != ""
+		if value  != "" && !(_.isEmpty value)
 			flag = 1
 	$.each CommonFloor.defaults['common'],(index,value)->
-		if value  != ""
+		if value  != "" 
 			flag = 1
 
 	if flag == 0

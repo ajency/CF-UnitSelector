@@ -424,22 +424,22 @@
       flag = 1;
     }
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
-      if (value !== "") {
+      if (value !== "" && !(_.isEmpty(value))) {
         return flag = 1;
       }
     });
     $.each(CommonFloor.defaults['plot'], function(index, value) {
-      if (value !== "") {
+      if (value !== "" && !(_.isEmpty(value))) {
         return flag = 1;
       }
     });
     $.each(CommonFloor.defaults['villa'], function(index, value) {
-      if (value !== "") {
+      if (value !== "" && !(_.isEmpty(value))) {
         return flag = 1;
       }
     });
     $.each(CommonFloor.defaults['common'], function(index, value) {
-      if (value !== "") {
+      if (value !== "" && !(_.isEmpty(value))) {
         return flag = 1;
       }
     });
