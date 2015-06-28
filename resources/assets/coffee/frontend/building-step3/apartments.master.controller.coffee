@@ -771,6 +771,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				id :  id
 			if !(_.isUndefined unit) && unit.get('availability') is 'available'
 				CommonFloor.navigate '/unit-view/'+id , true
+			else
+				$(document).unbind('click')
 			# CommonFloor.router.storeRoute()
 
 		'mouseover .next,.prev':(e)->
@@ -921,9 +923,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				# that.delegateEvents()
 				$(that.el).delegate('.apartment', 'mouseover');
 				$(that.el).delegate('.available', 'click');
-				$(that.el).undelegate('.sold', 'click');
-				$(that.el).undelegate('.not_relased', 'click');
-				$(that.el).undelegate('.blocked', 'click');
+				# $(that.el).undelegate('.sold', 'click');
+				# $(that.el).undelegate('.not_relased', 'click');
+				# $(that.el).undelegate('.blocked', 'click');
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
 				
