@@ -41,6 +41,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 				unit_variant_id : model.get('id')
 			units.push  apartmentUnits
 		$.each units,(index,value)->
+			console.log value
 			unitType = unitTypeMasterCollection.findWhere
 							'id' :  value.get('unit_type_id')
 			property = window.propertyTypes[unitType.get('property_type_id')]

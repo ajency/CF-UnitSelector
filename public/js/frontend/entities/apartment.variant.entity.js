@@ -51,6 +51,7 @@
       });
       $.each(units, function(index, value) {
         var property, unitType;
+        console.log(value);
         unitType = unitTypeMasterCollection.findWhere({
           'id': value.get('unit_type_id')
         });
