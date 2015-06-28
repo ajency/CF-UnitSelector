@@ -220,7 +220,10 @@
           return false;
         }
       });
-      if (units.length === 1) {
+      if (unitsArr.length === 1) {
+        text = '';
+      }
+      if (units.length === 0) {
         text = '';
       }
       return [units, text, unitColl[2]];
@@ -536,7 +539,7 @@
     };
 
     CenterUnitView.prototype.onShow = function() {
-      var flag, height, html, response;
+      var building, flag, height, html, id, response, unit, url;
       flag = 0;
       this.getNextPrevUnit();
       response = this.generateLevels();
@@ -584,6 +587,18 @@
       }
       if (_.isUndefined(response[3].get('galleryurl'))) {
         $('.gallery').hide();
+      }
+      url = Backbone.history.fragment;
+      id = url.split('/')[1];
+      unit = unitCollection.findWhere({
+        'id': parseInt(id)
+      });
+      response = window.unit.getUnitDetails(id);
+      building = buildingCollection.findWhere({
+        'id': parseInt(unit.get('building_id'))
+      });
+      if (project.get('project_master').length !== 0 || building.get('building_master').length !== 0) {
+        $('.master').removeClass('hidden');
       }
       if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl'))) {
         $('.gallery').addClass('current');
