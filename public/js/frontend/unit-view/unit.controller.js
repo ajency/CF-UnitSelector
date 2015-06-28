@@ -614,6 +614,7 @@
       }
       if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))) {
         this.loadMaster();
+        console.log("aaaaaaaaa");
         flag = 1;
         $('.master').addClass('current');
         $('.gallery').removeClass('current');
@@ -649,7 +650,6 @@
 
     CenterUnitView.prototype.loadMaster = function() {
       var breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
-      $('.master').removeClass('hidden');
       url = Backbone.history.fragment;
       id = url.split('/')[1];
       unit = unitCollection.findWhere({
