@@ -439,7 +439,7 @@
       }
     });
     $.each(CommonFloor.defaults['common'], function(index, value) {
-      if (value !== "" && !(_.isEmpty(value))) {
+      if (value !== "") {
         return flag = 1;
       }
     });
