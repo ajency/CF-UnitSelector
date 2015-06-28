@@ -79,9 +79,7 @@
         $.each(CommonFloor.defaults['apartment'], function(index, value) {
           CommonFloor.defaults['apartment'][index] = "";
           if (index === 'attributes') {
-            return $.each(value, function(ind, val) {
-              return CommonFloor.defaults['apartment'][index] = {};
-            });
+            return CommonFloor.defaults['apartment'][index] = {};
           }
         });
         $.each(CommonFloor.defaults['common'], function(index, value) {

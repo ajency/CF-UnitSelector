@@ -203,18 +203,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			$.each CommonFloor.defaults['villa'],(index,value)->
 				CommonFloor.defaults['villa'][index] = ""
 				if index is 'attributes'
-					$.each value ,(ind,val)->
-						CommonFloor.defaults['villa'][index] = {}
+					CommonFloor.defaults['villa'][index] = {}
 			$.each CommonFloor.defaults['apartment'],(index,value)->
 				CommonFloor.defaults['apartment'][index] = ""
 				if index is 'attributes'
-					$.each value ,(ind,val)->
-						CommonFloor.defaults['apartment'][index] = {}
+					CommonFloor.defaults['apartment'][index] = {}
 			$.each CommonFloor.defaults['plot'],(index,value)->
 				CommonFloor.defaults['plot'][index] = ""
 				if index is 'attributes'
-					$.each value ,(ind,val)->
-						CommonFloor.defaults['plot'][index] = {}
+					CommonFloor.defaults['plot'][index] = {}
 			$.each CommonFloor.defaults['common'],(index,value)->
 				CommonFloor.defaults['common'][index] = ""
 			unitCollection.reset unitMasterCollection.toArray()

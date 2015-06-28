@@ -49,25 +49,19 @@
         $.each(CommonFloor.defaults['villa'], function(index, value) {
           CommonFloor.defaults['villa'][index] = "";
           if (index === 'attributes') {
-            return $.each(value, function(ind, val) {
-              return CommonFloor.defaults['villa'][index] = {};
-            });
+            return CommonFloor.defaults['villa'][index] = {};
           }
         });
         $.each(CommonFloor.defaults['apartment'], function(index, value) {
           CommonFloor.defaults['apartment'][index] = "";
           if (index === 'attributes') {
-            return $.each(value, function(ind, val) {
-              return CommonFloor.defaults['apartment'][index] = {};
-            });
+            return CommonFloor.defaults['apartment'][index] = {};
           }
         });
         $.each(CommonFloor.defaults['plot'], function(index, value) {
           CommonFloor.defaults['plot'][index] = "";
           if (index === 'attributes') {
-            return $.each(value, function(ind, val) {
-              return CommonFloor.defaults['plot'][index] = {};
-            });
+            return CommonFloor.defaults['plot'][index] = {};
           }
         });
         $.each(CommonFloor.defaults['common'], function(index, value) {
