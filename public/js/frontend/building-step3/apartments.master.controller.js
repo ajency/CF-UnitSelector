@@ -717,7 +717,9 @@
         } else {
           $(that.el).delegate('.apartment', 'mouseover');
           $(that.el).delegate('.available', 'click');
-          $(that.el).undelegate('.sold,not_relased,.blocked', 'click');
+          $(that.el).undelegate('.sold', 'click');
+          $(that.el).undelegate('.not_relased', 'click');
+          $(that.el).undelegate('.blocked', 'click');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
