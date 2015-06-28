@@ -220,7 +220,7 @@
           return false;
         }
       });
-      if (unitsArr.length === 1) {
+      if (units.length === 1) {
         text = '';
       }
       return [units, text, unitColl[2]];

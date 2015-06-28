@@ -50,7 +50,14 @@
         return units.push(apartmentUnits);
       });
       $.each(units, function(index, value) {
-        return newUnits = $.merge(newUnits, value);
+        var property, unitType;
+        unitType = unitTypeMasterCollection.findWhere({
+          'id': value.get('unit_type_id')
+        });
+        property = window.propertyTypes[unitType.get('property_type_id')];
+        if (s.decapitalize(property) === 'apartments') {
+          return newUnits = $.merge(newUnits, value);
+        }
       });
       return newUnits;
     };

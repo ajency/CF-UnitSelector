@@ -304,7 +304,7 @@ class LeftUnitView extends Marionette.ItemView
 			if i == 3
 				return false
 				
-		if unitsArr.length == 1
+		if units.length == 1
 			text = ''
 		[units,text,unitColl[2]]
 
