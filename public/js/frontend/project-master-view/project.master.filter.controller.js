@@ -50,7 +50,7 @@
           CommonFloor.defaults['villa'][index] = "";
           if (index === 'attributes') {
             return $.each(value, function(ind, val) {
-              return CommonFloor.defaults['villa'][index][ind] = "";
+              return CommonFloor.defaults['villa'][index][ind] = {};
             });
           }
         });
@@ -58,7 +58,7 @@
           CommonFloor.defaults['apartment'][index] = "";
           if (index === 'attributes') {
             return $.each(value, function(ind, val) {
-              return CommonFloor.defaults['apartment'][index][ind] = "";
+              return CommonFloor.defaults['apartment'][index][ind] = {};
             });
           }
         });
@@ -66,7 +66,7 @@
           CommonFloor.defaults['plot'][index] = "";
           if (index === 'attributes') {
             return $.each(value, function(ind, val) {
-              return CommonFloor.defaults['plot'][index][ind] = "";
+              return CommonFloor.defaults['plot'][index][ind] = {};
             });
           }
         });
