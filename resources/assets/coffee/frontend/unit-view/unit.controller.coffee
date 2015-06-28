@@ -885,7 +885,6 @@ class CenterUnitView extends Marionette.ItemView
 		id = url.split('/')[1]
 		unit = unitCollection.findWhere
 				'id' : parseInt id
-		response = window.unit.getUnitDetails(id)
 		building = buildingCollection.findWhere
 					'id' : parseInt unit.get('building_id')
 		
@@ -905,7 +904,6 @@ class CenterUnitView extends Marionette.ItemView
 
 		if response[0].length == 0 &&  response[1].length == 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))
 			@loadMaster()
-			console.log "aaaaaaaaa"
 			flag = 1
 			$('.master').addClass('current')
 			$('.gallery').removeClass('current')
@@ -1447,7 +1445,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	loadMaster:->
-		# $('.master').removeClass 'hidden'
+		$('.master').removeClass 'hidden'
 		url = Backbone.history.fragment
 		id = url.split('/')[1]
 		unit = unitCollection.findWhere
