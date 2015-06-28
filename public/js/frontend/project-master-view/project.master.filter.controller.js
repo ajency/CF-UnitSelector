@@ -47,13 +47,28 @@
       'click @ui.clear': function(e) {
         CommonFloor.defaults['type'] = "";
         $.each(CommonFloor.defaults['villa'], function(index, value) {
-          return CommonFloor.defaults['villa'][index] = "";
+          CommonFloor.defaults['villa'][index] = "";
+          if (index === 'attributes') {
+            return $.each(value, function(ind, val) {
+              return CommonFloor.defaults['villa'][index][ind] = "";
+            });
+          }
         });
         $.each(CommonFloor.defaults['apartment'], function(index, value) {
-          return CommonFloor.defaults['apartment'][index] = "";
+          CommonFloor.defaults['apartment'][index] = "";
+          if (index === 'attributes') {
+            return $.each(value, function(ind, val) {
+              return CommonFloor.defaults['apartment'][index][ind] = "";
+            });
+          }
         });
         $.each(CommonFloor.defaults['plot'], function(index, value) {
-          return CommonFloor.defaults['plot'][index] = "";
+          CommonFloor.defaults['plot'][index] = "";
+          if (index === 'attributes') {
+            return $.each(value, function(ind, val) {
+              return CommonFloor.defaults['plot'][index][ind] = "";
+            });
+          }
         });
         $.each(CommonFloor.defaults['common'], function(index, value) {
           return CommonFloor.defaults['common'][index] = "";
