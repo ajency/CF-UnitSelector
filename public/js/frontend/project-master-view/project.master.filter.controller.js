@@ -591,7 +591,7 @@
         step: subArea,
         grid: false
       });
-      return $("#budget").ionRangeSlider({
+      $("#budget").ionRangeSlider({
         type: "double",
         min: priceMin,
         max: priceMax,
@@ -601,6 +601,15 @@
           return window.numDifferentiation(num);
         }
       });
+      $(this.ui.villa).removeClass('villa-check');
+      $(this.ui.villa).removeClass('villa-wrapper');
+      $(this.ui.villa).removeClass('villa-btn');
+      $(this.ui.apt).removeClass('apartment-check');
+      $(this.ui.apt).removeClass('apartment-wrapper');
+      $(this.ui.apt).removeClass('apartment-btn');
+      $(this.ui.plot).removeClass('plot-check');
+      $(this.ui.plot).removeClass('plot-wrapper');
+      return $(this.ui.plotplot).removeClass('plot-btn');
     };
 
     FilterMsterView.prototype.loadSelectedFilters = function() {
