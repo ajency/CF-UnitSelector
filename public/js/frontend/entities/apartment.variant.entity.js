@@ -49,15 +49,14 @@
         });
         return units.push(apartmentUnits);
       });
-      $.each(units, function(index, value) {
+      $.each(units[0], function(index, value) {
         var property, unitType;
-        console.log(value);
         unitType = unitTypeMasterCollection.findWhere({
           'id': value.get('unit_type_id')
         });
         property = window.propertyTypes[unitType.get('property_type_id')];
         if (s.decapitalize(property) === 'apartments') {
-          return newUnits = $.merge(newUnits, value);
+          return newUnits.push(value);
         }
       });
       return newUnits;
