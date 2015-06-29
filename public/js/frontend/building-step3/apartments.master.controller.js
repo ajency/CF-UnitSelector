@@ -582,7 +582,7 @@
         html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
         return $('.amenity').tooltipster('content', html);
       },
-      'click .available': function(e) {
+      'click .apartment': function(e) {
         var id, unit;
         id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
