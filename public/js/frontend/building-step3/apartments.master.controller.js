@@ -716,11 +716,12 @@
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();
+          $(document).off('click', '.sold');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $(document).on('click', '.apartment', function(e) {
+      return $(document).bind('click', '.apartment', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;
