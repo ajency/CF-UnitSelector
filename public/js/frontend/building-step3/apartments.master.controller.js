@@ -717,12 +717,12 @@
         } else {
           $(that.el).delegate('.apartment', 'mouseover');
           $(that.el).delegate('.available', 'click');
-          $(document).unbind('click', '.sold');
+          $('.sold').removeAttr('click');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $(document).on('click', '.apartment', function(e) {
+      return $(document).bind('click', '.apartment', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;

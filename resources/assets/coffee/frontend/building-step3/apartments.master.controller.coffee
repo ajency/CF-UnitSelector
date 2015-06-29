@@ -922,14 +922,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				# that.delegateEvents()
 				$(that.el).delegate('.apartment', 'mouseover');
 				$(that.el).delegate('.available', 'click');
-				$(document).unbind('click','.sold')
+				$('.sold').removeAttr('click')
 				# $(that.el).undelegate('.sold', 'click');
 				# $(that.el).undelegate('.not_relased', 'click');
 				# $(that.el).undelegate('.blocked', 'click');
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
 				
-		$(document).on 'click' , '.apartment' , (e)->
+		$(document).bind 'click' , '.apartment' , (e)->
 			clearTimeout(window.renderLoopInterval)
 			xpoint = e.clientX
 			ypoint = e.clientY
