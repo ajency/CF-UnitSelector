@@ -135,6 +135,15 @@ svg polygon {
 svg .no-fill {
   opacity: 0;
 }
+svg .unassign {
+  opacity: 0;
+  fill-opacity: 0;
+}
+svg .unassign:hover {
+  opacity: 0;
+  fill-opacity: 0;
+  cursor: default;
+}
 .amenity {
   stroke-width: 1 !important;
   stroke: #FF7E00;
@@ -5554,9 +5563,7 @@ a.red-link.pull-right {
 }
 /* Svg */
 #aj-imp-browser-body {
-  height: 800px !important;
   margin: 10px auto !important;
-  width: 1330px;
   position: relative;
   overflow: hidden;
 }

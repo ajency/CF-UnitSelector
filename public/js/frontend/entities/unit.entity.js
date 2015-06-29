@@ -35,7 +35,7 @@
           'id': parseInt(unitVariant.get('unit_type_id'))
         });
         type = 'apartment';
-        if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+        if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouses') {
           type = 'Penthouse';
         }
         price = window.apartmentVariant.findUnitPrice(unit);

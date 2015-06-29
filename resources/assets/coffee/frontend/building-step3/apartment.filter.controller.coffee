@@ -151,6 +151,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			# CommonFloor.defaults['type'] = arr.join(',')
 			$.each CommonFloor.defaults['apartment'],(index,value)->
 				CommonFloor.defaults['apartment'][index] = ""
+				if index is 'attributes'
+					CommonFloor.defaults['apartment'][index] = {}
 			$.each CommonFloor.defaults['common'],(index,value)->
 				CommonFloor.defaults['common'][index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
@@ -762,7 +764,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				unitTypeModel = unitTypeMasterCollection.findWhere
 									'id' : item.get 'unit_type_id'
 				type = 'A'
-				if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
+				if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouses'
 						type = 'PH'
 				if $.inArray(item.get('unit_type_id'),unit_types) == -1
 					unit_types.push parseInt unitTypeModel.get 'id'

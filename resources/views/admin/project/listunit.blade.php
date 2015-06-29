@@ -29,10 +29,11 @@
                 @endif
             </div>
             <div class="grid-body">
-                <table class="table unitList table-bordered" id="example2" >
+                <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
-                               <th>Name</th>
+                            <th style="width:40px;">Edit</th>
+                            <th>Name</th>
                             <th>Status</th>
                             <th>Variant</th>
                             <th>Phase</th>
@@ -42,10 +43,10 @@
                     </thead>
                     <tbody> 
                         @foreach ($unit_arr as $unit)
-                            <tr class="" >
-       
+                            <tr class="row-{{ $unit['id'] }}" >
+                                <td class="text-center quick-edit" data-object-id="{{ $unit['id'] }}" data-toggle="hide"><span class="fa fa-edit"></span></td>
                                 <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">{{ $unit['unit_name'] }}</td>
-                                <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">{{ ucfirst($unit->availability) }}</td>
+                                <td class="object-status" data-object-value="{{ $unit->availability }}" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">{{ ucfirst($unit->availability) }}</td>
                                 <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">{{ $unit->unitVariant->unit_variant_name}}</td>
                                 <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">{{ $unit->phase->phase_name }}</td>
                                 <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
@@ -68,7 +69,9 @@
         <h4 class="modal-title text-left" id="myModalLabel">Bulk Import</h4>
       </div>
       <div class="modal-body">
+         
         <a href="{{ url( 'admin/project/' . $project['id'].'/unitexport/'.BUNGLOWID ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download config</a>
+        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Villa-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Sample</a>  
          <div class="row m-b-10">
             <div class="col-md-12">
              <div class="form-group">
@@ -92,42 +95,5 @@
     </form>     
   </div>
 </div>
-<script type="text/javascript">
-    $('#example2.unitList tbody td i').on('click', function () {
-        var nTr = $(this).parents('tr')[0];
-        if (oTable.fnIsOpen(nTr))
-        {
-            /* This row is already open - close it */
-            this.removeClass = "fa fa-pencil";
-            this.addClass = "fa fa-minus-circle";
-            oTable.fnClose(nTr);
-        }
-        else
-        {
-            /* Open this row */
-            this.removeClass = "fa fa-minus-circle";
-            this.addClass = "fa fa-pencil";
-            oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
-        }
-    });
 
-    function fnFormatDetails(oTable, nTr)
-    {
-        var aData = oTable.fnGetData(nTr);
-        var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
-        sOut += '<tr><td>Status:</td><td>';
-        sOut += '<select id="unit_types" class="form-control">';
-        sOut += '<option value="available">Available</option>';
-        sOut += '<option value="sold">Sold</option>';
-        sOut += '<option value="not_released">Not Released</option>';
-        sOut += '<option value="blocked">Blocked</option>';
-        sOut += '<option value="archived">Archived</option>';
-        sOut += '</select>'; 
-        sOut += '<button class="btn btn-small btn-primary m-l-10">Save</button></td></tr>';
-        sOut += '</table>';
-
-        return sOut;
- 
-    }
-</script>
 @endsection

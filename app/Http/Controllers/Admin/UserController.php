@@ -150,11 +150,24 @@ class UserController extends Controller {
         $user = User::find($id)->toArray();
         $roles = Role::all()->toArray(); 
         $defaultRole = getDefaultRole($id);
+        $userProjects = getUserAssignedProject($id);
+        
+        if($defaultRole['PROJECT_ACCESS']=='specific')
+        {
+            foreach($userProjects as $key=> $userProject)
+            { 
+                $userProjects[$key]['project_name']= Project :: find($userProject['project_id'])->project_title;
+
+            }
+        }
+        
         $user['default_role_id'] = $defaultRole['role_id'];
+        $user['project_access'] = $defaultRole['PROJECT_ACCESS'];
         
         return view('admin.user.edit')
                         ->with('roles', $roles)
                         ->with('user', $user)
+                        ->with('userProjects', $userProjects)
                         ->with('flag', TRUE)
                         ->with('menuFlag', FALSE);
     }

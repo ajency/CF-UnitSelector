@@ -267,6 +267,15 @@ class ProjectBunglowUnitController extends Controller {
         //
     }
     
+    public function updateStatus($project_id, $id, Request $request) {
+        
+        return response()->json([
+                    'code' => 'unit_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
+    }
+    
  
     public function validateUnitName($projectId,Request $request) {
         $name = $request->input('name');

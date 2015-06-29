@@ -28,7 +28,7 @@
                         </div>
             <div class="grid-body no-border"> 
                
-                <form id="add_project" method="POST" action="{{ '/admin/user/'.$user['id'] }}" data-parsley-validate>
+                <form id="add_project" method="POST" action="{{ ($flag)?'/admin/user/'.$user['id'].'/profileupdate':'/admin/user/'.$user['id'] }}" data-parsley-validate>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -101,33 +101,33 @@
     <div class="grid-body no-border user-project">
          
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-5">
               @if(!empty($userProjects))        
                 @foreach($userProjects as $userProject)
                 <div class="row m-b-10 project_block project-{{ $userProject['project_id'] }}">
-                        <div class="col-md-8 ">
-                            <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
+                        <div class="col-md-10 ">
+                            <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" {{ ($flag)?'disabled':'' }} class="form-control">
                         </div>
-                        <div class="col-md-2 text-center">
+                        <div class="col-md-2 text-center {{ ($flag)?'hidden':'' }}">
                             <a class="text-primary delete-user-project" data-project-id="{{ $userProject['project_id'] }}"><i class="fa fa-close"></i></a>
                         </div>
 
                     </div>
                 @endforeach
               @endif
-                <div class="row m-b-10 no-projects {{ (!empty($userProjects))?'hidden':'' }}">
+                <div class="row m-b-10 no-projects {{ (!empty($userProjects))?'hidden':'' }} ">
                     <div class="col-md-12 ">
                     No Project Assigned To User
                     </div>
                 </div>    
                       
-                    <div class="add-unit add_user_project_block">
+                    <div class="add-unit add_user_project_block {{ ($flag)?'hidden':'' }}">
                         <div class="row p-t-10 p-r-15 p-l-15">
                             <div class="col-md-12">
                             <input type="text" name="project_name" id="project_name" value="" class="form-control">
                             <input type="hidden" name="project_id" id="project_id" value="" class="form-control">
                         <div class="text-right">
-                            <a   class="add-project-user-btn btn btn-link" data-user-type="user"><i class="fa fa-"></i> Add Project</a>
+                            <a   class="add-project-user-btn btn btn-link"><i class="fa fa-"></i> Add Project</a>
                         </div> </div>
                         </div>
                         </div>

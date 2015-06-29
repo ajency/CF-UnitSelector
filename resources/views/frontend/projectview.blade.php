@@ -150,6 +150,8 @@
 
         };
 
+        window.bookingPortalUrl = "{{BOOKING_PORTAL_URL}}"
+
         
         
         </script>

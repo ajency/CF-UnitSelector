@@ -17,7 +17,7 @@
         return unitTypes;
       }
       units = unitCollection.where({
-        'building_id': building_id
+        'building_id': parseInt(building_id)
       });
       units = new Backbone.Collection(units);
       variants = units.pluck("unit_variant_id");

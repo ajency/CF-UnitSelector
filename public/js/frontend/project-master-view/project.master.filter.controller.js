@@ -47,13 +47,22 @@
       'click @ui.clear': function(e) {
         CommonFloor.defaults['type'] = "";
         $.each(CommonFloor.defaults['villa'], function(index, value) {
-          return CommonFloor.defaults['villa'][index] = "";
+          CommonFloor.defaults['villa'][index] = "";
+          if (index === 'attributes') {
+            return CommonFloor.defaults['villa'][index] = {};
+          }
         });
         $.each(CommonFloor.defaults['apartment'], function(index, value) {
-          return CommonFloor.defaults['apartment'][index] = "";
+          CommonFloor.defaults['apartment'][index] = "";
+          if (index === 'attributes') {
+            return CommonFloor.defaults['apartment'][index] = {};
+          }
         });
         $.each(CommonFloor.defaults['plot'], function(index, value) {
-          return CommonFloor.defaults['plot'][index] = "";
+          CommonFloor.defaults['plot'][index] = "";
+          if (index === 'attributes') {
+            return CommonFloor.defaults['plot'][index] = {};
+          }
         });
         $.each(CommonFloor.defaults['common'], function(index, value) {
           return CommonFloor.defaults['common'][index] = "";
@@ -270,7 +279,7 @@
         var index, type, types;
         types = [];
         type = $(e.currentTarget).attr('data-type');
-        console.log(index = $(e.currentTarget).attr('data-index'));
+        index = $(e.currentTarget).attr('data-index');
         if (!_.has(CommonFloor.defaults[type]['attributes'], index)) {
           CommonFloor.defaults[type]['attributes'][index] = '';
         }
@@ -576,7 +585,7 @@
         step: subArea,
         grid: false
       });
-      return $("#budget").ionRangeSlider({
+      $("#budget").ionRangeSlider({
         type: "double",
         min: priceMin,
         max: priceMax,
@@ -586,6 +595,15 @@
           return window.numDifferentiation(num);
         }
       });
+      $(this.ui.villa).parent().removeClass('villa-check');
+      $(this.ui.villa).parent().removeClass('villa-wrapper');
+      $(this.ui.villa).parent().removeClass('villa-btn');
+      $(this.ui.apt).parent().removeClass('apartment-check');
+      $(this.ui.apt).parent().removeClass('apartment-wrapper');
+      $(this.ui.apt).parent().removeClass('apartment-btn');
+      $(this.ui.plot).parent().removeClass('plot-check');
+      $(this.ui.plot).parent().removeClass('plot-wrapper');
+      return $(this.ui.plotplot).parent().removeClass('plot-btn');
     };
 
     FilterMsterView.prototype.loadSelectedFilters = function() {
@@ -915,7 +933,7 @@
             'id': item.get('unit_type_id')
           });
           type = 'A';
-          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouses') {
             type = 'PH';
           }
           if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {

@@ -89,6 +89,7 @@
                             <option value="sold">Sold</option>
                             <option value="not_released">Not Released</option>
                             <option value="blocked">Blocked</option>
+                            <option value="booked_by_agent">Booked By Agent</option>
                             <option value="archived">Archived</option>
                         </select>
                         

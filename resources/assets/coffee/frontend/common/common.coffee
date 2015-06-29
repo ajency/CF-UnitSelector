@@ -156,7 +156,7 @@ window.calculatePerc = (value,total)->
 	perc
 
 # @todo get from php constant
-window.bookingPortalUrl = 'http://dev.commonfloor.com/book-your-property'
+# window.bookingPortalUrl = 'http://dev.commonfloor.com/book-your-property'
 	   
 #function to convert value into price format		
 window.convertRupees = (val)->
@@ -400,16 +400,16 @@ CommonFloor.applyNonFilterClass = ()->
 	if CommonFloor.defaults['type']  != ""
 				flag = 1
 	$.each CommonFloor.defaults['apartment'],(index,value)->
-		if value  != ""
+		if value  != "" && !(_.isEmpty value)
 			flag = 1
 	$.each CommonFloor.defaults['plot'],(index,value)->
-		if value  != ""
+		if value  != "" && !(_.isEmpty value)
 			flag = 1
 	$.each CommonFloor.defaults['villa'],(index,value)->
-		if value  != ""
+		if value  != "" && !(_.isEmpty value)
 			flag = 1
 	$.each CommonFloor.defaults['common'],(index,value)->
-		if value  != ""
+		if value  != "" 
 			flag = 1
 
 	if flag == 0
@@ -439,11 +439,11 @@ CommonFloor.resetCollections = ()->
 						'id' : item.get('building_id')
 			buildings.push building
 		property = window.propertyTypes[unitType.get('property_type_id')]
-		if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouse'
+		if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouses'
 			apartments.push apartmentVariantMasterCollection.get(item.get('unit_variant_id'))
 		if s.decapitalize(property) == 'villas/Bungalows'
 			bunglows.push bunglowVariantMasterCollection.get(item.get('unit_variant_id'))
-		if s.decapitalize(property) == 'plot'
+		if s.decapitalize(property) == 'plots'
 			plots.push plotVariantMasterCollection.get(item.get('unit_variant_id'))
 		unitTypes.push unitType
 		
@@ -867,7 +867,7 @@ CommonFloor.getApartmentFilters = ()->
 						unitTypeModel = unitTypeMasterCollection.findWhere
 									'id' : parseInt unit_variant.get('unit_type_id')
 						type = 'A'
-						if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
+						if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouses'
 								type = 'PH'
 						unitVariants.push 
 									'typename':'apartment'
@@ -881,7 +881,7 @@ CommonFloor.getApartmentFilters = ()->
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
 					type = 'A'
-					if window.propertyTypes[unit_type.get('property_type_id')] == 'Penthouse'
+					if window.propertyTypes[unit_type.get('property_type_id')] == 'Penthouses'
 								type = 'PH'
 					unitTypes.push 
 								'typename':'apartment'
@@ -1029,19 +1029,35 @@ CommonFloor.getUnitsProperty = (unitModel)->
 	type = ''
 	window.tempColl = unitCollection.clone()
 	if s.decapitalize(property) == 'apartments' 
-		window.tempColl.reset apartmentVariantCollection.getApartmentUnits()
+		temp = []
+		$.each apartmentVariantCollection.getApartmentUnits() , (index,value)->
+			if value.get('availability') is 'available'
+				temp.push value
+		window.tempColl.reset temp
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
 		type = 'apartment'
-	if s.decapitalize(property) == 'penthouse'
-		window.tempColl.reset apartmentVariantCollection.getPenthouseUnits()
+	if s.decapitalize(property) == 'penthouses'
+		temp = []
+		$.each apartmentVariantCollection.getPenthouseUnits() , (index,value)->
+			if value.get('availability') is 'available'
+				temp.push value
+		window.tempColl.reset temp
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
 		type = s.decapitalize(property)
 	if s.decapitalize(property) == 'villas/Bungalows'
-		window.tempColl.reset bunglowVariantCollection.getBunglowUnits()
+		temp = []
+		$.each bunglowVariantCollection.getBunglowUnits() , (index,value)->
+			if value.get('availability') is 'available'
+				temp.push value
+		window.tempColl.reset temp
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
 		type = 'villa'
-	if s.decapitalize(property) == 'plot'
-		window.tempColl.reset plotVariantCollection.getPlotUnits()
+	if s.decapitalize(property) == 'plots'
+		temp = []
+		$.each plotVariantCollection.getPlotUnits() , (index,value)->
+			if value.get('availability') is 'available'
+				temp.push value
+		window.tempColl.reset temp
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
 		type = s.decapitalize(property)
 

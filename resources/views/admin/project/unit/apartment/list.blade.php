@@ -75,6 +75,8 @@
       </div>
       <div class="modal-body">
         <a href="{{ url( 'admin/project/' . $project['id'].'/unitexport/'.APARTMENTID ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download config</a>
+        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Penthouse-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Penthouse Sample</a>    
+        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Apartment-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Apartment Sample</a>  
         <div class="row m-b-10">
             <div class="col-md-12">
                 <div class="form-group">
