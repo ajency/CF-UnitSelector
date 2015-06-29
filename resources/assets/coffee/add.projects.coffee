@@ -698,6 +698,11 @@ $('#project_name').autocomplete
         id = $(@).attr 'data-object-id'
         toggleRow = $(@).attr 'data-toggle'
         unitStatus = $(@).closest('tr').find('.object-status').attr 'data-object-value'
+        if unitStatus is 'booked_by_agent' 
+            hideSaveButton = 'hidden'
+        else
+            hideSaveButton = '' 
+
         str = '<tr class="status-row-{{ object_id }}">
                 <td colspan="8">
                 <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">
@@ -710,14 +715,14 @@ $('#project_name').autocomplete
                     <option value="booked_by_agent">Booked By Agent</option>
                     <option value="archived">Archived</option>
                     </select>  
-                    <button class="btn btn-small btn-primary m-l-10 update-status" data-object-id="{{ object_id }}">Save</button></td></tr>
+                    <button class="btn btn-small btn-primary m-l-10 update-status {{ hide_button }}" data-object-id="{{ object_id }}">Save</button></td></tr>
                 </table>
                 </td>
                </tr>'
         compile = Handlebars.compile str
             
         if toggleRow is 'hide'  
-            $(@).closest('tr').after compile( { unit_status : unitStatus, object_id : id } )
+            $(@).closest('tr').after compile( { unit_status : unitStatus, object_id : id, hide_button : hideSaveButton  } )
             $(".status-row-"+id).find('select[name="unit_status"]').val unitStatus
             $(@).attr('data-toggle','show')
         else

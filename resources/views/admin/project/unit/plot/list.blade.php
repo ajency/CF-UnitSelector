@@ -30,7 +30,9 @@
                 <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
+                            @if(hasPermission($project['id'],['unit_status_update']))
                             <th style="width: 40px;">Edit</th>
+                            @endif
                             <th>Name</th>
                             <th>Status</th>
                             <th>Variant</th>
@@ -42,7 +44,9 @@
                     <tbody> 
                         @foreach ($unit_arr as $unit)
                             <tr class="row-{{ $unit['id'] }}" >
+                                @if(hasPermission($project['id'],['unit_status_update']))
                                 <td class="text-center quick-edit" data-object-id="{{ $unit['id'] }}" data-toggle="hide"><span class="fa fa-edit"></span></td>
+                                @endif
                                 <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/plots-unit/'.$unit['id'].'/edit') }}'">{{ $unit['unit_name'] }}</td>
                                 <td class="object-status" data-object-value="{{ $unit->availability }}" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/plots-unit/'.$unit['id'].'/edit') }}'">{{ ucfirst($unit->availability) }}</td>
                                 <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/plots-unit/'.$unit['id'].'/edit') }}'">{{ $unit->unitVariant->unit_variant_name}}</td>

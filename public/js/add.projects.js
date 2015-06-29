@@ -580,16 +580,22 @@
   });
 
   $('.quick-edit').click(function() {
-    var compile, id, str, toggleRow, unitStatus;
+    var compile, hideSaveButton, id, str, toggleRow, unitStatus;
     id = $(this).attr('data-object-id');
     toggleRow = $(this).attr('data-toggle');
     unitStatus = $(this).closest('tr').find('.object-status').attr('data-object-value');
-    str = '<tr class="status-row-{{ object_id }}"> <td colspan="8"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table"> <tr><td>Status:</td><td> <select name="unit_status" class="form-control"> <option value="available">Available</option> <option value="sold">Sold</option> <option value="not_released">Not Released</option> <option value="blocked">Blocked</option> <option value="booked_by_agent">Booked By Agent</option> <option value="archived">Archived</option> </select> <button class="btn btn-small btn-primary m-l-10 update-status" data-object-id="{{ object_id }}">Save</button></td></tr> </table> </td> </tr>';
+    if (unitStatus === 'booked_by_agent') {
+      hideSaveButton = 'hidden';
+    } else {
+      hideSaveButton = '';
+    }
+    str = '<tr class="status-row-{{ object_id }}"> <td colspan="8"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table"> <tr><td>Status:</td><td> <select name="unit_status" class="form-control"> <option value="available">Available</option> <option value="sold">Sold</option> <option value="not_released">Not Released</option> <option value="blocked">Blocked</option> <option value="booked_by_agent">Booked By Agent</option> <option value="archived">Archived</option> </select> <button class="btn btn-small btn-primary m-l-10 update-status {{ hide_button }}" data-object-id="{{ object_id }}">Save</button></td></tr> </table> </td> </tr>';
     compile = Handlebars.compile(str);
     if (toggleRow === 'hide') {
       $(this).closest('tr').after(compile({
         unit_status: unitStatus,
-        object_id: id
+        object_id: id,
+        hide_button: hideSaveButton
       }));
       $(".status-row-" + id).find('select[name="unit_status"]').val(unitStatus);
       return $(this).attr('data-toggle', 'show');

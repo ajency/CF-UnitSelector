@@ -156,7 +156,7 @@ class Permission {
                       'admin/project/{project}/agentunitexport'=>['manage_users'],
                       'admin/agent/{id}/agentunitimport'=>['manage_users'],
                       'admin/project/{project}/downloadsamplefile/{filename}'=>['configure_unit'],
-                      'admin/project/{project}/bunglow-unit/{id}/updatestatus'=>['configure_unit','unit_status_update'],
+                      'admin/project/{project}/bunglow-unit/{id}/updatestatus'=>['unit_status_update'],
 
                               
                 ];
