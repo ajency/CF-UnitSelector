@@ -8393,6 +8393,9 @@ table tr {
   background: rgba(11, 4, 4, 0.54);
   position: absolute;
 }
+input[type="file"] {
+  line-height: 18px;
+}
 /* Notification */
 .notifyjs-bootstrap-base {
   width: 300px;

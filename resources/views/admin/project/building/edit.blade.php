@@ -85,7 +85,7 @@
                          <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Has Master<span class="text-primary">*</span></label>
-                        <div class="radio radio-primary">        
+                        <div class="radio radio-primary" >        
                         <input id="master_yes" type="radio" name="has_master" value="yes" checked>
                         <label for="master_yes" class="form-label">Yes</label>
                         <input id="master_no" type="radio" name="has_master" value="no" {{ ($building->has_master == 'no') ? 'checked' : '' }}>
@@ -103,7 +103,7 @@
                                        "fa fa-angle-double-right text-primary"></i>
                                     Building <span class=
                                                    "semi-bold">Master</span></h3>&nbsp;&nbsp;
-                                    <a id="master_pickfiles"  class="file-input-wrapper btn btn-default btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                                    <a id="master_pickfiles" tabindex="0"  class="file-input-wrapper btn btn-default btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
                                 
                                                    <div class="alert alert-info">
                 <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,
@@ -125,15 +125,15 @@
                   
                     <table class="table table-striped dataTable">
                         <thead>
-                        <th style="width: 16%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Image</th>
-                        <th style="width: 9%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Position</th>
+                        <th style="width: 16%;" data-hide="phone,tablet" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Image</th>
+                        <th style="width: 9%;" data-hide="phone,tablet" class="" role="columnheader" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Position</th>
 
-                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Breakpoint</th>
+                        <th style="width: 9%;" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Breakpoint</th>
 
-                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
+                        <th style="width: 9%;" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
 
-                        <th style="width:6%" class="text-right" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">
-                            <button type="button" onclick="saveBreakPoint()" class="btn btn-primary btn-small">Save Breakpoint</button>
+                        <th style="width:6%" class="text-right" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">
+                            <button tabindex="0" type="button" onclick="saveBreakPoint()" class="btn btn-primary btn-small">Save Breakpoint</button>
                         </th>
                         </thead>
                         <tbody id="master-img">
