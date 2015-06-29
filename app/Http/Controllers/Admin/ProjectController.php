@@ -1217,6 +1217,15 @@ class ProjectController extends Controller {
       
   }
     
+  public function downloadSampleFile($projectId,$filename){
+       
+        $file= public_path() . '/projects/cfsamplefile/'.$filename;
+        $headers = array(
+               'Content-Type' => 'text/csv',
+            );
+        return \Response::download($file, $filename, $headers);
+ }    
+    
   public function getVariants($project ,$propertyTypeId)
   { 
       $unitVariants =[];

@@ -202,10 +202,16 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['type'] = ""
 			$.each CommonFloor.defaults['villa'],(index,value)->
 				CommonFloor.defaults['villa'][index] = ""
+				if index is 'attributes'
+					CommonFloor.defaults['villa'][index] = {}
 			$.each CommonFloor.defaults['apartment'],(index,value)->
 				CommonFloor.defaults['apartment'][index] = ""
+				if index is 'attributes'
+					CommonFloor.defaults['apartment'][index] = {}
 			$.each CommonFloor.defaults['plot'],(index,value)->
 				CommonFloor.defaults['plot'][index] = ""
+				if index is 'attributes'
+					CommonFloor.defaults['plot'][index] = {}
 			$.each CommonFloor.defaults['common'],(index,value)->
 				CommonFloor.defaults['common'][index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
@@ -410,7 +416,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		'click @ui.flooring':(e)->
 			types = []
 			type = $(e.currentTarget).attr('data-type')
-			console.log index = $(e.currentTarget).attr('data-index')
+			index = $(e.currentTarget).attr('data-index')
 			if !_.has(CommonFloor.defaults[type]['attributes'], index)
 				CommonFloor.defaults[type]['attributes'][index] = ''
 			if CommonFloor.defaults[type]['attributes'][index]!= ""
@@ -698,6 +704,16 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
+		$(@ui.villa).parent().removeClass 'villa-check'
+		$(@ui.villa).parent().removeClass 'villa-wrapper'
+		$(@ui.villa).parent().removeClass 'villa-btn'
+		$(@ui.apt).parent().removeClass 'apartment-check'
+		$(@ui.apt).parent().removeClass 'apartment-wrapper'
+		$(@ui.apt).parent().removeClass 'apartment-btn'
+		$(@ui.plot).parent().removeClass 'plot-check'
+		$(@ui.plot).parent().removeClass 'plot-wrapper'
+		$(@ui.plotplot).parent().removeClass 'plot-btn'
+
 		
 
 	loadSelectedFilters:->
@@ -1002,7 +1018,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				unitTypeModel = unitTypeMasterCollection.findWhere
 									'id' : item.get 'unit_type_id'
 				type = 'A'
-				if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
+				if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouses'
 						type = 'PH'
 				if $.inArray(item.get('unit_type_id'),unit_types) == -1
 					unit_types.push parseInt unitTypeModel.get 'id'

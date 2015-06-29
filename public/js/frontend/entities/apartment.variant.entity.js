@@ -49,9 +49,18 @@
         });
         return units.push(apartmentUnits);
       });
-      $.each(units, function(index, value) {
-        return newUnits = $.merge(newUnits, value);
-      });
+      if (units.length !== 0) {
+        $.each(units[0], function(index, value) {
+          var property, unitType;
+          unitType = unitTypeMasterCollection.findWhere({
+            'id': value.get('unit_type_id')
+          });
+          property = window.propertyTypes[unitType.get('property_type_id')];
+          if (s.decapitalize(property) === 'apartments') {
+            return newUnits.push(value);
+          }
+        });
+      }
       return newUnits;
     };
 
@@ -64,7 +73,7 @@
           'id': model.get('unit_type_id')
         });
         property = window.propertyTypes[unitType.get('property_type_id')];
-        if (s.decapitalize(property) === 'penthouse') {
+        if (s.decapitalize(property) === 'penthouses') {
           return units.push(model);
         }
       });
