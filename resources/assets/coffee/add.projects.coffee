@@ -137,7 +137,7 @@ jQuery(document).ready ($)->
                 success : (resp)->
                     # populate dropdown with response 
                     projects = resp.data
-                    options =""
+                    options ="<option value=''>Choose Commonfloor Project</option>"
                     _.each projects, (proj, key) =>
                         project = 
                             project_title : proj.name
