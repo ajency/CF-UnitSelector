@@ -176,6 +176,7 @@
                 Rotation : </h5> @if(count($project['breakpoints'])>1){{"Yes"}}@else{{"No"}}@endif
 
         </ul>
+        @if(!empty($project['breakpoints']))
         <table class="table table-bordered no-pointer">
             <thead>
                 <tr>
@@ -186,6 +187,7 @@
                 </tr>
             </thead>
             <tbody>
+                
                 @foreach($project['breakpoints'] as $breakpoint)
                 <tr>
                     <td>{{ $breakpoint }}</td>
@@ -194,6 +196,7 @@
              
                 </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
         @endif
