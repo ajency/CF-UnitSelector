@@ -102,12 +102,9 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/getprojectname', 'Admin\ProjectController@getProjectName' );
     Route::get( 'project/{project}/agentunitexport', 'Admin\ProjectController@agentUnitExport' );
     Route::get( 'project/{project}/unitexport/{id}', 'Admin\ProjectController@unitExport' );
-<<<<<<< HEAD
     Route::post( 'agent/{id}/agentunitimport', 'Admin\AgentController@agentUnitImport' );
-=======
     Route::get( 'project/{project}/downloadsamplefile/{filename}', 'Admin\ProjectController@downloadSampleFile' );
     Route::post( 'project/{project}/bunglow-unit/updatestatus', 'Admin\ProjectBunglowUnitController@updateStatus' );
->>>>>>> e8727609738379fad1568b9e46dd86bbb59a6275
     
 });
 

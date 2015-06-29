@@ -1218,7 +1218,7 @@ class ProjectController extends Controller {
       
   }
     
-<<<<<<< HEAD
+
   public function agentUnitExport($projectId)
   {
 
@@ -1258,7 +1258,7 @@ class ProjectController extends Controller {
         })->export('csv');
       
   }    
-=======
+
   public function downloadSampleFile($projectId,$filename){
        
         $file= public_path() . '/projects/cfsamplefile/'.$filename;
@@ -1267,7 +1267,7 @@ class ProjectController extends Controller {
             );
         return \Response::download($file, $filename, $headers);
  }    
->>>>>>> e8727609738379fad1568b9e46dd86bbb59a6275
+
     
   public function getVariants($project ,$propertyTypeId)
   { 
