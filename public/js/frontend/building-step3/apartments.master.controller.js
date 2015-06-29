@@ -590,8 +590,6 @@
         });
         if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
           return CommonFloor.navigate('/unit-view/' + id, true);
-        } else {
-          return $(document).unbind('click');
         }
       },
       'mouseover .next,.prev': function(e) {
@@ -719,6 +717,7 @@
         } else {
           $(that.el).delegate('.apartment', 'mouseover');
           $(that.el).delegate('.available', 'click');
+          $(document).unbind('click', '.sold');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
