@@ -156,7 +156,7 @@ window.calculatePerc = (value,total)->
 	perc
 
 # @todo get from php constant
-window.bookingPortalUrl = 'http://dev.commonfloor.com/book-your-property'
+# window.bookingPortalUrl = 'http://dev.commonfloor.com/book-your-property'
 	   
 #function to convert value into price format		
 window.convertRupees = (val)->
