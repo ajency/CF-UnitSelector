@@ -761,7 +761,7 @@ jQuery(document).ready ($)->
         $('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
 
         # window.windowWidth = $(window).innerWidth()
-        window.windowWidth = '1300'
+        window.windowWidth = 1300
 
         $('canvas').css 'width', window.windowWidth
         $('canvas').css 'height', window.windowWidth / 2
