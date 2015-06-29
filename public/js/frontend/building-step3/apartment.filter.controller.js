@@ -77,7 +77,10 @@
         window.area = '';
         window.type = [];
         $.each(CommonFloor.defaults['apartment'], function(index, value) {
-          return CommonFloor.defaults['apartment'][index] = "";
+          CommonFloor.defaults['apartment'][index] = "";
+          if (index === 'attributes') {
+            return CommonFloor.defaults['apartment'][index] = {};
+          }
         });
         $.each(CommonFloor.defaults['common'], function(index, value) {
           return CommonFloor.defaults['common'][index] = "";
@@ -617,7 +620,7 @@
             'id': item.get('unit_type_id')
           });
           type = 'A';
-          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouses') {
             type = 'PH';
           }
           if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {

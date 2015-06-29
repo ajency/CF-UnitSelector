@@ -116,7 +116,7 @@
       if (value === 'building') {
         units = buildingMasterCollection.toArray();
       }
-      if (value === 'apartment/penthouse') {
+      if (value === 'apartment') {
         units = apartmentVariantCollection.getApartmentMasterUnits();
         temp = new Backbone.Collection(units);
         newUnits = temp.where({
@@ -147,15 +147,19 @@
         text: 'Select option'
       }).appendTo(select);
       $.each(types, function(index, value) {
-        var valueText;
+        var valueText, valuetemp;
         if (svg_type === 'google_earth' && value === 'Project') {
           return;
         }
-        if (value === "Apartment") {
-          valueText = "Apartment / Penthouse";
+        valueText = value;
+        valuetemp = value;
+        console.log(value);
+        if (value === "Apartment/Penthouse") {
+          valueText = "apartment";
+          valuetemp = 'apartment';
         }
         return $('<option />', {
-          value: value.toLowerCase(),
+          value: valuetemp.toLowerCase(),
           text: value.toUpperCase()
         }).appendTo(select);
       });
@@ -276,7 +280,6 @@
         async: false,
         success: function(response) {
           window.svgData = {};
-          window.svgDataClone = {};
           window.svgData['image'] = svgImg;
           window.svgData['data'] = response.data;
           window.svgData['supported_types'] = JSON.parse(supported_types);
@@ -284,7 +287,6 @@
           window.svgData['svg_type'] = svg_type;
           window.svgData['building_id'] = building_id;
           window.svgData['project_id'] = project_id;
-          window.svgDataClone['data'] = response.data;
           window.loadJSONData();
           $('.duplicate').hide();
           if (response.data.length === 0) {
@@ -363,9 +365,6 @@
         details['class'] = 'step1-marker';
       } else {
         type = $('.property_type').val();
-        if ($('.property_type').val() === 'apartment/penthouse') {
-          type = 'apartment';
-        }
         details['class'] = 'layer ' + type;
       }
       if (window.canvas_type === "concentricMarker") {
@@ -417,7 +416,6 @@
             window.is_project_marked = true;
           }
           window.svgData.data.push(myObject);
-          window.svgDataClone.data.push(myObject);
           draw.clear();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
@@ -456,7 +454,7 @@
           region: this.region
         });
       }
-      if (type === 'apartment/penthouse') {
+      if (type === 'apartment') {
         new AuthoringTool.ApartmentCtrl({
           'region': this.region
         });
@@ -530,13 +528,6 @@
     window.hideAlert = function() {
       $('.alert').show();
       return $('.alert-box').delay(3000).queue(function(next) {
-        $(this).hide('fade');
-        return next();
-      });
-    };
-    window.hideLabel = function() {
-      $('.alert2').show();
-      return $('.alert2').delay(3000).queue(function(next) {
         $(this).hide('fade');
         return next();
       });
@@ -1034,7 +1025,6 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
-          window.svgDataClone.data.push(myObject);
           draw.clear();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
@@ -1083,7 +1073,7 @@
         return this.fixed();
       }), true);
       draw.clear();
-      window.generateSvg(window.svgDataClone.data);
+      window.generateSvg(window.svgData.data);
       return window.EDITMODE = false;
     });
     $('.delete').on('click', function(e) {
@@ -1113,7 +1103,6 @@
             }
           });
           window.svgData.data.splice(indexToSplice, 1);
-          window.svgDataClone.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           if (obj_id_deleted > 0) {
             if (obj_type === "building") {
@@ -1259,8 +1248,8 @@
       var imageid;
       imageid = $('.svgPaths').val();
       if (imageid === "") {
-        $('.alert2').text('Please select an SVG!');
-        window.hideLabel();
+        $('.alert').text('Select svg');
+        window.hideAlert();
         return;
       }
       $('.svg-canvas').hide();

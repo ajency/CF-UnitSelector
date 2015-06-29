@@ -1173,12 +1173,6 @@ hr.embossed {
   position: absolute;
   top: 0px;
   left: 0px;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-}
-#spritespin.building-master {
-  width: 100% !important;
-  height: 100% !important;
 }
 .spritespin-canvas {
   height: auto;
@@ -1713,6 +1707,15 @@ svg polygon {
 }
 svg .no-fill {
   opacity: 0;
+}
+svg .unassign {
+  opacity: 0;
+  fill-opacity: 0;
+}
+svg .unassign:hover {
+  opacity: 0;
+  fill-opacity: 0;
+  cursor: default;
 }
 .amenity {
   stroke-width: 1 !important;

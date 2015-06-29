@@ -100,6 +100,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/getprojectname', 'Admin\ProjectController@getProjectName' );
     
     Route::get( 'project/{project}/unitexport/{id}', 'Admin\ProjectController@unitExport' );
+    Route::get( 'project/{project}/downloadsamplefile/{filename}', 'Admin\ProjectController@downloadSampleFile' );
     
 });
 

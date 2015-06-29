@@ -139,7 +139,7 @@ jQuery(document).ready ($)->
             units = plotVariantCollection.getPlotMasterUnits()
         if value == 'building'
             units = buildingMasterCollection.toArray()
-         if value == 'apartment/penthouse'
+         if value == 'apartment'
             units = apartmentVariantCollection.getApartmentMasterUnits()
             temp = new Backbone.Collection units
             newUnits = temp.where
@@ -170,10 +170,14 @@ jQuery(document).ready ($)->
         $.each types , (index,value)->
             if svg_type is 'google_earth' && value is 'Project' 
                 return
-            if value is "Apartment"
-                valueText = "Apartment / Penthouse"
+            valueText = value
+            valuetemp = value
+            console.log value
+            if value is "Apartment/Penthouse"
+                valueText = "apartment"
+                valuetemp = 'apartment'
             
-            $('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
+            $('<option />', {value: valuetemp.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
         $('<option />', {value: 'unassign', text: ('Unassign').toUpperCase()}).appendTo(select)
 
     window.resetCollection = ()->
@@ -300,7 +304,6 @@ jQuery(document).ready ($)->
             success :(response)->
 
                 window.svgData = {}
-                window.svgDataClone = {}
                 window.svgData['image'] = svgImg
                 window.svgData['data'] = response.data
                 window.svgData['supported_types'] = JSON.parse supported_types
@@ -308,7 +311,6 @@ jQuery(document).ready ($)->
                 window.svgData['svg_type'] = svg_type
                 window.svgData['building_id'] = building_id
                 window.svgData['project_id'] = project_id
-                window.svgDataClone['data'] = response.data
                 window.loadJSONData()
                 $('.duplicate').hide()
                
@@ -391,8 +393,8 @@ jQuery(document).ready ($)->
            details['class'] = 'step1-marker' 
         else 
             type = $('.property_type').val()  
-            if  $('.property_type').val() is 'apartment/penthouse'
-                type = 'apartment'
+            # if  $('.property_type').val() is 'apartment/penthouse'
+            #     type = 'apartment'
 
             details['class'] = 'layer '+type        
         
@@ -449,7 +451,6 @@ jQuery(document).ready ($)->
                 
                 
                 window.svgData.data.push myObject
-                window.svgDataClone.data.push myObject
 
                 # clear svg 
                 draw.clear()
@@ -484,7 +485,7 @@ jQuery(document).ready ($)->
         if type is 'amenity'
             new AuthoringTool.AmenityCtrl region : @region
 
-        if type is 'apartment/penthouse'
+        if type is 'apartment'
             new AuthoringTool.ApartmentCtrl 
                 'region' : @region
 
@@ -545,12 +546,6 @@ jQuery(document).ready ($)->
     window.hideAlert = ()->
         $('.alert').show()
         $('.alert-box').delay(3000).queue( (next)->
-                $(this).hide('fade') 
-                next() 
-        ) 
-    window.hideLabel = ()->
-        $('.alert2').show()
-        $('.alert2').delay(3000).queue( (next)->
                 $(this).hide('fade') 
                 next() 
         )
@@ -1110,7 +1105,6 @@ jQuery(document).ready ($)->
                 window.svgData.data.splice(indexToSplice,1)
                 myObject['id'] =  svgElemId
                 window.svgData.data.push myObject
-                window.svgDataClone.data.push myObject
                 # clear svg 
                 draw.clear()
                 types = window.getPendingObjects(window.svgData)
@@ -1173,7 +1167,7 @@ jQuery(document).ready ($)->
         # clear svg
         draw.clear()
         # regenerate svg
-        window.generateSvg(window.svgDataClone.data) 
+        window.generateSvg(window.svgData.data) 
         window.EDITMODE = false                   
 
     # on click of delete svg element
@@ -1199,7 +1193,6 @@ jQuery(document).ready ($)->
                         obj_type = value.object_type
                         
                 window.svgData.data.splice(indexToSplice,1)
-                window.svgDataClone.data.splice(indexToSplice,1)
                 myObject['id'] =  svgElemId
 
                 if obj_id_deleted>0
@@ -1406,8 +1399,8 @@ jQuery(document).ready ($)->
     $('.process').on 'click' , (evt) ->
         imageid = $('.svgPaths').val()
         if imageid is ""
-            $('.alert2').text 'Please select an SVG!'
-            window.hideLabel()
+            $('.alert').text 'Select svg'
+            window.hideAlert()
             return
         $('.svg-canvas').hide()
         $('#myModal').modal('hide')
