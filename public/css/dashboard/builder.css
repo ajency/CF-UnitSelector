@@ -5553,6 +5553,7 @@ a.red-link.pull-right {
   transform-origin: 50% 50% 0px;
   cursor: move;
   transition: none;
+  margin: auto;
 }
 .svg-canvas > svg {
   position: relative ;
