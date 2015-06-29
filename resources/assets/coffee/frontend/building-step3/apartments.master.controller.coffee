@@ -765,7 +765,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			$('.amenity').tooltipster('content', html)
 
-		'click .apartment':(e)->
+		'click .available':(e)->
 			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id
@@ -922,7 +922,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				# that.delegateEvents()
 				$(that.el).delegate('.apartment', 'mouseover');
 				$(that.el).delegate('.available', 'click');
-				$('.sold').removeAttr('click')
+				$(document).off('click','.sold')
 				# $(that.el).undelegate('.sold', 'click');
 				# $(that.el).undelegate('.not_relased', 'click');
 				# $(that.el).undelegate('.blocked', 'click');
