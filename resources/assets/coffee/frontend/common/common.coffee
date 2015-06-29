@@ -431,22 +431,21 @@ CommonFloor.resetCollections = ()->
 	unitTypes = []
 	plots = []
 	buildings = []
-	if unitCollection.length isnt 0
-		unitCollection.each (item)->
-			unitType = unitTypeMasterCollection.findWhere
-								'id' :  item.get('unit_type_id')
-			if item.get('building_id') != 0 
-				building = buildingMasterCollection.findWhere
-							'id' : item.get('building_id')
-				buildings.push building
-			property = window.propertyTypes[unitType.get('property_type_id')]
-			if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouses'
-				apartments.push apartmentVariantMasterCollection.get(item.get('unit_variant_id'))
-			if s.decapitalize(property) == 'villas/Bungalows'
-				bunglows.push bunglowVariantMasterCollection.get(item.get('unit_variant_id'))
-			if s.decapitalize(property) == 'plots'
-				plots.push plotVariantMasterCollection.get(item.get('unit_variant_id'))
-			unitTypes.push unitType
+	unitCollection.each (item)->
+		unitType = unitTypeMasterCollection.findWhere
+							'id' :  item.get('unit_type_id')
+		if item.get('building_id') != 0 
+			building = buildingMasterCollection.findWhere
+						'id' : item.get('building_id')
+			buildings.push building
+		property = window.propertyTypes[unitType.get('property_type_id')]
+		if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouses'
+			apartments.push apartmentVariantMasterCollection.get(item.get('unit_variant_id'))
+		if s.decapitalize(property) == 'villas/Bungalows'
+			bunglows.push bunglowVariantMasterCollection.get(item.get('unit_variant_id'))
+		if s.decapitalize(property) == 'plots'
+			plots.push plotVariantMasterCollection.get(item.get('unit_variant_id'))
+		unitTypes.push unitType
 		
 	apartmentVariantCollection.reset apartments
 	bunglowVariantCollection.reset bunglows

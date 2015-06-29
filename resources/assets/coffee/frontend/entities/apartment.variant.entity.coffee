@@ -40,12 +40,13 @@ class ApartmentVariantCollection extends Backbone.Collection
 			apartmentUnits = unitCollection.where
 				unit_variant_id : model.get('id')
 			units.push  apartmentUnits
-		$.each units[0],(index,value)->
-			unitType = unitTypeMasterCollection.findWhere
-							'id' :  value.get('unit_type_id')
-			property = window.propertyTypes[unitType.get('property_type_id')]
-			if s.decapitalize(property) == 'apartments'
-				newUnits.push value
+		if units.length isnt 0
+			$.each units[0],(index,value)->
+				unitType = unitTypeMasterCollection.findWhere
+								'id' :  value.get('unit_type_id')
+				property = window.propertyTypes[unitType.get('property_type_id')]
+				if s.decapitalize(property) == 'apartments'
+					newUnits.push value
 
 		newUnits
 
