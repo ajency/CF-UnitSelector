@@ -919,9 +919,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$(that.el).undelegate('.apartment', 'mouseover');
 				$('.apartment').tooltipster('disable')
 			else 
-				# that.delegateEvents()
-				$(that.el).delegate('.apartment', 'mouseover');
-				$(that.el).delegate('.available', 'click');
+				that.delegateEvents()
+				# $(that.el).delegate('.apartment', 'mouseover');
+				# $(that.el).delegate('.available', 'click');
 				$(document).off('click','.sold')
 				# $(that.el).undelegate('.sold', 'click');
 				# $(that.el).undelegate('.not_relased', 'click');

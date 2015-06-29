@@ -715,8 +715,7 @@
           $(that.el).undelegate('.apartment', 'mouseover');
           return $('.apartment').tooltipster('disable');
         } else {
-          $(that.el).delegate('.apartment', 'mouseover');
-          $(that.el).delegate('.available', 'click');
+          that.delegateEvents();
           $(document).off('click', '.sold');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
