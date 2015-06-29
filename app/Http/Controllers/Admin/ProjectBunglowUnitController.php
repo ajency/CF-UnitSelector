@@ -268,12 +268,24 @@ class ProjectBunglowUnitController extends Controller {
     }
     
     public function updateStatus($project_id, $id, Request $request) {
+        $unit = Unit::find($id);
+        $status =$request->input('unit_status');
+        if(isAgent() && $status=='booked_by_agent')
+        {
+            $unit->agent_id =  Auth::user()->id;
+            $unit->booked_at = date('Y-m-d H:i:s');
+
+        }
+        $unit->availability = $status;
+        $unit->save();
         
         return response()->json([
                     'code' => 'unit_name_validation',
-                    'message' => $msg,
-                    'data' => $flag,
-                        ], 200);
+                    'message' => 'Unit Status Successfully updated',
+                    'data' => [
+                        'status' => ucfirst($status)
+                    ]
+                        ], 202);
     }
     
  

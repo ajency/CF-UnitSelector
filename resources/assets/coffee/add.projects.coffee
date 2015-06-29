@@ -697,7 +697,7 @@ $('#project_name').autocomplete
     $('.quick-edit').click ->
         id = $(@).attr 'data-object-id'
         toggle = $(@).attr 'data-toggle'
-        unitStatus = $(@).closest('tr').find('object-status').attr 'data-object-value'
+        unitStatus = $(@).closest('tr').find('.object-status').attr 'data-object-value'
         str = '<tr class="status-row-{{ object_id }}">
                 <td colspan="7">
                 <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">
@@ -718,27 +718,27 @@ $('#project_name').autocomplete
             
         if toggle is 'hide'  
             $(@).closest('tr').after compile( { unit_status : unitStatus, object_id : id } )
+            $(".status-row-"+id).find('select[name="unit_status"]').val unitStatus
             $(@).attr('data-toggle','show')
         else
             $(".status-row-"+id).remove()
             $(@).attr('data-toggle','hide')
             
             
-    $('#example2').on 'click', '.user-project', ->
+    $('#example2').on 'click', '.update-status', ->
 
         unitId = $(@).attr 'data-object-id'
         unitStatus = $(@).closest('tr').find('select[name="unit_status"]').val()
         
         successFn = (resp, status, xhr)->
             if xhr.status is 202
-                $(@).closest('tr').find('object-status').attr 'data-object-value'
-                $(@).closest('tr').find('object-status').html resp.data.status
+                $('.row-'+unitId).find('.object-status').attr('data-object-value',unitStatus)
+                $('.row-'+unitId).find('.object-status').html resp.data.status
             
         $.ajax 
-            url : '/admin/user/'+userId+'/deleteuserproject'
+            url : '/admin/project/'+PROJECTID+'/bunglow-unit/'+unitId+'/updatestatus'
             type : 'POST'
             data : 
-                unit_id : unitId
                 unit_status : unitStatus
             success : successFn         
             

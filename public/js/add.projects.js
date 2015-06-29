@@ -433,7 +433,7 @@
   $('.add-project-attributes-btn').click(function() {
     var attributeName, compile, data, str;
     attributeName = $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val();
-    str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> <input type="hidden" name="projectattributeId[]" value="" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteAttribute({{ project_id }},0, this);"><i class=" fa fa-close"></i></a> </div> </div>';
+    str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> <input type="hidden" name="projectattributeId[]" value="" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteAttribute({{ project_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div>';
     compile = Handlebars.compile(str);
     data = {
       name: attributeName,
@@ -574,6 +574,46 @@
       type: 'POST',
       data: {
         project_id: projectId
+      },
+      success: successFn
+    });
+  });
+
+  $('.quick-edit').click(function() {
+    var compile, id, str, toggle, unitStatus;
+    id = $(this).attr('data-object-id');
+    toggle = $(this).attr('data-toggle');
+    unitStatus = $(this).closest('tr').find('.object-status').attr('data-object-value');
+    str = '<tr class="status-row-{{ object_id }}"> <td colspan="7"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table"> <tr><td>Status:</td><td> <select name="unit_status" class="form-control"> <option value="available">Available</option> <option value="sold">Sold</option> <option value="not_released">Not Released</option> <option value="blocked">Blocked</option> <option value="booked_by_agent">Booked By Agent</option> <option value="archived">Archived</option> </select> <button class="btn btn-small btn-primary m-l-10 update-status" data-object-id="{{ object_id }}">Save</button></td></tr> </table> </td> </tr>';
+    compile = Handlebars.compile(str);
+    if (toggle === 'hide') {
+      $(this).closest('tr').after(compile({
+        unit_status: unitStatus,
+        object_id: id
+      }));
+      $(".status-row-" + id).find('select[name="unit_status"]').val(unitStatus);
+      return $(this).attr('data-toggle', 'show');
+    } else {
+      $(".status-row-" + id).remove();
+      return $(this).attr('data-toggle', 'hide');
+    }
+  });
+
+  $('#example2').on('click', '.update-status', function() {
+    var successFn, unitId, unitStatus;
+    unitId = $(this).attr('data-object-id');
+    unitStatus = $(this).closest('tr').find('select[name="unit_status"]').val();
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 202) {
+        $('.row-' + unitId).find('.object-status').attr('data-object-value', unitStatus);
+        return $('.row-' + unitId).find('.object-status').html(resp.data.status);
+      }
+    };
+    return $.ajax({
+      url: '/admin/project/' + PROJECTID + '/bunglow-unit/' + unitId + '/updatestatus',
+      type: 'POST',
+      data: {
+        unit_status: unitStatus
       },
       success: successFn
     });
