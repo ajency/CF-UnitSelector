@@ -189,8 +189,6 @@
     return perc;
   };
 
-  window.bookingPortalUrl = 'http://dev.commonfloor.com/book-your-property';
-
   window.convertRupees = function(val) {
     $('#price').autoNumeric('init');
     return $('#price').autoNumeric('set', val);
@@ -400,7 +398,7 @@
       }
       id = parseInt(item.id);
       if ($.inArray('villa', types) === -1 && $.inArray('plot', types) === -1) {
-        if ($.inArray(id, filterbuildings) > -1 && filterbuildings.length !== 0) {
+        if ($.inArray(id, filterbuildings) > -1 && filterbuildings.length !== 0 && buildingCollection.length !== 0) {
           return setTimeout(function() {
             return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
           }, Math.random() * 1000);
@@ -409,6 +407,10 @@
             return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
           }, Math.random() * 1000);
         }
+      } else {
+        return setTimeout(function() {
+          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+        }, Math.random() * 1000);
       }
     });
   };
@@ -420,17 +422,17 @@
       flag = 1;
     }
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
-      if (value !== "") {
+      if (value !== "" && !(_.isEmpty(value))) {
         return flag = 1;
       }
     });
     $.each(CommonFloor.defaults['plot'], function(index, value) {
-      if (value !== "") {
+      if (value !== "" && !(_.isEmpty(value))) {
         return flag = 1;
       }
     });
     $.each(CommonFloor.defaults['villa'], function(index, value) {
-      if (value !== "") {
+      if (value !== "" && !(_.isEmpty(value))) {
         return flag = 1;
       }
     });
@@ -473,13 +475,13 @@
         buildings.push(building);
       }
       property = window.propertyTypes[unitType.get('property_type_id')];
-      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
+      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouses') {
         apartments.push(apartmentVariantMasterCollection.get(item.get('unit_variant_id')));
       }
       if (s.decapitalize(property) === 'villas/Bungalows') {
         bunglows.push(bunglowVariantMasterCollection.get(item.get('unit_variant_id')));
       }
-      if (s.decapitalize(property) === 'plot') {
+      if (s.decapitalize(property) === 'plots') {
         plots.push(plotVariantMasterCollection.get(item.get('unit_variant_id')));
       }
       return unitTypes.push(unitType);
@@ -817,7 +819,7 @@
     flooring = [];
     $.each(CommonFloor.defaults['villa'], function(ind, val) {
       var param_val_arr;
-      if (val !== "") {
+      if (val !== "" && ind !== 'attributes') {
         param_val_arr = val.split(',');
         return $.each(param_val_arr, function(index, value) {
           if (value !== "" && ind === 'unit_variant_id') {
@@ -831,7 +833,8 @@
                 'type': '(V)',
                 'classname': 'variant_names',
                 'id': unit_variant.get('id'),
-                'id_name': 'filter_varinat_name' + unit_variant.get('id')
+                'id_name': 'filter_varinat_name' + unit_variant.get('id'),
+                'index': ''
               });
             }
           }
@@ -839,25 +842,40 @@
             unit_type = unitTypeMasterCollection.findWhere({
               'id': parseInt(value)
             });
-            unitTypes.push({
+            return unitTypes.push({
               'typename': 'villa',
               'name': unit_type.get('name'),
               'type': '(V)',
               'classname': 'unit_types',
               'id': unit_type.get('id'),
-              'id_name': 'filter_unit_type' + unit_type.get('id')
+              'id_name': 'filter_unit_type' + unit_type.get('id'),
+              'index': ''
             });
           }
-          if (value !== "" && ind === 'attributes' && $.inArray(value, bunglowVariantMasterCollection.getVillaAttributes()) > -1) {
-            return flooring.push({
-              'typename': 'villa',
-              'name': value,
-              'type': '(V)',
-              'classname': 'filter_flooring',
-              'id': value,
-              'id_name': 'filter_' + value
-            });
-          }
+        });
+      } else if (val !== "" && ind === 'attributes') {
+        return $.each(val, function(ind1, val1) {
+          var temp_var;
+          temp_var = val1.split(',');
+          return $.each(temp_var, function(indexkey, valkey) {
+            var temp;
+            if ($.isNumeric(valkey)) {
+              temp = parseInt(valkey);
+            } else {
+              temp = valkey;
+            }
+            if (valkey !== "" && $.inArray(temp, bunglowVariantMasterCollection.getVillaAttributes()) > -1) {
+              return flooring.push({
+                'typename': 'villa',
+                'name': valkey,
+                'type': '(V)',
+                'classname': 'filter_flooring',
+                'id': valkey,
+                'id_name': 'filter_' + valkey,
+                'index': ind1
+              });
+            }
+          });
         });
       }
     });
@@ -879,10 +897,10 @@
     flooring = [];
     $.each(CommonFloor.defaults['apartment'], function(ind, val) {
       var param_val_arr;
-      if (val !== "") {
+      if (val !== "" && ind !== 'attributes') {
         param_val_arr = val.split(',');
         return $.each(param_val_arr, function(index, value) {
-          var attributes, pos, type, types, unitTypeModel;
+          var type, unitTypeModel;
           if (value !== "" && ind === 'unit_variant_id') {
             if (!_.isUndefined(apartmentVariantMasterCollection.get(parseInt(value)))) {
               unit_variant = apartmentVariantMasterCollection.findWhere({
@@ -892,7 +910,7 @@
                 'id': parseInt(unit_variant.get('unit_type_id'))
               });
               type = 'A';
-              if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+              if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouses') {
                 type = 'PH';
               }
               unitVariants.push({
@@ -901,7 +919,8 @@
                 'type': '(' + type + ')',
                 'classname': 'variant_names',
                 'id': unit_variant.get('id'),
-                'id_name': 'filter_varinat_name' + unit_variant.get('id')
+                'id_name': 'filter_varinat_name' + unit_variant.get('id'),
+                'index': ''
               });
             }
           }
@@ -910,31 +929,44 @@
               'id': parseInt(value)
             });
             type = 'A';
-            if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouse') {
+            if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouses') {
               type = 'PH';
             }
-            unitTypes.push({
+            return unitTypes.push({
               'typename': 'apartment',
               'name': unit_type.get('name'),
               'type': '(' + type + ')',
               'classname': 'unit_types',
               'id': unit_type.get('id'),
-              'id_name': 'filter_unit_type' + unit_type.get('id')
+              'id_name': 'filter_unit_type' + unit_type.get('id'),
+              'index': ''
             });
           }
-          attributes = apartmentVariantMasterCollection.getApartmentAttributes();
-          if (value !== "" && ind === 'attributes' && $.inArray(value, attributes[0]) > -1) {
-            pos = $.inArray(value, attributes[0]);
-            types = '';
-            return flooring.push({
-              'typename': 'apartment',
-              'name': value,
-              'type': '',
-              'classname': 'filter_flooring',
-              'id': value,
-              'id_name': 'filter_' + value
-            });
-          }
+        });
+      } else if (val !== "" && ind === 'attributes') {
+        return $.each(val, function(ind1, val1) {
+          var temp_var;
+          temp_var = val1.split(',');
+          return $.each(temp_var, function(indexkey, valkey) {
+            var attributes, temp;
+            if ($.isNumeric(valkey)) {
+              temp = parseInt(valkey);
+            } else {
+              temp = valkey;
+            }
+            attributes = apartmentVariantMasterCollection.getApartmentAttributes();
+            if (valkey !== "" && $.inArray(temp, attributes[0]) > -1) {
+              return flooring.push({
+                'typename': 'apartment',
+                'name': valkey,
+                'type': '(A)',
+                'classname': 'filter_flooring',
+                'id': valkey,
+                'id_name': 'filter_' + valkey,
+                'index': ind1
+              });
+            }
+          });
         });
       }
     });
@@ -956,7 +988,7 @@
     flooring = [];
     $.each(CommonFloor.defaults['plot'], function(ind, val) {
       var param_val_arr;
-      if (val !== "") {
+      if (val !== "" && ind !== 'attributes') {
         param_val_arr = val.split(',');
         return $.each(param_val_arr, function(index, value) {
           if (value !== "" && ind === 'unit_variant_id') {
@@ -970,7 +1002,8 @@
                 'type': '(P)',
                 'classname': 'variant_names',
                 'id': unit_variant.get('id'),
-                'id_name': 'filter_varinat_name' + unit_variant.get('id')
+                'id_name': 'filter_varinat_name' + unit_variant.get('id'),
+                'index': ''
               });
             }
           }
@@ -978,25 +1011,40 @@
             unit_type = unitTypeMasterCollection.findWhere({
               'id': parseInt(value)
             });
-            unitTypes.push({
+            return unitTypes.push({
               'typename': 'plot',
               'name': unit_type.get('name'),
               'type': '(P)',
               'classname': 'unit_types',
               'id': unit_type.get('id'),
-              'id_name': 'filter_unit_type' + unit_type.get('id')
+              'id_name': 'filter_unit_type' + unit_type.get('id'),
+              'index': ''
             });
           }
-          if (value !== "" && ind === 'attributes' && $.inArray(value, plotVariantMasterCollection.getPlotAttributes()) > -1) {
-            return flooring.push({
-              'typename': 'plot',
-              'name': value,
-              'type': '(P)',
-              'classname': 'filter_flooring',
-              'id': value,
-              'id_name': 'filter_' + value
-            });
-          }
+        });
+      } else if (val !== "" && ind === 'attributes') {
+        return $.each(val, function(ind1, val1) {
+          var temp_var;
+          temp_var = val1.split(',');
+          return $.each(temp_var, function(indexkey, valkey) {
+            var temp;
+            if ($.isNumeric(valkey)) {
+              temp = parseInt(valkey);
+            } else {
+              temp = valkey;
+            }
+            if (valkey !== "" && $.inArray(temp, plotVariantMasterCollection.getPlotAttributes()) > -1) {
+              return flooring.push({
+                'typename': 'plot',
+                'name': valkey,
+                'type': '(P)',
+                'classname': 'filter_flooring',
+                'id': valkey,
+                'id_name': 'filter_' + valkey,
+                'index': ind1
+              });
+            }
+          });
         });
       }
     });
@@ -1058,7 +1106,7 @@
   };
 
   CommonFloor.getUnitsProperty = function(unitModel) {
-    var property, text, type, unitType;
+    var property, temp, text, type, unitType;
     unitType = unitTypeMasterCollection.findWhere({
       'id': unitModel.get('unit_type_id')
     });
@@ -1067,22 +1115,46 @@
     type = '';
     window.tempColl = unitCollection.clone();
     if (s.decapitalize(property) === 'apartments') {
-      window.tempColl.reset(apartmentVariantCollection.getApartmentUnits());
+      temp = [];
+      $.each(apartmentVariantCollection.getApartmentUnits(), function(index, value) {
+        if (value.get('availability') === 'available') {
+          return temp.push(value);
+        }
+      });
+      window.tempColl.reset(temp);
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = 'apartment';
     }
-    if (s.decapitalize(property) === 'penthouse') {
-      window.tempColl.reset(apartmentVariantCollection.getPenthouseUnits());
+    if (s.decapitalize(property) === 'penthouses') {
+      temp = [];
+      $.each(apartmentVariantCollection.getPenthouseUnits(), function(index, value) {
+        if (value.get('availability') === 'available') {
+          return temp.push(value);
+        }
+      });
+      window.tempColl.reset(temp);
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = s.decapitalize(property);
     }
     if (s.decapitalize(property) === 'villas/Bungalows') {
-      window.tempColl.reset(bunglowVariantCollection.getBunglowUnits());
+      temp = [];
+      $.each(bunglowVariantCollection.getBunglowUnits(), function(index, value) {
+        if (value.get('availability') === 'available') {
+          return temp.push(value);
+        }
+      });
+      window.tempColl.reset(temp);
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = 'villa';
     }
-    if (s.decapitalize(property) === 'plot') {
-      window.tempColl.reset(plotVariantCollection.getPlotUnits());
+    if (s.decapitalize(property) === 'plots') {
+      temp = [];
+      $.each(plotVariantCollection.getPlotUnits(), function(index, value) {
+        if (value.get('availability') === 'available') {
+          return temp.push(value);
+        }
+      });
+      window.tempColl.reset(temp);
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = s.decapitalize(property);
     }
@@ -1221,20 +1293,24 @@
   };
 
   CommonFloor.filterVillas = function() {
-    var collection, newColl, temp, tempColl;
+    var collection, newColl, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('villa');
-    temp = [];
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['villa'], function(index, value) {
-      var attributes, param_val;
+      var attributes, param_val, temp;
+      temp = [];
       if (value !== "" && index === 'attributes') {
+        attributes = bunglowVariantCollection.getBunglowUnits();
         if (temp.length === 0) {
           temp = bunglowVariantCollection.getBunglowUnits();
         }
-        attributes = CommonFloor.filterVillaAttributes(temp);
-        unitCollection.reset(attributes);
+        $.each(CommonFloor.defaults['villa']['attributes'], function(ind1, val1) {
+          if (val1 !== "") {
+            return attributes = CommonFloor.filterVillaAttributes(ind1, val1);
+          }
+        });
         newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
@@ -1257,39 +1333,68 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterVillaAttributes = function(temp) {
-    var flooring;
+  CommonFloor.filterVillaAttributes = function(ind1, val1) {
+    var flooring, newtempColl, tem, tempColl;
     flooring = [];
-    $.each(temp, function(item, value) {
-      var arr, attributes, unitDetails, unitVarinat;
+    tempColl = bunglowVariantCollection.getBunglowUnits();
+    newtempColl = _.intersection(tempColl, unitCollection.toArray());
+    $.each(newtempColl, function(item, value) {
+      var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
-      attributes = unitVarinat.get('variant_attributes');
-      arr = CommonFloor.defaults['villa']['attributes'].split(',');
-      return $.each(attributes, function(ind, val) {
-        if ($.inArray(val, arr) > -1) {
-          return flooring.push(value);
+      valkey = unitVarinat.get('variant_attributes');
+      val = _.propertyOf(valkey)(ind1);
+      arr = val1.split(',');
+      if (_.isUndefined(val)) {
+        return;
+      }
+      if (_.isArray(val)) {
+        $.each(val, function(ind1, val1) {
+          var temp;
+          if (_.isString(val1)) {
+            temp = val1;
+          } else {
+            temp = val1.toString();
+          }
+          if ($.inArray(temp, arr) > -1) {
+            return flooring.push(value);
+          }
+        });
+      } else {
+        if (_.isString(val)) {
+          temp = val;
+        } else {
+          temp = val.toString();
         }
-      });
+        if ($.inArray(temp, arr) > -1) {
+          flooring.push(value);
+        }
+      }
+      return unitCollection.reset(flooring);
     });
-    return flooring;
+    tem = unitCollection.toArray();
+    return tem;
   };
 
   CommonFloor.filterApartments = function() {
-    var collection, newColl, temp, tempColl;
+    var collection, newColl, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('apartment');
-    temp = [];
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
-      var attributes, param_val;
+      var attributes, param_val, temp;
+      temp = [];
       if (value !== "" && index === 'attributes') {
+        attributes = apartmentVariantCollection.getApartmentUnits();
         if (temp.length === 0) {
           temp = apartmentVariantCollection.getApartmentUnits();
         }
-        attributes = CommonFloor.filterApartmentAttributes(temp);
-        unitCollection.reset(attributes);
+        $.each(CommonFloor.defaults['apartment']['attributes'], function(ind1, val1) {
+          if (val1 !== "") {
+            return attributes = CommonFloor.filterApartmentAttributes(ind1, val1);
+          }
+        });
         newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
@@ -1312,40 +1417,68 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterApartmentAttributes = function(temp) {
-    var flooring, units;
+  CommonFloor.filterApartmentAttributes = function(ind1, val1) {
+    var flooring, newtempColl, tem, tempColl;
     flooring = [];
-    units = apartmentVariantCollection.getApartmentUnits();
-    $.each(temp, function(item, value) {
-      var arr, attributes, unitDetails, unitVarinat;
+    tempColl = apartmentVariantCollection.getApartmentUnits();
+    newtempColl = _.intersection(tempColl, unitCollection.toArray());
+    $.each(newtempColl, function(item, value) {
+      var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
-      attributes = unitVarinat.get('variant_attributes');
-      arr = CommonFloor.defaults['apartment']['attributes'].split(',');
-      return $.each(attributes, function(ind, val) {
-        if ($.inArray(val, arr) > -1) {
-          return flooring.push(value);
+      valkey = unitVarinat.get('variant_attributes');
+      val = _.propertyOf(valkey)(ind1);
+      arr = val1.split(',');
+      if (_.isUndefined(val)) {
+        return;
+      }
+      if (_.isArray(val)) {
+        $.each(val, function(ind1, val1) {
+          var temp;
+          if (_.isString(val1)) {
+            temp = val1;
+          } else {
+            temp = val1.toString();
+          }
+          if ($.inArray(temp, arr) > -1) {
+            return flooring.push(value);
+          }
+        });
+      } else {
+        if (_.isString(val)) {
+          temp = val;
+        } else {
+          temp = val.toString();
         }
-      });
+        if ($.inArray(temp, arr) > -1) {
+          flooring.push(value);
+        }
+      }
+      return unitCollection.reset(flooring);
     });
-    return flooring;
+    tem = unitCollection.toArray();
+    return tem;
   };
 
   CommonFloor.filterPlots = function() {
-    var collection, newColl, temp, tempColl;
+    var collection, newColl, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('plot');
-    temp = [];
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['plot'], function(index, value) {
-      var attributes, param_val;
+      var attributes, param_val, temp;
+      temp = [];
       if (value !== "" && index === 'attributes') {
+        attributes = plotVariantCollection.getPlotUnits();
         if (temp.length === 0) {
           temp = plotVariantCollection.getPlotUnits();
         }
-        attributes = CommonFloor.filterPlotAttributes(temp);
-        unitCollection.reset(attributes);
+        $.each(CommonFloor.defaults['plot']['attributes'], function(ind1, val1) {
+          if (val1 !== "") {
+            return attributes = CommonFloor.filterPlotAttributes(ind1, val1);
+          }
+        });
         newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
@@ -1368,23 +1501,47 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterPlotAttributes = function(temp) {
-    var flooring, units;
+  CommonFloor.filterPlotAttributes = function(ind1, val1) {
+    var flooring, newtempColl, tem, tempColl;
     flooring = [];
-    units = plotVariantCollection.getPlotUnits();
-    $.each(temp, function(item, value) {
-      var arr, attributes, unitDetails, unitVarinat;
+    tempColl = plotVariantCollection.getPlotUnits();
+    newtempColl = _.intersection(tempColl, unitCollection.toArray());
+    $.each(newtempColl, function(item, value) {
+      var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
-      attributes = unitVarinat.get('variant_attributes');
-      arr = CommonFloor.defaults['plot']['attributes'].split(',');
-      return $.each(attributes, function(ind, val) {
-        if ($.inArray(val, arr) > -1) {
-          return flooring.push(value);
+      valkey = unitVarinat.get('variant_attributes');
+      val = _.propertyOf(valkey)(ind1);
+      arr = val1.split(',');
+      if (_.isUndefined(val)) {
+        return;
+      }
+      if (_.isArray(val)) {
+        $.each(val, function(ind1, val1) {
+          var temp;
+          if (_.isString(val1)) {
+            temp = val1;
+          } else {
+            temp = val1.toString();
+          }
+          if ($.inArray(temp, arr) > -1) {
+            return flooring.push(value);
+          }
+        });
+      } else {
+        if (_.isString(val)) {
+          temp = val;
+        } else {
+          temp = val.toString();
         }
-      });
+        if ($.inArray(temp, arr) > -1) {
+          flooring.push(value);
+        }
+      }
+      return unitCollection.reset(flooring);
     });
-    return flooring;
+    tem = unitCollection.toArray();
+    return tem;
   };
 
   CommonFloor.removeStepFilters = function() {

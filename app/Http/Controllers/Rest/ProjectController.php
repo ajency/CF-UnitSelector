@@ -3,6 +3,7 @@
 namespace CommonFloor\Http\Controllers\Rest;
 
 use CommonFloor\Http\Controllers\Controller;
+use CommonFloor\Http\Controllers\Admin\ProjectBunglowUnitController;
 use CommonFloor\Gateways\ProjectGatewayInterface;
 use CommonFloor\ProjectJson;
 use CommonFloor\Unit;
@@ -82,6 +83,15 @@ class ProjectController extends Controller {
         }
         return response()->json( [
                             'data' => $projectJsonData
+                        ], 200, [], JSON_NUMERIC_CHECK );
+    }
+    
+    public function projectDetails( $projectId ) {
+ 
+        $projectData = $this->projectGateway->getProjectDetails( $projectId );
+ 
+        return response()->json( [
+                            'data' => $projectData
                         ], 200, [], JSON_NUMERIC_CHECK );
     }
 
@@ -199,7 +209,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'cities_returned' , 
-            'message' => 'Cities',
+            'message' => '',
             'data' => $o
             );
         $status_code = 200 ;
@@ -271,7 +281,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'areas_returned' , 
-            'message' => 'Areas',
+            'message' => '',
             'data' => $result_name
             );
         $status_code = 200 ;
@@ -368,7 +378,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'projects_returned' , 
-            'message' => 'Projects',
+            'message' => '',
             'data' => $result
             );
         $status_code = 200 ;
@@ -642,6 +652,32 @@ class ProjectController extends Controller {
 
         return response()->json( $json_resp, $status_code);        
 
+    }
+
+    public function addUnitToBookingCrm(){
+        $getVar = Input::get();
+        $unitId = $getVar['unit_id'];
+        $unitName = $getVar['unit_name'];
+        $projectId = $getVar['project_id'];        
+        $result = ProjectBunglowUnitController::add_unit_to_booking_crm($unitId,$unitName,$projectId);
+
+        if(is_null($result)){
+          $json_resp = array(
+            'code' => 'error_in_adding_unit' , 
+            'message' => curl_error($result) 
+            );
+          $status_code = 400 ;
+        }
+        else{
+            $json_resp = array(
+                'code' => 'unit_added' , 
+                'message' => 'Unit Added',
+                'data' => $result
+                );
+            $status_code = 200 ;
+        }
+
+        return response()->json( $json_resp, $status_code);          
     }
 
 

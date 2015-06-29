@@ -1,4 +1,6 @@
 (function() {
+  var slice = [].slice;
+
   jQuery(document).ready(function($) {
     var cfCityFetchOptions, checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
     $.ajaxSetup({
@@ -30,6 +32,16 @@
         });
       };
     })(this));
+    $(document).ajaxComplete(function() {
+      var args, ref, ref1, xhr;
+      args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+      xhr = args[1];
+      if ((ref = xhr.status) === 201 || ref === 202 || ref === 203) {
+        return $.notify(xhr.responseJSON.message, 'success');
+      } else if ((ref1 = xhr.status) === 200) {
+        return $.notify(xhr.responseJSON.message, 'error');
+      }
+    });
     $('form button[type="reset"]').click();
     $("select").select2();
     window.projectsCollection = [];
@@ -421,10 +433,11 @@
   $('.add-project-attributes-btn').click(function() {
     var attributeName, compile, data, str;
     attributeName = $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val();
-    str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> <input type="hidden" name="projectattributeId[]" value="" class="form-control"> </div> <div class="col-md-2 text-center"> <a  data-unit-type-id="0" class="text-primary remove-project-attribute"><i class="fa fa-close"></i> </a> </div> </div>';
+    str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> <input type="hidden" name="projectattributeId[]" value="" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteAttribute({{ project_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div>';
     compile = Handlebars.compile(str);
     data = {
-      name: attributeName
+      name: attributeName,
+      project_id: PROJECTID
     };
     $(".project_attribute_block").before(compile(data));
     return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('');
@@ -456,6 +469,147 @@
     return $.ajax({
       url: "/admin/project/" + PROJECTID + "/roomtype/" + variantRoomId + "/deletevariantrroom",
       type: 'DELETE',
+      success: successFn
+    });
+  });
+
+  $('#project_name').autocomplete({
+    source: function(request, response) {
+      $.ajax({
+        url: '/admin/project/getprojectname',
+        type: 'POST',
+        data: {
+          'project_name': $("#project_name").val(),
+          'userId': $('#user_id').val()
+        },
+        success: function(resp) {
+          var result;
+          result = resp.data.projects;
+          if (result !== null && result !== '' && !$.isEmptyObject(result)) {
+            response($.map(result, function(item, index) {
+              return {
+                label: item,
+                value: item,
+                text: item,
+                project_id: index
+              };
+            }));
+          } else {
+            response(['No Data Found']);
+          }
+        },
+        error: function(result) {
+          response(['No Data Found']);
+        }
+      });
+    },
+    select: function(event, ui) {
+      event.preventDefault();
+      if (ui.item.label !== 'No Data Found') {
+        $('#project_name').val(ui.item.value);
+        return $('#project_id').val(ui.item.project_id);
+      }
+    }
+  });
+
+  $('.add-project-user-btn').click(function() {
+    var projectId, projectName, successFn, userId;
+    projectName = $('#project_name').val();
+    projectId = $('#project_id').val();
+    userId = $('#user_id').val();
+    if (projectId === '') {
+      alert('Please Enter Valid Project');
+      $('#project_name').val('');
+      return;
+    }
+    successFn = function(resp, status, xhr) {
+      var compile, html;
+      if (xhr.status === 201) {
+        if ($('.project_block').length === 0) {
+          $('.no-projects').addClass('hidden');
+        }
+        html = '<div class="row m-b-10  project-{{ project_id }}"> <div class="col-md-10"> <input type="text" name="user_project" value="{{ project_name }}" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a> </div> </div>';
+        $('#project_name').val('');
+        $('#project_id').val('');
+        compile = Handlebars.compile(html);
+        return $('.add_user_project_block').before(compile({
+          project_name: projectName,
+          project_id: projectId
+        }));
+      }
+    };
+    return $.ajax({
+      url: '/admin/user/' + userId + '/userprojects',
+      type: 'POST',
+      data: {
+        project_id: projectId
+      },
+      success: successFn
+    });
+  });
+
+  $('.user-project').on('click', '.delete-user-project', function() {
+    var projectId, projectName, successFn, userId;
+    if (confirm('Are you sure you want to delete this project?') === false) {
+      return;
+    }
+    projectName = $('#project_name').val();
+    projectId = $(this).attr('data-project-id');
+    userId = $('#user_id').val();
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 204) {
+        $('.project-' + projectId).remove();
+        if ($('.project_block').length === 0) {
+          return $('.no-projects').removeClass('hidden');
+        }
+      }
+    };
+    return $.ajax({
+      url: '/admin/user/' + userId + '/deleteuserproject',
+      type: 'POST',
+      data: {
+        project_id: projectId
+      },
+      success: successFn
+    });
+  });
+
+  $('.quick-edit').click(function() {
+    var compile, id, str, toggle, unitStatus;
+    id = $(this).attr('data-object-id');
+    toggle = $(this).attr('data-toggle');
+    unitStatus = $(this).closest('tr').find('object-status').attr('data-object-value');
+    str = '<tr class="status-row-{{ object_id }}"> <td colspan="7"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table"> <tr><td>Status:</td><td> <select name="unit_status" class="form-control"> <option value="available">Available</option> <option value="sold">Sold</option> <option value="not_released">Not Released</option> <option value="blocked">Blocked</option> <option value="booked_by_agent">Booked By Agent</option> <option value="archived">Archived</option> </select> <button class="btn btn-small btn-primary m-l-10 update-status" data-object-id="{{ object_id }}">Save</button></td></tr> </table> </td> </tr>';
+    compile = Handlebars.compile(str);
+    if (toggle === 'hide') {
+      $(this).closest('tr').after(compile({
+        unit_status: unitStatus,
+        object_id: id
+      }));
+      return $(this).attr('data-toggle', 'show');
+    } else {
+      $(".status-row-" + id).remove();
+      return $(this).attr('data-toggle', 'hide');
+    }
+  });
+
+  $('#example2').on('click', '.user-project', function() {
+    var successFn, unitId, unitStatus;
+    unitId = $(this).attr('data-object-id');
+    unitStatus = $(this).closest('tr').find('select[name="unit_status"]').val();
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 202) {
+        $(this).closest('tr').find('object-status').attr('data-object-value');
+        return $(this).closest('tr').find('object-status').html(resp.data.status);
+      }
+    };
+    return $.ajax({
+      url: '/admin/user/' + userId + '/deleteuserproject',
+      type: 'POST',
+      data: {
+        unit_id: unitId,
+        unit_status: unitStatus
+      },
       success: successFn
     });
   });

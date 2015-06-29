@@ -23,7 +23,7 @@
       return FilterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterApartmentView.prototype.template = Handlebars.compile('<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="unit_type_filter"> <h6>UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="variant_filter"> <h6>VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <h6 class="">Flooring</h6> <div class="filter-chkbox-block"> {{#flooring}} <input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="areaLabel"> <h6>AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class="budgetLabel"> <h6>BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class="viewLabel"> <h6 class="">VIEWS</h6> <div class="filter-chkbox-block"> {{#views}} <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/views}} </div> </div> <div class="facingLabel"> <h6 class="">FACINGS</h6> <div class="filter-chkbox-block"> {{#facings}} <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/facings}} </div> </div> <div class=""> <h6>FLOOR </h6> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div>');
+    FilterApartmentView.prototype.template = Handlebars.compile('<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="unit_type_filter"> <h6>UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="variant_filter"> <h6>VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <div class="filter-chkbox-block"> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-index="{{index}}" data-type="apartment" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="areaLabel"> <h6>AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class="budgetLabel"> <h6>BUDGET (<span class="icon-rupee-icn"></span>)</h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class="viewLabel"> <h6 class="">VIEWS</h6> <div class="filter-chkbox-block"> {{#views}} <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/views}} </div> </div> <div class="facingLabel"> <h6 class="">FACINGS</h6> <div class="filter-chkbox-block"> {{#facings}} <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/facings}} </div> </div> <div class=""> <h6>FLOOR </h6> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div>');
 
     FilterApartmentView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -36,7 +36,7 @@
       budget: '#budget',
       clear: '.clear',
       floor: '#floor',
-      flooring: '.flooring',
+      flooring: '.attributes',
       facings: '.facings',
       views: '.views'
     };
@@ -77,7 +77,10 @@
         window.area = '';
         window.type = [];
         $.each(CommonFloor.defaults['apartment'], function(index, value) {
-          return CommonFloor.defaults['apartment'][index] = "";
+          CommonFloor.defaults['apartment'][index] = "";
+          if (index === 'attributes') {
+            return CommonFloor.defaults['apartment'][index] = {};
+          }
         });
         $.each(CommonFloor.defaults['common'], function(index, value) {
           return CommonFloor.defaults['common'][index] = "";
@@ -188,13 +191,22 @@
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.flooring': function(e) {
-        if ($(e.currentTarget).is(':checked')) {
-          window.flooring.push($(e.currentTarget).attr('data-value'));
-        } else {
-          window.flooring = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
+        var index, types;
+        types = [];
+        index = $(e.currentTarget).attr('data-index');
+        if (!_.has(CommonFloor.defaults['apartment']['attributes'], index)) {
+          CommonFloor.defaults['apartment']['attributes'][index] = '';
         }
-        window.flooring = _.uniq(window.flooring);
-        CommonFloor.defaults['apartment']['attributes'] = window.flooring.join(',');
+        if (CommonFloor.defaults['apartment']['attributes'][index] !== "") {
+          types = CommonFloor.defaults[type]['attributes'][index].split(',');
+        }
+        if ($(e.currentTarget).is(':checked')) {
+          types.push($(e.currentTarget).attr('data-value'));
+        } else {
+          types = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
+        }
+        window.flooring = _.uniq(types);
+        CommonFloor.defaults['apartment']['attributes'][index] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
@@ -261,7 +273,7 @@
     };
 
     FilterApartmentView.prototype.onShow = function() {
-      var area, budget, building_id, floor, max, min, priceMax, priceMin, sub, subArea, subBudget, submax, submin, units, url;
+      var area, budget, building_id, floor, max, min, priceMax, priceMin, sub, subArea, subBudget, units, url;
       this.loadSelectedFilters();
       $('.filters-content').mCustomScrollbar({
         theme: 'cf-scroll'
@@ -283,11 +295,7 @@
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
       min = _.min(area);
-      submin = min % 5;
-      min = min - submin;
       max = _.max(area);
-      submax = max % 5;
-      max = max - submax;
       subArea = (max - min) / 20;
       subArea = subArea.toFixed(0);
       sub = subArea % 5;
@@ -455,7 +463,7 @@
     };
 
     FilterApartmentView.prototype.loadSelectedFilters = function() {
-      var attributes, facings, id, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl, views;
+      var aptValues, attributes, facings, id, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl, views;
       unittypesArray = [];
       unitTypes = CommonFloor.defaults['apartment']['unit_type_id'].split(',');
       unitVariantsArray = [];
@@ -473,7 +481,8 @@
         return unittypesColl.push(parseInt(unitDetails[1].get('id')));
       });
       attributes = [];
-      $.merge(attributes, CommonFloor.defaults['apartment']['attributes'].split(','));
+      aptValues = _.values(CommonFloor.defaults['apartment']['attributes']);
+      $.merge(attributes, aptValues);
       views = [];
       $.merge(views, CommonFloor.defaults['common']['views'].split(','));
       facings = [];
@@ -611,7 +620,7 @@
             'id': item.get('unit_type_id')
           });
           type = 'A';
-          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouses') {
             type = 'PH';
           }
           if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
@@ -643,16 +652,36 @@
               });
               if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
-                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                    flooring.push(val);
-                    return temp.push({
-                      'name': val,
-                      'id': 'villa' + s.replaceAll(val, " ", "_"),
-                      'dataId': s.replaceAll(val, " ", "_"),
-                      'classname': 'attributes',
-                      'label': ind,
-                      type: 'A'
-                    });
+                  if (ind === value && val !== "") {
+                    if (_.isArray(val)) {
+                      return $.each(val, function(ind1, val1) {
+                        if ($.inArray(val, flooring) === -1) {
+                          flooring.push(val1);
+                          return temp.push({
+                            'name': val1,
+                            'index': value,
+                            'id': 'apt' + s.replaceAll(val1, " ", "_"),
+                            'dataId': s.replaceAll(val1, " ", "_"),
+                            'classname': 'attributes',
+                            'label': ind,
+                            type: 'A'
+                          });
+                        }
+                      });
+                    } else {
+                      if ($.inArray(val, flooring) === -1) {
+                        flooring.push(val);
+                        return temp.push({
+                          'name': val,
+                          'index': value,
+                          'id': 'apt' + s.replaceAll(val, " ", "_"),
+                          'dataId': s.replaceAll(val, " ", "_"),
+                          'classname': 'attributes',
+                          'label': ind,
+                          type: 'A'
+                        });
+                      }
+                    }
                   }
                 });
               }
@@ -715,7 +744,7 @@
           'name': val
         });
       });
-      facings = ['North', 'South', 'East', 'West', 'North-East', 'Norht-West', 'South-East', 'South-West'];
+      facings = ['North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'];
       $.each(facings, function(ind, val) {
         return facingsArr.push({
           'id': val,

@@ -40,8 +40,13 @@ class ApartmentVariantCollection extends Backbone.Collection
 			apartmentUnits = unitCollection.where
 				unit_variant_id : model.get('id')
 			units.push  apartmentUnits
-		$.each units,(index,value)->
-			newUnits = $.merge(newUnits , value)
+		if units.length isnt 0
+			$.each units[0],(index,value)->
+				unitType = unitTypeMasterCollection.findWhere
+								'id' :  value.get('unit_type_id')
+				property = window.propertyTypes[unitType.get('property_type_id')]
+				if s.decapitalize(property) == 'apartments'
+					newUnits.push value
 
 		newUnits
 
@@ -53,7 +58,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 			unitType = unitTypeMasterCollection.findWhere
 							'id' :  model.get('unit_type_id')
 			property = window.propertyTypes[unitType.get('property_type_id')]
-			if s.decapitalize(property) == 'penthouse'
+			if s.decapitalize(property) == 'penthouses'
 				units.push model
 		units
 
@@ -87,8 +92,13 @@ class ApartmentVariantCollection extends Backbone.Collection
 		types = []
 		apartmentVariantMasterCollection.each (item)->
 			$.each item.get('variant_attributes') , (index,value)->
-				if $.inArray(value,attributes) == -1
-					attributes.push value
+				if _.isArray(value)
+					$.each value , (ind,val)->
+						if $.inArray(val,attributes) == -1
+							attributes.push val
+				else
+					if $.inArray(value,attributes) == -1
+						attributes.push value
 				
 						
 		[attributes]

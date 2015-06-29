@@ -82,7 +82,7 @@
             'id': unit.get('unit_type_id')
           });
           property = window.propertyTypes[unitType.get('property_type_id')];
-          if (s.decapitalize(property) === 'penthouse' || s.decapitalize(property) === 'apartments') {
+          if (s.decapitalize(property) === 'penthouses' || s.decapitalize(property) === 'apartments') {
             buildingModel = buildingCollection.findWhere({
               'id': unit.get('building_id')
             });
@@ -212,7 +212,7 @@
       unitsArr = unitColl[0];
       text = unitColl[1];
       $.each(unitsArr.toArray(), function(index, value) {
-        if (value.id !== unitid) {
+        if (value.id !== unitid && value.availability === 'available') {
           units.push(value);
           i++;
         }
@@ -221,6 +221,9 @@
         }
       });
       if (unitsArr.length === 1) {
+        text = '';
+      }
+      if (units.length === 0) {
         text = '';
       }
       return [units, text, unitColl[2]];
@@ -239,20 +242,20 @@
         $.each(value.rooms_data, function(ind, val) {
           var attributes;
           attributes = [];
-          return $.each(val.atributes, function(ind_att, val_att) {
+          $.each(val.atributes, function(ind_att, val_att) {
             if (val_att.attribute_value !== "") {
-              attributes.push({
+              return attributes.push({
                 'attribute': s.capitalize(val_att.attribute_key),
                 'value': val_att.attribute_value
               });
             }
-            if (attributes.length > 0) {
-              return rooms.push({
-                'room_name': val.room_name,
-                'attributes': attributes
-              });
-            }
           });
+          if (attributes.length > 0) {
+            return rooms.push({
+              'room_name': val.room_name,
+              'attributes': attributes
+            });
+          }
         });
         if (rooms.length > 0) {
           level_id = s.replaceAll(level_name, " ", "_");
@@ -536,7 +539,7 @@
     };
 
     CenterUnitView.prototype.onShow = function() {
-      var flag, height, html, response;
+      var building, flag, height, html, id, response, unit, url;
       flag = 0;
       this.getNextPrevUnit();
       response = this.generateLevels();
@@ -584,6 +587,17 @@
       }
       if (_.isUndefined(response[3].get('galleryurl'))) {
         $('.gallery').hide();
+      }
+      url = Backbone.history.fragment;
+      id = url.split('/')[1];
+      unit = unitCollection.findWhere({
+        'id': parseInt(id)
+      });
+      building = buildingCollection.findWhere({
+        'id': parseInt(unit.get('building_id'))
+      });
+      if (project.get('project_master').length !== 0 || building.get('building_master').length !== 0) {
+        $('.master').removeClass('hidden');
       }
       if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl'))) {
         $('.gallery').addClass('current');

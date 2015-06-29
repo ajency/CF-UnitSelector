@@ -74,6 +74,8 @@
       </div>
       <div class="modal-body">
         <a href="{{ url( 'admin/project/' . $project['id'].'/unitexport/'.APARTMENTID ) }}" target="_blank" class="pull-right btn btn-default btn-small m-r-5"><i class="fa fa-download"></i> Download config</a>
+        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Penthouse-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Penthouse Sample</a>    
+        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Apartment-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Apartment Sample</a>  
         <div class="row m-b-10">
             <div class="col-md-12">
                 <div class="form-group">
@@ -82,16 +84,15 @@
                     </div>   
                 </div>
             </div>
-      </div>
+        </div>
 
-      <div class="modal-footer">
-        <input type="hidden" id="unit-type" name="unit-type" value="apartment-unit">
-        <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-        
-      </div>
-    </div>
+        <div class="modal-footer">
+            <input type="hidden" id="unit-type" name="unit-type" value="apartment-unit">
+            <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+        </div>
+        </div>
     </form>     
   </div>
 </div>

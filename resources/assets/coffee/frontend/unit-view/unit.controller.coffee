@@ -72,7 +72,7 @@ class TopUnitView extends Marionette.ItemView
 							'id' :  unit.get('unit_type_id')
 			property = window.propertyTypes[unitType.get('property_type_id')]
 			
-			if s.decapitalize(property) == 'penthouse' || s.decapitalize(property) == 'apartments'
+			if s.decapitalize(property) == 'penthouses' || s.decapitalize(property) == 'apartments'
 				buildingModel = buildingCollection.findWhere
 							'id' : unit.get 'building_id'
 				building_id = buildingModel.get 'id'
@@ -298,13 +298,15 @@ class LeftUnitView extends Marionette.ItemView
 		unitsArr = unitColl[0]
 		text = unitColl[1]
 		$.each unitsArr.toArray(), (index, value)->
-			if value.id != unitid
+			if value.id != unitid && value.availability is 'available'
 				units.push value
 				i++
 			if i == 3
 				return false
 				
 		if unitsArr.length == 1
+			text = ''
+		if units.length is 0
 			text = ''
 		[units,text,unitColl[2]]
 
@@ -323,11 +325,10 @@ class LeftUnitView extends Marionette.ItemView
 						attributes.push
 							'attribute' : s.capitalize val_att.attribute_key
 							'value' : val_att.attribute_value
-					if attributes.length > 0
-						rooms.push 
-							'room_name' : val.room_name
-							'attributes' : attributes
-					
+				if attributes.length > 0
+					rooms.push 
+						'room_name' : val.room_name
+						'attributes' : attributes
 			if rooms.length > 0
 				level_id = s.replaceAll(level_name, " ", "_")
 				levels.push 
@@ -878,6 +879,18 @@ class CenterUnitView extends Marionette.ItemView
 
 		if _.isUndefined(response[3].get('galleryurl')) 
 			$('.gallery').hide()
+
+		
+		url = Backbone.history.fragment
+		id = url.split('/')[1]
+		unit = unitCollection.findWhere
+				'id' : parseInt id
+		building = buildingCollection.findWhere
+					'id' : parseInt unit.get('building_id')
+		
+		if project.get('project_master').length != 0 || building.get('building_master').length != 0
+			$('.master').removeClass 'hidden'
+
 			
 		if response[0].length == 0 &&  response[1].length == 0 && _.isUndefined(response[3].get('external3durl'))
 			$('.gallery').addClass('current')

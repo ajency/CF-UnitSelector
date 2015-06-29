@@ -11,6 +11,7 @@ use CommonFloor\Role;
 use Illuminate\Support\Facades\Mail;
 use CommonFloor\UserRole;
 use CommonFloor\UserProject;
+use CommonFloor\Project;
 use \Session;
 
 class UserController extends Controller {
@@ -70,10 +71,10 @@ class UserController extends Controller {
         $userRole->save();
         $userRoleId = $userRole->id;
         
-        $userProject = new UserProject();
+        /*$userProject = new UserProject();                 // DEFAULT ROLE 
         $userProject->role_user_id = $userRoleId;
         $userProject->project_id = 0;
-        $userProject->save();
+        $userProject->save();*/
         
         $data = $this->emailTemplate($name,$email,$password); 
         
@@ -119,11 +120,26 @@ class UserController extends Controller {
         $user = User::find($id)->toArray();
         $roles = Role::all()->toArray(); 
         $defaultRole = getDefaultRole($id);
+        $userProjects = getUserAssignedProject($id);
+        $userProjectData =[];
+       
+        if($defaultRole['PROJECT_ACCESS']=='specific')
+        {
+            foreach($userProjects as $key=> $userProject)
+            { 
+                $userProjects[$key]['project_name']= Project :: find($userProject['project_id'])->project_title;
+
+            }
+        }
+         
+    
         $user['default_role_id'] = $defaultRole['role_id'];
+        $user['project_access'] = $defaultRole['PROJECT_ACCESS'];
         
         return view('admin.user.edit')
                         ->with('roles', $roles)
                         ->with('user', $user)
+                        ->with('userProjects', $userProjects)
                         ->with('flag', FALSE)
                         ->with('menuFlag', FALSE);
     }
@@ -133,11 +149,24 @@ class UserController extends Controller {
         $user = User::find($id)->toArray();
         $roles = Role::all()->toArray(); 
         $defaultRole = getDefaultRole($id);
+        $userProjects = getUserAssignedProject($id);
+        
+        if($defaultRole['PROJECT_ACCESS']=='specific')
+        {
+            foreach($userProjects as $key=> $userProject)
+            { 
+                $userProjects[$key]['project_name']= Project :: find($userProject['project_id'])->project_title;
+
+            }
+        }
+        
         $user['default_role_id'] = $defaultRole['role_id'];
+        $user['project_access'] = $defaultRole['PROJECT_ACCESS'];
         
         return view('admin.user.edit')
                         ->with('roles', $roles)
                         ->with('user', $user)
+                        ->with('userProjects', $userProjects)
                         ->with('flag', TRUE)
                         ->with('menuFlag', FALSE);
     }
@@ -306,6 +335,34 @@ class UserController extends Controller {
                     'message' => $msg,
                     'data' =>  $flag,
                         ], 200);
+    }
+    
+    public function userprojects($id,Request $request) {
+        $projectid = $request->input('project_id');
+        $userRoleId = User::find($id)->userRole()->first()->id; 
+        
+        $userProject = new UserProject();
+        $userProject->role_user_id = $userRoleId;
+        $userProject->project_id = $projectid;
+        $userProject->save();
+         
+        return response()->json([
+                    'code' => 'user_project',
+                    'message' => 'Project Successfully Assigned',
+                    'data' => $userRoleId
+                        ], 201);
+    }
+    
+    public function deleteUserproject($id,Request $request) {
+        $projectid = $request->input('project_id');
+        $userRoleId = User::find($id)->userRole()->first()->id; 
+        
+        $userProject = UserProject:: where('role_user_id',$userRoleId)->where('project_id',$projectid)->delete(); 
+  
+        return response()->json([
+                    'code' => 'user_project',
+                    'message' => 'User Project Successfully Deleted'
+                        ], 204);
     }
     
     public function emailTemplate($name,$email,$password)

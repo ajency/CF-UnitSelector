@@ -62,6 +62,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
     Route::get( 'user/{id}/profile', 'Admin\UserController@profile' );
     Route::put( 'user/{id}/profileupdate', 'Admin\UserController@profileUpdate' );
+    Route::post( 'user/{id}/userprojects', 'Admin\UserController@userProjects' );
+    Route::post( 'user/{id}/deleteuserproject', 'Admin\UserController@deleteUserproject' );
     Route::get( 'project/{project}/svg', 'Admin\ProjectController@svg' );
     Route::get( 'project/{project}/summary', 'Admin\ProjectController@summary' );
     Route::get( 'project/{project}/getphasedata/{phase}', 'Admin\ProjectController@getPhaseData' );
@@ -95,8 +97,11 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/{project}/apartment-unit/unitimport', 'Admin\ProjectApartmentUnitController@unitImport' );
     Route::post( 'project/{project}/bunglow-unit/unitimport', 'Admin\ProjectBunglowUnitController@unitImport' );
     Route::post( 'project/{project}/plots-unit/unitimport', 'Admin\ProjectPlotUnitController@unitImport' );
+    Route::post( 'project/getprojectname', 'Admin\ProjectController@getProjectName' );
     
     Route::get( 'project/{project}/unitexport/{id}', 'Admin\ProjectController@unitExport' );
+    Route::get( 'project/{project}/downloadsamplefile/{filename}', 'Admin\ProjectController@downloadSampleFile' );
+    Route::post( 'project/{project}/bunglow-unit/updatestatus', 'Admin\ProjectBunglowUnitController@updateStatus' );
     
 });
 
@@ -107,6 +112,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
 Route::group( ['prefix' => 'api/v1'], function() {
     Route::resource( 'project', 'Rest\ProjectController', ['only' => ['index', 'show']] );
     Route::get( 'project/{id}/step-two', 'Rest\ProjectController@stepTwo' );
+    Route::get( 'project/{id}/project-details', 'Rest\ProjectController@projectDetails' );
     Route::get('buildings/{$id}/floor-layout', 'Rest\BuildingFloorLayoutController@getFloorLayoutForFloor');
     Route::get('project/{id}/update-response-table', 'Rest\ProjectController@updateResponseTable');
     Route::get( 'get-cities', 'Rest\ProjectController@getAPICities' );
@@ -117,6 +123,7 @@ Route::group( ['prefix' => 'api/v1'], function() {
     Route::get( 'get-selling-amount', 'Rest\ProjectController@getSellingAmount' );
     Route::get( 'get-unit-payment-plan', 'Rest\ProjectController@getUnitPaymentPlan' );
     Route::get( 'get-unit-price-sheet', 'Rest\ProjectController@getUnitPriceSheet' );
+    Route::get( 'add-unit-to-bookingcrm', 'Rest\ProjectController@addUnitToBookingCrm' );
 } );
 
 /**

@@ -29,8 +29,25 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
+        
+        $userId =  \Auth::user()->id;
+        $defaultRole = getDefaultRole($userId);
+        
+        if($defaultRole['PROJECT_ACCESS']=='all')
+            $projects = Project::orderBy('project_title')->get()->toArray();
+        else
+        {
+            $userProjects = getUserAssignedProject($userId);
+            $projectIds =[];
+            foreach($userProjects as $key=> $userProject)
+            { 
+                $projectIds []= $userProject['project_id'];
 
-        $projects = Project::orderBy('project_title')->get()->toArray();
+            }
+            $projects = Project::whereIn('id',$projectIds)->orderBy('project_title')->get()->toArray();
+        }
+        
+        
         return view('admin.project.list')
                         ->with('projects', $projects)
                         ->with('menuFlag', FALSE);
@@ -378,7 +395,7 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData =         $buildingbreakPoint = [];
+        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData = $buildingbreakPoint = $projectBuildings= [];
         $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at', 'updated_at')->first()->toArray();
 
         foreach ($projectpropertyTypes as $propertyType) {
@@ -389,8 +406,9 @@ class ProjectController extends Controller {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
-            $buildings = $phase->projectBuildings()->get(); 
-            $buildingUnits = $buildingBreakpointId =[];
+            $buildings = $phase->projectBuildings()->get();
+            $projectBuildings = array_merge($projectBuildings,$buildings->toArray());
+            $buildingUnits = [];
             
             //Project master total unit count Villa + Plot + Building
             $totalCount += count($units) + count($buildings); 
@@ -401,14 +419,14 @@ class ProjectController extends Controller {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
-            
+                $buildingBreakpointIds =[];
                 $buildingbreakPoint = (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
                  foreach($buildingMediaIds as $position => $buildingMediaId) {
                     if($buildingMediaId!="")
                     {
                         if(in_array($position,$buildingbreakPoint ))
                         {
-                            $buildingBreakpointId[$position]=$buildingMediaId;
+                            $buildingBreakpointIds[$position]=$buildingMediaId;
                         }
                     }
                 }
@@ -416,7 +434,7 @@ class ProjectController extends Controller {
                
                 $totalbuildingUnitCount = count($buildingUnits); 
                 //Building total unit count
-                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
+                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointIds);  
                 foreach($buildingunitSvgCount as $position=> $count)
                 {
                     $buildingunitCount =  $count['apartment'] ;
@@ -425,10 +443,10 @@ class ProjectController extends Controller {
                 }
                 
                  $units = array_merge($units,$buildingUnits);  //Merge All Units of project
-               
+                 
             }
             
-       
+           
             //VILLA + PLOT +Penthouse + APARTMENT
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
@@ -446,6 +464,7 @@ class ProjectController extends Controller {
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] = 0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['booked_by_agent'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['archived'] = 0;
                 }
 
@@ -453,6 +472,7 @@ class ProjectController extends Controller {
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] +=($unit['availability'] == 'sold') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] +=($unit['availability'] == 'not_released') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] +=($unit['availability'] == 'blocked') ? 1 : 0;
+                $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['booked_by_agent'] +=($unit['availability'] == 'booked_by_agent') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['archived'] +=($unit['availability'] == 'archived') ? 1 : 0;
             }
             
@@ -505,7 +525,7 @@ class ProjectController extends Controller {
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
                         ->with('breakPointSvgData', $breakPointSvgData)
-                        ->with('buildings', $buildings->toArray())    
+                        ->with('buildings', $projectBuildings)    
                         ->with('buildingbreakPointSvgData', $buildingbreakPointSvgData) 
                         ->with('current', 'summary');
     }
@@ -559,6 +579,9 @@ class ProjectController extends Controller {
 		           $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
                 else
                   $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')';
+                
+                if(empty($buildingUnits))
+                   $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')'; 
                 
               if (!empty($unitSvgExits)) {
                     
@@ -1040,7 +1063,7 @@ class ProjectController extends Controller {
                     $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
                     
                     if (($propertyname == "Apartment")or($propertyname == "Penthouse")) {
-                        $supported_types = array("Apartment");
+                        $supported_types = array("Apartment/Penthouse");
                     }
                 }
                 //Duplicate svgs
@@ -1113,6 +1136,7 @@ class ProjectController extends Controller {
         $status[] =['id'=>'sold','name'=>'Sold'] ;
         $status[] =['id'=>'not_released','name'=>'Not Released'] ;
         $status[] =['id'=>'blocked','name'=>'Blocked'] ;
+        $status[] =['id'=>'booked_by_agent','name'=>'Booked By Agent'] ;
         $status[] =['id'=>'archived','name'=>'Archived'] ;
 
         if($propertyTypeId==APARTMENTID || $propertyTypeId==PENTHOUSEID)
@@ -1193,6 +1217,15 @@ class ProjectController extends Controller {
       
   }
     
+  public function downloadSampleFile($projectId,$filename){
+       
+        $file= public_path() . '/projects/cfsamplefile/'.$filename;
+        $headers = array(
+               'Content-Type' => 'text/csv',
+            );
+        return \Response::download($file, $filename, $headers);
+ }    
+    
   public function getVariants($project ,$propertyTypeId)
   { 
       $unitVariants =[];
@@ -1248,11 +1281,12 @@ class ProjectController extends Controller {
      $o = curl_exec($c); 
 
      if (curl_errno($c)) {
-        $result_json  = NULL;
+        //$result_json  = NULL;
+         $result_json  = 0;
      }
      else{
 
-         $result_json  = json_decode($o);
+         $result_json  = (json_decode($o)!='')?json_decode($o):0;
 
       }
 
@@ -1284,11 +1318,12 @@ class ProjectController extends Controller {
      $o = curl_exec($c); 
 
      if (curl_errno($c)) {
-        $result_json  = NULL;
+        //$result_json  = NULL;
+         $result_json  = 0;
      }
      else{
 
-         $result_json  = json_decode($o);
+         $result_json  = (json_decode($o)!='')?json_decode($o):0;
 
       }
 
@@ -1298,6 +1333,28 @@ class ProjectController extends Controller {
       curl_close($c); 
 
       return $result_json;      
+    }
+    
+    function getProjectName(Request $request)
+    {
+        $search = $request->input('project_name');
+        $userId = $request->input('userId');
+        
+        $userProjects = getUserAssignedProject($userId);
+        $projectIds =[]; 
+        foreach($userProjects as $userProject)
+        {
+            $projectIds[] =$userProject['project_id'];
+        }
+        $projects = Project :: where('project_title','like',$search.'%')->whereNotIn('id',$projectIds)->get()->lists('project_title','id');
+        return response()->json([
+                    'code' => 'project_autocomplete',
+                    'message' => '',
+                    'data' => [
+                        'projects' => $projects,
+ 
+                    ]
+                        ], 201);
     }
  
 }

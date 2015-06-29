@@ -267,13 +267,14 @@
         <table class="table table-bordered m-b-30 no-pointer">
             <thead>
                 <tr>
-                    <td width="16%"><span class="semi-bold">Phase</span></td>
-                    <td width="16%"><span class="semi-bold">Unit Type</span></td>
-                    <td width="16%"><span class="semi-bold">Available</span></td>
-                    <td width="18%"><span class="semi-bold">Sold</span></td>
-                    <td width="18%"><span class="semi-bold">Blocked</span></td>
-                    <td width="18%"><span class="semi-bold">Not Released</span></td>
-                    <td width="18%"><span class="semi-bold">Archived</span></td>
+                    <td width="10%"><span class="semi-bold">Phase</span></td>
+                    <td width="10%"><span class="semi-bold">Unit Type</span></td>
+                    <td width="13%"><span class="semi-bold">Available</span></td>
+                    <td width="13%"><span class="semi-bold">Sold</span></td>
+                    <td width="13%"><span class="semi-bold">Blocked</span></td>
+                    <td width="13%"><span class="semi-bold">Not Released</span></td>
+                    <td width="13%"><span class="semi-bold">Booked By Agent</span></td>
+                    <td width="13%"><span class="semi-bold">Archived</span></td>
                     <td><span class="semi-bold">Total</span></td>
                 </tr>
             </thead>
@@ -290,6 +291,7 @@
                     <td>{{$unitType['sold']}}</td>
                     <td>{{$unitType['blocked']}}</td>
                     <td>{{$unitType['not_released']}}</td>
+                    <td>{{$unitType['booked_by_agent']}}</td>
                     <td>{{$unitType['archived']}}</td>
                     <td class="semi-bold text-info text-center">{{ array_sum ( $unitType ) }}</td>
                 </tr>
@@ -298,7 +300,7 @@
                 @endforeach
                  @else
                 <tr>
-                    <td colspan="7" ><h5 class="text-info text-center">No units created</h5></td>
+                    <td colspan="9" ><h5 class="text-info text-center">No units created</h5></td>
                 </tr>
                 @endif 
             </tbody>

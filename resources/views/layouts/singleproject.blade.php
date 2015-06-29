@@ -30,10 +30,7 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/filters') }}">@if($current === 'filters')@endif Filters</a>
             </li>
             @endif
-            <li class="{{ $current === 'project_users' ? 'active' : '' }}">
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/user' ) }}" >@if($current === 'project_users')@endif Users</a>
-            </li>
-            
+                  
         </ul> 
  
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)

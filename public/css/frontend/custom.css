@@ -1173,12 +1173,6 @@ hr.embossed {
   position: absolute;
   top: 0px;
   left: 0px;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-}
-#spritespin {
-  width: 100% !important;
-  height: 100% !important;
 }
 .spritespin-canvas {
   height: auto;
@@ -1495,6 +1489,9 @@ hr.embossed {
 .zoom-controls .zoom-out::before {
   content: "-";
 }
+.zoom-controls.master-zoom {
+  display: block;
+}
 @media (max-width: 767px) {
   .zoom-controls {
     top: 15px;
@@ -1710,6 +1707,15 @@ svg polygon {
 }
 svg .no-fill {
   opacity: 0;
+}
+svg .unassign {
+  opacity: 0;
+  fill-opacity: 0;
+}
+svg .unassign:hover {
+  opacity: 0;
+  fill-opacity: 0;
+  cursor: default;
 }
 .amenity {
   stroke-width: 1 !important;
@@ -2374,7 +2380,7 @@ svg .no-fill {
 }
 .mini-map .project_master {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
 }
 @media (max-width: 991px) {

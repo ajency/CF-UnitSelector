@@ -135,6 +135,15 @@ svg polygon {
 svg .no-fill {
   opacity: 0;
 }
+svg .unassign {
+  opacity: 0;
+  fill-opacity: 0;
+}
+svg .unassign:hover {
+  opacity: 0;
+  fill-opacity: 0;
+  cursor: default;
+}
 .amenity {
   stroke-width: 1 !important;
   stroke: #FF7E00;
@@ -5554,9 +5563,7 @@ a.red-link.pull-right {
 }
 /* Svg */
 #aj-imp-browser-body {
-  height: 800px !important;
   margin: 10px auto !important;
-  width: 1330px;
   position: relative;
   overflow: hidden;
 }
@@ -5718,4 +5725,13 @@ nav.aj-navbar .toggle i {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 2px;
+}
+.alert2 {
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }

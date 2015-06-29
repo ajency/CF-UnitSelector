@@ -147,15 +147,19 @@
         text: 'Select option'
       }).appendTo(select);
       $.each(types, function(index, value) {
-        var valueText;
+        var valueText, valuetemp;
         if (svg_type === 'google_earth' && value === 'Project') {
           return;
         }
-        if (value === "Apartment") {
-          valueText = "Apartment / Penthouse";
+        valueText = value;
+        valuetemp = value;
+        console.log(value);
+        if (value === "Apartment/Penthouse") {
+          valueText = "apartment";
+          valuetemp = 'apartment';
         }
         return $('<option />', {
-          value: value.toLowerCase(),
+          value: valuetemp.toLowerCase(),
           text: value.toUpperCase()
         }).appendTo(select);
       });
@@ -177,11 +181,11 @@
         } else if (type === 'unassign') {
 
         } else {
-          unitID = parseInt(value.id);
+          console.log(unitID = parseInt(value.id));
           if (unitID !== 0) {
-            unit = unitMasterCollection.findWhere({
+            console.log(unit = unitMasterCollection.findWhere({
               'id': parseInt(value.id)
-            });
+            }));
             return unitCollection.remove(unit.get('id'));
           }
         }
@@ -202,17 +206,15 @@
     window.loadJSONData = function() {
       return $.ajax({
         type: 'GET',
-        url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
+        url: BASERESTURL + '/project/' + PROJECTID + '/project-details',
         async: false,
         success: function(response) {
           var types;
           response = response.data;
           bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
-          settings.setSettingsAttributes(response.settings);
           unitTypeCollection.setUnitTypeAttributes(response.unit_types);
           buildingCollection.setBuildingAttributes(response.buildings);
           apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
-          floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
           window.propertyTypes = response.property_types;
           plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
           unitCollection.setUnitAttributes(response.units);
@@ -334,7 +336,7 @@
       return $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
     };
     window.saveUnit = function() {
-      var details, locationPoints, myObject, objectType;
+      var details, locationPoints, myObject, objectType, type;
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
@@ -362,7 +364,8 @@
       } else if (myObject['object_type'] === "project") {
         details['class'] = 'step1-marker';
       } else {
-        details['class'] = 'layer ' + $('.property_type').val();
+        type = $('.property_type').val();
+        details['class'] = 'layer ' + type;
       }
       if (window.canvas_type === "concentricMarker") {
         myObject['points'] = window.markerPoints;
@@ -417,7 +420,8 @@
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
           window.generateSvg(window.svgData.data);
-          return window.resetTool();
+          window.resetTool();
+          return $('.toggle').bind('click');
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -553,7 +557,7 @@
       if (myObject['object_type'] === "amenity") {
         details['title'] = $('#amenity-title').val();
         details['description'] = $('#amenity-description').val();
-        details['class'] = 'layer ' + $('.property_type').val();
+        details['class'] = $('.property_type').val();
       } else if (myObject['object_type'] === "project") {
         details['class'] = 'step1-marker';
       } else {
@@ -719,6 +723,12 @@
     keydownFunc = function(e) {
       var id, object, pointList;
       if (e.which === 13) {
+        if (f.length > 0) {
+          $('.alert').text('POLYGON IS NOW DRAGGABLE');
+          window.hideAlert();
+        } else {
+          return;
+        }
         $('#aj-imp-builder-drag-drop canvas').hide();
         $('#aj-imp-builder-drag-drop svg').show();
         object = window.EDITOBJECT;
@@ -842,7 +852,7 @@
           if (parseInt(elemId) === parseInt(svgDataObject.id)) {
             points = svgDataObject.points;
             $('.area').val(points.join(','));
-            drawPoly(points);
+            drawPoly(svgDataObject.points);
             $('.submit').addClass('hidden');
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');
@@ -1005,7 +1015,7 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var indexToSplice;
+          var indexToSplice, types;
           indexToSplice = -1;
           $.each(window.svgData.data, function(index, value) {
             if (parseInt(value.id) === svgElemId) {
@@ -1015,8 +1025,9 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
-          console.log(window.svgData.data);
           draw.clear();
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
           window.generateSvg(window.svgData.data);
           return window.resetTool();
         },
@@ -1038,6 +1049,12 @@
       ctx = canvas.getContext("2d");
       return ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
+    window.setToggle = function() {
+      return $(".toggle").click(function() {
+        $(".toggle").toggleClass("expanded");
+        return $('.menu').toggleClass('open');
+      });
+    };
     $('.closeform').on('click', function(e) {
       var canvas, ctx;
       $('.area').val("");
@@ -1106,7 +1123,8 @@
           window.generateSvg(window.svgData.data);
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
-          return window.resetTool();
+          window.resetTool();
+          return $(".toggle").bind('click');
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -1160,7 +1178,7 @@
         };
       })(this));
     });
-    $('svg').on('contextmenu', '.layer', function(e) {
+    $('svg').on('contextmenu', '.polygon-type', function(e) {
       var currentElem, newPoints, pointList;
       e.preventDefault();
       $('.alert').text('Polygon duplicated, drag to position');

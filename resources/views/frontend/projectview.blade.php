@@ -137,9 +137,9 @@
         //global variable to keep track of the filtr the user has selected
         // CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','flooring': ''}
         CommonFloor.defaults = {'type' : ""
-                            ,'plot' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
-                            ,'villa' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
-                            ,'apartment' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
+                            ,'plot' : {'unit_type_id' : '','unit_variant_id':'','attributes' : {}}
+                            ,'villa' : {'unit_type_id' : '','unit_variant_id':'','attributes' :{}}
+                            ,'apartment' : {'unit_type_id' : '','unit_variant_id':'','attributes' : {}}
                             ,'common' : {'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','facings':'','views':''}
                             ,'step_three' : {'unit_type_id' : '','unit_variant_id':''}}
 
@@ -149,6 +149,8 @@
             "en-US" : <?php echo get_locale_frontend_to_json() ?>
 
         };
+
+        window.bookingPortalUrl = "{{BOOKING_PORTAL_URL}}"
 
         
         

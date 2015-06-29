@@ -73,13 +73,13 @@ class TopMasterView extends Marionette.ItemView
 													         {{/status}}
 														 {{#each  filters}} 
 													          <li>
-													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div>
+													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}"></span> </div>
 													         </li>
 													         {{#filters}}
 													         	{{#each this}}
 													         	{{#each this}}
 													          <li>
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  data-index="{{index}}"  data-type="{{typename}}"></span> </div> 
 													         </li>{{/each}}
 													         {{/each}}
 													         {{/filters}}
@@ -232,12 +232,13 @@ class TopMasterView extends Marionette.ItemView
 		'click @ui.filter_flooring':(e)->
 			types = []
 			type = $(e.currentTarget).attr('data-type')
-			if CommonFloor.defaults[type]['attributes']!= ""
-				types = CommonFloor.defaults[type]['attributes'].split(',')
+			index = $(e.currentTarget).attr('data-index')
+			if CommonFloor.defaults[type]['attributes'][index]!= ""
+				types = CommonFloor.defaults[type]['attributes'][index].split(',')
 				
 		
-			types = _.without types , $(e.currentTarget).attr('data-id')
-			CommonFloor.defaults[type]['attributes'] = types.join(',')
+			console.log types = _.without types , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults[type]['attributes'][index] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
@@ -454,7 +455,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											<li class="na">Available</li>-->
 										  </ul>
 										</div>
-										<div class="zoom-controls c">
+										<div class="zoom-controls master-zoom">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
 										</div>

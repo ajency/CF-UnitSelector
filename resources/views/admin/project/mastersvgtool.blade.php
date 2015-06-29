@@ -30,7 +30,19 @@
       fill: rgba(246, 129, 33, 0.39);
       stroke-dasharray: 0 !important;
     }
-
+     body .unassign {
+      stroke-width: 1 !important;
+      stroke: #FD0800;
+      fill:#000!important;
+      stroke-dasharray: 0 !important;
+    }
+        body .unassign ellipse {
+        fill:#000!important;
+             
+    }
+  body .unassign ellipse:nth-child(2){
+      stroke: #FD0800;
+  }
     .svg-canvas{
         transform: matrix(1, 0, 0, 1, 0, 0);
 
@@ -73,7 +85,7 @@
                             <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
                             <button id="out" class="zoom-out btn btn-primary"><i class="fa fa-search-minus"></i></button>
                             <button id="clear" name="clear" class="zoom-out btn btn-medium btn-danger clear" style=" padding: 2px 12px; ">Clear</button>
-                            <button type="button" class="btn btn-medium btn-danger duplicate" style=" padding: 2px 12px; ">Duplicate</button>
+                            <button type="button" class="btn btn-medium btn-danger duplicate " style=" padding: 2px 12px;display:none">Duplicate</button>
                             <!-- <select class="svgPaths hidden " id="svgPaths"></select>
                             <button id="process" name="process" class="btn btn-medium btn-danger process hidden" style=" padding: 2px 12px; ">Process</button> -->
                             <input type="hidden" name="svg-element-id">
@@ -89,6 +101,7 @@
                               <div class="modal-body">
                                 <p>Select SVG to duplicate:</p>
                                 <select class="svgPaths form-control" id="svgPaths"></select>
+                                <div class="alert2" style="display:none;"></div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

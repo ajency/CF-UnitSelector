@@ -17,14 +17,14 @@
         return unitTypes;
       }
       units = unitCollection.where({
-        'building_id': building_id
+        'building_id': parseInt(building_id)
       });
       units = new Backbone.Collection(units);
       variants = units.pluck("unit_variant_id");
       $.each(variants, function(index, value) {
         var varinatModel;
         varinatModel = apartmentVariantCollection.findWhere({
-          'id': value.get('unit_variant_id')
+          'id': parseInt(value)
         });
         return unitTypes.push(varinatModel.get('unit_type_id'));
       });
