@@ -358,6 +358,7 @@
     }
     if (param === 'apartment') {
       $.merge(collection, apartmentVariantCollection.getApartmentUnits());
+      $.merge(collection, apartmentVariantCollection.getPenthouseUnits());
     }
     if (param === 'plot') {
       $.merge(collection, plotVariantCollection.getPlotUnits());
