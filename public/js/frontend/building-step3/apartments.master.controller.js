@@ -710,12 +710,12 @@
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();
-          $('.svg-maps').off('click', '.apartment.sold');
+          $('.svg-maps').off('click', '.apartment');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $('.svg-maps').on('click', '.apartment', function(e) {
+      return $('.svg-maps').on('click', '.available,.sold', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;
