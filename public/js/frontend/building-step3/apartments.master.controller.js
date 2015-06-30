@@ -710,7 +710,7 @@
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();
-          $(document).off('click', '.sold');
+          $('.svg-maps').off('click', '.sold');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
