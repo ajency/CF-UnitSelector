@@ -918,16 +918,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.apartment').tooltipster('disable')
 			else 
 				that.delegateEvents()
-				# $(that.el).delegate('.apartment', 'mouseover');
-				# $(that.el).delegate('.available', 'click');
 				$('.svg-maps').off('click','.sold')
-				# $(that.el).undelegate('.sold', 'click');
-				# $(that.el).undelegate('.not_relased', 'click');
-				# $(that.el).undelegate('.blocked', 'click');
+				$('.svg-maps').off('click','.blocked')
+				$('.svg-maps').off('click','.not_relased')
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
 
-		class_array = ['.available' , '.sold']
+		class_array = ['.available' , '.sold', '.blocked' , '.not_relased']
 		$.each class_array , (index,value)->
 				
 			$('.svg-maps').on 'click' , value , (e)->

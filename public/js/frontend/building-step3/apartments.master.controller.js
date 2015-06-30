@@ -711,11 +711,13 @@
         } else {
           that.delegateEvents();
           $('.svg-maps').off('click', '.sold');
+          $('.svg-maps').off('click', '.blocked');
+          $('.svg-maps').off('click', '.not_relased');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      class_array = ['.available', '.sold'];
+      class_array = ['.available', '.sold', '.blocked', '.not_relased'];
       return $.each(class_array, function(index, value) {
         return $('.svg-maps').on('click', value, function(e) {
           var temp, xapoint, xpoint, yapoint, ypoint;
