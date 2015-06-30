@@ -826,8 +826,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					zoomRate: 2
 					constrainZoomed: true
 				}
-		)
-		window.magne.zoomBy(-1)
+			)
+			window.magne.zoomBy(-1)
+		
 		# $controls = $('[mag-ctrl="controls"]');
 		# $controls.magCtrl({
 		#   mag: @$host
