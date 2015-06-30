@@ -584,6 +584,7 @@
       },
       'click .apartment': function(e) {
         var id, unit;
+        console.log("clicked");
         id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           id: id
