@@ -550,6 +550,13 @@ jQuery(document).ready ($)->
                 next() 
         )
 
+    window.hideLabel = ()->
+        $('.alert2').show()
+        $('.alert2').delay(3000).queue( (next)->
+                $(this).hide('fade') 
+                next() 
+        )
+
     window.buildSvgObjectData =()->
         myObject  = {}
         details = {}
@@ -1400,8 +1407,8 @@ jQuery(document).ready ($)->
     $('.process').on 'click' , (evt) ->
         imageid = $('.svgPaths').val()
         if imageid is ""
-            $('.alert').text 'Select svg'
-            window.hideAlert()
+            $('.alert2').text 'Please select an SVG!'
+            window.hideLabel()
             return
         $('.svg-canvas').hide()
         $('#myModal').modal('hide')
