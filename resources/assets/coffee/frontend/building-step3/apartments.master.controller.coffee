@@ -765,7 +765,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			$('.amenity').tooltipster('content', html)
 
-		'click .available':(e)->
+		'click .apartment':(e)->
 			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id
