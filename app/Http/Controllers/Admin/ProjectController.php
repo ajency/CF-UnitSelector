@@ -206,7 +206,7 @@ class ProjectController extends Controller {
        $projectattributes = $project->attributes()->delete();   
        $projectmedia = $project->media()->delete();   
        $projectRooms = $project->roomTypes()->delete();     
-       $userProjects = \CommonFloor\ProjectJson::where('project_id',$projectId)->delete();    
+       $userProjects = \CommonFloor\UserProject::where('project_id',$projectId)->delete();  
         
         $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
