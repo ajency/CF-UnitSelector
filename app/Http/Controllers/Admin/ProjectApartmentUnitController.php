@@ -292,7 +292,9 @@ class ProjectApartmentUnitController extends Controller {
         {
             Excel::load($unit_file, function($reader)use($project) {
             
-            $results = $reader->toArray(); //dd($results);
+            $results = $reader->toArray();
+           if(!empty($results))
+           {    
             if(!empty($results) && count($results[0])==12)
              {   
                 $i=0;
@@ -439,6 +441,10 @@ class ProjectApartmentUnitController extends Controller {
             }
              else
                  $errorMsg[] ='Column Count does not match';
+               
+          }
+          else
+             $errorMsg[] ='No Data Found';       
      
 
                 Session::flash('error_message',$errorMsg);
