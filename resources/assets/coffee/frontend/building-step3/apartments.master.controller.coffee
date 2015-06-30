@@ -766,6 +766,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.amenity').tooltipster('content', html)
 
 		'click .apartment':(e)->
+			console.log "clicked"
 			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id
@@ -826,8 +827,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					zoomRate: 2
 					constrainZoomed: true
 				}
-		)
-		window.magne.zoomBy(-1)
+			)
+			window.magne.zoomBy(-1)
+		
 		# $controls = $('[mag-ctrl="controls"]');
 		# $controls.magCtrl({
 		#   mag: @$host
@@ -874,7 +876,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						# that.undelegateEvents()
 						$(that.el).undelegate('.apartment', 'click');
 						$(that.el).undelegate('.apartment', 'mouseover');
-						that.bindFunctions()
 						that.zoomBuilding()
 						$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					else
@@ -905,9 +906,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		  y: y / $target.height()
 		}
   
-	bindFunctions:->
-		$('#next').bind('click')
-		$('#prev').bind('click')
+	
 
 	zoomBuilding:->
 		that  = @
@@ -922,14 +921,15 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				that.delegateEvents()
 				# $(that.el).delegate('.apartment', 'mouseover');
 				# $(that.el).delegate('.available', 'click');
-				$(document).off('click','.sold')
+				$(that.el).undelegate('.apartment', 'click');
+				$('.svg-maps').off('click','.sold')
 				# $(that.el).undelegate('.sold', 'click');
 				# $(that.el).undelegate('.not_relased', 'click');
 				# $(that.el).undelegate('.blocked', 'click');
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
 				
-		$(document).bind 'click' , '.apartment' , (e)->
+		$('.svg-maps').on 'click' , '.available,.sold' , (e)->
 			clearTimeout(window.renderLoopInterval)
 			xpoint = e.clientX
 			ypoint = e.clientY

@@ -1585,7 +1585,8 @@
     });
     unitCollection.reset(unitMasterCollection.toArray());
     CommonFloor.resetCollections();
-    return CommonFloor.filterNew();
+    CommonFloor.filterNew();
+    return clearTimeout(window.renderLoopInterval);
   });
 
   CommonFloor.filterViews = function() {

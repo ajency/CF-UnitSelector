@@ -584,6 +584,7 @@
       },
       'click .apartment': function(e) {
         var id, unit;
+        console.log("clicked");
         id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           id: id
@@ -632,8 +633,8 @@
           zoomRate: 2,
           constrainZoomed: true
         });
+        window.magne.zoomBy(-1);
       }
-      window.magne.zoomBy(-1);
       windowHeight = $(window).innerHeight() - 56;
       $('.master').css('height', windowHeight);
       $('.master').css('min-width', windowHeight * 2);
@@ -668,7 +669,6 @@
           if ($(window).width() > 991) {
             $(that.el).undelegate('.apartment', 'click');
             $(that.el).undelegate('.apartment', 'mouseover');
-            that.bindFunctions();
             that.zoomBuilding();
             $('.zoomimage').attr('src', transitionImages[breakpoints[0]]);
           } else {
@@ -699,11 +699,6 @@
       };
     };
 
-    CenterApartmentMasterView.prototype.bindFunctions = function() {
-      $('#next').bind('click');
-      return $('#prev').bind('click');
-    };
-
     CenterApartmentMasterView.prototype.zoomBuilding = function() {
       var that;
       that = this;
@@ -716,12 +711,13 @@
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();
-          $(document).off('click', '.sold');
+          $(that.el).undelegate('.apartment', 'click');
+          $('.svg-maps').off('click', '.sold');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $(document).bind('click', '.apartment', function(e) {
+      return $('.svg-maps').on('click', '.available,.sold', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;
