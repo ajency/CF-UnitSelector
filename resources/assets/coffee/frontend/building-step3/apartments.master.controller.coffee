@@ -916,6 +916,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$(that.el).undelegate('.apartment', 'click');
 				$(that.el).undelegate('.apartment', 'mouseover');
 				$('.apartment').tooltipster('disable')
+				$('.svg-maps').on('click','.sold')
+				$('.svg-maps').on('click','.blocked')
+				$('.svg-maps').on('click','.not_relased')
 			else 
 				that.delegateEvents()
 				$('.svg-maps').off('click','.sold')
