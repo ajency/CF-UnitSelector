@@ -929,7 +929,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
 				
-		$(document).bind 'click' , '.apartment' , (e)->
+		$(document).on 'click' , '.apartment' , (e)->
 			clearTimeout(window.renderLoopInterval)
 			xpoint = e.clientX
 			ypoint = e.clientY

@@ -721,7 +721,7 @@
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $(document).bind('click', '.apartment', function(e) {
+      return $(document).on('click', '.apartment', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;
