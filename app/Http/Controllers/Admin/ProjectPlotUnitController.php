@@ -271,7 +271,7 @@ class ProjectPlotUnitController extends Controller {
                 $errorMsg = [];
                $results = $reader->toArray();//dd($results);
                 
-             if(count($results[0])==10)
+             if(!empty($results) && count($results[0])==10)
              {
                  $i=0;
                foreach($results as $result)

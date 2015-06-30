@@ -1236,7 +1236,17 @@ class ProjectController extends Controller {
             $projectUnits [$propertyTypeId] = $units;
         }
         
-        $i=1;
+      $i=1;
+       
+        // Set Data Black If No Record To Avoid Blank CSV File
+        $data[$i]['Property Type'] = '';
+        $data[$i]['Unit'] = '';
+        $data[$i]['Unit Id'] = '';
+        $data[$i]['Has Access (Yes/No)'] = '';
+      
+      
+      if(!empty($projectUnits))
+      {
         foreach($projectUnits as $propertyTypeId => $units)
         {  
             foreach($units as  $unit)
@@ -1248,6 +1258,8 @@ class ProjectController extends Controller {
             $i++;
             }
         }
+      }
+      
                 
         $filename = property_type_slug($project->project_title.'-units-config'); 
         Excel::create($filename, function($excel)use($data) {
