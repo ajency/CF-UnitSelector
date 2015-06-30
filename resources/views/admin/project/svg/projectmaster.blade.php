@@ -28,7 +28,7 @@
                 <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,                upload images in the sequence ( Front -> Right -> Back -> Left). 
                              Image dimensions should be - 
                                             1600*800. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
-                            Naming convention to be followed for the images uploaded -Imagename-00 (E.g Master-00(first image), Master-01 and so on).
+                            Naming convention to be followed for the images uploaded - Imagename-00 (E.g Master-00(first image), Master-01 and so on).
                 </div>
                 <div class="dataTables_wrapper form-inline" role="grid">
                     <table class="table table-striped dataTable">

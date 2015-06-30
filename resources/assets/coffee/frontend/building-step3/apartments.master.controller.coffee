@@ -128,8 +128,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.views  = main[0].views
 		data.facings  = main[0].facings
 		
-		results  = apartmentVariantCollection.getApartmentUnits()
-		temp = new Backbone.Collection results
+		results  = unitCollection.length
+		temp = unitCollection
 		newTemp = temp.where
 				'building_id' : parseInt building_id
 		data.results = newTemp.length
@@ -826,8 +826,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					zoomRate: 2
 					constrainZoomed: true
 				}
-		)
-		window.magne.zoomBy(-1)
+			)
+			window.magne.zoomBy(-1)
+		
 		# $controls = $('[mag-ctrl="controls"]');
 		# $controls.magCtrl({
 		#   mag: @$host
@@ -874,7 +875,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						# that.undelegateEvents()
 						$(that.el).undelegate('.apartment', 'click');
 						$(that.el).undelegate('.apartment', 'mouseover');
-						that.bindFunctions()
 						that.zoomBuilding()
 						$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					else
@@ -905,9 +905,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		  y: y / $target.height()
 		}
   
-	bindFunctions:->
-		$('#next').bind('click')
-		$('#prev').bind('click')
+	
 
 	zoomBuilding:->
 		that  = @
@@ -918,47 +916,41 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$(that.el).undelegate('.apartment', 'click');
 				$(that.el).undelegate('.apartment', 'mouseover');
 				$('.apartment').tooltipster('disable')
+				that.zoomShow()
 			else 
 				that.delegateEvents()
-				# $(that.el).delegate('.apartment', 'mouseover');
-				# $(that.el).delegate('.available', 'click');
-				$(document).off('click','.sold')
-				# $(that.el).undelegate('.sold', 'click');
-				# $(that.el).undelegate('.not_relased', 'click');
-				# $(that.el).undelegate('.blocked', 'click');
+				$('.svg-maps').off('click','.sold')
+				$('.svg-maps').off('click','.blocked')
+				$('.svg-maps').off('click','.not_released')
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
+
+		that.zoomShow()
+
+	zoomShow:->
+
+		class_array = ['.available' , '.sold', '.blocked' , '.not_released']
+		$.each class_array , (index,value)->
 				
-		$(document).bind 'click' , '.apartment' , (e)->
-			clearTimeout(window.renderLoopInterval)
-			xpoint = e.clientX
-			ypoint = e.clientY
+			$('.svg-maps').on 'click' , value , (e)->
+				clearTimeout(window.renderLoopInterval)
+				xpoint = e.clientX
+				ypoint = e.clientY
 
-			xpoint = xpoint/$(window).width()
-			ypoint = ypoint/$(window).height()
-			xpoint = xpoint.toFixed(1)
-			ypoint = ypoint.toFixed(1)
+				xpoint = xpoint/$(window).width()
+				ypoint = ypoint/$(window).height()
+				xpoint = xpoint.toFixed(1)
+				ypoint = ypoint.toFixed(1)
 
-			xapoint = xpoint /10
-			yapoint = ypoint /10
+				xapoint = xpoint /10
+				yapoint = ypoint /10
+				
+				temp = window.magne
+				temp.model.focus = {x: xpoint, y: ypoint}
+				
+				temp.zoomBy(1)
+				temp.reinit()
 			
-			temp = window.magne
-			temp.model.focus = {x: xpoint, y: ypoint}
-			# temp.model.lens = {x: xpoint, y: ypoint}
-
-			# temp.modelLazy.focus = {x: xpoint, y: ypoint}
-			# console.log temp.modelLazy.focus
-			# temp.modelLazy.lens = {x: xpoint, y: ypoint , h :0.5 , w: 0.5}
-			# temp.options.position = 'drag'
-			# temp.modelLazy.zoomed = {x: temp1, y:temp2 , h :1.5 , w: 1.5}
-			# temp.compute()
-			temp.zoomBy(1)
-			temp.reinit()
-			# that.delegateEvents()
-			# temp.renderNew(temp)
-			# window.renderLoopInterval()
-			
-			# that.$host.mag.reinit(that.$host.mag.model)
 	loadProjectMaster:->
 		svgs = []
 		masterbreakpoints = project.get('breakpoints')

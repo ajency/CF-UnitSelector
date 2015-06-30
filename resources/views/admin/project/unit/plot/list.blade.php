@@ -37,8 +37,8 @@
                             <th>Status</th>
                             <th>Variant</th>
                             <th>Phase</th>
-                            <th>Created On</th>
-                            <th>Modified On</th>
+                            <th class="date-sort">Created On</th>
+                            <th class="date-sort">Modified On</th>
                         </tr>
                     </thead>
                     <tbody> 

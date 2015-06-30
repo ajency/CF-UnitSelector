@@ -72,19 +72,16 @@ class AgentController extends Controller {
         $userRole->role_id = Role :: where('name','cf-agent')->pluck('id');
         $userRole->save();
  
-        $data = UserController::emailTemplate($name,$email,$password); 
+        $data =[];
+        $data['name'] = $name;
+        $data['email'] = $email;
+        $data['password'] = $password;
+ 
+        Mail::send('admin.user.registermail', ['user'=>$data], function($message)use($data)
+        {  
+            $message->to($data['email'], $data['name'])->subject('Welcome to CommonFloor Unit Selector!');
+        });
         
- 
-        // To send HTML mail, the Content-type header must be set
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-        // Additional headers
-        $headers .= 'From: CommonFloor Unit Selector <noreply@commonfloor.com>' . "\r\n";
-        $headers .= 'Reply-To: noreply@commonfloor.com' . "\r\n";
- 
-
-         mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
          
         Session::flash('success_message','Agent created successfully. An email has been sent to the user email address with the login instruction');
         $addanother = $request->input('addanother');

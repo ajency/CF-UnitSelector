@@ -98,8 +98,8 @@
       data.floor = main[0].floor;
       data.views = main[0].views;
       data.facings = main[0].facings;
-      results = apartmentVariantCollection.getApartmentUnits();
-      temp = new Backbone.Collection(results);
+      results = unitCollection.length;
+      temp = unitCollection;
       newTemp = temp.where({
         'building_id': parseInt(building_id)
       });
@@ -632,8 +632,8 @@
           zoomRate: 2,
           constrainZoomed: true
         });
+        window.magne.zoomBy(-1);
       }
-      window.magne.zoomBy(-1);
       windowHeight = $(window).innerHeight() - 56;
       $('.master').css('height', windowHeight);
       $('.master').css('min-width', windowHeight * 2);
@@ -668,7 +668,6 @@
           if ($(window).width() > 991) {
             $(that.el).undelegate('.apartment', 'click');
             $(that.el).undelegate('.apartment', 'mouseover');
-            that.bindFunctions();
             that.zoomBuilding();
             $('.zoomimage').attr('src', transitionImages[breakpoints[0]]);
           } else {
@@ -699,11 +698,6 @@
       };
     };
 
-    CenterApartmentMasterView.prototype.bindFunctions = function() {
-      $('#next').bind('click');
-      return $('#prev').bind('click');
-    };
-
     CenterApartmentMasterView.prototype.zoomBuilding = function() {
       var that;
       that = this;
@@ -713,32 +707,43 @@
         if (temp === 398) {
           $(that.el).undelegate('.apartment', 'click');
           $(that.el).undelegate('.apartment', 'mouseover');
-          return $('.apartment').tooltipster('disable');
+          $('.apartment').tooltipster('disable');
+          return that.zoomShow();
         } else {
           that.delegateEvents();
-          $(document).off('click', '.sold');
+          $('.svg-maps').off('click', '.sold');
+          $('.svg-maps').off('click', '.blocked');
+          $('.svg-maps').off('click', '.not_released');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $(document).bind('click', '.apartment', function(e) {
-        var temp, xapoint, xpoint, yapoint, ypoint;
-        clearTimeout(window.renderLoopInterval);
-        xpoint = e.clientX;
-        ypoint = e.clientY;
-        xpoint = xpoint / $(window).width();
-        ypoint = ypoint / $(window).height();
-        xpoint = xpoint.toFixed(1);
-        ypoint = ypoint.toFixed(1);
-        xapoint = xpoint / 10;
-        yapoint = ypoint / 10;
-        temp = window.magne;
-        temp.model.focus = {
-          x: xpoint,
-          y: ypoint
-        };
-        temp.zoomBy(1);
-        return temp.reinit();
+      return that.zoomShow();
+    };
+
+    CenterApartmentMasterView.prototype.zoomShow = function() {
+      var class_array;
+      class_array = ['.available', '.sold', '.blocked', '.not_released'];
+      return $.each(class_array, function(index, value) {
+        return $('.svg-maps').on('click', value, function(e) {
+          var temp, xapoint, xpoint, yapoint, ypoint;
+          clearTimeout(window.renderLoopInterval);
+          xpoint = e.clientX;
+          ypoint = e.clientY;
+          xpoint = xpoint / $(window).width();
+          ypoint = ypoint / $(window).height();
+          xpoint = xpoint.toFixed(1);
+          ypoint = ypoint.toFixed(1);
+          xapoint = xpoint / 10;
+          yapoint = ypoint / 10;
+          temp = window.magne;
+          temp.model.focus = {
+            x: xpoint,
+            y: ypoint
+          };
+          temp.zoomBy(1);
+          return temp.reinit();
+        });
       });
     };
 
