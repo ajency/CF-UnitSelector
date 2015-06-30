@@ -240,7 +240,7 @@ class ProjectPlotUnitController extends Controller {
             
                $results = $reader->toArray();//dd($results);
                 
-             if(count($results[0])==10)
+             if(!empty($results) && count($results[0])==10)
              {
                  $i=0;
                foreach($results as $result)
