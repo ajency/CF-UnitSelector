@@ -293,7 +293,7 @@ class ProjectApartmentUnitController extends Controller {
             Excel::load($unit_file, function($reader)use($project) {
             
             $results = $reader->toArray(); //dd($results);
-            if(count($results[0])==12)
+            if(!empty($results) && count($results[0])==12)
              {   
                 $i=0;
                foreach($results as $result)
