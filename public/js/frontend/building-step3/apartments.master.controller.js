@@ -699,7 +699,7 @@
     };
 
     CenterApartmentMasterView.prototype.zoomBuilding = function() {
-      var class_array, that;
+      var that;
       that = this;
       $(".mag-lens").resize(function(e) {
         var temp;
@@ -707,7 +707,8 @@
         if (temp === 398) {
           $(that.el).undelegate('.apartment', 'click');
           $(that.el).undelegate('.apartment', 'mouseover');
-          return $('.apartment').tooltipster('disable');
+          $('.apartment').tooltipster('disable');
+          return that.zoomShow();
         } else {
           that.delegateEvents();
           $('.svg-maps').off('click', '.sold');
@@ -717,6 +718,11 @@
           return $('.apartment').tooltipster('enable');
         }
       });
+      return that.zoomShow();
+    };
+
+    CenterApartmentMasterView.prototype.zoomShow = function() {
+      var class_array;
       class_array = ['.available', '.sold', '.blocked', '.not_relased'];
       return $.each(class_array, function(index, value) {
         return $('.svg-maps').on('click', value, function(e) {

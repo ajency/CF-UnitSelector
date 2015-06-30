@@ -916,6 +916,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$(that.el).undelegate('.apartment', 'click');
 				$(that.el).undelegate('.apartment', 'mouseover');
 				$('.apartment').tooltipster('disable')
+				that.zoomShow()
 			else 
 				that.delegateEvents()
 				$('.svg-maps').off('click','.sold')
@@ -923,6 +924,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.svg-maps').off('click','.not_relased')
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
+
+		that.zoomShow()
+
+	zoomShow:->
 
 		class_array = ['.available' , '.sold', '.blocked' , '.not_relased']
 		$.each class_array , (index,value)->
