@@ -855,7 +855,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		# 	$('svg').css 'height', windowHeight
 
 		
-		$('#spritespin').hide()
 		that = @
 		transitionImages = []
 		svgs = {}
