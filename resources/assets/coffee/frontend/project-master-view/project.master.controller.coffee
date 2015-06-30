@@ -850,7 +850,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2
-
+		$('#spritespin').css 'width', windowHeight
+		$('#spritespin').css 'height', windowHeight * 2
 		# if ($.browser.msie && $.browser.version == 10)
 		# 	$('svg').css 'height', windowHeight
 
