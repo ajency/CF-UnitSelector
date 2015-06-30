@@ -235,7 +235,13 @@ class AgentController extends Controller {
 
                        if($access =='')
                        {
-                           $errorMsg[] ='Has Access Id Is Empty On Row No '.$i;
+                           $errorMsg[] ='Has Access Value Is Empty On Row No '.$i;
+                            continue;
+                       }
+                    
+                        if(strtolower($access) !='yes' || strtolower($access) !='no')
+                       {
+                           $errorMsg[] ='Has Access Should Be Either Yes Or No On Row No '.$i;
                             continue;
                        }
 
@@ -244,7 +250,7 @@ class AgentController extends Controller {
                            $errorMsg[] ='Invalid Unit Id  On Row No '.$i ;
                             continue;
                        }
-                       if($access =='yes')
+                       if(strtolower($access) =='yes')
                        {
                           $agentUnit = new AgentUnit();
                           $agentUnit->user_id = $userId;
