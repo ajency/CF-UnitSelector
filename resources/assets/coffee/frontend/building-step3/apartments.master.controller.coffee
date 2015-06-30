@@ -826,8 +826,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					zoomRate: 2
 					constrainZoomed: true
 				}
-		)
-		window.magne.zoomBy(-1)
+			)
+			window.magne.zoomBy(-1)
+		
 		# $controls = $('[mag-ctrl="controls"]');
 		# $controls.magCtrl({
 		#   mag: @$host
@@ -919,7 +920,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				that.delegateEvents()
 				# $(that.el).delegate('.apartment', 'mouseover');
 				# $(that.el).delegate('.available', 'click');
-				$(document).off('click','.sold')
+				$('.svg-maps').off('click','.apartment.sold')
 				# $(that.el).undelegate('.sold', 'click');
 				# $(that.el).undelegate('.not_relased', 'click');
 				# $(that.el).undelegate('.blocked', 'click');

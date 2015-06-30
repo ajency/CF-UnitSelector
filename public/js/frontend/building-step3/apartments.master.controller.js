@@ -632,8 +632,8 @@
           zoomRate: 2,
           constrainZoomed: true
         });
+        window.magne.zoomBy(-1);
       }
-      window.magne.zoomBy(-1);
       windowHeight = $(window).innerHeight() - 56;
       $('.master').css('height', windowHeight);
       $('.master').css('min-width', windowHeight * 2);
@@ -710,7 +710,7 @@
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();
-          $(document).off('click', '.sold');
+          $('.svg-maps').off('click', '.apartment.sold');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }

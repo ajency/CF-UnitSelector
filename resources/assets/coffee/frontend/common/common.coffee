@@ -1408,6 +1408,7 @@ $(window).bind('hashchange', ()->
 	unitCollection.reset unitMasterCollection.toArray()
 	CommonFloor.resetCollections()
 	CommonFloor.filterNew()
+	clearTimeout(window.renderLoopInterval)
 )
 
 CommonFloor.filterViews = ()->
