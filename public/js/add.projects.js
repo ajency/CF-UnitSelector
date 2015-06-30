@@ -103,7 +103,7 @@
             success: function(resp) {
               var options, projects;
               projects = resp.data;
-              options = "";
+              options = "<option value=''>Choose Commonfloor Project</option>";
               _.each(projects, (function(_this) {
                 return function(proj, key) {
                   var project;

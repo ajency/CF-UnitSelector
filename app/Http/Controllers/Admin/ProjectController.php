@@ -206,7 +206,8 @@ class ProjectController extends Controller {
        $projectMeta = $project->projectMeta()->delete();
        $projectattributes = $project->attributes()->delete();   
        $projectmedia = $project->media()->delete();   
-       $projectRooms = $project->roomTypes()->delete();         
+       $projectRooms = $project->roomTypes()->delete();     
+       $userProjects = \CommonFloor\ProjectJson::where('project_id',$projectId)->delete();    
         
         $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
@@ -496,13 +497,13 @@ class ProjectController extends Controller {
                 $projectData['masterdeletedimages'][] =$position;
             else
             {
-                if(in_array($position,$projectData['breakpoints'] ))
+                if(!empty($projectData['breakpoints']) && in_array($position,$projectData['breakpoints'] ))
                 {
                     $breakPointImageIds[$position] =$imageId;
                 }
             }
         }
-
+        
         $unitSvgCount = SvgController :: getUnitSvgCount($breakPointImageIds);
         foreach($unitSvgCount as $position=> $count)
         {

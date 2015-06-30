@@ -1522,4 +1522,15 @@ function saveRoom()
 });*/
 
 
+//Reload page after hitting enter
+/*$(window).keydown(function(event){
+    if(event.keyCode == 13) { 
+      event.preventDefault();
+      window.location.reload();    
+      return false;
+    }
+ 
+  });*/
+
+
  
