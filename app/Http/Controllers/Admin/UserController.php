@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use CommonFloor\User;
 use CommonFloor\Role;
-use Illuminate\Support\Facades\Mail;
+use \Mail;
 use CommonFloor\UserRole;
 use CommonFloor\UserProject;
 use CommonFloor\Project;
@@ -65,7 +65,7 @@ class UserController extends Controller {
         $user->save();
         $userId = $user->id;
         
-       $userRole = new UserRole();
+        $userRole = new UserRole();
         $userRole->user_id = $userId;
         $userRole->role_id = $user_role;
         $userRole->save();
@@ -75,6 +75,7 @@ class UserController extends Controller {
         $userProject->role_user_id = $userRoleId;
         $userProject->project_id = 0;
         $userProject->save();*/
+        
         $data =[];
         $data['name'] = $name;
         $data['email'] = $email;
@@ -85,26 +86,14 @@ class UserController extends Controller {
             $message->to($data['email'], $data['name'])->subject('Welcome to CommonFloor Unit Selector!');
         });
         
-       /* $data = $this->emailTemplate($name,$email,$password); 
-        
- 
-        // To send HTML mail, the Content-type header must be set
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-        // Additional headers
-        $headers .= 'From: CommonFloor Unit Selector <noreply@commonfloor.com>' . "\r\n";
-        $headers .= 'Reply-To: noreply@commonfloor.com' . "\r\n";
- 
-
-         mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
-         
+    
         Session::flash('success_message','User created successfully. An email has been sent to the user email address with the login instruction');
-        $addanother = $request->input('addanother');*/
+        
+        $addanother = $request->input('addanother');
 
         if ($addanother == 1)
             return redirect("/admin/user/create");
-        else
+       else
             return redirect("/admin/user/" . $userId . "/edit");
     }
 
