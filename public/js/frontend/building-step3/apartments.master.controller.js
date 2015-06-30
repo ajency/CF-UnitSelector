@@ -668,7 +668,6 @@
           if ($(window).width() > 991) {
             $(that.el).undelegate('.apartment', 'click');
             $(that.el).undelegate('.apartment', 'mouseover');
-            that.bindFunctions();
             that.zoomBuilding();
             $('.zoomimage').attr('src', transitionImages[breakpoints[0]]);
           } else {
@@ -699,11 +698,6 @@
       };
     };
 
-    CenterApartmentMasterView.prototype.bindFunctions = function() {
-      $('#next').bind('click');
-      return $('#prev').bind('click');
-    };
-
     CenterApartmentMasterView.prototype.zoomBuilding = function() {
       var that;
       that = this;
@@ -721,7 +715,7 @@
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $(document).on('click', '.apartment', function(e) {
+      return $('svg').on('click', '.apartment', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;

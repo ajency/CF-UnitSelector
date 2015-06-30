@@ -874,7 +874,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						# that.undelegateEvents()
 						$(that.el).undelegate('.apartment', 'click');
 						$(that.el).undelegate('.apartment', 'mouseover');
-						that.bindFunctions()
 						that.zoomBuilding()
 						$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					else
@@ -905,9 +904,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		  y: y / $target.height()
 		}
   
-	bindFunctions:->
-		$('#next').bind('click')
-		$('#prev').bind('click')
+	
 
 	zoomBuilding:->
 		that  = @
@@ -929,7 +926,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
 				
-		$(document).on 'click' , '.apartment' , (e)->
+		$('svg').on 'click' , '.apartment' , (e)->
 			clearTimeout(window.renderLoopInterval)
 			xpoint = e.clientX
 			ypoint = e.clientY
