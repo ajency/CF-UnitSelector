@@ -339,9 +339,11 @@ class ProjectBunglowUnitController extends Controller {
             
                $results = $reader->toArray();//dd($results);
                $errorMsg = []; 
-     
-             if(!empty($results) && count($results[0])==10)
 
+            
+            if(!empty($results))
+            {
+             if(count($results[0])==10)
              {
                  $i=0;
                foreach($results as $result)
@@ -443,6 +445,9 @@ class ProjectBunglowUnitController extends Controller {
              }
              else
                  $errorMsg[] ='Column Count does not match';
+            }
+            else
+                 $errorMsg[] ='No Data Found';
      
                 if(!empty($errorMsg))   
                     Session::flash('error_message',$errorMsg);      
