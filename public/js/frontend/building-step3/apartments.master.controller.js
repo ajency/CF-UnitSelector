@@ -713,7 +713,7 @@
           that.delegateEvents();
           $('.svg-maps').off('click', '.sold');
           $('.svg-maps').off('click', '.blocked');
-          $('.svg-maps').off('click', '.not_relased');
+          $('.svg-maps').off('click', '.not_released');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
@@ -723,7 +723,7 @@
 
     CenterApartmentMasterView.prototype.zoomShow = function() {
       var class_array;
-      class_array = ['.available', '.sold', '.blocked', '.not_relased'];
+      class_array = ['.available', '.sold', '.blocked', '.not_released'];
       return $.each(class_array, function(index, value) {
         return $('.svg-maps').on('click', value, function(e) {
           var temp, xapoint, xpoint, yapoint, ypoint;
