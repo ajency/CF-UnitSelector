@@ -345,6 +345,7 @@ CommonFloor.resetProperyType = (param)->
 		$.merge collection , bunglowVariantCollection.getBunglowUnits()
 	if param == 'apartment'
 		$.merge collection , apartmentVariantCollection.getApartmentUnits()
+		$.merge collection , apartmentVariantCollection.getPenthouseUnits()
 	if param == 'plot'
 		$.merge collection , plotVariantCollection.getPlotUnits()
 	collection
@@ -1174,7 +1175,7 @@ CommonFloor.filterVillas = ()->
 	$.each CommonFloor.defaults['villa'] , (index,value)->
 		temp = []
 	
-		if value != "" && index == 'attributes'
+		if value != "" && index == 'attributes' && ! _.isEmpty value
 			attributes = bunglowVariantCollection.getBunglowUnits()
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
@@ -1242,8 +1243,10 @@ CommonFloor.filterApartments = ()->
 	tempColl = []	
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		temp = []
-		if value != "" && index == 'attributes'
-			attributes = apartmentVariantCollection.getApartmentUnits()
+		if value != "" && index == 'attributes' && ! _.isEmpty value
+			attributes = []
+			$.merge attributes ,  apartmentVariantCollection.getApartmentUnits()
+			$.merge attributes ,  apartmentVariantCollection.getPenthouseUnits()
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
 			$.each CommonFloor.defaults['apartment']['attributes'] , (ind1,val1)->
@@ -1272,7 +1275,9 @@ CommonFloor.filterApartments = ()->
 
 CommonFloor.filterApartmentAttributes= (ind1,val1)->
 	flooring = []
-	tempColl = apartmentVariantCollection.getApartmentUnits()
+	tempColl = []
+	$.merge tempColl ,  apartmentVariantCollection.getApartmentUnits()
+	$.merge tempColl ,  apartmentVariantCollection.getPenthouseUnits()
 	newtempColl = _.intersection(tempColl,unitCollection.toArray())
 	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
@@ -1310,7 +1315,7 @@ CommonFloor.filterPlots = ()->
 	tempColl = []	
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		temp = []
-		if value != "" && index == 'attributes'
+		if value != "" && index == 'attributes' && ! _.isEmpty value
 			attributes = plotVariantCollection.getPlotUnits()
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()
