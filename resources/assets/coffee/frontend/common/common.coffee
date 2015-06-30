@@ -1275,7 +1275,9 @@ CommonFloor.filterApartments = ()->
 
 CommonFloor.filterApartmentAttributes= (ind1,val1)->
 	flooring = []
-	tempColl = apartmentVariantCollection.getApartmentUnits()
+	tempColl = []
+	$.merge tempColl ,  apartmentVariantCollection.getApartmentUnits()
+	$.merge tempColl ,  apartmentVariantCollection.getPenthouseUnits()
 	newtempColl = _.intersection(tempColl,unitCollection.toArray())
 	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
