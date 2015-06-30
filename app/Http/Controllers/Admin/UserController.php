@@ -56,7 +56,7 @@ class UserController extends Controller {
         
         $password = $this->random_password();
 
-        $user = new User();
+        /* $user = new User();
         $user->name = ucfirst($name);
         $user->email = $email;
         $user->password = Hash::make($password);
@@ -65,20 +65,24 @@ class UserController extends Controller {
         $user->save();
         $userId = $user->id;
         
-        $userRole = new UserRole();
+       $userRole = new UserRole();
         $userRole->user_id = $userId;
         $userRole->role_id = $user_role;
         $userRole->save();
-        $userRoleId = $userRole->id;
+        $userRoleId = $userRole->id;*/
         
         /*$userProject = new UserProject();                 // DEFAULT ROLE 
         $userProject->role_user_id = $userRoleId;
         $userProject->project_id = 0;
         $userProject->save();*/
-        
-        Mail::send('emails.demo', $data, function($message)
-        {
-            $message->to($email, $name)->subject('Welcome to CommonFloor Unit Selector!');
+        $data =[];
+        $data['name'] = $name;
+        $data['email'] = $email;
+        $data['password'] = $password;
+ 
+        Mail::send('admin.user.registermail', ['user'=>$data], function($message)use($data)
+        {  
+            $message->to($data['email'], $data['name'])->subject('Welcome to CommonFloor Unit Selector!');
         });
         
        /* $data = $this->emailTemplate($name,$email,$password); 
