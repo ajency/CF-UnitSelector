@@ -412,3 +412,22 @@ input[type="file"]{
     z-index: -1;
   }
 }
+
+.checkbox input[type=checkbox] {
+  display: block;
+  left: -9999px;
+}
+
+.checkbox.check-primary [type="checkbox"]:checked:focus + label:before,
+.checkbox.check-primary [type="checkbox"]:not(:checked):focus + label:before {
+  border: 1.5px dotted @color-blue;
+}
+
+.radio input[type=radio]{
+  display: block;
+  left: -9999px;
+}
+.radio.radio-primary [type="radio"]:checked:focus + label:before,
+.radio.radio-primary [type="radio"]:not(:checked):focus + label:before {
+  border: 1.5px dotted @color-blue;
+}
