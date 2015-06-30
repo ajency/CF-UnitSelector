@@ -926,7 +926,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
 				
-		$('svg').on 'click' , '.apartment' , (e)->
+		$('.svg-maps').on 'click' , '.apartment' , (e)->
 			clearTimeout(window.renderLoopInterval)
 			xpoint = e.clientX
 			ypoint = e.clientY
