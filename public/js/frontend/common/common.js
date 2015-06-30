@@ -1384,16 +1384,16 @@
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
-      var param_val, temp;
+      var attributes, param_val, temp;
       temp = [];
       if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
+        attributes = [];
         $.merge(attributes, apartmentVariantCollection.getApartmentUnits());
         $.merge(attributes, apartmentVariantCollection.getPenthouseUnits());
         if (temp.length === 0) {
           temp = apartmentVariantCollection.getApartmentUnits();
         }
         $.each(CommonFloor.defaults['apartment']['attributes'], function(ind1, val1) {
-          var attributes;
           if (val1 !== "") {
             return attributes = CommonFloor.filterApartmentAttributes(ind1, val1);
           }
