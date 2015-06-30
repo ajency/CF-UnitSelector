@@ -305,32 +305,40 @@ body{
 
 /* Footer */
 #footer{
-    // margin: 0 -15px;
-    .footer-section1{
-        background-color: @white;
+  // margin: 0 -15px;
+  .footer-section1{
+      background-color: @white;
+  }
+  .footer-section4{
+    text-align: left;
+    .copyright-text{
+      float: right;
+      padding: 5px;
+      text-align: right;
     }
-    .footer-section4{
-      text-align: left;
-      .copyright-text{
-        float: right;
-        padding: 5px;
-        text-align: right;
-      }
-      ul{
-        float: left;
-        li{
-          display: inline-block;
-          a{
-            padding: 5px 12px;
-            &:hover{
-              background: none;
-              color: @white;
-              text-decoration: underline !important;
+    ul{
+      float: left;
+      li{
+        display: inline-block;
+        a{
+          padding: 5px 12px;
+          &:hover, &:focus{
+            background: none;
+            color: @white;
+            text-decoration: underline !important;
+          }
+          &.povp{
+            background: @brand-primary-darker;
+            border-radius: 3px;
+            span{
+              transform: rotate(180deg);
+              display: inline-block;
             }
           }
         }
       }
     }
+  }
 }
 
 @media(max-width:767px){
