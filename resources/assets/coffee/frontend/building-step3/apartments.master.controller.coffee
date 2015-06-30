@@ -128,11 +128,11 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.views  = main[0].views
 		data.facings  = main[0].facings
 		
-		results  = apartmentVariantCollection.getApartmentUnits()
-		temp = new Backbone.Collection results
-		newTemp = temp.where
-				'building_id' : parseInt building_id
-		data.results = newTemp.length
+		results  = unitCollection.length
+		# temp = new Backbone.Collection results
+		# newTemp = temp.where
+		# 		'building_id' : parseInt building_id
+		data.results = results
 		model = buildingMasterCollection.findWhere
 						'id' : building_id
 		data.name  = model.get 'building_name'
