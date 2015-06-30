@@ -98,7 +98,7 @@
                             <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
                         </div>
                         <div class="col-md-2 text-center">
-                            <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,'{{ $userProject['project_id'] }}');"><i class="fa fa-upload"></i> Bulk Import</a>
+                            <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,'{{ $userProject['project_id'] }}');"><i class="fa fa-upload"></i> Assign units</a>
               
                         </div>
                         <div class="col-md-2 text-center">

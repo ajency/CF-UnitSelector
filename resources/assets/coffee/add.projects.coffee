@@ -648,7 +648,7 @@ $('#project_name').autocomplete
                         </div>';
                 if userType is 'agent'
                     html += '<div class="col-md-2 text-center">
-                            <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,\'{{ project_id }}\');"><i class="fa fa-upload"></i> Bulk Import</a>
+                            <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,\'{{ project_id }}\');"><i class="fa fa-upload"></i> Assign units</a>
               
                         </div>';
                 html += '<div class="col-md-2 text-center">

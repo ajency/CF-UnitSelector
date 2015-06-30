@@ -531,7 +531,7 @@
         }
         html = '<div class="row m-b-10  project-{{ project_id }}"> <div class="col-md-8"> <input type="text" name="user_project" value="{{ project_name }}" class="form-control"> </div>';
         if (userType === 'agent') {
-          html += '<div class="col-md-2 text-center"> <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,\'{{ project_id }}\');"><i class="fa fa-upload"></i> Bulk Import</a> </div>';
+          html += '<div class="col-md-2 text-center"> <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,\'{{ project_id }}\');"><i class="fa fa-upload"></i> Assign units</a> </div>';
         }
         html += '<div class="col-md-2 text-center"> <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a> </div> </div>';
         $('#project_name').val('');

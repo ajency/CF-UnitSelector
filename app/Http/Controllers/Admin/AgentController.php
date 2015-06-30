@@ -219,7 +219,8 @@ class AgentController extends Controller {
                  
                 $results = $reader->toArray(); 
                 $unitIds =[];     
-                
+               if(!empty($results))
+               {
                  if(count($results[0])==4)
                  {
                      $i=0;
@@ -264,6 +265,9 @@ class AgentController extends Controller {
                  }
                  else
                      $errorMsg[] ='Column Count does not match';
+               }
+               else
+                   $errorMsg[] ='No Data Found';     
                     
                  if(!empty($errorMsg))
                     Session::flash('error_message',$errorMsg);      
