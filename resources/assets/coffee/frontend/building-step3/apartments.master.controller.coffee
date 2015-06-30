@@ -766,7 +766,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.amenity').tooltipster('content', html)
 
 		'click .apartment':(e)->
-			console.log "clicked"
 			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id
@@ -921,15 +920,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				that.delegateEvents()
 				# $(that.el).delegate('.apartment', 'mouseover');
 				# $(that.el).delegate('.available', 'click');
-				$(that.el).undelegate('.apartment', 'click');
-				$('.svg-maps').off('click','.sold')
+				$('.svg-maps').off('click','.apartment')
 				# $(that.el).undelegate('.sold', 'click');
 				# $(that.el).undelegate('.not_relased', 'click');
 				# $(that.el).undelegate('.blocked', 'click');
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
 				
-		$('.svg-maps').on 'click' , '.sold' , (e)->
+		$('.svg-maps').on 'click' , '.apartment' , (e)->
 			clearTimeout(window.renderLoopInterval)
 			xpoint = e.clientX
 			ypoint = e.clientY

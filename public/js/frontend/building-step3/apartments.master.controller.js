@@ -584,7 +584,6 @@
       },
       'click .apartment': function(e) {
         var id, unit;
-        console.log("clicked");
         id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           id: id
@@ -711,13 +710,12 @@
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();
-          $(that.el).undelegate('.apartment', 'click');
-          $('.svg-maps').off('click', '.sold');
+          $('.svg-maps').off('click', '.apartment');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $('.svg-maps').on('click', '.sold', function(e) {
+      return $('.svg-maps').on('click', '.apartment', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;
