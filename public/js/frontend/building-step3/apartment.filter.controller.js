@@ -198,7 +198,7 @@
           CommonFloor.defaults['apartment']['attributes'][index] = '';
         }
         if (CommonFloor.defaults['apartment']['attributes'][index] !== "") {
-          types = CommonFloor.defaults[type]['attributes'][index].split(',');
+          types = CommonFloor.defaults['apartment']['attributes'][index].split(',');
         }
         if ($(e.currentTarget).is(':checked')) {
           types.push($(e.currentTarget).attr('data-value'));

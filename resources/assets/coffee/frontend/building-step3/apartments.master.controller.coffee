@@ -933,7 +933,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.each class_array , (index,value)->
 				
 			$('.svg-maps').on 'click' , value , (e)->
-				console.log "aaaaaaaaaaaaaaaaaaaaaaaaaaa"
 				clearTimeout(window.renderLoopInterval)
 				xpoint = e.clientX
 				ypoint = e.clientY

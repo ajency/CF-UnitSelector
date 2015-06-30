@@ -727,7 +727,6 @@
       return $.each(class_array, function(index, value) {
         return $('.svg-maps').on('click', value, function(e) {
           var temp, xapoint, xpoint, yapoint, ypoint;
-          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
           clearTimeout(window.renderLoopInterval);
           xpoint = e.clientX;
           ypoint = e.clientY;

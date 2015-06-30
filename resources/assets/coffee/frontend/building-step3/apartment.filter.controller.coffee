@@ -273,7 +273,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			if !_.has(CommonFloor.defaults['apartment']['attributes'], index)
 				CommonFloor.defaults['apartment']['attributes'][index] = ''
 			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
-				types = CommonFloor.defaults[type]['attributes'][index].split(',')
+				types = CommonFloor.defaults['apartment']['attributes'][index].split(',')
 			if $(e.currentTarget).is(':checked')
 				types.push $(e.currentTarget).attr('data-value')
 			else
