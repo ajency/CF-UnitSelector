@@ -532,6 +532,13 @@
         return next();
       });
     };
+    window.hideLabel = function() {
+      $('.alert2').show();
+      return $('.alert2').delay(3000).queue(function(next) {
+        $(this).hide('fade');
+        return next();
+      });
+    };
     window.buildSvgObjectData = function() {
       var details, locationPoints, myObject, objectType;
       myObject = {};
@@ -1248,8 +1255,8 @@
       var imageid;
       imageid = $('.svgPaths').val();
       if (imageid === "") {
-        $('.alert').text('Select svg');
-        window.hideAlert();
+        $('.alert2').text('Please select an SVG!');
+        window.hideLabel();
         return;
       }
       $('.svg-canvas').hide();

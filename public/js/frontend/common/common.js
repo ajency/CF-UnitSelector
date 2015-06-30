@@ -358,6 +358,7 @@
     }
     if (param === 'apartment') {
       $.merge(collection, apartmentVariantCollection.getApartmentUnits());
+      $.merge(collection, apartmentVariantCollection.getPenthouseUnits());
     }
     if (param === 'plot') {
       $.merge(collection, plotVariantCollection.getPlotUnits());
@@ -1301,7 +1302,7 @@
     $.each(CommonFloor.defaults['villa'], function(index, value) {
       var attributes, param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
         attributes = bunglowVariantCollection.getBunglowUnits();
         if (temp.length === 0) {
           temp = bunglowVariantCollection.getBunglowUnits();
@@ -1383,14 +1384,16 @@
     newColl = new Backbone.Collection(collection);
     tempColl = [];
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
-      var attributes, param_val, temp;
+      var param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
-        attributes = apartmentVariantCollection.getApartmentUnits();
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
+        $.merge(attributes, apartmentVariantCollection.getApartmentUnits());
+        $.merge(attributes, apartmentVariantCollection.getPenthouseUnits());
         if (temp.length === 0) {
           temp = apartmentVariantCollection.getApartmentUnits();
         }
         $.each(CommonFloor.defaults['apartment']['attributes'], function(ind1, val1) {
+          var attributes;
           if (val1 !== "") {
             return attributes = CommonFloor.filterApartmentAttributes(ind1, val1);
           }
@@ -1469,7 +1472,7 @@
     $.each(CommonFloor.defaults['plot'], function(index, value) {
       var attributes, param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
         attributes = plotVariantCollection.getPlotUnits();
         if (temp.length === 0) {
           temp = plotVariantCollection.getPlotUnits();

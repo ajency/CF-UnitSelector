@@ -345,6 +345,7 @@ CommonFloor.resetProperyType = (param)->
 		$.merge collection , bunglowVariantCollection.getBunglowUnits()
 	if param == 'apartment'
 		$.merge collection , apartmentVariantCollection.getApartmentUnits()
+		$.merge collection , apartmentVariantCollection.getPenthouseUnits()
 	if param == 'plot'
 		$.merge collection , plotVariantCollection.getPlotUnits()
 	collection
@@ -1174,7 +1175,7 @@ CommonFloor.filterVillas = ()->
 	$.each CommonFloor.defaults['villa'] , (index,value)->
 		temp = []
 	
-		if value != "" && index == 'attributes'
+		if value != "" && index == 'attributes' && ! _.isEmpty value
 			attributes = bunglowVariantCollection.getBunglowUnits()
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
@@ -1242,8 +1243,9 @@ CommonFloor.filterApartments = ()->
 	tempColl = []	
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		temp = []
-		if value != "" && index == 'attributes'
-			attributes = apartmentVariantCollection.getApartmentUnits()
+		if value != "" && index == 'attributes' && ! _.isEmpty value
+			$.merge attributes ,  apartmentVariantCollection.getApartmentUnits()
+			$.merge attributes ,  apartmentVariantCollection.getPenthouseUnits()
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
 			$.each CommonFloor.defaults['apartment']['attributes'] , (ind1,val1)->
@@ -1310,7 +1312,7 @@ CommonFloor.filterPlots = ()->
 	tempColl = []	
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		temp = []
-		if value != "" && index == 'attributes'
+		if value != "" && index == 'attributes' && ! _.isEmpty value
 			attributes = plotVariantCollection.getPlotUnits()
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()
