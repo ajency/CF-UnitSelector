@@ -92,7 +92,7 @@ return [
       | been provided here, which will work well on most of your systems.
       |
      */
-   // 'sendmail' => '/usr/sbin/sendmail -bs',
+    'sendmail' => '/usr/sbin/sendmail -bs',
     /*
       |--------------------------------------------------------------------------
       | Mail "Pretend"
@@ -103,5 +103,5 @@ return [
       | you may inspect the message. This is great for local development.
       |
      */
-    //'pretend' => false,
+    'pretend' => false,
 ];
