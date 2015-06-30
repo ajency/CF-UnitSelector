@@ -98,8 +98,8 @@
       data.floor = main[0].floor;
       data.views = main[0].views;
       data.facings = main[0].facings;
-      results = apartmentVariantCollection.getApartmentUnits();
-      temp = new Backbone.Collection(results);
+      results = unitCollection.length;
+      temp = unitCollection;
       newTemp = temp.where({
         'building_id': parseInt(building_id)
       });
