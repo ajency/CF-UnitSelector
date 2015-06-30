@@ -70,7 +70,7 @@
                     
                     <div class="error-description"> We seem to have lost you in the clouds. </div>
                     <div class="error-description-mini"> The page your looking for is not here </div>
-                    <a class="btn btn-link btn-cons" type="button" href="">Let's help you get back</a>
+                    <a class="btn btn-link btn-cons" type="button" href = "javascript:history.back()">Let's help you get back</a>
                 </div>
             </div>
         
