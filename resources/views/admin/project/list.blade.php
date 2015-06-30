@@ -30,9 +30,9 @@
                             <th>Project Name</th>
                             <th>City</th>
                             <th>Status</th>
-                            <th>Created On</th>
+                            <th class="date-sort">Created On</th>
                             <th>Created By</th>
-                            <th>Modified On</th>
+                            <th class="date-sort">Modified On</th>
                             <th>Modified By</th>
                         </tr>
                     </thead>

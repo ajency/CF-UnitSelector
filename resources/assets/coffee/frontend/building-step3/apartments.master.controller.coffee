@@ -918,45 +918,35 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.apartment').tooltipster('disable')
 			else 
 				that.delegateEvents()
-				# $(that.el).delegate('.apartment', 'mouseover');
-				# $(that.el).delegate('.available', 'click');
-				$('.svg-maps').off('click','.apartment.sold')
-				# $(that.el).undelegate('.sold', 'click');
-				# $(that.el).undelegate('.not_relased', 'click');
-				# $(that.el).undelegate('.blocked', 'click');
+				$('.svg-maps').off('click','.sold')
+				$('.svg-maps').off('click','.blocked')
+				$('.svg-maps').off('click','.not_relased')
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
+
+		class_array = ['.available' , '.sold', '.blocked' , '.not_relased']
+		$.each class_array , (index,value)->
 				
-		$('.svg-maps').on 'click' , '.apartment' , (e)->
-			clearTimeout(window.renderLoopInterval)
-			xpoint = e.clientX
-			ypoint = e.clientY
+			$('.svg-maps').on 'click' , value , (e)->
+				console.log "aaaaaaaaaaaaaaaaaaaaaaaaaaa"
+				clearTimeout(window.renderLoopInterval)
+				xpoint = e.clientX
+				ypoint = e.clientY
 
-			xpoint = xpoint/$(window).width()
-			ypoint = ypoint/$(window).height()
-			xpoint = xpoint.toFixed(1)
-			ypoint = ypoint.toFixed(1)
+				xpoint = xpoint/$(window).width()
+				ypoint = ypoint/$(window).height()
+				xpoint = xpoint.toFixed(1)
+				ypoint = ypoint.toFixed(1)
 
-			xapoint = xpoint /10
-			yapoint = ypoint /10
+				xapoint = xpoint /10
+				yapoint = ypoint /10
+				
+				temp = window.magne
+				temp.model.focus = {x: xpoint, y: ypoint}
+				
+				temp.zoomBy(1)
+				temp.reinit()
 			
-			temp = window.magne
-			temp.model.focus = {x: xpoint, y: ypoint}
-			# temp.model.lens = {x: xpoint, y: ypoint}
-
-			# temp.modelLazy.focus = {x: xpoint, y: ypoint}
-			# console.log temp.modelLazy.focus
-			# temp.modelLazy.lens = {x: xpoint, y: ypoint , h :0.5 , w: 0.5}
-			# temp.options.position = 'drag'
-			# temp.modelLazy.zoomed = {x: temp1, y:temp2 , h :1.5 , w: 1.5}
-			# temp.compute()
-			temp.zoomBy(1)
-			temp.reinit()
-			# that.delegateEvents()
-			# temp.renderNew(temp)
-			# window.renderLoopInterval()
-			
-			# that.$host.mag.reinit(that.$host.mag.model)
 	loadProjectMaster:->
 		svgs = []
 		masterbreakpoints = project.get('breakpoints')

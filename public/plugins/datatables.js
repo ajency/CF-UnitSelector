@@ -279,7 +279,7 @@ $(document).ready(function () {
             "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
         },
         "aoColumnDefs": [
-            { "sType": "date-uk", "aTargets": [3] }
+            { "sType": "date-uk", "aTargets": ["date-sort"] }
         ]
     });
 

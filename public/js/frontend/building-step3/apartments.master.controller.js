@@ -699,7 +699,7 @@
     };
 
     CenterApartmentMasterView.prototype.zoomBuilding = function() {
-      var that;
+      var class_array, that;
       that = this;
       $(".mag-lens").resize(function(e) {
         var temp;
@@ -710,29 +710,35 @@
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();
-          $('.svg-maps').off('click', '.apartment.sold');
+          $('.svg-maps').off('click', '.sold');
+          $('.svg-maps').off('click', '.blocked');
+          $('.svg-maps').off('click', '.not_relased');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $('.svg-maps').on('click', '.apartment', function(e) {
-        var temp, xapoint, xpoint, yapoint, ypoint;
-        clearTimeout(window.renderLoopInterval);
-        xpoint = e.clientX;
-        ypoint = e.clientY;
-        xpoint = xpoint / $(window).width();
-        ypoint = ypoint / $(window).height();
-        xpoint = xpoint.toFixed(1);
-        ypoint = ypoint.toFixed(1);
-        xapoint = xpoint / 10;
-        yapoint = ypoint / 10;
-        temp = window.magne;
-        temp.model.focus = {
-          x: xpoint,
-          y: ypoint
-        };
-        temp.zoomBy(1);
-        return temp.reinit();
+      class_array = ['.available', '.sold', '.blocked', '.not_relased'];
+      return $.each(class_array, function(index, value) {
+        return $('.svg-maps').on('click', value, function(e) {
+          var temp, xapoint, xpoint, yapoint, ypoint;
+          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+          clearTimeout(window.renderLoopInterval);
+          xpoint = e.clientX;
+          ypoint = e.clientY;
+          xpoint = xpoint / $(window).width();
+          ypoint = ypoint / $(window).height();
+          xpoint = xpoint.toFixed(1);
+          ypoint = ypoint.toFixed(1);
+          xapoint = xpoint / 10;
+          yapoint = ypoint / 10;
+          temp = window.magne;
+          temp.model.focus = {
+            x: xpoint,
+            y: ypoint
+          };
+          temp.zoomBy(1);
+          return temp.reinit();
+        });
       });
     };
 
