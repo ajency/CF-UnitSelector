@@ -95,11 +95,10 @@ class UserController extends Controller {
         // Additional headers
         $headers .= 'From: CommonFloor Unit Selector <noreply@commonfloor.com>' . "\r\n";
         $headers .= 'Reply-To: noreply@commonfloor.com' . "\r\n";
- 
-
          mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
-         
-        Session::flash('success_message','User created successfully. An email has been sent to the user email address with the login instruction');*/
+         */
+        
+        Session::flash('success_message','User created successfully. An email has been sent to the user email address with the login instruction');
         
         $addanother = $request->input('addanother');
 
