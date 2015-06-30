@@ -710,7 +710,6 @@
           return $('.apartment').tooltipster('disable');
         } else {
           that.delegateEvents();
-          $(that.el).undelegate('.apartment', 'click');
           $('.svg-maps').off('click', '.sold');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
@@ -718,6 +717,7 @@
       });
       return $('.svg-maps').on('click', '.available,.sold', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;
         ypoint = e.clientY;

@@ -920,7 +920,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				that.delegateEvents()
 				# $(that.el).delegate('.apartment', 'mouseover');
 				# $(that.el).delegate('.available', 'click');
-				$(that.el).undelegate('.apartment', 'click');
 				$('.svg-maps').off('click','.sold')
 				# $(that.el).undelegate('.sold', 'click');
 				# $(that.el).undelegate('.not_relased', 'click');
@@ -929,6 +928,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.apartment').tooltipster('enable')
 				
 		$('.svg-maps').on 'click' , '.available,.sold' , (e)->
+			console.log "aaaaaaaaaaaaaaaaaaaaaaaaaaa"
 			clearTimeout(window.renderLoopInterval)
 			xpoint = e.clientX
 			ypoint = e.clientY
