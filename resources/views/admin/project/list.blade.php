@@ -54,13 +54,5 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    // $('#example2.projectList').on('click', function () {
-    //     columnDefs: [
-    //        { type: 'date-dd-mm-yyyy', targets: 3 },
-    //        { type: 'date-dd-mm-yyyy', targets: 5 }        
-    //      ]
-    // });
- 
-</script>
+
 @endsection
