@@ -1174,7 +1174,7 @@ CommonFloor.filterVillas = ()->
 	$.each CommonFloor.defaults['villa'] , (index,value)->
 		temp = []
 	
-		if value != "" && index == 'attributes'
+		if value != "" && index == 'attributes' && ! _.isEmpty value
 			attributes = bunglowVariantCollection.getBunglowUnits()
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
@@ -1242,7 +1242,7 @@ CommonFloor.filterApartments = ()->
 	tempColl = []	
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		temp = []
-		if value != "" && index == 'attributes'
+		if value != "" && index == 'attributes' && ! _.isEmpty value
 			attributes = apartmentVariantCollection.getApartmentUnits()
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
@@ -1310,7 +1310,7 @@ CommonFloor.filterPlots = ()->
 	tempColl = []	
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		temp = []
-		if value != "" && index == 'attributes'
+		if value != "" && index == 'attributes' && ! _.isEmpty value
 			attributes = plotVariantCollection.getPlotUnits()
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()

@@ -1301,7 +1301,7 @@
     $.each(CommonFloor.defaults['villa'], function(index, value) {
       var attributes, param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
         attributes = bunglowVariantCollection.getBunglowUnits();
         if (temp.length === 0) {
           temp = bunglowVariantCollection.getBunglowUnits();
@@ -1385,7 +1385,7 @@
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
       var attributes, param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
         attributes = apartmentVariantCollection.getApartmentUnits();
         if (temp.length === 0) {
           temp = apartmentVariantCollection.getApartmentUnits();
@@ -1469,7 +1469,7 @@
     $.each(CommonFloor.defaults['plot'], function(index, value) {
       var attributes, param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
         attributes = plotVariantCollection.getPlotUnits();
         if (temp.length === 0) {
           temp = plotVariantCollection.getPlotUnits();
