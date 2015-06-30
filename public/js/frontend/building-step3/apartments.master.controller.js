@@ -717,7 +717,7 @@
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $('.svg-maps').on('click', '.available,.sold', function(e) {
+      return $('.svg-maps').on('click', '.sold', function(e) {
         var temp, xapoint, xpoint, yapoint, ypoint;
         clearTimeout(window.renderLoopInterval);
         xpoint = e.clientX;
