@@ -64,7 +64,7 @@
                                         <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value="" class="form-control" width> 
                                         <input type="hidden" name="add_new_unit_type" value="" class="form-control">
                                         <div class="text-right">
-                                            <a property-type="{{ $propertyTypeId }}" class="add-unit-type-btn btn btn-link"><i class="fa fa-"></i> Add Unit Type</a>
+                                            <a tabindex="0" property-type="{{ $propertyTypeId }}" class="add-unit-type-btn btn btn-link"><i class="fa fa-"></i> Add Unit Type</a>
                                         </div> </div>
                                         </div>
                                         </div>
@@ -177,7 +177,7 @@
                                 </div>
                             </div>
                                 <div class="text-right">
-                                    <a class="btn btn-link" onclick="addAttributes({{ $propertyTypeId }}, this)">Add Attribute</a>
+                                    <a tabindex="0" class="btn btn-link" onclick="addAttributes({{ $propertyTypeId }}, this)">Add Attribute</a>
                                 </div>
                             </div>
                              </div>

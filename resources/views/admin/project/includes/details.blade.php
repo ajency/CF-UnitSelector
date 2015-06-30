@@ -45,7 +45,7 @@
                     <i class="fa fa-map-marker"></i> <b>Address:</b>
                     <p>{{ array_get($project, 'cf.project_address') }}</p>
                     <p>Builder Name: <label><b>{{ array_get($project, 'cf.builder_name') }}</b></label></p>
-                    <p>Website Link: <label><a href="http://{{ array_get($project,'cf.builder_link') }}" target="_blank"><b>http://{{ array_get($project,'cf.builder_link') }}</b></a></label></p>
+                    <p>Website Link: <label><a tabindex="-1" href="http://{{ array_get($project,'cf.builder_link') }}" target="_blank"><b>http://{{ array_get($project,'cf.builder_link') }}</b></a></label></p>
                 </div>
                 <div class="col-sm-4">
                     <img src="{{ array_get($project,'cf.project_image') }}" class="img-responsive">

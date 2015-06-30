@@ -203,8 +203,8 @@
                            <input type="hidden" name="_method" value="PUT">
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
 
-                             <button class="btn btn-default btn-cons" type="submit"><i class="fa fa-ban"></i>
-                                            Cancel</button>
+                    <a href="{{ url('admin/project/'. $project['id'] .'/building') }}"> <button class="btn btn-default btn-cons" type="submit"><i class="fa fa-ban"></i>
+                        Cancel</button></a>
                                     </div>
                                 </div>
                 </div>
