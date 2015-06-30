@@ -1244,7 +1244,8 @@ CommonFloor.filterApartments = ()->
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		temp = []
 		if value != "" && index == 'attributes' && ! _.isEmpty value
-			attributes = apartmentVariantCollection.getApartmentUnits()
+			$.merge attributes ,  apartmentVariantCollection.getApartmentUnits()
+			$.merge attributes ,  apartmentVariantCollection.getPenthouseUnits()
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
 			$.each CommonFloor.defaults['apartment']['attributes'] , (ind1,val1)->
