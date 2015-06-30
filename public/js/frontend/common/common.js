@@ -1423,7 +1423,9 @@
   CommonFloor.filterApartmentAttributes = function(ind1, val1) {
     var flooring, newtempColl, tem, tempColl;
     flooring = [];
-    tempColl = apartmentVariantCollection.getApartmentUnits();
+    tempColl = [];
+    $.merge(tempColl, apartmentVariantCollection.getApartmentUnits());
+    $.merge(tempColl, apartmentVariantCollection.getPenthouseUnits());
     newtempColl = _.intersection(tempColl, unitCollection.toArray());
     $.each(newtempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
