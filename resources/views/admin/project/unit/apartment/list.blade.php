@@ -49,7 +49,7 @@
                         @foreach ($units as $unit)
                             <tr class="row-{{ $unit['id'] }}" >
                                 @if(hasPermission($project['id'],['unit_status_update']))
-                                <td class="text-center quick-edit" data-object-id="{{ $unit['id'] }}" data-toggle="hide"><span class="fa fa-edit"></span></td>
+                                <td class="text-center quick-edit" data-object-id="{{ $unit['id'] }}" data-toggle="hide" is-agent="{{ (isAgent())? '1' : '0'}}"><span class="fa fa-edit"></span></td>
                                 @endif
                                 <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">
                                    {{ $unit['unit_name'] }}

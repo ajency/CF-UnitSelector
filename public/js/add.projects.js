@@ -580,11 +580,12 @@
   });
 
   $('.quick-edit').click(function() {
-    var compile, hideSaveButton, id, str, toggleRow, unitStatus;
+    var compile, hideSaveButton, id, isAgent, str, toggleRow, unitStatus;
     id = $(this).attr('data-object-id');
     toggleRow = $(this).attr('data-toggle');
+    isAgent = $(this).attr('is-agent');
     unitStatus = $(this).closest('tr').find('.object-status').attr('data-object-value');
-    if (unitStatus === 'booked_by_agent') {
+    if (unitStatus === 'booked_by_agent' && isAgent === '1') {
       hideSaveButton = 'hidden';
     } else {
       hideSaveButton = '';

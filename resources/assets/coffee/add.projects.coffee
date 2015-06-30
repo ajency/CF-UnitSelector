@@ -697,8 +697,9 @@ $('#project_name').autocomplete
     $('.quick-edit').click ->
         id = $(@).attr 'data-object-id'
         toggleRow = $(@).attr 'data-toggle'
+        isAgent = $(@).attr 'is-agent'
         unitStatus = $(@).closest('tr').find('.object-status').attr 'data-object-value'
-        if unitStatus is 'booked_by_agent' 
+        if unitStatus is 'booked_by_agent' && isAgent is '1'
             hideSaveButton = 'hidden'
         else
             hideSaveButton = '' 
