@@ -79,7 +79,7 @@
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
-      var building_id, data, main, mainFilters, model, results, units, url;
+      var building_id, data, main, mainFilters, model, newTemp, results, temp, units, url;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -99,7 +99,11 @@
       data.views = main[0].views;
       data.facings = main[0].facings;
       results = unitCollection.length;
-      data.results = results;
+      temp = unitCollection;
+      newTemp = temp.where({
+        'building_id': parseInt(building_id)
+      });
+      data.results = newTemp.length;
       model = buildingMasterCollection.findWhere({
         'id': building_id
       });
