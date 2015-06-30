@@ -103,7 +103,7 @@
             success: function(resp) {
               var options, projects;
               projects = resp.data;
-              options = "";
+              options = "<option value=''>Choose Commonfloor Project</option>";
               _.each(projects, (function(_this) {
                 return function(proj, key) {
                   var project;
@@ -569,6 +569,46 @@
       type: 'POST',
       data: {
         project_id: projectId
+      },
+      success: successFn
+    });
+  });
+
+  $('.quick-edit').click(function() {
+    var compile, id, str, toggle, unitStatus;
+    id = $(this).attr('data-object-id');
+    toggle = $(this).attr('data-toggle');
+    unitStatus = $(this).closest('tr').find('object-status').attr('data-object-value');
+    str = '<tr class="status-row-{{ object_id }}"> <td colspan="7"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table"> <tr><td>Status:</td><td> <select name="unit_status" class="form-control"> <option value="available">Available</option> <option value="sold">Sold</option> <option value="not_released">Not Released</option> <option value="blocked">Blocked</option> <option value="booked_by_agent">Booked By Agent</option> <option value="archived">Archived</option> </select> <button class="btn btn-small btn-primary m-l-10 update-status" data-object-id="{{ object_id }}">Save</button></td></tr> </table> </td> </tr>';
+    compile = Handlebars.compile(str);
+    if (toggle === 'hide') {
+      $(this).closest('tr').after(compile({
+        unit_status: unitStatus,
+        object_id: id
+      }));
+      return $(this).attr('data-toggle', 'show');
+    } else {
+      $(".status-row-" + id).remove();
+      return $(this).attr('data-toggle', 'hide');
+    }
+  });
+
+  $('#example2').on('click', '.user-project', function() {
+    var successFn, unitId, unitStatus;
+    unitId = $(this).attr('data-object-id');
+    unitStatus = $(this).closest('tr').find('select[name="unit_status"]').val();
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 202) {
+        $(this).closest('tr').find('object-status').attr('data-object-value');
+        return $(this).closest('tr').find('object-status').html(resp.data.status);
+      }
+    };
+    return $.ajax({
+      url: '/admin/user/' + userId + '/deleteuserproject',
+      type: 'POST',
+      data: {
+        unit_id: unitId,
+        unit_status: unitStatus
       },
       success: successFn
     });

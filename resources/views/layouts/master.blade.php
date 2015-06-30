@@ -210,6 +210,8 @@
 
 
         <script src="{{ asset('plugins/dashboard-theme-core/core.js') }}" type="text/javascript"></script>
+        <script src="//cdn.datatables.net/plug-ins/1.10.7/sorting/datetime-moment.js" type="text/javascript"></script>
+        <script src="//cdn.datatables.net/plug-ins/1.10.7/sorting/date-uk.js" type="text/javascript"></script>
         <script src="{{ asset('plugins/datatables.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/add.projects.js') }}" type="text/javascript"></script> 
         <script src="{{ asset('js/scripts.js') }}" type="text/javascript"></script>

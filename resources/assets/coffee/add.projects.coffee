@@ -137,7 +137,7 @@ jQuery(document).ready ($)->
                 success : (resp)->
                     # populate dropdown with response 
                     projects = resp.data
-                    options =""
+                    options ="<option value=''>Choose Commonfloor Project</option>"
                     _.each projects, (proj, key) =>
                         project = 
                             project_title : proj.name
@@ -686,9 +686,61 @@ $('#project_name').autocomplete
                 project_id : projectId
             success : successFn         
 
-
+            
  
+    $('.quick-edit').click ->
+        id = $(@).attr 'data-object-id'
+        toggle = $(@).attr 'data-toggle'
+        unitStatus = $(@).closest('tr').find('object-status').attr 'data-object-value'
+        str = '<tr class="status-row-{{ object_id }}">
+                <td colspan="7">
+                <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">
+                    <tr><td>Status:</td><td>
+                    <select name="unit_status" class="form-control">
+                    <option value="available">Available</option>
+                    <option value="sold">Sold</option>
+                    <option value="not_released">Not Released</option>
+                    <option value="blocked">Blocked</option>
+                    <option value="booked_by_agent">Booked By Agent</option>
+                    <option value="archived">Archived</option>
+                    </select>  
+                    <button class="btn btn-small btn-primary m-l-10 update-status" data-object-id="{{ object_id }}">Save</button></td></tr>
+                </table>
+                </td>
+               </tr>'
+        compile = Handlebars.compile str
+            
+        if toggle is 'hide'  
+            $(@).closest('tr').after compile( { unit_status : unitStatus, object_id : id } )
+            $(@).attr('data-toggle','show')
+        else
+            $(".status-row-"+id).remove()
+            $(@).attr('data-toggle','hide')
+            
+            
+    $('#example2').on 'click', '.user-project', ->
 
+        unitId = $(@).attr 'data-object-id'
+        unitStatus = $(@).closest('tr').find('select[name="unit_status"]').val()
+        
+        successFn = (resp, status, xhr)->
+            if xhr.status is 202
+                $(@).closest('tr').find('object-status').attr 'data-object-value'
+                $(@).closest('tr').find('object-status').html resp.data.status
+            
+        $.ajax 
+            url : '/admin/user/'+userId+'/deleteuserproject'
+            type : 'POST'
+            data : 
+                unit_id : unitId
+                unit_status : unitStatus
+            success : successFn         
+            
+        
+        
+        
+        
+        
                  
  
     

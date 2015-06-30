@@ -243,6 +243,8 @@ $(document).ready(function () {
         this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
     });
 
+    // $.fn.dataTable.moment( 'DD/MM/YYY' );
+
     /*
      * Initialse DataTables, with no sorting on the 'details' column
      */
@@ -253,6 +255,9 @@ $(document).ready(function () {
             "sLengthMenu": "_MENU_ ",
             "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
         },
+        "columnDefs": [
+            { type: 'date-uk', targets: 5 }
+        ]
     });
     var oTable3 = $('#example3').dataTable({
         "sDom": "<'row'<'col-md-6'l <'toolbar'>><'col-md-6'f>r>t<'row'<'col-md-12'p i>>",

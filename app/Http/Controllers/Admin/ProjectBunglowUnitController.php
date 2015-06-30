@@ -233,6 +233,15 @@ class ProjectBunglowUnitController extends Controller {
         //
     }
     
+    public function updateStatus($project_id, $id, Request $request) {
+        
+        return response()->json([
+                    'code' => 'unit_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
+    }
+    
  
     public function validateUnitName($projectId,Request $request) {
         $name = $request->input('name');
@@ -283,7 +292,9 @@ class ProjectBunglowUnitController extends Controller {
                Excel::load($unit_file, function($reader)use($project) {
             
                $results = $reader->toArray();//dd($results);
-                
+            
+            if(!empty($results))
+            {
              if(count($results[0])==10)
              {
                  $i=0;
@@ -386,6 +397,9 @@ class ProjectBunglowUnitController extends Controller {
              }
              else
                  $errorMsg[] ='Column Count does not match';
+            }
+            else
+                 $errorMsg[] ='No Data Found';
      
 
                 Session::flash('error_message',$errorMsg);      

@@ -189,8 +189,6 @@
     return perc;
   };
 
-  window.bookingPortalUrl = 'http://dev.commonfloor.com/book-your-property';
-
   window.convertRupees = function(val) {
     $('#price').autoNumeric('init');
     return $('#price').autoNumeric('set', val);
