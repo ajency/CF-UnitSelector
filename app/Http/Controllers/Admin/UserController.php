@@ -74,7 +74,8 @@ class UserController extends Controller {
         /*$userProject = new UserProject();                 // DEFAULT ROLE 
         $userProject->role_user_id = $userRoleId;
         $userProject->project_id = 0;
-        $userProject->save();
+        $userProject->save();*/
+        
         $data =[];
         $data['name'] = $name;
         $data['email'] = $email;
@@ -85,19 +86,7 @@ class UserController extends Controller {
             $message->to($data['email'], $data['name'])->subject('Welcome to CommonFloor Unit Selector!');
         });
         
-       /* $data = $this->emailTemplate($name,$email,$password); 
-        
- 
-        // To send HTML mail, the Content-type header must be set
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-        // Additional headers
-        $headers .= 'From: CommonFloor Unit Selector <noreply@commonfloor.com>' . "\r\n";
-        $headers .= 'Reply-To: noreply@commonfloor.com' . "\r\n";
-         mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
-         */
-        
+    
         Session::flash('success_message','User created successfully. An email has been sent to the user email address with the login instruction');
         
         $addanother = $request->input('addanother');
