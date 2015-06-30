@@ -56,7 +56,7 @@ class UserController extends Controller {
         
         $password = $this->random_password();
 
-        /* $user = new User();
+        $user = new User();
         $user->name = ucfirst($name);
         $user->email = $email;
         $user->password = Hash::make($password);
@@ -69,7 +69,7 @@ class UserController extends Controller {
         $userRole->user_id = $userId;
         $userRole->role_id = $user_role;
         $userRole->save();
-        $userRoleId = $userRole->id;*/
+        $userRoleId = $userRole->id;
         
         /*$userProject = new UserProject();                 // DEFAULT ROLE 
         $userProject->role_user_id = $userRoleId;
