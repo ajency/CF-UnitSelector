@@ -41,7 +41,7 @@
                                                             
                                                             @else
                                                             <div class="img-hover img-thumbnail">
-                                                                <div id="pickfiles_{{ $level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <div id="pickfiles_{{ $level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
                                                                         <p class="">Select File</p>
@@ -70,7 +70,7 @@
                                                              
                                                             @else
                                                             <div class="img-hover img-thumbnail">
-                                                                <div id="pickfiles_{{ $level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <div id="pickfiles_{{ $level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
                                                                         <p class="">Select File</p>
