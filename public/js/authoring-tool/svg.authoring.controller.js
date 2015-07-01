@@ -265,8 +265,10 @@
         });
         return;
       }
-      console.log(svgs);
       return $.each(svgs, function(index, value) {
+        var svg_name, svg_name_arr;
+        svg_name_arr = value.split('/');
+        svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1];
         return $('<option />', {
           value: index,
           text: value

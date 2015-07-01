@@ -287,9 +287,11 @@ jQuery(document).ready ($)->
                 svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1]
                 $('<option />', {value: index, text: building_name.get('building_name')+'-'+svg_name}).appendTo(select)  
             return
-        console.log svgs
+        
         $.each svgs , (index,value)->
-            $('<option />', {value: index, text: value}).appendTo(select)
+            svg_name_arr = value.split('/')
+            svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1]
+            $('<option />', {value: index, text: svg_name}).appendTo(select)
 
        
 
