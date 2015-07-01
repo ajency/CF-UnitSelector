@@ -73,7 +73,7 @@
                                 @if('textbox' === $propertyTypeAttribute['control_type'])
                                 <input type="text" class="form-control m-b-5" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}" data-parsley-required>
                                 @elseif('number' === $propertyTypeAttribute['control_type'])
-                                <input type="number" class="form-control m-b-5" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}" data-parsley-required data-parsley-type="number">
+                                <input type="text" class="form-control m-b-5" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}" data-parsley-required data-parsley-type="number" data-parsley-min="0">
                                 @elseif('select' === $propertyTypeAttribute['control_type'])
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
