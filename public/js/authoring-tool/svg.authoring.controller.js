@@ -271,7 +271,7 @@
         svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1];
         return $('<option />', {
           value: index,
-          text: value
+          text: svg_name
         }).appendTo(select);
       });
     };
