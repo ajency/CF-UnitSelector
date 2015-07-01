@@ -17,7 +17,7 @@ class RoleController extends Controller {
      */
 
     public function index() {
-        $roles = Role::where('is_agent','yes')->orderBy('name')->get()->toArray();
+        $roles = Role::where('is_agent','no')->orderBy('name')->get()->toArray();
         return view('admin.role.list')
                         ->with('roles', $roles)
                         ->with('menuFlag', FALSE);

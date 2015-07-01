@@ -65,7 +65,7 @@
 
                                         </div>
                                     </div>
-                                <label class="form-label">Is Agent</label>
+                                <label class="form-label">Project Access</label>
                                     
                             </a>
                             @foreach($projectPermissions as $projectPermission)
