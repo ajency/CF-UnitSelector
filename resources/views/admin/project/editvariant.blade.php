@@ -95,7 +95,7 @@
                                             <select name="villa_attributes[{{ $attributes['label'] }}]" class="select2 form-control m-b-5" data-parsley-required>
                                                 <option value="">Select {{ $attributes['label'] }}</option>
                                                 @foreach($options as $option)
-                                                <option @if($value==$ option ){{ 'selected'}}@endif value="{{ $option }}">{{ $option }}</option>
+                                                <option @if($value==$option ){{ 'selected'}}@endif value="{{ $option }}">{{ $option }}</option>
                                                 @endforeach
                                             </select>
                                             @elseif('multiple' === $attributes['control_type'])
@@ -238,6 +238,7 @@
             $unitVariant['id']
         }
     };
+
 </script>
 
 

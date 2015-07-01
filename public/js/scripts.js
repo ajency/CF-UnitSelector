@@ -4,8 +4,7 @@ $.ajaxSetup({
     }
 });
 
-function validateTitle(obj)
-{
+function validateTitle(obj) {
     $(".cf-loader").removeClass('hidden');
     $.ajax({
         url: "/admin/project/validateprojecttitle",
@@ -24,8 +23,7 @@ function validateTitle(obj)
     });
 }
 
-function validateUnitName(obj,projectPropertytypeId,unitId)
-{
+function validateUnitName(obj, projectPropertytypeId, unitId) {
     $(".cf-loader").removeClass('hidden');
     $.ajax({
         url: "/admin/project/" + PROJECTID + "/bunglow-unit/validateunitname",
@@ -45,14 +43,12 @@ function validateUnitName(obj,projectPropertytypeId,unitId)
     });
 }
 
-function validateBuildingUnitName(unitId)
-{
+function validateBuildingUnitName(unitId) {
 
-    var name= $("input[name='unit_name']").val(); 
-    var buildingId= $("select[name='building_id']").val(); 
-    
-    if((name!='') && (buildingId !=''))
-    {
+    var name = $("input[name='unit_name']").val();
+    var buildingId = $("select[name='building_id']").val();
+
+    if ((name != '') && (buildingId != '')) {
         $(".cf-loader").removeClass('hidden');
         $.ajax({
             url: "/admin/project/" + PROJECTID + "/apartment-unit/validatebuildingunitname",
@@ -65,18 +61,17 @@ function validateBuildingUnitName(unitId)
             dataType: "JSON",
             success: function (response) {
                 if (!response.data)
-                    $("input[name='unit_name']").val(''); 
+                    $("input[name='unit_name']").val('');
 
                 $(".cf-loader").addClass('hidden');
             }
         });
     }
-    
-    
+
+
 }
 
-function validateBuildingName(obj,buildingId)
-{
+function validateBuildingName(obj, buildingId) {
     $(".cf-loader").removeClass('hidden');
     $.ajax({
         url: "/admin/building/validatebuildingname",
@@ -96,8 +91,7 @@ function validateBuildingName(obj,buildingId)
     });
 }
 
-function validateEmail(obj, userId)
-{
+function validateEmail(obj, userId) {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
         url: "/admin/user/validateuseremail",
@@ -116,8 +110,7 @@ function validateEmail(obj, userId)
     });
 }
 
-function validatePhone(obj, userId)
-{
+function validatePhone(obj, userId) {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
         url: "/admin/user/validateuserphone",
@@ -137,8 +130,7 @@ function validatePhone(obj, userId)
 }
 
 
-function validateUserPassword(obj, userId)
-{
+function validateUserPassword(obj, userId) {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
         url: "/admin/user/validateuserpassword",
@@ -157,8 +149,7 @@ function validateUserPassword(obj, userId)
     });
 }
 
-function deleteProject(project_id)
-{
+function deleteProject(project_id) {
     if (confirm('Are you sure you want to delete this project?') === false) {
         return;
     }
@@ -167,14 +158,13 @@ function deleteProject(project_id)
         url: "/admin/project/" + project_id,
         type: "DELETE",
         success: function (response) {
-            window.location = "/admin/project/"; 
+            window.location = "/admin/project/";
         }
     });
 }
 
 
-function deleteRoomType(project_id, roomtypeId)
-{
+function deleteRoomType(project_id, roomtypeId) {
     if (confirm('Are you sure you want to delete this room type?') === false) {
         return;
     }
@@ -188,30 +178,26 @@ function deleteRoomType(project_id, roomtypeId)
     });
 }
 
-function addAttributes(keyId, obj)
-{
+function addAttributes(keyId, obj) {
     var attributename = $(obj).closest('.row').find('input[name="attribute_name_' + keyId + '[]"]').val();
 
-    if (attributename.trim() == '')
-    {
+    if (attributename.trim() == '') {
         alert('Enter Attribute Name');
         return false;
     }
 
     var control_type = $(obj).closest('.row').find('select[name="controltype_' + keyId + '[]"]').val();
-    if (control_type.trim() == '')
-    {
+    if (control_type.trim() == '') {
         alert('Select Control Type');
         return false;
     }
 
     var defaultval = $(obj).closest('.row').find('input[name="controltypevalues_' + keyId + '[]"]').val();
-    if ((control_type.trim() == 'select' || control_type.trim() == 'multiple') && (defaultval.trim() == ''))
-    {
+    if ((control_type.trim() == 'select' || control_type.trim() == 'multiple') && (defaultval.trim() == '')) {
         alert('Enter Default Values');
         return false;
     }
-  
+
     var str = '<div class="row">';
     str += '<div class="col-md-12">';
     str += '<div class="add-unit">';
@@ -239,7 +225,7 @@ function addAttributes(keyId, obj)
     str += '</div>';
     str += '</div>';
     str += '</div>';
-    
+
     var delstr = '<div class="col-xs-1 text-right">';
     delstr += '<a class="text-primary" onclick="deleteAttribute(' + PROJECTID + ',0,this);" data-object-type="attribute"><i class="fa fa-close"></i></a>';
     delstr += '</div>';
@@ -250,7 +236,7 @@ function addAttributes(keyId, obj)
     $(obj).closest('.row').find('.p-t-8').removeClass('p-t-8 p-t-10');
     $(obj).closest('.row').find('.controlvalue').addClass('col-xs-3').removeClass('col-xs-4');
     $(obj).closest('.row').addClass('m-b-10');
-     $(obj).closest('.row').find('.controlvalue').after(delstr);
+    $(obj).closest('.row').find('.controlvalue').after(delstr);
     $(obj).closest('.row').after(str);
     $(obj).select2('val', '');
     $("select").select2();
@@ -258,8 +244,7 @@ function addAttributes(keyId, obj)
 
 }
 
-function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
-{
+function saveRoomypeattribute(project_id, roomtypeId, reffrence_type) {
     $("#loader_" + roomtypeId).show();
     $.ajax({
         url: "/admin/project/" + project_id + "/roomtype/" + roomtypeId,
@@ -276,15 +261,13 @@ function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
 }
 
 
-function deleteAttribute(project_id, attributeId, obj)
-{
+function deleteAttribute(project_id, attributeId, obj) {
     var attributeType = $(obj).attr('data-object-type');
-    
-    if (confirm('Are you sure you want to delete this '+attributeType+'?') === false) {
+
+    if (confirm('Are you sure you want to delete this ' + attributeType + '?') === false) {
         return;
     }
-    if (attributeId)
-    {
+    if (attributeId) {
         $.ajax({
             url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteattribute",
             type: "DELETE",
@@ -292,71 +275,64 @@ function deleteAttribute(project_id, attributeId, obj)
                 $(obj).closest('.row').remove();
             }
         });
-    }
-    else
-    {
+    } else {
         $(obj).closest('.row').remove();
     }
 }
- 
-function getRoomTypeAttributes(obj, level)
-{
+
+function getRoomTypeAttributes(obj, level) {
     var roomId = $(obj).closest('.add-unit').find('select').val();
-    var flag =true;
-    if(!roomId)
-    {
+    var flag = true;
+    if (!roomId) {
         alert("Select Room Type");
         return false;
     }
-    
-    $(obj).closest('.grid-body').find('input[name="room_id['+level+'][]"]').each(function () { 
-             if($(this).val()== roomId)
-            {
-                 alert('Room Type Already Selected');
-                 $(obj).closest('.add-unit').find('select').select2('val', '');
-                 flag= false;
-                 
-            }
-        });
-   if(flag)
-   {
-    $.ajax({
-        url: BASEURL + "/admin/project/" + PROJECTID + "/roomtype/" + roomId + "/getroomtypeattributes",
-        type: "POST",
-        data: {
-            level: level,
-            type :"add",
-        },
-        success: function (response) {
-            var attribute_str = response.data.attributes; 
-            $(obj).closest('.grid-body').find('.room_attributes_block').append(attribute_str);
+
+    $(obj).closest('.grid-body').find('input[name="room_id[' + level + '][]"]').each(function () {
+        if ($(this).val() == roomId) {
+            alert('Room Type Already Selected');
             $(obj).closest('.add-unit').find('select').select2('val', '');
-            $("select").select2();
+            flag = false;
+
         }
     });
+    if (flag) {
+        $.ajax({
+            url: BASEURL + "/admin/project/" + PROJECTID + "/roomtype/" + roomId + "/getroomtypeattributes",
+            type: "POST",
+            data: {
+                level: level,
+                type: "add",
+            },
+            success: function (response) {
+                var attribute_str = response.data.attributes;
+                $(obj).closest('.grid-body').find('.room_attributes_block').append(attribute_str);
+                $(obj).closest('.add-unit').find('select').select2('val', '');
+                $("select").select2();
+            }
+        });
     }
 
 }
 
-function updateRoomAttributes()
-{
-   var level =window.parent.$("#roomtypeiframe").attr("level");  
-   var roomid = window.parent.$("#roomtypeiframe").attr("roomid");
- 
-   $("#level_"+level).find('select[name="room_type[]"]').val(roomid);
-   
-   $.ajax({
+function updateRoomAttributes() {
+    var level = window.parent.$("#roomtypeiframe").attr("level");
+    var roomid = window.parent.$("#roomtypeiframe").attr("roomid");
+
+    $("#level_" + level).find('select[name="room_type[]"]').val(roomid);
+
+    $.ajax({
         url: BASEURL + "/admin/project/" + PROJECTID + "/roomtype/" + roomid + "/getroomtypeattributes",
         type: "POST",
         data: {
             level: level,
-            type :"edit",
+            type: "edit",
         },
         success: function (response) {
-            var attribute_str = response.data.attributes; 
-            var variantRoomId = $('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val();
-            window.parent.$('.roomattribute_'+level+'_'+roomid).html(attribute_str);
-            window.parent.$('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val(variantRoomId);
+            var attribute_str = response.data.attributes;
+            var variantRoomId = $('.roomattribute_' + level + '_' + roomid).find('input[name="variantroomid[]"]').val();
+            window.parent.$('.roomattribute_' + level + '_' + roomid).html(attribute_str);
+            window.parent.$('.roomattribute_' + level + '_' + roomid).find('input[name="variantroomid[]"]').val(variantRoomId);
             $("select").select2();
         }
     });
@@ -367,7 +343,7 @@ function setUpProjectMasterUploader() {
     var objectType = $('div.object-master-images').attr('data-object-type');
     var objectId = $('div.object-master-images').attr('data-object-id');
     var authtool_permission = $('div.object-master-images').attr('data-object-id');
-    
+
     var master_uploader = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
         browse_button: 'master_pickfiles', // you can pass in id...
@@ -384,8 +360,8 @@ function setUpProjectMasterUploader() {
         filters: {
             max_file_size: '3mb',
             mime_types: [{
-                    title: "Image files",
-                    extensions: "jpg,png,jpeg"
+                title: "Image files",
+                extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
@@ -396,17 +372,15 @@ function setUpProjectMasterUploader() {
                  };*/
             },
             FilesAdded: function (up, files) {
-                var failcount =0;
-                for (var i = 0; i < files.length; i++)
-                {
+                var failcount = 0;
+                for (var i = 0; i < files.length; i++) {
                     var fileName = files[i].name;
                     var fileData = fileName.split('.');
                     var fileData_1 = fileData[0].split('-');
                     var mastername = fileData_1[0];
                     var position = fileData_1[1];
-                    
-                   if((fileData_1.length == 2) && (mastername =='master' && !isNaN(position)))
-                   { 
+
+                    if ((fileData_1.length == 2) && (mastername == 'master' && !isNaN(position))) {
                         var load_newstr = '';
                         var load_str = '<td>';
                         load_str += '<div class="progress progress-small " style="margin:0;">';
@@ -424,50 +398,45 @@ function setUpProjectMasterUploader() {
 
                         if ($('#position-' + position).length != 0) {
                             $('#position-' + position).html(load_str);
-                        }
-                        else
-                        {
+                        } else {
                             load_newstr += '<tr class="" id="position-' + position + '">';
                             load_newstr += load_str;
                             load_newstr += '</tr>';
                             $("#master-img").append(load_newstr);
                         }
                         //$('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
-                       // $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
-                   }
-                    else{
- 
+                        // $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
+                    } else {
+
                         master_uploader.removeFile(files[i]);
-                        failcount ++;
+                        failcount++;
                     }
 
                 }
-            
-            if(failcount)
-            {
- 
-                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+failcount+ ' images failed to upload. Invalid File Name.</div>');
-                $('.project-master-images').find(".alert-error").removeClass('hidden');  
-            }
-        
-             if(files.length)   
-                 up.start();
+
+                if (failcount) {
+
+                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + failcount + ' images failed to upload. Invalid File Name.</div>');
+                    $('.project-master-images').find(".alert-error").removeClass('hidden');
+                }
+
+                if (files.length)
+                    up.start();
             },
-             UploadProgress: function(up, file) {
+            UploadProgress: function (up, file) {
                 var fileName = file.name;
                 var fileData = fileName.split('.');
                 var fileData_1 = fileData[0].split('-');
                 var mastername = fileData_1[0];
                 var position = fileData_1[1];
-                 
-                 $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="'+file.percent+'%" style="width: '+file.percent+'%;margin:0;"></div>');
-    
+
+                $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
+
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                fileStatus =  JSON.parse(xhr.status);
-                if(fileStatus == 201)
-                {
+                fileStatus = JSON.parse(xhr.status);
+                if (fileStatus == 201) {
                     var str = newstr = '';
                     str += '<td>' + fileResponse.data.filename + '</td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
@@ -478,9 +447,8 @@ function setUpProjectMasterUploader() {
                     str += '</td>';
 
                     $('#position-' + fileResponse.data.position).html(str);
-                }
-                else{
-                    
+                } else {
+
                     var fileName = file.name;
                     var fileData = fileName.split('.');
                     var fileData_1 = fileData[0].split('-');
@@ -488,18 +456,18 @@ function setUpProjectMasterUploader() {
                     var position = fileData_1[1];
 
                     $('#position-' + position).html('');
-                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> '+JSON.parse(xhr.response).message+ '</div>');
+                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> ' + JSON.parse(xhr.response).message + '</div>');
                     $('.project-master-images').find(".alert-error").removeClass('hidden');
-                
+
                 }
 
 
             },
-            Error: function(up, err) {
-                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
-                $('.project-master-images').find(".alert-error").removeClass('hidden');    
-             
-        }
+            Error: function (up, err) {
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + err.message + '</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');
+
+            }
         }
     });
     master_uploader.init();
@@ -507,11 +475,11 @@ function setUpProjectMasterUploader() {
 
 }
 
-function addFloorLevelUploader(level) { 
+function addFloorLevelUploader(level) {
 
     var selectBtnId_2d = 'pickfiles_' + level + '_2d';
-    var selectBtnId_3d = 'pickfiles_' + level + '_3d'; 
-    
+    var selectBtnId_3d = 'pickfiles_' + level + '_3d';
+
     var uploader_2d = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
         browse_button: selectBtnId_2d, // you can pass in id...
@@ -529,8 +497,8 @@ function addFloorLevelUploader(level) {
         filters: {
             max_file_size: '10mb',
             mime_types: [{
-                    title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
+                title: "Image files",
+                extensions: "svg,jpg,png,jpeg"
                 }]
         },
         init: {
@@ -565,18 +533,18 @@ function addFloorLevelUploader(level) {
                 str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '" />';
                 str += '</div>';
                 str += '</div>';
-            
+
 
                 $("#2d_" + level + "_image").html(str);
-                if(!variantId)
+                if (!variantId)
                     $("#image_" + level + "_2d_id").val(fileResponse.data.media_id);
 
             }
         }
     });
     uploader_2d.init();
-    
-    
+
+
     var uploader_3d = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
         browse_button: selectBtnId_3d, // you can pass in id...
@@ -594,8 +562,8 @@ function addFloorLevelUploader(level) {
         filters: {
             max_file_size: '10mb',
             mime_types: [{
-                    title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
+                title: "Image files",
+                extensions: "svg,jpg,png,jpeg"
                 }]
         },
         init: {
@@ -630,10 +598,10 @@ function addFloorLevelUploader(level) {
                 str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
                 str += '</div>';
                 str += '</div>';
-             
+
 
                 $("#3d_" + level + "_image").html(str);
-                if(!variantId)
+                if (!variantId)
                     $("#image_" + level + "_3d_id").val(fileResponse.data.media_id)
             }
         }
@@ -642,20 +610,19 @@ function addFloorLevelUploader(level) {
 
 
 }
-function setUpFloorLevelUploader()
-{  
-     if (FLOORLEVELS.length === 0)
+
+function setUpFloorLevelUploader() {
+    if (FLOORLEVELS.length === 0)
         return false;
 
-    $.each(FLOORLEVELS, function (index, value) { 
+    $.each(FLOORLEVELS, function (index, value) {
         addFloorLevelUploader(value);
     });
-        
+
 }
 
 
-function deleteLayout(mediaId, type)
-{
+function deleteLayout(mediaId, type) {
 
     if (confirm('Are you sure you want to delete this media file? ') === false) {
         return;
@@ -707,8 +674,8 @@ function setUpFloorLayoutUploader() {
             filters: {
                 max_file_size: '4mb',
                 mime_types: [{
-                        title: "Svg files",
-                        extensions: "svg"
+                    title: "Svg files",
+                    extensions: "svg"
                     }]
             },
             init: {
@@ -736,7 +703,7 @@ function setUpFloorLayoutUploader() {
 }
 
 $(document).ready(function () {
- 
+
     setUpProjectMasterUploader()
     setUpFloorLevelUploader()
     setUpFloorLayoutUploader()
@@ -757,55 +724,52 @@ $(document).ready(function () {
         filters: {
             max_file_size: '3mb',
             mime_types: [{
-                    title: "Image files",
-                    extensions: "jpg,png,jpeg"
+                title: "Image files",
+                extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
-            PostInit: function () { 
+            PostInit: function () {
                 /* document.getElementById('uploadfiles').onclick = function () {
                  uploader.start();
                  return false;
                  };*/
             },
-            
-            FilesAdded: function (up, files) {  
-              
-            if(files[0].name =='map.jpg' || files[0].name =='map.png' || files[0].name =='map.jepg')
-            {
-                 up.start();
-            }
-            else{
-                uploader.removeFile(files[0]);
-                $('.google-earth-images').html(' <div class="alert alert-error"><button class="close" data-dismiss="alert"></button>The image failed to upload.Please try using another image.</div>');
-                $('.google-earth-images').find(".alert-error").removeClass('hidden');
-                 
-            }    
+
+            FilesAdded: function (up, files) {
+
+                if (files[0].name == 'map.jpg' || files[0].name == 'map.png' || files[0].name == 'map.jepg') {
+                    up.start();
+                } else {
+                    uploader.removeFile(files[0]);
+                    $('.google-earth-images').html(' <div class="alert alert-error"><button class="close" data-dismiss="alert"></button>The image failed to upload.Please try using another image.</div>');
+                    $('.google-earth-images').find(".alert-error").removeClass('hidden');
+
+                }
 
 
             },
-             UploadProgress: function(up, file) {
+            UploadProgress: function (up, file) {
                 var str = '<div class="col-md-3 progressdiv">';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="'+file.percent+'%" style="width: '+file.percent+'%;margin:0;"></div>';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
                 str += '</div>';
                 str += '<div class="dz-size" data-dz-size="">' + file.name + '</div>';
                 str += '</div>';
                 str += '</div>';
-                
-                $(".uploadImage").addClass('hidden'); 
-                $('.progressdiv').remove(); 
-                $("#google_earth_image").append(str); 
-              
+
+                $(".uploadImage").addClass('hidden');
+                $('.progressdiv').remove();
+                $("#google_earth_image").append(str);
+
             },
-            FileUploaded: function (up, file, xhr) { 
+            FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                fileStatus =  JSON.parse(xhr.status);
-                if(fileStatus == 201)
-                {
+                fileStatus = JSON.parse(xhr.status);
+                if (fileStatus == 201) {
                     var authtool = $('div.userauth').attr('date-user-auth');
 
                     var str = '<div class="col-md-3">';
@@ -816,34 +780,33 @@ $(document).ready(function () {
                     str += '</div>';
                     str += '</div>';
                     str += '<div class="col-md-3">';
-                    str += (authtool=='1')?'<h5 class="semi-bold">To use the Authoring Tool<a href="image/'+fileResponse.data.media_id+'/authoring-tool?&type=google_earth" target="_blank" class="text-primary"> click here</a></h5>':'';
+                    str += (authtool == '1') ? '<h5 class="semi-bold">To use the Authoring Tool<a href="image/' + fileResponse.data.media_id + '/authoring-tool?&type=google_earth" target="_blank" class="text-primary"> click here</a></h5>' : '';
                     str += '</div>';
                     $("#google_earth_image").html(str);
                     $('.google-earth-images').find(".alert-error").addClass('hidden');
-                }
-                else{
+                } else {
                     $(".uploadImage").removeClass('hidden');
                     $('.progressdiv').remove();
-                    
-                    $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> '+JSON.parse(xhr.response).message+ '</div>');
+
+                    $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> ' + JSON.parse(xhr.response).message + '</div>');
                     $('.google-earth-images').find(".alert-error").removeClass('hidden');
-                
+
                 }
 
-                
+
 
             },
-            Error: function(up, err) { 
-                $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
+            Error: function (up, err) {
+                $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + err.message + '</div>');
                 $('.google-earth-images').find(".alert-error").removeClass('hidden');
                 $(".uploadImage").removeClass('hidden');
                 $('.progressdiv').remove();
- 
-        }
-            
+
+            }
+
         }
     });
-    
+
     uploader.init();
 
     var skyview_uploader = new plupload.Uploader({
@@ -861,8 +824,8 @@ $(document).ready(function () {
         filters: {
             max_file_size: '10mb',
             mime_types: [{
-                    title: "Image files",
-                    extensions: "jpg,gif,png"
+                title: "Image files",
+                extensions: "jpg,gif,png"
                 }]
         },
         init: {
@@ -906,13 +869,13 @@ $(document).ready(function () {
         filters: {
             max_file_size: '10mb',
             mime_types: [{
-                    title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
+                title: "Image files",
+                extensions: "svg,jpg,png,jpeg"
                 }]
         },
         init: {
             PostInit: function () {
-                
+
             },
             FilesAdded: function (up, files) {
                 var str = '<div class="col-md-3">';
@@ -922,7 +885,7 @@ $(document).ready(function () {
                 str += '<div class="progress progress-small " style="margin:0;">';
                 str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
                 str += '</div>';
-                  str += '</div>';
+                str += '</div>';
                 str += '</div>';
                 $("#google_earth_image").html(str);
                 up.start();
@@ -936,12 +899,12 @@ $(document).ready(function () {
                 str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
                 str += '</div>';
                 str += '</div>';
-                str += '<div class="col-md-3">'; 
+                str += '<div class="col-md-3">';
                 str += '</div>';
 
 
                 $("#3d_external_img").html(str);
-                if(!variantId)
+                if (!variantId)
                     $("#image_external_3d_id").val(fileResponse.data.media_id)
             }
         }
@@ -965,13 +928,13 @@ $(document).ready(function () {
         filters: {
             max_file_size: '10mb',
             mime_types: [{
-                    title: "Image files",
-                    extensions: "jpg,png,jpeg"
+                title: "Image files",
+                extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
             PostInit: function () {
-                 
+
             },
             FilesAdded: function (up, files) {
                 var str = '<div class="col-md-3 variant-gallery-image">';
@@ -981,11 +944,11 @@ $(document).ready(function () {
                 str += '<div class="progress progress-small " style="margin:0;">';
                 str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
                 str += '</div>';
-                  str += '</div>';
+                str += '</div>';
                 str += '</div>';
                 $("#variant_gallery").append(str);
-                 up.start();
-             
+                up.start();
+
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
@@ -996,11 +959,11 @@ $(document).ready(function () {
                 str += '<input type="hidden" name="image_gallery[' + fileResponse.data.media_id + ']" id="image_external_3d_id" value="' + fileResponse.data.media_id + '"> ';
                 str += '</div>';
                 str += '</div>';
- 
+
                 $(".variant-gallery-image").remove();
                 $("#variant_gallery").append(str);
-                
-               
+
+
 
             }
         }
@@ -1009,8 +972,7 @@ $(document).ready(function () {
 
 });
 
-function saveBreakPoint()
-{
+function saveBreakPoint() {
     var position = []
     var i = 0;
     $('input[name="position[]"]:checked').each(function () {
@@ -1030,25 +992,23 @@ function saveBreakPoint()
         },
         success: function (response) {
             $('input[name="position[]"]').each(function () {
-                
+
                 pos = $(this).val();
-                className = ".auth-tool-"+pos;
-                if ($(this).prop('checked')){
+                className = ".auth-tool-" + pos;
+                if ($(this).prop('checked')) {
                     $(className).removeClass('hidden');
-                }
-                else{
+                } else {
                     $(className).addClass('hidden');
                 }
-                
+
             });
         }
     });
 }
 
-function deleteSvg(mediaId, type, refference)
-{
-    var objectType = $('div.object-master-images').attr('data-object-type'); 
-    var objectId = $('div.object-master-images').attr('data-object-id'); 
+function deleteSvg(mediaId, type, refference) {
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
 
     if (confirm('Are you sure you want to delete this media file? ') === false) {
         return;
@@ -1068,8 +1028,7 @@ function deleteSvg(mediaId, type, refference)
     });
 }
 
-function getVariants(obj)
-{
+function getVariants(obj) {
     var projectPropertyTypeId = obj.value;
     $.ajax({
         url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-variant/getunittypevariants',
@@ -1087,8 +1046,7 @@ function getVariants(obj)
     });
 }
 
-function getPositions(obj)
-{
+function getPositions(obj) {
     var buildingId = $('select[name="building_id"]').val();
     var floor = obj.value;
     $.ajax({
@@ -1099,20 +1057,19 @@ function getPositions(obj)
             floor: floor
         },
         success: function (response) {
-            
-            
+
+
             var $el = $("#flat_position");
             $el.select2('val', '');
             $el.empty(); // remove old options
             $el.append(response.data);
-             
+
 
         }
     });
 }
 
-function getPropertTypeData(obj, flag)
-{  
+function getPropertTypeData(obj, flag) {
     $.ajax({
         url: BASEURL + "/admin/project/" + PROJECTID + "/apartment-variant/getpropertytypedata",
         type: "POST",
@@ -1121,46 +1078,40 @@ function getPropertTypeData(obj, flag)
         },
         success: function (response) {
             var unitTypes = response.data.unit_types;
-            if (flag)
-            {
+            if (flag) {
                 //VARIANT CODE
                 $('#property_type_attributes').html(response.data.attributes);
-                
+
                 $('select[name="unit_type"]').empty();
                 $('select[name="unit_type"]').append('<option value=""> Select Unit Type</option>')
 
                 if (unitTypes.trim() != '')
                     $('select[name="unit_type"]').append(unitTypes);
-                 
-                if($(obj).find(":selected").text()=='Apartments')                        //APARTMENT
+
+                if ($(obj).find(":selected").text() == 'Apartments') //APARTMENT
                 {
-                   $(".add_level").addClass('hidden');
-                   $("#level_0").find('.level-title').addClass('hidden');
-                    $('input[name="levels[]"]').each(function () { 
- 
-                        if($(this).val()!=0)
-                        {
-                            $("#level_"+$(this).val()).addClass('hidden'); 
+                    $(".add_level").addClass('hidden');
+                    $("#level_0").find('.level-title').addClass('hidden');
+                    $('input[name="levels[]"]').each(function () {
+
+                        if ($(this).val() != 0) {
+                            $("#level_" + $(this).val()).addClass('hidden');
                         }
                     });
-                     
-                }
-                else if($(obj).find(":selected").text()=='Penthouses')                        //PENTHOUSE
-                { 
-                   $(".add_level").removeClass('hidden');
+
+                } else if ($(obj).find(":selected").text() == 'Penthouses') //PENTHOUSE
+                {
+                    $(".add_level").removeClass('hidden');
                     $("#level_0").find('.level-title').removeClass('hidden');
-                    $('input[name="levels[]"]').each(function () { 
- 
-                        if($(this).val()!=0)
-                        {
-                            $("#level_"+$(this).val()).removeClass('hidden'); 
+                    $('input[name="levels[]"]').each(function () {
+
+                        if ($(this).val() != 0) {
+                            $("#level_" + $(this).val()).removeClass('hidden');
                         }
                     });
-                    
+
                 }
-            }
-            else
-            {
+            } else {
                 //FLOOR LAYOUT
                 $(obj).closest('.row').find('select[name="unit_type"]').empty();
                 $(obj).closest('.row').find('select[name="unit_type"]').append('<option value=""> Choose Unit Type</option>');
@@ -1174,14 +1125,12 @@ function getPropertTypeData(obj, flag)
     });
 }
 
-function saveAndAddAnother()
-{
+function saveAndAddAnother() {
     $("#addanother").val(1);
     $("form").submit();
 }
 
-function addUnitType()
-{
+function addUnitType() {
     var projectPropertyTypeId = $("#property_type").val();
     var unitTypeName = $("#unit_type_name").val();
     $.ajax({
@@ -1199,24 +1148,19 @@ function addUnitType()
 
 }
 
-function createUnitType(obj, propertyTypeId)
-{ 
-    var val =$(obj).val();
+function createUnitType(obj, propertyTypeId) {
+    var val = $(obj).val();
     var selectext = $(obj).children(':selected').text().trim();
-    if ( val== 'add_new')
-    {
+    if (val == 'add_new') {
 
-        if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length)
-        {
+        if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length) {
             var unitTypeId = $(obj).closest('.unit_type_block').find('input[type="hidden"]').val();
             var html = '<input type="text" name="unittype[' + propertyTypeId + '][]" value="" onchange="vaildateUnitType(this,' + propertyTypeId + ')" class="form-control">';
             html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="' + unitTypeId + '">';
             html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
             $(obj).closest('.unit_type_block').find('.col-md-10').html(html);
 
-        }
-        else
-        {
+        } else {
             var html = '<div class="row m-b-10 unit_type_block">';
             html += '<div class="col-md-10">';
             html += '<input type="text" name="unittype[' + propertyTypeId + '][]" onchange="vaildateUnitType(this,' + propertyTypeId + ')" class="form-control">';
@@ -1228,141 +1172,125 @@ function createUnitType(obj, propertyTypeId)
             html += '</div>';
             html += '</div>';
             $(obj).closest('.unit_type_block').before(html);
-             
-        }
-         $(obj).select2('val', '');
 
-    }
-    else{
-        $(obj).closest('.propertytype-unit-types').find('select[name="unittype[' + propertyTypeId + '][]"]').each(function () { 
-         
-            if($(obj).get(0)!=$(this).get(0) && $(this).val()==val)
-            {
-                 alert('Unit Type Already Selected');
- 
-                 $(obj).select2('val', '');
- 
-                 return false;
-                 
+        }
+        $(obj).select2('val', '');
+
+    } else {
+        $(obj).closest('.propertytype-unit-types').find('select[name="unittype[' + propertyTypeId + '][]"]').each(function () {
+
+            if ($(obj).get(0) != $(this).get(0) && $(this).val() == val) {
+                alert('Unit Type Already Selected');
+
+                $(obj).select2('val', '');
+
+                return false;
+
             }
         });
-        
-        $(obj).closest('.propertytype-unit-types').find('input[name="unittype[' + propertyTypeId + '][]"]').each(function () { 
-           
-            if($(this).val().trim()==selectext)
-            {
-                 alert('Unit Type Already Selected');
- 
-                 $(obj).select2('val', '');
- 
-                 return false;
-                 
+
+        $(obj).closest('.propertytype-unit-types').find('input[name="unittype[' + propertyTypeId + '][]"]').each(function () {
+
+            if ($(this).val().trim() == selectext) {
+                alert('Unit Type Already Selected');
+
+                $(obj).select2('val', '');
+
+                return false;
+
             }
         });
- 
+
     }
 }
 
-function vaildateUnitType(obj, propertyTypeId)
-{
-    var value= $(obj).val().trim();
-    $(obj).closest('.propertytype-unit-types').find('select').each(function () { 
-        if($(this).children(':selected').text().trim()==value)
-        {
-             alert('Unit Type Already Selected');
+function vaildateUnitType(obj, propertyTypeId) {
+    var value = $(obj).val().trim();
+    $(obj).closest('.propertytype-unit-types').find('select').each(function () {
+        if ($(this).children(':selected').text().trim() == value) {
+            alert('Unit Type Already Selected');
 
-             $(obj).val('');
+            $(obj).val('');
 
-             return false;
+            return false;
 
         }
-        });
-   $(obj).closest('.propertytype-unit-types').find('input[type="text"]').each(function () { 
-        if($(obj).get(0)!=$(this).get(0) && $(this).val().trim()==value)
-        {
-             alert('Unit Type Already Selected');
+    });
+    $(obj).closest('.propertytype-unit-types').find('input[type="text"]').each(function () {
+        if ($(obj).get(0) != $(this).get(0) && $(this).val().trim() == value) {
+            alert('Unit Type Already Selected');
 
-             $(obj).val('');
+            $(obj).val('');
 
-             return false;
+            return false;
 
         }
-        });    
+    });
 }
 
 $('input[name="property_types[]"]').change(function (event) {
-    if ($(this).is(':checked'))
-    {
+    if ($(this).is(':checked')) {
         $(this).closest('.row').find('.propertyTypeUnitsAttributes').removeClass('hidden');
-        if($(this).closest('.row').find('.attributes_block .defaultAttributes').length)
-        {
-           $(this).closest('.row').find('.attributes_block .defaultAttributes').removeClass('hidden');
-           $(this).closest('.row').find('.attributes_block .defaultAttributes').find('input').prop("disabled", false);
-           $(this).closest('.row').find('.attributes_block .defaultAttributes select').prop("disabled", false);
+        if ($(this).closest('.row').find('.attributes_block .defaultAttributes').length) {
+            $(this).closest('.row').find('.attributes_block .defaultAttributes').removeClass('hidden');
+            $(this).closest('.row').find('.attributes_block .defaultAttributes').find('input').prop("disabled", false);
+            $(this).closest('.row').find('.attributes_block .defaultAttributes select').prop("disabled", false);
         }
-    }
-    else
-    {
+    } else {
         $(this).closest('.row').find('.propertyTypeUnitsAttributes').addClass('hidden');
-        if($(this).closest('.row').find('.attributes_block .defaultAttributes').length)
-        {
-           $(this).closest('.row').find('.attributes_block .defaultAttributes').addClass('hidden');
-           $(this).closest('.row').find('.attributes_block .defaultAttributes').find('input').prop("disabled", true);
-           $(this).closest('.row').find('.attributes_block .defaultAttributes select').prop("disabled", true);
+        if ($(this).closest('.row').find('.attributes_block .defaultAttributes').length) {
+            $(this).closest('.row').find('.attributes_block .defaultAttributes').addClass('hidden');
+            $(this).closest('.row').find('.attributes_block .defaultAttributes').find('input').prop("disabled", true);
+            $(this).closest('.row').find('.attributes_block .defaultAttributes select').prop("disabled", true);
         }
-        
+
     }
 
 });
 
-function saveVariantConfig()
-{
+function saveVariantConfig() {
     var flag = true;
-    var isApartment=false; 
-     
-    if($('input[name="property_type"]').length || $('select[name="property_type"]').length)
-    {  
-        if($('input[name="property_type"]').attr('data-value')==='Apartments')
-          isApartment=true;
-        else if($('select[name="property_type"]').find(":selected").text()==='Apartments')
-          isApartment=true;
-    }
-    
-    
+    var isApartment = false;
 
-    $('input[name="levels[]"]').each(function () { 
-         
-        var level = $(this).val(); 
-        if(isApartment && level!=0)
-        {  
-          return false;
+    if ($('input[name="property_type"]').length || $('select[name="property_type"]').length) {
+        if ($('input[name="property_type"]').attr('data-value') === 'Apartments')
+            isApartment = true;
+        else if ($('select[name="property_type"]').find(":selected").text() === 'Apartments')
+            isApartment = true;
+    }
+
+
+
+    $('input[name="levels[]"]').each(function () {
+
+        var level = $(this).val();
+        if (isApartment && level != 0) {
+            return false;
         }
-        
-         var roomId = $(this).closest('.row').find('input[name="room_id['+level+'][]"]').length; 
-        if(roomId==0)
-        {
- 
-            alert('Select Room Type For Level ' +  level);
+
+        var roomId = $(this).closest('.row').find('input[name="room_id[' + level + '][]"]').length;
+        if (roomId == 0) {
+
+            alert('Select Room Type For Level ' + level);
             flag = false;
         }
-        
-        
+
+
 
     });
 
-     if (flag)
-        $('form').submit(); 
+    if (flag)
+        $('form').submit();
 
 }
 
-function getPhaseData(project_id, phaseId)
-{
- 
+function getPhaseData(project_id, phaseId) {
+
     $.ajax({
-        url: "/admin/project/" + project_id + "/getphasedata/" + phaseId, 
+        url: "/admin/project/" + project_id + "/getphasedata/" + phaseId,
         type: "GET",
         data: {
- 
+
         },
         success: function (response) {
             $("#phaseData").html(response.data.html);
@@ -1371,14 +1299,13 @@ function getPhaseData(project_id, phaseId)
     });
 }
 
-function getPublishData(project_id)
-{
- 
+function getPublishData(project_id) {
+
     $.ajax({
-        url: "/admin/project/" + project_id + "/projectpublishdata", 
+        url: "/admin/project/" + project_id + "/projectpublishdata",
         type: "GET",
         data: {
- 
+
         },
         success: function (response) {
             $("#publishData").html(response.data.html);
@@ -1387,13 +1314,12 @@ function getPublishData(project_id)
     });
 }
 
-function updateResponseTable()
-{
-     $.ajax({
-        url: BASEURL + "/api/v1/project/" + PROJECTID + "/update-response-table", 
+function updateResponseTable() {
+    $.ajax({
+        url: BASEURL + "/api/v1/project/" + PROJECTID + "/update-response-table",
         type: "GET",
         success: function (response) {
-           window.location.reload(); 
+            window.location.reload();
         }
     });
 
@@ -1402,41 +1328,36 @@ function updateResponseTable()
 $("input[name=has_phases]:radio").change(function () {
     var value = $(this).val();
     $.ajax({
-        url: "/admin/project/" + PROJECTID + "/validateprojectphase", 
+        url: "/admin/project/" + PROJECTID + "/validateprojectphase",
         type: "GET",
         data: {
             projectPhase: value,
         },
         success: function (response) {
-          if(response.message!='')  
-           alert(response.message);
+            if (response.message != '')
+                alert(response.message);
         }
     });
- 
+
 });
 
 $("input[name=has_master]:radio").change(function () {
     var value = $(this).val();
-    if(value == 'yes')
+    if (value == 'yes')
         $(".object-master-images").removeClass('hidden');
     else
-      $(".object-master-images").addClass('hidden');  
- 
+        $(".object-master-images").addClass('hidden');
+
 });
 
-function openRoomTypeModal(obj, id)
-{
-    if (obj.value == 'add_new')
-    {
+function openRoomTypeModal(obj, id) {
+    if (obj.value == 'add_new') {
         $('#myModal').modal('show');
         $('#myModalLabel').text('Add New Room');
         $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
         $(obj).select2('val', '');
-    }
-    else
-    {
-        if (id)
-        {
+    } else {
+        if (id) {
             $('#myModalLabel').text('Edit Room');
             $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
             $(".updateattribute").removeClass("hidden");
@@ -1450,75 +1371,68 @@ function openRoomTypeModal(obj, id)
 
 }
 
-function deleteLevel(level)
-{ 
-    var variantLevels =$('input[name="levels[]"]').length; 
-    if(variantLevels == 1)
-    {
+function deleteLevel(level) {
+    var variantLevels = $('input[name="levels[]"]').length;
+    if (variantLevels == 1) {
         alert("Variant Should Have Alleast 1 Level");
-        return ;
+        return;
     }
 
     if (confirm('Are you sure you want to delete this Level? ') === false) {
         return;
     }
     var counter = $("#counter").val();
-    var i = parseInt(counter)-1;
-    if(variantId){
+    var i = parseInt(counter) - 1;
+    if (variantId) {
         $.ajax({
-        url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/deletelevel",
-        type: "DELETE",
-        data: {
-            level: level,
-        },
-        success: function (response) {
-           
-           $("#counter").val(i);
-           $("#deletelevel_"+i).removeClass('hidden'); 
-           $("#level_"+level).remove();
-        }
+            url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/" + variantId + "/deletelevel",
+            type: "DELETE",
+            data: {
+                level: level,
+            },
+            success: function (response) {
+
+                $("#counter").val(i);
+                $("#deletelevel_" + i).removeClass('hidden');
+                $("#level_" + level).remove();
+            }
         });
-    }
-    else{ 
+    } else {
 
         $("#counter").val(i);
-        $("#level_"+level).remove();
-        $("#deletelevel_"+i).removeClass('hidden');
+        $("#level_" + level).remove();
+        $("#deletelevel_" + i).removeClass('hidden');
     }
 
-    
+
 }
 
-function saveRoom()
-{
+function saveRoom() {
     var flag = true;
-        
-    $('.attributes_block select').each(function () {  
+
+    $('.attributes_block select').each(function () {
         var controlVal = $(this).closest('.row').find('.tags').val();
-        if(($(this).val()=='select' ||  $(this).val()=='multiple') && controlVal=='') 
-        {
+        if (($(this).val() == 'select' || $(this).val() == 'multiple') && controlVal == '') {
             var attributename = $(this).closest('.row').find('input').val();
-            alert('Please Enter Default Values For Attribute '+attributename);
+            alert('Please Enter Default Values For Attribute ' + attributename);
             flag = false;
         }
-        
-     });    
+
+    });
 
     if (flag)
         $('form').submit();
 
 }
 
-$('.attributes_block').on('change', 'select', function() {
-    
-    if(($(this).val()=='select' ||  $(this).val()=='multiple')) 
-    { 
-        $(this).closest('.row').find('.controlvalue input').attr('data-role','tagsinput').attr('readonly',false);
+$('.attributes_block').on('change', 'select', function () {
+
+    if (($(this).val() == 'select' || $(this).val() == 'multiple')) {
+        $(this).closest('.row').find('.controlvalue input').attr('data-role', 'tagsinput').attr('readonly', false);
+    } else {
+        $(this).closest('.row').find('.controlvalue input').removeAttr('data-role').attr('readonly', true);
     }
-    else{  
-       $(this).closest('.row').find('.controlvalue input').removeAttr('data-role').attr('readonly',true);
-    }
- 
+
 });
 
 
@@ -1531,6 +1445,3 @@ $('.attributes_block').on('change', 'select', function() {
     }
  
   });*/
-
-
- 
