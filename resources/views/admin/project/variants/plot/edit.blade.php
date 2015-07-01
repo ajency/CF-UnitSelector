@@ -127,7 +127,7 @@
                                 @else
                                 <div class="col-md-3" >
                                     <div class="img-hover img-thumbnail">
-                                        <div id="pickfiles_ext3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                        <div id="pickfiles_ext3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                             <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                 <i class="fa fa-image" style="font-size:30px;"></i>
                                                 <p class="">Select File</p>
@@ -149,7 +149,7 @@
 
                                 <h4 style="margin-left:10px;" class="inline">
                                     <span class="semi-bold">Gallery</span>&nbsp;
-                                    <a id="pickfiles_gallery" class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                                    <button type="button"id="pickfiles_gallery" class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image" ></i> Select file (s)</button>
                                 </h4>
 
                             </div>

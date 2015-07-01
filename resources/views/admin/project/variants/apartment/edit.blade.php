@@ -148,7 +148,7 @@
 
                                 <h4 style="margin-left:10px;" class="inline">
                                     <span class="semi-bold">Gallery</span>&nbsp;
-                                    <a id="pickfiles_gallery" class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                                    <button type="button"id="pickfiles_gallery" class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image" ></i> Select file (s)</button>
                                 </h4>
 
                             </div>
