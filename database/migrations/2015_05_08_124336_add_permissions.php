@@ -15,7 +15,6 @@ class AddPermissions extends Migration {
 	{
             Permission::create( ['name' => 'add_project','display_name' => 'Add Project'] );
             Permission::create( ['name' => 'configure_project','display_name' => 'Configure Project'] );
-            Permission::create( ['name' => 'read_project','display_name' => 'Read Project'] );
             Permission::create( ['name' => 'publish_project','display_name' => 'Publish Project'] );
             Permission::create( ['name' => 'configure_building','display_name' => 'Configure Building'] );
             Permission::create( ['name' => 'configure_unit','display_name' => 'Add/Edit Unit'] );

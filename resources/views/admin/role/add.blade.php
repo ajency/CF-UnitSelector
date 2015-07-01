@@ -44,7 +44,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $permission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
+                                        <input type="checkbox" id="{{ $permission['name'] }}" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
@@ -60,9 +60,9 @@
                                     <div class="col-md-6">Project Access</div>
                                     <div class="col-md-6 text-right">
                                         <div class="radio radio-primary">
-                                        <input required type="radio" id="project_access_all" name="project_access" value="all" aria-label="..." checked >
+                                        <input required type="radio" id="project_access_all" name="project_access" value="all" aria-label="..."  >
                                         <label for="project_access_all" class="form-label">All &nbsp;</label> 
-                                        <input  type="radio" id="project_access_specific" name="project_access" value="specific" aria-label="..." > 
+                                        <input  type="radio" id="project_access_specific" name="project_access" value="specific" aria-label="..." checked> 
                                         <label for="project_access_specific" class="form-label">Specific &nbsp;</label> 
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $projectPermission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
+                                        <input type="checkbox" id="{{ $permission['name'] }}" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
