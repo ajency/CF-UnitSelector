@@ -38,7 +38,7 @@
 
                     <div class="row">
                             <div class="col-md-4">
-                            <div class="form-group" tabindex="0">
+                            <div class="form-group">
                                         <label class="form-label">Building Name<span class="text-primary">*</span></label>
                                        <input required="" type="text" class="form-control" name="building_name"  value="{{ $building->building_name }}"  placeholder="Enter Building Name" data-parsley-required onchange="validateBuildingName(this,{{ $building->id }});" ><div class="cf-loader hidden"></div>
                                         </div>
