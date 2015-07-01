@@ -1209,7 +1209,7 @@ function createUnitType(obj, propertyTypeId)
         if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length)
         {
             var unitTypeId = $(obj).closest('.unit_type_block').find('input[type="hidden"]').val();
-            var html = '<input type="text" name="unittype[' + propertyTypeId + '][]" value="" onchange="vaildateUnitType(this,' + propertyTypeId + ')">';
+            var html = '<input type="text" name="unittype[' + propertyTypeId + '][]" value="" onchange="vaildateUnitType(this,' + propertyTypeId + ')" class="form-control">';
             html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="' + unitTypeId + '">';
             html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
             $(obj).closest('.unit_type_block').find('.col-md-10').html(html);
@@ -1219,7 +1219,7 @@ function createUnitType(obj, propertyTypeId)
         {
             var html = '<div class="row m-b-10 unit_type_block">';
             html += '<div class="col-md-10">';
-            html += '<input type="text" name="unittype[' + propertyTypeId + '][]" onchange="vaildateUnitType(this,' + propertyTypeId + ')">';
+            html += '<input type="text" name="unittype[' + propertyTypeId + '][]" onchange="vaildateUnitType(this,' + propertyTypeId + ')" class="form-control">';
             html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="">';
             html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
             html += '</div>';
