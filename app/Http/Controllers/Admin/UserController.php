@@ -14,6 +14,7 @@ use CommonFloor\UserProject;
 use CommonFloor\Project;
 use \Session;
 use CommonFloor\AgentUnit;
+use \Auth;
 
 class UserController extends Controller {
 
@@ -144,11 +145,14 @@ class UserController extends Controller {
     }
     
     public function profile($id) { 
+        $userId =  Auth::user()->id;
+        if($id!=$userId)
+            abort(403);
         
-        $user = User::find($id)->toArray();
+        $user = User::find($userId)->toArray();
         $roles = Role::all()->toArray(); 
-        $defaultRole = getDefaultRole($id);
-        $userProjects = getUserAssignedProject($id);
+        $defaultRole = getDefaultRole($userId);
+        $userProjects = getUserAssignedProject($userId);
         
         if($defaultRole['PROJECT_ACCESS']=='specific')
         {
@@ -210,12 +214,12 @@ class UserController extends Controller {
     }
     
     public function profileUpdate($id, Request $request) {
-
+        $userId =  Auth::user()->id;
         $name = $request->input('name');
         $phone_number = $request->input('phone_number');
  
   
-        $user = User::find($id);
+        $user = User::find($userId);
         $user->name = ucfirst($name);
         $user->phone = $phone_number;
  
@@ -225,7 +229,7 @@ class UserController extends Controller {
         $addanother = $request->input('addanother');
 
          
-       return redirect("/admin/user/" . $id . "/profile");
+       return redirect("/admin/user/" . $userId . "/profile");
  
         //
     }
