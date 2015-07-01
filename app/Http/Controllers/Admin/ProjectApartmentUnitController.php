@@ -320,9 +320,9 @@ class ProjectApartmentUnitController extends Controller {
    {
         $project = Project::find($projectId);
         $unit_file = $request->file('unit_file')->getRealPath();
-         
+        $extension = $request->file('unit_file')->getClientOriginalExtension();  
        
-        if ($request->hasFile('unit_file'))
+        if ($request->hasFile('unit_file') && $extension=='csv')
         {
             Excel::load($unit_file, function($reader)use($project) {
             $errorMsg = [];
@@ -488,7 +488,8 @@ class ProjectApartmentUnitController extends Controller {
             
             
         }
-       
+        else
+           Session::flash('error_message','Invalid File');
        
        return redirect("/admin/project/" . $projectId . "/apartment-unit/");
  

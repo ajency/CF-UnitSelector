@@ -724,23 +724,6 @@ class ProjectController extends Controller {
                     ]
                         ], 201);
 
-        $html .= '<table class="table table-bordered">
-                  <thead>
-                  <tr>
-                  <td width="15%"><span class="semi-bold">Type</span></td> 
-                  <td><span class="semi-bold">Units in ' . $phase->phase_name . '</span></td> 
-                  </tr>
-                  </thead>
-                  <tbody>';
-        foreach ($data as $key => $values) {
-
-            $html .=' <tr>
-                  <td><span class="semi-bold">' . get_property_type($key) . '</span></td> 
-                  <td>' . implode(", ", $values) . '</td> 
-                  </tr>';
-        }
-        $html .='</tbody>
-                </table>';
     }
 
     public function projectPublishData($projectId, ProjectRepository $projectRepository) {

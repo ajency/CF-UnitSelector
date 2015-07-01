@@ -192,10 +192,11 @@ class AgentController extends Controller {
         $projectId = $request->input('project_id');
 
         $unit_file = $request->file('unit_file')->getRealPath();
+        $extension = $request->file('unit_file')->getClientOriginalExtension();
         
-         
+
        
-        if ($request->hasFile('unit_file'))
+        if ($request->hasFile('unit_file') && $extension=='csv')
         {
              Excel::load($unit_file, function($reader)use($projectId,$userId) {
                 
@@ -239,8 +240,8 @@ class AgentController extends Controller {
                             continue;
                        }
                     
-                        if(strtolower($access) !='yes' || strtolower($access) !='no')
-                       {
+                        if(strtolower($access) !='yes' && strtolower($access) !='no')
+                       {  
                            $errorMsg[] ='Has Access Should Be Either Yes Or No On Row No '.$i;
                             continue;
                        }
@@ -264,7 +265,7 @@ class AgentController extends Controller {
                      Session::flash('success_message','Unit Successfully Assigned');
 
                    }
-
+ 
                  }
                  else
                      $errorMsg[] ='Column Count does not match';
@@ -278,6 +279,8 @@ class AgentController extends Controller {
             
           
         }
+        else
+           Session::flash('error_message','Invalid File'); 
        
        
        return redirect("/admin/agent/" . $userId . "/edit/");
