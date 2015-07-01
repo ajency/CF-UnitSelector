@@ -93,7 +93,7 @@
                                     @if('textbox' === $attributes['control_type'])
                                     <input type="text" class="form-control m-b-5" name="villa_attributes[{{ $attributes['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $attributes['label'] }}" data-parsley-required>
                                     @elseif('number' === $attributes['control_type'])
-                                    <input type="number" class="form-control m-b-5" name="villa_attributes[{{ $attributes['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $attributes['label'] }}" data-parsley-required data-parsley-type="number">
+                                    <input type="text" class="form-control m-b-5" name="villa_attributes[{{ $attributes['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $attributes['label'] }}" data-parsley-required data-parsley-type="number" data-parsley-min="0">
                                     @elseif('select' === $attributes['control_type'])
                                     <?php
                                     $options = explode(',', $attributes['defaults']);

@@ -104,8 +104,8 @@
                                 <input type="text" class="form-control" name="apartment_attributes[{{ $attribute['label'] }}]"  
                                        placeholder="Enter {{ $attribute['label'] }}" data-parsley-required>
                                 @elseif('number' === $attribute['control_type'])
-                                <input type="number" class="form-control" name="apartment_attributes[{{ $attribute['label'] }}]"  
-                                       placeholder="Enter {{ $attribute['label'] }}" data-parsley-required data-parsley-type="number">
+                                <input type="text" class="form-control" name="apartment_attributes[{{ $attribute['label'] }}]"  
+                                       placeholder="Enter {{ $attribute['label'] }}" data-parsley-required data-parsley-type="number" data-parsley-min="0">
                                 @elseif('select' === $attribute['control_type'])
                                 <?php
                                 $options = explode(',', $attribute['defaults']);
