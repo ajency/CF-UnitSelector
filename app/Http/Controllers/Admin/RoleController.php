@@ -17,7 +17,7 @@ class RoleController extends Controller {
      */
 
     public function index() {
-        $roles = Role::orderBy('name')->get()->toArray();
+        $roles = Role::where('is_agent','yes')->orderBy('name')->get()->toArray();
         return view('admin.role.list')
                         ->with('roles', $roles)
                         ->with('menuFlag', FALSE);
@@ -52,18 +52,11 @@ class RoleController extends Controller {
     public function store(Request $request) { 
         $name = $request->input('name');
         $project_access = $request->input('project_access');
-        $is_agent = $request->input('is_agent');
-        if($is_agent=='')
-            $is_agent='no';
 
         $role = new Role();
         $role->name = property_type_slug($name);
         $role->display_name = $name;
         $role->project_access = $project_access;
-        $role->is_agent = $is_agent;
-        if($is_agent=='')
-           $is_agent='no';
-        
         $role->save();
         $roleId = $role->id;
 
@@ -136,15 +129,11 @@ class RoleController extends Controller {
 
         $name = $request->input('name');
         $project_access = $request->input('project_access');
-        $is_agent = $request->input('is_agent');
-        if($is_agent=='')
-            $is_agent='no';
 
         $role = Role::find($id);
         $role->name = property_type_slug($name);
         $role->display_name = $name;
         $role->project_access = $project_access;
-        $role->is_agent = $is_agent;
         $role->save();
 
 

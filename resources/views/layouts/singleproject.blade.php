@@ -20,7 +20,7 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/cost') }}">@if($current === 'cost')@endif Cost</a>
             </li>
             @endif
-            @if(hasPermission($project['id'],['configure_project','svg_auth_tool']))
+            @if(hasPermission($project['id'],['svg_auth_tool']))
             <li class="{{ $current === 'svg' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/svg' ) }}" >@if($current === 'svg')@endif SVGs</a>
             </li>
@@ -50,7 +50,7 @@
                 <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType) . '-variant/') }}">@if($current === property_type_slug($projectPropertyType) . '-variant')@endif Configuration</a>
             </li>
             @endif
-            @if(hasPermission($project['id'],['configure_unit']))
+            @if(hasPermission($project['id'],['configure_unit','unit_status_update']))
             <li class="{{ $current === property_type_slug($projectPropertyType) . '-unit' ? 'active' : '' }}">
                 <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType) . '-unit/') }}">@if($current === property_type_slug($projectPropertyType) . '-unit')@endif Units</a>
             </li>
@@ -60,7 +60,7 @@
         @endforeach
        
        
-        @if(isset($apartmentPenthouse) && hasPermission($project['id'],['configure_project','configure_building','configure_unit']))
+        @if(isset($apartmentPenthouse) && hasPermission($project['id'],['configure_project','configure_building','configure_unit','unit_status_update']))
         <?php
         $apartmentpenthouse= implode("/",$apartmentPenthouse);
         ?>
@@ -78,7 +78,7 @@
                 <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-variant/') }}">@if($current === 'apartment-variant')@endif Configuration</a>
             </li>
             @endif
-             @if(hasPermission($project['id'],['configure_unit']))
+             @if(hasPermission($project['id'],['configure_unit','unit_status_update']))
             <li class="{{ $current === 'apartment-unit' ? 'active' : '' }}">
                 <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-unit/') }}">@if($current === 'apartment-unit')@endif Units</a>
             </li>
