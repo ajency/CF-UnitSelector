@@ -1450,6 +1450,7 @@ class CenterUnitView extends Marionette.ItemView
 		id = url.split('/')[1]
 		unit = unitCollection.findWhere
 				'id' : parseInt id
+		breakpoint = unit.get 'breakpoint'
 		response = window.unit.getUnitDetails(id)
 		building = buildingCollection.findWhere
 					'id' : parseInt unit.get('building_id')
@@ -1463,7 +1464,7 @@ class CenterUnitView extends Marionette.ItemView
 			$.merge transitionImages ,  building.get('building_master')
 			first = _.values svgs
 			if building.get('building_master').length != 0  
-				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
+				$('.firstimage').attr('src',transitionImages[breakpoint])
 				$('.firstimage').load ()->
 					$('.images').load(first[0],()->
 						$('.apartment,.amenity').each (ind,item)->
@@ -1483,7 +1484,7 @@ class CenterUnitView extends Marionette.ItemView
 		transitionImages = []
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
-			$('.firstimage').attr('src',transitionImages[breakpoints[0]])
+			$('.firstimage').attr('src',transitionImages[breakpoint])
 			$('.firstimage').load ()->
 				$('.images').load(first[0],()->
 					$('.villa,.plot,.building,.amenity').each (ind,item)->
