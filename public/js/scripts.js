@@ -1509,17 +1509,17 @@ function saveRoom()
 
 }
 
-/*$(".attributes_block select").change(function () {
+$('.attributes_block').on('change', 'select', function() {
     
     if(($(this).val()=='select' ||  $(this).val()=='multiple')) 
     { 
-        $(this).closest('.row').find('.controlvalue input').removeClass('hidden');
+        $(this).closest('.row').find('.controlvalue input').attr('data-role','tagsinput').attr('readonly',false);
     }
-    else{ 
-       $(this).closest('.row').find('.controlvalue input').addClass('hidden');
+    else{  
+       $(this).closest('.row').find('.controlvalue input').removeAttr('data-role').attr('readonly',true);
     }
  
-});*/
+});
 
 
 //Reload page after hitting enter
