@@ -38,48 +38,52 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 													</div>
 
 													<div class="pull-left filter-result full">
+														<ul  id="flexiselDemo1">
 														 {{#filters}}
 																{{#each this}}
 																{{#each this}}
 															
-																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> 
+																	<li>
+																		<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> 
+																	</li>
 															{{/each}}
 															 {{/each}}
 															 {{/filters}}
 															  {{#area}}
-																
+																<li>
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															 
+															 	</li>
 															 {{/area}}
 														 {{#budget}}
-																
+																<li>
 																	<div class="filter-pill">  <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															
+																</li>
 															 {{/budget}}
 
 															  {{#views}}
-																 
+																 <li>
 																	<div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-														   
+														   		</li>
 															 {{/views}}
 
 														   {{#facings}}
-																 
+																 <li>
 																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-															
+																</li>
 															 {{/facings}}
 
 														 {{#floor}}
-																
+																<li>
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															
+																</li>
 															 {{/floor}}
 
 														  {{#status}}
-																
+																<li>
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															
+																</li>
 															 {{/status}}
+														</ul>
 																							   
 													</div>
 												</div>
@@ -264,6 +268,29 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 	onShow:->
 		# if CommonFloor.router.history.length == 1
 		# 	@ui.unitBack.hide()
+		$("#flexiselDemo1").flexisel(
+		    visibleItems: 11,
+		    animationSpeed: 200,
+		    autoPlay: false,
+		    autoPlaySpeed: 1000,
+		    clone:false,
+		    enableResponsiveBreakpoints: true,
+		    responsiveBreakpoints: {
+		      portrait: {
+		        changePoint:480,
+		        visibleItems: 5
+		      }, 
+		      landscape: {
+		        changePoint:640,
+		        visibleItems: 6
+		      },
+		      tablet: {
+		        changePoint:768,
+		        visibleItems: 3
+		      }
+		    }
+		)
+		
 		results  = CommonFloor.getFilters()
 		if results.length == 0
 			$('.proj-type-count').text 'No results found'
