@@ -408,6 +408,9 @@
    
 
         @include('frontend/templates')
+        @if(getenv('APP_ENV') == 'production')
+          <script src="{{ asset('js/production/authoringtool.plugins.min.js' )}}"></script>
+        @else
         <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
         <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
@@ -428,6 +431,7 @@
         <script src="{{ asset('js/svg.absorb.min.js' )}}"></script>
         <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
+        @endif
         
         <!--script src="{{ asset('js/jquery.canvasAreaDraw.js' )}}"></script-->
         
@@ -472,7 +476,9 @@
             }
         });
         </script>
-
+        @if(getenv('APP_ENV') == 'production')
+          <script src="{{ asset('js/production/authoringtool.application.min.js' )}}"></script>
+        @else
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/bunglow.variant.js' )}}"></script>
@@ -493,6 +499,7 @@
         <script src="{{ asset('js/authoring-tool/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
+      @endif
 </body>
 
 </html>

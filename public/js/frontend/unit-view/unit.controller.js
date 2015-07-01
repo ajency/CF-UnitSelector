@@ -212,7 +212,7 @@
       unitsArr = unitColl[0];
       text = unitColl[1];
       $.each(unitsArr.toArray(), function(index, value) {
-        if (value.id !== unitid && value.availability === 'available') {
+        if (value.get('id') !== unitid && value.get('availability') === 'available') {
           units.push(value);
           i++;
         }

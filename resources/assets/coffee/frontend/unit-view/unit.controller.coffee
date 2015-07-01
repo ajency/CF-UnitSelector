@@ -298,12 +298,11 @@ class LeftUnitView extends Marionette.ItemView
 		unitsArr = unitColl[0]
 		text = unitColl[1]
 		$.each unitsArr.toArray(), (index, value)->
-			if value.id != unitid && value.availability is 'available'
+			if value.get('id') != unitid && value.get('availability') is 'available'
 				units.push value
 				i++
 			if i == 3
 				return false
-				
 		if unitsArr.length == 1
 			text = ''
 		if units.length is 0

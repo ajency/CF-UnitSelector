@@ -1209,7 +1209,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			$.merge views , item.get('views')
 
 		views = _.uniq views
-
+		views = views.sort()
 		$.each views , (ind,val)->
 			viewArr.push
 				'id' : val
