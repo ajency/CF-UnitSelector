@@ -738,6 +738,7 @@
         return $.merge(views, item.get('views'));
       });
       views = _.uniq(views);
+      views = views.sort();
       $.each(views, function(ind, val) {
         return viewArr.push({
           'id': val,
