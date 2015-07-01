@@ -36,6 +36,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( '/', 'Admin\AdminController@index' );
     Route::resource( 'project', 'Admin\ProjectController' );
     Route::resource( 'user', 'Admin\UserController' );
+    Route::resource( 'agent', 'Admin\AgentController' );
     Route::resource( 'role', 'Admin\RoleController' );
     Route::resource( 'project.media', 'Admin\ProjectMediaController' );
     Route::resource( 'variant.media', 'Admin\VariantMediaController' );
@@ -60,6 +61,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'user/validateuseremail', 'Admin\UserController@validateEmail' );
     Route::post( 'user/validateuserphone', 'Admin\UserController@validatePhone' );
     Route::post( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
+    Route::post( 'agent/{id}/changepassword', 'Admin\AgentController@changePassword' );
     Route::get( 'user/{id}/profile', 'Admin\UserController@profile' );
     Route::put( 'user/{id}/profileupdate', 'Admin\UserController@profileUpdate' );
     Route::post( 'user/{id}/userprojects', 'Admin\UserController@userProjects' );
@@ -98,10 +100,11 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/{project}/bunglow-unit/unitimport', 'Admin\ProjectBunglowUnitController@unitImport' );
     Route::post( 'project/{project}/plots-unit/unitimport', 'Admin\ProjectPlotUnitController@unitImport' );
     Route::post( 'project/getprojectname', 'Admin\ProjectController@getProjectName' );
-    
+    Route::get( 'project/{project}/agentunitexport', 'Admin\ProjectController@agentUnitExport' );
     Route::get( 'project/{project}/unitexport/{id}', 'Admin\ProjectController@unitExport' );
+    Route::post( 'agent/{id}/agentunitimport', 'Admin\AgentController@agentUnitImport' );
     Route::get( 'project/{project}/downloadsamplefile/{filename}', 'Admin\ProjectController@downloadSampleFile' );
-    Route::post( 'project/{project}/bunglow-unit/updatestatus', 'Admin\ProjectBunglowUnitController@updateStatus' );
+    Route::post( 'project/{project}/bunglow-unit/{id}/updatestatus', 'Admin\ProjectBunglowUnitController@updateStatus' );
     
 });
 

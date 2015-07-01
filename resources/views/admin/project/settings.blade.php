@@ -100,7 +100,7 @@
                             <input type="text" name="projectattributes[]" value="" class="form-control">
                             <input type="hidden" name="projectattributeId[]" value="" class="form-control">
                         <div class="text-right">
-                            <a   class="add-project-attributes-btn btn btn-link"><i class="fa fa-"></i> Add View</a>
+                            <a tabindex="0" class="add-project-attributes-btn btn btn-link"><i class="fa fa-"></i> Add View</a>
                         </div> </div>
                         </div>
                         </div>
@@ -110,10 +110,10 @@
             @include('admin.project.includes.property_types')
             <div class="form-actions">  
                 <div class="pull-right">
-                    <input type="hidden" name="_method" value="PUT">
+                    <input  type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button onclick="saveProjectConfig();" type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>  Save</button>
+                    <button  onclick="saveProjectConfig();" type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>  Save</button>
                     
                     <a href="{{ url('/admin/project') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i>    Cancel</button></a>
                 </div>

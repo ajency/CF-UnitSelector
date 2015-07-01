@@ -140,7 +140,15 @@ function getDefaultRole($userId)
     return $defaultRoleId;
 }
  
-
+function isAgent()
+{
+     if(Auth::user()->is_agent=='yes')
+         $return = true;
+    else
+        $return = false;
+    
+    return $return;
+}
 
 function hasPermission($projectId, $userPermission)
 {  
@@ -183,5 +191,41 @@ function hasPermission($projectId, $userPermission)
     
      
     return $flag;
+ 
+}
+
+function hasUnitAccess($unitId)
+{
+    $flag = false;
+    $userId =  Auth::user()->id;
+    $userUnit = \CommonFloor\AgentUnit::where('user_id',$userId)->where('unit_id',$unitId)->get()->toArray(); 
+    if(!empty($userUnit))
+    {
+        $flag = true;
+    }
+ 
+    return $flag;
+}
+
+function isValidUnit($projectId,$unitId)
+{
+    
+    $variantId = \CommonFloor\Unit::find($unitId)->unit_variant_id;
+    $unitTypeId = \CommonFloor\UnitVariant::find($variantId)->unitType()->first()->id;
+    $project= \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->where('project_id',$projectId)->first();  
+    
+    if($project==null)
+    { 
+        abort(404);
+    }
+}
+
+function isValidVariant($projectId,$variantId)
+{
+    $unitTypeId = \CommonFloor\UnitVariant::find($variantId)->unitType()->first()->id;
+    $project= \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->where('project_id',$projectId)->first();
+    
+    if($project==null)
+        abort(404);
  
 }

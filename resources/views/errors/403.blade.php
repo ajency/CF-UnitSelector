@@ -70,7 +70,7 @@
                     
                     <div class="error-description"> Unauthorized action. </div>
                     <div class="error-description-mini"> You Don't Have Permission To Access This Page</div>
-                    <a class="btn btn-link btn-cons" type="button" href="">Let's help you get back</a>
+                    <a class="btn btn-link btn-cons" type="button"  href = "javascript:history.back()">Let's help you get back</a>
                 </div>
             </div>
         

@@ -234,7 +234,7 @@ function addAttributes(keyId, obj)
     str += '</div>';
     str += '</div>';
     str += '<div class="text-right">';
-    str += '<a class="btn btn-link"  onclick="addAttributes(\'' + keyId + '\',this)">Add Attribute</a>';
+    str += '<a tabindex="0" class="btn btn-link"  onclick="addAttributes(\'' + keyId + '\',this)">Add Attribute</a>';
     str += '</div>';
     str += '</div>';
     str += '</div>';

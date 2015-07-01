@@ -38,8 +38,9 @@
                         @if($project['status']=='published')
                     <a href="{{ url( 'admin/project/' . $project['id'].'/unpublishproject' ) }}" onclick="return confirm('Are you sure you want to unpublish this project')"><button  class="btn btn-info btn-small" >UNPUBLISH</button></a>
                         @endif
-                    @endif
                     <button onclick="deleteProject({{ $project['id'] }});"  class="btn btn-danger btn-small" >DELETE</button> 
+                    @endif
+                    
                     @if($project['status']=='published')
                     <h5 class="semi-bold">
                         First Published : {{ date('d/m/Y',strtotime($projectJason['created_at'])) }}<br>

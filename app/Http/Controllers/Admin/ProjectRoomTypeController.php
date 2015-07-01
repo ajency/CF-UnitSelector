@@ -259,7 +259,7 @@ class ProjectRoomTypeController extends Controller {
         {
             $str .= '<div class = "col-md-4">';
             $str .= '<div class = "form-group">';
-            $str .= '<label class = "form-label">Room Attributes Not Defined</label>';
+            $str .= '<label class = "alert alert-danger">Room Attributes Not Defined</label>';
              
             $str .= '</div>';
             $str .= '</div>';

@@ -13,6 +13,7 @@ use CommonFloor\ProjectPropertyType;
 use CommonFloor\Phase;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
+use CommonFloor\Unit;
 use CommonFloor\Building;
 use CommonFloor\ProjectJson;
 use \Input;
@@ -207,6 +208,7 @@ class ProjectController extends Controller {
        $projectmedia = $project->media()->delete();   
        $projectRooms = $project->roomTypes()->delete();     
        $userProjects = \CommonFloor\UserProject::where('project_id',$projectId)->delete();  
+       $agentUnits = \CommonFloor\AgentUnit::where('project_id',$projectId)->delete();      
         
         $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
@@ -1123,7 +1125,7 @@ class ProjectController extends Controller {
     
   public function unitExport($projectId,$propertyTypeId)
   {
-        $filename = 
+        $filename = '';
         $data = [];
         $flag =false;
         $count =0;                                  //GET HEIGHTEST COUNT 
@@ -1218,6 +1220,59 @@ class ProjectController extends Controller {
       
   }
     
+
+  public function agentUnitExport($projectId)
+  {
+
+        $project = Project::find($projectId);
+        $projectPropertyTypes = $project->projectPropertyTypes()->get()->toArray();
+        $data = $projectUnits = [];
+
+        foreach ($projectPropertyTypes as $propertyType) {
+            $propertyTypeId = $propertyType['property_type_id'];
+            $projectpropertyTypeId = $propertyType['id'];
+            $unitTypeIds = UnitType::where( 'project_property_type_id', $projectpropertyTypeId )->get()->lists('id');
+            $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
+            $units = Unit ::whereIn('unit_variant_id',$unitVariantIds)->get()->toArray();
+            $projectUnits [$propertyTypeId] = $units;
+        }
+        
+      $i=1;
+       
+        // Set Data Black If No Record To Avoid Blank CSV File
+        $data[$i]['Property Type'] = '';
+        $data[$i]['Unit'] = '';
+        $data[$i]['Unit Id'] = '';
+        $data[$i]['Has Access (Yes/No)'] = '';
+      
+      
+      if(!empty($projectUnits))
+      {
+        foreach($projectUnits as $propertyTypeId => $units)
+        {  
+            foreach($units as  $unit)
+            {
+            $data[$i]['Property Type'] = get_property_type($propertyTypeId);
+            $data[$i]['Unit'] = $unit['unit_name'];
+            $data[$i]['Unit Id'] = $unit['id'];
+            $data[$i]['Has Access (Yes/No)'] = '';
+            $i++;
+            }
+        }
+      }
+      
+                
+        $filename = property_type_slug($project->project_title.'-units-config'); 
+        Excel::create($filename, function($excel)use($data) {
+
+        $excel->sheet('config', function($sheet)use($data) {
+             $sheet->fromArray($data);
+        });
+
+        })->export('csv');
+      
+  }    
+
   public function downloadSampleFile($projectId,$filename){
        
         $file= public_path() . '/projects/cfsamplefile/'.$filename;
@@ -1226,6 +1281,7 @@ class ProjectController extends Controller {
             );
         return \Response::download($file, $filename, $headers);
  }    
+
     
   public function getVariants($project ,$propertyTypeId)
   { 

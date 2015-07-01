@@ -630,6 +630,7 @@ $('#project_name').autocomplete
         projectName = $('#project_name').val()
         projectId = $('#project_id').val()
         userId = $('#user_id').val()
+        userType = $(@).attr 'data-user-type'
         
         if projectId is ''
             alert('Please Enter Valid Project')
@@ -642,10 +643,15 @@ $('#project_name').autocomplete
                     $('.no-projects').addClass 'hidden'
                     
                 html = '<div class="row m-b-10  project-{{ project_id }}">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             <input type="text" name="user_project" value="{{ project_name }}" class="form-control">
-                        </div>
-                        <div class="col-md-2 text-center">
+                        </div>';
+                if userType is 'agent'
+                    html += '<div class="col-md-2 text-center">
+                            <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,\'{{ project_id }}\');"><i class="fa fa-upload"></i> Assign units</a>
+              
+                        </div>';
+                html += '<div class="col-md-2 text-center">
                             <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a>
                         </div>
 
@@ -690,10 +696,16 @@ $('#project_name').autocomplete
  
     $('.quick-edit').click ->
         id = $(@).attr 'data-object-id'
-        toggle = $(@).attr 'data-toggle'
-        unitStatus = $(@).closest('tr').find('object-status').attr 'data-object-value'
+        toggleRow = $(@).attr 'data-toggle'
+        isAgent = $(@).attr 'is-agent'
+        unitStatus = $(@).closest('tr').find('.object-status').attr 'data-object-value'
+        if unitStatus is 'booked_by_agent' && isAgent is '1'
+            hideSaveButton = 'hidden'
+        else
+            hideSaveButton = '' 
+
         str = '<tr class="status-row-{{ object_id }}">
-                <td colspan="7">
+                <td colspan="8">
                 <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">
                     <tr><td>Status:</td><td>
                     <select name="unit_status" class="form-control">
@@ -704,35 +716,35 @@ $('#project_name').autocomplete
                     <option value="booked_by_agent">Booked By Agent</option>
                     <option value="archived">Archived</option>
                     </select>  
-                    <button class="btn btn-small btn-primary m-l-10 update-status" data-object-id="{{ object_id }}">Save</button></td></tr>
+                    <button class="btn btn-small btn-primary m-l-10 update-status {{ hide_button }}" data-object-id="{{ object_id }}">Save</button></td></tr>
                 </table>
                 </td>
                </tr>'
         compile = Handlebars.compile str
             
-        if toggle is 'hide'  
-            $(@).closest('tr').after compile( { unit_status : unitStatus, object_id : id } )
+        if toggleRow is 'hide'  
+            $(@).closest('tr').after compile( { unit_status : unitStatus, object_id : id, hide_button : hideSaveButton  } )
+            $(".status-row-"+id).find('select[name="unit_status"]').val unitStatus
             $(@).attr('data-toggle','show')
         else
             $(".status-row-"+id).remove()
             $(@).attr('data-toggle','hide')
             
             
-    $('#example2').on 'click', '.user-project', ->
+    $('#example2').on 'click', '.update-status', ->
 
         unitId = $(@).attr 'data-object-id'
         unitStatus = $(@).closest('tr').find('select[name="unit_status"]').val()
         
         successFn = (resp, status, xhr)->
             if xhr.status is 202
-                $(@).closest('tr').find('object-status').attr 'data-object-value'
-                $(@).closest('tr').find('object-status').html resp.data.status
+                $('.row-'+unitId).find('.object-status').attr('data-object-value',unitStatus)
+                $('.row-'+unitId).find('.object-status').html resp.data.status
             
         $.ajax 
-            url : '/admin/user/'+userId+'/deleteuserproject'
+            url : '/admin/project/'+PROJECTID+'/bunglow-unit/'+unitId+'/updatestatus'
             type : 'POST'
             data : 
-                unit_id : unitId
                 unit_status : unitStatus
             success : successFn         
             
