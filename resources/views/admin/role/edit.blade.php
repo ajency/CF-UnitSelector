@@ -89,7 +89,7 @@
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                            <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
+                             
                             <button type="reset" class="hidden" />
                             <a href="{{ url('admin/role') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
 
