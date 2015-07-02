@@ -50,10 +50,10 @@ class Permission {
                      'admin.variant.media.store'=>['configure_project'],
                      'admin.variant.media.destroy'=>['configure_project'],
 
-                     'admin.project.building.index'=>['configure_building'],
+                     'admin.project.building.index'=>['configure_building','svg_auth_tool'],
                      'admin.project.building.create'=>['configure_building'],
                      'admin.project.building.store'=>['configure_building'],
-                     'admin.project.building.edit'=>['configure_building'],
+                     'admin.project.building.edit'=>['configure_building','svg_auth_tool'],
                      'admin.project.building.update'=>['configure_building'],
 
                      'admin.building.media.store'=>['configure_building'], 
@@ -111,7 +111,7 @@ class Permission {
                       'admin/project/{project}/costupdate'=>['configure_project'],
                       'admin/project/{project}/filters'=>['configure_project'],
                       'admin/project/{project}/updatefilters'=>['configure_project'],
-                      'admin/project/{project}/svg'=>['configure_project'],
+                      'admin/project/{project}/svg'=>['svg_auth_tool'],
                       'admin/project/{project}/summary'=>['read_project'],
                       'admin/project/{project}/getphasedata/{phase}'=>['configure_project'],
                       'admin/project/{project}/validateprojectphase'=>['configure_project'],

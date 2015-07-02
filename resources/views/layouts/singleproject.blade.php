@@ -60,7 +60,7 @@
         @endforeach
        
        
-        @if(isset($apartmentPenthouse) && hasPermission($project['id'],['configure_project','configure_building','configure_unit','unit_status_update']))
+        @if(isset($apartmentPenthouse) && hasPermission($project['id'],['configure_project','configure_building','configure_unit','unit_status_update','svg_auth_tool']))
         <?php
         $apartmentpenthouse= implode("/",$apartmentPenthouse);
         ?>
@@ -68,7 +68,7 @@
             <p class="menu-title">{{ $apartmentpenthouse }}</p>    
         </div>
         <ul class="big-items">
-            @if(hasPermission($project['id'],['configure_building']))
+            @if(hasPermission($project['id'],['configure_building','svg_auth_tool']))
             <li class="{{ $current === 'building' ? 'active' : '' }}">
                 <a href="{{ url('/admin/project/' . $project['id'] . '/building') }}">@if($current === 'building')@endif Buildings</a>
             </li>
