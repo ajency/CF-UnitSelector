@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-xs-3">
                         
-                          <input type="hidden" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
+                          <input type="text" name="controltypevalues_room[]" readonly="readonly">
                     </div>
                     <div class="col-xs-1 text-right">
                         <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);" data-object-type="attribute"><i class="fa fa-close"></i></a>
@@ -68,7 +68,7 @@
                         <input type="hidden" name="controltype_room[]" value="textbox">
                     </div>
                     <div class="col-xs-3">
-                         <input type="hidden" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
+                         <input type="text" name="controltypevalues_room[]" readonly="readonly">
                     </div>
                     <div class="col-xs-1 text-right">
                         <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);" data-object-type="attribute"><i class="fa fa-close"></i></a>
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                                 <div class="text-right">
-                                    <a class="btn btn-link" onclick="addAttributes('room', this)">Add Attribute</a>
+                                    <a tabindex="0" class="btn btn-link" onclick="addAttributes('room', this)">Add Attribute</a>
                                 </div>
                             </div>
                              </div>
