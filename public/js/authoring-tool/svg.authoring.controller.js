@@ -505,9 +505,15 @@
       var select, type, unit;
       type = $(elem).attr('type');
       if (type !== 'unassign' && type !== 'undetect') {
-        unit = unitMasterCollection.findWhere({
-          'id': parseInt(elem.id)
-        });
+        if (type === 'building') {
+          unit = buildingMasterCollection.findWhere({
+            'id': parseInt(elem.id)
+          });
+        } else {
+          unit = unitMasterCollection.findWhere({
+            'id': parseInt(elem.id)
+          });
+        }
         $('.property_type').val($(elem).attr('type'));
         $('.property_type').attr('disabled', true);
         select = $('.units');
