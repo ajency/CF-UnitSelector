@@ -44,7 +44,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $permission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input {{ (in_array($permission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
+                                        <input {{ (in_array($permission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="{{ $permission['name'] }}" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
@@ -73,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $projectPermission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input {{ (in_array($projectPermission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
+                                        <input {{ (in_array($projectPermission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="{{ $permission['name'] }}" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>

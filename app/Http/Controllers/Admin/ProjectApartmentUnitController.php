@@ -489,7 +489,7 @@ class ProjectApartmentUnitController extends Controller {
             
         }
         else
-           Session::flash('error_message','Invalid File');
+           Session::flash('error_message','Invalid file format. Upload .csv file');
        
        return redirect("/admin/project/" . $projectId . "/apartment-unit/");
  

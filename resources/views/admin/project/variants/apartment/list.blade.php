@@ -47,7 +47,7 @@
                                 <td>{{ $unitVariant['super_built_up_area'] }}</td>
                                 <td>{{ $unitVariant['per_sq_ft_price'] }}</td>
                                 <td>{{ date('d/m/Y',strtotime($unitVariant['created_at'])) }}</td>
-                                <td>{{  date('d/m/Y',strtotime($unitVariant['updated_at'])) }}</td>
+                                <td>{{ date('d/m/Y',strtotime($unitVariant['updated_at'])) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
