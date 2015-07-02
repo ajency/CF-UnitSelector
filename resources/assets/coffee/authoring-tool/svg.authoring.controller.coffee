@@ -89,7 +89,9 @@ jQuery(document).ready ($)->
                 window.polygon.generatePolygonTag(value)
 
             if value.canvas_type is 'marker'
-                window.marker.generateMarkerTag(value)        
+                window.marker.generateMarkerTag(value)   
+
+        draw.attr('preserveAspectRatio', "xMinYMin slice")   
 
 
     #function to create left side panel
@@ -281,8 +283,6 @@ jQuery(document).ready ($)->
                 window.svgData['svg_type'] = svg_type
                 window.svgData['building_id'] = building_id
                 window.svgData['project_id'] = project_id
-
-                window.generatePropTypes()
 
                 types = window.getPendingObjects(window.svgData)
 

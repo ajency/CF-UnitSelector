@@ -1449,7 +1449,7 @@ class CenterUnitView extends Marionette.ItemView
 		id = url.split('/')[1]
 		unit = unitCollection.findWhere
 				'id' : parseInt id
-		breakpoint = unit.get 'breakpoint'
+		console.log breakpoint = unit.get 'breakpoint'
 		response = window.unit.getUnitDetails(id)
 		building = buildingCollection.findWhere
 					'id' : parseInt unit.get('building_id')
@@ -1466,6 +1466,7 @@ class CenterUnitView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[breakpoint])
 				$('.firstimage').load ()->
 					$('.images').load(first[0],()->
+						$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 						$('.apartment,.amenity').each (ind,item)->
 							itemid = parseInt item.id
 							$('#'+itemid).attr('class', "no-fill")
@@ -1486,6 +1487,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.firstimage').attr('src',transitionImages[breakpoint])
 			$('.firstimage').load ()->
 				$('.images').load(first[0],()->
+					$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 					$('.villa,.plot,.building,.amenity').each (ind,item)->
 						itemid = parseInt item.id
 						$('#'+itemid).attr('class', "no-fill")

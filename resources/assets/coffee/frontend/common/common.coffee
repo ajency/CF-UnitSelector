@@ -1438,3 +1438,8 @@ CommonFloor.filterFacings = ()->
 
 	unitCollection.reset temp
 
+
+
+
+
+

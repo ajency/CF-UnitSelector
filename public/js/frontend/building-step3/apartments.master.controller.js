@@ -699,6 +699,7 @@
           response = building.checkRotationView(building_id);
           $('.svg-maps').removeClass('hidden');
           $('.mini-map').removeClass('hidden');
+          $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
           if (response === 1) {
             $('.cf-loader').removeClass('hidden');
             return that.initializeRotate(transitionImages, svgs, building);
@@ -782,6 +783,7 @@
       if (project.get('project_master').length !== 0) {
         return $('.project_master').load(first[0], function() {
           var building_id, url;
+          $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
           $('.firstimage').attr('src', transitionImages[masterbreakpoints[0]]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
@@ -863,8 +865,9 @@
             CommonFloor.applyFliterClass();
             CommonFloor.applyOnViewClass();
             if ($(window).width() < 992) {
-              return that.loadZoom();
+              that.loadZoom();
             }
+            return $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -885,7 +888,8 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
-          return CommonFloor.applyOnViewClass();
+          CommonFloor.applyOnViewClass();
+          return $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
         }).addClass('active').removeClass('inactive');
       });
     };
