@@ -172,9 +172,12 @@ CommonFloor.propertyTypes = ()->
 			'count' :bunglowVariantCollection.getBunglowUnits()
 			'type_name' : '(V)'
 	if apartmentVariantCollection.getApartmentUnits().length != 0
+		temp = []
+		$.merge temp ,apartmentVariantCollection.getApartmentUnits()
+		$.merge temp ,apartmentVariantCollection.getPenthouseUnits()
 		Router.push 
 			'type'  : s.capitalize 'apartment(s)/Penthouse(s)'
-			'count' :apartmentVariantCollection.getApartmentUnits()
+			'count' :temp
 			'type_name' : '(A)/(PH)'
 	if plotVariantCollection.getPlotUnits().length != 0
 		Router.push 

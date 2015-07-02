@@ -57,6 +57,7 @@
       return rawSvg.appendChild(svgimg);
     };
     window.generateSvg = function(svgData) {
+      window.selectMarker = 0;
       draw.image(svgImg).data('exclude', true);
       $.each(svgData, function(index, value) {
         if (value.canvas_type === 'polygon') {
@@ -825,6 +826,14 @@
       var currentElem, markerType;
       window.EDITMODE = true;
       currentElem = evt.currentTarget;
+      if (window.selectMarker === 1) {
+        $('.alert').text('Can select only one marker at a time!');
+        window.hideAlert();
+        return;
+      }
+      console.log(window.selectMarker);
+      window.selectMarker = 1;
+      console.log(window.selectMarker);
       if ($(currentElem).hasClass('concentric-marker')) {
         markerType = "concentric";
       } else if ($(currentElem).hasClass('solid-marker')) {
