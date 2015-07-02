@@ -204,7 +204,7 @@
         'type_name': '(V)'
       });
     }
-    if (apartmentVariantCollection.getApartmentUnits().length !== 0) {
+    if (apartmentVariantCollection.getApartmentUnits().length !== 0 || apartmentVariantCollection.getPenthouseUnits().length !== 0) {
       temp = [];
       $.merge(temp, apartmentVariantCollection.getApartmentUnits());
       $.merge(temp, apartmentVariantCollection.getPenthouseUnits());
