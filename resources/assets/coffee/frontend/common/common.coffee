@@ -1443,5 +1443,3 @@ CommonFloor.filterFacings = ()->
 
 
 
-window.onload = ()->
- 	$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")

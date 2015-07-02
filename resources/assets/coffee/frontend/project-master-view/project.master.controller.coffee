@@ -850,7 +850,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2
-		
+
 		# if ($.browser.msie && $.browser.version == 10)
 		# 	$('svg').css 'height', windowHeight
 
@@ -885,6 +885,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					$('.svg-maps').removeClass 'hidden'
 					response = project.checkRotationView()
 					$('.first_image').first().css('width',that.ui.svgContainer.width())
+					$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 					if response is 1
 						$('#rotate_loader').removeClass 'hidden'
 						that.initializeRotate(transitionImages,svgs)
@@ -941,7 +942,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
-					that.loadZoom()).addClass('active').removeClass('inactive')
+					that.loadZoom()
+					$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
+					).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -961,6 +964,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				that.loadZoom()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+				$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 				$('.svg-maps svg').css('height',width / 2);
 
 			).addClass('active').removeClass('inactive')

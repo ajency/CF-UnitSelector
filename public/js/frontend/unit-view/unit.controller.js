@@ -654,7 +654,7 @@
       unit = unitCollection.findWhere({
         'id': parseInt(id)
       });
-      breakpoint = unit.get('breakpoint');
+      console.log(breakpoint = unit.get('breakpoint'));
       response = window.unit.getUnitDetails(id);
       building = buildingCollection.findWhere({
         'id': parseInt(unit.get('building_id'))
@@ -672,6 +672,7 @@
           $('.firstimage').attr('src', transitionImages[breakpoint]);
           $('.firstimage').load(function() {
             return $('.images').load(first[0], function() {
+              $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
               $('.apartment,.amenity').each(function(ind, item) {
                 var itemid;
                 itemid = parseInt(item.id);
@@ -698,6 +699,7 @@
         $('.firstimage').attr('src', transitionImages[breakpoint]);
         $('.firstimage').load(function() {
           return $('.images').load(first[0], function() {
+            $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
             $('.villa,.plot,.building,.amenity').each(function(ind, item) {
               var itemid;
               itemid = parseInt(item.id);
