@@ -145,12 +145,12 @@
                                 @else
                                 <div class="col-md-3">
                                     <div class="img-hover img-thumbnail">
-                                        <div id="pickfiles_ext3d" style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
+                                        <a href="javascript:void(0)" id="pickfiles_ext3d" style="width: 150px;height:109px;background:#BEBEBE;display: table;" >
                                             <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                 <i class="fa fa-image" style="font-size:30px;"></i>
                                                 <p class="">Select File</p>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 </div>
                                 @endif
@@ -233,11 +233,7 @@
 <script>
     var BASEURL = '{{ url() }}';
     var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
-    var variantId = {
-        {
-            $unitVariant['id']
-        }
-    };
+    var variantId = {{ $unitVariant['id'] }};
 
 </script>
 

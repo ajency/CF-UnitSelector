@@ -40,7 +40,7 @@
                             <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Building Name<span class="text-primary">*</span></label>
-                                       <input required="" type="text" class="form-control" name="building_name"  value="{{ $building->building_name }}"  placeholder="Enter Building Name" data-parsley-required onchange="validateBuildingName(this,{{ $building->id }});" ><div class="cf-loader hidden"></div>
+                                       <input required="" type="text" class="form-control" name="building_name"  value="{{ $building->building_name }}"  placeholder="Enter Building Name" data-parsley-required onchange="validateBuildingName(this,{{ $building->id }});" {{ $disabled }}><div class="cf-loader hidden"></div>
                                         </div>
 
                                     </div>
@@ -48,7 +48,7 @@
                                     <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Number of Floors<span class="text-primary">*</span></label>
-                                        <select id="phase" name="no_of_floors" class="select2 form-control m-b-5" data-parsley-required>
+                                        <select id="phase" name="no_of_floors" class="select2 form-control m-b-5" data-parsley-required {{ $disabled }}>
                                                 <option value="">Select Floors</option>
                                                 @for($i=1 ;  $i<=100; $i++)
                                                 <option {{ $building->no_of_floors == $i ? 'selected' : '' }}  value="{{ $i }}">{{ $i }}</option>
@@ -62,14 +62,14 @@
                                         <label class="form-label">Phase<span class="text-primary">*</span></label>
                                          
                                     @if($project['has_phase']=='yes')
-                        <select  class="select2 form-control m-b-5" name="phase_id" data-parsley-required>
+                        <select  class="select2 form-control m-b-5" name="phase_id" data-parsley-required {{ $disabled }}>
                             <option value="">Select Phase</option>
                            @foreach($phases as $phase)
                             <option {{ $building->phase_id == $phase['id'] ? 'selected' : '' }} value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
                             @endforeach
                         </select>
                         @else
-                        <select  class="select2 form-control m-b-5" name="phase_id" disabled>
+                        <select  class="select2 form-control m-b-5" name="phase_id" disabled {{ $disabled }}>
                             <option value="">Select Phase</option>
                            @foreach($phases as $phase)
                             <option selected value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
@@ -86,15 +86,15 @@
                             <div class="form-group">
                                         <label class="form-label">Has Master<span class="text-primary">*</span></label>
                         <div class="radio radio-primary" >        
-                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
+                        <input id="master_yes" type="radio" name="has_master" value="yes" checked {{ $disabled }}>
                         <label for="master_yes" class="form-label">Yes</label>
-                        <input id="master_no" type="radio" name="has_master" value="no" {{ ($building->has_master == 'no') ? 'checked' : '' }}>
+                        <input id="master_no" type="radio" name="has_master" value="no" {{ ($building->has_master == 'no') ? 'checked' : '' }} {{ $disabled }}>
                         <label for="master_no" class="form-label">No</label>
                          </div>                    
                                         </div>
                                     </div>
                                 </div>
-                    
+     
                     <div class="row object-master-images {{ ($building->has_master == 'no')?'hidden':'' }}" data-object-id="{{ $building->id }}" data-object-type="building">
                         <hr>
                         <div class="col-md-12">
@@ -197,6 +197,7 @@
                             </div>
                         </div>
                     </div>
+                @if(hasPermission($project['id'],['configure_building']))
                 <div class="form-actions">
                                     <div class="text-right">
                                        <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
@@ -207,6 +208,7 @@
                         Cancel</button></a>
                                     </div>
                                 </div>
+                @endif
                 </div>
                 </form>
 
