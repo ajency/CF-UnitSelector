@@ -27,14 +27,14 @@ _.extend Marionette.Application::,
 # Source: https://gist.github.com/tracend/3261055
 Handlebars.registerHelper 'i10n', (keyword)->
 
-	lang = if (navigator.language) then navigator.language else navigator.userLanguage 
- 
+	lang = if (navigator.language) then navigator.language else navigator.userLanguage
+
 	# pick the right dictionary (if only one available assume it's the right one...)
 	locale = window.locale[lang] or window.locale['en-US'] or window.locale or false
-	
+
 	# exit now if there's no data
 	if not locale then return keyword
-	
+
 	# loop through all the key hierarchy (if any)
 	target = locale
 	key = keyword.split(".")
@@ -42,9 +42,6 @@ Handlebars.registerHelper 'i10n', (keyword)->
 		target = target[i]
 
 	# fallback to the original string if nothing found
-	target = target || keyword	
+	target = target || keyword
 	#output
 	target
-
-
-

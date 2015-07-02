@@ -265,6 +265,36 @@ jQuery(document).ready ($)->
             error :(response)->
                 alert('Some problem occurred')
 
+    window.loadSVGData = () ->
+
+        $.ajax
+            type : 'GET',
+            url  : BASEURL+'/admin/project/'+   PROJECTID+'/image/'+IMAGEID
+            async : false
+            success :(response)->
+
+                window.svgData = {}
+                window.svgData['image'] = svgImg
+                window.svgData['data'] = response.data
+                window.svgData['supported_types'] = JSON.parse supported_types
+                window.svgData['breakpoint_position'] = breakpoint_position
+                window.svgData['svg_type'] = svg_type
+                window.svgData['building_id'] = building_id
+                window.svgData['project_id'] = project_id
+
+                window.generatePropTypes()
+
+                types = window.getPendingObjects(window.svgData)
+
+                window.showPendingObjects(types)
+                window.generateSvg(window.svgData.data)
+               
+               
+                
+            error :(response)->
+                alert('Some problem occurred')
+
+
     window.loadSvgPaths = ()->
         select = $('.svgPaths')
         $('<option />', {value: "", text: "Select Option"}).appendTo(select)
@@ -923,12 +953,16 @@ jQuery(document).ready ($)->
             currentElem = e.currentTarget
             element = currentElem.id
             object_type = $(currentElem).attr('type')
+            tmp = new Backbone.Collection svgData.data
+            window.newObject = tmp.clone()
             svgDataObjects = svgData.data
+            # drawPoly(["405","194","456","205","440","261"])
+
             _.each svgDataObjects, (svgDataObject, key) =>
                 if parseInt(elemId) is parseInt svgDataObject.id 
-                    points = svgDataObject.points
-                    $('.area').val points.join(',')
-                    drawPoly(svgDataObject.points)
+                    valpoints = svgDataObject.points
+                    $('.area').val valpoints.join(',')
+                    drawPoly(valpoints)
                     $('.submit').addClass 'hidden'
                     $('.edit').removeClass 'hidden'
                     $('.delete').removeClass 'hidden'
@@ -939,8 +973,10 @@ jQuery(document).ready ($)->
                     else 
                         window.loadForm(object_type)
 
+
                     # show primary breakpoint checked or not
-                    if $(currentElem).data("primary-breakpoint") 
+                    
+                    if ! _.isNull $(currentElem).data("primary-breakpoint") 
                         $('[name="check_primary"]').prop('checked', true)                    
 
                     if object_type is "amenity"
@@ -1164,7 +1200,7 @@ jQuery(document).ready ($)->
         ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
         $("form").trigger("reset")
         $('#dynamice-region').empty()
-        $(".toggle").trigger 'click'
+        # $(".toggle").trigger 'click'
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         $('.edit-box').addClass 'hidden'
@@ -1177,8 +1213,9 @@ jQuery(document).ready ($)->
         # clear svg
         draw.clear()
         # regenerate svg
-        window.generateSvg(window.svgData.data) 
-        window.EDITMODE = false                   
+        
+        window.EDITMODE = false 
+        window.loadSVGData()                  
 
     # on click of delete svg element
     $('.delete').on 'click' , (e)->
@@ -1227,7 +1264,7 @@ jQuery(document).ready ($)->
 
                 window.showPendingObjects(types)
                 window.resetTool()
-                $(".toggle").bind('click')
+                # $(".toggle").bind('click')
 
                 
                 
