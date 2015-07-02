@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                                 <div class="text-right">
-                                    <a class="btn btn-link" onclick="addAttributes('room', this)">Add Attribute</a>
+                                    <a tabindex="0" class="btn btn-link" onclick="addAttributes('room', this)">Add Attribute</a>
                                 </div>
                             </div>
                              </div>
