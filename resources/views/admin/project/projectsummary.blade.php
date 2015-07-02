@@ -260,7 +260,7 @@
         <table class="table table-bordered m-b-30 no-pointer">
             <thead>
                 <tr>
-                    <td width="10%"><span class="semi-bold">Phase</span></td>
+                    <td width="7%"><span class="semi-bold">Phase</span></td>
                     <td width="10%"><span class="semi-bold">Unit Type</span></td>
                     <td width="13%"><span class="semi-bold">Available</span></td>
                     <td width="13%"><span class="semi-bold">Sold</span></td>
