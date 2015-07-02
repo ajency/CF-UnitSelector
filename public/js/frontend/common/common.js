@@ -1624,6 +1624,10 @@
     return unitCollection.reset(temp);
   };
 
+  window.onload = function() {
+    return $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
+  };
+
 }).call(this);
 
 //# sourceMappingURL=../../frontend/common/common.js.map

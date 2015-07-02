@@ -58,7 +58,7 @@
     };
     window.generateSvg = function(svgData) {
       draw.image(svgImg).data('exclude', true);
-      return $.each(svgData, function(index, value) {
+      $.each(svgData, function(index, value) {
         if (value.canvas_type === 'polygon') {
           window.polygon.generatePolygonTag(value);
         }
@@ -66,6 +66,7 @@
           return window.marker.generateMarkerTag(value);
         }
       });
+      return draw.attr('preserveAspectRatio', "xMinYMin slice");
     };
     window.createPanel = function(data) {
       return $.each(data, function(index, value) {
@@ -245,7 +246,6 @@
           window.svgData['svg_type'] = svg_type;
           window.svgData['building_id'] = building_id;
           window.svgData['project_id'] = project_id;
-          window.generatePropTypes();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
           return window.generateSvg(window.svgData.data);
