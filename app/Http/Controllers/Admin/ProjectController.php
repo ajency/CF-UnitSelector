@@ -685,7 +685,7 @@ class ProjectController extends Controller {
             $html .= '<table class="table table-bordered">
                   <thead>
                   <tr>
-                  <td width="15%"><span class="semi-bold">Type</span></td> 
+                  <td width="30%"><span class="semi-bold">Type</span></td> 
                   <td><span class="semi-bold">Units in ' . $phase->phase_name . '</span></td> 
                   </tr>
                   </thead>
