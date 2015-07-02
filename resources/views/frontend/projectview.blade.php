@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>CommonFloor - {{ $project_title }}</title>
-        <link type="text/css" rel="stylesheet" href="http://asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
+        <link type="text/css" rel="stylesheet" href="https://asset1.cfcdn.com/cfassets/css/search.caz.css" />
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
