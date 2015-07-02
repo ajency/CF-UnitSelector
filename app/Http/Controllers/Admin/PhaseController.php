@@ -139,7 +139,7 @@ class PhaseController extends Controller {
         $msg ='';
         if(count($units)+count($buildings))
         {
-            $msg ='Cannot delete phase because there are units associated to it';
+            $msg ='Units associated to this phase';
             $code = '200';
         }
         else{
