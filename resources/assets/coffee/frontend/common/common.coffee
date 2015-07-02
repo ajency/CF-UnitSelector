@@ -77,9 +77,12 @@ CommonFloor.propertyMaxUnits = ()->
 	Router.push 
 		'type'  : 'bunglows'
 		'count' :bunglowVariantCollection.getBunglowUnits()
+	temp = []
+	$.merge temp ,apartmentVariantCollection.getApartmentUnits()
+	$.merge temp ,apartmentVariantCollection.getPenthouseUnits()
 	Router.push 
 		'type'  : 'building'
-		'count' :apartmentVariantCollection.getApartmentUnits()
+		'count' :temp
 	Router.push 
 		'type'  : 'plot'
 		'count' :plotVariantCollection.getPlotUnits()
