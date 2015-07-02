@@ -32,15 +32,15 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">Email<span class="text-primary">*</span></label>
-                                <input type="email" name="email" onchange="validateEmail(this, 0)" class="form-control m-b-5" placeholder="Enter Email ID" data-parsley-type="email" data-parsley-required> <span class="cf-loader hidden"></span>
+                                <label class="form-label">Email<span class="text-primary">*</span></label> <span class="cf-loader hidden"></span>
+                                <input type="email" name="email" onchange="validateEmail(this, 0)" class="form-control m-b-5" placeholder="Enter Email ID" data-parsley-type="email" data-parsley-required> 
                                 
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">Phone Number<span class="text-primary">*</span></label>
-                                <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" data-parsley-required onchange="validatePhone(this, 0)" data-parsley-type="number"><span class="cf-loader hidden"></span>
+                                <label class="form-label">Phone Number<span class="text-primary">*</span></label> <span class="cf-loader hidden"></span>
+                                <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" data-parsley-required onchange="validatePhone(this, 0)" data-parsley-type="number">
                                 
                             </div>
                         </div>
