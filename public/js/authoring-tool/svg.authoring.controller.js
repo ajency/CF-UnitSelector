@@ -57,8 +57,9 @@
       return rawSvg.appendChild(svgimg);
     };
     window.generateSvg = function(svgData) {
+      window.selectMarker = 0;
       draw.image(svgImg).data('exclude', true);
-      return $.each(svgData, function(index, value) {
+      $.each(svgData, function(index, value) {
         if (value.canvas_type === 'polygon') {
           window.polygon.generatePolygonTag(value);
         }
@@ -66,6 +67,7 @@
           return window.marker.generateMarkerTag(value);
         }
       });
+      return draw.attr('preserveAspectRatio', "xMinYMin slice");
     };
     window.createPanel = function(data) {
       return $.each(data, function(index, value) {
@@ -230,6 +232,30 @@
         }
       });
     };
+    window.loadSVGData = function() {
+      return $.ajax({
+        type: 'GET',
+        url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + IMAGEID,
+        async: false,
+        success: function(response) {
+          var types;
+          window.svgData = {};
+          window.svgData['image'] = svgImg;
+          window.svgData['data'] = response.data;
+          window.svgData['supported_types'] = JSON.parse(supported_types);
+          window.svgData['breakpoint_position'] = breakpoint_position;
+          window.svgData['svg_type'] = svg_type;
+          window.svgData['building_id'] = building_id;
+          window.svgData['project_id'] = project_id;
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
+          return window.generateSvg(window.svgData.data);
+        },
+        error: function(response) {
+          return alert('Some problem occurred');
+        }
+      });
+    };
     window.loadSvgPaths = function() {
       var building_name, select, svgCount, svgs;
       select = $('.svgPaths');
@@ -265,11 +291,13 @@
         });
         return;
       }
-      console.log(svgs);
       return $.each(svgs, function(index, value) {
+        var svg_name, svg_name_arr;
+        svg_name_arr = value.split('/');
+        svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1];
         return $('<option />', {
           value: index,
-          text: value
+          text: svg_name
         }).appendTo(select);
       });
     };
@@ -475,18 +503,27 @@
       }
     };
     window.showDetails = function(elem) {
-      var select, type, unit;
+      var select, type, unit, unit_name;
       type = $(elem).attr('type');
       if (type !== 'unassign' && type !== 'undetect') {
-        unit = unitMasterCollection.findWhere({
-          'id': parseInt(elem.id)
-        });
+        unit_name = "";
+        if (type === 'building') {
+          unit = buildingMasterCollection.findWhere({
+            'id': parseInt(elem.id)
+          });
+          unit_name = unit.get('building_name');
+        } else {
+          unit = unitMasterCollection.findWhere({
+            'id': parseInt(elem.id)
+          });
+          unit_name = unit.get('unit_name');
+        }
         $('.property_type').val($(elem).attr('type'));
         $('.property_type').attr('disabled', true);
         select = $('.units');
         $('<option />', {
           value: elem.id,
-          text: unit.get('unit_name')
+          text: unit_name
         }).appendTo(select);
         $('.units').attr('disabled', true);
         $('.units').val(elem.id);
@@ -528,6 +565,13 @@
     window.hideAlert = function() {
       $('.alert').show();
       return $('.alert-box').delay(3000).queue(function(next) {
+        $(this).hide('fade');
+        return next();
+      });
+    };
+    window.hideLabel = function() {
+      $('.alert2').show();
+      return $('.alert2').delay(3000).queue(function(next) {
         $(this).hide('fade');
         return next();
       });
@@ -782,6 +826,14 @@
       var currentElem, markerType;
       window.EDITMODE = true;
       currentElem = evt.currentTarget;
+      if (window.selectMarker === 1) {
+        $('.alert').text('Can select only one marker at a time!');
+        window.hideAlert();
+        return;
+      }
+      console.log(window.selectMarker);
+      window.selectMarker = 1;
+      console.log(window.selectMarker);
       if ($(currentElem).hasClass('concentric-marker')) {
         markerType = "concentric";
       } else if ($(currentElem).hasClass('solid-marker')) {
@@ -831,7 +883,7 @@
       return window.canvas_type = "ellipse";
     });
     $('svg').on('dblclick', '.polygon-type', function(e) {
-      var currentElem, elemId, element, object_type, svgDataObjects;
+      var currentElem, elemId, element, object_type, svgDataObjects, tmp;
       e.preventDefault();
       window.EDITOBJECT = e.target;
       window.canvas_type = "polygon";
@@ -845,14 +897,16 @@
       currentElem = e.currentTarget;
       element = currentElem.id;
       object_type = $(currentElem).attr('type');
+      tmp = new Backbone.Collection(svgData.data);
+      window.newObject = tmp.clone();
       svgDataObjects = svgData.data;
       return _.each(svgDataObjects, (function(_this) {
         return function(svgDataObject, key) {
-          var points;
+          var valpoints;
           if (parseInt(elemId) === parseInt(svgDataObject.id)) {
-            points = svgDataObject.points;
-            $('.area').val(points.join(','));
-            drawPoly(svgDataObject.points);
+            valpoints = svgDataObject.points;
+            $('.area').val(valpoints.join(','));
+            drawPoly(valpoints);
             $('.submit').addClass('hidden');
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');
@@ -861,7 +915,7 @@
             } else {
               window.loadForm(object_type);
             }
-            if ($(currentElem).data("primary-breakpoint")) {
+            if (!_.isNull($(currentElem).data("primary-breakpoint"))) {
               $('[name="check_primary"]').prop('checked', true);
             }
             if (object_type === "amenity") {
@@ -1064,7 +1118,6 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       $("form").trigger("reset");
       $('#dynamice-region').empty();
-      $(".toggle").trigger('click');
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').show();
       $('.edit-box').addClass('hidden');
@@ -1073,8 +1126,8 @@
         return this.fixed();
       }), true);
       draw.clear();
-      window.generateSvg(window.svgData.data);
-      return window.EDITMODE = false;
+      window.EDITMODE = false;
+      return window.loadSVGData();
     });
     $('.delete').on('click', function(e) {
       var id, myObject, svgElemId;
@@ -1123,8 +1176,7 @@
           window.generateSvg(window.svgData.data);
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
-          window.resetTool();
-          return $(".toggle").bind('click');
+          return window.resetTool();
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -1248,8 +1300,8 @@
       var imageid;
       imageid = $('.svgPaths').val();
       if (imageid === "") {
-        $('.alert').text('Select svg');
-        window.hideAlert();
+        $('.alert2').text('Please select an SVG!');
+        window.hideLabel();
         return;
       }
       $('.svg-canvas').hide();

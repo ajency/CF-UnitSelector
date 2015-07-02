@@ -4,7 +4,7 @@
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
     <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/user">User</a> </li>
+    <li><a href="/admin/user">Role</a> </li>
     <li><a href="{{ url( 'admin/role/' . $role['id'].'/edit') }}">{{ $role['name'] }}</a> </li>
     <li><a href="#" class="active">Edit Role</a> </li>
 </ul>
@@ -44,7 +44,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $permission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input {{ (in_array($permission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
+                                        <input {{ (in_array($permission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="{{ $permission['name'] }}" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
@@ -65,7 +65,7 @@
 
                                         </div>
                                     </div>
-                                <label class="form-label">Is Agent</label>
+                                <label class="form-label">Project Access</label>
                                     
                             </a>
                             @foreach($projectPermissions as $projectPermission)
@@ -73,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $projectPermission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input {{ (in_array($projectPermission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
+                                        <input {{ (in_array($projectPermission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="{{ $permission['name'] }}" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
@@ -81,22 +81,7 @@
                         </div>
 
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            
-                            <a class="list-group-item">
-                                <div class="row">
-                                    <div class="col-md-6">Is Agent</div>
-                                    <div class="col-md-6 text-right">
-                                        <input type="checkbox" {{ ($role['is_agent']=='yes') ? 'checked' : '' }} id="is_agent" name="is_agent" class="text-success" value="yes" aria-label="..." >
-                                    </div>
-                                </div>
-                            </a>
-                           
-                        </div>
 
-                    </div>
                     
                     <div class="form-actions "> 
                         <div class="pull-right">
@@ -104,7 +89,7 @@
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                            <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
+                             
                             <button type="reset" class="hidden" />
                             <a href="{{ url('admin/role') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
 

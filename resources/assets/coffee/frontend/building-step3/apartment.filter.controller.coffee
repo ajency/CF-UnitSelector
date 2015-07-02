@@ -273,11 +273,11 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			if !_.has(CommonFloor.defaults['apartment']['attributes'], index)
 				CommonFloor.defaults['apartment']['attributes'][index] = ''
 			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
-				types = CommonFloor.defaults[type]['attributes'][index].split(',')
+				types = CommonFloor.defaults['apartment']['attributes'][index].split(',')
 			if $(e.currentTarget).is(':checked')
 				types.push $(e.currentTarget).attr('data-value')
 			else
-				types = _.without window.flooring ,$(e.currentTarget).attr('data-value')
+				types = _.without types ,$(e.currentTarget).attr('data-value')
 			window.flooring =   _.uniq types
 			# CommonFloor.defaults['type'] = 'apartment'
 			CommonFloor.defaults['apartment']['attributes'][index] = types.join(',')
@@ -854,7 +854,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			$.merge views , item.get('views')
 
 		views = _.uniq views
-
+		views = views.sort();
 		$.each views , (ind,val)->
 			viewArr.push
 				'id' : val

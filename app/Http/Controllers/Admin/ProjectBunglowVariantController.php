@@ -327,7 +327,7 @@ class ProjectBunglowVariantController extends Controller {
                 }
             }
         }
-      
+        ksort($variantRoomArr);
  
         return view('admin.project.editvariant')
                         ->with('project', $project->toArray())

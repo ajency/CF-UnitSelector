@@ -24,8 +24,8 @@
 
                 <table class="table no-more-tables"  aria-describedby="example_info">
                     <thead>
-                        <tr><th  data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Filters</th>
-                                <th  data-hide="phone,tablet" class="text-right" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Tick if applicable</th>
+                        <tr><th  data-hide="phone,tablet" class="" role="columnheader" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Filters</th>
+                                <th  data-hide="phone,tablet" class="text-right" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Tick if applicable</th>
 
 
                                 </tr></thead>
@@ -95,8 +95,8 @@
                                     <div class="dataTables_wrapper form-inline" role="grid">
                                         <table class="table no-more-tables" aria-describedby="example_info">
                                             <thead>
-                                                <tr><th  data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending" style="width:90%;">{{ $propertyType }}</th>
-                                                    <th  data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending"></th>
+                                                <tr><th  data-hide="phone,tablet" class="" role="columnheader"   aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending" style="width:90%;">{{ $propertyType }}</th>
+                                                    <th  data-hide="phone,tablet" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending"></th>
 
 
                                                 </tr></thead>

@@ -30,9 +30,9 @@
                             <th>Project Name</th>
                             <th>City</th>
                             <th>Status</th>
-                            <th>Created On</th>
+                            <th class="date-sort">Created On</th>
                             <th>Created By</th>
-                            <th>Modified On</th>
+                            <th class="date-sort">Modified On</th>
                             <th>Modified By</th>
                         </tr>
                     </thead>
@@ -54,13 +54,5 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $('#example2.projectList').on('click', function () {
-        columnDefs: [
-           { type: 'date-dd-mm-yyyy', targets: 3 },
-           { type: 'date-dd-mm-yyyy', targets: 5 }        
-         ]
-    });
- 
-</script>
+
 @endsection

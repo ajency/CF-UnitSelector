@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Status<span class="text-primary">*</span></label>
                                     <select id="user_status" name="user_status" class="select2 form-control m-b-5" data-parsley-required>
-                                        <option value="">Select a Status</option>
+                                        <option value="">Select Status</option>
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
                                     </select>

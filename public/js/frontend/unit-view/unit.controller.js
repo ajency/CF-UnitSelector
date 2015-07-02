@@ -212,7 +212,7 @@
       unitsArr = unitColl[0];
       text = unitColl[1];
       $.each(unitsArr.toArray(), function(index, value) {
-        if (value.id !== unitid && value.availability === 'available') {
+        if (value.get('id') !== unitid && value.get('availability') === 'available') {
           units.push(value);
           i++;
         }
@@ -647,13 +647,14 @@
     };
 
     CenterUnitView.prototype.loadMaster = function() {
-      var breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
+      var breakpoint, breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
       $('.master').removeClass('hidden');
       url = Backbone.history.fragment;
       id = url.split('/')[1];
       unit = unitCollection.findWhere({
         'id': parseInt(id)
       });
+      console.log(breakpoint = unit.get('breakpoint'));
       response = window.unit.getUnitDetails(id);
       building = buildingCollection.findWhere({
         'id': parseInt(unit.get('building_id'))
@@ -668,9 +669,10 @@
         $.merge(transitionImages, building.get('building_master'));
         first = _.values(svgs);
         if (building.get('building_master').length !== 0) {
-          $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
+          $('.firstimage').attr('src', transitionImages[breakpoint]);
           $('.firstimage').load(function() {
             return $('.images').load(first[0], function() {
+              $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
               $('.apartment,.amenity').each(function(ind, item) {
                 var itemid;
                 itemid = parseInt(item.id);
@@ -694,9 +696,10 @@
       transitionImages = [];
       $.merge(transitionImages, project.get('project_master'));
       if (project.get('project_master').length !== 0) {
-        $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
+        $('.firstimage').attr('src', transitionImages[breakpoint]);
         $('.firstimage').load(function() {
           return $('.images').load(first[0], function() {
+            $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
             $('.villa,.plot,.building,.amenity').each(function(ind, item) {
               var itemid;
               itemid = parseInt(item.id);

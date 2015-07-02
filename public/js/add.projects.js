@@ -513,10 +513,11 @@
   });
 
   $('.add-project-user-btn').click(function() {
-    var projectId, projectName, successFn, userId;
+    var projectId, projectName, successFn, userId, userType;
     projectName = $('#project_name').val();
     projectId = $('#project_id').val();
     userId = $('#user_id').val();
+    userType = $(this).attr('data-user-type');
     if (projectId === '') {
       alert('Please Enter Valid Project');
       $('#project_name').val('');
@@ -528,7 +529,11 @@
         if ($('.project_block').length === 0) {
           $('.no-projects').addClass('hidden');
         }
-        html = '<div class="row m-b-10  project-{{ project_id }}"> <div class="col-md-10"> <input type="text" name="user_project" value="{{ project_name }}" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a> </div> </div>';
+        html = '<div class="row m-b-10  project-{{ project_id }}"> <div class="col-md-8"> <input type="text" name="user_project" value="{{ project_name }}" class="form-control"> </div>';
+        if (userType === 'agent') {
+          html += '<div class="col-md-2 text-center"> <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,\'{{ project_id }}\');"><i class="fa fa-upload"></i> Assign units</a> </div>';
+        }
+        html += '<div class="col-md-2 text-center"> <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a> </div> </div>';
         $('#project_name').val('');
         $('#project_id').val('');
         compile = Handlebars.compile(html);
@@ -575,17 +580,25 @@
   });
 
   $('.quick-edit').click(function() {
-    var compile, id, str, toggle, unitStatus;
+    var compile, hideSaveButton, id, isAgent, str, toggleRow, unitStatus;
     id = $(this).attr('data-object-id');
-    toggle = $(this).attr('data-toggle');
-    unitStatus = $(this).closest('tr').find('object-status').attr('data-object-value');
-    str = '<tr class="status-row-{{ object_id }}"> <td colspan="7"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table"> <tr><td>Status:</td><td> <select name="unit_status" class="form-control"> <option value="available">Available</option> <option value="sold">Sold</option> <option value="not_released">Not Released</option> <option value="blocked">Blocked</option> <option value="booked_by_agent">Booked By Agent</option> <option value="archived">Archived</option> </select> <button class="btn btn-small btn-primary m-l-10 update-status" data-object-id="{{ object_id }}">Save</button></td></tr> </table> </td> </tr>';
+    toggleRow = $(this).attr('data-toggle');
+    isAgent = $(this).attr('is-agent');
+    unitStatus = $(this).closest('tr').find('.object-status').attr('data-object-value');
+    if (unitStatus === 'booked_by_agent' && isAgent === '1') {
+      hideSaveButton = 'hidden';
+    } else {
+      hideSaveButton = '';
+    }
+    str = '<tr class="status-row-{{ object_id }}"> <td colspan="8"> <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table"> <tr><td>Status:</td><td> <select name="unit_status" class="form-control"> <option value="available">Available</option> <option value="sold">Sold</option> <option value="not_released">Not Released</option> <option value="blocked">Blocked</option> <option value="booked_by_agent">Booked By Agent</option> <option value="archived">Archived</option> </select> <button class="btn btn-small btn-primary m-l-10 update-status {{ hide_button }}" data-object-id="{{ object_id }}">Save</button></td></tr> </table> </td> </tr>';
     compile = Handlebars.compile(str);
-    if (toggle === 'hide') {
+    if (toggleRow === 'hide') {
       $(this).closest('tr').after(compile({
         unit_status: unitStatus,
-        object_id: id
+        object_id: id,
+        hide_button: hideSaveButton
       }));
+      $(".status-row-" + id).find('select[name="unit_status"]').val(unitStatus);
       return $(this).attr('data-toggle', 'show');
     } else {
       $(".status-row-" + id).remove();
@@ -593,21 +606,20 @@
     }
   });
 
-  $('#example2').on('click', '.user-project', function() {
+  $('#example2').on('click', '.update-status', function() {
     var successFn, unitId, unitStatus;
     unitId = $(this).attr('data-object-id');
     unitStatus = $(this).closest('tr').find('select[name="unit_status"]').val();
     successFn = function(resp, status, xhr) {
       if (xhr.status === 202) {
-        $(this).closest('tr').find('object-status').attr('data-object-value');
-        return $(this).closest('tr').find('object-status').html(resp.data.status);
+        $('.row-' + unitId).find('.object-status').attr('data-object-value', unitStatus);
+        return $('.row-' + unitId).find('.object-status').html(resp.data.status);
       }
     };
     return $.ajax({
-      url: '/admin/user/' + userId + '/deleteuserproject',
+      url: '/admin/project/' + PROJECTID + '/bunglow-unit/' + unitId + '/updatestatus',
       type: 'POST',
       data: {
-        unit_id: unitId,
         unit_status: unitStatus
       },
       success: successFn

@@ -52,7 +52,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill">  <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#views}} <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> {{/views}} {{#facings}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> {{/facings}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> <ul  id="flexiselDemo1"> {{#filters}} {{#each this}} {{#each this}} <li> <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> </li> {{/each}} {{/each}} {{/filters}} {{#area}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/area}} {{#budget}} <li> <div class="filter-pill">  <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/budget}} {{#views}} <li> <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/views}} {{#facings}} <li> <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/facings}} {{#floor}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/floor}} {{#status}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/status}} </ul> </div> </div> </div> </div> </div>');
 
     TopApartmentMasterView.prototype.ui = {
       unitBack: '.unit_back',
@@ -98,8 +98,8 @@
       data.floor = main[0].floor;
       data.views = main[0].views;
       data.facings = main[0].facings;
-      results = apartmentVariantCollection.getApartmentUnits();
-      temp = new Backbone.Collection(results);
+      results = unitCollection.length;
+      temp = unitCollection;
       newTemp = temp.where({
         'building_id': parseInt(building_id)
       });
@@ -237,6 +237,28 @@
 
     TopApartmentMasterView.prototype.onShow = function() {
       var results;
+      $("#flexiselDemo1").flexisel({
+        visibleItems: 11,
+        animationSpeed: 200,
+        autoPlay: false,
+        autoPlaySpeed: 1000,
+        clone: false,
+        enableResponsiveBreakpoints: true,
+        responsiveBreakpoints: {
+          portrait: {
+            changePoint: 480,
+            visibleItems: 5
+          },
+          landscape: {
+            changePoint: 640,
+            visibleItems: 6
+          },
+          tablet: {
+            changePoint: 768,
+            visibleItems: 3
+          }
+        }
+      });
       results = CommonFloor.getFilters();
       if (results.length === 0) {
         return $('.proj-type-count').text('No results found');
@@ -632,8 +654,8 @@
           zoomRate: 2,
           constrainZoomed: true
         });
+        window.magne.zoomBy(-1);
       }
-      window.magne.zoomBy(-1);
       windowHeight = $(window).innerHeight() - 56;
       $('.master').css('height', windowHeight);
       $('.master').css('min-width', windowHeight * 2);
@@ -668,7 +690,6 @@
           if ($(window).width() > 991) {
             $(that.el).undelegate('.apartment', 'click');
             $(that.el).undelegate('.apartment', 'mouseover');
-            that.bindFunctions();
             that.zoomBuilding();
             $('.zoomimage').attr('src', transitionImages[breakpoints[0]]);
           } else {
@@ -678,6 +699,7 @@
           response = building.checkRotationView(building_id);
           $('.svg-maps').removeClass('hidden');
           $('.mini-map').removeClass('hidden');
+          $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
           if (response === 1) {
             $('.cf-loader').removeClass('hidden');
             return that.initializeRotate(transitionImages, svgs, building);
@@ -699,11 +721,6 @@
       };
     };
 
-    CenterApartmentMasterView.prototype.bindFunctions = function() {
-      $('#next').bind('click');
-      return $('#prev').bind('click');
-    };
-
     CenterApartmentMasterView.prototype.zoomBuilding = function() {
       var that;
       that = this;
@@ -713,32 +730,43 @@
         if (temp === 398) {
           $(that.el).undelegate('.apartment', 'click');
           $(that.el).undelegate('.apartment', 'mouseover');
-          return $('.apartment').tooltipster('disable');
+          $('.apartment').tooltipster('disable');
+          return that.zoomShow();
         } else {
           that.delegateEvents();
-          $(document).off('click', '.sold');
+          $('.svg-maps').off('click', '.sold');
+          $('.svg-maps').off('click', '.blocked');
+          $('.svg-maps').off('click', '.not_released');
           that.iniTooltip();
           return $('.apartment').tooltipster('enable');
         }
       });
-      return $(document).bind('click', '.apartment', function(e) {
-        var temp, xapoint, xpoint, yapoint, ypoint;
-        clearTimeout(window.renderLoopInterval);
-        xpoint = e.clientX;
-        ypoint = e.clientY;
-        xpoint = xpoint / $(window).width();
-        ypoint = ypoint / $(window).height();
-        xpoint = xpoint.toFixed(1);
-        ypoint = ypoint.toFixed(1);
-        xapoint = xpoint / 10;
-        yapoint = ypoint / 10;
-        temp = window.magne;
-        temp.model.focus = {
-          x: xpoint,
-          y: ypoint
-        };
-        temp.zoomBy(1);
-        return temp.reinit();
+      return that.zoomShow();
+    };
+
+    CenterApartmentMasterView.prototype.zoomShow = function() {
+      var class_array;
+      class_array = ['.available', '.sold', '.blocked', '.not_released'];
+      return $.each(class_array, function(index, value) {
+        return $('.svg-maps').on('click', value, function(e) {
+          var temp, xapoint, xpoint, yapoint, ypoint;
+          clearTimeout(window.renderLoopInterval);
+          xpoint = e.clientX;
+          ypoint = e.clientY;
+          xpoint = xpoint / $(window).width();
+          ypoint = ypoint / $(window).height();
+          xpoint = xpoint.toFixed(1);
+          ypoint = ypoint.toFixed(1);
+          xapoint = xpoint / 10;
+          yapoint = ypoint / 10;
+          temp = window.magne;
+          temp.model.focus = {
+            x: xpoint,
+            y: ypoint
+          };
+          temp.zoomBy(1);
+          return temp.reinit();
+        });
       });
     };
 
@@ -755,6 +783,7 @@
       if (project.get('project_master').length !== 0) {
         return $('.project_master').load(first[0], function() {
           var building_id, url;
+          $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
           $('.firstimage').attr('src', transitionImages[masterbreakpoints[0]]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
@@ -836,8 +865,9 @@
             CommonFloor.applyFliterClass();
             CommonFloor.applyOnViewClass();
             if ($(window).width() < 992) {
-              return that.loadZoom();
+              that.loadZoom();
             }
+            return $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -858,7 +888,8 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
-          return CommonFloor.applyOnViewClass();
+          CommonFloor.applyOnViewClass();
+          return $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
         }).addClass('active').removeClass('inactive');
       });
     };

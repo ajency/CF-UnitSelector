@@ -38,48 +38,52 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 													</div>
 
 													<div class="pull-left filter-result full">
+														<ul  id="flexiselDemo1">
 														 {{#filters}}
 																{{#each this}}
 																{{#each this}}
 															
-																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> 
+																	<li>
+																		<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-index="{{index}}" data-type="{{typename}}"></span> </div> 
+																	</li>
 															{{/each}}
 															 {{/each}}
 															 {{/filters}}
 															  {{#area}}
-																
+																<li>
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															 
+															 	</li>
 															 {{/area}}
 														 {{#budget}}
-																
+																<li>
 																	<div class="filter-pill">  <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															
+																</li>
 															 {{/budget}}
 
 															  {{#views}}
-																 
+																 <li>
 																	<div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-														   
+														   		</li>
 															 {{/views}}
 
 														   {{#facings}}
-																 
+																 <li>
 																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-															
+																</li>
 															 {{/facings}}
 
 														 {{#floor}}
-																
+																<li>
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															
+																</li>
 															 {{/floor}}
 
 														  {{#status}}
-																
+																<li>
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															
+																</li>
 															 {{/status}}
+														</ul>
 																							   
 													</div>
 												</div>
@@ -128,8 +132,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.views  = main[0].views
 		data.facings  = main[0].facings
 		
-		results  = apartmentVariantCollection.getApartmentUnits()
-		temp = new Backbone.Collection results
+		results  = unitCollection.length
+		temp = unitCollection
 		newTemp = temp.where
 				'building_id' : parseInt building_id
 		data.results = newTemp.length
@@ -264,6 +268,29 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 	onShow:->
 		# if CommonFloor.router.history.length == 1
 		# 	@ui.unitBack.hide()
+		$("#flexiselDemo1").flexisel(
+		    visibleItems: 11,
+		    animationSpeed: 200,
+		    autoPlay: false,
+		    autoPlaySpeed: 1000,
+		    clone:false,
+		    enableResponsiveBreakpoints: true,
+		    responsiveBreakpoints: {
+		      portrait: {
+		        changePoint:480,
+		        visibleItems: 5
+		      }, 
+		      landscape: {
+		        changePoint:640,
+		        visibleItems: 6
+		      },
+		      tablet: {
+		        changePoint:768,
+		        visibleItems: 3
+		      }
+		    }
+		)
+		
 		results  = CommonFloor.getFilters()
 		if results.length == 0
 			$('.proj-type-count').text 'No results found'
@@ -826,8 +853,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					zoomRate: 2
 					constrainZoomed: true
 				}
-		)
-		window.magne.zoomBy(-1)
+			)
+			window.magne.zoomBy(-1)
+		
 		# $controls = $('[mag-ctrl="controls"]');
 		# $controls.magCtrl({
 		#   mag: @$host
@@ -874,7 +902,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						# that.undelegateEvents()
 						$(that.el).undelegate('.apartment', 'click');
 						$(that.el).undelegate('.apartment', 'mouseover');
-						that.bindFunctions()
 						that.zoomBuilding()
 						$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					else
@@ -883,6 +910,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
 					$('.mini-map').removeClass 'hidden'
+					$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 					if response is 1
 						$('.cf-loader').removeClass 'hidden'
 						that.initializeRotate(transitionImages,svgs,building)
@@ -905,9 +933,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		  y: y / $target.height()
 		}
   
-	bindFunctions:->
-		$('#next').bind('click')
-		$('#prev').bind('click')
+	
 
 	zoomBuilding:->
 		that  = @
@@ -918,47 +944,41 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$(that.el).undelegate('.apartment', 'click');
 				$(that.el).undelegate('.apartment', 'mouseover');
 				$('.apartment').tooltipster('disable')
+				that.zoomShow()
 			else 
 				that.delegateEvents()
-				# $(that.el).delegate('.apartment', 'mouseover');
-				# $(that.el).delegate('.available', 'click');
-				$(document).off('click','.sold')
-				# $(that.el).undelegate('.sold', 'click');
-				# $(that.el).undelegate('.not_relased', 'click');
-				# $(that.el).undelegate('.blocked', 'click');
+				$('.svg-maps').off('click','.sold')
+				$('.svg-maps').off('click','.blocked')
+				$('.svg-maps').off('click','.not_released')
 				that.iniTooltip()
 				$('.apartment').tooltipster('enable')
+
+		that.zoomShow()
+
+	zoomShow:->
+
+		class_array = ['.available' , '.sold', '.blocked' , '.not_released']
+		$.each class_array , (index,value)->
 				
-		$(document).bind 'click' , '.apartment' , (e)->
-			clearTimeout(window.renderLoopInterval)
-			xpoint = e.clientX
-			ypoint = e.clientY
+			$('.svg-maps').on 'click' , value , (e)->
+				clearTimeout(window.renderLoopInterval)
+				xpoint = e.clientX
+				ypoint = e.clientY
 
-			xpoint = xpoint/$(window).width()
-			ypoint = ypoint/$(window).height()
-			xpoint = xpoint.toFixed(1)
-			ypoint = ypoint.toFixed(1)
+				xpoint = xpoint/$(window).width()
+				ypoint = ypoint/$(window).height()
+				xpoint = xpoint.toFixed(1)
+				ypoint = ypoint.toFixed(1)
 
-			xapoint = xpoint /10
-			yapoint = ypoint /10
+				xapoint = xpoint /10
+				yapoint = ypoint /10
+				
+				temp = window.magne
+				temp.model.focus = {x: xpoint, y: ypoint}
+				
+				temp.zoomBy(1)
+				temp.reinit()
 			
-			temp = window.magne
-			temp.model.focus = {x: xpoint, y: ypoint}
-			# temp.model.lens = {x: xpoint, y: ypoint}
-
-			# temp.modelLazy.focus = {x: xpoint, y: ypoint}
-			# console.log temp.modelLazy.focus
-			# temp.modelLazy.lens = {x: xpoint, y: ypoint , h :0.5 , w: 0.5}
-			# temp.options.position = 'drag'
-			# temp.modelLazy.zoomed = {x: temp1, y:temp2 , h :1.5 , w: 1.5}
-			# temp.compute()
-			temp.zoomBy(1)
-			temp.reinit()
-			# that.delegateEvents()
-			# temp.renderNew(temp)
-			# window.renderLoopInterval()
-			
-			# that.$host.mag.reinit(that.$host.mag.model)
 	loadProjectMaster:->
 		svgs = []
 		masterbreakpoints = project.get('breakpoints')
@@ -971,6 +991,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
 			$('.project_master').load(first[0],()->
+				$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 				$('.firstimage').attr('src',transitionImages[masterbreakpoints[0]])
 				url = Backbone.history.fragment
 				building_id = url.split('/')[1]
@@ -1043,6 +1064,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyOnViewClass()
 					if $(window).width() < 992
 						that.loadZoom()
+					$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
+					
 					).addClass('active').removeClass('inactive')
 				
 				
@@ -1055,6 +1078,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('#spritespin').show()
 				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
+				
 				that.iniTooltip()
 				if $(window).width() < 992
 					that.loadZoom()
@@ -1063,7 +1087,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				CommonFloor.applyFliterClass()
 				# CommonFloor.getApartmentsInView()
 
-				CommonFloor.applyOnViewClass()).addClass('active').removeClass('inactive')
+				CommonFloor.applyOnViewClass()
+				$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
+				).addClass('active').removeClass('inactive')
 
 
 

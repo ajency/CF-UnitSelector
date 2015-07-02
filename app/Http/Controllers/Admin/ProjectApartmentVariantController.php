@@ -309,6 +309,7 @@ class ProjectApartmentVariantController extends Controller {
                 }
             }
         }
+        ksort($variantRoomArr);
         
         return view( 'admin.project.variants.apartment.edit' )
                         ->with( 'project', $project->toArray() )

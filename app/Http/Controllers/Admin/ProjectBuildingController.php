@@ -122,13 +122,15 @@ class ProjectBuildingController extends Controller {
         
         if(empty($isBuildingPhaseInPhases))
             $phases[]= $project->projectPhase()->where('id',$building->phase_id)->first()->toArray();
-         
+        
+        $disabled =(!hasPermission($project['id'],['configure_building']))?'disabled':'';
         return view( 'admin.project.building.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )
                         ->with( 'phases', $phases )
                         ->with( 'building', $building )
                         ->with( 'floorLayouts', $floorLayouts )
+                         ->with('disabled', $disabled)
                         ->with( 'svgImages', $svgImages );
     }
 

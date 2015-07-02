@@ -41,12 +41,12 @@
                                                             
                                                             @else
                                                             <div class="img-hover img-thumbnail">
-                                                                <div id="pickfiles_{{ $level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <a href="javascript:void(0)" id="pickfiles_{{ $level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
                                                                         <p class="">Select File</p>
                                                                     </div>
-                                                                </div>
+                                                                </a>
                                                             </div>
                                                             @endif 
 
@@ -70,12 +70,12 @@
                                                              
                                                             @else
                                                             <div class="img-hover img-thumbnail">
-                                                                <div id="pickfiles_{{ $level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <a  href="javascript:void(0)" id="pickfiles_{{ $level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
                                                                         <p class="">Select File</p>
                                                                     </div>
-                                                                </div>
+                                                                </a>
                                                             </div>
                                                             @endif 
 
@@ -115,7 +115,7 @@
                                                                 @if('textbox' === $attributes['control_type'])
                                                                 <input type="text" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
                                                                 @elseif('number' === $attributes['control_type'])
-                                                                <input type="number" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
+                                                                <input type="text" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}" data-parsley-type="number" data-parsley-min="0">
                                                                 @elseif('select' === $attributes['control_type'])
                                                                 <?php
                                                                 $options = explode(',', $attributes['defaults']);

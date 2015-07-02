@@ -47,7 +47,7 @@
     ApartmentView.prototype.onShow = function() {
       var units;
       units = Marionette.getOption(this, 'units');
-      if (units.length === 0) {
+      if (units.length === 0 && EDITMODE === false) {
         this.ui.units.hide();
         this.ui.unitLabel.hide();
         $('.alert').text('No apartments');

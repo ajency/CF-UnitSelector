@@ -195,7 +195,7 @@
   };
 
   CommonFloor.propertyTypes = function() {
-    var Router, controller;
+    var Router, controller, temp;
     Router = [];
     if (bunglowVariantCollection.getBunglowUnits().length !== 0) {
       Router.push({
@@ -205,9 +205,12 @@
       });
     }
     if (apartmentVariantCollection.getApartmentUnits().length !== 0) {
+      temp = [];
+      $.merge(temp, apartmentVariantCollection.getApartmentUnits());
+      $.merge(temp, apartmentVariantCollection.getPenthouseUnits());
       Router.push({
         'type': s.capitalize('apartment(s)/Penthouse(s)'),
-        'count': apartmentVariantCollection.getApartmentUnits(),
+        'count': temp,
         'type_name': '(A)/(PH)'
       });
     }
@@ -358,6 +361,7 @@
     }
     if (param === 'apartment') {
       $.merge(collection, apartmentVariantCollection.getApartmentUnits());
+      $.merge(collection, apartmentVariantCollection.getPenthouseUnits());
     }
     if (param === 'plot') {
       $.merge(collection, plotVariantCollection.getPlotUnits());
@@ -1301,7 +1305,7 @@
     $.each(CommonFloor.defaults['villa'], function(index, value) {
       var attributes, param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
         attributes = bunglowVariantCollection.getBunglowUnits();
         if (temp.length === 0) {
           temp = bunglowVariantCollection.getBunglowUnits();
@@ -1385,8 +1389,10 @@
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
       var attributes, param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
-        attributes = apartmentVariantCollection.getApartmentUnits();
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
+        attributes = [];
+        $.merge(attributes, apartmentVariantCollection.getApartmentUnits());
+        $.merge(attributes, apartmentVariantCollection.getPenthouseUnits());
         if (temp.length === 0) {
           temp = apartmentVariantCollection.getApartmentUnits();
         }
@@ -1420,7 +1426,9 @@
   CommonFloor.filterApartmentAttributes = function(ind1, val1) {
     var flooring, newtempColl, tem, tempColl;
     flooring = [];
-    tempColl = apartmentVariantCollection.getApartmentUnits();
+    tempColl = [];
+    $.merge(tempColl, apartmentVariantCollection.getApartmentUnits());
+    $.merge(tempColl, apartmentVariantCollection.getPenthouseUnits());
     newtempColl = _.intersection(tempColl, unitCollection.toArray());
     $.each(newtempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
@@ -1469,7 +1477,7 @@
     $.each(CommonFloor.defaults['plot'], function(index, value) {
       var attributes, param_val, temp;
       temp = [];
-      if (value !== "" && index === 'attributes') {
+      if (value !== "" && index === 'attributes' && !_.isEmpty(value)) {
         attributes = plotVariantCollection.getPlotUnits();
         if (temp.length === 0) {
           temp = plotVariantCollection.getPlotUnits();
@@ -1585,7 +1593,8 @@
     });
     unitCollection.reset(unitMasterCollection.toArray());
     CommonFloor.resetCollections();
-    return CommonFloor.filterNew();
+    CommonFloor.filterNew();
+    return clearTimeout(window.renderLoopInterval);
   });
 
   CommonFloor.filterViews = function() {

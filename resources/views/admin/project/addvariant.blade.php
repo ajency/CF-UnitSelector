@@ -88,7 +88,7 @@
                                     @if('textbox' === $attributes['control_type'])
                                     <input type="text" class="form-control m-b-5" name="villa_attributes[{{ $attributes['label'] }}]"  placeholder="Enter {{ $attributes['label'] }}" data-parsley-required value="">
                                     @elseif('number' === $attributes['control_type'])
-                                    <input type="number" class="form-control m-b-5" name="villa_attributes[{{ $attributes['label'] }}]" value="" placeholder="Enter {{ $attributes['label'] }}" data-parsley-required data-parsley-type="number" value="">
+                                    <input type="text" class="form-control m-b-5" name="villa_attributes[{{ $attributes['label'] }}]" value="" placeholder="Enter {{ $attributes['label'] }}" data-parsley-required data-parsley-type="number" data-parsley-min="0" value="">
                                     @elseif('select' === $attributes['control_type'])
                                     <?php
                                     $options = explode(',', $attributes['defaults']);
@@ -150,7 +150,7 @@
                                                     <div class="text-center" id="2d_0_image">
 
                                                         <div class="img-hover img-thumbnail">
-                                                            <div id="pickfiles_0_2d" style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                            <div id="pickfiles_0_2d" style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                 <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                     <i class="fa fa-image" style="font-size:30px;"></i>
                                                                     <p class="">Select File</p>
@@ -170,7 +170,7 @@
                                                     <input type="hidden" name="image_0_3d_id" id="image_0_3d_id" value="">            
                                                     <div class="text-center" id="3d_0_image">
                                                         <div class="img-hover img-thumbnail">
-                                                            <div id="pickfiles_0_3d" style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                            <div id="pickfiles_0_3d" style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                 <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                     <i class="fa fa-image" style="font-size:30px;"></i>
                                                                     <p class="">Select File</p>
@@ -234,7 +234,7 @@
                                                         <input type="hidden" name="image_1_2d_id" id="image_1_2d_id" value="">   
                                                         <div class="text-center" id="2d_1_image">
                                                             <div class="img-hover img-thumbnail">
-                                                                <div id="pickfiles_1_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <div id="pickfiles_1_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
                                                                         <p class="">Select File</p>
@@ -253,7 +253,7 @@
                                                         <input type="hidden" name="image_1_3d_id" id="image_1_3d_id" value="">    
                                                         <div class="text-center" id="3d_1_image">
                                                             <div class="img-hover img-thumbnail">
-                                                                <div id="pickfiles_1_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <div id="pickfiles_1_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
                                                                         <p class="">Select File</p>
@@ -308,11 +308,11 @@
                                     <input type="hidden" name="image_external_3d_id" id="image_external_3d_id" value="">    
                                 </h4>
                             </div>
-                            <div class="grid-body no-border" id="3d_external_img">
+                            <div class="grid-body no-border" id="3d_external_img" >
                                 <div class="col-md-3" >
 
                                     <div class="img-hover img-thumbnail">
-                                        <div id="pickfiles_ext3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                        <div id="pickfiles_ext3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                             <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                 <i class="fa fa-image" style="font-size:30px;"></i>
                                                 <p class="">Select File</p>
@@ -336,7 +336,7 @@
 
                                 <h4 style="margin-left:10px;" class="inline">
                                     <span class="semi-bold">Gallery</span>&nbsp;
-                                    <a id="pickfiles_gallery" class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                                    <button type="button"id="pickfiles_gallery" class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image" ></i> Select file (s)</button>
                                 </h4>
 
                             </div>

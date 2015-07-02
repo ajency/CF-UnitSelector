@@ -26,7 +26,7 @@ return [
       | the Mailgun mail service which will provide reliable deliveries.
       |
      */
-    'host' => 'smtp.mailgun.org',
+    'host' => 'smtp.sendgrid.net',
     /*
       |--------------------------------------------------------------------------
       | SMTP Host Port
@@ -48,7 +48,7 @@ return [
       | used globally for all e-mails that are sent by your application.
       |
      */
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'noreply@commonfloor.com', 'name' => 'CommonFloor Unit Selector'],
     /*
       |--------------------------------------------------------------------------
       | E-Mail Encryption Protocol
@@ -70,7 +70,7 @@ return [
       | connection. You may also set the "password" value below this one.
       |
      */
-    'username' => null,
+    'username' => 'shradha',
     /*
       |--------------------------------------------------------------------------
       | SMTP Server Password
@@ -81,7 +81,7 @@ return [
       | connection so that the application will be able to send messages.
       |
      */
-    'password' => null,
+    'password' => 'ajency#123',
     /*
       |--------------------------------------------------------------------------
       | Sendmail System Path

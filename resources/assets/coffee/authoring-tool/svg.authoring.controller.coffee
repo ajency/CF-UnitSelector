@@ -80,7 +80,7 @@ jQuery(document).ready ($)->
     window.generateSvg = (svgData)->
         # draw.viewbox(0, 0, 1600, 800)
         # create svg background image, set exclude data attrib to true so it can be excluded while exporting the svg
-
+        window.selectMarker = 0
         draw.image(svgImg).data('exclude', true)
 
         # for each svg data check canvas type and generate elements accordingly
@@ -89,7 +89,9 @@ jQuery(document).ready ($)->
                 window.polygon.generatePolygonTag(value)
 
             if value.canvas_type is 'marker'
-                window.marker.generateMarkerTag(value)        
+                window.marker.generateMarkerTag(value)   
+
+        draw.attr('preserveAspectRatio', "xMinYMin slice")   
 
 
     #function to create left side panel
@@ -265,6 +267,34 @@ jQuery(document).ready ($)->
             error :(response)->
                 alert('Some problem occurred')
 
+    window.loadSVGData = () ->
+
+        $.ajax
+            type : 'GET',
+            url  : BASEURL+'/admin/project/'+   PROJECTID+'/image/'+IMAGEID
+            async : false
+            success :(response)->
+
+                window.svgData = {}
+                window.svgData['image'] = svgImg
+                window.svgData['data'] = response.data
+                window.svgData['supported_types'] = JSON.parse supported_types
+                window.svgData['breakpoint_position'] = breakpoint_position
+                window.svgData['svg_type'] = svg_type
+                window.svgData['building_id'] = building_id
+                window.svgData['project_id'] = project_id
+
+                types = window.getPendingObjects(window.svgData)
+
+                window.showPendingObjects(types)
+                window.generateSvg(window.svgData.data)
+               
+               
+                
+            error :(response)->
+                alert('Some problem occurred')
+
+
     window.loadSvgPaths = ()->
         select = $('.svgPaths')
         $('<option />', {value: "", text: "Select Option"}).appendTo(select)
@@ -287,9 +317,11 @@ jQuery(document).ready ($)->
                 svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1]
                 $('<option />', {value: index, text: building_name.get('building_name')+'-'+svg_name}).appendTo(select)  
             return
-        console.log svgs
+        
         $.each svgs , (index,value)->
-            $('<option />', {value: index, text: value}).appendTo(select)
+            svg_name_arr = value.split('/')
+            svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1]
+            $('<option />', {value: index, text: svg_name}).appendTo(select)
 
        
 
@@ -506,12 +538,19 @@ jQuery(document).ready ($)->
     window.showDetails = (elem)->
         type = $(elem).attr 'type'
         if type != 'unassign' && type != 'undetect'
-            unit = unitMasterCollection.findWhere
+            unit_name = ""
+            if type is 'building'
+                unit = buildingMasterCollection.findWhere
                     'id' : parseInt elem.id
+                unit_name = unit.get('building_name')
+            else
+                unit = unitMasterCollection.findWhere
+                        'id' : parseInt elem.id
+                unit_name = unit.get('unit_name')
             $('.property_type').val $(elem).attr 'type'
             $('.property_type').attr 'disabled' ,  true
             select = $('.units')
-            $('<option />', {value: elem.id, text: unit.get('unit_name')}).appendTo(select)
+            $('<option />', {value: elem.id, text: unit_name}).appendTo(select)
             $('.units').attr 'disabled' ,  true
             $('.units').val elem.id
             $('.units').show()
@@ -546,6 +585,13 @@ jQuery(document).ready ($)->
     window.hideAlert = ()->
         $('.alert').show()
         $('.alert-box').delay(3000).queue( (next)->
+                $(this).hide('fade') 
+                next() 
+        )
+
+    window.hideLabel = ()->
+        $('.alert2').show()
+        $('.alert2').delay(3000).queue( (next)->
                 $(this).hide('fade') 
                 next() 
         )
@@ -845,6 +891,13 @@ jQuery(document).ready ($)->
             window.EDITMODE = true
             currentElem = evt.currentTarget
             
+            if window.selectMarker is 1
+                $('.alert').text 'Can select only one marker at a time!'
+                window.hideAlert()
+                return
+            console.log window.selectMarker 
+            window.selectMarker = 1
+            console.log window.selectMarker 
             if $(currentElem).hasClass('concentric-marker')
                 markerType = "concentric"
             else if $(currentElem).hasClass('solid-marker')
@@ -914,12 +967,16 @@ jQuery(document).ready ($)->
             currentElem = e.currentTarget
             element = currentElem.id
             object_type = $(currentElem).attr('type')
+            tmp = new Backbone.Collection svgData.data
+            window.newObject = tmp.clone()
             svgDataObjects = svgData.data
+            # drawPoly(["405","194","456","205","440","261"])
+
             _.each svgDataObjects, (svgDataObject, key) =>
                 if parseInt(elemId) is parseInt svgDataObject.id 
-                    points = svgDataObject.points
-                    $('.area').val points.join(',')
-                    drawPoly(svgDataObject.points)
+                    valpoints = svgDataObject.points
+                    $('.area').val valpoints.join(',')
+                    drawPoly(valpoints)
                     $('.submit').addClass 'hidden'
                     $('.edit').removeClass 'hidden'
                     $('.delete').removeClass 'hidden'
@@ -930,8 +987,10 @@ jQuery(document).ready ($)->
                     else 
                         window.loadForm(object_type)
 
+
                     # show primary breakpoint checked or not
-                    if $(currentElem).data("primary-breakpoint") 
+                    
+                    if ! _.isNull $(currentElem).data("primary-breakpoint") 
                         $('[name="check_primary"]').prop('checked', true)                    
 
                     if object_type is "amenity"
@@ -1155,7 +1214,7 @@ jQuery(document).ready ($)->
         ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
         $("form").trigger("reset")
         $('#dynamice-region').empty()
-        $(".toggle").trigger 'click'
+        # $(".toggle").trigger 'click'
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         $('.edit-box').addClass 'hidden'
@@ -1168,8 +1227,9 @@ jQuery(document).ready ($)->
         # clear svg
         draw.clear()
         # regenerate svg
-        window.generateSvg(window.svgData.data) 
-        window.EDITMODE = false                   
+        
+        window.EDITMODE = false 
+        window.loadSVGData()                  
 
     # on click of delete svg element
     $('.delete').on 'click' , (e)->
@@ -1218,7 +1278,7 @@ jQuery(document).ready ($)->
 
                 window.showPendingObjects(types)
                 window.resetTool()
-                $(".toggle").bind('click')
+                # $(".toggle").bind('click')
 
                 
                 
@@ -1400,8 +1460,8 @@ jQuery(document).ready ($)->
     $('.process').on 'click' , (evt) ->
         imageid = $('.svgPaths').val()
         if imageid is ""
-            $('.alert').text 'Select svg'
-            window.hideAlert()
+            $('.alert2').text 'Please select an SVG!'
+            window.hideLabel()
             return
         $('.svg-canvas').hide()
         $('#myModal').modal('hide')

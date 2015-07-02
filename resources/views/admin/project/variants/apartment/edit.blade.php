@@ -99,7 +99,7 @@
                                 @if('textbox' === $attributes['control_type'])
                                 <input type="text" class="form-control m-b-5" name="apartment_attributes[{{ $attributes['label'] }}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}" data-parsley-required>
                                 @elseif('number' === $attributes['control_type'])
-                                <input type="number" class="form-control m-b-5" name="apartment_attributes[{{ $attributes['label'] }}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}" data-parsley-required data-parsley-type="number">
+                                <input type="text" class="form-control m-b-5" name="apartment_attributes[{{ $attributes['label'] }}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}" data-parsley-required data-parsley-type="number" data-parsley-min="0">
                                 @elseif('select' == $attributes['control_type'])
                                 <?php
                                 $options = explode(',', $attributes['defaults']);
@@ -148,7 +148,7 @@
 
                                 <h4 style="margin-left:10px;" class="inline">
                                     <span class="semi-bold">Gallery</span>&nbsp;
-                                    <a id="pickfiles_gallery" class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                                    <button type="button"id="pickfiles_gallery" class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image" ></i> Select file (s)</button>
                                 </h4>
 
                             </div>

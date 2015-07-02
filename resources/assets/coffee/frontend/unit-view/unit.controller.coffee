@@ -298,12 +298,11 @@ class LeftUnitView extends Marionette.ItemView
 		unitsArr = unitColl[0]
 		text = unitColl[1]
 		$.each unitsArr.toArray(), (index, value)->
-			if value.id != unitid && value.availability is 'available'
+			if value.get('id') != unitid && value.get('availability') is 'available'
 				units.push value
 				i++
 			if i == 3
 				return false
-				
 		if unitsArr.length == 1
 			text = ''
 		if units.length is 0
@@ -1450,6 +1449,7 @@ class CenterUnitView extends Marionette.ItemView
 		id = url.split('/')[1]
 		unit = unitCollection.findWhere
 				'id' : parseInt id
+		console.log breakpoint = unit.get 'breakpoint'
 		response = window.unit.getUnitDetails(id)
 		building = buildingCollection.findWhere
 					'id' : parseInt unit.get('building_id')
@@ -1463,9 +1463,10 @@ class CenterUnitView extends Marionette.ItemView
 			$.merge transitionImages ,  building.get('building_master')
 			first = _.values svgs
 			if building.get('building_master').length != 0  
-				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
+				$('.firstimage').attr('src',transitionImages[breakpoint])
 				$('.firstimage').load ()->
 					$('.images').load(first[0],()->
+						$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 						$('.apartment,.amenity').each (ind,item)->
 							itemid = parseInt item.id
 							$('#'+itemid).attr('class', "no-fill")
@@ -1483,9 +1484,10 @@ class CenterUnitView extends Marionette.ItemView
 		transitionImages = []
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
-			$('.firstimage').attr('src',transitionImages[breakpoints[0]])
+			$('.firstimage').attr('src',transitionImages[breakpoint])
 			$('.firstimage').load ()->
 				$('.images').load(first[0],()->
+					$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 					$('.villa,.plot,.building,.amenity').each (ind,item)->
 						itemid = parseInt item.id
 						$('#'+itemid).attr('class', "no-fill")

@@ -24,14 +24,14 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Created On</th>
-                            <th>Modified On</th>
+                            <th class="date-sort">Created On</th>
+                            <th class="date-sort">Modified On</th>
                         </tr>
                     </thead>
                     <tbody> 
                         @foreach ($roles as $role)
                             <tr class="" onclick="location.href='{{ url( '/admin/role/' . $role['id'] . '/edit') }}'">
-                                <td>{{ $role['name'] }}</td>
+                                <td>{{ $role['display_name'] }}</td>
                                 <td>{{ date('d/m/Y',strtotime($role['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($role['updated_at'])) }}</td>
                             </tr>

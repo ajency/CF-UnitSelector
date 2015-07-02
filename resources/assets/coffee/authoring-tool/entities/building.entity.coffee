@@ -34,7 +34,7 @@ class AuthoringTool.BuildingView extends Marionette.ItemView
 
 	onShow:->
 		units = buildingCollection
-		if units.length == 0
+		if units.length == 0 && EDITMODE is false
 			@ui.units.hide()
 			@ui.unitLabel.hide()
 			$('.alert').text 'No buildings'

@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>CommonFloor - {{ $project_title }}</title>
-        <link type="text/css" rel="stylesheet" href="http://asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
+        <link type="text/css" rel="stylesheet" href="https://asset1.cfcdn.com/cfassets/css/search.caz.css" />
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -66,6 +66,9 @@
                 <div class="col-sm-12">
                   <ul class="nav navbar-nav footer-nav">
                     <li>
+                      <a href="#" title="POVP" class="povp"><span class="icon-arrow-right"></span> POVP</a>
+                    </li>
+                    <li>
                       <a href="http://www.commonfloor.com/privacy-policy" target="_blank" title="Privacy Policy">Privacy Policy</a>
                     </li>
                     <li>
@@ -85,7 +88,14 @@
         </div>
       </footer>
      @include('frontend/templates')
-        <!-- Plugins -->
+
+     @if(getenv('APP_ENV') == 'production')
+     <script src="{{ asset('js/production/plugins.min.js' )}}"></script>
+        
+   
+    @else
+   
+
         <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
         <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
@@ -117,6 +127,11 @@
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-control.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-jquery.js' )}}"></script>
+
+       @endif
+
+        <!-- Plugins -->
+       
         <script type="text/javascript">
             var head = document.getElementsByTagName('head')[0];
             var script = document.createElement('script');
@@ -155,6 +170,14 @@
         
         
         </script>
+      
+    @if(getenv('APP_ENV') == 'production')
+         
+         <script src="{{ asset('js/production/application.min.js' )}}"></script>
+        
+   
+    @else
+         
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/bunglow.variant.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/settings.entity.js' )}}"></script>
@@ -181,6 +204,8 @@
         <script src="{{ asset('js/frontend/project-list-view/plot.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/router.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
+
+   @endif
         
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
       <script type="text/javascript">

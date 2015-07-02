@@ -24,37 +24,42 @@
              @include('admin.project.flashmessage')
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Units</span></h4>
+                @if(hasPermission($project['id'],['configure_unit']))   
                 <a class="btn btn-primary pull-right m-l-5"  data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Bulk Import</a>&nbsp;&nbsp; 
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/apartment-unit/create') }}" ><i class="fa fa-plus"></i> Add unit</a> ;
-                
+                @endif
             </div>
             <div class="grid-body">
                 <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
+                            @if(hasPermission($project['id'],['unit_status_update']))
                             <th style="width:40px;">Edit</th>
+                            @endif
                             <th>Name</th>
                             <th>Status</th>
                             <th>Building</th>
                             <th>Floor</th>
                             <th>Position</th>
-                            <th>Created On</th>
-                            <th>Modified On</th>
+                            <th class="date-sort">Created On</th>
+                            <th class="date-sort">Modified On</th>
                         </tr>
                     </thead>
                     <tbody> 
                         @foreach ($units as $unit)
-                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">
-                                <td class="text-center"><i class="fa fa-pencil"></i></td>
-                                <td>
+                            <tr class="row-{{ $unit['id'] }}" >
+                                @if(hasPermission($project['id'],['unit_status_update']))
+                                <td class="text-center quick-edit" data-object-id="{{ $unit['id'] }}" data-toggle="hide" is-agent="{{ (isAgent())? '1' : '0'}}"><span class="fa fa-edit"></span></td>
+                                @endif
+                                <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">
                                    {{ $unit['unit_name'] }}
                                 </td>
-                                <td>{{ ucfirst($unit->availability) }}</td>
-                                <td>{{ $unit->building->building_name }}</td>
-                                <td>{{ $unit->floor }}</td>
-                                <td>{{ $unit->position }}</td>
-                                 <td>{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
-                                <td>{{  date('d/m/Y',strtotime($unit['updated_at'])) }}</td>
+                                <td class="object-status" data-object-value="{{ $unit->availability }}" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">{{ ucfirst($unit->availability) }}</td>
+                                <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">{{ $unit->building->building_name }}</td>
+                                <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">{{ $unit->floor }}</td>
+                                <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">{{ $unit->position }}</td>
+                                 <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
+                                <td onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">{{  date('d/m/Y',strtotime($unit['updated_at'])) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -14,6 +14,8 @@ use CommonFloor\UnitVariant;
 use CommonFloor\Defaults;
 use \Session;
 use \Excel;
+use Auth;
+use CommonFloor\AgentUnit; 
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -27,7 +29,17 @@ class ProjectApartmentUnitController extends Controller {
         $project = Project::find($projectId);
         $phases = $project->projectPhase()->lists('id');
         $buildings = Building::whereIn('phase_id', $phases)->lists('id');
-        $units = Unit::whereIn('building_id', $buildings)->get();
+        
+        if(isAgent())
+        {
+            $userId =Auth::user()->id;
+            $unitIds = AgentUnit :: where(['project_id'=>$projectId, 'user_id'=>$userId])->get()->lists('unit_id');
+            $units = Unit::whereIn('id',$unitIds)->whereIn('building_id', $buildings)->get();
+        }
+        else
+            $units = Unit::whereIn('building_id', $buildings)->get();
+        
+       
         return view('admin.project.unit.apartment.list')
                         ->with('project', $project->toArray())
                         ->with('current', 'apartment-unit')
@@ -164,6 +176,14 @@ class ProjectApartmentUnitController extends Controller {
         $unitType = UnitVariant::find($variantId)->unitType()->first();
         $unitTypeId = $unitType->id;
         $unitVariantArr = UnitVariant::where('unit_type_id',$unitTypeId)->get()->toArray();
+        
+        $disabled =(isAgent())?'disabled':'';  
+        $unit['agent_name']='';
+        if($unit['availability']=='booked_by_agent')
+        {
+            $username = \CommonFloor\User::find($unit['agent_id'])->name;
+            $unit['agent_name']=$username;
+        }
 
         return view('admin.project.unit.apartment.edit')
                         ->with('project', $project->toArray())
@@ -174,6 +194,7 @@ class ProjectApartmentUnitController extends Controller {
                         ->with('availabelpositions', $availabelpositions)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('defaultDirection', $defaultDirection)
+                        ->with('disabled', $disabled)
                         ->with('unit', $unit);
     }
 
@@ -186,22 +207,35 @@ class ProjectApartmentUnitController extends Controller {
     public function update($project_id, $id, Request $request) {
  
         $unit = Unit::find($id);
-        $unit->unit_name = ucfirst($request->get('unit_name'));
-        $unit->unit_variant_id = $request->get('unit_variant');
-        $unit->building_id = $request->get('building_id');
-        $unit->floor = $request->get('floor');
-        $unit->position = $request->get('position');
-        $unit->availability = $request->get('unit_status');
-        $unit->direction = $request->input('direction');
-        $views = $request->input('views');
-        $unitviews=[];
-        if(!empty($views))
+        $status =$request->input('unit_status');
+        if(!isAgent())      //NOT AGENT HE CAN UPDATE OTHER DETAILS
         {
-            foreach ($views as $key=>$view)
-               $unitviews[$key]= ucfirst($view);    
+            $unit->unit_name = ucfirst($request->get('unit_name'));
+            $unit->unit_variant_id = $request->get('unit_variant');
+            $unit->building_id = $request->get('building_id');
+            $unit->floor = $request->get('floor');
+            $unit->position = $request->get('position');
+            $unit->direction = $request->input('direction');
+            $views = $request->input('views');
+            $unitviews=[];
+            if(!empty($views))
+            {
+                foreach ($views as $key=>$view)
+                   $unitviews[$key]= ucfirst($view);    
+            }
+            $viewsStr = serialize( $unitviews );
+            $unit->views = $viewsStr;
         }
-        $viewsStr = serialize( $unitviews );
-        $unit->views = $viewsStr;
+        else{
+            if($status=='booked_by_agent')
+            {
+                $unit->agent_id =  Auth::user()->id;
+                $unit->booked_at = date('Y-m-d H:i:s');
+                
+            }
+        
+        } 
+        $unit->availability = $status;
         $unit->save();
         Session::flash('success_message','Unit Successfully Updated');
 
@@ -286,14 +320,17 @@ class ProjectApartmentUnitController extends Controller {
    {
         $project = Project::find($projectId);
         $unit_file = $request->file('unit_file')->getRealPath();
-         
+        $extension = $request->file('unit_file')->getClientOriginalExtension();  
        
-        if ($request->hasFile('unit_file'))
+        if ($request->hasFile('unit_file') && $extension=='csv')
         {
             Excel::load($unit_file, function($reader)use($project) {
-            
+            $errorMsg = [];
             $results = $reader->toArray(); //dd($results);
-            if(!empty($results) && count($results[0])==12)
+
+           if(!empty($results))
+           {    
+            if(count($results[0])==12)
              {   
                 $i=0;
                foreach($results as $result)
@@ -439,15 +476,20 @@ class ProjectApartmentUnitController extends Controller {
             }
              else
                  $errorMsg[] ='Column Count does not match';
+               
+          }
+          else
+             $errorMsg[] ='No Data Found';       
      
-
-                Session::flash('error_message',$errorMsg);
+                if(!empty($errorMsg))
+                    Session::flash('error_message',$errorMsg);
  
             });
             
             
         }
-       
+        else
+           Session::flash('error_message','Invalid file format. Upload .csv file');
        
        return redirect("/admin/project/" . $projectId . "/apartment-unit/");
  

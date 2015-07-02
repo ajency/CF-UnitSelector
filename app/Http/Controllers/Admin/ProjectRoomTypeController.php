@@ -220,7 +220,7 @@ class ProjectRoomTypeController extends Controller {
             $str .= ' </div>';
             $str .= ' </div> ';
             $str .= '</div>';
-            if(!empty($attributes))
+            if(!empty($attributes)) 
              {
                 foreach ($attributes as $attribute) {
             $str .= '<div class = "col-md-4">';
@@ -228,30 +228,33 @@ class ProjectRoomTypeController extends Controller {
             $str .= '<label class = "form-label">' . $attribute['label'] . '</label>';
 
             if ('textbox' === $attribute['control_type']) {
-                        $str.='<input type="text" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
-                    } elseif ('number' === $attribute['control_type']) {
-                        $str.='<input type="number" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '" data-parsley-type="number">';
-                    } elseif ('select' === $attribute['control_type']) {
-                        $options = explode(',', $attribute['defaults']);
+                $str.='<input type="text" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
+            } 
+            elseif ('number' === $attribute['control_type']) {
+                $str.='<input type="text" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '" data-parsley-type="number" data-parsley-min="0">';
+            } 
+            elseif ('select' === $attribute['control_type']) {
+                $options = explode(',', $attribute['defaults']);
 
-                        $str.='<select name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" class="select2 form-control">';
-                        $str.='<option value="">Select ' . $attribute['label'] . '</option>';
-                        foreach ($options as $option) {
-                            $str.='<option value="' . property_type_slug($option) . '">' . $option . '</option>';
-                        }
-                        $str.='</select>';
-                    } elseif ('multiple' === $attribute['control_type']) {
-                        $options = explode(',', $attribute['defaults']);
+                $str.='<select name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" class="select2 form-control">';
+                $str.='<option value="">Select ' . $attribute['label'] . '</option>';
+                foreach ($options as $option) {
+                $str.='<option value="' . property_type_slug($option) . '">' . $option . '</option>';
+                }
+                $str.='</select>';
+            } 
+            elseif ('multiple' === $attribute['control_type']) {
+                $options = explode(',', $attribute['defaults']);
 
-                        $str.='<select multiple name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . '][]" class="select2 form-control">';
-                        $str.='<option value="">Select ' . $attribute['label'] . '</option>';
-                        foreach ($options as $option) {
-                            $str.='<option value="' . property_type_slug($option) . '">' . $option . '</option>';
-                        }
-                        $str.='</select>';
-                    }
+                $str.='<select multiple name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . '][]" class="select2 form-control">';
+                $str.='<option value="">Select ' . $attribute['label'] . '</option>';
+                foreach ($options as $option) {
+                $str.='<option value="' . property_type_slug($option) . '">' . $option . '</option>';
+                }
+                $str.='</select>';
+            }
 
-                    $str .= '</div>';
+            $str .= '</div>';
             $str .= '</div>';
             }
         }
@@ -259,7 +262,7 @@ class ProjectRoomTypeController extends Controller {
         {
             $str .= '<div class = "col-md-4">';
             $str .= '<div class = "form-group">';
-            $str .= '<label class = "form-label">Room Attributes Not Defined</label>';
+            $str .= '<label class = "alert alert-danger">Room Attributes Not Defined</label>';
              
             $str .= '</div>';
             $str .= '</div>';

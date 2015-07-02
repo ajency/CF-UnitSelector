@@ -33,15 +33,7 @@
                                 <input type="password" class="form-control" name="password">
                             </div>
                         </div>
-
-                        <div class="form-group">
-                       <div class="checkbox">
-                            <label class="form-label">
-                              <input type="checkbox"> Remember Me
-                            </label>
-                          </div>
-                        </div>
-
+ 
                         <div class="form-group">
                            
                                <div class="row">
