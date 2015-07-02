@@ -80,7 +80,7 @@ jQuery(document).ready ($)->
     window.generateSvg = (svgData)->
         # draw.viewbox(0, 0, 1600, 800)
         # create svg background image, set exclude data attrib to true so it can be excluded while exporting the svg
-
+        window.selectMarker = 0
         draw.image(svgImg).data('exclude', true)
 
         # for each svg data check canvas type and generate elements accordingly
@@ -891,6 +891,13 @@ jQuery(document).ready ($)->
             window.EDITMODE = true
             currentElem = evt.currentTarget
             
+            if window.selectMarker is 1
+                $('.alert').text 'Can select only one marker at a time!'
+                window.hideAlert()
+                return
+            console.log window.selectMarker 
+            window.selectMarker = 1
+            console.log window.selectMarker 
             if $(currentElem).hasClass('concentric-marker')
                 markerType = "concentric"
             else if $(currentElem).hasClass('solid-marker')

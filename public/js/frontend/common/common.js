@@ -103,15 +103,18 @@
   };
 
   CommonFloor.propertyMaxUnits = function() {
-    var Router, controller;
+    var Router, controller, temp;
     Router = [];
     Router.push({
       'type': 'bunglows',
       'count': bunglowVariantCollection.getBunglowUnits()
     });
+    temp = [];
+    $.merge(temp, apartmentVariantCollection.getApartmentUnits());
+    $.merge(temp, apartmentVariantCollection.getPenthouseUnits());
     Router.push({
       'type': 'building',
-      'count': apartmentVariantCollection.getApartmentUnits()
+      'count': temp
     });
     Router.push({
       'type': 'plot',
@@ -195,7 +198,7 @@
   };
 
   CommonFloor.propertyTypes = function() {
-    var Router, controller;
+    var Router, controller, temp;
     Router = [];
     if (bunglowVariantCollection.getBunglowUnits().length !== 0) {
       Router.push({
@@ -204,10 +207,13 @@
         'type_name': '(V)'
       });
     }
-    if (apartmentVariantCollection.getApartmentUnits().length !== 0) {
+    if (apartmentVariantCollection.getApartmentUnits().length !== 0 || apartmentVariantCollection.getPenthouseUnits().length !== 0) {
+      temp = [];
+      $.merge(temp, apartmentVariantCollection.getApartmentUnits());
+      $.merge(temp, apartmentVariantCollection.getPenthouseUnits());
       Router.push({
         'type': s.capitalize('apartment(s)/Penthouse(s)'),
-        'count': apartmentVariantCollection.getApartmentUnits(),
+        'count': temp,
         'type_name': '(A)/(PH)'
       });
     }

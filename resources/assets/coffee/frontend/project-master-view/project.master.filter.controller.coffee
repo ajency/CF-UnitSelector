@@ -265,7 +265,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['type'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
-	
+			@loadSelectedFilters()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 
@@ -287,6 +287,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['type'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
+			@loadSelectedFilters()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 
@@ -308,7 +309,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['type'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
-	
+			@loadSelectedFilters()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 	
