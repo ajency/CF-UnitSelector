@@ -502,18 +502,27 @@
       }
     };
     window.showDetails = function(elem) {
-      var select, type, unit;
+      var select, type, unit, unit_name;
       type = $(elem).attr('type');
       if (type !== 'unassign' && type !== 'undetect') {
-        unit = unitMasterCollection.findWhere({
-          'id': parseInt(elem.id)
-        });
+        unit_name = "";
+        if (type === 'building') {
+          unit = buildingMasterCollection.findWhere({
+            'id': parseInt(elem.id)
+          });
+          unit_name = unit.get('building_name');
+        } else {
+          unit = unitMasterCollection.findWhere({
+            'id': parseInt(elem.id)
+          });
+          unit_name = unit.get('unit_name');
+        }
         $('.property_type').val($(elem).attr('type'));
         $('.property_type').attr('disabled', true);
         select = $('.units');
         $('<option />', {
           value: elem.id,
-          text: unit.get('unit_name')
+          text: unit_name
         }).appendTo(select);
         $('.units').attr('disabled', true);
         $('.units').val(elem.id);

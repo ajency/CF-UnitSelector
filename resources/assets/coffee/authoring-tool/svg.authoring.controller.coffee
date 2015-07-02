@@ -538,12 +538,19 @@ jQuery(document).ready ($)->
     window.showDetails = (elem)->
         type = $(elem).attr 'type'
         if type != 'unassign' && type != 'undetect'
-            unit = unitMasterCollection.findWhere
+            unit_name = ""
+            if type is 'building'
+                unit = buildingMasterCollection.findWhere
                     'id' : parseInt elem.id
+                unit_name = unit.get('building_name')
+            else
+                unit = unitMasterCollection.findWhere
+                        'id' : parseInt elem.id
+                unit_name = unit.get('unit_name')
             $('.property_type').val $(elem).attr 'type'
             $('.property_type').attr 'disabled' ,  true
             select = $('.units')
-            $('<option />', {value: elem.id, text: unit.get('unit_name')}).appendTo(select)
+            $('<option />', {value: elem.id, text: unit_name}).appendTo(select)
             $('.units').attr 'disabled' ,  true
             $('.units').val elem.id
             $('.units').show()
