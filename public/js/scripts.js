@@ -958,22 +958,28 @@ $(document).ready(function () {
 
             },
             FilesAdded: function (up, files) {
-                /*var str = '<div class="col-md-3 variant-gallery-image">';
-                str += '<div class="img-hover img-thumbnail">';
-                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
-                str += '<div style="  width: 150px;height: 93px;"></div>';
-                str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
-                str += '</div>';
-                str += '</div>';
-                str += '</div>';
-                $("#variant_gallery").append(str);*/
+                
+                 for (var i = 0; i < files.length; i++) {
+                    
+                    var str = '<div class="col-md-3 variant-gallery-image" id="'+files[i].id+'">';
+                    str += '<div class="img-hover img-thumbnail">';
+                    str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                    str += '<div style="  width: 150px;height: 93px;"></div>';
+                    str += '<div class="progress progress-small " style="margin:0;">';
+                    str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                    str += '</div>';
+                    str += '</div>';
+                    str += '</div>';
+                    $("#variant_gallery").append(str);
+
+                }
+             
                 up.start();
 
             },
             UploadProgress: function (up, file) {
  
-                var str = '<div class="col-md-3 variant-gallery-image" id="'+file.id+'">';
+                var str = '';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
@@ -981,12 +987,9 @@ $(document).ready(function () {
                 str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
                 str += '</div>';
                 str += '</div>';
-                str += '</div>';
-               
-                if($("#"+file.id).length)
-                    $("#"+file.id).html(str); 
-                else    
-                    $("#variant_gallery").append(str); 
+
+                $("#"+file.id).html(str); 
+
 
             },
             FileUploaded: function (up, file, xhr) {
