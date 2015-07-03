@@ -300,7 +300,7 @@ body {
           transform: rotate(180deg);
   display: inline-block;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   #footer .footer-section4 {
     text-align: center;
   }
@@ -374,7 +374,7 @@ body {
 .header-info {
   margin-left: 60px;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .header-info {
     margin-left: 0;
   }
@@ -849,7 +849,7 @@ hr.embossed {
   border: 1px solid #db6809;
   outline: 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .cf-btn-primary {
     font-size: 12px;
     padding: 5px 8px;
@@ -1416,7 +1416,7 @@ hr.embossed {
   content: "\e761";
   font-family: icomoon;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .breadcrumb-bar a {
     padding: 10px;
     background: none;
@@ -1503,7 +1503,7 @@ hr.embossed {
 .zoom-controls.master-zoom {
   display: block;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .zoom-controls {
     top: 15px;
     left: 15px;
@@ -2739,7 +2739,7 @@ svg .no-fill {
   right: 20px;
   top: 25px;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .fliters-container {
     right: 0;
     top: 0;
