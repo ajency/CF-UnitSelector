@@ -193,7 +193,7 @@ jQuery(document).ready ($)->
 
             else if type is 'unassign'       
                 return      
-            else 
+            else if type isnt 'project'
                 unitID = parseInt value.id
                 if unitID isnt 0
                     unit = unitMasterCollection.findWhere
@@ -744,6 +744,8 @@ jQuery(document).ready ($)->
                 # cx,cy constants for circles
                 newDelta = [delta.x,delta.y] 
                 window.locationMarkerPoints = newDelta
+
+
                  
             window.dropLocationMarker =  true
         
@@ -1519,6 +1521,11 @@ jQuery(document).ready ($)->
                     </div>
                 </div>'
         $('.amenity').tooltipster('content', html)
+
+
+    $('ellipse').on 'mousedown' ,(e)->
+        console.log "enteredddddddddddddddddddddddd"
+        $('.svg-canvas').css('transform', 'scale(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
 
    
 
