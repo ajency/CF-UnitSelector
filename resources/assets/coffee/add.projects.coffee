@@ -690,7 +690,22 @@ $('#project_name').autocomplete
             type : 'POST'
             data : 
                 project_id : projectId
-            success : successFn         
+            success : successFn    
+            
+   $('.delete-building').click ->
+        if confirm('Are you sure you want to delete this building?') is false
+            return
+
+        buildingId = $(@).attr 'data-building-id'
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 204
+              window.location = "/admin/project/"+PROJECTID+"/building";  
+            
+        $.ajax 
+            url : "/admin/project/"+PROJECTID+"/building/"+buildingId
+            type : 'DELETE'
+            success : successFn  
 
             
  

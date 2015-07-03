@@ -50,7 +50,8 @@ class Building extends Model {
         $phaseId = $data['phase_id'];
         $projectId = Phase::find( $phaseId )->project_id;
         $svgImages = [];
-
+        
+        ksort($buildingMasters);
         foreach ($buildingMasters as $key => $images) {
                 if ($images != '' && is_numeric( $images )) {
                     $imageName = Media::find( $images )->image_name;
