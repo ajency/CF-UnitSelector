@@ -24,7 +24,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th style="width: 134px;">Email</th>
                             <th>Phone</th>
                             <th>Status</th>
                             <th class="date-sort">Created On</th>
