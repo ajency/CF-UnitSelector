@@ -174,7 +174,6 @@ jQuery(document).ready ($)->
                 return
             valueText = value
             valuetemp = value
-            console.log value
             if value is "Apartment/Penthouse"
                 valueText = "apartment"
                 valuetemp = 'apartment'
@@ -195,9 +194,9 @@ jQuery(document).ready ($)->
             else if type is 'unassign'       
                 return      
             else 
-                console.log unitID = parseInt value.id
+                unitID = parseInt value.id
                 if unitID isnt 0
-                    console.log unit = unitMasterCollection.findWhere
+                    unit = unitMasterCollection.findWhere
                             'id' : parseInt value.id
 
                     unitCollection.remove unit.get 'id'
@@ -895,9 +894,7 @@ jQuery(document).ready ($)->
                 $('.alert').text 'Can select only one marker at a time!'
                 window.hideAlert()
                 return
-            console.log window.selectMarker 
             window.selectMarker = 1
-            console.log window.selectMarker 
             if $(currentElem).hasClass('concentric-marker')
                 markerType = "concentric"
             else if $(currentElem).hasClass('solid-marker')
@@ -934,6 +931,13 @@ jQuery(document).ready ($)->
         if window.canvas_type isnt 'earthlocationMarker' && svg_type is 'google_earth'
             $(".property_type").find("option[value='project']").remove()
             $('#dynamice-region').empty()
+        $('.area').val("")
+        window.f = []
+        canvas = document.getElementById("c")
+        ctx= canvas.getContext("2d")
+        ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
+        $("form").trigger("reset")
+        $('#dynamice-region').empty()
         $('#aj-imp-builder-drag-drop canvas').show()
         $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
         $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")

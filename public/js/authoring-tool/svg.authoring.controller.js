@@ -155,7 +155,6 @@
         }
         valueText = value;
         valuetemp = value;
-        console.log(value);
         if (value === "Apartment/Penthouse") {
           valueText = "apartment";
           valuetemp = 'apartment';
@@ -183,11 +182,11 @@
         } else if (type === 'unassign') {
 
         } else {
-          console.log(unitID = parseInt(value.id));
+          unitID = parseInt(value.id);
           if (unitID !== 0) {
-            console.log(unit = unitMasterCollection.findWhere({
+            unit = unitMasterCollection.findWhere({
               'id': parseInt(value.id)
-            }));
+            });
             return unitCollection.remove(unit.get('id'));
           }
         }
@@ -831,9 +830,7 @@
         window.hideAlert();
         return;
       }
-      console.log(window.selectMarker);
       window.selectMarker = 1;
-      console.log(window.selectMarker);
       if ($(currentElem).hasClass('concentric-marker')) {
         markerType = "concentric";
       } else if ($(currentElem).hasClass('solid-marker')) {
@@ -861,6 +858,7 @@
       }
     });
     $('.select-polygon').on('click', function(e) {
+      var canvas, ctx;
       e.preventDefault();
       window.EDITMODE = true;
       window.canvas_type = "polygon";
@@ -868,6 +866,13 @@
         $(".property_type").find("option[value='project']").remove();
         $('#dynamice-region').empty();
       }
+      $('.area').val("");
+      window.f = [];
+      canvas = document.getElementById("c");
+      ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      $("form").trigger("reset");
+      $('#dynamice-region').empty();
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");

@@ -14,9 +14,9 @@ class ListItemView extends Marionette.ItemView
 						                          {{name}}<!--: <span>{{units}}</span>-->
 						                        </li>
 						                        {{/types}}
-					                      		<span class="area {{areaname}}">{{area}} {{measurement_units}}</span>
-					                      		<div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div>
 											</ul>
+					                      	<span class="area {{areaname}}">{{area}} {{measurement_units}}</span>
+					                      	<div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div>
 										 </div>')
 
 	tagName : 'li'

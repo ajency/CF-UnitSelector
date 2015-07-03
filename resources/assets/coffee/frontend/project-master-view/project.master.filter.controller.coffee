@@ -49,7 +49,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
                         		<input type="text" id="area" name="area" value="" />
                         	</div>                     </div>
                      <div class="budgetLabel">
-                        <h6 class="">BUDGET (<span class="icon-rupee-icn"></span>)</h6>
+                        <h6 class="">BUDGET ( <span class="icon-rupee-icn"></span> )</h6>
                         <div class="range-container">
                         	<input type="text" id="budget" name="budget" value="" />
                         </div>                     </div>

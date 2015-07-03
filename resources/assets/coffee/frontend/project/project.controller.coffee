@@ -236,6 +236,7 @@ class CenterView extends Marionette.ItemView
 		PATH = BASEURL+'/projects/'+PROJECTID+'/google_earth/map.svg'
 		windowHeight = $(window).innerHeight() - 56
 		$('.svg-area').css 'height', windowHeight
+		$('.earth-img').css 'height', windowHeight
 		$('.step1-container').css 'height', windowHeight
 		$('.step1-container').css 'min-width', windowHeight * 2
 
