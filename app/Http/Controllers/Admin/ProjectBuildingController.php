@@ -99,15 +99,20 @@ class ProjectBuildingController extends Controller {
         $project = Project::find( $projectId );
         $building = Building::find( $buildingId );
         $floorLayouts = $project->floorLayout()->get();
+        $buildingMaster = $building->building_master;
         $svgImages = [];
-            
-        foreach ($building->building_master as $key => $images) {
-                if (is_numeric($images)) {
-                    $imageName = Media::find($images)->image_name;
-                    $svgImages[$key] = ["ID"=>$images,"NAME"=>$imageName, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
-                }
-                else
-                    $svgImages[$key]['ID'] = $images;
+        
+        if(!empty($buildingMaster))
+        { 
+            ksort($buildingMaster);
+            foreach ($buildingMaster as $key => $images) {
+                    if (is_numeric($images)) {
+                        $imageName = Media::find($images)->image_name;
+                        $svgImages[$key] = ["ID"=>$images,"NAME"=>$imageName, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
+                    }
+                    else
+                        $svgImages[$key]['ID'] = $images;
+            }
         }
         
         $phases = $project->projectPhase()->where('status','not_live')->get()->toArray(); 
@@ -163,8 +168,30 @@ class ProjectBuildingController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
-        //
+    public function destroy( $projectId, $id ) { 
+        $building = Building::find( $id ); 
+        $buildingUnits = $building->projectUnits()->get()->toArray(); 
+         
+        $msg ='';
+        if(!empty($buildingUnits))
+        {
+            $msg ='Units associated to this building';
+            $code = '200';
+        }
+        else{
+            
+            $building->delete();
+            $code = '204';
+
+            $msg ='Building deleted successfully';
+            
+        }
+        
+        return response()->json( [
+                    'code' => 'building_deleted',
+                    'message' => $msg,
+         
+                        ], $code );
     }
     
     public function validateBuildingName(Request $request) {

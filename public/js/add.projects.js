@@ -579,6 +579,24 @@
     });
   });
 
+  $('.delete-building').click(function() {
+    var buildingId, successFn;
+    if (confirm('Are you sure you want to delete this building?') === false) {
+      return;
+    }
+    buildingId = $(this).attr('data-building-id');
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 204) {
+        return window.location = "/admin/project/" + PROJECTID + "/building";
+      }
+    };
+    return $.ajax({
+      url: "/admin/project/" + PROJECTID + "/building/" + buildingId,
+      type: 'DELETE',
+      success: successFn
+    });
+  });
+
   $('.quick-edit').click(function() {
     var compile, hideSaveButton, id, isAgent, str, toggleRow, unitStatus;
     id = $(this).attr('data-object-id');
