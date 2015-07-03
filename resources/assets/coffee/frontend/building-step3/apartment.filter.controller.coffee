@@ -54,7 +54,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                	</div>
 				                                </div>
 				                                <div class="budgetLabel">
-				                                    <h6>BUDGET (<span class="icon-rupee-icn"></span>)</h6>
+				                                    <h6>BUDGET ( <span class="icon-rupee-icn"></span> )</h6>
 				                                    <div class="range-container">
 				                                    	<input type="text" id="budget" name="budget" value="" />
 				                                    </div>

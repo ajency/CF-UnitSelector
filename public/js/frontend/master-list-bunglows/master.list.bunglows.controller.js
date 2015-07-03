@@ -11,7 +11,7 @@
       return BunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowListView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="pull-left">{{unit_name}}</label><span class="status-icon"></span> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft--> <div class="clearfix"></div> </div> <div class="cost"> <span class="icon-rupee-icn"> </span>{{price}} </div>');
+    BunglowListView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="">{{unit_name}}</label><span class="status-icon"></span>  <!--{{super_built_up_area}}sqft--> </div> <div class="cost pull-left"> <span class="icon-rupee-icn"> </span>{{price}} </div> <div class="pull-right"> {{unit_type}} </div> <div class="clearfix"></div>');
 
     BunglowListView.prototype.initialize = function() {
       this.$el.prop("id", 'unit' + this.model.get("id"));

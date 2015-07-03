@@ -509,19 +509,21 @@ function addFloorLevelUploader(level) {
                  };*/
             },
             FilesAdded: function (up, files) {
+                 up.start();
+ 
+            },
+            UploadProgress: function (up, file) {
                 var str = ' ';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
                 str += '</div>';
                 str += '</div>';
                 str += ' ';
+                
                 $("#2d_" + level + "_image").html(str);
-                up.start();
-
-
 
             },
             FileUploaded: function (up, file, xhr) {
@@ -587,6 +589,20 @@ function addFloorLevelUploader(level) {
                 up.start();
 
 
+
+            },
+            UploadProgress: function (up, file) {
+                var str = ' ';
+                 str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
+                str += '</div>';
+                str += '</div>';
+                str += ' ';
+                
+                $("#3d_" + level + "_image").html(str);
 
             },
             FileUploaded: function (up, file, xhr) {
@@ -878,17 +894,22 @@ $(document).ready(function () {
 
             },
             FilesAdded: function (up, files) {
+ 
+                up.start();
+            },
+            UploadProgress: function (up, file) {
+ 
                 var str = '<div class="col-md-3">';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
                 str += '</div>';
                 str += '</div>';
                 str += '</div>';
-                $("#google_earth_image").html(str);
-                up.start();
+                $("#3d_external_img").html(str);
+
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
@@ -937,31 +958,54 @@ $(document).ready(function () {
 
             },
             FilesAdded: function (up, files) {
-                var str = '<div class="col-md-3 variant-gallery-image">';
+                
+                 for (var i = 0; i < files.length; i++) {
+                    
+                    var str = '<div class="col-md-3 variant-gallery-image" id="'+files[i].id+'">';
+                    str += '<div class="img-hover img-thumbnail">';
+                    str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                    str += '<div style="  width: 150px;height: 93px;"></div>';
+                    str += '<div class="progress progress-small " style="margin:0;">';
+                    str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
+                    str += '</div>';
+                    str += '</div>';
+                    str += '</div>';
+                    $("#variant_gallery").append(str);
+
+                }
+             
+                up.start();
+
+            },
+            UploadProgress: function (up, file) {
+ 
+                var str = '';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
                 str += '</div>';
                 str += '</div>';
-                str += '</div>';
-                $("#variant_gallery").append(str);
-                up.start();
+
+                $("#"+file.id).html(str); 
+
 
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                var str = '<div class="col-md-3">';
+ 
+                var str = '';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');"><i class="fa fa-close text-primary"></i></a>';
                 str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
                 str += '<input type="hidden" name="image_gallery[' + fileResponse.data.media_id + ']" id="image_external_3d_id" value="' + fileResponse.data.media_id + '"> ';
                 str += '</div>';
-                str += '</div>';
-
-                $(".variant-gallery-image").remove();
-                $("#variant_gallery").append(str);
+                str += '';
+                
+                //$('#variant_gallery').find('.variant-gallery-image').first().remove();
+                //$("#variant_gallery").append(str);
+                $("#"+file.id).html(str);
 
 
 

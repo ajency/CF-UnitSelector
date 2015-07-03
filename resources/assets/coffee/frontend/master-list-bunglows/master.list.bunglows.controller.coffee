@@ -2,12 +2,15 @@
 class BunglowListView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class=" info">
-										<label class="pull-left">{{unit_name}}</label><span class="status-icon"></span> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
-										<div class="clearfix"></div>
+										<label class="">{{unit_name}}</label><span class="status-icon"></span>  <!--{{super_built_up_area}}sqft-->
 									</div>
-									<div class="cost">
+									<div class="cost pull-left">
 									 <span class="icon-rupee-icn"> </span>{{price}}
-									</div>')
+									</div>
+									<div class="pull-right">
+										{{unit_type}}
+									</div>
+									<div class="clearfix"></div>')
 
 	initialize:->
 		@$el.prop("id", 'unit'+@model.get("id"))
