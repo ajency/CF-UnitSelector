@@ -80,7 +80,7 @@ jQuery(document).ready ($)->
     window.generateSvg = (svgData)->
         # draw.viewbox(0, 0, 1600, 800)
         # create svg background image, set exclude data attrib to true so it can be excluded while exporting the svg
-
+        window.selectMarker = 0
         draw.image(svgImg).data('exclude', true)
 
         # for each svg data check canvas type and generate elements accordingly
@@ -174,7 +174,6 @@ jQuery(document).ready ($)->
                 return
             valueText = value
             valuetemp = value
-            console.log value
             if value is "Apartment/Penthouse"
                 valueText = "apartment"
                 valuetemp = 'apartment'
@@ -195,9 +194,9 @@ jQuery(document).ready ($)->
             else if type is 'unassign'       
                 return      
             else 
-                console.log unitID = parseInt value.id
+                unitID = parseInt value.id
                 if unitID isnt 0
-                    console.log unit = unitMasterCollection.findWhere
+                    unit = unitMasterCollection.findWhere
                             'id' : parseInt value.id
 
                     unitCollection.remove unit.get 'id'
@@ -538,12 +537,19 @@ jQuery(document).ready ($)->
     window.showDetails = (elem)->
         type = $(elem).attr 'type'
         if type != 'unassign' && type != 'undetect'
-            unit = unitMasterCollection.findWhere
+            unit_name = ""
+            if type is 'building'
+                unit = buildingMasterCollection.findWhere
                     'id' : parseInt elem.id
+                unit_name = unit.get('building_name')
+            else
+                unit = unitMasterCollection.findWhere
+                        'id' : parseInt elem.id
+                unit_name = unit.get('unit_name')
             $('.property_type').val $(elem).attr 'type'
             $('.property_type').attr 'disabled' ,  true
             select = $('.units')
-            $('<option />', {value: elem.id, text: unit.get('unit_name')}).appendTo(select)
+            $('<option />', {value: elem.id, text: unit_name}).appendTo(select)
             $('.units').attr 'disabled' ,  true
             $('.units').val elem.id
             $('.units').show()
@@ -884,6 +890,11 @@ jQuery(document).ready ($)->
             window.EDITMODE = true
             currentElem = evt.currentTarget
             
+            if window.selectMarker is 1
+                $('.alert').text 'Can select only one marker at a time!'
+                window.hideAlert()
+                return
+            window.selectMarker = 1
             if $(currentElem).hasClass('concentric-marker')
                 markerType = "concentric"
             else if $(currentElem).hasClass('solid-marker')
@@ -920,6 +931,13 @@ jQuery(document).ready ($)->
         if window.canvas_type isnt 'earthlocationMarker' && svg_type is 'google_earth'
             $(".property_type").find("option[value='project']").remove()
             $('#dynamice-region').empty()
+        $('.area').val("")
+        window.f = []
+        canvas = document.getElementById("c")
+        ctx= canvas.getContext("2d")
+        ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
+        $("form").trigger("reset")
+        $('#dynamice-region').empty()
         $('#aj-imp-builder-drag-drop canvas').show()
         $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
         $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")

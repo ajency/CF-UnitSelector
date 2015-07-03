@@ -44,7 +44,7 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 
 	onShow:->
 		units = Marionette.getOption(@,'units')
-		if units.length == 0
+		if units.length == 0 && EDITMODE is false
 			@ui.units.hide()
 			@ui.unitLabel.hide()
 			$('.alert').text 'No plots'

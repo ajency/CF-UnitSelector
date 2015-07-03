@@ -47,7 +47,7 @@ class AuthoringTool.VillaView extends Marionette.ItemView
 
 	onShow:->
 		units = bunglowVariantCollection.getBunglowUnits()
-		if units.length == 0
+		if units.length == 0 && EDITMODE is false
 			@ui.units.hide()
 			@ui.unitLabel.hide()
 			$('.alert').text 'No villas'

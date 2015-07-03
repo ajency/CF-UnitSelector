@@ -57,6 +57,7 @@
       return rawSvg.appendChild(svgimg);
     };
     window.generateSvg = function(svgData) {
+      window.selectMarker = 0;
       draw.image(svgImg).data('exclude', true);
       $.each(svgData, function(index, value) {
         if (value.canvas_type === 'polygon') {
@@ -154,7 +155,6 @@
         }
         valueText = value;
         valuetemp = value;
-        console.log(value);
         if (value === "Apartment/Penthouse") {
           valueText = "apartment";
           valuetemp = 'apartment';
@@ -182,11 +182,11 @@
         } else if (type === 'unassign') {
 
         } else {
-          console.log(unitID = parseInt(value.id));
+          unitID = parseInt(value.id);
           if (unitID !== 0) {
-            console.log(unit = unitMasterCollection.findWhere({
+            unit = unitMasterCollection.findWhere({
               'id': parseInt(value.id)
-            }));
+            });
             return unitCollection.remove(unit.get('id'));
           }
         }
@@ -502,18 +502,27 @@
       }
     };
     window.showDetails = function(elem) {
-      var select, type, unit;
+      var select, type, unit, unit_name;
       type = $(elem).attr('type');
       if (type !== 'unassign' && type !== 'undetect') {
-        unit = unitMasterCollection.findWhere({
-          'id': parseInt(elem.id)
-        });
+        unit_name = "";
+        if (type === 'building') {
+          unit = buildingMasterCollection.findWhere({
+            'id': parseInt(elem.id)
+          });
+          unit_name = unit.get('building_name');
+        } else {
+          unit = unitMasterCollection.findWhere({
+            'id': parseInt(elem.id)
+          });
+          unit_name = unit.get('unit_name');
+        }
         $('.property_type').val($(elem).attr('type'));
         $('.property_type').attr('disabled', true);
         select = $('.units');
         $('<option />', {
           value: elem.id,
-          text: unit.get('unit_name')
+          text: unit_name
         }).appendTo(select);
         $('.units').attr('disabled', true);
         $('.units').val(elem.id);
@@ -816,6 +825,12 @@
       var currentElem, markerType;
       window.EDITMODE = true;
       currentElem = evt.currentTarget;
+      if (window.selectMarker === 1) {
+        $('.alert').text('Can select only one marker at a time!');
+        window.hideAlert();
+        return;
+      }
+      window.selectMarker = 1;
       if ($(currentElem).hasClass('concentric-marker')) {
         markerType = "concentric";
       } else if ($(currentElem).hasClass('solid-marker')) {
@@ -843,6 +858,7 @@
       }
     });
     $('.select-polygon').on('click', function(e) {
+      var canvas, ctx;
       e.preventDefault();
       window.EDITMODE = true;
       window.canvas_type = "polygon";
@@ -850,6 +866,13 @@
         $(".property_type").find("option[value='project']").remove();
         $('#dynamice-region').empty();
       }
+      $('.area').val("");
+      window.f = [];
+      canvas = document.getElementById("c");
+      ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      $("form").trigger("reset");
+      $('#dynamice-region').empty();
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");

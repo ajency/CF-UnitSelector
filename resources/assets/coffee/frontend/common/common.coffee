@@ -77,9 +77,12 @@ CommonFloor.propertyMaxUnits = ()->
 	Router.push 
 		'type'  : 'bunglows'
 		'count' :bunglowVariantCollection.getBunglowUnits()
+	temp = []
+	$.merge temp ,apartmentVariantCollection.getApartmentUnits()
+	$.merge temp ,apartmentVariantCollection.getPenthouseUnits()
 	Router.push 
 		'type'  : 'building'
-		'count' :apartmentVariantCollection.getApartmentUnits()
+		'count' :temp
 	Router.push 
 		'type'  : 'plot'
 		'count' :plotVariantCollection.getPlotUnits()
@@ -171,10 +174,13 @@ CommonFloor.propertyTypes = ()->
 			'type'  : s.capitalize 'villa(s)'
 			'count' :bunglowVariantCollection.getBunglowUnits()
 			'type_name' : '(V)'
-	if apartmentVariantCollection.getApartmentUnits().length != 0
+	if apartmentVariantCollection.getApartmentUnits().length != 0 || apartmentVariantCollection.getPenthouseUnits().length != 0
+		temp = []
+		$.merge temp ,apartmentVariantCollection.getApartmentUnits()
+		$.merge temp ,apartmentVariantCollection.getPenthouseUnits()
 		Router.push 
 			'type'  : s.capitalize 'apartment(s)/Penthouse(s)'
-			'count' :apartmentVariantCollection.getApartmentUnits()
+			'count' :temp
 			'type_name' : '(A)/(PH)'
 	if plotVariantCollection.getPlotUnits().length != 0
 		Router.push 

@@ -66,8 +66,7 @@
                             <input type="hidden" value="{{ csrf_token()}}" name="_token" />
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                             @if(!$flag)
-                            <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
-
+                             
                             <button type="reset" class="hidden" />
                             <a href="{{ url('admin/agent') }}">
                                 <button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
@@ -175,7 +174,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-left" id="myModalLabel">Bulk Import</h4>
+                    <h4 class="modal-title text-left" id="myModalLabel">Assign units</h4>
                 </div>
                 <div class="modal-body">
                     <a href="" id="unit-export" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download units</a>

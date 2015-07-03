@@ -117,6 +117,7 @@
         CommonFloor.defaults['type'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
+        this.loadSelectedFilters();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -141,6 +142,7 @@
         CommonFloor.defaults['type'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
+        this.loadSelectedFilters();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -165,6 +167,7 @@
         CommonFloor.defaults['type'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
+        this.loadSelectedFilters();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
