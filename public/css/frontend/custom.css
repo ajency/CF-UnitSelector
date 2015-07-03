@@ -1416,6 +1416,12 @@ hr.embossed {
   content: "\e761";
   font-family: icomoon;
 }
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* IE10+ specific styles go here */
+  .breadcrumb-bar a {
+    font-size: 17px;
+  }
+}
 @media (max-width: 768px) {
   .breadcrumb-bar a {
     padding: 10px;
@@ -3087,7 +3093,7 @@ span.glyphicon {
 .back_btn {
   display: none;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .filters-wrapper-hover {
     right: 0;
     top: 0;
