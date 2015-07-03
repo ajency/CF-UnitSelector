@@ -193,7 +193,7 @@ jQuery(document).ready ($)->
 
             else if type is 'unassign'       
                 return      
-            else 
+            else if type isnt 'project'
                 unitID = parseInt value.id
                 if unitID isnt 0
                     unit = unitMasterCollection.findWhere
