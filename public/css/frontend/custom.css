@@ -2889,6 +2889,9 @@ svg .no-fill {
 .filters-wrapper .property_type .share-btn {
   background: #DBDBDB;
 }
+.filters-wrapper .budgetLabel .icon-rupee-icn {
+  font-size: 10px;
+}
 .filters-wrapper .arrow-right {
   float: right;
 }
