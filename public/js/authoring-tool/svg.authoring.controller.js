@@ -181,7 +181,7 @@
           return buildingCollection.remove(bldg);
         } else if (type === 'unassign') {
 
-        } else if (type !== 'project') {
+        } else if (type !== 'project' && type !== 'unassign' && type !== 'building') {
           unitID = parseInt(value.id);
           if (unitID !== 0) {
             unit = unitMasterCollection.findWhere({
@@ -511,7 +511,7 @@
             'id': parseInt(elem.id)
           });
           unit_name = unit.get('building_name');
-        } else {
+        } else if (type !== 'building' && type !== 'project') {
           unit = unitMasterCollection.findWhere({
             'id': parseInt(elem.id)
           });
