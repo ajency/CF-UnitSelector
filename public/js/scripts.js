@@ -961,20 +961,6 @@ $(document).ready(function () {
                 up.start();
 
             },
-            UploadProgress: function (up, file) {
-                 var str = '<div class="col-md-3 variant-gallery-image">';
-                str += '<div class="img-hover img-thumbnail">';
-                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
-                str += '<div style="  width: 150px;height: 93px;"></div>';
-                str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
-                str += '</div>';
-                str += '</div>';
-                str += '</div>';
- 
-                $("#variant_gallery").append(str);
-
-            },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
                 var str = '<div class="col-md-3">';
