@@ -58,7 +58,9 @@ class AuthoringTool.ApartmentView extends Marionette.ItemView
 class AuthoringTool.ApartmentCtrl extends Marionette.RegionController
 
 	initialize :->
-		units = apartmentVariantCollection.getApartmentUnits()
+		units = []
+		$.merge units , apartmentVariantCollection.getApartmentUnits()
+		$.merge units , apartmentVariantCollection.getPenthouseUnits()
 		temp = new Backbone.Collection units
 		newUnits = temp.where
 				'building_id' : parseInt building_id
