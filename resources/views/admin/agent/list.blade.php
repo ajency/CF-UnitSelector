@@ -23,9 +23,9 @@
                 <table class="table table-bordered userList" id="example2" >
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th style="width: 228px;">Name</th>
                             <th style="width: 134px;">Email</th>
-                            <th>Phone</th>
+                            <th >Phone</th>
                             <th>Status</th>
                             <th class="date-sort">Created On</th>
                             <th class="date-sort">Modified On</th>
