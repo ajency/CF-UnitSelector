@@ -2168,9 +2168,11 @@ svg .no-fill {
   content: ', ';
   float: none;
   margin-right: 5px;
+  margin-left: 0;
 }
 .one .blocks.bldg .unit-type-info li:last-child::after {
   content: '';
+  display: none;
 }
 .one .blocks.bldg .unit-type-info .area {
   font-size: 12px;
