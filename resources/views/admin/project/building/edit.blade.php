@@ -199,7 +199,7 @@
                                        <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
                            <input type="hidden" name="_method" value="PUT">
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                    <button type="button" class="btn btn-danger btn-cons delete-building" data-building-id="{{ $building->id }}"><i class="fa fa-check"></i> Delete</button>                        
+                    <button type="button" class="btn btn-danger btn-cons delete-building" data-building-id="{{ $building->id }}">Delete</button>                        
 
                     <a href="{{ url('admin/project/'. $project['id'] .'/building') }}"> <button class="btn btn-default btn-cons" type="submit"><i class="fa fa-ban"></i>
                         Cancel</button></a>
