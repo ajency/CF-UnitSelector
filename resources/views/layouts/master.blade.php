@@ -136,7 +136,7 @@
                         </li>
                         <li class="">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-street-view"></i>
                                 <span class="title">Agents</span>
                                 <span class="arrow"></span>
                             </a>

@@ -22,7 +22,8 @@
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
  <div class="grid simple">
      @include('admin.project.flashmessage')
-<form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">    
+<form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">
+    <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
                 <div class="grid-body grid-padding no-border">
                     <div class=" m-t-15 m-b-15 no-border">
                         <div class="row">
@@ -106,12 +107,8 @@
                                     <a id="master_pickfiles" tabindex="0"  class="file-input-wrapper btn btn-default btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
                                 
                                                    <div class="alert alert-info">
-                <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,
-                upload images in the sequence ( Front -> Right -> Back -> Left). 
-                             Image dimensions should be - 
-                                            1600*1095. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
-                            Naming convention to be followed for the images uploaded -Imagename-00 (E.g Master-00(first image), Master-01 and so on).
-                            For large buildings, the image dimensions should be 4000*2000.
+                <strong><i class="fa fa-info"></i></strong> Upload 3D view of the building. To enable 360 degree rotation of the building, upload images in the sequence ( Front -> Right -> Back -> Left) and follow the naming convention. Image dimensions should be - 1600*800 or higher dimension but in the ratio 2:1 (4000*2000). Resolution - 100 DPI. Max size 3mb. Supported file formats jpg, jpeg, png. Naming convention - First image should be : master-00, 
+                second : master-01, third : master-02 and so on with no images missing in the sequence.
                 </div>
                                                                                     
         
@@ -200,9 +197,10 @@
                 @if(hasPermission($project['id'],['configure_building']))
                 <div class="form-actions">
                                     <div class="text-right">
-                                       <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
+                                       
                            <input type="hidden" name="_method" value="PUT">
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                    <button type="button" class="btn btn-danger btn-cons delete-building" data-building-id="{{ $building->id }}"><i class="fa fa-check"></i> Delete</button>                        
 
                     <a href="{{ url('admin/project/'. $project['id'] .'/building') }}"> <button class="btn btn-default btn-cons" type="submit"><i class="fa fa-ban"></i>
                         Cancel</button></a>

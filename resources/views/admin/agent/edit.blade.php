@@ -88,18 +88,18 @@
     <div class="grid-body no-border user-project">
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @if(!empty($userProjects)) @foreach($userProjects as $userProject)
                 <div class="row m-b-10 project_block project-{{ $userProject['project_id'] }}">
-                    <div class="col-md-8 ">
+                    <div class="col-md-7">
                         <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
                     </div>
-                    <div class="col-md-2 text-center">
-                        <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,'{{ $userProject['project_id'] }}');"><i class="fa fa-upload"></i> Assign units</a>
+                    <div class="col-md-3 text-center">
+                        <a class="btn btn-link pull-right m-l-5 " onclick="openModal(this,'{{ $userProject['project_id'] }}');"><i class="fa fa-magic"></i> Assign units</a>
 
                     </div>
                     <div class="col-md-2 text-center">
-                        <a class="text-primary delete-user-project" data-project-id="{{ $userProject['project_id'] }}"><i class="fa fa-close"></i></a>
+                        <a class="text-primary delete-user-project btn btn-link" data-project-id="{{ $userProject['project_id'] }}"><i class="fa fa-close text-primary"></i></a>
                     </div>
 
                 </div>

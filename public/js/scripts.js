@@ -966,7 +966,7 @@ $(document).ready(function () {
                     str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                     str += '<div style="  width: 150px;height: 93px;"></div>';
                     str += '<div class="progress progress-small " style="margin:0;">';
-                    str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                    str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
                     str += '</div>';
                     str += '</div>';
                     str += '</div>';

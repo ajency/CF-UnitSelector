@@ -68,7 +68,9 @@
 
     ApartmentCtrl.prototype.initialize = function() {
       var newUnits, temp, units;
-      units = apartmentVariantCollection.getApartmentUnits();
+      units = [];
+      $.merge(units, apartmentVariantCollection.getApartmentUnits());
+      $.merge(units, apartmentVariantCollection.getPenthouseUnits());
       temp = new Backbone.Collection(units);
       newUnits = temp.where({
         'building_id': parseInt(building_id)
