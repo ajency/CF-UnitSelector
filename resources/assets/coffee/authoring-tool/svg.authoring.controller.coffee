@@ -1523,11 +1523,14 @@ jQuery(document).ready ($)->
         $('.amenity').tooltipster('content', html)
 
 
-    $('ellipse').on 'mousedown' ,(e)->
-        console.log "enteredddddddddddddddddddddddd"
-        $('.svg-canvas').css('transform', 'scale(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
+    $('svg').on 'mousedown' ,'.concentric-marker-grp' ,(e)->
+        console.log $('.svg-canvas').panzoom("getMatrix").join(',')
+        $('.svg-canvas').css('transform', 'matrix(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
 
-   
+    $('svg').on 'mouseup' ,'.concentric-marker-grp',(e)->
+        console.log $('.svg-canvas').panzoom("getMatrix").join(',')
+        $('.svg-canvas').css('transform', 'matrix(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
+
 
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"
