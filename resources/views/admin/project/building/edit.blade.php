@@ -22,7 +22,8 @@
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
  <div class="grid simple">
      @include('admin.project.flashmessage')
-<form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">    
+<form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">
+    <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
                 <div class="grid-body grid-padding no-border">
                     <div class=" m-t-15 m-b-15 no-border">
                         <div class="row">
@@ -196,7 +197,7 @@
                 @if(hasPermission($project['id'],['configure_building']))
                 <div class="form-actions">
                                     <div class="text-right">
-                                       <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
+                                       
                            <input type="hidden" name="_method" value="PUT">
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                     <button type="button" class="btn btn-danger btn-cons delete-building" data-building-id="{{ $building->id }}">Delete</button>                        

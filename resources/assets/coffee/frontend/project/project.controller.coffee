@@ -296,6 +296,7 @@ class CenterView extends Marionette.ItemView
 					trigger: 'hover'
 
 				)
+				$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 
 		)
 

@@ -181,7 +181,7 @@
           return buildingCollection.remove(bldg);
         } else if (type === 'unassign') {
 
-        } else if (type !== 'project') {
+        } else if (type !== 'project' && type !== 'unassign' && type !== 'building') {
           unitID = parseInt(value.id);
           if (unitID !== 0) {
             unit = unitMasterCollection.findWhere({
@@ -511,7 +511,7 @@
             'id': parseInt(elem.id)
           });
           unit_name = unit.get('building_name');
-        } else {
+        } else if (type !== 'building' && type !== 'project') {
           unit = unitMasterCollection.findWhere({
             'id': parseInt(elem.id)
           });
@@ -1335,9 +1335,13 @@
       html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
       return $('.amenity').tooltipster('content', html);
     });
-    return $('ellipse').on('mousedown', function(e) {
-      console.log("enteredddddddddddddddddddddddd");
-      return $('.svg-canvas').css('transform', 'scale(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
+    $('svg').on('mousedown', '.concentric-marker-grp', function(e) {
+      console.log($('.svg-canvas').panzoom("getMatrix").join(','));
+      return $('.svg-canvas').css('transform', 'matrix(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
+    });
+    return $('svg').on('mouseup', '.concentric-marker-grp', function(e) {
+      console.log($('.svg-canvas').panzoom("getMatrix").join(','));
+      return $('.svg-canvas').css('transform', 'matrix(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
     });
   });
 

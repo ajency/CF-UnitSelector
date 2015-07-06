@@ -193,7 +193,7 @@ jQuery(document).ready ($)->
 
             else if type is 'unassign'       
                 return      
-            else if type isnt 'project'
+            else if type isnt 'project' && type isnt 'unassign'  && type isnt 'building'  
                 unitID = parseInt value.id
                 if unitID isnt 0
                     unit = unitMasterCollection.findWhere
@@ -542,7 +542,7 @@ jQuery(document).ready ($)->
                 unit = buildingMasterCollection.findWhere
                     'id' : parseInt elem.id
                 unit_name = unit.get('building_name')
-            else
+            else if type isnt 'building' && type isnt 'project'
                 unit = unitMasterCollection.findWhere
                         'id' : parseInt elem.id
                 unit_name = unit.get('unit_name')
@@ -1523,11 +1523,14 @@ jQuery(document).ready ($)->
         $('.amenity').tooltipster('content', html)
 
 
-    $('ellipse').on 'mousedown' ,(e)->
-        console.log "enteredddddddddddddddddddddddd"
-        $('.svg-canvas').css('transform', 'scale(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
+    $('svg').on 'mousedown' ,'.concentric-marker-grp' ,(e)->
+        console.log $('.svg-canvas').panzoom("getMatrix").join(',')
+        $('.svg-canvas').css('transform', 'matrix(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
 
-   
+    $('svg').on 'mouseup' ,'.concentric-marker-grp',(e)->
+        console.log $('.svg-canvas').panzoom("getMatrix").join(',')
+        $('.svg-canvas').css('transform', 'matrix(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
+
 
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"

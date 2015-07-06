@@ -6,13 +6,13 @@ class BunglowVariant extends Backbone.Model
 		basicCost = ""
 		if unit_model not instanceof Backbone.Model || unit_model == ""
 			return 
-		# unitVarinatModel = bunglowVariantMasterCollection.findWhere({
-		# 	'id':parseInt(unit_model.get('unit_variant_id'))})
-		# if unitVarinatModel != undefined
-		# 	basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
-		# 					parseFloat(unitVarinatModel.get('super_built_up_area'))
-		# 	basicCost = basic_cost.toFixed(2)
-		basicCost = unit_model.get 'selling_amount'
+		unitVarinatModel = bunglowVariantMasterCollection.findWhere({
+			'id':parseInt(unit_model.get('unit_variant_id'))})
+		if unitVarinatModel != undefined
+			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
+							parseFloat(unitVarinatModel.get('super_built_up_area'))
+			basicCost = basic_cost.toFixed(2)
+		# basicCost = unit_model.get 'selling_amount'
 		basicCost
 
 	

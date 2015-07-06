@@ -261,6 +261,7 @@ class LeftUnitView extends Marionette.ItemView
 		
 		$.each similarUnits[0], (index,value)->
 			res = window.unit.getUnitDetails(value.get('id'))
+
 			temp.push 
 				'unit_name' : value.get('unit_name')
 				'unit_type' : res[1].get 'name'
@@ -341,10 +342,11 @@ class LeftUnitView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
-
+		unitModel = unitMasterCollection.findWhere
+					'id' : unitid
 		# unitSellingAmount  = Marionette.getOption(@,'unitSellingAmount')
 		# unitSellingAmount = parseInt unitSellingAmount
-		$('.price').text window.numDifferentiation(response[3])
+		$('.price').text window.numDifferentiation(unitModel.get('selling_amount'))
 		# $('.price').text window.numDifferentiation(unitSellingAmount)
 		
 		if response[2] is 'apartment'
