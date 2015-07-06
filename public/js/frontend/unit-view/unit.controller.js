@@ -270,11 +270,14 @@
     };
 
     LeftUnitView.prototype.onShow = function() {
-      var response, unitid, url;
+      var response, unitModel, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
-      $('.price').text(window.numDifferentiation(response[3]));
+      unitModel = unitMasterCollection.findWhere({
+        'id': unitid
+      });
+      $('.price').text(window.numDifferentiation(unitModel.get('selling_amount')));
       if (response[2] === 'apartment') {
         return $('.collapseLevel').collapse('show');
       }
