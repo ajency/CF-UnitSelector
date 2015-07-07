@@ -38,8 +38,11 @@ class ProjectController extends Controller {
             }                          
             
         }
+        $commonFloorData = unserialize( $projectRepository->getProjectById( $projectId )->projectMeta()->where( 'meta_key', 'cf' )->first()->meta_value );
+        $property_page_link = CF_WEBSITE_URL.$commonFloorData['property_page_link'];
  
         return view( 'frontend.projectview' )->with( 'id' , $data['id'])
-                                            ->with( 'project_title' , $data['project_title']);
+                                            ->with( 'project_title' , $data['project_title'])
+                                            ->with( 'property_page_link' , $property_page_link);
     }
 }
