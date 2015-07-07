@@ -525,7 +525,7 @@
         if (units.length === 0) {
           return;
         }
-        if (building !== void 0) {
+        if (building !== void 0 && units.length !== 0) {
           if (Object.keys(building.get('building_master')).length === 0) {
             return CommonFloor.navigate('/building/' + id + '/apartments', true);
           } else {

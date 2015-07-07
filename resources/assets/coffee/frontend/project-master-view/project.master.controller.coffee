@@ -552,7 +552,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						'building_id' : id
 			if units.length == 0
 				return
-			if building != undefined
+			if building != undefined && units.length isnt 0
 				if Object.keys(building.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true
 					
