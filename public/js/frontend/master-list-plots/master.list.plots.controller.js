@@ -36,7 +36,6 @@
 
     PlotListView.prototype.onShow = function() {
       var availability, classname, html, id, status;
-      this.iniTooltip(this.model.get('id'));
       html = this.getHtml(this.model.get('id'));
       id = this.model.get('id');
       availability = this.model.get('availability');
@@ -61,25 +60,6 @@
         $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
         return $('#' + id).tooltipster('hide');
-      },
-      'click': function(e) {
-        var id, unit;
-        id = this.model.get('id');
-        unit = unitCollection.findWhere({
-          id: id
-        });
-        if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
-          $('.layer').tooltipster('hide');
-          $('svg').attr('class', 'zoom');
-          $('#spritespin').addClass('zoom');
-          $('.us-right-content').addClass('fadeOut');
-          $('.cf-loader').removeClass('hidden');
-          return setTimeout(function(x) {
-            return CommonFloor.navigate('/unit-view/' + id, {
-              trigger: true
-            });
-          }, 500);
-        }
       }
     };
 
