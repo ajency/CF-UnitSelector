@@ -153,7 +153,8 @@ class BuildingMediaController extends Controller {
        
         $media = Media::find( $id );
         $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/".$media->image_name;
-        unlink($targetDir);
+        //unlink($targetDir);
+        \File::delete($targetDir);
         $media->delete();
 
         return response()->json([
