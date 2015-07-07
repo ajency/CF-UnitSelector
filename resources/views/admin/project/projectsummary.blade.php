@@ -68,7 +68,7 @@
             </div>
             <div class="col-md-5">
                 <h5 class="semi-bold">
-                To check out the frontend of Unit Selector <br><a target="_blank" href="{{ url( 'project/' . $project['id'].'/') }}" class="text-primary">click here >></a>
+                To check out the frontend of Unit Selector <a target="_blank" href="{{ url( 'project/' . $project['id'].'/') }}" class="text-primary">click here >></a>
             </h5>
             </div>
         </div>
@@ -261,17 +261,17 @@
             <thead>
                 <tr>
 
-                    <td width="7%"><span class="semi-bold">Phase</span></td>
+                    <td width="9%"><span class="semi-bold">Phase</span></td>
 
 
-                    <td width="10%"><span class="semi-bold">Unit Type</span></td>
+                    <td width="13%"><span class="semi-bold">Unit Type</span></td>
                     <td width="10%"><span class="semi-bold">Available</span></td>
-                    <td width="10%"><span class="semi-bold">Sold</span></td>
+                    <td width="8%"><span class="semi-bold">Sold</span></td>
                     <td width="10%"><span class="semi-bold">Blocked</span></td>
-                    <td width="15%"><span class="semi-bold">Not Released</span></td>
+                    <td width="13%"><span class="semi-bold">Not Released</span></td>
                     <td width="15%"><span class="semi-bold">Booked By Agent</span></td>
                     <td width="10%"><span class="semi-bold">Archived</span></td>
-                    <td width="5%"><span class="semi-bold">Total</span></td>
+                    <td width="7%"><span class="semi-bold">Total</span></td>
                 </tr>
             </thead>
             <tbody>
