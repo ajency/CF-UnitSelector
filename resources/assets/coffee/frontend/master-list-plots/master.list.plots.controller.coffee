@@ -67,22 +67,22 @@ class PlotListView extends Marionette.ItemView
             $('#'+id).tooltipster('hide')
             # $('#'+id).tooltipster('show')
 
-        # 'click' :(e)->
-        #     id = @model.get('id')
-        #     unit = unitCollection.findWhere 
-        #         id :  id 
+        'click' :(e)->
+            id = @model.get('id')
+            unit = unitCollection.findWhere 
+                id :  id 
         
-        #     if !(_.isUndefined unit) && unit.get('availability') is 'available'
-        #         $('.layer').tooltipster('hide')
-        #         $('svg').attr('class' ,'zoom')
-        #         $('#spritespin').addClass 'zoom'
-        #         $('.us-right-content').addClass 'fadeOut'
-        #         $('.cf-loader').removeClass 'hidden'
-        #         setTimeout( (x)->
-        #             CommonFloor.navigate '/unit-view/'+id , trigger : true
-        #             # CommonFloor.router.storeRoute()
+            if !(_.isUndefined unit) && unit.get('availability') is 'available'
+                $('.layer').tooltipster('hide')
+                $('svg').attr('class' ,'zoom')
+                $('#spritespin').addClass 'zoom'
+                $('.us-right-content').addClass 'fadeOut'
+                $('.cf-loader').removeClass 'hidden'
+                setTimeout( (x)->
+                    CommonFloor.navigate '/unit-view/'+id , trigger : true
+                    # CommonFloor.router.storeRoute()
 
-        #         , 500)
+                , 500)
 
     iniTooltip:(id)->
         $('#'+id).trigger('click')
