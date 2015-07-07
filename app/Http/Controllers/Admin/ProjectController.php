@@ -30,7 +30,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
-        
+ 
         $userId =  \Auth::user()->id;
         $defaultRole = getDefaultRole($userId);
         
@@ -47,8 +47,7 @@ class ProjectController extends Controller {
             }
             $projects = Project::whereIn('id',$projectIds)->orderBy('project_title')->get()->toArray();
         }
-        
-        
+    
         return view('admin.project.list')
                         ->with('projects', $projects)
                         ->with('menuFlag', FALSE);

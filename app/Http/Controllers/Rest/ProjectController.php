@@ -335,7 +335,7 @@ class ProjectController extends Controller {
             if($result_json && !is_null($result_json->status) && $result_json->status != '0'){
                 $total_page = (int)$result_json->results->total_page;
                 
-                $projects = $result_json->results->projects;
+                $projects = $result_json->results->projects; 
                 foreach ($projects as $project) {
                     $project_info = array();
                     $project_info['property_id'] = $project->property_id;
@@ -343,6 +343,7 @@ class ProjectController extends Controller {
                     $project_info['address'] = $project->address;
                     $project_info['builder_name'] = $project->builder_name;
                     $project_info['builder_image_url'] = ProjectController::builderImageUrl($project->builder_name);
+                    $project_info['property_page_link'] = $project->public_url;
                     $result[] =$project_info;
                 }
 

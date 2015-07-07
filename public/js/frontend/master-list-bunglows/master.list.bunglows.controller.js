@@ -138,7 +138,7 @@
       return MasterBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterBunglowListView.prototype.template = Handlebars.compile('	<div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas</li> <li class="prop-type Plots_tab hidden">Plots</li> </ul> </div> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">Not Available</li> <!--<li class="blocked">BLOCKED</li>--> <li class="na">Not in Selection</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units two"> </ul> <div class="clearfix"></div> </div> </div>');
+    MasterBunglowListView.prototype.template = Handlebars.compile('	<div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">Not Available</li> <!--<li class="blocked">BLOCKED</li>--> <li class="na">Not in Selection</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units two"> </ul> <div class="clearfix"></div> </div> </div>');
 
     MasterBunglowListView.prototype.childView = BunglowListView;
 
@@ -183,7 +183,7 @@
           region: this.region
         });
       },
-      'click .Plots_tab': function(e) {
+      'click .Plots': function(e) {
         var data, units;
         units = plotVariantCollection.getPlotUnits();
         data = {};
@@ -203,7 +203,7 @@
         $('.buildings').removeClass('hidden');
       }
       if (plotVariantCollection.length !== 0) {
-        $('.Plots_tab').removeClass('hidden');
+        $('.Plots').removeClass('hidden');
       }
       if ($(window).width() > 991) {
         return $('.units').mCustomScrollbar({

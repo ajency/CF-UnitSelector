@@ -51,6 +51,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
             'builder_name' => $projectData['builder_name'],
             'builder_link' => $projectData['builder_link'],
             'project_image' => $projectData['project_image'],
+            'property_page_link' => $projectData['property_page_link'],
         ];
 
         $defaultMaster = [];
