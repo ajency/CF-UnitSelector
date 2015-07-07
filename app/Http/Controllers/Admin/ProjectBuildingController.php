@@ -98,6 +98,8 @@ class ProjectBuildingController extends Controller {
   
         $project = Project::find( $projectId );
         $building = Building::find( $buildingId );
+        if($building==null)
+            abort(404);
         $floorLayouts = $project->floorLayout()->get();
         $buildingMaster = $building->building_master;
         $svgImages = [];
