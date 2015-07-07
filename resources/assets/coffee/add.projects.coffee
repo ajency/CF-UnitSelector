@@ -147,6 +147,7 @@ jQuery(document).ready ($)->
                             project_status : ""
                             builder_name : proj.builder_name
                             builder_link : ""
+                            property_page_link : proj.property_page_link
                             
                         projectsCollection.push project
                         options += "<option value='#{project.cf_project_id}'>#{project.project_title}</option>"
@@ -198,6 +199,7 @@ jQuery(document).ready ($)->
                             <input type="hidden" name="builder_name" value="{{ builder_name }}" />
                             <input type="hidden" name="builder_link" value="{{ builder_link }}" />
                             <input type="hidden" name="project_image" value="{{ project_image }}" />
+                            <input type="hidden" name="property_page_link" value="{{ property_page_link }}" />
                             <strong>Note: </strong> The above information is as entered in CommonFloor database.
                         </div>
                     </div>'
