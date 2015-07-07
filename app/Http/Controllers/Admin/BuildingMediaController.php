@@ -155,6 +155,9 @@ class BuildingMediaController extends Controller {
         $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/".$media->image_name;
         //unlink($targetDir);
         \File::delete($targetDir);
+        if(file_exists ( $targetDir ))
+          \File::delete($targetDir);
+        
         $media->delete();
 
         return response()->json([
