@@ -15,6 +15,7 @@ use \Session;
 use \Excel;
 use Auth;
 use CommonFloor\AgentUnit; 
+use CommonFloor\Http\Controllers\Admin\ProjectBunglowUnitController;
 
 class ProjectPlotUnitController extends Controller {
 
@@ -107,7 +108,9 @@ class ProjectPlotUnitController extends Controller {
      */
     public function store($project_id, Request $request) {
         $unit = new Unit();
-        $unit->unit_name = ucfirst($request->input('unit_name'));
+        $unitName = ucfirst($request->input('unit_name'));
+        $unit->unit_name = $unitName;
+        
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->phase_id = $request->input('phase');
@@ -124,6 +127,11 @@ class ProjectPlotUnitController extends Controller {
         $unit->save();
         $unitid = $unit->id;
         Session::flash('success_message','Unit Successfully Created');
+        
+        if(ProjectBunglowUnitController::add_unit_to_booking_crm($unitid,$unitName,$project_id))
+            Session::flash('success_message','Unit Successfully Created And Updated To CRM');
+        else
+            Session::flash('success_error','Failed To Update Unit Data Into CRM');
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
@@ -351,7 +359,8 @@ class ProjectPlotUnitController extends Controller {
                    }
  
                     $unit =new Unit();
-                    $unit->unit_name = ucfirst($name);
+                    $unitName = ucfirst($name);
+                    $unit->unit_name = $unitName;
                     $unit->unit_variant_id = $variantId;
                     $unit->availability = $availability;
                     $unit->direction = $direction;
@@ -367,6 +376,8 @@ class ProjectPlotUnitController extends Controller {
                     $viewsStr = serialize( $unitviews );
                     $unit->views = $viewsStr;
                     $unit->save();
+                   
+                   ProjectBunglowUnitController::add_unit_to_booking_crm($unit->id,$unitName,$projectId);
                     Session::flash('success_message','Unit Successfully Imported');
                  
                }

@@ -16,6 +16,7 @@ use \Session;
 use \Excel;
 use Auth;
 use CommonFloor\AgentUnit; 
+use CommonFloor\Http\Controllers\Admin\ProjectBunglowUnitController;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -96,7 +97,8 @@ class ProjectApartmentUnitController extends Controller {
     public function store($projectId, Request $request) {
 
         $unit = new Unit;
-        $unit->unit_name = ucfirst($request->get('unit_name'));
+        $unitName =  ucfirst($request->get('unit_name'));
+        $unit->unit_name = $unitName;
         $unit->unit_variant_id = $request->get('unit_variant_id');
         $unit->building_id = $request->get('building_id');
         $unit->floor = $request->get('floor');
@@ -115,6 +117,11 @@ class ProjectApartmentUnitController extends Controller {
         
         $unit->save();
         Session::flash('success_message','Unit Successfully Created');
+            
+        if(ProjectBunglowUnitController::add_unit_to_booking_crm($unit->id,$unitName,$projectId))
+            Session::flash('success_message','Unit Successfully Created And Updated To CRM');
+        else
+            Session::flash('success_error','Failed To Update Unit Data Into CRM');    
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
@@ -451,7 +458,8 @@ class ProjectApartmentUnitController extends Controller {
                    
                      
                     $unit =new Unit();
-                    $unit->unit_name = ucfirst($name);
+                    $unitName = ucfirst($name);
+                    $unit->unit_name = $unitName;
                     $unit->unit_variant_id = $variantId;
                     $unit->building_id = $buildingId;
                     $unit->floor =$floor;
@@ -469,6 +477,8 @@ class ProjectApartmentUnitController extends Controller {
                     $viewsStr = serialize( $unitviews );
                     $unit->views = $viewsStr;
                     $unit->save();
+                   
+                   ProjectBunglowUnitController::add_unit_to_booking_crm($unit->id,$unitName,$projectId);
 
                 Session::flash('success_message','Unit Successfully Imported');  
                }
