@@ -490,7 +490,18 @@
       'click #next': function() {
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
-      'click .villa,.plot': function(e) {
+      'click .villa': function(e) {
+        var id, unit;
+        e.preventDefault();
+        id = parseInt(e.currentTarget.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
+          return CommonFloor.navigate('/unit-view/' + id, true);
+        }
+      },
+      'click @ui.plotunit': function(e) {
         var id, unit;
         e.preventDefault();
         id = parseInt(e.currentTarget.id);

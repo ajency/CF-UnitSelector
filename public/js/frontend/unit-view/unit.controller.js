@@ -250,12 +250,10 @@
               });
             }
           });
-          if (attributes.length > 0) {
-            return rooms.push({
-              'room_name': val.room_name,
-              'attributes': attributes
-            });
-          }
+          return rooms.push({
+            'room_name': val.room_name,
+            'attributes': attributes
+          });
         });
         if (rooms.length > 0) {
           level_id = s.replaceAll(level_name, " ", "_");
