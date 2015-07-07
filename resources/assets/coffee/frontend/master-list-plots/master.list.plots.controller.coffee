@@ -178,7 +178,7 @@ class MasterPlotListView extends Marionette.CompositeView
 
                                             <li class="prop-type buildings hidden">Buildings</li>
                                             <li class="prop-type Villas  hidden ">Villas</li>
-                                            <li class="prop-type Plots_tab active">Plots</li>
+                                            <li class="prop-type Plots active">Plots</li>
                                           </ul>
                                         </div>
                                         <div class="bldg-list">
@@ -246,7 +246,7 @@ class MasterPlotListView extends Marionette.CompositeView
             new CommonFloor.MasterBunglowListCtrl region : @region
             # @trigger "load:units" , data
 
-        'click .Plots_tab':(e)->
+        'click .Plots':(e)->
             units = plotVariantCollection.getPlotUnits()
             data = {}
             data.units = units
