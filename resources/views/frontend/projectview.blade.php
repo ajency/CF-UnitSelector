@@ -67,7 +67,7 @@
                 <div class="col-sm-12">
                   <ul class="nav navbar-nav footer-nav">
                     <li>
-                      <a href="#" title="POVP" class="povp"><span class="icon-arrow-right"></span> POVP</a>
+                      <a href="#" title="POVP" class="povp"><span class="icon-arrow-right"></span> Property Page</a>
                     </li>
                     <li>
                       <a href="http://www.commonfloor.com/privacy-policy" target="_blank" title="Privacy Policy">Privacy Policy</a>

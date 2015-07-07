@@ -8181,6 +8181,9 @@ body.rtl .footer-widget {
 a {
   cursor: pointer;
 }
+.form-control {
+  height: 37px!important;
+}
 iframe {
   height: 700px;
   border: none;
@@ -8544,3 +8547,4 @@ input[type="file"] {
 .radio.radio-primary [type="radio"]:not(:checked):focus + label:before {
   border: 1.5px dotted #2196f3;
 }
+/*# sourceMappingURL=style.css.map */
