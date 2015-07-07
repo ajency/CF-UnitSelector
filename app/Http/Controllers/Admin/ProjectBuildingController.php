@@ -98,6 +98,8 @@ class ProjectBuildingController extends Controller {
   
         $project = Project::find( $projectId );
         $building = Building::find( $buildingId );
+        if($building==null)
+            abort(404);
         $floorLayouts = $project->floorLayout()->get();
         $buildingMaster = $building->building_master;
         $svgImages = [];
@@ -186,7 +188,7 @@ class ProjectBuildingController extends Controller {
             $msg ='Building deleted successfully';
             
         }
-        
+        Session::flash('success_message','Building successfully deleted');
         return response()->json( [
                     'code' => 'building_deleted',
                     'message' => $msg,

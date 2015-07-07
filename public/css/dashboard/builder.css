@@ -135,6 +135,9 @@ svg polygon {
 svg .no-fill {
   opacity: 0;
 }
+.step1-wrapper svg {
+  height: 100%;
+}
 .amenity {
   stroke-width: 1 !important;
   stroke: #FF7E00;
