@@ -107,6 +107,7 @@ class ProjectPlotUnitController extends Controller {
      * @return Response
      */
     public function store($project_id, Request $request) {
+        $cfProjectId = Project::find($project_id)->cf_project_id;
         $unit = new Unit();
         $unitName = ucfirst($request->input('unit_name'));
         $unit->unit_name = $unitName;
@@ -128,7 +129,7 @@ class ProjectPlotUnitController extends Controller {
         $unitid = $unit->id;
         Session::flash('success_message','Unit Successfully Created');
         
-        if(ProjectBunglowUnitController::add_unit_to_booking_crm($unitid,$unitName,$project_id))
+        if(ProjectBunglowUnitController::add_unit_to_booking_crm($unitid,$unitName,$cfProjectId))
             Session::flash('success_message','Unit Successfully Created And Updated To CRM');
         else
             Session::flash('success_error','Failed To Update Unit Data Into CRM');
@@ -158,7 +159,7 @@ class ProjectPlotUnitController extends Controller {
      */
     public function edit($project_id, $id, ProjectRepository $projectRepository) {
         $unit = Unit::find($id);
-        $project = $projectRepository->getProjectById($project_id);
+        $project = $projectRepository->getProjectById($project_id); 
         $projectAttributes = $project->attributes->toArray();
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $defaultDirection = Defaults::where('type','direction')->get()->toArray();
@@ -377,7 +378,7 @@ class ProjectPlotUnitController extends Controller {
                     $unit->views = $viewsStr;
                     $unit->save();
                    
-                   ProjectBunglowUnitController::add_unit_to_booking_crm($unit->id,$unitName,$projectId);
+                   ProjectBunglowUnitController::add_unit_to_booking_crm($unit->id,$unitName,$project->cf_project_id);
                     Session::flash('success_message','Unit Successfully Imported');
                  
                }
