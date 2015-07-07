@@ -335,7 +335,7 @@ class ProjectController extends Controller {
             if($result_json && !is_null($result_json->status) && $result_json->status != '0'){
                 $total_page = (int)$result_json->results->total_page;
                 
-                $projects = $result_json->results->projects;
+                $projects = $result_json->results->projects; 
                 foreach ($projects as $project) {
                     $project_info = array();
                     $project_info['property_id'] = $project->property_id;
@@ -343,6 +343,7 @@ class ProjectController extends Controller {
                     $project_info['address'] = $project->address;
                     $project_info['builder_name'] = $project->builder_name;
                     $project_info['builder_image_url'] = ProjectController::builderImageUrl($project->builder_name);
+                    $project_info['property_page_link'] = $project->public_url;
                     $result[] =$project_info;
                 }
 
@@ -443,14 +444,16 @@ class ProjectController extends Controller {
         $sender_url = BOOKING_SERVER_URL;
         $sender_url .= GET_BOOKING_AMOUNT;
 
-        /* $_GET Parameters to Send */
-        $params = array('unit_id' => $unitId);
+        /* $_POST Parameters to Send */
+        $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId; 
 
         /* Update URL to container Query String of Paramaters */
-        $sender_url .= '?' . http_build_query($params);
+        //$sender_url .= '?' . http_build_query($params);
 
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $params);
 
         curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
@@ -498,13 +501,16 @@ class ProjectController extends Controller {
         $sender_url .= GET_SELLING_AMOUNT;
 
         /* $_GET Parameters to Send */
-        $params = array('unit_id' => $unitId);
+        //$params = array('unit_id' => $unitId);
+        $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId; 
 
         /* Update URL to container Query String of Paramaters */
-        $sender_url .= '?' . http_build_query($params);
+        //$sender_url .= '?' . http_build_query($params);
 
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $params);
 
         curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);

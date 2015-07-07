@@ -114,7 +114,8 @@
                     project_address: proj.address,
                     project_status: "",
                     builder_name: proj.builder_name,
-                    builder_link: ""
+                    builder_link: "",
+                    property_page_link: proj.property_page_link
                   };
                   projectsCollection.push(project);
                   return options += "<option value='" + project.cf_project_id + "'>" + project.project_title + "</option>";
@@ -149,7 +150,7 @@
       $('[name="project_title"],[name="hidden_project_title"]').val(project.project_title);
       $('[name="project_address"],[name="hidden_project_address"]').val(project.project_address);
       $("#add_project").parsley().reset();
-      template = '<div class="user-description-box"> <div class="row"> <div class="col-sm-8"> <h4 class="semi-bold">{{ project_title }} - <span class="bold text-primary">{{ cf_project_id }}</span></h4> <i class="fa fa-map-marker"></i> <b>Address:</b> <p>{{ project_address }}</p> <p>Builder Name: <label><b>{{ builder_name }}</b></label></p> <p>Website Link: <label><a href="http://{{ builder_link }}"><b>http://{{ builder_link }}</b></a></label></p> </div> <div class="col-sm-4"> {{#if project_image }} <img src="{{ project_image }}" class="img-responsive"> {{/if}} </div> </div> <div class="alert alert-warning m-t-20"> <input type="hidden" name="builder_name" value="{{ builder_name }}" /> <input type="hidden" name="builder_link" value="{{ builder_link }}" /> <input type="hidden" name="project_image" value="{{ project_image }}" /> <strong>Note: </strong> The above information is as entered in CommonFloor database. </div> </div>';
+      template = '<div class="user-description-box"> <div class="row"> <div class="col-sm-8"> <h4 class="semi-bold">{{ project_title }} - <span class="bold text-primary">{{ cf_project_id }}</span></h4> <i class="fa fa-map-marker"></i> <b>Address:</b> <p>{{ project_address }}</p> <p>Builder Name: <label><b>{{ builder_name }}</b></label></p> <p>Website Link: <label><a href="http://{{ builder_link }}"><b>http://{{ builder_link }}</b></a></label></p> </div> <div class="col-sm-4"> {{#if project_image }} <img src="{{ project_image }}" class="img-responsive"> {{/if}} </div> </div> <div class="alert alert-warning m-t-20"> <input type="hidden" name="builder_name" value="{{ builder_name }}" /> <input type="hidden" name="builder_link" value="{{ builder_link }}" /> <input type="hidden" name="project_image" value="{{ project_image }}" /> <input type="hidden" name="property_page_link" value="{{ property_page_link }}" /> <strong>Note: </strong> The above information is as entered in CommonFloor database. </div> </div>';
       tempalteFn = Handlebars.compile(template);
       return $('#commonfloor-project-details').removeClass('hidden').html(tempalteFn(project));
     });
