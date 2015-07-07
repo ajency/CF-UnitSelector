@@ -109,7 +109,8 @@ class ProjectBunglowUnitController extends Controller {
      */
     public function store($project_id, Request $request) { 
         $unit = new Unit();
-        $unit->unit_name = ucfirst($request->input('unit_name'));
+        $unitName = ucfirst($request->input('unit_name'));
+        $unit->unit_name = $unitName;
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->phase_id = $request->input('phase');
@@ -127,6 +128,11 @@ class ProjectBunglowUnitController extends Controller {
         $unit->save();
         $unitid = $unit->id;
         Session::flash('success_message','Unit Successfully Created');
+        
+        if(self::add_unit_to_booking_crm($unitid,$unitName,$project_id))
+            Session::flash('success_message','Unit Successfully Created And Updated To CRM');
+        else
+            Session::flash('success_error','Failed To Update Unit Data Into CRM');
         
         $addanother = $request->input('addanother');
         
@@ -420,7 +426,8 @@ class ProjectBunglowUnitController extends Controller {
                    }
  
                     $unit =new Unit();
-                    $unit->unit_name = ucfirst($name);
+                    $unitName = ucfirst($name);
+                    $unit->unit_name = $unitName;
                     $unit->unit_variant_id = $variantId;
                     $unit->availability = $availability;
                     $unit->direction = $direction;
@@ -436,7 +443,8 @@ class ProjectBunglowUnitController extends Controller {
                     $viewsStr = serialize( $unitviews );
                     $unit->views = $viewsStr;
                     $unit->save();
-                    
+                
+                self::add_unit_to_booking_crm($unit->id,$unitName,$project_id);
                 Session::flash('success_message','Unit Successfully Imported');
                  
                }
@@ -467,13 +475,16 @@ class ProjectBunglowUnitController extends Controller {
         $sender_url .= ADD_BOOKING_UNIT;
 
         /* $_GET Parameters to Send */
-        $params = array('unit_id' => $unitId,'unit_name' => $unitName,'project_id' => $projectId );
+        //$params = array('unit_id' => $unitId,'unit_name' => $unitName,'project_id' => $projectId );
+         $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId."&unit_name=".$unitName."&project_id=".$projectId; 
 
         /* Update URL to container Query String of Paramaters */
-        $sender_url .= '?' . http_build_query($params);
+        //$sender_url .= '?' . http_build_query($params);
 
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $params);
 
         curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
