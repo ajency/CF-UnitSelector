@@ -188,7 +188,7 @@ class ProjectBuildingController extends Controller {
             $msg ='Building deleted successfully';
             
         }
-        
+        Session::flash('success_message','Building successfully deleted');
         return response()->json( [
                     'code' => 'building_deleted',
                     'message' => $msg,
