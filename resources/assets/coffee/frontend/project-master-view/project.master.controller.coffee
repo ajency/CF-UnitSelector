@@ -548,10 +548,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			id = parseInt e.currentTarget.id
 			building = buildingCollection.findWhere 
 				id :  id 
-			units = unitCollection.where 
+			console.log units = unitCollection.where 
 						'building_id' : id
 			if units.length == 0
 				return
+			$('#spritespin').addClass 'zoom'
+			$('.us-right-content').addClass 'fadeOut'
+			$('.cf-loader').removeClass 'hidden'
 			if building != undefined && units.length isnt 0
 				if Object.keys(building.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true
@@ -994,7 +997,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# animation : 'grow'
 			trigger: 'hover'
 			functionReady:(e)->
-				$('.view-unit, .building').on('click' , (e)->
+				$('.view-unit').on('click' , (e)->
 					$('.layer').tooltipster('hide')
 					$('svg').attr('class' ,'zoom')
 					$('#spritespin').addClass 'zoom'

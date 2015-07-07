@@ -519,12 +519,15 @@
         building = buildingCollection.findWhere({
           id: id
         });
-        units = unitCollection.where({
+        console.log(units = unitCollection.where({
           'building_id': id
-        });
+        }));
         if (units.length === 0) {
           return;
         }
+        $('#spritespin').addClass('zoom');
+        $('.us-right-content').addClass('fadeOut');
+        $('.cf-loader').removeClass('hidden');
         if (building !== void 0 && units.length !== 0) {
           if (Object.keys(building.get('building_master')).length === 0) {
             return CommonFloor.navigate('/building/' + id + '/apartments', true);
@@ -825,7 +828,7 @@
         interactive: true,
         trigger: 'hover',
         functionReady: function(e) {
-          return $('.view-unit, .building').on('click', function(e) {
+          return $('.view-unit').on('click', function(e) {
             $('.layer').tooltipster('hide');
             $('svg').attr('class', 'zoom');
             $('#spritespin').addClass('zoom');

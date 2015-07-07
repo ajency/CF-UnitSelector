@@ -87,6 +87,9 @@
       supportedTypes = _.uniq(supportedTypes);
       $.each(supportedTypes, function(index, value) {
         var items, marked, units;
+        if (value === 'Apartment/Penthouse') {
+          value = 'apartment';
+        }
         items = collection.where({
           'object_type': value.toLowerCase()
         });
