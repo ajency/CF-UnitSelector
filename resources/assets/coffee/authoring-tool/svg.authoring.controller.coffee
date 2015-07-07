@@ -114,6 +114,8 @@ jQuery(document).ready ($)->
         supportedTypes = svgData.supported_types
         supportedTypes = _.uniq supportedTypes
         $.each supportedTypes ,(index,value)->
+            if value is 'Apartment/Penthouse'
+                value = 'apartment'
             items = collection.where
                         'object_type' : value.toLowerCase()
             units = window.actualUnits(value.toLowerCase())
@@ -130,6 +132,7 @@ jQuery(document).ready ($)->
         # $.each type,(index,value)->
         #   if value.total is 0
         #       type = _.without(type, value)
+       
 
         type
 
