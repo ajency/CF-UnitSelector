@@ -261,6 +261,7 @@ class LeftUnitView extends Marionette.ItemView
 		
 		$.each similarUnits[0], (index,value)->
 			res = window.unit.getUnitDetails(value.get('id'))
+
 			temp.push 
 				'unit_name' : value.get('unit_name')
 				'unit_type' : res[1].get 'name'
@@ -324,10 +325,9 @@ class LeftUnitView extends Marionette.ItemView
 						attributes.push
 							'attribute' : s.capitalize val_att.attribute_key
 							'value' : val_att.attribute_value
-				if attributes.length > 0
-					rooms.push 
-						'room_name' : val.room_name
-						'attributes' : attributes
+				rooms.push 
+					'room_name' : val.room_name
+					'attributes' : attributes
 			if rooms.length > 0
 				level_id = s.replaceAll(level_name, " ", "_")
 				levels.push 
@@ -341,10 +341,11 @@ class LeftUnitView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
-
+		unitModel = unitMasterCollection.findWhere
+					'id' : unitid
 		# unitSellingAmount  = Marionette.getOption(@,'unitSellingAmount')
 		# unitSellingAmount = parseInt unitSellingAmount
-		$('.price').text window.numDifferentiation(response[3])
+		$('.price').text window.numDifferentiation(unitModel.get('selling_amount'))
 		# $('.price').text window.numDifferentiation(unitSellingAmount)
 		
 		if response[2] is 'apartment'
@@ -1449,7 +1450,7 @@ class CenterUnitView extends Marionette.ItemView
 		id = url.split('/')[1]
 		unit = unitCollection.findWhere
 				'id' : parseInt id
-		console.log breakpoint = unit.get 'breakpoint'
+		breakpoint = unit.get 'breakpoint'
 		response = window.unit.getUnitDetails(id)
 		building = buildingCollection.findWhere
 					'id' : parseInt unit.get('building_id')
@@ -1461,11 +1462,11 @@ class CenterUnitView extends Marionette.ItemView
 				svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+unit.get('building_id')+'/master-'+value+'.svg'
 			
 			$.merge transitionImages ,  building.get('building_master')
-			first = _.values svgs
+			first = BASEURL+'/projects/'+PROJECTID+'/buildings/'+unit.get('building_id')+'/master-'+breakpoint+'.svg'
 			if building.get('building_master').length != 0  
 				$('.firstimage').attr('src',transitionImages[breakpoint])
 				$('.firstimage').load ()->
-					$('.images').load(first[0],()->
+					$('.images').load(first,()->
 						$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 						$('.apartment,.amenity').each (ind,item)->
 							itemid = parseInt item.id
@@ -1480,13 +1481,13 @@ class CenterUnitView extends Marionette.ItemView
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
 
 		
-		first = _.values svgs
+		first = BASEURL+'/projects/'+PROJECTID+'/master/master-'+breakpoint+'.svg'
 		transitionImages = []
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
 			$('.firstimage').attr('src',transitionImages[breakpoint])
 			$('.firstimage').load ()->
-				$('.images').load(first[0],()->
+				$('.images').load(first,()->
 					$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 					$('.villa,.plot,.building,.amenity').each (ind,item)->
 						itemid = parseInt item.id

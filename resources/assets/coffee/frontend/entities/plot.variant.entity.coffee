@@ -6,13 +6,13 @@ class PlotVariant extends Backbone.Model
 		basicCost = ""
 		if unit_model not instanceof Backbone.Model || unit_model == ""
 			return 
-		# unitVarinatModel = plotVariantMasterCollection.findWhere({
-		# 	'id':parseInt(unit_model.get('unit_variant_id'))})
-		# if unitVarinatModel != undefined
-		# 	basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
-		# 					parseFloat(unitVarinatModel.get('size'))
-		# 	basicCost = basic_cost.toFixed(2)
-		basicCost = unit_model.get 'selling_amount'
+		unitVarinatModel = plotVariantMasterCollection.findWhere({
+			'id':parseInt(unit_model.get('unit_variant_id'))})
+		if unitVarinatModel != undefined
+			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
+							parseFloat(unitVarinatModel.get('size'))
+			basicCost = basic_cost.toFixed(2)
+		# basicCost = unit_model.get 'selling_amount'
 		basicCost
 
 	

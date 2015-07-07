@@ -526,13 +526,22 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
 
-		'click .villa,.plot' :(e)->
+		'click .villa' :(e)->
 			e.preventDefault()
 			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id
 			if !(_.isUndefined unit) && unit.get('availability') is 'available'
 				CommonFloor.navigate '/unit-view/'+id , true
+
+		'click @ui.plotunit' :(e)->
+			e.preventDefault()
+			id = parseInt e.currentTarget.id
+			unit = unitCollection.findWhere 
+				id :  id
+			if !(_.isUndefined unit) && unit.get('availability') is 'available'
+				CommonFloor.navigate '/unit-view/'+id , true
+
 
 		'click .building' :(e)->
 			e.preventDefault()

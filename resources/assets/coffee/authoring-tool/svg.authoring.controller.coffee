@@ -995,8 +995,7 @@ jQuery(document).ready ($)->
 
 
                     # show primary breakpoint checked or not
-                    
-                    if ! _.isNull $(currentElem).data("primary-breakpoint") 
+                    if !(_.isNull $(currentElem).data("primary-breakpoint")) && !(_.isUndefined $(currentElem).data("primary-breakpoint"))
                         $('[name="check_primary"]').prop('checked', true)                    
 
                     if object_type is "amenity"
@@ -1523,11 +1522,14 @@ jQuery(document).ready ($)->
         $('.amenity').tooltipster('content', html)
 
 
-    $('ellipse').on 'mousedown' ,(e)->
-        console.log "enteredddddddddddddddddddddddd"
-        $('.svg-canvas').css('transform', 'scale(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
+    $('svg').on 'mousedown' ,'.concentric-marker-grp' ,(e)->
+        console.log $('.svg-canvas').panzoom("getMatrix").join(',')
+        $('.svg-canvas').css('transform', 'matrix(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
 
-   
+    $('svg').on 'mouseup' ,'.concentric-marker-grp',(e)->
+        console.log $('.svg-canvas').panzoom("getMatrix").join(',')
+        $('.svg-canvas').css('transform', 'matrix(' + $('.svg-canvas').panzoom("getMatrix").join(',') + ' !important');
+
 
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"

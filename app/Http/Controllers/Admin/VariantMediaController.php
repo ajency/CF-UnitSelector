@@ -161,7 +161,8 @@ class VariantMediaController extends Controller {
         //CALL METHOD TO DELETE SVG (NUTAN)
 
         $media = Media::find( $id );
-        $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $variantId . "/".$media->image_name;
+        $foldername = ($variantId)?$variantId:'temp';
+        $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $foldername . "/".$media->image_name;
         unlink($targetDir);
         $media->delete();
 

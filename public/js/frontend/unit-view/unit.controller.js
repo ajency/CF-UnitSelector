@@ -250,12 +250,10 @@
               });
             }
           });
-          if (attributes.length > 0) {
-            return rooms.push({
-              'room_name': val.room_name,
-              'attributes': attributes
-            });
-          }
+          return rooms.push({
+            'room_name': val.room_name,
+            'attributes': attributes
+          });
         });
         if (rooms.length > 0) {
           level_id = s.replaceAll(level_name, " ", "_");
@@ -270,11 +268,14 @@
     };
 
     LeftUnitView.prototype.onShow = function() {
-      var response, unitid, url;
+      var response, unitModel, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
-      $('.price').text(window.numDifferentiation(response[3]));
+      unitModel = unitMasterCollection.findWhere({
+        'id': unitid
+      });
+      $('.price').text(window.numDifferentiation(unitModel.get('selling_amount')));
       if (response[2] === 'apartment') {
         return $('.collapseLevel').collapse('show');
       }
@@ -654,7 +655,7 @@
       unit = unitCollection.findWhere({
         'id': parseInt(id)
       });
-      console.log(breakpoint = unit.get('breakpoint'));
+      breakpoint = unit.get('breakpoint');
       response = window.unit.getUnitDetails(id);
       building = buildingCollection.findWhere({
         'id': parseInt(unit.get('building_id'))
@@ -667,11 +668,11 @@
           return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + unit.get('building_id') + '/master-' + value + '.svg';
         });
         $.merge(transitionImages, building.get('building_master'));
-        first = _.values(svgs);
+        first = BASEURL + '/projects/' + PROJECTID + '/buildings/' + unit.get('building_id') + '/master-' + breakpoint + '.svg';
         if (building.get('building_master').length !== 0) {
           $('.firstimage').attr('src', transitionImages[breakpoint]);
           $('.firstimage').load(function() {
-            return $('.images').load(first[0], function() {
+            return $('.images').load(first, function() {
               $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
               $('.apartment,.amenity').each(function(ind, item) {
                 var itemid;
@@ -692,13 +693,13 @@
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
-      first = _.values(svgs);
+      first = BASEURL + '/projects/' + PROJECTID + '/master/master-' + breakpoint + '.svg';
       transitionImages = [];
       $.merge(transitionImages, project.get('project_master'));
       if (project.get('project_master').length !== 0) {
         $('.firstimage').attr('src', transitionImages[breakpoint]);
         $('.firstimage').load(function() {
-          return $('.images').load(first[0], function() {
+          return $('.images').load(first, function() {
             $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
             $('.villa,.plot,.building,.amenity').each(function(ind, item) {
               var itemid;
