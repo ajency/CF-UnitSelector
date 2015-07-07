@@ -1305,13 +1305,16 @@ class ProjectController extends Controller {
      $sender_url .= GET_SELLING_AMOUNT;
 
      /* $_GET Parameters to Send */
-     $params = array('unit_id' => $unitId);
+     //$params = array('unit_id' => $unitId);
+     $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId;   
 
      /* Update URL to container Query String of Paramaters */
-     $sender_url .= '?' . http_build_query($params);
+     //$sender_url .= '?' . http_build_query($params);
 
      $c = curl_init();
      curl_setopt($c, CURLOPT_URL, $sender_url);
+     curl_setopt($c, CURLOPT_POST, 1);
+     curl_setopt($c, CURLOPT_POSTFIELDS, $params);   
 
      curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
      curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
@@ -1342,13 +1345,16 @@ class ProjectController extends Controller {
      $sender_url .= GET_BOOKING_AMOUNT;
 
      /* $_GET Parameters to Send */
-     $params = array('unit_id' => $unitId);
+     //$params = array('unit_id' => $unitId);
+      $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId; 
 
      /* Update URL to container Query String of Paramaters */
-     $sender_url .= '?' . http_build_query($params);
+    // $sender_url .= '?' . http_build_query($params);
 
      $c = curl_init();
      curl_setopt($c, CURLOPT_URL, $sender_url);
+     curl_setopt($c, CURLOPT_POST, 1);
+     curl_setopt($c, CURLOPT_POSTFIELDS, $params);    
 
      curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
      curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
