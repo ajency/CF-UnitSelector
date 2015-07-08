@@ -437,11 +437,12 @@ function setUpProjectMasterUploader() {
                 fileResponse = JSON.parse(xhr.response);
                 fileStatus = JSON.parse(xhr.status);
                 if (fileStatus == 201) {
+                    var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=master&position="+fileResponse.data.position;
                     var str = newstr = '';
                     str += '<td>' + fileResponse.data.filename + '</td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
                     str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
-                    str += '<td><a class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool</a></td>';
+                    str += '<td><a target="_blank" href="'+ authoringToolUrl +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool</a></td>';
                     str += '<td class="text-right">';
                     str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
                     str += '</td>';
