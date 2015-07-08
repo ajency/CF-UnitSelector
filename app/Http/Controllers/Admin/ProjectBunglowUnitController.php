@@ -336,6 +336,7 @@ class ProjectBunglowUnitController extends Controller {
    public function unitImport($projectId, Request $request) 
    {
         $project = Project::find($projectId); 
+        $cfProjectId = $project->cf_project_id;
         $unit_file = $request->file('unit_file')->getRealPath();
         $extension = $request->file('unit_file')->getClientOriginalExtension();
 
@@ -445,7 +446,7 @@ class ProjectBunglowUnitController extends Controller {
                     $unit->views = $viewsStr;
                     $unit->save();
                 
-                self::add_unit_to_booking_crm($unit->id,$unitName,$project->cf_project_id);
+                self::add_unit_to_booking_crm($unit->id,$unitName,$cfProjectId);
                 Session::flash('success_message','Unit Successfully Imported');
                  
                }
