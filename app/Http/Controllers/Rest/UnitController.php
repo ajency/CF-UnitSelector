@@ -107,7 +107,7 @@ class UnitController extends ApiGuardController {
         $status_code = 400;
 
         // possible unit status
-        $possible_status = array('available','sold','not_released','blocked','archived');
+        $possible_status = array('available','sold','not_released','blocked','booked_by_agent','archived');
         
         // if status data passed then update
         if (isset($request['status'])) {
@@ -362,6 +362,7 @@ class UnitController extends ApiGuardController {
                 $unit_phase_status = $phase->status;
                 $response_data['unit']['phase_name'] = $unit_phase_name;
                 $response_data['unit']['phase_status'] = $unit_phase_status;
+                $response_data['unit']['url'] = url( 'project/'.$project_id.'#unit-view/'.$unitId);
             }
 
             $json_resp = array(

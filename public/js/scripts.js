@@ -437,7 +437,9 @@ function setUpProjectMasterUploader() {
                 fileResponse = JSON.parse(xhr.response);
                 fileStatus = JSON.parse(xhr.status);
                 if (fileStatus == 201) {
-                    var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=master&position="+fileResponse.data.position;
+                    var master_type = (objectType=='project')?"master":"building_master";
+                    var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type="+master_type+"&position="+fileResponse.data.position;
+                    
                     var str = newstr = '';
                     str += '<td>' + fileResponse.data.filename + '</td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
