@@ -95,7 +95,7 @@ class ProjectApartmentUnitController extends Controller {
      * @return Response
      */
     public function store($projectId, Request $request) {
-        $cfProjectId = Project::find($project_id)->cf_project_id;
+        $cfProjectId = Project::find($projectId)->cf_project_id;
         $unit = new Unit;
         $unitName =  ucfirst($request->get('unit_name'));
         $unit->unit_name = $unitName;
