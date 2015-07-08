@@ -135,6 +135,9 @@ body {
 .step1-container {
   overflow: auto;
   overflow-y: hidden;
+  -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+      -ms-transform: matrix(1, 0, 0, 1, 0, 0);
+          transform: matrix(1, 0, 0, 1, 0, 0);
 }
 .step1-container .svg-area {
   position: absolute;
@@ -1746,6 +1749,7 @@ svg .no-fill {
   cursor: default;
 }
 .step1-marker {
+  cursor: pointer;
   -webkit-transform-origin: 50% 50%;
       -ms-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
