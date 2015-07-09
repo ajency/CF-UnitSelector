@@ -167,14 +167,25 @@ class BuildingMediaController extends Controller {
      public function updateBreakPoint($buildingId)
     {
         $position = Input::get( 'position' ); 
-        $building = Building::find($buildingId);
-        $building->breakpoints = serialize($position);
-        $building->save(); 
+        if(!empty($position))
+        {
+            $building = Building::find($buildingId);
+            $building->breakpoints = serialize($position);
+            $building->save();
+            $msg = 'Break Points Successfully Updated';
+            $code = '201';
+        }
+        else
+        {
+            $msg = 'Break Points Not Selected';
+            $code = '200';
+        }
+        
         
          return response()->json( [
             'code' => 'master_breakpoints',
-            'message' => 'Break Points Successfully Updated', 
-                ], 201 );
+            'message' => $msg, 
+                ], $code );
     }
 
 }
