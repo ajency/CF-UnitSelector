@@ -351,17 +351,16 @@ class ProjectBunglowUnitController extends Controller {
    public function unitImport($projectId, Request $request) 
    {
         $project = Project::find($projectId); 
-        $cfProjectId = $project->cf_project_id;
+        
         $unit_file = $request->file('unit_file')->getRealPath();
         $extension = $request->file('unit_file')->getClientOriginalExtension();
 
         if ($request->hasFile('unit_file') && $extension=='csv')
         {
-               Excel::load($unit_file, function($reader)use($project) {
-            
-               $results = $reader->toArray();//dd($results);
-               $errorMsg = []; 
-
+            Excel::load($unit_file, function($reader)use($project) {
+            $results = $reader->toArray();//dd($results);
+            $errorMsg = []; 
+            $cfProjectId = $project->cf_project_id;
             
             if(!empty($results))
             {

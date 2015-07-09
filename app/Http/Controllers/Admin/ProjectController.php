@@ -546,6 +546,7 @@ class ProjectController extends Controller {
             $data[$propertTypeId][] = $unit['unit_name'];
 			$unitIds['unit'][] = $unit['id'];
             $unitNames['unit'][$unit['id']]=$unit['unit_name'];
+  
         }
 		
         
@@ -572,6 +573,7 @@ class ProjectController extends Controller {
             foreach ($buildingUnits as $buildingUnit) {
                 $buildingunitIds['unit'][] = $buildingUnit['id'];
                 $buildingunitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
+       
             }
             
             $unitSvgExits =[];

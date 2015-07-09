@@ -328,7 +328,6 @@ class ProjectApartmentUnitController extends Controller {
    public function unitImport($projectId, Request $request) 
    {
         $project = Project::find($projectId);
-        $cfProjectId = $project->cf_project_id;
         $unit_file = $request->file('unit_file')->getRealPath();
         $extension = $request->file('unit_file')->getClientOriginalExtension();  
        
@@ -337,6 +336,7 @@ class ProjectApartmentUnitController extends Controller {
             Excel::load($unit_file, function($reader)use($project) {
             $errorMsg = [];
             $results = $reader->toArray(); //dd($results);
+            $cfProjectId = $project->cf_project_id;    
 
            if(!empty($results))
            {    
@@ -435,9 +435,9 @@ class ProjectApartmentUnitController extends Controller {
                    
                     $num_of_floors = Building::find($buildingId)->no_of_floors;
            
-                    if ($num_of_floors <= $floor) 
+                    if ($num_of_floors < $floor) 
                     {   
-                        $errorMsg[] ='Invalid Floor No On Row No'.$i ;    
+                        $errorMsg[] ='Invalid Floor No On Row No '.$i ;    
                         continue;
                     }
                      ;
