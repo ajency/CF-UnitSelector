@@ -808,7 +808,7 @@ class ProjectController extends Controller {
         }
         
  
-        
+        $projectUnits=[];
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
@@ -823,17 +823,17 @@ class ProjectController extends Controller {
                         $warnings[] = 'No Units Created For Building :'.$buildingData->building_name;   
                 
                 $buildingPhaseIds[$building['id']] = $phaseId;
-                $units = array_merge($units,$buildingUnits);
+                $projectUnits = array_merge($projectUnits,$buildingUnits);
             }
-            
+           
            if (empty($units)) {
                $errors['units'] = "No Units Created";
             }
 
-            
+            $projectUnits = array_merge($projectUnits,$units); 
         }
  
-        foreach ($units as $unit) {
+        foreach ($projectUnits as $unit) {
                 $variantId = $unit['unit_variant_id'];
                 $unitType = UnitVariant::find($variantId)->unitType()->first();
                 $unitTypeId = $unitType->id;
