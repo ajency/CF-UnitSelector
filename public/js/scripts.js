@@ -1133,7 +1133,6 @@ function getPositions(obj) {
         },
         success: function (response) {
 
-
             var $el = $("#flat_position");
             $el.select2('val', '');
             $el.empty(); // remove old options

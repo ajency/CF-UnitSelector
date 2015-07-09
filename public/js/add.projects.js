@@ -372,6 +372,7 @@
         return;
       }
       floorSelection = $(this).closest('.row').find('.select-floor select');
+      floorSelection.select2('val', '');
       noOfFloors = $(this).find('option[value="' + buildingId + '"]').attr('data-no-of-floors');
       if (parseInt(noOfFloors) === 0) {
         return;

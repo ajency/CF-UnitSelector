@@ -415,6 +415,7 @@ jQuery(document).ready ($)->
         buildingId = $(@).val()
         if buildingId.trim() is '' then return
         floorSelection = $(@).closest('.row').find('.select-floor select')
+        floorSelection.select2('val', '')
         noOfFloors = $(@).find('option[value="'+buildingId+'"]').attr 'data-no-of-floors'
         if parseInt(noOfFloors) is 0 then return
         $(@).closest('.row').find('.select-floor').removeClass 'hidden'
