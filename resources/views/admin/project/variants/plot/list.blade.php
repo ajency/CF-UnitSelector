@@ -18,6 +18,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
+            @include('admin.project.flashmessage')
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Unit Variants</span></h4>
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/plots-variant/create') }}" ><i class="fa fa-plus"></i> Add Variant</a>

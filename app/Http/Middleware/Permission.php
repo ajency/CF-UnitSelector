@@ -34,6 +34,7 @@ class Permission {
                      'admin.project.bunglow-variant.store'=>['configure_project'],
                      'admin.project.bunglow-variant.edit'=>['configure_project'],
                      'admin.project.bunglow-variant.update'=>['configure_project'],
+                     'admin.project.bunglow-variant.destroy'=>['configure_project'],
 
                      'admin.project.apartment-variant.index'=>['configure_project'],
                      'admin.project.apartment-variant.create'=>['configure_project'],

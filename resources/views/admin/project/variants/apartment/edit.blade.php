@@ -179,7 +179,7 @@
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <input type="hidden" name="_method" value="PUT">
                     <button  type="button" onclick="saveVariantConfig();" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-
+                    <button type="button" class="btn btn-danger btn-cons delete-varint" data-variant-id="{{  $unitVariant['id'] }} " data-variant-type="apartment-variant">Delete</button> 
                     <a  href="{{ url('/admin/project/'. $project['id'] .'/apartment-variant') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                 </div>
             </div>

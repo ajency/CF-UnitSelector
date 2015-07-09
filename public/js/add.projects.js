@@ -598,6 +598,25 @@
     });
   });
 
+  $('.delete-varint').click(function() {
+    var successFn, variantId, variantType;
+    if (confirm('Are you sure you want to delete this variant?') === false) {
+      return;
+    }
+    variantId = $(this).attr('data-variant-id');
+    variantType = $(this).attr('data-variant-type');
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 204) {
+        return window.location = "/admin/project/" + PROJECTID + "/" + variantType + "";
+      }
+    };
+    return $.ajax({
+      url: "/admin/project/" + PROJECTID + "/bunglow-variant/" + variantId,
+      type: 'DELETE',
+      success: successFn
+    });
+  });
+
   $('.quick-edit').click(function() {
     var compile, hideSaveButton, id, isAgent, str, toggleRow, unitStatus;
     id = $(this).attr('data-object-id');
