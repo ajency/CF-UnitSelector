@@ -8547,4 +8547,7 @@ input[type="file"] {
 .radio.radio-primary [type="radio"]:not(:checked):focus + label:before {
   border: 1.5px dotted #2196f3;
 }
+.userList td {
+  word-wrap: break-word;
+}
 /*# sourceMappingURL=style.css.map */

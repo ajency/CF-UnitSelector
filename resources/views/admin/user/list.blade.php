@@ -23,12 +23,12 @@
                 <table class="table table-bordered userList" id="example2" >
                     <thead>
                         <tr>
-                            <th style="width: 228px;">Name</th>
-                            <th style="width: 134px;">Email</th>
-                            <th >Phone</th>
-                            <th>Status</th>
-                            <th class="date-sort">Created On</th>
-                            <th class="date-sort">Modified On</th>
+                            <th style="width: 22%;">Name</th>
+                            <th style="width: 21%;">Email</th>
+                            <th style="width: 21%;">Phone</th>
+                            <th style="width: 12%;">Status</th>
+                            <th class="date-sort" style="width: 12%;">Created On</th>
+                            <th class="date-sort" style="width: 12%;">Modified On</th>
                         </tr>
                     </thead>
                     <tbody> 
