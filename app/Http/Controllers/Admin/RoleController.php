@@ -79,7 +79,7 @@ class RoleController extends Controller {
         }
         else
         {
-             Session::flash('success_message','Role successfully created');
+            Session::flash('success_message','Role successfully created');
             return redirect("/admin/role/" . $roleId . "/edit");
         }
     }

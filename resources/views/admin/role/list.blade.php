@@ -15,7 +15,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
-            @include('admin.project.flashmessage')
+             @include('admin.project.flashmessage')
             <div class="grid-title">
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/role/create') }}" ><i class="fa fa-plus"></i> Add Role</a>
                 <h4>List of <span class="semi-bold">Roles</span></h4>
