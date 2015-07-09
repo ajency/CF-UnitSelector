@@ -512,35 +512,45 @@ function addFloorLevelUploader(level) {
                  };*/
             },
             FilesAdded: function (up, files) {
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail" id="'+files[0].id+'">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                str += '</div>';
+                str += ' ';
+                $("#2d_" + level + "_image").find('.upload-img-block').addClass('hidden');
+                $("#2d_" + level + "_image").append(str);
                  up.start();
  
             },
             UploadProgress: function (up, file) {
                 var str = ' ';
-                str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
                 str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
                 str += '</div>';
-                str += '</div>';
                 str += ' ';
                 
-                $("#2d_" + level + "_image").html(str);
+                $("#" +file.id).html(str);
 
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
 
                 var str = ' ';
-                str += '<div class="img-hover img-thumbnail">';
+                str += '<div class="img-hover img-thumbnail" id="2d-' + fileResponse.data.media_id + '" data-level="'+level+'">';
                 str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'2d\');"><i class="fa fa-close text-primary"></i></a>';
                 str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '" />';
                 str += '</div>';
                 str += '</div>';
 
+                $("#" +file.id).remove();
+                $("#2d_" + level + "_image").append(str);
 
-                $("#2d_" + level + "_image").html(str);
                 if (!variantId)
                     $("#image_" + level + "_2d_id").val(fileResponse.data.media_id);
 
@@ -580,7 +590,7 @@ function addFloorLevelUploader(level) {
             },
             FilesAdded: function (up, files) {
                 var str = ' ';
-                str += '<div class="img-hover img-thumbnail">';
+                str += '<div class="img-hover img-thumbnail" id="'+files[0].id+'">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
@@ -588,40 +598,37 @@ function addFloorLevelUploader(level) {
                 str += '</div>';
                 str += '</div>';
                 str += ' ';
-                $("#3d_" + level + "_image").html(str);
+                $("#3d_" + level + "_image").find('.upload-img-block').addClass('hidden');
+                $("#3d_" + level + "_image").append(str);
                 up.start();
-
-
-
+ 
             },
             UploadProgress: function (up, file) {
-                var str = ' ';
-                 str += '<div class="img-hover img-thumbnail">';
+                var str = ' '; 
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
                 str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
                 str += '</div>';
-                str += '</div>';
-                str += ' ';
+ 
                 
-                $("#3d_" + level + "_image").html(str);
+                $("#" +file.id).html(str);
 
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
 
                 var str = ' ';
-                str += '<div class="img-hover img-thumbnail">';
+                str += '<div class="img-hover img-thumbnail" id="3d-' + fileResponse.data.media_id + '" data-level="'+level+'">';
                 str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'3d\');"><i class="fa fa-close text-primary"></i></a>';
                 str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
                 str += '</div>';
                 str += '</div>';
 
-
-                $("#3d_" + level + "_image").html(str);
+                $("#" +file.id).remove();
+                $("#3d_" + level + "_image").append(str);
                 if (!variantId)
-                    $("#image_" + level + "_3d_id").val(fileResponse.data.media_id)
+                    $("#image_" + level + "_3d_id").val(fileResponse.data.media_id);
             }
         }
     });
@@ -641,7 +648,7 @@ function setUpFloorLevelUploader() {
 }
 
 
-function deleteLayout(mediaId, type) {
+function deleteLayout(mediaId, type) { 
 
     if (confirm('Are you sure you want to delete this media file? ') === false) {
         return;
@@ -655,7 +662,20 @@ function deleteLayout(mediaId, type) {
             projectId: PROJECTID
         },
         success: function (response) {
-            window.location.reload();
+            
+            if(type!='gallery')
+            { 
+                if(type=='external')
+                    type = '3d';
+                
+                var level = $("#"+type+"-" +mediaId).attr('data-level');
+                $("#"+type+"_" + level + "_image").find('.upload-img-block').removeClass('hidden');
+                if (!variantId)
+                     $("#image_" + level + "_"+type+"_id").val('');
+               
+            }
+            $("#"+type+"-" +mediaId).remove();
+            //window.location.reload();
         }
     });
 }
@@ -897,37 +917,45 @@ $(document).ready(function () {
 
             },
             FilesAdded: function (up, files) {
- 
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail" id="'+files[0].id+'">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                str += '</div>';
+                str += ' ';
+                $("#3d_external_image").find('.upload-img-block').addClass('hidden');
+                $("#3d_external_image").append(str);
                 up.start();
+ 
             },
             UploadProgress: function (up, file) {
- 
-                var str = '<div class="col-md-3">';
-                str += '<div class="img-hover img-thumbnail">';
+                var str = ' '; 
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
                 str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>';
                 str += '</div>';
-                str += '</div>';
-                str += '</div>';
-                $("#3d_external_img").html(str);
+ 
+                
+                $("#" +file.id).html(str);
 
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-
-                var str = '<div class="col-md-3">';
-                str += '<div class="img-hover img-thumbnail">';
-                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'external\');"><i class="fa fa-close text-primary"></i></a>';
+            
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail" id="3d-' + fileResponse.data.media_id + '" data-level="external">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'3d\');"><i class="fa fa-close text-primary"></i></a>';
                 str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
                 str += '</div>';
                 str += '</div>';
-                str += '<div class="col-md-3">';
-                str += '</div>';
 
+                $("#" +file.id).remove();
+                $("#3d_external_image").append(str);
 
-                $("#3d_external_img").html(str);
                 if (!variantId)
                     $("#image_external_3d_id").val(fileResponse.data.media_id)
             }
@@ -999,7 +1027,7 @@ $(document).ready(function () {
                 fileResponse = JSON.parse(xhr.response);
  
                 var str = '';
-                str += '<div class="img-hover img-thumbnail">';
+                str += '<div class="img-hover img-thumbnail" id="gallery-' + fileResponse.data.media_id + '">';
                 str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');"><i class="fa fa-close text-primary"></i></a>';
                 str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
                 str += '<input type="hidden" name="image_gallery[' + fileResponse.data.media_id + ']" id="image_external_3d_id" value="' + fileResponse.data.media_id + '"> ';

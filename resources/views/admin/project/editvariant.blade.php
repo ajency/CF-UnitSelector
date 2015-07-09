@@ -134,17 +134,18 @@
 
                                 </h4>
                             </div>
-                            <div class="grid-body no-border" id="3d_external_img">
+                            <div class="grid-body no-border" id="3d_external_image">
+  
                                 @if(isset($layouts['external']['3d']))
-                                <div class="col-md-3">
-                                    <div class="img-hover img-thumbnail">
+                                 
+                                    <div class="img-hover img-thumbnail " id="3d-{{ $layouts['external']['3d']['ID'] }}"  data-level="external">
                                         <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts['external']['3d']['ID'] }}, 'external');"><i class="fa fa-close text-primary"></i></a>
                                         <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts['external']['3d']['IMAGE'] }}" />
                                     </div>
-                                </div>
-                                @else
-                                <div class="col-md-3">
-                                    <div class="img-hover img-thumbnail">
+                               
+                                @endif
+
+                                    <div class="img-hover img-thumbnail upload-img-block {{(isset($layouts['external']['3d']))? 'hidden':'' }}" >
                                         <a href="javascript:void(0)" id="pickfiles_ext3d" style="width: 150px;height:109px;background:#BEBEBE;display: table;" >
                                             <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                 <i class="fa fa-image" style="font-size:30px;"></i>
@@ -152,8 +153,8 @@
                                             </div>
                                         </a>
                                     </div>
-                                </div>
-                                @endif
+                                
+                                 
 
                             </div>
                         </div>
@@ -175,7 +176,7 @@
                                 <div class="row" id="variant_gallery">
                                     @if(isset($layouts['gallery'])) @foreach($layouts['gallery'] as $gallery)
 
-                                    <div class="col-md-3 gallery" id="gallery_{{ $gallery['ID'] }}">
+                                    <div class="col-md-3 gallery" id="gallery-{{ $gallery['ID'] }}" >
                                         <div class="img-hover img-thumbnail">
                                             <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');"><i class="fa fa-close text-primary"></i></a>
                                             <img style="width:150px;height:93px;" id="svg1" src="{{ $gallery['IMAGE'] }}" />

@@ -140,9 +140,9 @@ class VariantMediaController extends Controller {
         $type = Input::get( 'type' ); 
         $projectId = Input::get( 'projectId' );
  
-        if($type=='gallery')
+        if($type=='gallery' && $variantId)
         {
-            $variantMetaData = VariantMeta::where(['unit_variant_id'=>$variantId ,'meta_key'=>'gallery'])->first()->toArray(); 
+            $variantMetaData = VariantMeta::where(['unit_variant_id'=>$variantId ,'meta_key'=>'gallery'])->first()->toArray();  
             $metaValue = unserialize($variantMetaData['meta_value']);
             $variantMetaId = $variantMetaData['id'];
             unset($metaValue[$id]);
@@ -168,7 +168,7 @@ class VariantMediaController extends Controller {
 
         return response()->json( [
                     'code' => 'media_deleted',
-                    'message' => 'Layout Successfully Deleted'
+                    'message' => 'Image Successfully Deleted'
                         ], 204 );
         
     }
