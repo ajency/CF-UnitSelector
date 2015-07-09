@@ -726,6 +726,22 @@ $('#project_name').autocomplete
             type : 'DELETE'
             success : successFn
 
+   $('.delete-unit').click ->
+        if confirm('Are you sure you want to delete this unit?') is false
+            return
+
+        unitId = $(@).attr 'data-unit-id'
+        unitType = $(@).attr 'data-unit-type'
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 204
+              window.location = "/admin/project/"+PROJECTID+"/"+unitType+"";  
+            
+        $.ajax 
+            url : "/admin/project/"+PROJECTID+"/bunglow-unit/"+unitId
+            type : 'DELETE'
+            success : successFn
+
             
  
     $('.quick-edit').click ->

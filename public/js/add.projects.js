@@ -617,6 +617,25 @@
     });
   });
 
+  $('.delete-unit').click(function() {
+    var successFn, unitId, unitType;
+    if (confirm('Are you sure you want to delete this unit?') === false) {
+      return;
+    }
+    unitId = $(this).attr('data-unit-id');
+    unitType = $(this).attr('data-unit-type');
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 204) {
+        return window.location = "/admin/project/" + PROJECTID + "/" + unitType + "";
+      }
+    };
+    return $.ajax({
+      url: "/admin/project/" + PROJECTID + "/bunglow-unit/" + unitId,
+      type: 'DELETE',
+      success: successFn
+    });
+  });
+
   $('.quick-edit').click(function() {
     var compile, hideSaveButton, id, isAgent, str, toggleRow, unitStatus;
     id = $(this).attr('data-object-id');

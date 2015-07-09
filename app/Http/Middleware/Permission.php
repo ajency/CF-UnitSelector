@@ -75,6 +75,7 @@ class Permission {
                      'admin.project.bunglow-unit.store'=>['configure_unit'],
                      'admin.project.bunglow-unit.edit'=>['configure_unit','unit_status_update'],
                      'admin.project.bunglow-unit.update'=>['configure_unit','unit_status_update'],
+                     'admin.project.bunglow-unit.destroy'=>['configure_unit','unit_status_update'],
 
                      'admin.project.apartment-unit.index'=>['configure_unit','unit_status_update'],
                      'admin.project.apartment-unit.create'=>['configure_unit'],
