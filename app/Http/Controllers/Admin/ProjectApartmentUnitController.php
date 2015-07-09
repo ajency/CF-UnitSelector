@@ -434,13 +434,12 @@ class ProjectApartmentUnitController extends Controller {
                     }
                    
                     $num_of_floors = Building::find($buildingId)->no_of_floors;
-           
-                    if ($num_of_floors < $floor) 
-                    {   
+                    
+                    if ($floor != $num_of_floors && $floor > $num_of_floors) 
+                    {    
                         $errorMsg[] ='Invalid Floor No On Row No '.$i ;    
                         continue;
-                    }
-                     ;
+                    }  
                     //Unit exist at that position
                     $unitposition = Unit::where('building_id',$buildingId)->where('floor', $floor)->where('position', $position)->get()->toArray(); 
                    if (!empty($unitposition))
