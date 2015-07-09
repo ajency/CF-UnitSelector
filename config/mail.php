@@ -26,7 +26,7 @@ return [
       | the Mailgun mail service which will provide reliable deliveries.
       |
      */
-    'host' => 'smtp.sendgrid.net',
+    'host' => config('constant.host') ,
     /*
       |--------------------------------------------------------------------------
       | SMTP Host Port
@@ -70,7 +70,7 @@ return [
       | connection. You may also set the "password" value below this one.
       |
      */
-    'username' => 'shradha',
+    'username' => config('constant.username'),
     /*
       |--------------------------------------------------------------------------
       | SMTP Server Password
@@ -81,7 +81,7 @@ return [
       | connection so that the application will be able to send messages.
       |
      */
-    'password' => 'ajency#123',
+    'password' => config('constant.password'),
     /*
       |--------------------------------------------------------------------------
       | Sendmail System Path
