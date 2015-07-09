@@ -68,15 +68,20 @@ class RoleController extends Controller {
            $role->attachPermissions($permissions);
         
         }
-        
-        Session::flash('success_message','Role successfully created');
+ 
         
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
+        {
+             Session::flash('success_message','Role successfully created. You can add new role');
             return redirect("/admin/role/create");
+        }
         else
+        {
+             Session::flash('success_message','Role successfully created');
             return redirect("/admin/role/" . $roleId . "/edit");
+        }
     }
 
     /**

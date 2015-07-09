@@ -28,6 +28,7 @@ class ProjectApartmentUnitController extends Controller {
    
     public function index($projectId) {
         $project = Project::find($projectId);
+        $projectPropertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray(); 
         $phases = $project->projectPhase()->lists('id');
         $buildings = Building::whereIn('phase_id', $phases)->lists('id');
         
@@ -44,7 +45,8 @@ class ProjectApartmentUnitController extends Controller {
         return view('admin.project.unit.apartment.list')
                         ->with('project', $project->toArray())
                         ->with('current', 'apartment-unit')
-                        ->with('units', $units);
+                        ->with('units', $units)
+                        ->with('projectPropertyTypes', $projectPropertyTypes);
     }
 
     /**
