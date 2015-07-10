@@ -824,6 +824,7 @@ class ProjectController extends Controller {
             $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray(); 
             $phaseData[$phaseId] = $phase['phase_name'];
+            $buildingUnits=[];
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
