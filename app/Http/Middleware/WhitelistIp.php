@@ -15,7 +15,7 @@ class WhitelistIp {
 	{	
         
         $dnsList = config('constant.cf_dns_list'); 
-        $whitelistIps = $this->dnsToIp($dnsList);
+        $whitelistIps = $this->dnsToIp($dnsList);dd($whitelistIps);
 		$clientIpAddress = $request->getClientIp();
         
         if (!in_array($clientIpAddress, $whitelistIps)) {
