@@ -284,6 +284,7 @@ jQuery(document).ready ($)->
              $('#myModal').modal('toggle')
              $("#phase-"+phaseId).find('select').attr('disabled',true)
              $("#phase-"+phaseId).find('.updatelink').addClass('hidden')
+             $("#phase-"+phaseId).find('.remove-phase').addClass('hidden')   
         $.ajax 
             url : '/admin/phase/'+phaseId
             type : 'POST'
@@ -414,6 +415,10 @@ jQuery(document).ready ($)->
 
     
     $('.apartment-unit-building').change ->
+        $('.select-position select').select2('val', '')
+        $('.select-position select').empty()
+        $('.select-position select').append "<option value=''>Select Position</option>"
+        
         $(@).closest('.row').find('.select-floor').addClass 'hidden'        
         buildingId = $(@).val()
         if buildingId.trim() is '' then return
@@ -427,16 +432,16 @@ jQuery(document).ready ($)->
         for i in [0...noOfFloors]
             floorSelection.append "<option value='#{i+1}'>#{i+1}</option>"  
             
-    $('.apartment-unit-floor-no').change ->
+    #$('.apartment-unit-floor-no').change ->
         
-        floorNo = $(@).val()
-        buildingId = $('.apartment-unit-building').select2('val')
-        $.ajax
-            url : "#{BASEURL}/api/v1/buildings/#{buildingId}/floor-layout"
-            type : 'GET'
-            data : 
-                floor_no : floorNo
-            success : (resp)->
+        #floorNo = $(@).val()
+       # buildingId = $('.apartment-unit-building').select2('val')
+        #$.ajax
+            #url : "#{BASEURL}/api/v1/buildings/#{buildingId}/floor-layout"
+           # type : 'GET'
+           # data : 
+               # floor_no : floorNo
+           # success : (resp)->
 
 
     $('.update-response-table').click ->

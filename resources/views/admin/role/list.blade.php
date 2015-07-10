@@ -21,7 +21,7 @@
                 <h4>List of <span class="semi-bold">Roles</span></h4>
             </div>
             <div class="grid-body">
-                <table class="table table-bordered roleList" id="example2" >
+                <table class="table table-bordered roleList userList" id="example2" >
                     <thead>
                         <tr>
                             <th>Name</th>

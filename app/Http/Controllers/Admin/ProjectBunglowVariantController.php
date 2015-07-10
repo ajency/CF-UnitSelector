@@ -474,11 +474,11 @@ class ProjectBunglowVariantController extends Controller {
             $variant->variantMeta()->delete();
             $variant->delete();
             $code = '204';
-
+            Session::flash('success_message','Variant successfully deleted');
             $msg ='Variant deleted successfully';
             
         }
-        Session::flash('success_message','Variant successfully deleted');
+        
         return response()->json( [
                     'code' => 'variant_deleted',
                     'message' => $msg,
