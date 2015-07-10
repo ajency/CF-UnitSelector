@@ -20,6 +20,8 @@ class WhitelistIp {
         echo $clientIpAddress;
         echo '<br>';
         echo gethostbyname('phase2.cfunitselectortest.com');
+        echo '<br>';
+        echo gethostbynamel('phase2.cfunitselectortest.com'); 
         exit;
         if (!in_array($clientIpAddress, $whitelistIps)) {
 			return response()->json( [
