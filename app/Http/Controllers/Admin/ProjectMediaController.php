@@ -202,14 +202,26 @@ class ProjectMediaController extends Controller {
     public function updateBreakPoint($projectId)
     {
         $position = Input::get( 'position' ); 
-        $projectMeta = ProjectMeta::where( ['meta_key' =>'breakpoints', 'project_id' => $projectId] )->first();
-        $projectMeta->meta_value = serialize($position);
-        $projectMeta->save(); 
+        if(!empty($position))
+        {
+            $projectMeta = ProjectMeta::where( ['meta_key' =>'breakpoints', 'project_id' => $projectId] )->first();
+            $projectMeta->meta_value = serialize($position);
+            $projectMeta->save(); 
+            $msg = 'Break Points Successfully Updated';
+            $code = '201';
+        }
+        else
+        {
+            $msg = 'Break Points Not Selected';
+            $code = '200';
+        }
+        
         
          return response()->json( [
             'code' => 'master_breakpoints',
-            'message' => 'Break Points Successfully Updated', 
-                ], 201 );
+            'message' => $msg, 
+                ], $code );
+ 
     }
 
 }

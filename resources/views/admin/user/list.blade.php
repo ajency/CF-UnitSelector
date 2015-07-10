@@ -15,6 +15,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
+             @include('admin.project.flashmessage')
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Users</span></h4>
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/user/create') }}" ><i class="fa fa-plus"></i> Add User</a>
@@ -23,12 +24,12 @@
                 <table class="table table-bordered userList" id="example2" >
                     <thead>
                         <tr>
-                            <th style="width: 228px;">Name</th>
-                            <th style="width: 134px;">Email</th>
-                            <th >Phone</th>
-                            <th>Status</th>
-                            <th class="date-sort">Created On</th>
-                            <th class="date-sort">Modified On</th>
+                            <th style="width: 22%;">Name</th>
+                            <th style="width: 21%;">Email</th>
+                            <th style="width: 21%;">Phone</th>
+                            <th style="width: 12%;">Status</th>
+                            <th class="date-sort" style="width: 12%;">Created On</th>
+                            <th class="date-sort" style="width: 12%;">Modified On</th>
                         </tr>
                     </thead>
                     <tbody> 

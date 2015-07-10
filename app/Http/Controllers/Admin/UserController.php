@@ -88,15 +88,19 @@ class UserController extends Controller {
             $message->to($data['email'], $data['name'])->subject('Welcome to CommonFloor Unit Selector!');
         });
         
-    
-        Session::flash('success_message','User created successfully. An email has been sent to the user email address with the login instruction');
-        
+ 
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
+        {
+            Session::flash('success_message','User created successfully. You can add new user.  An email has been sent to the user email address with the login instruction');
             return redirect("/admin/user/create");
+        }
        else
+       {
+           Session::flash('success_message','User created successfully. An email has been sent to the user email address with the login instruction');
             return redirect("/admin/user/" . $userId . "/edit");
+       }
     }
 
     /**

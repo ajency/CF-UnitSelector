@@ -79,8 +79,14 @@
       </div>
       <div class="modal-body">
         <a href="{{ url( 'admin/project/' . $project['id'].'/unitexport/'.APARTMENTID ) }}" target="_blank" class="pull-right btn btn-default btn-small m-l-5"><i class="fa fa-download"></i> Download config</a>
-        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Penthouse-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Penthouse Sample</a>    
-        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Apartment-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Apartment Sample</a>  
+        @foreach($projectPropertyTypes as $propertyTypes)
+          @if($propertyTypes['property_type_id']==PENTHOUSEID)
+        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Penthouse-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Penthouse Sample</a>
+          @endif
+          @if($propertyTypes['property_type_id']==APARTMENTID)
+        <a href="{{ url( 'admin/project/' . $project['id'].'/downloadsamplefile/Apartment-Unit-Sample-file.csv' ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download Apartment Sample</a>
+           @endif
+          @endforeach
         <div class="row m-b-10">
             <div class="col-md-12">
                 <div class="form-group">

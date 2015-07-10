@@ -458,8 +458,32 @@ class ProjectBunglowVariantController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($projectId, $id) {
+        $variant = UnitVariant::find($id);
+        $units = $variant->units()->get()->toArray(); 
+         
+        $msg ='';
+        if(!empty($units))
+        {
+            $msg ='Units associated to this Variant';
+            $code = '200';
+        }
+        else{
+            
+            $variant->variantRoomAttributes()->delete();
+            $variant->variantMeta()->delete();
+            $variant->delete();
+            $code = '204';
+
+            $msg ='Variant deleted successfully';
+            
+        }
+        Session::flash('success_message','Variant successfully deleted');
+        return response()->json( [
+                    'code' => 'variant_deleted',
+                    'message' => $msg,
+         
+                        ], $code );
     }
 
     public function deleteLevel($projectId,$variantId, Request $request)

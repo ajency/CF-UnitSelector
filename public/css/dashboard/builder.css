@@ -149,6 +149,7 @@ svg .no-fill {
   cursor: default;
 }
 .step1-marker {
+  cursor: pointer;
   transform-origin: 50% 50%;
   opacity: 0.3;
 }

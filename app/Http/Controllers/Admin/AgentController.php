@@ -83,13 +83,19 @@ class AgentController extends Controller {
         });
         
          
-        Session::flash('success_message','Agent created successfully. An email has been sent to the user email address with the login instruction');
+        
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
+        {
+            Session::flash('success_message','Agent created successfully. You can add new agent. An email has been sent to the user email address with the login instruction');
             return redirect("/admin/agent/create");
+        }
         else
+        {
+            Session::flash('success_message','Agent created successfully. An email has been sent to the user email address with the login instruction');
             return redirect("/admin/agent/" . $userId . "/edit");
+        }
 	}
 
 	/**

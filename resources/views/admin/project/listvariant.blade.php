@@ -18,6 +18,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
+            @include('admin.project.flashmessage')
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Unit Variants</span></h4>
                  @if(hasPermission($project['id'],['configure_project']))

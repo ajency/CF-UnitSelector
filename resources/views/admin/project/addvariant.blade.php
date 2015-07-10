@@ -149,7 +149,7 @@
                                                     <input type="hidden" name="image_0_2d_id" id="image_0_2d_id" value=""> 
                                                     <div class="text-center" id="2d_0_image">
 
-                                                        <div class="img-hover img-thumbnail">
+                                                        <div class="img-hover img-thumbnail upload-img-block">
                                                             <div id="pickfiles_0_2d" style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                 <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                     <i class="fa fa-image" style="font-size:30px;"></i>
@@ -169,7 +169,7 @@
                                                     <div class="inline">3D Layout</div>
                                                     <input type="hidden" name="image_0_3d_id" id="image_0_3d_id" value="">            
                                                     <div class="text-center" id="3d_0_image">
-                                                        <div class="img-hover img-thumbnail">
+                                                        <div class="img-hover img-thumbnail upload-img-block">
                                                             <div id="pickfiles_0_3d" style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                 <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                     <i class="fa fa-image" style="font-size:30px;"></i>
@@ -233,7 +233,7 @@
                                                         <div class="inline">2D Layout</div>
                                                         <input type="hidden" name="image_1_2d_id" id="image_1_2d_id" value="">   
                                                         <div class="text-center" id="2d_1_image">
-                                                            <div class="img-hover img-thumbnail">
+                                                            <div class="img-hover img-thumbnail  upload-img-block">
                                                                 <div id="pickfiles_1_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
@@ -252,7 +252,7 @@
                                                         <div class="inline">3D Layout</div>
                                                         <input type="hidden" name="image_1_3d_id" id="image_1_3d_id" value="">    
                                                         <div class="text-center" id="3d_1_image">
-                                                            <div class="img-hover img-thumbnail">
+                                                            <div class="img-hover img-thumbnail  upload-img-block">
                                                                 <div id="pickfiles_1_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
@@ -308,10 +308,8 @@
                                     <input type="hidden" name="image_external_3d_id" id="image_external_3d_id" value="">    
                                 </h4>
                             </div>
-                            <div class="grid-body no-border" id="3d_external_img" >
-                                <div class="col-md-3" >
-
-                                    <div class="img-hover img-thumbnail">
+                            <div class="grid-body no-border" id="3d_external_image">
+                                    <div class="img-hover img-thumbnail upload-img-block">
                                         <div id="pickfiles_ext3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                             <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                 <i class="fa fa-image" style="font-size:30px;"></i>
@@ -319,10 +317,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-                                </div>
-
 
                             </div>
                         </div>

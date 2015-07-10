@@ -108,6 +108,7 @@ class ProjectBunglowUnitController extends Controller {
      * @return Response
      */
     public function store($project_id, Request $request) { 
+        $cfProjectId = Project::find($project_id)->cf_project_id;
         $unit = new Unit();
         $unitName = ucfirst($request->input('unit_name'));
         $unit->unit_name = $unitName;
@@ -129,7 +130,7 @@ class ProjectBunglowUnitController extends Controller {
         $unitid = $unit->id;
         Session::flash('success_message','Unit Successfully Created');
         
-        if(self::add_unit_to_booking_crm($unitid,$unitName,$project_id))
+        if(self::add_unit_to_booking_crm($unitid,$unitName,$cfProjectId))
             Session::flash('success_message','Unit Successfully Created And Updated To CRM');
         else
             Session::flash('success_error','Failed To Update Unit Data Into CRM');
@@ -269,8 +270,23 @@ class ProjectBunglowUnitController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($projectId, $id) {
+        $unit = Unit::find($id); 
+        \CommonFloor\AgentUnit::where('unit_id',$id)->delete();  
+        \CommonFloor\SvgElement::where('object_id',$id)->delete();  
+        $unit->delete();
+        
+        Session::flash('success_message','Unit successfully deleted');
+        if(self::delete_unit_from_booking_crm($id))
+            Session::flash('success_message','Unit successfully deleted And Updated To CRM');
+        else
+            Session::flash('success_error','Failed To Update Unit Data Into CRM');
+    
+        return response()->json( [
+                    'code' => 'unt_deleted',
+                    'message' => 'Unit deleted successfully',
+         
+                        ], 204 );
     }
     
     public function updateStatus($project_id, $id, Request $request) {
@@ -335,16 +351,16 @@ class ProjectBunglowUnitController extends Controller {
    public function unitImport($projectId, Request $request) 
    {
         $project = Project::find($projectId); 
+        
         $unit_file = $request->file('unit_file')->getRealPath();
         $extension = $request->file('unit_file')->getClientOriginalExtension();
 
         if ($request->hasFile('unit_file') && $extension=='csv')
         {
-               Excel::load($unit_file, function($reader)use($project) {
-            
-               $results = $reader->toArray();//dd($results);
-               $errorMsg = []; 
-
+            Excel::load($unit_file, function($reader)use($project) {
+            $results = $reader->toArray();//dd($results);
+            $errorMsg = []; 
+            $cfProjectId = $project->cf_project_id;
             
             if(!empty($results))
             {
@@ -444,7 +460,7 @@ class ProjectBunglowUnitController extends Controller {
                     $unit->views = $viewsStr;
                     $unit->save();
                 
-                self::add_unit_to_booking_crm($unit->id,$unitName,$project_id);
+                self::add_unit_to_booking_crm($unit->id,$unitName,$cfProjectId);
                 Session::flash('success_message','Unit Successfully Imported');
                  
                }
@@ -507,6 +523,42 @@ class ProjectBunglowUnitController extends Controller {
        curl_close($c); 
 
        return $result;      
-    }   
+    }
+    
+    public static function delete_unit_from_booking_crm($unitId){
+        $sender_url = BOOKING_SERVER_URL;
+        $sender_url .= ADD_BOOKING_UNIT;
+
+        /* $_POST Parameters to Send */
+         $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId; 
+
+
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $params);
+
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+
+        if (curl_errno($c)) {
+            $result= $c;
+        }
+        else{
+
+            $result = $o;
+
+           }
+
+       /* Check HTTP Code */
+       $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+       curl_close($c); 
+
+       return $result;      
+    }
 
 }

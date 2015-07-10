@@ -34,6 +34,7 @@ class Permission {
                      'admin.project.bunglow-variant.store'=>['configure_project'],
                      'admin.project.bunglow-variant.edit'=>['configure_project'],
                      'admin.project.bunglow-variant.update'=>['configure_project'],
+                     'admin.project.bunglow-variant.destroy'=>['configure_project'],
 
                      'admin.project.apartment-variant.index'=>['configure_project'],
                      'admin.project.apartment-variant.create'=>['configure_project'],
@@ -74,6 +75,7 @@ class Permission {
                      'admin.project.bunglow-unit.store'=>['configure_unit'],
                      'admin.project.bunglow-unit.edit'=>['configure_unit','unit_status_update'],
                      'admin.project.bunglow-unit.update'=>['configure_unit','unit_status_update'],
+                     'admin.project.bunglow-unit.destroy'=>['configure_unit','unit_status_update'],
 
                      'admin.project.apartment-unit.index'=>['configure_unit','unit_status_update'],
                      'admin.project.apartment-unit.create'=>['configure_unit'],

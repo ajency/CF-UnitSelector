@@ -415,6 +415,7 @@ jQuery(document).ready ($)->
         buildingId = $(@).val()
         if buildingId.trim() is '' then return
         floorSelection = $(@).closest('.row').find('.select-floor select')
+        floorSelection.select2('val', '')
         noOfFloors = $(@).find('option[value="'+buildingId+'"]').attr 'data-no-of-floors'
         if parseInt(noOfFloors) is 0 then return
         $(@).closest('.row').find('.select-floor').removeClass 'hidden'
@@ -707,7 +708,40 @@ $('#project_name').autocomplete
         $.ajax 
             url : "/admin/project/"+PROJECTID+"/building/"+buildingId
             type : 'DELETE'
-            success : successFn  
+            success : successFn
+            
+            
+   $('.delete-varint').click ->
+        if confirm('Are you sure you want to delete this variant?') is false
+            return
+
+        variantId = $(@).attr 'data-variant-id'
+        variantType = $(@).attr 'data-variant-type'
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 204
+              window.location = "/admin/project/"+PROJECTID+"/"+variantType+"";  
+            
+        $.ajax 
+            url : "/admin/project/"+PROJECTID+"/bunglow-variant/"+variantId
+            type : 'DELETE'
+            success : successFn
+
+   $('.delete-unit').click ->
+        if confirm('Are you sure you want to delete this unit?') is false
+            return
+
+        unitId = $(@).attr 'data-unit-id'
+        unitType = $(@).attr 'data-unit-type'
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 204
+              window.location = "/admin/project/"+PROJECTID+"/"+unitType+"";  
+            
+        $.ajax 
+            url : "/admin/project/"+PROJECTID+"/bunglow-unit/"+unitId
+            type : 'DELETE'
+            success : successFn
 
             
  

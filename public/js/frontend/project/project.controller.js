@@ -139,7 +139,7 @@
     CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="step1-container"> <div class="img-loader "> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="step1-wrapper animated fadeIn hidden"> <img src="../../projects/3/google_earth/step1.jpg" class="firstimage img-responsive earth-img" /> <div class="svg-area"></div> </div> </div> </div>');
 
     CenterView.prototype.ui = {
-      svgContainer: '.us-right-content'
+      svgContainer: '.step1-container'
     };
 
     CenterView.prototype.events = {
@@ -162,12 +162,10 @@
       var PATH, img, windowHeight, windowWidth;
       PATH = BASEURL + '/projects/' + PROJECTID + '/google_earth/map.svg';
       windowHeight = $(window).innerHeight() - 56;
-      $('.svg-area').css('height', windowHeight);
-      $('.earth-img').css('height', windowHeight);
       $('.step1-container').css('height', windowHeight);
       $('.step1-container').css('min-width', windowHeight * 2);
       windowWidth = $(window).innerWidth();
-      $('.earth-img').css('min-width', windowWidth);
+      $('.earth-img').css('width', this.ui.svgContainer.width());
       img = this.model.get('step_one').svg;
       $('.firstimage').attr('src', img);
       return $('.firstimage').load(function() {

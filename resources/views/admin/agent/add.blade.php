@@ -20,6 +20,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
+            @include('admin.project.flashmessage')
             <div class="grid-body no-border"> 
                 <br>
                 <form id="add_project" method="POST" action="{{ url('admin/agent') }}" data-parsley-validate>
