@@ -15,13 +15,12 @@ class WhitelistIp {
 	{	
         
         $dnsList = config('constant.cf_dns_list'); 
-        $whitelistIps = $this->dnsToIp($dnsList); 
-		$clientIpAddress = $request->getClientIp();
-
-        if (!in_array($clientIpAddress, $whitelistIps)) {
+		$getHost = $_SERVER['HTTP_HOST'];
+       
+        if (!in_array($getHost, $dnsList)) {
 			return response()->json( [
 				'code' => 'forbidden_access',
-				'message' => 'This IP ('.$clientIpAddress.') has no access to the api'
+				'message' => 'This '.$getHost.' has no access to the api'
 				], 403 );
 		}
         
