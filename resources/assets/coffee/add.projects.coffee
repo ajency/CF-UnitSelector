@@ -76,7 +76,8 @@ jQuery(document).ready ($)->
         $('#add_project textarea[name="project_address"]').val("")
         $('#add_project select[name="cf_project_id"]').select2('val', '')
 
-        $('#add_project select[name="cf_project_id"]').empty() 
+        $('#add_project select[name="cf_project_id"]').empty()
+        $('#commonfloor-project-details').addClass('hidden')
 
     
       

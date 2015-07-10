@@ -52,7 +52,8 @@
       $('#add_project input[name="project_title"]').val("");
       $('#add_project textarea[name="project_address"]').val("");
       $('#add_project select[name="cf_project_id"]').select2('val', '');
-      return $('#add_project select[name="cf_project_id"]').empty();
+      $('#add_project select[name="cf_project_id"]').empty();
+      return $('#commonfloor-project-details').addClass('hidden');
     });
     $('#autocompleteArea').autocomplete({
       source: function(request, response) {
