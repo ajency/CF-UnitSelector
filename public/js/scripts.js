@@ -1131,7 +1131,7 @@ function getVariants(obj) {
 
 function getPositions(obj) { 
     var buildingId = $('select[name="building_id"]').val();
-    var floor = obj.value;alert(floor)
+    var floor = obj.value; 
     var $el = $("#flat_position");
     $el.select2('val', '');
     $el.empty(); // remove old options
