@@ -834,12 +834,12 @@ class ProjectController extends Controller {
                 $buildingPhaseIds[$building['id']] = $phaseId;
                 $projectUnits = array_merge($projectUnits,$buildingUnits);
             }
-           
-           if (empty($units)) {
+  
+            $projectUnits = array_merge($projectUnits,$units); 
+            if (empty($projectUnits)) {
                $errors['units'] = "No Units Created in ".$phase['phase_name'];
             }
 
-            $projectUnits = array_merge($projectUnits,$units); 
         }
  
         foreach ($projectUnits as $unit) {
