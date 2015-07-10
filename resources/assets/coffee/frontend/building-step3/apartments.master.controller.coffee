@@ -751,6 +751,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								<div class="price text-primary">
 									<span class="text-primary icon-rupee-icn"></span>'+price+'
 								</div>
+								<div class="price text-primary">
+									<span class="text-primary"></span>'+s.capitalize(availability)+'
+								</div>
 							</div>
 							 
 						</div>'
