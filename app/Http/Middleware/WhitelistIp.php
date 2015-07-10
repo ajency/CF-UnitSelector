@@ -17,7 +17,10 @@ class WhitelistIp {
         $dnsList = config('constant.cf_dns_list'); 
         $whitelistIps = $this->dnsToIp($dnsList); 
 		$clientIpAddress = $request->getClientIp();
-        
+        echo $clientIpAddress;
+        echo '<br>';
+        echo gethostbyname('phase2.cfunitselectortest.com');
+        exit;
         if (!in_array($clientIpAddress, $whitelistIps)) {
 			return response()->json( [
 				'code' => 'forbidden_access',
