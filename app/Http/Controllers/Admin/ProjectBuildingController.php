@@ -68,6 +68,7 @@ class ProjectBuildingController extends Controller {
         //$building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
+        $building->floor_rise = $formData['floor_rise'];
         $building->has_master = $formData['has_master'];
         $building->floors = [];
         $building->building_master = [];
@@ -98,6 +99,8 @@ class ProjectBuildingController extends Controller {
   
         $project = Project::find( $projectId );
         $building = Building::find( $buildingId );
+        if($building==null)
+            abort(404);
         $floorLayouts = $project->floorLayout()->get();
         $buildingMaster = $building->building_master;
         $svgImages = [];
@@ -155,6 +158,7 @@ class ProjectBuildingController extends Controller {
         //$building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
+        $building->floor_rise = $formData['floor_rise'];    
         $building->has_master = $formData['has_master'];
         $building->save();
         Session::flash('success_message','Building Successfully Updated');
@@ -186,7 +190,7 @@ class ProjectBuildingController extends Controller {
             $msg ='Building deleted successfully';
             
         }
-        
+        Session::flash('success_message','Building successfully deleted');
         return response()->json( [
                     'code' => 'building_deleted',
                     'message' => $msg,

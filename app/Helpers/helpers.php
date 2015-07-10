@@ -6,7 +6,7 @@ define('APARTMENTID',  '3');
 define('PENTHOUSEID',  '4');
 
 // globals for cf api calls
-define('CF_WEBSITE_URL', 'http://www.commonfloor.com/');
+define('CF_WEBSITE_URL', 'http://www.commonfloor.com');
 define('GET_PROPERTY_API_URL', 'http://www.commonfloor.com/api/project-v2/full-details?property_id=');
 define('GET_CITIES_API_URL', 'http://www.commonfloor.com/api/geo-local-v2/get-cities');
 define('GET_PROPERTIES_BY_CITY_API_URL', 'http://www.commonfloor.com/api/project-v2/get-projects?city=');

@@ -16,6 +16,7 @@ use \Session;
 use \Excel;
 use Auth;
 use CommonFloor\AgentUnit; 
+use CommonFloor\Http\Controllers\Admin\ProjectBunglowUnitController;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -27,6 +28,7 @@ class ProjectApartmentUnitController extends Controller {
    
     public function index($projectId) {
         $project = Project::find($projectId);
+        $projectPropertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray(); 
         $phases = $project->projectPhase()->lists('id');
         $buildings = Building::whereIn('phase_id', $phases)->lists('id');
         
@@ -43,7 +45,8 @@ class ProjectApartmentUnitController extends Controller {
         return view('admin.project.unit.apartment.list')
                         ->with('project', $project->toArray())
                         ->with('current', 'apartment-unit')
-                        ->with('units', $units);
+                        ->with('units', $units)
+                        ->with('projectPropertyTypes', $projectPropertyTypes);
     }
 
     /**
@@ -94,9 +97,10 @@ class ProjectApartmentUnitController extends Controller {
      * @return Response
      */
     public function store($projectId, Request $request) {
-
+        $cfProjectId = Project::find($projectId)->cf_project_id;
         $unit = new Unit;
-        $unit->unit_name = ucfirst($request->get('unit_name'));
+        $unitName =  ucfirst($request->get('unit_name'));
+        $unit->unit_name = $unitName;
         $unit->unit_variant_id = $request->get('unit_variant_id');
         $unit->building_id = $request->get('building_id');
         $unit->floor = $request->get('floor');
@@ -115,6 +119,11 @@ class ProjectApartmentUnitController extends Controller {
         
         $unit->save();
         Session::flash('success_message','Unit Successfully Created');
+            
+        if(ProjectBunglowUnitController::add_unit_to_booking_crm($unit->id,$unitName,$cfProjectId))
+            Session::flash('success_message','Unit Successfully Created And Updated To CRM');
+        else
+            Session::flash('success_error','Failed To Update Unit Data Into CRM');    
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
@@ -327,6 +336,7 @@ class ProjectApartmentUnitController extends Controller {
             Excel::load($unit_file, function($reader)use($project) {
             $errorMsg = [];
             $results = $reader->toArray(); //dd($results);
+            $cfProjectId = $project->cf_project_id;    
 
            if(!empty($results))
            {    
@@ -424,13 +434,12 @@ class ProjectApartmentUnitController extends Controller {
                     }
                    
                     $num_of_floors = Building::find($buildingId)->no_of_floors;
-           
-                    if ($num_of_floors <= $floor) 
-                    {   
-                        $errorMsg[] ='Invalid Floor No On Row No'.$i ;    
+                    
+                    if ($floor != $num_of_floors && $floor > $num_of_floors) 
+                    {    
+                        $errorMsg[] ='Invalid Floor No On Row No '.$i ;    
                         continue;
-                    }
-                     ;
+                    }  
                     //Unit exist at that position
                     $unitposition = Unit::where('building_id',$buildingId)->where('floor', $floor)->where('position', $position)->get()->toArray(); 
                    if (!empty($unitposition))
@@ -451,7 +460,8 @@ class ProjectApartmentUnitController extends Controller {
                    
                      
                     $unit =new Unit();
-                    $unit->unit_name = ucfirst($name);
+                    $unitName = ucfirst($name);
+                    $unit->unit_name = $unitName;
                     $unit->unit_variant_id = $variantId;
                     $unit->building_id = $buildingId;
                     $unit->floor =$floor;
@@ -469,6 +479,8 @@ class ProjectApartmentUnitController extends Controller {
                     $viewsStr = serialize( $unitviews );
                     $unit->views = $viewsStr;
                     $unit->save();
+                   
+                   ProjectBunglowUnitController::add_unit_to_booking_crm($unit->id,$unitName,$cfProjectId);
 
                 Session::flash('success_message','Unit Successfully Imported');  
                }

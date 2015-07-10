@@ -113,10 +113,9 @@
                                     <input type="hidden" name="image_external_3d_id" id="image_external_3d_id" value="">    
                                 </h4>
                             </div>
-                            <div class="grid-body no-border" id="3d_external_img">
-                                <div class="col-md-3" >
-
-                                    <div class="img-hover img-thumbnail">
+                            <div class="grid-body no-border" id="3d_external_image">
+ 
+                                    <div class="img-hover img-thumbnail  upload-img-block">
                                         <div id="pickfiles_ext3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                             <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                 <i class="fa fa-image" style="font-size:30px;"></i>
@@ -124,9 +123,7 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-                                </div>
+ 
 
 
                             </div>

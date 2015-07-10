@@ -91,7 +91,7 @@ class Project extends Model {
         return $this->projectPropertyTypes()->where( 'property_type_id', $propertyTypeId )->first()->id;
     }
 
-    public function toArray() { 
+    public function toArray() {
         $data = parent::toArray();
         $data['created_by'] = $this->creator->name;
         $data['updated_by'] = $this->updater->name;
@@ -99,6 +99,7 @@ class Project extends Model {
         $projectphase = $this->projectPhase()->get()->toArray();
         $data['project_phase'] = $projectphase;
         $commonFloorData = unserialize( $this->projectMeta()->where( 'meta_key', 'cf' )->first()->meta_value );
+
         $data['cf'] = $commonFloorData;
         $data['project_image'] = $this->projectMeta()->where( 'meta_key', 'project_image' )->first()->meta_value;
 
@@ -106,13 +107,6 @@ class Project extends Model {
             if ($property['meta_key'] === 'phase') {
                 $data[$property['meta_key']][] = $property['meta_value'];
             }
-            
-            if ($property['meta_key'] === 'cf') {  //Apend Cf utl to property page link
-                $commonFloorData = $property['meta_value'];
-                $commonFloorData['property_page_link'] = CF_WEBSITE_URL.$commonFloorData['property_page_link'];
-                $property['meta_value'] = $commonFloorData;
-            }
-            
             $data[$property['meta_key']] = $property['meta_value'];
         } 
         return $data;

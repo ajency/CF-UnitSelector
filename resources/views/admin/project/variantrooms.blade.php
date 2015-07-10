@@ -34,13 +34,13 @@
                                                         <div class="text-center" id="2d_{{ $level }}_image">
                                                             @if(isset($layouts[$level]['2d']))
                                                             
-                                                                <div class="img-hover img-thumbnail">
+                                                                <div class="img-hover img-thumbnail" id="2d-{{ $layouts[$level]['2d']['ID'] }}" data-level="{{ $level }}">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[$level]['2d']['ID'] }}, '2d');"><i class="fa fa-close text-primary"></i></a>
                                                                     <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[$level]['2d']['IMAGE'] }}"   />
                                                                 </div>
                                                             
-                                                            @else
-                                                            <div class="img-hover img-thumbnail">
+                                                            @endif 
+                                                            <div class="img-hover img-thumbnail upload-img-block {{(isset($layouts[$level]['2d']))? 'hidden':'' }}">
                                                                 <a href="javascript:void(0)" id="pickfiles_{{ $level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
@@ -48,7 +48,7 @@
                                                                     </div>
                                                                 </a>
                                                             </div>
-                                                            @endif 
+                                                            
 
 
 
@@ -63,13 +63,13 @@
                                                         <div class="text-center" id="3d_{{ $level }}_image">
                                                             @if(isset($layouts[$level]['3d']))
                                                             
-                                                                <div class="img-hover img-thumbnail">
+                                                                <div class="img-hover img-thumbnail" id="3d-{{ $layouts[$level]['3d']['ID'] }}" data-level="{{ $level }}">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[$level]['3d']['ID'] }}, '3d');"><i class="fa fa-close text-primary"></i></a>
                                                                     <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[$level]['3d']['IMAGE'] }}"   />
                                                                 </div>
                                                              
-                                                            @else
-                                                            <div class="img-hover img-thumbnail">
+                                                            @endif 
+                                                            <div class="img-hover img-thumbnail upload-img-block {{(isset($layouts[$level]['3d']))? 'hidden':'' }}">
                                                                 <a  href="javascript:void(0)" id="pickfiles_{{ $level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;" tabindex="0">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
@@ -77,7 +77,7 @@
                                                                     </div>
                                                                 </a>
                                                             </div>
-                                                            @endif 
+                                                            
 
                                                         </div>
                                                     </div>

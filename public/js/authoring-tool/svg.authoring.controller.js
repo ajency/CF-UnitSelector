@@ -87,6 +87,9 @@
       supportedTypes = _.uniq(supportedTypes);
       $.each(supportedTypes, function(index, value) {
         var items, marked, units;
+        if (value === 'Apartment/Penthouse') {
+          value = 'apartment';
+        }
         items = collection.where({
           'object_type': value.toLowerCase()
         });
@@ -920,7 +923,7 @@
             } else {
               window.loadForm(object_type);
             }
-            if (!_.isNull($(currentElem).data("primary-breakpoint"))) {
+            if (!(_.isNull($(currentElem).data("primary-breakpoint"))) && !(_.isUndefined($(currentElem).data("primary-breakpoint")))) {
               $('[name="check_primary"]').prop('checked', true);
             }
             if (object_type === "amenity") {

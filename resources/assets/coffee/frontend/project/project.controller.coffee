@@ -195,7 +195,7 @@ class CenterView extends Marionette.ItemView
 									</div>')
 
 	ui :
-		svgContainer : '.us-right-content'
+		svgContainer : '.step1-container'
 
 
 			
@@ -235,13 +235,13 @@ class CenterView extends Marionette.ItemView
 	onShow:->
 		PATH = BASEURL+'/projects/'+PROJECTID+'/google_earth/map.svg'
 		windowHeight = $(window).innerHeight() - 56
-		$('.svg-area').css 'height', windowHeight
-		$('.earth-img').css 'height', windowHeight
+		# $('.svg-area').css 'height', windowHeight
+		# $('.earth-img').css 'height', windowHeight
 		$('.step1-container').css 'height', windowHeight
 		$('.step1-container').css 'min-width', windowHeight * 2
 
 		windowWidth = $(window).innerWidth()
-		$('.earth-img').css 'min-width', windowWidth
+		$('.earth-img').css 'width', @.ui.svgContainer.width()
 
 		
 

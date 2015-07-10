@@ -169,7 +169,10 @@ function saveProjectConfig()
      });    
 
     if (flag)
+    {
+        $('input[name="property_types[]"]').attr('disabled',false);
         $('form').submit();
+    }
 
 }
     </script>

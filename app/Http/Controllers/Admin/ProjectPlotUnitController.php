@@ -15,6 +15,7 @@ use \Session;
 use \Excel;
 use Auth;
 use CommonFloor\AgentUnit; 
+use CommonFloor\Http\Controllers\Admin\ProjectBunglowUnitController;
 
 class ProjectPlotUnitController extends Controller {
 
@@ -106,8 +107,11 @@ class ProjectPlotUnitController extends Controller {
      * @return Response
      */
     public function store($project_id, Request $request) {
+        $cfProjectId = Project::find($project_id)->cf_project_id;
         $unit = new Unit();
-        $unit->unit_name = ucfirst($request->input('unit_name'));
+        $unitName = ucfirst($request->input('unit_name'));
+        $unit->unit_name = $unitName;
+        
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->phase_id = $request->input('phase');
@@ -124,6 +128,11 @@ class ProjectPlotUnitController extends Controller {
         $unit->save();
         $unitid = $unit->id;
         Session::flash('success_message','Unit Successfully Created');
+        
+        if(ProjectBunglowUnitController::add_unit_to_booking_crm($unitid,$unitName,$cfProjectId))
+            Session::flash('success_message','Unit Successfully Created And Updated To CRM');
+        else
+            Session::flash('success_error','Failed To Update Unit Data Into CRM');
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
@@ -150,7 +159,7 @@ class ProjectPlotUnitController extends Controller {
      */
     public function edit($project_id, $id, ProjectRepository $projectRepository) {
         $unit = Unit::find($id);
-        $project = $projectRepository->getProjectById($project_id);
+        $project = $projectRepository->getProjectById($project_id); 
         $projectAttributes = $project->attributes->toArray();
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $defaultDirection = Defaults::where('type','direction')->get()->toArray();
@@ -261,15 +270,16 @@ class ProjectPlotUnitController extends Controller {
     
    public function unitImport($projectId, Request $request) 
    {
-        $project = Project::find($projectId); 
+        $project = Project::find($projectId);
         $unit_file = $request->file('unit_file')->getRealPath();
         $extension = $request->file('unit_file')->getClientOriginalExtension(); 
        
         if ($request->hasFile('unit_file') && $extension=='csv')
         {
-               Excel::load($unit_file, function($reader)use($project) {
-                $errorMsg = [];
-               $results = $reader->toArray();//dd($results);
+            Excel::load($unit_file, function($reader)use($project) {
+            $errorMsg = [];
+            $results = $reader->toArray();//dd($results);
+            $cfProjectId = $project->cf_project_id;       
             
             if(!empty($results))
             {
@@ -351,7 +361,8 @@ class ProjectPlotUnitController extends Controller {
                    }
  
                     $unit =new Unit();
-                    $unit->unit_name = ucfirst($name);
+                    $unitName = ucfirst($name);
+                    $unit->unit_name = $unitName;
                     $unit->unit_variant_id = $variantId;
                     $unit->availability = $availability;
                     $unit->direction = $direction;
@@ -367,6 +378,8 @@ class ProjectPlotUnitController extends Controller {
                     $viewsStr = serialize( $unitviews );
                     $unit->views = $viewsStr;
                     $unit->save();
+                   
+                    ProjectBunglowUnitController::add_unit_to_booking_crm($unit->id,$unitName,$cfProjectId);
                     Session::flash('success_message','Unit Successfully Imported');
                  
                }

@@ -1,0 +1,3 @@
+Name,Building Name,Building Id,Floor,Position,Penthouse Variant,Penthouse Variant Id,Direction,Direction Id,Status,Status Id,Views
+Unit G901,Gold Tower,11,9,1,2.5BHK variant,44,South,51,Sold,sold,ATM
+Unit G902,Gold Tower,11,8,2,2.5BHK variant,44,East,52,Available,available,"Clubhouse,ATM"

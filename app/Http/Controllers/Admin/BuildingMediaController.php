@@ -153,7 +153,9 @@ class BuildingMediaController extends Controller {
        
         $media = Media::find( $id );
         $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/".$media->image_name;
-        unlink($targetDir);
+        //unlink($targetDir);
+        \File::delete($targetDir);
+ 
         $media->delete();
 
         return response()->json([
@@ -165,14 +167,25 @@ class BuildingMediaController extends Controller {
      public function updateBreakPoint($buildingId)
     {
         $position = Input::get( 'position' ); 
-        $building = Building::find($buildingId);
-        $building->breakpoints = serialize($position);
-        $building->save(); 
+        if(!empty($position))
+        {
+            $building = Building::find($buildingId);
+            $building->breakpoints = serialize($position);
+            $building->save();
+            $msg = 'Break Points Successfully Updated';
+            $code = '201';
+        }
+        else
+        {
+            $msg = 'Break Points Not Selected';
+            $code = '200';
+        }
+        
         
          return response()->json( [
             'code' => 'master_breakpoints',
-            'message' => 'Break Points Successfully Updated', 
-                ], 201 );
+            'message' => $msg, 
+                ], $code );
     }
 
 }

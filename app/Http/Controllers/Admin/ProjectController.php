@@ -144,29 +144,35 @@ class ProjectController extends Controller {
         $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
         $propertyTypes = get_all_property_type();
         $defaultunitTypes = get_all_unit_type();
-        $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = [];
+        $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = $propertyTypehasVariants= [];
         $projectAttributes = $project->attributes->toArray();
 
         foreach ($projectMeta as $meta) {
             $projectCost[$meta['meta_key']] = ['ID' => $meta['id'], 'VALUE' => $meta['meta_value']];
         }
 
-
+        
+        
         foreach ($project->projectPropertyTypes as $projectPropertyType) {
-
+            $unitTypeIds = [];
             $unitTypes = $project->getUnitTypesToArray($projectPropertyType->id);
             foreach ($unitTypes as $unitType) {
                 if (!isset($defaultunitTypes[$projectPropertyType->property_type_id][$unitType->unittype_name])) {
                     $projectDefaultUnitType = Defaults::find($unitType->unittype_name)->toArray();
                     $defaultunitTypes[$projectPropertyType->property_type_id][$projectDefaultUnitType['id']] = $projectDefaultUnitType['label'];
                 }
+                
+                $unitTypeIds[] = $unitType->id;
             }
+            $unitTypeVariants = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->toArray();
+            $propertyTypehasVariants[$projectPropertyType->property_type_id]=(empty($unitTypeVariants))?false:true;
+            
             $projectunitTypes[$projectPropertyType->property_type_id] = $unitTypes;
 
             $propertytypeAttributes[$projectPropertyType->property_type_id]['PROJECTPROPERTYTYPEID'] = $projectPropertyType->id;
             $propertytypeAttributes[$projectPropertyType->property_type_id]['ATTRIBUTES'] = ProjectPropertyType::find($projectPropertyType->id)->attributes->toArray();
         }
-
+      
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('projectCost', $projectCost)
@@ -175,6 +181,7 @@ class ProjectController extends Controller {
                         ->with('unitTypes', $projectunitTypes)
                         ->with('propertytypeAttributes', $propertytypeAttributes)
                         ->with('projectAttributes', $projectAttributes)
+                        ->with('propertyTypehasVariants', $propertyTypehasVariants)
                         ->with('current', 'settings');
     }
 
@@ -546,6 +553,7 @@ class ProjectController extends Controller {
             $data[$propertTypeId][] = $unit['unit_name'];
 			$unitIds['unit'][] = $unit['id'];
             $unitNames['unit'][$unit['id']]=$unit['unit_name'];
+  
         }
 		
         
@@ -572,6 +580,7 @@ class ProjectController extends Controller {
             foreach ($buildingUnits as $buildingUnit) {
                 $buildingunitIds['unit'][] = $buildingUnit['id'];
                 $buildingunitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
+       
             }
             
             $unitSvgExits =[];
@@ -808,13 +817,14 @@ class ProjectController extends Controller {
         }
         
  
-        
+        $projectUnits=[];
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray(); 
             $phaseData[$phaseId] = $phase['phase_name'];
+            $buildingUnits=[];
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
@@ -823,17 +833,17 @@ class ProjectController extends Controller {
                         $warnings[] = 'No Units Created For Building :'.$buildingData->building_name;   
                 
                 $buildingPhaseIds[$building['id']] = $phaseId;
-                $units = array_merge($units,$buildingUnits);
+                $projectUnits = array_merge($projectUnits,$buildingUnits);
             }
-            
-           if (empty($units)) {
-               $errors['units'] = "No Units Created";
+           
+           if (empty($units) && empty($buildingUnits)) {
+               $errors['units'] = "No Units Created in ".$phase['phase_name'];
             }
 
-            
+            $projectUnits = array_merge($projectUnits,$units); 
         }
  
-        foreach ($units as $unit) {
+        foreach ($projectUnits as $unit) {
                 $variantId = $unit['unit_variant_id'];
                 $unitType = UnitVariant::find($variantId)->unitType()->first();
                 $unitTypeId = $unitType->id;
@@ -1257,7 +1267,7 @@ class ProjectController extends Controller {
 
   public function downloadSampleFile($projectId,$filename){
        
-        $file= public_path() . '/projects/cfsamplefile/'.$filename;
+        $file= public_path() . '/cfsamplefile/'.$filename;
         $headers = array(
                'Content-Type' => 'text/csv',
             );
@@ -1305,13 +1315,16 @@ class ProjectController extends Controller {
      $sender_url .= GET_SELLING_AMOUNT;
 
      /* $_GET Parameters to Send */
-     $params = array('unit_id' => $unitId);
+     //$params = array('unit_id' => $unitId);
+     $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId;   
 
      /* Update URL to container Query String of Paramaters */
-     $sender_url .= '?' . http_build_query($params);
+     //$sender_url .= '?' . http_build_query($params);
 
      $c = curl_init();
      curl_setopt($c, CURLOPT_URL, $sender_url);
+     curl_setopt($c, CURLOPT_POST, 1);
+     curl_setopt($c, CURLOPT_POSTFIELDS, $params);   
 
      curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
      curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
@@ -1342,13 +1355,16 @@ class ProjectController extends Controller {
      $sender_url .= GET_BOOKING_AMOUNT;
 
      /* $_GET Parameters to Send */
-     $params = array('unit_id' => $unitId);
+     //$params = array('unit_id' => $unitId);
+      $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId; 
 
      /* Update URL to container Query String of Paramaters */
-     $sender_url .= '?' . http_build_query($params);
+    // $sender_url .= '?' . http_build_query($params);
 
      $c = curl_init();
      curl_setopt($c, CURLOPT_URL, $sender_url);
+     curl_setopt($c, CURLOPT_POST, 1);
+     curl_setopt($c, CURLOPT_POSTFIELDS, $params);    
 
      curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
      curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);

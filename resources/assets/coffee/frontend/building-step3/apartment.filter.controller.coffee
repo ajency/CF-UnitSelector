@@ -80,7 +80,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 								                       {{/facings}} 
 								                         </div>
 								                     </div>
-				                                <div class="">
+				                                <div class="floor_filter">
 				                                    <h6>FLOOR </h6>
 				                                    <div class="range-container">
 				                                    	<input type="text" id="floor" name="floor" value="" />
@@ -494,6 +494,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 		)
 
+
 		@hideLabels()
 
 	hideLabels:->
@@ -517,6 +518,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		if unitVariants.length is 0
 			$('.areaLabel').hide()
 
+		if $.inArray('floor' , project.get('filters').defaults) ==  -1 ||  _.isUndefined project.get('filters').defaults
+			$('.floor_filter').hide()
 	loadClearFilters:->
 		budget = []
 		area = []
@@ -717,10 +720,10 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		views = viewsFacingsArr[0]
 		facings = viewsFacingsArr[1]
 
-		if $.inArray('budget' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
+		if $.inArray('budget' , project.get('filters').defaults) ==  -1 ||  _.isUndefined project.get('filters').defaults
 				budget = []
 
-		if $.inArray('area' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
+		if $.inArray('area' , project.get('filters').defaults) ==  -1 ||  _.isUndefined project.get('filters').defaults
 				unitVariants = []
 
 		@view = view = new CommonFloor.FilterApartmentView
@@ -867,10 +870,10 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				'id' : val
 				'name' : val
 
-		if $.inArray('views' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
+		if $.inArray('views' , project.get('filters').defaults) ==  -1 ||  _.isUndefined project.get('filters').defaults
 				viewArr = []
 
-		if $.inArray('direction' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
+		if $.inArray('direction' , project.get('filters').defaults) ==  -1 ||  _.isUndefined project.get('filters').defaults
 				facingsArr = []
 
 		[viewArr,facingsArr]

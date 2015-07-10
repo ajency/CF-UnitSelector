@@ -23,7 +23,7 @@
       return FilterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterApartmentView.prototype.template = Handlebars.compile('<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="unit_type_filter"> <h6>UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="variant_filter"> <h6>VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <div class="filter-chkbox-block"> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-index="{{index}}" data-type="apartment" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="areaLabel"> <h6>AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class="budgetLabel"> <h6>BUDGET ( <span class="icon-rupee-icn"></span> )</h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class="viewLabel"> <h6 class="">VIEWS</h6> <div class="filter-chkbox-block"> {{#views}} <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/views}} </div> </div> <div class="facingLabel"> <h6 class="">FACINGS</h6> <div class="filter-chkbox-block"> {{#facings}} <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/facings}} </div> </div> <div class=""> <h6>FLOOR </h6> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div>');
+    FilterApartmentView.prototype.template = Handlebars.compile('<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="unit_type_filter"> <h6>UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="variant_filter"> <h6>VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <div class="filter-chkbox-block"> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-index="{{index}}" data-type="apartment" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="areaLabel"> <h6>AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class="budgetLabel"> <h6>BUDGET ( <span class="icon-rupee-icn"></span> )</h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class="viewLabel"> <h6 class="">VIEWS</h6> <div class="filter-chkbox-block"> {{#views}} <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/views}} </div> </div> <div class="facingLabel"> <h6 class="">FACINGS</h6> <div class="filter-chkbox-block"> {{#facings}} <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/facings}} </div> </div> <div class="floor_filter"> <h6>FLOOR </h6> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div>');
 
     FilterApartmentView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -401,7 +401,10 @@
         $('.budgetLabel').hide();
       }
       if (unitVariants.length === 0) {
-        return $('.areaLabel').hide();
+        $('.areaLabel').hide();
+      }
+      if ($.inArray('floor', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
+        return $('.floor_filter').hide();
       }
     };
 
@@ -571,10 +574,10 @@
       viewsFacingsArr = this.getViewsFacings();
       views = viewsFacingsArr[0];
       facings = viewsFacingsArr[1];
-      if ($.inArray('budget', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('budget', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
         budget = [];
       }
-      if ($.inArray('area', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('area', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
         unitVariants = [];
       }
       this.view = view = new CommonFloor.FilterApartmentView({
@@ -752,10 +755,10 @@
           'name': val
         });
       });
-      if ($.inArray('views', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('views', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
         viewArr = [];
       }
-      if ($.inArray('direction', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('direction', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
         facingsArr = [];
       }
       return [viewArr, facingsArr];

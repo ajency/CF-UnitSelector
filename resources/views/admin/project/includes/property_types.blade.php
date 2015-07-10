@@ -8,7 +8,7 @@
             <div class="grid simple">
                 <div class="grid-title no-border">
                     <div class="checkbox check-primary pull-left" >
-                        <input {{ (isset($unitTypes[$propertyTypeId])) ? 'checked' : '' }} type="checkbox" id="property_types_{{ $propertyTypeId }}" value="{{ $propertyTypeId }}" name="property_types[]" aria-label="...">
+                        <input {{ (isset($unitTypes[$propertyTypeId])) ? 'checked' : '' }} {{ (isset($propertyTypehasVariants[$propertyTypeId]) && $propertyTypehasVariants[$propertyTypeId]) ? 'disabled' : '' }}  type="checkbox"  id="property_types_{{ $propertyTypeId }}" value="{{ $propertyTypeId }}" name="property_types[]" aria-label="...">
                         <label for="property_types_{{ $propertyTypeId }}"></label>
                     </div>
 

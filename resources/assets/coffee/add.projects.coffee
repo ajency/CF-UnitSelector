@@ -76,7 +76,8 @@ jQuery(document).ready ($)->
         $('#add_project textarea[name="project_address"]').val("")
         $('#add_project select[name="cf_project_id"]').select2('val', '')
 
-        $('#add_project select[name="cf_project_id"]').empty() 
+        $('#add_project select[name="cf_project_id"]').empty()
+        $('#commonfloor-project-details').addClass('hidden')
 
     
       
@@ -283,6 +284,7 @@ jQuery(document).ready ($)->
              $('#myModal').modal('toggle')
              $("#phase-"+phaseId).find('select').attr('disabled',true)
              $("#phase-"+phaseId).find('.updatelink').addClass('hidden')
+             $("#phase-"+phaseId).find('.remove-phase').addClass('hidden')   
         $.ajax 
             url : '/admin/phase/'+phaseId
             type : 'POST'
@@ -364,6 +366,8 @@ jQuery(document).ready ($)->
         $(@).closest('.unit_type_block').find('select').val('')
         $(@).closest('.unit_type_block').prev('.unit_type_block').find('select').val(unitType)
         $('select').select2()
+        $(@).closest('.unit_type_block').find('select').select2("focus")
+        
         registerRemoveUnitType()
                                  
     $('.add_new_unit_type').click ->
@@ -411,10 +415,15 @@ jQuery(document).ready ($)->
 
     
     $('.apartment-unit-building').change ->
+        $('.select-position select').select2('val', '')
+        $('.select-position select').empty()
+        $('.select-position select').append "<option value=''>Select Position</option>"
+        
         $(@).closest('.row').find('.select-floor').addClass 'hidden'        
         buildingId = $(@).val()
         if buildingId.trim() is '' then return
         floorSelection = $(@).closest('.row').find('.select-floor select')
+        floorSelection.select2('val', '')
         noOfFloors = $(@).find('option[value="'+buildingId+'"]').attr 'data-no-of-floors'
         if parseInt(noOfFloors) is 0 then return
         $(@).closest('.row').find('.select-floor').removeClass 'hidden'
@@ -423,16 +432,16 @@ jQuery(document).ready ($)->
         for i in [0...noOfFloors]
             floorSelection.append "<option value='#{i+1}'>#{i+1}</option>"  
             
-    $('.apartment-unit-floor-no').change ->
+    #$('.apartment-unit-floor-no').change ->
         
-        floorNo = $(@).val()
-        buildingId = $('.apartment-unit-building').select2('val')
-        $.ajax
-            url : "#{BASEURL}/api/v1/buildings/#{buildingId}/floor-layout"
-            type : 'GET'
-            data : 
-                floor_no : floorNo
-            success : (resp)->
+        #floorNo = $(@).val()
+       # buildingId = $('.apartment-unit-building').select2('val')
+        #$.ajax
+            #url : "#{BASEURL}/api/v1/buildings/#{buildingId}/floor-layout"
+           # type : 'GET'
+           # data : 
+               # floor_no : floorNo
+           # success : (resp)->
 
 
     $('.update-response-table').click ->
@@ -545,6 +554,10 @@ jQuery(document).ready ($)->
 
 $('.add-project-attributes-btn').click ->
     attributeName = $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val()
+    if attributeName is ''
+        alert('Enter Project View')
+        return
+    
     str = '<div class="row m-b-10 ">
                       <div class="col-md-10">
                           <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> 
@@ -560,7 +573,7 @@ $('.add-project-attributes-btn').click ->
       name : attributeName
       project_id : PROJECTID  
     $(".project_attribute_block").before compile data
-    $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('')  
+    $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('').focus()  
     
     
 $('.room_attributes_block').on 'click', '.remove-room-attribute', ->
@@ -707,7 +720,40 @@ $('#project_name').autocomplete
         $.ajax 
             url : "/admin/project/"+PROJECTID+"/building/"+buildingId
             type : 'DELETE'
-            success : successFn  
+            success : successFn
+            
+            
+   $('.delete-varint').click ->
+        if confirm('Are you sure you want to delete this variant?') is false
+            return
+
+        variantId = $(@).attr 'data-variant-id'
+        variantType = $(@).attr 'data-variant-type'
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 204
+              window.location = "/admin/project/"+PROJECTID+"/"+variantType+"";  
+            
+        $.ajax 
+            url : "/admin/project/"+PROJECTID+"/bunglow-variant/"+variantId
+            type : 'DELETE'
+            success : successFn
+
+   $('.delete-unit').click ->
+        if confirm('Are you sure you want to delete this unit?') is false
+            return
+
+        unitId = $(@).attr 'data-unit-id'
+        unitType = $(@).attr 'data-unit-type'
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 204
+              window.location = "/admin/project/"+PROJECTID+"/"+unitType+"";  
+            
+        $.ajax 
+            url : "/admin/project/"+PROJECTID+"/bunglow-unit/"+unitId
+            type : 'DELETE'
+            success : successFn
 
             
  

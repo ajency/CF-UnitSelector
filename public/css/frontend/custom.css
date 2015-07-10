@@ -135,6 +135,9 @@ body {
 .step1-container {
   overflow: auto;
   overflow-y: hidden;
+  -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+      -ms-transform: matrix(1, 0, 0, 1, 0, 0);
+          transform: matrix(1, 0, 0, 1, 0, 0);
 }
 .step1-container .svg-area {
   position: absolute;
@@ -516,6 +519,13 @@ hr.embossed {
   background-size: contain;
 }
 .plot-ico {
+  background: url(../../images/sprite-popovergray.png) no-repeat;
+  width: 40px;
+  height: 40px;
+  display: block;
+  background-position: -116px -18px;
+}
+.plots-ico {
   background: url(../../images/sprite-popovergray.png) no-repeat;
   width: 40px;
   height: 40px;
@@ -1725,6 +1735,9 @@ svg polygon {
 svg .no-fill {
   opacity: 0;
 }
+.step1-wrapper svg {
+  height: 100%;
+}
 .amenity {
   stroke-width: 1 !important;
   stroke: #FF7E00;
@@ -1736,6 +1749,7 @@ svg .no-fill {
   cursor: default;
 }
 .step1-marker {
+  cursor: pointer;
   -webkit-transform-origin: 50% 50%;
       -ms-transform-origin: 50% 50%;
           transform-origin: 50% 50%;

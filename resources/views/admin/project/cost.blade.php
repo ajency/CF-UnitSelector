@@ -24,21 +24,6 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Floor Rise</label>
-                            <div class="input-group transparent">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-inr"></i>
-                                </span> 
-                                <input type="text" name="{{ $projectCost['floor_rise']['ID'] }}_floor_rise" class="form-control" 
-                                       placeholder="Enter Floor Rise" value="{{ $projectCost['floor_rise']['VALUE'] }}" data-parsley-type="number" data-parsley-errors-container=".pars-rise">
-                            </div>
-                            <ul class="parsley-errors-list">
-                                <li class="parsley-required pars-rise"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
                             <label class="form-label">Stamp Duty</label>
                             <div class="input-group transparent">
                                 <span class="input-group-addon">
@@ -67,9 +52,6 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">VAT</label>
@@ -85,6 +67,10 @@
                             </ul>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Service Tax</label>
@@ -116,9 +102,6 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Infrastructure Charges</label>
@@ -134,6 +117,10 @@
                             </ul>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Membership Fees</label>

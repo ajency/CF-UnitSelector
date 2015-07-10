@@ -7,6 +7,7 @@ use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Role;
 use Illuminate\Http\Request;
 use CommonFloor\Permission;
+use \Session;
 
 class RoleController extends Controller {
 
@@ -38,6 +39,7 @@ class RoleController extends Controller {
             else
                $projectPermissions[] = $permission; 
         }
+ 
         
         return view('admin.role.add')->with('permissions', $permissions)
                                      ->with('projectPermissions', $projectPermissions)
@@ -66,13 +68,20 @@ class RoleController extends Controller {
            $role->attachPermissions($permissions);
         
         }
-
+ 
+        
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
+        {
+             Session::flash('success_message','Role successfully created. You can add new role');
             return redirect("/admin/role/create");
+        }
         else
+        {
+            Session::flash('success_message','Role successfully created');
             return redirect("/admin/role/" . $roleId . "/edit");
+        }
     }
 
     /**
@@ -145,7 +154,7 @@ class RoleController extends Controller {
  
         }
         
-
+        Session::flash('success_message','Role successfully updated');
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)

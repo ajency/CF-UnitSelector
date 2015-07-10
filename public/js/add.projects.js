@@ -52,7 +52,8 @@
       $('#add_project input[name="project_title"]').val("");
       $('#add_project textarea[name="project_address"]').val("");
       $('#add_project select[name="cf_project_id"]').select2('val', '');
-      return $('#add_project select[name="cf_project_id"]').empty();
+      $('#add_project select[name="cf_project_id"]').empty();
+      return $('#commonfloor-project-details').addClass('hidden');
     });
     $('#autocompleteArea').autocomplete({
       source: function(request, response) {
@@ -235,7 +236,8 @@
       successFn = function(resp, status, xhr) {
         $('#myModal').modal('toggle');
         $("#phase-" + phaseId).find('select').attr('disabled', true);
-        return $("#phase-" + phaseId).find('.updatelink').addClass('hidden');
+        $("#phase-" + phaseId).find('.updatelink').addClass('hidden');
+        return $("#phase-" + phaseId).find('.remove-phase').addClass('hidden');
       };
       return $.ajax({
         url: '/admin/phase/' + phaseId,
@@ -314,6 +316,7 @@
       $(this).closest('.unit_type_block').find('select').val('');
       $(this).closest('.unit_type_block').prev('.unit_type_block').find('select').val(unitType);
       $('select').select2();
+      $(this).closest('.unit_type_block').find('select').select2("focus");
       return registerRemoveUnitType();
     });
     $('.add_new_unit_type').click(function() {
@@ -366,12 +369,16 @@
     });
     $('.apartment-unit-building').change(function() {
       var buildingId, floorSelection, i, j, noOfFloors, ref, results;
+      $('.select-position select').select2('val', '');
+      $('.select-position select').empty();
+      $('.select-position select').append("<option value=''>Select Position</option>");
       $(this).closest('.row').find('.select-floor').addClass('hidden');
       buildingId = $(this).val();
       if (buildingId.trim() === '') {
         return;
       }
       floorSelection = $(this).closest('.row').find('.select-floor select');
+      floorSelection.select2('val', '');
       noOfFloors = $(this).find('option[value="' + buildingId + '"]').attr('data-no-of-floors');
       if (parseInt(noOfFloors) === 0) {
         return;
@@ -384,19 +391,6 @@
         results.push(floorSelection.append("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
       }
       return results;
-    });
-    $('.apartment-unit-floor-no').change(function() {
-      var buildingId, floorNo;
-      floorNo = $(this).val();
-      buildingId = $('.apartment-unit-building').select2('val');
-      return $.ajax({
-        url: BASEURL + "/api/v1/buildings/" + buildingId + "/floor-layout",
-        type: 'GET',
-        data: {
-          floor_no: floorNo
-        },
-        success: function(resp) {}
-      });
     });
     $('.update-response-table').click(function() {
       var projectId;
@@ -434,6 +428,10 @@
   $('.add-project-attributes-btn').click(function() {
     var attributeName, compile, data, str;
     attributeName = $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val();
+    if (attributeName === '') {
+      alert('Enter Project View');
+      return;
+    }
     str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> <input type="hidden" name="projectattributeId[]" value="" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteAttribute({{ project_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div>';
     compile = Handlebars.compile(str);
     data = {
@@ -441,7 +439,7 @@
       project_id: PROJECTID
     };
     $(".project_attribute_block").before(compile(data));
-    return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('');
+    return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('').focus();
   });
 
   $('.room_attributes_block').on('click', '.remove-room-attribute', function() {
@@ -593,6 +591,44 @@
     };
     return $.ajax({
       url: "/admin/project/" + PROJECTID + "/building/" + buildingId,
+      type: 'DELETE',
+      success: successFn
+    });
+  });
+
+  $('.delete-varint').click(function() {
+    var successFn, variantId, variantType;
+    if (confirm('Are you sure you want to delete this variant?') === false) {
+      return;
+    }
+    variantId = $(this).attr('data-variant-id');
+    variantType = $(this).attr('data-variant-type');
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 204) {
+        return window.location = "/admin/project/" + PROJECTID + "/" + variantType + "";
+      }
+    };
+    return $.ajax({
+      url: "/admin/project/" + PROJECTID + "/bunglow-variant/" + variantId,
+      type: 'DELETE',
+      success: successFn
+    });
+  });
+
+  $('.delete-unit').click(function() {
+    var successFn, unitId, unitType;
+    if (confirm('Are you sure you want to delete this unit?') === false) {
+      return;
+    }
+    unitId = $(this).attr('data-unit-id');
+    unitType = $(this).attr('data-unit-type');
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 204) {
+        return window.location = "/admin/project/" + PROJECTID + "/" + unitType + "";
+      }
+    };
+    return $.ajax({
+      url: "/admin/project/" + PROJECTID + "/bunglow-unit/" + unitId,
       type: 'DELETE',
       success: successFn
     });
