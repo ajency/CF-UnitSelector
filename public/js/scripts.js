@@ -1129,26 +1129,28 @@ function getVariants(obj) {
     });
 }
 
-function getPositions(obj) {
+function getPositions(obj) { 
     var buildingId = $('select[name="building_id"]').val();
-    var floor = obj.value;
-    $.ajax({
-        url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-unit/getavailableposition',
-        type: "POST",
-        data: {
-            buildingId: buildingId,
-            floor: floor
-        },
-        success: function (response) {
-
-            var $el = $("#flat_position");
-            $el.select2('val', '');
-            $el.empty(); // remove old options
-            $el.append(response.data);
-
-
-        }
-    });
+    var floor = obj.value;alert(floor)
+    var $el = $("#flat_position");
+    $el.select2('val', '');
+    $el.empty(); // remove old options
+    $el.append("<option value=''>Select Position</option>")
+    
+    if(floor!='')
+    {
+        $.ajax({
+            url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-unit/getavailableposition',
+            type: "POST",
+            data: {
+                buildingId: buildingId,
+                floor: floor
+            },
+            success: function (response) {
+                $el.append(response.data);
+            }
+        });
+    }
 }
 
 function getPropertTypeData(obj, flag) {

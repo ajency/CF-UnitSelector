@@ -274,7 +274,7 @@ class ProjectApartmentUnitController extends Controller {
         foreach($unitPositions as $unitPosition)
             $positions[] = $unitPosition['position'];
         
-        $str ='<option value="">Select Position</option>';
+        $str ='';
         for ($i = 1; $i<=40 ; $i++)
         {
             if(in_array($i,$positions))
