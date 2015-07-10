@@ -836,7 +836,7 @@ class ProjectController extends Controller {
             }
            
            if (empty($units)) {
-               $errors['units'] = "No Units Created";
+               $errors['units'] = "No Units Created in ".$phase['phase_name'];
             }
 
             $projectUnits = array_merge($projectUnits,$units); 
