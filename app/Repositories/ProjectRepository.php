@@ -58,7 +58,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
         // add project meta
         $projectMeta = [
-            new ProjectMeta(['meta_key' => 'floor_rise']),
+            //new ProjectMeta(['meta_key' => 'floor_rise']),
             new ProjectMeta(['meta_key' => 'stamp_duty']),
             new ProjectMeta(['meta_key' => 'registration_amount']),
             new ProjectMeta(['meta_key' => 'VAT']),

@@ -68,6 +68,7 @@ class ProjectBuildingController extends Controller {
         //$building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
+        $building->floor_rise = $formData['floor_rise'];
         $building->has_master = $formData['has_master'];
         $building->floors = [];
         $building->building_master = [];
@@ -157,6 +158,7 @@ class ProjectBuildingController extends Controller {
         //$building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
+        $building->floor_rise = $formData['floor_rise'];    
         $building->has_master = $formData['has_master'];
         $building->save();
         Session::flash('success_message','Building Successfully Updated');

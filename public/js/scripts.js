@@ -437,8 +437,15 @@ function setUpProjectMasterUploader() {
                 fileResponse = JSON.parse(xhr.response);
                 fileStatus = JSON.parse(xhr.status);
                 if (fileStatus == 201) {
-                    var master_type = (objectType=='project')?"master":"building_master";
-                    var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type="+master_type+"&position="+fileResponse.data.position;
+                    
+                    if(objectType=='project')
+                    {
+                        var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=master&position="+fileResponse.data.position;
+                    }
+                    else
+                    {
+                       var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=building_master&position="+fileResponse.data.position+"&building="+objectId; 
+                    }
                     
                     var str = newstr = '';
                     str += '<td>' + fileResponse.data.filename + '</td>';
