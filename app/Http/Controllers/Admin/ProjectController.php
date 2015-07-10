@@ -1266,7 +1266,7 @@ class ProjectController extends Controller {
 
   public function downloadSampleFile($projectId,$filename){
        
-        $file= public_path() . '/projects/cfsamplefile/'.$filename;
+        $file= public_path() . '/cfsamplefile/'.$filename;
         $headers = array(
                'Content-Type' => 'text/csv',
             );
