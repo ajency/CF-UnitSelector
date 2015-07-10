@@ -236,7 +236,8 @@
       successFn = function(resp, status, xhr) {
         $('#myModal').modal('toggle');
         $("#phase-" + phaseId).find('select').attr('disabled', true);
-        return $("#phase-" + phaseId).find('.updatelink').addClass('hidden');
+        $("#phase-" + phaseId).find('.updatelink').addClass('hidden');
+        return $("#phase-" + phaseId).find('.remove-phase').addClass('hidden');
       };
       return $.ajax({
         url: '/admin/phase/' + phaseId,

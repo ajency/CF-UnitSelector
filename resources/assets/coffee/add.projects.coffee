@@ -284,6 +284,7 @@ jQuery(document).ready ($)->
              $('#myModal').modal('toggle')
              $("#phase-"+phaseId).find('select').attr('disabled',true)
              $("#phase-"+phaseId).find('.updatelink').addClass('hidden')
+             $("#phase-"+phaseId).find('.remove-phase').addClass('hidden')   
         $.ajax 
             url : '/admin/phase/'+phaseId
             type : 'POST'
