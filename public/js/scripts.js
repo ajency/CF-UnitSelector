@@ -241,6 +241,7 @@ function addAttributes(keyId, obj) {
     $(obj).select2('val', '');
     $("select").select2();
     $(".tags").tagsinput("");
+    $(obj).closest('.attributes_block').find('.row:last').find('input[name="attribute_name_' + keyId + '[]"]').focus()
 
 }
 
@@ -1516,6 +1517,18 @@ $('.attributes_block').on('change', 'select', function () {
 
 });
 
+//Key press enter 
+ 
+
+$('form').on('keypress', 'a,input[type="checkbox"]', function (e) {
+     var key = e.which;
+     if(key == 13)   
+      {   
+        $(this).click();
+        return false;  
+      }
+
+});
 
 //Reload page after hitting enter
 /*$(window).keydown(function(event){

@@ -365,6 +365,8 @@ jQuery(document).ready ($)->
         $(@).closest('.unit_type_block').find('select').val('')
         $(@).closest('.unit_type_block').prev('.unit_type_block').find('select').val(unitType)
         $('select').select2()
+        $(@).closest('.unit_type_block').find('select').select2("focus")
+        
         registerRemoveUnitType()
                                  
     $('.add_new_unit_type').click ->
@@ -547,6 +549,10 @@ jQuery(document).ready ($)->
 
 $('.add-project-attributes-btn').click ->
     attributeName = $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val()
+    if attributeName is ''
+        alert('Enter Project View')
+        return
+    
     str = '<div class="row m-b-10 ">
                       <div class="col-md-10">
                           <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> 
@@ -562,7 +568,7 @@ $('.add-project-attributes-btn').click ->
       name : attributeName
       project_id : PROJECTID  
     $(".project_attribute_block").before compile data
-    $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('')  
+    $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('').focus()  
     
     
 $('.room_attributes_block').on 'click', '.remove-room-attribute', ->

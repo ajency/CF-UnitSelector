@@ -315,6 +315,7 @@
       $(this).closest('.unit_type_block').find('select').val('');
       $(this).closest('.unit_type_block').prev('.unit_type_block').find('select').val(unitType);
       $('select').select2();
+      $(this).closest('.unit_type_block').find('select').select2("focus");
       return registerRemoveUnitType();
     });
     $('.add_new_unit_type').click(function() {
@@ -436,6 +437,10 @@
   $('.add-project-attributes-btn').click(function() {
     var attributeName, compile, data, str;
     attributeName = $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val();
+    if (attributeName === '') {
+      alert('Enter Project View');
+      return;
+    }
     str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> <input type="hidden" name="projectattributeId[]" value="" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteAttribute({{ project_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div>';
     compile = Handlebars.compile(str);
     data = {
@@ -443,7 +448,7 @@
       project_id: PROJECTID
     };
     $(".project_attribute_block").before(compile(data));
-    return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('');
+    return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('').focus();
   });
 
   $('.room_attributes_block').on('click', '.remove-room-attribute', function() {
