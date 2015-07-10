@@ -1520,7 +1520,7 @@ $('.attributes_block').on('change', 'select', function () {
 //Key press enter 
  
 
-$('form').on('keypress', 'a,input[type="checkbox"]', function (e) {
+$('form').on('keypress', 'a,input[type="checkbox"],input[type="radio"]', function (e) {
      var key = e.which;
      if(key == 13)   
       {   

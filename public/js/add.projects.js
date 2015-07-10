@@ -368,6 +368,9 @@
     });
     $('.apartment-unit-building').change(function() {
       var buildingId, floorSelection, i, j, noOfFloors, ref, results;
+      $('.select-position select').select2('val', '');
+      $('.select-position select').empty();
+      $('.select-position select').append("<option value=''>Select Position</option>");
       $(this).closest('.row').find('.select-floor').addClass('hidden');
       buildingId = $(this).val();
       if (buildingId.trim() === '') {
@@ -387,19 +390,6 @@
         results.push(floorSelection.append("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
       }
       return results;
-    });
-    $('.apartment-unit-floor-no').change(function() {
-      var buildingId, floorNo;
-      floorNo = $(this).val();
-      buildingId = $('.apartment-unit-building').select2('val');
-      return $.ajax({
-        url: BASEURL + "/api/v1/buildings/" + buildingId + "/floor-layout",
-        type: 'GET',
-        data: {
-          floor_no: floorNo
-        },
-        success: function(resp) {}
-      });
     });
     $('.update-response-table').click(function() {
       var projectId;
