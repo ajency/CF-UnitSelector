@@ -144,29 +144,35 @@ class ProjectController extends Controller {
         $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
         $propertyTypes = get_all_property_type();
         $defaultunitTypes = get_all_unit_type();
-        $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = [];
+        $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = $propertyTypehasVariants= [];
         $projectAttributes = $project->attributes->toArray();
 
         foreach ($projectMeta as $meta) {
             $projectCost[$meta['meta_key']] = ['ID' => $meta['id'], 'VALUE' => $meta['meta_value']];
         }
 
-
+        
+        
         foreach ($project->projectPropertyTypes as $projectPropertyType) {
-
+            $unitTypeIds = [];
             $unitTypes = $project->getUnitTypesToArray($projectPropertyType->id);
             foreach ($unitTypes as $unitType) {
                 if (!isset($defaultunitTypes[$projectPropertyType->property_type_id][$unitType->unittype_name])) {
                     $projectDefaultUnitType = Defaults::find($unitType->unittype_name)->toArray();
                     $defaultunitTypes[$projectPropertyType->property_type_id][$projectDefaultUnitType['id']] = $projectDefaultUnitType['label'];
                 }
+                
+                $unitTypeIds[] = $unitType->id;
             }
+            $unitTypeVariants = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->toArray();
+            $propertyTypehasVariants[$projectPropertyType->property_type_id]=(empty($unitTypeVariants))?false:true;
+            
             $projectunitTypes[$projectPropertyType->property_type_id] = $unitTypes;
 
             $propertytypeAttributes[$projectPropertyType->property_type_id]['PROJECTPROPERTYTYPEID'] = $projectPropertyType->id;
             $propertytypeAttributes[$projectPropertyType->property_type_id]['ATTRIBUTES'] = ProjectPropertyType::find($projectPropertyType->id)->attributes->toArray();
         }
-
+      
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('projectCost', $projectCost)
@@ -175,6 +181,7 @@ class ProjectController extends Controller {
                         ->with('unitTypes', $projectunitTypes)
                         ->with('propertytypeAttributes', $propertytypeAttributes)
                         ->with('projectAttributes', $projectAttributes)
+                        ->with('propertyTypehasVariants', $propertyTypehasVariants)
                         ->with('current', 'settings');
     }
 
