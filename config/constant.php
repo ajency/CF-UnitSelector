@@ -14,12 +14,12 @@ return [
         List of DNS enrty to whitelist ips
     */
     
-    'cf_dns_list' => array('localhost',
-                           'stage.bookingcrm.commonfloor.com',
+    'cf_dns_list' => array('stage.bookingcrm.commonfloor.com',
                            'bookingcrm.commonfloor.com',
                            'dev.commonfloor.com',
                            'stage23.commonfloor.com',
-                           'commonfloor.com'
+                           'commonfloor.com',
+                           'phase2.cfunitselectortest.com'
                           ),
 
 
