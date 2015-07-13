@@ -1210,9 +1210,17 @@ function getPropertTypeData(obj, flag) {
 }
 
 function saveAndAddAnother() {
+
     $("#addanother").val(1);
     $("form").submit();
 }
+
+$('button[type="submit"]').click(function (event) { 
+    if ($("#addanother").length) {
+      $("#addanother").val('');  
+    }
+
+});
 
 function addUnitType() {
     var projectPropertyTypeId = $("#property_type").val();

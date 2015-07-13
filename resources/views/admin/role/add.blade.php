@@ -23,7 +23,7 @@
             @include('admin.project.flashmessage')
             <div class="grid-body no-border"> 
                 <br>
-                <form id="add_project" method="POST" action="{{ url('admin/role') }}" data-parsley-validate>
+                <form id="add_role" method="POST" action="{{ url('admin/role') }}" data-parsley-validate>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">

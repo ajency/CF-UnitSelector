@@ -54,7 +54,15 @@ class RoleController extends Controller {
     public function store(Request $request) { 
         $name = $request->input('name');
         $project_access = $request->input('project_access');
+        
+        $validateRoleName = Role::where('display_name',$name)->get()->toArray();
+        if(!empty($validateRoleName))
+        {
+           Session::flash('error_message','Error !!! Role Name Already Exist ');    
+           return redirect("/admin/role/create"); 
+        }
 
+        
         $role = new Role();
         $role->name = property_type_slug($name);
         $role->display_name = $name;
