@@ -778,7 +778,7 @@ class ProjectController extends Controller {
         if (empty($phases)) {
             $errors['phase'] = "No phase available with status Live.";
         }
-        $masterImages = $breakpoints = [];
+        $masterImages = $breakpoints =  $projectBreakpoints = [];
         foreach ($projectMeta as $metaValues) {
 
             if ('master' === $metaValues['meta_key']) {
@@ -789,6 +789,7 @@ class ProjectController extends Controller {
                 }
             } elseif ('breakpoints' === $metaValues['meta_key']) {
                 $breakpoints = unserialize($metaValues['meta_value']);
+                $projectBreakpoints =$breakpoints;
                 if (empty($breakpoints)) {
                     $errors['breakpoints'] = "Breakpoints Not Set Project Master Images";
                 }
@@ -892,8 +893,7 @@ class ProjectController extends Controller {
         }
  
         foreach ($projectUnits as $unit) {
-                $unitIds['unit'][] = $unit['id'];
-                $unitNames['unit'][$unit['id']]=$unit['unit_name'];
+               
                 $variantId = $unit['unit_variant_id'];
                 $unitType = UnitVariant::find($variantId)->unitType()->first();
                 $unitTypeId = $unitType->id;
@@ -903,6 +903,11 @@ class ProjectController extends Controller {
                 
                 if(isset($buildingPhaseIds[$buildingId]))
                    $phaseId = $buildingPhaseIds[$buildingId];
+                else
+                {
+                     $unitIds['unit'][] = $unit['id'];
+                     $unitNames['unit'][$unit['id']]=$unit['unit_name'];
+                }
  
                 $unitTypeName = $unitType->unittype_name;
                 $propertType = UnitType::find($unitTypeId)->projectPropertyType()->first();
@@ -910,13 +915,13 @@ class ProjectController extends Controller {
                 $data[$phaseId][$propertTypeId][] = $unit['unit_name'];  
             }
         
-        
+ 
         if($project->has_master == 'yes')
         {
- 
+            
             foreach($masterImages as $position=> $projectmediaId)
             {
-                if(in_array($position,$breakpoints))
+                if(in_array($position,$projectBreakpoints))
                 {
                     $mediaIds[]=$projectmediaId;
                 }
