@@ -25,8 +25,8 @@ return [
         API TOKEN AND USER
     */
     
-    'api_token' = '433-06fcfde4916f8958ea57',
-    'api_user' = '19',
+    'api_token' => '433-06fcfde4916f8958ea57',
+    'api_user' => '19',
 
 
 ];
