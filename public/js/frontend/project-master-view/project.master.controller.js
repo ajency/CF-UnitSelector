@@ -494,9 +494,9 @@
         var id, unit;
         e.preventDefault();
         id = parseInt(e.currentTarget.id);
-        unit = unitCollection.findWhere({
+        console.log(unit = unitCollection.findWhere({
           id: id
-        });
+        }));
         if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
           return CommonFloor.navigate('/unit-view/' + id, true);
         }
@@ -650,6 +650,7 @@
       },
       'mouseover .building': function(e) {
         var availability, buildingMaster, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes, url;
+        html = "";
         id = parseInt(e.currentTarget.id);
         buildingModel = buildingCollection.findWhere({
           'id': id
@@ -698,12 +699,6 @@
         $('#bldg' + id).attr('class', 'bldg blocks active');
         $('.units').mCustomScrollbar("scrollTo", '#bldg' + id);
         return $('#' + id).attr('class', 'layer building active_bldg');
-      },
-      'mousedown .layer': function(e) {
-        return e.preventDefault();
-      },
-      'mousedown .layer': function(e) {
-        return e.preventDefault();
       }
     };
 

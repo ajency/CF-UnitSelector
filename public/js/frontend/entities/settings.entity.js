@@ -21,9 +21,9 @@
       i = 0;
       floors = buildingModel.get('no_of_floors');
       floorrise = [];
-      cost = settings.get('floor_rise');
+      cost = buildingModel.get('floor_rise');
       sum = 0 + cost;
-      while (i < 1) {
+      while (i <= 1) {
         floorrise[i] = 0;
         i++;
       }
