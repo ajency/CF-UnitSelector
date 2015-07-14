@@ -643,6 +643,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 										<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 									</li>
 								</ul>
+									<div class="price text-primary">
+									<span class="text-primary icon-rupee-icn"></span>'+price+'
+								</div>
 								<div class="price text-primary">
 									<span class="text-primary"></span>'+s.capitalize(availability)+'
 								</div>
