@@ -996,7 +996,6 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					if $.inArray(val.index , project.get('filters').Villa) ==  -1 
 						value[ind] = []
 			
-		console.log filters	
 		filters
 
 	#function to generate all the apartment filters

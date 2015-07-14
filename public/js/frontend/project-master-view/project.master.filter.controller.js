@@ -910,7 +910,6 @@
           });
         }
       });
-      console.log(filters);
       return filters;
     };
 
