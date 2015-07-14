@@ -590,11 +590,11 @@ class ProjectController extends Controller {
 		           $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
                 else
                   $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')';
-                
+               
                 if(empty($buildingUnits))
                    $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')'; 
                 
-              if (!empty($unitSvgExits)) {
+              if (!empty($unitSvgExits)) {  
                     
                     if(isset($unitSvgExits['unit']))
                     {
@@ -835,9 +835,9 @@ class ProjectController extends Controller {
                 if(empty($buildingUnits))
                         $warnings[] = 'No Units Created For Building :'.$building['building_name']; 
                 
-                $buildingMediaIds= $building['building_master'];
+                $buildingMediaIds= $buildingData->building_master; 
                 $breakpoints =  $building['breakpoints'];
-                $buildingMediaIdArr =[];
+                $buildingMediaIdArr =[];  
                 foreach($buildingMediaIds as $position => $buildingMediaId)
                 {
                     if(in_array($position,$breakpoints))
@@ -853,14 +853,14 @@ class ProjectController extends Controller {
 
                 }
                 
-                $unitSvgExits =[];
+                $unitSvgExits =[]; 
                 if($building['has_master'] == 'yes')
                 { 
                     if(!empty($buildingMediaIdArr))
                        $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
                     else
                       $errors['buildingunitauthtool-'. $building['id']] = 'No Authoring Done For Building ('. $building['building_name'].')';
-
+                       
                     if(empty($buildingUnits))
                        $errors['buildingunitauthtool-'. $building['id']] = 'No Authoring Done For Building ('.$building['building_name'].')'; 
 
