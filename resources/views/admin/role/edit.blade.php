@@ -4,7 +4,7 @@
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
     <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/user">Role</a> </li>
+    <li><a href="/admin/role">Role</a> </li>
     <li><a href="{{ url( 'admin/role/' . $role['id'].'/edit') }}">{{ $role['name'] }}</a> </li>
     <li><a href="#" class="active">Edit Role</a> </li>
 </ul>
