@@ -493,6 +493,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 										</div>
 
+										<div class="alert alert-warning alert-dismissible fade in help-box" role="alert">
+									      Hover on units to view details
+									      <span class="close" data-dismiss="alert" aria-label="Close">×</span>
+									    </div>
+
 										<div class="rotate rotate-controls hidden">
 											<div id="prev" class="rotate-left">Left</div>
 											<span class="rotate-text">Rotate</span>

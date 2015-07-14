@@ -577,3 +577,24 @@
     display: block;
   }
 }
+
+.help-box.alert{
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  padding: 15px;
+  border-radius: 5px;
+  background: fade(@gray-darker, 70%);
+  color: @gray-lighter;
+  .close{
+    padding: 5px;
+    cursor: pointer;
+    color: @brand-primary;
+    font-weight: bold;
+  }
+}
+@media(max-width:991px){
+  .help-box.alert{
+    display: none;
+  }
+}
