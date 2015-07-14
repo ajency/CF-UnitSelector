@@ -1713,6 +1713,7 @@ svg .not_released,
 svg .archived {
   opacity: 0.9;
   fill: #0F1308;
+  fill-opacity: 0.2;
 }
 svg .not_in_selection {
   opacity: 0.9;
