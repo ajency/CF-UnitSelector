@@ -614,7 +614,7 @@ class ProjectController extends Controller {
         // $project_id = $getVar['project_id'];
         $sender_url = BOOKING_SERVER_URL;
         $sender_url .= GET_UNIT_PRICE_SHEET;
-
+ 
         /* $_GET Parameters to Send */
         // $params = array('unit_id' => $unitId, 'project_id'=> $project_id);
         // $params = array('unit_id' => $unitId);
