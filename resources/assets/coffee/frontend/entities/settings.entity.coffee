@@ -11,9 +11,9 @@ class Settings extends Backbone.Model
 		floors = buildingModel.get 'no_of_floors'
 		# floors = Object.keys(floors).length
 		floorrise = []
-		cost = settings.get 'floor_rise'
+		cost = buildingModel.get 'floor_rise'
 		sum = 0 + cost
-		while i < 1
+		while i <= 1
 			floorrise[i] = 0
 			i++
 		while i <= floors

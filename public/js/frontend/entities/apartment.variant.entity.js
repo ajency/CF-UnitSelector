@@ -23,8 +23,8 @@
         'id': parseInt(unitModel.get('unit_variant_id'))
       });
       if (!_.isUndefined(unitVarinatModel)) {
-        floorRiseArray = settings.generateFloorRise(unitModel.get('building_id'));
-        floorRise = building.get('floor_rise');
+        console.log(floorRiseArray = settings.generateFloorRise(unitModel.get('building_id')));
+        console.log(floorRise = floorRiseArray[unitModel.get('floor')]);
         basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise)) * parseFloat(unitVarinatModel.get('super_built_up_area'));
         basicCost = basic_cost.toFixed(2);
       }

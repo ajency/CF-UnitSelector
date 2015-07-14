@@ -529,7 +529,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'click .villa' :(e)->
 			e.preventDefault()
 			id = parseInt e.currentTarget.id
-			unit = unitCollection.findWhere 
+			console.log unit = unitCollection.findWhere 
 				id :  id
 			if !(_.isUndefined unit) && unit.get('availability') is 'available'
 				CommonFloor.navigate '/unit-view/'+id , true
@@ -766,6 +766,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.amenity').tooltipster('content', html)
 
 		'mouseover .building':(e)->
+			html = ""
 			id  = parseInt e.currentTarget.id
 			buildingModel = buildingCollection.findWhere
 							'id' : id
@@ -852,11 +853,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.units').mCustomScrollbar("scrollTo",'#bldg'+id)
 			$('#'+id).attr('class' ,'layer building active_bldg')
 
-		'mousedown .layer':(e)->
-			e.preventDefault()
+		# 'mousedown .layer':(e)->
+		# 	e.preventDefault()
 
-		'mousedown .layer':(e)->
-			e.preventDefault()
+		# 'mousedown .layer':(e)->
+		# 	e.preventDefault()
 
 
 
