@@ -743,7 +743,7 @@ class ProjectController extends Controller {
         else
            $phases = Phase::where(['project_id' => $projectId])->get()->toArray();
         
-        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = $buildingPhaseIds = $units = [];
+        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = $buildingPhaseIds = $units = $unitIds = $unitNames =[];
         $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
         $filters = unserialize($filters);
          
@@ -778,16 +778,18 @@ class ProjectController extends Controller {
         if (empty($phases)) {
             $errors['phase'] = "No phase available with status Live.";
         }
-
+        $masterImages = $breakpoints =  $projectBreakpoints = [];
         foreach ($projectMeta as $metaValues) {
 
             if ('master' === $metaValues['meta_key']) {
                 $masterImages = unserialize($metaValues['meta_value']);
+                
                 if (empty($masterImages)) {
                     $errors['master_images'] = "Project Master Images Not Found";
                 }
             } elseif ('breakpoints' === $metaValues['meta_key']) {
                 $breakpoints = unserialize($metaValues['meta_value']);
+                $projectBreakpoints =$breakpoints;
                 if (empty($breakpoints)) {
                     $errors['breakpoints'] = "Breakpoints Not Set Project Master Images";
                 }
@@ -806,7 +808,7 @@ class ProjectController extends Controller {
 
             }
         }
-
+ 
         if (!empty($breakpoints)) {
             foreach ($breakpoints as $breakpoint) {
                 $breakpointAuthtool = true;
@@ -815,9 +817,8 @@ class ProjectController extends Controller {
                 }
             }
         }
-        
- 
-        $projectUnits=[];
+  
+        $projectUnits= $projectUnitIds = $buildingUnitIds = $mediaIds =[];
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
@@ -827,10 +828,58 @@ class ProjectController extends Controller {
             $buildingUnits=[];
             foreach($buildings as $building)
             {
+                $unitIds['building'][] =  $building['id'];
+                $unitNames['building'][$building['id']]= $building['building_name']; 
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
                 if(empty($buildingUnits))
-                        $warnings[] = 'No Units Created For Building :'.$buildingData->building_name;   
+                        $warnings[] = 'No Units Created For Building :'.$building['building_name']; 
+                
+                $buildingMediaIds= $building['building_master'];
+                $breakpoints =  $building['breakpoints'];
+                $buildingMediaIdArr =[];
+                foreach($buildingMediaIds as $position => $buildingMediaId)
+                {
+                    if(in_array($position,$breakpoints))
+                    {
+                        $buildingMediaIdArr[]=$buildingMediaId;
+                    }
+                }
+                /* BUILDING UNIT SVG MARKED CHECK*/
+                $buildingunitIds = $buildingunitNames =[];
+                foreach ($buildingUnits as $buildingUnit) {
+                    $buildingunitIds['unit'][] = $buildingUnit['id'];
+                    $buildingunitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
+
+                }
+                
+                $unitSvgExits =[];
+                if($building['has_master'] == 'yes')
+                { 
+                    if(!empty($buildingMediaIdArr))
+                       $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
+                    else
+                      $errors['buildingunitauthtool-'. $building['id']] = 'No Authoring Done For Building ('. $building['building_name'].')';
+
+                    if(empty($buildingUnits))
+                       $errors['buildingunitauthtool-'. $building['id']] = 'No Authoring Done For Building ('.$building['building_name'].')'; 
+
+                  if (!empty($unitSvgExits)) {
+
+                        if(isset($unitSvgExits['unit']))
+                        {
+                            $errors['buildingunitauthtool-'. $building['id']] = ' Building ('. $building['building_name'].') Svg Unmarked for Units : ';
+                            foreach($unitSvgExits['unit'] as $unitId)
+                            {
+                                $errors['buildingunitauthtool-'. $building['id']] .= $buildingunitNames['unit'][$unitId].' ,';
+                            }
+
+                        }
+
+
+                    }
+                }
+                
                 
                 $buildingPhaseIds[$building['id']] = $phaseId;
                 $projectUnits = array_merge($projectUnits,$buildingUnits);
@@ -844,6 +893,7 @@ class ProjectController extends Controller {
         }
  
         foreach ($projectUnits as $unit) {
+               
                 $variantId = $unit['unit_variant_id'];
                 $unitType = UnitVariant::find($variantId)->unitType()->first();
                 $unitTypeId = $unitType->id;
@@ -853,12 +903,61 @@ class ProjectController extends Controller {
                 
                 if(isset($buildingPhaseIds[$buildingId]))
                    $phaseId = $buildingPhaseIds[$buildingId];
+                else
+                {
+                     $unitIds['unit'][] = $unit['id'];
+                     $unitNames['unit'][$unit['id']]=$unit['unit_name'];
+                }
  
                 $unitTypeName = $unitType->unittype_name;
                 $propertType = UnitType::find($unitTypeId)->projectPropertyType()->first();
                 $propertTypeId = $propertType->property_type_id;
                 $data[$phaseId][$propertTypeId][] = $unit['unit_name'];  
             }
+        
+ 
+        if($project->has_master == 'yes')
+        {
+            
+            foreach($masterImages as $position=> $projectmediaId)
+            {
+                if(in_array($position,$projectBreakpoints))
+                {
+                    $mediaIds[]=$projectmediaId;
+                }
+            }
+            $unitSvgExits =[];
+            
+             if(!empty($mediaIds))
+		          $unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds);
+            else
+                 $errors['unitauthtool'] = 'No Authoring Done For Units';
+ 
+             if (!empty($unitSvgExits)) {
+                    
+                    if(isset($unitSvgExits['unit']))
+                    {
+                        $errors['unitauthtool'] = 'Project Svg Unmarked for Units : ';
+                        foreach($unitSvgExits['unit'] as $unitId)
+                        {
+                            $errors['unitauthtool'] .=$unitNames['unit'][$unitId].' ,';
+                        }
+
+                    }
+
+                    if(isset($unitSvgExits['building']))
+                    { 
+                        $errors['buildingauthtool'] = 'Project Svg Unmarked for Buildings : ';
+                        foreach($unitSvgExits['building'] as $unitId)
+                        {
+                            $errors['buildingauthtool'] .= $unitNames['building'][$unitId].' ,';
+                        }
+
+                    }
+             
+                }
+        }
+        
  
         $html = '<div class="modal-content">
             <div class="modal-header">
@@ -966,6 +1065,7 @@ class ProjectController extends Controller {
                     ]
                         ], 201);
     }
+ 
 
     public function updateProjectStatus($projectId) {
         $project = Project::find($projectId);
@@ -1316,7 +1416,7 @@ class ProjectController extends Controller {
 
      /* $_GET Parameters to Send */
      //$params = array('unit_id' => $unitId);
-     $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId;   
+     $params = "token=".config('constant.api_token')."&user=".config('constant.api_user')."&unit_id=".$unitId;   
 
      /* Update URL to container Query String of Paramaters */
      //$sender_url .= '?' . http_build_query($params);
@@ -1356,7 +1456,7 @@ class ProjectController extends Controller {
 
      /* $_GET Parameters to Send */
      //$params = array('unit_id' => $unitId);
-      $params = "token=433-06fcfde4916f8958ea57&user=19&unit_id=".$unitId; 
+      $params = "token=".config('constant.api_token')."&user=".config('constant.api_user')."&unit_id=".$unitId; 
 
      /* Update URL to container Query String of Paramaters */
     // $sender_url .= '?' . http_build_query($params);
