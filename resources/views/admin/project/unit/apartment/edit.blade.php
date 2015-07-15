@@ -116,7 +116,7 @@
                     <div class="form-group">
                         <label class="form-label">Booked By</label>
                         <br>
-                        {{$unit['agent_name']}}  On 
+                        {{($unit['agent_name']!='') ?'By '.$unit['agent_name']:''}} On 
                         {{ date('d/m/Y',strtotime($unit['booked_at'])) }}
                         
                     </div>
