@@ -550,7 +550,11 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 			region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.NoUnitsCtrl region : region
 			return
-		unitsCollection = new Backbone.Collection response
+		temp = []
+		$.each response , (index,value)->
+			if value.get(availability) != 'archived'
+				temp.push value
+		unitsCollection = new Backbone.Collection temp
 		@view = new CommonFloor.LeftApartmentMasterView
 				collection : unitsCollection
 
@@ -732,7 +736,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			
 			html = ""
-
+			status = s.replaceAll(s.capitalize(availability), " ", "_")
 			html += '<div class="svg-info '+availability+'">
 						<div class="action-bar">
 							<div class="'+response[2]+'"></div>
@@ -752,7 +756,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								<h5 class="m-t-0 m-b-0 price text-primary">
 									<span class="text-primary icon-rupee-icn"></span>'+price+'
 								</h5>
-								<span>'+s.capitalize(availability)+'</span>
+								<span>'+status+'</span>
 							</div>
 							 
 						</div>'
