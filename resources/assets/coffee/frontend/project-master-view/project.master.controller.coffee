@@ -614,13 +614,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
-			response = window.unit.getUnitDetails(id)
-			price = window.numDifferentiation(response[3])
+			
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-
-			if unit is undefined || availability is 'archive'
-				html += '<div class="svg-info">
+			console.log unit
+			if unit is undefined || availability is 'archived'
+				html += '<div class="svg-info"> 
 							<div class="action-bar2">
 						        <div class="txt-dft"></div>
 						    </div> 
@@ -631,7 +630,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				return 
 
 
-			
+			response = window.unit.getUnitDetails(id)
+			price = window.numDifferentiation(response[3])
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
 						<div class="action-bar">
@@ -700,11 +700,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
-			response = window.unit.getUnitDetails(id)
-			price = window.numDifferentiation(response[3])
+			
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			if unit is undefined || availability is 'archive'
+			if unit is undefined || availability is 'archived'
 				html += '<div class="svg-info">
 							<div class="action-bar2">
 						        <div class="txt-dft"></div>
@@ -717,7 +716,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				return 
 			
 
-			
+			response = window.unit.getUnitDetails(id)
+			price = window.numDifferentiation(response[3])
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
 						<div class="action-bar">
@@ -758,6 +758,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.units').mCustomScrollbar("scrollTo",'#unit'+id)
 			$('#'+id).tooltipster('content', html)
+
+		'mouseover .unassign':(e)->
+			$('.layer').tooltipster('hide')
 			
 			
 		'mouseover .amenity':(e)->
