@@ -230,9 +230,15 @@
     }
 
     MasterPlotListCtrl.prototype.initialize = function() {
-      var newUnits, unitsCollection, view;
+      var newUnits, temp, unitsCollection, view;
       newUnits = plotVariantCollection.getPlotUnits();
-      unitsCollection = new Backbone.Collection(newUnits);
+      temp = [];
+      $.each(newUnits, function(index, value) {
+        if (value.get('availability') !== 'archived') {
+          return temp.push(value);
+        }
+      });
+      unitsCollection = new Backbone.Collection(temp);
       this.view = view = new MasterPlotListView({
         collection: unitsCollection
       });

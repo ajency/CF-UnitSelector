@@ -552,7 +552,7 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 			return
 		temp = []
 		$.each response , (index,value)->
-			if value.get('availability') != 'archived'
+			if value.get('availability') isnt 'archived'
 				temp.push value
 		unitsCollection = new Backbone.Collection temp
 		@view = new CommonFloor.LeftApartmentMasterView
