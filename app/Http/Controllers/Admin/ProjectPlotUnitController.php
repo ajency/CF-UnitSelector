@@ -242,11 +242,12 @@ class ProjectPlotUnitController extends Controller {
             if($status=='booked_by_agent')
             {
                 $unit->agent_id =  Auth::user()->id;
-                $unit->booked_at = date('Y-m-d H:i:s');
+                
                 
             }
         
         } 
+        $unit->booked_at = date('Y-m-d H:i:s');
         $unit->availability = $status;
         $unit->save();
         Session::flash('success_message','Unit Successfully Updated');

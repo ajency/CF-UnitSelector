@@ -100,9 +100,9 @@
                @if($unit['availability']=='booked_by_agent')     
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Booked By</label>
+                        <label class="form-label">Booked</label>
                         <br>
-                        {{$unit['agent_name']}} On 
+                        {{($unit['agent_name']!='') ?'By '.$unit['agent_name']:''}} On 
                         {{ date('d/m/Y',strtotime($unit['booked_at'])) }}
                         
                     </div>
