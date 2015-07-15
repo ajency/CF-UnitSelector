@@ -307,7 +307,11 @@ class CommonFloor.MasterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
 		newUnits = bunglowVariantCollection.getBunglowUnits()
-		unitsCollection = new Backbone.Collection newUnits 		
+		temp = []
+		$.each newUnits , (index,value)->
+            if value.get('availability') != 'archived'
+                temp.push value
+		unitsCollection = new Backbone.Collection temp 		
 		@view = view = new MasterBunglowListView
 			collection : unitsCollection
 		# @listenTo @view,"load:units" ,@loadController

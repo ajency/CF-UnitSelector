@@ -510,7 +510,7 @@
       }
       temp = [];
       $.each(response, function(index, value) {
-        if (value.get(availability) !== 'archived') {
+        if (value.get('availability') !== 'archived') {
           return temp.push(value);
         }
       });
@@ -580,7 +580,7 @@
           return false;
         }
         html = "";
-        status = s.replaceAll(s.capitalize(availability), " ", "_");
+        status = s.replaceAll(s.capitalize(availability), "_", " ");
         html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="' + response[2] + '"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <h5 class="m-t-0 m-b-0 price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</h5> <span>' + status + '</span> </div> </div>';
         if (availability === 'available') {
           html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> </div>';

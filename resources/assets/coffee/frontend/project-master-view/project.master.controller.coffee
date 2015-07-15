@@ -632,7 +632,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			response = window.unit.getUnitDetails(id)
 			price = window.numDifferentiation(response[3])
-			status = s.replaceAll(s.capitalize(availability), " ", "_")
+			status = s.replaceAll(s.capitalize(availability), "_", " ")
 
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
@@ -720,7 +720,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			response = window.unit.getUnitDetails(id)
 			price = window.numDifferentiation(response[3])
-			status = s.replaceAll(s.capitalize(availability), " ", "_")
+			status = s.replaceAll(s.capitalize(availability), "_", " ")
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
 						<div class="action-bar">

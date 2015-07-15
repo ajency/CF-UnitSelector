@@ -596,7 +596,7 @@
         }
         response = window.unit.getUnitDetails(id);
         price = window.numDifferentiation(response[3]);
-        status = s.replaceAll(s.capitalize(availability), " ", "_");
+        status = s.replaceAll(s.capitalize(availability), "_", " ");
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <h5 class="m-t-0 m-b-0 price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</h5> <span>' + status + '</span> </div> </div>';
         if (availability === 'available') {
@@ -633,7 +633,7 @@
         }
         response = window.unit.getUnitDetails(id);
         price = window.numDifferentiation(response[3]);
-        status = s.replaceAll(s.capitalize(availability), " ", "_");
+        status = s.replaceAll(s.capitalize(availability), "_", " ");
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <h5 class="m-t-0 m-b-0 price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</h5> <span>' + status + '</span> </div> </div>';
         if (availability === 'available') {

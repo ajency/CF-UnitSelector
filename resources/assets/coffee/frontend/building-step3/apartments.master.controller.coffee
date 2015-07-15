@@ -552,7 +552,7 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 			return
 		temp = []
 		$.each response , (index,value)->
-			if value.get(availability) != 'archived'
+			if value.get('availability') != 'archived'
 				temp.push value
 		unitsCollection = new Backbone.Collection temp
 		@view = new CommonFloor.LeftApartmentMasterView
@@ -736,7 +736,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			
 			html = ""
-			status = s.replaceAll(s.capitalize(availability), " ", "_")
+			status = s.replaceAll(s.capitalize(availability), "_", " ")
 			html += '<div class="svg-info '+availability+'">
 						<div class="action-bar">
 							<div class="'+response[2]+'"></div>

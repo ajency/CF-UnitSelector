@@ -147,7 +147,7 @@ class CommonFloor.PlotListCtrl extends Marionette.RegionController
 		newUnits = plotVariantCollection.getPlotUnits()
 		temp = []
 		$.each newUnits , (index,value)->
-			if value.get(availability) != 'archived'
+			if value.get('availability') != 'archived'
 				temp.push value
 		unitsCollection = new Backbone.Collection temp 		
 		@view = view = new PlotView
