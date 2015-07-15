@@ -96,13 +96,13 @@ class ProjectGateway implements ProjectGatewayInterface {
        foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = \CommonFloor\Phase::find($phaseId);
-            $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
+            $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray();  
             $projectbuildings = array_merge($buildings,$projectbuildings);
             foreach($buildings as $building)
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
+                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
             }
            $projectUnits = array_merge($units,$projectUnits); 
