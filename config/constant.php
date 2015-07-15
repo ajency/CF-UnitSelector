@@ -6,9 +6,9 @@ return [
     
     'host'          => 'smtp.sendgrid.net',
     
-    'username'          => 'shradha',
+    'username'          => 'dealsmart',
     
-    'password'          => 'ajency#123',
+    'password'          => 'dealsmart@123',
     
     /*
         List of DNS enrty to whitelist ips
@@ -26,7 +26,7 @@ return [
         API TOKEN AND USER
     */
     
-    'api_token' => '433-06fcfde4916f8958ea57',
+    'api_token' => '43e-22a3c758e02ebdf0472b',
     
     'api_user' => '19',
 

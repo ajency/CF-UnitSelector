@@ -26,7 +26,7 @@ return [
       | the Mailgun mail service which will provide reliable deliveries.
       |
      */
-    'host' => config('constant.host') ,
+    'host' => config('constant.host'),
     /*
       |--------------------------------------------------------------------------
       | SMTP Host Port

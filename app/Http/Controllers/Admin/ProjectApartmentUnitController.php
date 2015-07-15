@@ -188,7 +188,7 @@ class ProjectApartmentUnitController extends Controller {
         
         $disabled =(isAgent())?'disabled':'';  
         $unit['agent_name']='';
-        if($unit['availability']=='booked_by_agent')
+        if($unit['availability']=='booked_by_agent' && $unit['agent_id']!=0)
         {
             $username = \CommonFloor\User::find($unit['agent_id'])->name;
             $unit['agent_name']=$username;
