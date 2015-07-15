@@ -568,7 +568,7 @@
         price = window.numDifferentiation(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        if (unit === void 0 || availability === 'archive') {
+        if (unit === void 0 || availability === 'archived') {
           html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Apartment details not entered </div> </div>';
           $('.apartment').tooltipster('content', html);
           return false;

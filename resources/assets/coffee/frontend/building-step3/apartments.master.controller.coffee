@@ -718,7 +718,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 
-			if unit is undefined || availability is 'archive'
+			if unit is undefined || availability is 'archived'
 				html = '<div class="svg-info">
 								<div class="action-bar2">
 								<div class="txt-dft"></div>
