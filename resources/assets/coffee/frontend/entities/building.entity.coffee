@@ -25,6 +25,7 @@ class Building extends Backbone.Model
 	getUnitTypesCount:(building_id,unitTypes)->
 
 		types = []
+		units = []
 		if building_id == ""
 			return types
 		$.each unitTypes,(ind,val)->
@@ -33,7 +34,7 @@ class Building extends Backbone.Model
 			variants = apartmentVariantCollection.where
 							'unit_type_id' : val
 							'availability' : 'available'
-			units = []
+			
 			$.each variants,(index,value)->
 				unitsColl = unitCollection.where
 								'unit_variant_id' : value.get 'id'

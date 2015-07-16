@@ -33,13 +33,14 @@
     };
 
     Building.prototype.getUnitTypesCount = function(building_id, unitTypes) {
-      var types;
+      var types, units;
       types = [];
+      units = [];
       if (building_id === "") {
         return types;
       }
       $.each(unitTypes, function(ind, val) {
-        var unitTypeModel, units, variants;
+        var unitTypeModel, variants;
         unitTypeModel = unitTypeCollection.findWhere({
           'id': val
         });
@@ -47,7 +48,6 @@
           'unit_type_id': val,
           'availability': 'available'
         });
-        units = [];
         $.each(variants, function(index, value) {
           var unitsColl;
           unitsColl = unitCollection.where({
