@@ -32,6 +32,7 @@ class Building extends Backbone.Model
 								'id' : val
 			variants = apartmentVariantCollection.where
 							'unit_type_id' : val
+							'availability' : 'available'
 			units = []
 			$.each variants,(index,value)->
 				unitsColl = unitCollection.where

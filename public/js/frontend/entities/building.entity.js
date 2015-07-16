@@ -44,7 +44,8 @@
           'id': val
         });
         variants = apartmentVariantCollection.where({
-          'unit_type_id': val
+          'unit_type_id': val,
+          'availability': 'available'
         });
         units = [];
         $.each(variants, function(index, value) {
