@@ -360,7 +360,7 @@ class ProjectBunglowUnitController extends Controller {
             Excel::load($unit_file, function($reader)use($project) {
             $results = $reader->toArray();//dd($results);
             $errorMsg = []; 
-            $cfProjectId = $project->cf_project_id;
+            $cfProjectId = $project->cf_project_id;  
             
             if(!empty($results))
             {
@@ -406,6 +406,13 @@ class ProjectBunglowUnitController extends Controller {
                    {
                        $errorMsg[] ='Phase Id Is Empty On Row No '.$i;
                         continue;
+                   }
+                
+                   $projectViews = $project->attributes->lists('label');      
+                   if(empty($projectViews) && $views!='')
+                   {
+                       $errorMsg[] ='Cannot Add Views To Unit Since No Views Created For Project  On Row No '.$i;
+                       continue;
                    }
                    
                    $phases = $project->projectPhase()->where('status','not_live')->get()->lists('id');

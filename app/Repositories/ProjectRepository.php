@@ -172,17 +172,17 @@ class ProjectRepository implements ProjectRepositoryInterface {
         }
 
         $newpropertyType = array_diff($property_types_arr, $existingpropertyTypeArr);
-        $deletedpropertyType = array_diff($existingpropertyTypeArr, $property_types_arr);
+        $deletedpropertyType = array_diff($existingpropertyTypeArr, $property_types_arr); 
 
         if (!empty($deletedpropertyType))
-            ProjectPropertyType::where(['property_type_id' => $deletedpropertyType, 'project_id' => $projectId])->delete();
+            ProjectPropertyType::whereIn('property_type_id' ,$deletedpropertyType)->where('project_id' , $projectId)->delete();
 
         if (!empty($newpropertyType)) {
             $property_types_arr = [];
             foreach ($newpropertyType as $type) {
                 $property_types_arr[] = new ProjectPropertyType(['property_type_id' => $type]);
             }
-
+           
             $project->projectPropertyTypes()->saveMany($property_types_arr);
         }
         

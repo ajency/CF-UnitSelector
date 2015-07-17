@@ -280,7 +280,7 @@ class ProjectPlotUnitController extends Controller {
             Excel::load($unit_file, function($reader)use($project) {
             $errorMsg = [];
             $results = $reader->toArray();//dd($results);
-            $cfProjectId = $project->cf_project_id;       
+            $cfProjectId = $project->cf_project_id;
             
             if(!empty($results))
             {
@@ -328,6 +328,13 @@ class ProjectPlotUnitController extends Controller {
                         continue;
                    }
                    
+                   $projectViews = $project->attributes->lists('label');  
+                   if(empty($projectViews) && $views!='')
+                   {
+                       $errorMsg[] ='Cannot Add Views To Unit Since No Views Created For Project  On Row No '.$i;
+                       continue;
+                   }
+                   
                    $phases = $project->projectPhase()->where('status','not_live')->get()->lists('id');
                    if(!in_array($phaseId,$phases))
                    {
@@ -341,7 +348,7 @@ class ProjectPlotUnitController extends Controller {
                        $errorMsg[] ='Invalid Direction Id  On Row No '.$i;
                         continue;
                    }
- 
+     
                    //UNIT NAME VALIDATION
  
                    $projectPropertyTypeId = $project->projectPropertyTypes()->where( 'property_type_id', PLOTID )->first()->id;

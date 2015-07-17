@@ -411,6 +411,13 @@ class ProjectApartmentUnitController extends Controller {
                         continue;
                    }
                    
+                   $projectViews = $project->attributes->lists('label');  
+                   if(empty($projectViews) && $views!='')
+                   {
+                       $errorMsg[] ='Cannot Add Views To Unit Since No Views Created For Project  On Row No '.$i;
+                       continue;
+                   }
+                   
                    $defaultDirections = Defaults::where('type','direction')->get()->lists('id');
                    if(!in_array($direction,$defaultDirections))
                    {
@@ -448,6 +455,8 @@ class ProjectApartmentUnitController extends Controller {
                        $errorMsg[] ='Invalid Position  On Row No '.$i;
                        continue;
                    }
+                   
+                   
  
                    $projectPropertyTypeId = $project->projectPropertyTypes()->where( 'property_type_id', $propertyTypeId )->first()->id;
                    $unitTypeIds = UnitType::where( 'project_property_type_id', $projectPropertyTypeId )->get()->lists('id');
