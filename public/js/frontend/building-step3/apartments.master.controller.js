@@ -224,7 +224,7 @@
           if (CommonFloor.defaults['apartment']['attributes'][index] !== "") {
             types = CommonFloor.defaults['apartment']['attributes'][index].split(',');
           }
-          console.log(flooring = _.without(types, $(e.currentTarget).attr('data-id')));
+          flooring = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.resetCollections();
@@ -510,7 +510,7 @@
       }
       temp = [];
       $.each(response, function(index, value) {
-        if (value.get(availability) !== 'archived') {
+        if (value.get('availability') !== 'archived') {
           return temp.push(value);
         }
       });
@@ -542,7 +542,6 @@
 
     CenterApartmentMasterView.prototype.events = {
       'click @ui.zoomIn': function(e) {
-        console.log("aaaaaaaaaaaa");
         $('.apartment').bind('mouseenter');
         return $('.apartment').on('click');
       },
@@ -558,7 +557,7 @@
       },
       'mouseover .apartment': function(e) {
         var availability, html, id, price, response, status, unit, unitMaster;
-        console.log(id = parseInt(e.currentTarget.id));
+        id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           'id': id
         });
@@ -580,7 +579,7 @@
           return false;
         }
         html = "";
-        status = s.replaceAll(s.capitalize(availability), " ", "_");
+        status = s.replaceAll(s.capitalize(availability), "_", " ");
         html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="' + response[2] + '"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <h5 class="m-t-0 m-b-0 price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</h5> <span>' + status + '</span> </div> </div>';
         if (availability === 'available') {
           html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> </div>';

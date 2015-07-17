@@ -923,7 +923,6 @@ class CenterUnitView extends Marionette.ItemView
 			$('.external-container').removeClass 'hidden'
 			
 		if flag == 0
-			console.log "add Booking markup"
 			# $('.images').addClass 'no-image'
 			html = '<div class="invoice-items animated fadeIn">
 						<div class="row">

@@ -51,7 +51,8 @@
           var unitsColl;
           unitsColl = unitCollection.where({
             'unit_variant_id': value.get('id'),
-            'building_id': building_id
+            'building_id': building_id,
+            'availability': 'available'
           });
           return $.merge(units, unitsColl);
         });
@@ -77,7 +78,7 @@
         variants = apartmentVariantCollection.findWhere({
           'id': value.get('unit_variant_id')
         });
-        return temp.push(variants.get('super_built_up_area'));
+        return temp.push(parseFloat(variants.get('super_built_up_area')));
       });
       min = 0;
       if (temp.length !== 0) {
@@ -97,9 +98,10 @@
       temp = [];
       $.each(units, function(index, value) {
         units = unit.getUnitDetails(value.get('id'));
-        return temp.push(units[3]);
+        return temp.push(parseFloat(units[3]));
       });
       min = 0;
+      console.log(temp);
       if (temp.length !== 0) {
         min = _.min(temp);
       }

@@ -186,7 +186,7 @@
           if (CommonFloor.defaults[type]['attributes'][index] !== "") {
             types = CommonFloor.defaults[type]['attributes'][index].split(',');
           }
-          console.log(types = _.without(types, $(e.currentTarget).attr('data-id')));
+          types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults[type]['attributes'][index] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.resetCollections();
@@ -494,9 +494,9 @@
         var id, unit;
         e.preventDefault();
         id = parseInt(e.currentTarget.id);
-        console.log(unit = unitCollection.findWhere({
+        unit = unitCollection.findWhere({
           id: id
-        }));
+        });
         if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
           return CommonFloor.navigate('/unit-view/' + id, true);
         }
@@ -519,9 +519,9 @@
         building = buildingCollection.findWhere({
           id: id
         });
-        console.log(units = unitCollection.where({
+        units = unitCollection.where({
           'building_id': id
-        }));
+        });
         if (units.length === 0) {
           return;
         }
@@ -588,7 +588,6 @@
         }
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        console.log(unit);
         if (unit === void 0 || availability === 'archived') {
           html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left">Villa details not entered </h5> </div>';
           $('.layer').tooltipster('content', html);
@@ -596,7 +595,7 @@
         }
         response = window.unit.getUnitDetails(id);
         price = window.numDifferentiation(response[3]);
-        status = s.replaceAll(s.capitalize(availability), " ", "_");
+        status = s.replaceAll(s.capitalize(availability), "_", " ");
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <h5 class="m-t-0 m-b-0 price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</h5> <span>' + status + '</span> </div> </div>';
         if (availability === 'available') {
@@ -633,7 +632,7 @@
         }
         response = window.unit.getUnitDetails(id);
         price = window.numDifferentiation(response[3]);
-        status = s.replaceAll(s.capitalize(availability), " ", "_");
+        status = s.replaceAll(s.capitalize(availability), "_", " ");
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <h5 class="m-t-0 m-b-0 price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</h5> <span>' + status + '</span> </div> </div>';
         if (availability === 'available') {

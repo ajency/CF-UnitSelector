@@ -257,7 +257,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			index = $(e.currentTarget).attr('data-index')
 			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
 				types = CommonFloor.defaults['apartment']['attributes'][index].split(',')
-			console.log flooring = _.without types , $(e.currentTarget).attr('data-id')
+			flooring = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
@@ -552,7 +552,7 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 			return
 		temp = []
 		$.each response , (index,value)->
-			if value.get(availability) != 'archived'
+			if value.get('availability') isnt 'archived'
 				temp.push value
 		unitsCollection = new Backbone.Collection temp
 		@view = new CommonFloor.LeftApartmentMasterView
@@ -647,7 +647,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	events:
 		'click @ui.zoomIn':(e)->
-			console.log "aaaaaaaaaaaa"
 			$('.apartment').bind('mouseenter')
 			$('.apartment').on('click')
 		# 'click @ui.trig':(e)->
@@ -701,7 +700,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
-			console.log id = parseInt e.currentTarget.id
+			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere
 					'id' : id
 			unitMaster = unitMasterCollection.findWhere 
@@ -736,7 +735,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			
 			html = ""
-			status = s.replaceAll(s.capitalize(availability), " ", "_")
+			status = s.replaceAll(s.capitalize(availability), "_", " ")
 			html += '<div class="svg-info '+availability+'">
 						<div class="action-bar">
 							<div class="'+response[2]+'"></div>

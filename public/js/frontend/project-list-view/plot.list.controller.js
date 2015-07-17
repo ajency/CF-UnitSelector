@@ -138,7 +138,7 @@
       newUnits = plotVariantCollection.getPlotUnits();
       temp = [];
       $.each(newUnits, function(index, value) {
-        if (value.get(availability) !== 'archived') {
+        if (value.get('availability') !== 'archived') {
           return temp.push(value);
         }
       });

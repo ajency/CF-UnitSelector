@@ -420,7 +420,7 @@
     };
 
     CenterApartmentCtrl.prototype.renderListView = function() {
-      var building_id, region, response, unitsCollection, url;
+      var building_id, region, response, temp, unitsCollection, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       response = window.building.getBuildingUnits(building_id);
@@ -433,7 +433,13 @@
         });
         return;
       }
-      unitsCollection = new Backbone.Collection(response);
+      temp = [];
+      $.each(response, function(index, value) {
+        if (value.get('availability') !== 'archived') {
+          return temp.push(value);
+        }
+      });
+      unitsCollection = new Backbone.Collection(temp);
       this.view = new CommonFloor.CenterApartmentView({
         collection: unitsCollection
       });

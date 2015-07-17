@@ -227,7 +227,7 @@ class TopListView extends Marionette.ItemView
 				types = CommonFloor.defaults[type]['attributes'][index].split(',')
 				
 		
-			console.log types = _.without types , $(e.currentTarget).attr('data-id')
+			types = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['attributes'][index] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()

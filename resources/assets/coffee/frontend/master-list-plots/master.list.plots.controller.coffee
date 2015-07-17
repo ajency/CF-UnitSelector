@@ -288,7 +288,11 @@ class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 
     initialize:->
         newUnits = plotVariantCollection.getPlotUnits()
-        unitsCollection = new Backbone.Collection newUnits      
+        temp = []
+        $.each newUnits , (index,value)->
+            if value.get('availability') isnt 'archived'
+                temp.push value
+        unitsCollection = new Backbone.Collection temp      
         @view = view = new MasterPlotListView
             collection : unitsCollection
         @show view

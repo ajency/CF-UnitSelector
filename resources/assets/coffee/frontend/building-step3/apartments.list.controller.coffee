@@ -27,68 +27,68 @@ class CommonFloor.ApartmentsListCtrl extends Marionette.RegionController
 class CommonFloor.TopApartmentView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
-							          	<div class="row">
-								          	<div class="col-md-12 col-xs-12 col-sm-12">
+										<div class="row">
+											<div class="col-md-12 col-xs-12 col-sm-12">
 
-									            <div class="breadcrumb-bar">
-									                <a class="unit_back" href="#"></a>
-									            </div>
+												<div class="breadcrumb-bar">
+													<a class="unit_back" href="#"></a>
+												</div>
 
-									            <div class="header-info">
-								              		<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
-								              	
-									              	<div class="proj-type-count">
-									              		<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
-									              	</div>
-									              	
-									              	<div class="pull-left filter-result full">
-									              		 {{#filters}}
-													         	{{#each this}}
-													         	{{#each this}}
-													        
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}" data-index="{{index}}"></span> </div> 
-													        {{/each}}
-													         {{/each}}
-													         {{/filters}}
-													          {{#area}}
-													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}" ></span> </div> 
-													         
-													         {{/area}}
-													     {{#budget}}
-													         	
-													                <div class="filter-pill">  <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													        
-													         {{/budget}}
-													          {{#views}}
-													         	
-													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													         
-													         {{/views}}
+												<div class="header-info">
+													<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
+												
+													<div class="proj-type-count">
+														<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
+													</div>
+													
+													<div class="pull-left filter-result full">
+														 {{#filters}}
+																{{#each this}}
+																{{#each this}}
+															
+																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}" data-index="{{index}}"></span> </div> 
+															{{/each}}
+															 {{/each}}
+															 {{/filters}}
+															  {{#area}}
+																
+																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}" ></span> </div> 
+															 
+															 {{/area}}
+														 {{#budget}}
+																
+																	<div class="filter-pill">  <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+															
+															 {{/budget}}
+															  {{#views}}
+																
+																	<div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+															 
+															 {{/views}}
 
-													       {{#facings}}
-													         	
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													       
-													         {{/facings}}
+														   {{#facings}}
+																
+																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+														   
+															 {{/facings}}
 
-													           {{#floor}}
-													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													        
-													         {{/floor}}
+															   {{#floor}}
+																
+																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+															
+															 {{/floor}}
 
-													      {{#status}}
-													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													        
-													         {{/status}}						               
-						                    		</div>
-									          	</div>
+														  {{#status}}
+																
+																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+															
+															 {{/status}}						               
+													</div>
+												</div>
 
-									        </div>
-								        </div>
-							        </div>')
+											</div>
+										</div>
+									</div>')
 
 	ui  :
 		unitBack : '.unit_back'
@@ -330,20 +330,20 @@ class CommonFloor.LeftApartmentCtrl extends Marionette.RegionController
 class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('<li class="unit blocks {{status}}">
-					                    <div class="bldg-img"></div>
-					                     <div class="{{type}}-ico pull-left icon"></div>	
-					                   <div class="pull-left bldg-info">
-					                    <div class="info">
-					                      <label>{{unit_name}} (Floor - {{floor}} )</label>
-					                      
-					                    </div>
-					       
-					                    ({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br>
-					                    <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div>
-					                    </div>
-					                    <div class="clearfix"></div>
-					                   
-					                  </li>')
+										<div class="bldg-img"></div>
+										 <div class="{{type}}-ico pull-left icon"></div>	
+									   <div class="pull-left bldg-info">
+										<div class="info">
+										  <label>{{unit_name}} (Floor - {{floor}} )</label>
+										  
+										</div>
+						   
+										({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br>
+										<div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div>
+										</div>
+										<div class="clearfix"></div>
+									   
+									  </li>')
 
 
 	serializeData:->
@@ -378,21 +378,21 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 					<div class="col-md-12 us-right-content">
 						<div class="list-view-container">
 								<!--<div class="controls map-View">
-						            <div class="toggle">
-						            	<a href="#" class="map ">Map</a><a href="#" class="list active">List</a>
-						            </div>
-					            </div>-->
+									<div class="toggle">
+										<a href="#" class="map ">Map</a><a href="#" class="list active">List</a>
+									</div>
+								</div>-->
 							<div class="legend clearfix">
-				              <ul>
-				                <li class="available">AVAILABLE</li>
-				                <li class="sold">SOLD</li>
-				                <li class="blocked">BLOCKED</li>
-				                <li class="na">N/A</li>
-				              </ul>
-				            </div>
-				            <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul>
-				                <li class="na">N/A</li>
-				              </ul></span></h2><hr>
+							  <ul>
+								<li class="available">AVAILABLE</li>
+								<li class="sold">SOLD</li>
+								<li class="blocked">BLOCKED</li>
+								<li class="na">N/A</li>
+							  </ul>
+							</div>
+							<h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul>
+								<li class="na">N/A</li>
+							  </ul></span></h2><hr>
 							<div class="villa-list">
 								<ul class="units eight">
 								</ul>
@@ -440,7 +440,11 @@ class CommonFloor.CenterApartmentCtrl extends Marionette.RegionController
 			region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.NoUnitsCtrl region : region
 			return
-		unitsCollection = new Backbone.Collection response
+		temp = []
+		$.each response , (index,value)->
+			if value.get('availability') isnt 'archived'
+				temp.push value
+		unitsCollection = new Backbone.Collection temp
 
 
 		@view  = new CommonFloor.CenterApartmentView

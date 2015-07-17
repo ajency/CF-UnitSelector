@@ -237,7 +237,7 @@ class TopMasterView extends Marionette.ItemView
 				types = CommonFloor.defaults[type]['attributes'][index].split(',')
 				
 		
-			console.log types = _.without types , $(e.currentTarget).attr('data-id')
+			types = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['attributes'][index] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
@@ -534,7 +534,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'click .villa' :(e)->
 			e.preventDefault()
 			id = parseInt e.currentTarget.id
-			console.log unit = unitCollection.findWhere 
+			unit = unitCollection.findWhere 
 				id :  id
 			if !(_.isUndefined unit) && unit.get('availability') is 'available'
 				CommonFloor.navigate '/unit-view/'+id , true
@@ -553,7 +553,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			id = parseInt e.currentTarget.id
 			building = buildingCollection.findWhere 
 				id :  id 
-			console.log units = unitCollection.where 
+			units = unitCollection.where 
 						'building_id' : id
 			if units.length == 0
 				return
@@ -617,7 +617,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			console.log unit
 			if unit is undefined || availability is 'archived'
 				html += '<div class="svg-info"> 
 							<div class="action-bar2">
@@ -632,7 +631,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			response = window.unit.getUnitDetails(id)
 			price = window.numDifferentiation(response[3])
-			status = s.replaceAll(s.capitalize(availability), " ", "_")
+			status = s.replaceAll(s.capitalize(availability), "_", " ")
 
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
@@ -720,7 +719,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			response = window.unit.getUnitDetails(id)
 			price = window.numDifferentiation(response[3])
-			status = s.replaceAll(s.capitalize(availability), " ", "_")
+			status = s.replaceAll(s.capitalize(availability), "_", " ")
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
 						<div class="action-bar">
