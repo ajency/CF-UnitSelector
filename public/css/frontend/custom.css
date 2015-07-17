@@ -1731,10 +1731,11 @@ svg .building {
 svg .blocked,
 svg .sold,
 svg .not_released,
-svg .archived {
+svg .archived,
+svg .booked_by_agent {
   opacity: 0.9;
   fill: #0F1308;
-  fill-opacity: 0.2;
+  fill-opacity: 0.3;
 }
 svg .not_in_selection {
   opacity: 0.9;
