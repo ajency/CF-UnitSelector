@@ -470,18 +470,14 @@ class CenterUnitView extends Marionette.ItemView
 			$.each response[1],(index,value)->
 				html += '<div class="layouts animated fadeIn">
 							<a class="fancybox" rel="3d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
-								<img class="img" data-src="'+value+'" />
+								<img class="img lazy" data-src="'+value+'" />
 								<div class="img-overlay"></div>
 								<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 							</a>
 						</div>'
 			$('.images').html html
-			$('.img').lazyLoadXT(
-				forceLoad : true
-				updateEvent: 'load'
-				oncomplete : ()->
-					$('.img').removeClass "lazy-hidden"
-					$('.img').addClass "lazy-loaded"
+			$('.img').lazy(
+				bind: "event"
 			)
 			$('.price-mode-dropdown').addClass('hidden')	
 			$('.threeD').addClass('current')
@@ -502,18 +498,15 @@ class CenterUnitView extends Marionette.ItemView
 			$.each response[0],(index,value)->
 				html += '<div class="layouts animated fadeIn">
 							<a class="fancybox" rel="2d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
-								<img class="img" data-src="'+value+'" />
+								<img class="img lazy" data-src="'+value+'" />
 								<div class="img-overlay"></div>
 								<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 							</a>
 						</div>'
 			$('.images').html html
-			$('.img').lazyLoadXT(
-				forceLoad : true
-				updateEvent: 'load'
-				oncomplete : ()->
-					$('.img').removeClass "lazy-hidden"
-					$('.img').addClass "lazy-loaded"
+			$('.img').lazy(
+				# delay: 1000
+				bind: "event"
 			)
 			$('.price-mode-dropdown').addClass('hidden')	
 			$('.twoD').addClass('current')
@@ -572,17 +565,13 @@ class CenterUnitView extends Marionette.ItemView
 			$.each response[3].get('galleryurl'),(index,value)->
 				html += '<div class="animated fadeIn gallery-img">
 							<a class="fancybox" rel="gall" href="'+value+'">
-								<img class="img" data-src="'+value+'" />
+								<img class="img lazy" data-src="'+value+'" />
 							</a>
 						</div>'
 			
 			$('.images').html html
-			$('.img').lazyLoadXT(
-				forceLoad : true
-				updateEvent: 'load'
-				oncomplete : ()->
-					$('.img').removeClass "lazy-hidden"
-					$('.img').addClass "lazy-loaded"
+			$('.img').lazy(
+				bind: "event"
 			)
 			$('.price-mode-dropdown').addClass('hidden')	
 			$('.gallery').addClass('current')
@@ -812,7 +801,7 @@ class CenterUnitView extends Marionette.ItemView
 			flag = 1
 			html += '<div class="layouts animated fadeIn">
 						<a class="fancybox" href="'+value+'">
-							<img class="img" data-src="'+value+'" />
+							<img class="img lazy" data-src="'+value+'" />
 							<div class="img-overlay"></div>
 							<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</a>
@@ -1433,12 +1422,8 @@ class CenterUnitView extends Marionette.ItemView
 					</div>'
 
 		$(".fancybox").fancybox()
-		$('.img').lazyLoadXT(
-			# forceLoad : true
-			updateEvent: 'load'
-			oncomplete : ()->
-				$('.img').removeClass "lazy-hidden"
-				$('.img').addClass "lazy-loaded"
+		$('.img').lazy(
+			bind: 'event'
 		)
 		@iniTooltip()
 		

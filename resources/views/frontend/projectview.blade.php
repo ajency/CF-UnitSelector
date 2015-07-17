@@ -125,6 +125,7 @@
         <script src="{{ asset('js/frontend/jquery.fadeloader.js' )}}"></script> 
         <script src="{{ asset('js/jquery.flexisel.js' )}}"></script>
         <script src="{{ asset('js/jquery.resize.js' )}}"></script>
+        <script src="{{ asset('js/jquery.lazy.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-bridget/jquery.bridget.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-mousewheel/jquery.mousewheel.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag.js' )}}"></script>

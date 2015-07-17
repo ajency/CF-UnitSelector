@@ -1534,7 +1534,8 @@ hr.embossed {
   }
 }
 /* Lazy Load Loader */
-.lazy-hidden {
+.lazy-hidden,
+.lazy {
   opacity: 1;
   background: url('../../images/loader.gif') no-repeat 50% 50%;
   background-size: 40px;
