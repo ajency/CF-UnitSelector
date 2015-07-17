@@ -673,7 +673,7 @@
           $('.firstimage').load(function() {
             return $('.images').load(first, function() {
               $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
-              $('.apartment,.amenity').each(function(ind, item) {
+              $('.apartment,.amenity,.booked_by_agent').each(function(ind, item) {
                 var itemid;
                 itemid = parseInt(item.id);
                 return $('#' + itemid).attr('class', "no-fill");
@@ -700,7 +700,7 @@
         $('.firstimage').load(function() {
           return $('.images').load(first, function() {
             $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
-            $('.villa,.plot,.building,.amenity').each(function(ind, item) {
+            $('.villa,.plot,.building,.amenity,.booked_by_agent').each(function(ind, item) {
               var itemid;
               itemid = parseInt(item.id);
               return $('#' + itemid).attr('class', "no-fill");

@@ -1467,7 +1467,7 @@ class CenterUnitView extends Marionette.ItemView
 				$('.firstimage').load ()->
 					$('.images').load(first,()->
 						$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
-						$('.apartment,.amenity').each (ind,item)->
+						$('.apartment,.amenity,.booked_by_agent').each (ind,item)->
 							itemid = parseInt item.id
 							$('#'+itemid).attr('class', "no-fill")
 						$('#'+id).attr('class' ,'layer svg_active'))
@@ -1488,7 +1488,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.firstimage').load ()->
 				$('.images').load(first,()->
 					$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
-					$('.villa,.plot,.building,.amenity').each (ind,item)->
+					$('.villa,.plot,.building,.amenity,.booked_by_agent').each (ind,item)->
 						itemid = parseInt item.id
 						$('#'+itemid).attr('class', "no-fill")
 					$('#'+id).attr('class' ,'layer svg_active'))

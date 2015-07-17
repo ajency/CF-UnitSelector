@@ -40,10 +40,10 @@ class ApartmentVariantCollection extends Backbone.Collection
 		newUnits = []
 		apartmentVariantCollection.each (model)->
 			apartmentUnits = unitCollection.where
-				unit_variant_id : model.get('id')
-			units.push  apartmentUnits
+				'unit_variant_id' : model.get('id')
+			$.merge units,apartmentUnits
 		if units.length isnt 0
-			$.each units[0],(index,value)->
+			$.each units,(index,value)->
 				unitType = unitTypeMasterCollection.findWhere
 								'id' :  value.get('unit_type_id')
 				property = window.propertyTypes[unitType.get('property_type_id')]
@@ -70,7 +70,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 		newUnits = []
 		apartmentVariantMasterCollection.each (model)->
 			apartmentUnits = unitMasterCollection.where
-				unit_variant_id : model.get('id')
+				'unit_variant_id' : model.get('id')
 			units.push  apartmentUnits
 		$.each units,(index,value)->
 			newUnits = $.merge(newUnits , value)

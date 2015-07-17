@@ -75,8 +75,6 @@ class Building extends Backbone.Model
 			temp.push parseFloat units[3]
 
 		min= 0
-		console.log temp
-		
 		if temp.length != 0	
 			min =  _.min temp
 		min

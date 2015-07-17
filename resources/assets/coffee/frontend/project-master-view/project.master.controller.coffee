@@ -555,6 +555,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			units = unitCollection.where 
 						'building_id' : id
+						'availability' : 'available'
 			if units.length == 0
 				return
 			$('#spritespin').addClass 'zoom'
