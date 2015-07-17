@@ -75,7 +75,8 @@ class BunglowListView extends Marionette.ItemView
 		'click' :(e)->
 			id = @model.get('id')
 			unit = unitCollection.findWhere 
-				id :  id 
+				'id':  id 
+				'availability' : 'available'
 		
 			if !(_.isUndefined unit) && unit.get('availability') is 'available'
 				$('.layer').tooltipster('hide')

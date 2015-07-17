@@ -68,7 +68,8 @@
         var buildingModel, id, units;
         id = this.model.get('id');
         units = unitCollection.where({
-          'building_id': id
+          'building_id': id,
+          'availability': 'available'
         });
         if (units.length === 0) {
           return;

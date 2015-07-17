@@ -69,6 +69,7 @@ class ListItemView extends Marionette.ItemView
 			id = @model.get 'id'
 			units = unitCollection.where 
 						'building_id' : id
+						'availability' : 'available'
 			if units.length == 0
 				return
 			buildingModel = buildingCollection.findWhere
