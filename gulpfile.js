@@ -51,6 +51,7 @@ elixir(function (mix) {
             '../../public/js/frontend/jquery.fadeloader.js',
             '../../public/js/jquery.flexisel.js',
             '../../public/js/jquery.resize.js',
+            '../../public/js/jquery.lazy.min.js',
             '../../public/bower_components/jquery-bridget/jquery.bridget.js',
             '../../public/bower_components/jquery-mousewheel/jquery.mousewheel.js',
             '../../public/bower_components/jquery-magnificent/src/js/mag.js',
