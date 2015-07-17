@@ -57,7 +57,7 @@ class Building extends Backbone.Model
 		$.each units,(index,value)->
 			variants = apartmentVariantCollection.findWhere
 							'id' : value.get 'unit_variant_id'
-			temp.push variants.get 'super_built_up_area'
+			temp.push parseFloat variants.get 'super_built_up_area'
 		min= 0
 		if temp.length != 0	
 			min =  _.min temp
@@ -72,7 +72,7 @@ class Building extends Backbone.Model
 		temp = []
 		$.each units,(index,value)->
 			units = unit.getUnitDetails(value.get('id'))
-			temp.push units[3]
+			temp.push parseFloat units[3]
 
 		min= 0
 		console.log temp
