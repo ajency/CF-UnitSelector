@@ -236,6 +236,8 @@ class MasterBunglowListView extends Marionette.CompositeView
 		viewtog 	: '#view_toggle'
 		trig 		: '#trig'
 
+		
+
 	events :
 		'click @ui.trig':(e)->
 			$('.list-container').toggleClass 'closed'
