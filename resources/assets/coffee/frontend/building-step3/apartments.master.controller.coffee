@@ -1002,7 +1002,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				building_id = url.split('/')[1]
 				$('.building').each (ind,item)->
 					id = parseInt item.id
-					$('#'+id).attr('class', "no-fill")
+					$('#'+id).attr('class', "layer building no-fill")
 				$('.unassign').attr('style', "opacity: 0;fill-opacity: 0;")
 				$('.villa,.plot,.amenitym,.booked_by_agent').each (ind,item)->
 					id = parseInt item.id

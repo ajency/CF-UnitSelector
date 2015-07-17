@@ -796,7 +796,7 @@
           $('.building').each(function(ind, item) {
             var id;
             id = parseInt(item.id);
-            return $('#' + id).attr('class', "no-fill");
+            return $('#' + id).attr('class', "building no-fill");
           });
           $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
           $('.villa,.plot,.amenitym,.booked_by_agent').each(function(ind, item) {
