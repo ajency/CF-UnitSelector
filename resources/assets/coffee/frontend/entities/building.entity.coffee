@@ -25,7 +25,6 @@ class Building extends Backbone.Model
 	getUnitTypesCount:(building_id,unitTypes)->
 
 		types = []
-		units = []
 		if building_id == ""
 			return types
 		$.each unitTypes,(ind,val)->
@@ -33,12 +32,13 @@ class Building extends Backbone.Model
 								'id' : val
 			variants = apartmentVariantCollection.where
 							'unit_type_id' : val
-							'availability' : 'available'
-			
+							
+			units = []
 			$.each variants,(index,value)->
 				unitsColl = unitCollection.where
 								'unit_variant_id' : value.get 'id'
 								'building_id' : building_id
+								'availability' : 'available'
 
 				$.merge units, unitsColl
 			types.push 
@@ -75,6 +75,8 @@ class Building extends Backbone.Model
 			temp.push units[3]
 
 		min= 0
+		console.log temp
+		
 		if temp.length != 0	
 			min =  _.min temp
 		min

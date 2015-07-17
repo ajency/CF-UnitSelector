@@ -224,7 +224,7 @@
           if (CommonFloor.defaults['apartment']['attributes'][index] !== "") {
             types = CommonFloor.defaults['apartment']['attributes'][index].split(',');
           }
-          console.log(flooring = _.without(types, $(e.currentTarget).attr('data-id')));
+          flooring = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.resetCollections();
@@ -542,7 +542,6 @@
 
     CenterApartmentMasterView.prototype.events = {
       'click @ui.zoomIn': function(e) {
-        console.log("aaaaaaaaaaaa");
         $('.apartment').bind('mouseenter');
         return $('.apartment').on('click');
       },
@@ -558,7 +557,7 @@
       },
       'mouseover .apartment': function(e) {
         var availability, html, id, price, response, status, unit, unitMaster;
-        console.log(id = parseInt(e.currentTarget.id));
+        id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           'id': id
         });

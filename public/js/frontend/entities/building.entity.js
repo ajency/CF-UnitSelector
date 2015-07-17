@@ -33,26 +33,26 @@
     };
 
     Building.prototype.getUnitTypesCount = function(building_id, unitTypes) {
-      var types, units;
+      var types;
       types = [];
-      units = [];
       if (building_id === "") {
         return types;
       }
       $.each(unitTypes, function(ind, val) {
-        var unitTypeModel, variants;
+        var unitTypeModel, units, variants;
         unitTypeModel = unitTypeCollection.findWhere({
           'id': val
         });
         variants = apartmentVariantCollection.where({
-          'unit_type_id': val,
-          'availability': 'available'
+          'unit_type_id': val
         });
+        units = [];
         $.each(variants, function(index, value) {
           var unitsColl;
           unitsColl = unitCollection.where({
             'unit_variant_id': value.get('id'),
-            'building_id': building_id
+            'building_id': building_id,
+            'availability': 'available'
           });
           return $.merge(units, unitsColl);
         });
@@ -101,6 +101,7 @@
         return temp.push(units[3]);
       });
       min = 0;
+      console.log(temp);
       if (temp.length !== 0) {
         min = _.min(temp);
       }

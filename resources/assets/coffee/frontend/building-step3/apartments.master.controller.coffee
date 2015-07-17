@@ -257,7 +257,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			index = $(e.currentTarget).attr('data-index')
 			if CommonFloor.defaults['apartment']['attributes'][index]!= ""
 				types = CommonFloor.defaults['apartment']['attributes'][index].split(',')
-			console.log flooring = _.without types , $(e.currentTarget).attr('data-id')
+			flooring = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['apartment']['attributes'][index] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
@@ -647,7 +647,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	events:
 		'click @ui.zoomIn':(e)->
-			console.log "aaaaaaaaaaaa"
 			$('.apartment').bind('mouseenter')
 			$('.apartment').on('click')
 		# 'click @ui.trig':(e)->
@@ -701,7 +700,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
-			console.log id = parseInt e.currentTarget.id
+			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere
 					'id' : id
 			unitMaster = unitMasterCollection.findWhere 
