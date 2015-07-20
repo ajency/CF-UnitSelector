@@ -218,6 +218,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 								                    <div class="col-sm-4">
 								                      <h5 class="accord-head">Area</h5>                      
 								                    </div>
+
 				                  				</div>
 				                			</div>-->
 							                <ul class="units two">
@@ -236,7 +237,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 		viewtog 	: '#view_toggle'
 		trig 		: '#trig'
 
-		
+
 
 	events :
 		'click @ui.trig':(e)->
@@ -320,6 +321,5 @@ class CommonFloor.MasterBunglowListCtrl extends Marionette.RegionController
 		# @listenTo @view,"load:units" ,@loadController
 		@show view
 
-	loadController:(data)=>
-		Backbone.trigger "load:units" , data
+	
 
