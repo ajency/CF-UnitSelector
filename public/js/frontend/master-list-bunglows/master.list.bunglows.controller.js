@@ -1,8 +1,7 @@
 (function() {
   var BunglowListView, MasterBunglowListView, VillaEmptyView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    hasProp = {}.hasOwnProperty,
-    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+    hasProp = {}.hasOwnProperty;
 
   BunglowListView = (function(superClass) {
     extend(BunglowListView, superClass);
@@ -65,7 +64,8 @@
         var id, unit;
         id = this.model.get('id');
         unit = unitCollection.findWhere({
-          id: id
+          'id': id,
+          'availability': 'available'
         });
         if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
           $('.layer').tooltipster('hide');
@@ -220,7 +220,6 @@
     extend(MasterBunglowListCtrl, superClass);
 
     function MasterBunglowListCtrl() {
-      this.loadController = bind(this.loadController, this);
       return MasterBunglowListCtrl.__super__.constructor.apply(this, arguments);
     }
 
@@ -238,10 +237,6 @@
         collection: unitsCollection
       });
       return this.show(view);
-    };
-
-    MasterBunglowListCtrl.prototype.loadController = function(data) {
-      return Backbone.trigger("load:units", data);
     };
 
     return MasterBunglowListCtrl;

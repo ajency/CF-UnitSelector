@@ -68,7 +68,8 @@
         var buildingModel, id, units;
         id = this.model.get('id');
         units = unitCollection.where({
-          'building_id': id
+          'building_id': id,
+          'availability': 'available'
         });
         if (units.length === 0) {
           return;
@@ -107,8 +108,7 @@
         $('.layer').tooltipster('content', html);
         return;
       }
-      floors = buildingModel.get('floors');
-      floors = Object.keys(floors).length;
+      floors = buildingModel.get('no_of_floors');
       unitTypes = building.getUnitTypes(id);
       response = building.getUnitTypesCount(id, unitTypes);
       minprice = building.getMinimumCost(id);

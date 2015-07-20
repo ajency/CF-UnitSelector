@@ -56,12 +56,12 @@
       apartmentVariantCollection.each(function(model) {
         var apartmentUnits;
         apartmentUnits = unitCollection.where({
-          unit_variant_id: model.get('id')
+          'unit_variant_id': model.get('id')
         });
-        return units.push(apartmentUnits);
+        return $.merge(units, apartmentUnits);
       });
       if (units.length !== 0) {
-        $.each(units[0], function(index, value) {
+        $.each(units, function(index, value) {
           var property, unitType;
           unitType = unitTypeMasterCollection.findWhere({
             'id': value.get('unit_type_id')
@@ -98,7 +98,7 @@
       apartmentVariantMasterCollection.each(function(model) {
         var apartmentUnits;
         apartmentUnits = unitMasterCollection.where({
-          unit_variant_id: model.get('id')
+          'unit_variant_id': model.get('id')
         });
         return units.push(apartmentUnits);
       });

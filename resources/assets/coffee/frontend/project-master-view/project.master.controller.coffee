@@ -494,7 +494,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 										</div>
 
 										<div class="alert alert-warning alert-dismissible fade in help-box" role="alert">
-									      Hover on units to view details
+									      Hover on {{properties}} to view details
 									      <span class="close" data-dismiss="alert" aria-label="Close">×</span>
 									    </div>
 
@@ -513,6 +513,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		viewtog      : '#view_toggle'
 		plotunit     : '.plot'
 
+	serializeData:->
+		data = super()
+		_.values(project.get('property_types'))
+		data.properties = _.values(project.get('property_types')).join('/')
+		data
 	
 	initialize:->
 		@currentBreakPoint = 0
@@ -555,6 +560,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			units = unitCollection.where 
 						'building_id' : id
+						'availability' : 'available'
 			if units.length == 0
 				return
 			$('#spritespin').addClass 'zoom'

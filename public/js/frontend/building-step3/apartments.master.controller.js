@@ -752,7 +752,7 @@
 
     CenterApartmentMasterView.prototype.zoomShow = function() {
       var class_array;
-      class_array = ['.available', '.sold', '.blocked', '.not_released'];
+      class_array = ['.available', '.sold', '.blocked', '.not_released', '.booked_by_agent', '.archived'];
       return $.each(class_array, function(index, value) {
         return $('.svg-maps').on('click', value, function(e) {
           var temp, xapoint, xpoint, yapoint, ypoint;
@@ -793,7 +793,13 @@
           $('.firstimage').attr('src', transitionImages[masterbreakpoints[0]]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
-          $('.villa,.plot,.amenity').each(function(ind, item) {
+          $('.building').each(function(ind, item) {
+            var id;
+            id = parseInt(item.id);
+            return $('#' + id).attr('class', "layer building no-fill");
+          });
+          $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
+          $('.villa,.plot,.amenitym,.booked_by_agent').each(function(ind, item) {
             var id;
             id = parseInt(item.id);
             return $('#' + id).attr('class', "no-fill");

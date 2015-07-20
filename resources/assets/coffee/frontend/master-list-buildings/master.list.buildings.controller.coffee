@@ -69,6 +69,7 @@ class ListItemView extends Marionette.ItemView
 			id = @model.get 'id'
 			units = unitCollection.where 
 						'building_id' : id
+						'availability' : 'available'
 			if units.length == 0
 				return
 			buildingModel = buildingCollection.findWhere
@@ -112,8 +113,7 @@ class ListItemView extends Marionette.ItemView
 			return 
 
 
-		floors = buildingModel.get 'floors'
-		floors = Object.keys(floors).length
+		floors = buildingModel.get 'no_of_floors'
 		unitTypes = building.getUnitTypes(id)
 		response = building.getUnitTypesCount(id,unitTypes)
 		minprice = building.getMinimumCost(id)
