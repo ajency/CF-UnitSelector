@@ -48,7 +48,7 @@ return [
       | used globally for all e-mails that are sent by your application.
       |
      */
-    'from' => ['address' => 'noreply@commonfloor.com', 'name' => 'CommonFloor Unit Selector'],
+    'from' => ['address' => 'online-booking@commonfloor.com', 'name' => 'CommonFloor Unit Selector'],
     /*
       |--------------------------------------------------------------------------
       | E-Mail Encryption Protocol
