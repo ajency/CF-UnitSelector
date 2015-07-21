@@ -17,6 +17,17 @@ class ProjectController extends Controller {
      */
     public function show( $projectId, ProjectRepository $projectRepository ) {
         
+        $agentId = \Request::segment(3);
+        if($agentId!='')
+        {
+            $userRoleId = \CommonFloor\User::find($agentId)->userRole()->first()->id; 
+            $isAssignedProject = \CommonFloor\UserRole::find($userRoleId)->userProject()->where('project_id', $projectId)->get()->toArray(); 
+            if (empty($isAssignedProject)) {
+                abort( 404 );
+            }
+    
+        }
+        
          if (Auth::check())
         {
             $data = $projectRepository->getProjectById( $projectId );
@@ -44,6 +55,7 @@ class ProjectController extends Controller {
  
         return view( 'frontend.projectview' )->with( 'id' , $data['id'])
                                             ->with( 'project_title' , $data['project_title'])
-                                            ->with( 'property_page_link' , $property_page_link);
+                                            ->with( 'property_page_link' , $property_page_link)
+                                            ->with( 'agent_id' , $agentId);
     }
 }

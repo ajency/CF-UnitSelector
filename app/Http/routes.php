@@ -30,6 +30,11 @@ Route::controllers( [
 Route::get( 'project/{id}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
 
 /**
+ * Single project agent unit selector route
+ */
+Route::get( 'project/{id}/{agentid}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
+
+/**
  * Backend Admin routes
  */
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], function() {

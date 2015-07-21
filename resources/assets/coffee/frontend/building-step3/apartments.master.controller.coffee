@@ -716,8 +716,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						</div>'
 				$('.apartment').tooltipster('content', html)
 				return 
-			response = window.unit.getUnitDetails(id)
-			price =  window.numDifferentiation(response[3])
+			
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 
@@ -732,7 +731,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						</div>'
 				$('.apartment').tooltipster('content', html)
 				return false
-
+            
+            
+            response = window.unit.getUnitDetails(id)
+			price =  window.numDifferentiation(response[3])
+                
+            
 			
 			html = ""
 			status = s.replaceAll(s.capitalize(availability), "_", " ")

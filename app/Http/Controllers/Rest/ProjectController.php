@@ -57,11 +57,12 @@ class ProjectController extends Controller {
     }
 
     public function stepTwo( $projectId ) {
-                
-
+         
+        $agentId = Input::get( 'agent_id' ); 
+        
         if (Auth::check())
         {
-            $projectJsonData = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+            $projectJsonData = $this->projectGateway->getProjectStepTwoDetails( $projectId ,$agentId );
         }
         else
         {

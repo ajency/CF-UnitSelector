@@ -69,6 +69,10 @@
             <div class="col-md-5">
                 <h5 class="semi-bold">
                 To check out the frontend of Unit Selector <a target="_blank" href="{{ url( 'project/' . $project['id'].'/') }}" class="text-primary">click here >></a>
+                
+                @if(isAgent())
+               <br> To check units assigned to you in the frontend <a target="_blank" href="{{ url( 'project/' . $project['id'].'/' . Auth::user()->id . '/') }}" class="text-primary">click here >></a> 
+               @endif        
             </h5>
             </div>
         </div>
@@ -86,7 +90,8 @@
                 </tr>
             </thead>
             <tbody>
-                @if(!empty($phases)) @foreach($phases as $phase)
+                @if(!empty($phases))
+                    @foreach($phases as $phase)
                 <tr id="phase-{{ $phase['id'] }}">
                     <td>{{ $phase['phase_name'] }}</td>
                     <td>
@@ -103,7 +108,8 @@
                         <a data-phase-id="{{ $phase['id'] }}" class="text-primary remove-phase @if($phase['status']=='live'){{'hidden'}}@endif ">Delete</a>
                     </td>
                 </tr>
-                @endforeach @else
+                @endforeach 
+                @else
                 <tr>
                     <td colspan="3"><span class="error"><span for="form3FirstName" class="error">
                                 @if($project['has_phase']=='yes')

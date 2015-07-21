@@ -60,8 +60,13 @@ class ProjectGateway implements ProjectGatewayInterface {
         return $projectData;
     }
 
-    public function getProjectStepTwoDetails( $projectId ) {
+    public function getProjectStepTwoDetails( $projectId ,$agentId='' ) {
 
+        $unitIds =[];
+        if($agentId)
+            $unitIds = \CommonFloor\AgentUnit :: where(['project_id'=>$projectId, 'user_id'=>$agentId])->get()->lists('unit_id');
+
+  
         $projectPropertyTypes = \CommonFloor\Project::find($projectId)->projectPropertyTypes()->get()->toArray();
         $projectPropertyTypeIds =[];
         $propertyTypes =[];
@@ -96,46 +101,39 @@ class ProjectGateway implements ProjectGatewayInterface {
        foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = \CommonFloor\Phase::find($phaseId);
-            $units = $phase->projectUnits()->get()->toArray();
+           
+           if(!empty($unitIds))
+               $units = $phase->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
+           else
+               $units = $phase->projectUnits()->get()->toArray();
+              
+            
             $buildings = $phase->projectBuildings()->get()->toArray();  
-            $projectbuildings = array_merge($buildings,$projectbuildings);
+            //$projectbuildings = array_merge($buildings,$projectbuildings);
             foreach($buildings as $building)
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                
+                if(!empty($unitIds))        //AGENT UNITS ASSIGNED
+                {
+                   $buildingUnits = $buildingData->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
+                  
+                    if(!empty($buildingUnits)) //IF NO UNITS ASSIGNED DONT SEND BUILDING DATA
+                       $projectbuildings = array_merge($building,$projectbuildings);
+                }
+                else
+                {
+                   $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                   $projectbuildings = array_merge($building,$projectbuildings);    
+                }
+                
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
             }
            $projectUnits = array_merge($units,$projectUnits); 
             
         } 
-      $projectUnits = array_merge($buildingUnitdata,$projectUnits);      
- 
-      $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
-
-        foreach ($unitTypeIds as $key => $unitTypeId)
-        {
-            if($key=='bunglow')
-            {
-              $bunglowVariants = \CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['bunglow'] )->get()->toArray();   
-  
-            }
-            elseif($key=='apartment')
-            {
-                $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
-            }
-            elseif($key=='penthouses')
-            {
-                $penthouseVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['penthouses'] )->get()->toArray();   
-            }
-            elseif($key=='plots')
-            {
-                $plotVariants =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plots'] )->get();
-            
-            }
-        }
-     $appartmentVariants = array_merge($appartmentVariantData,$penthouseVariantData);   
- 
-     $unitData = [];
+      $projectUnits = array_merge($buildingUnitdata,$projectUnits);
+      $variantIds = $unitData = [];
      foreach ($projectUnits as $unit)
      {
         $unit['direction'] = ($unit['direction'])?Defaults::find($unit['direction'])->label:'';
@@ -146,7 +144,35 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unit['booking_amount'] = ProjectController :: get_unit_booking_amount($unit['id']);
         $unit['selling_amount'] = ProjectController :: get_unit_selling_amount($unit['id']); 
         $unitData[]=$unit;
-     }
+        $variantIds[] =$unit['unit_variant_id'];  
+     }    
+    
+      $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
+
+        foreach ($unitTypeIds as $key => $unitTypeId)
+        {
+            if($key=='bunglow')
+            {
+              $bunglowVariants = \CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['bunglow'] )->whereIn( 'id', $variantIds )->get()->toArray();   
+  
+            }
+            elseif($key=='apartment')
+            {
+                $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->whereIn( 'id', $variantIds )->get()->toArray();   
+            }
+            elseif($key=='penthouses')
+            {
+                $penthouseVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['penthouses'] )->whereIn( 'id', $variantIds )->get()->toArray();   
+            }
+            elseif($key=='plots')
+            {
+                $plotVariants =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plots'] )->whereIn( 'id', $variantIds )->get();
+            
+            }
+        }
+     $appartmentVariants = array_merge($appartmentVariantData,$penthouseVariantData);   
+ 
+     
 
         $stepTwoData = [
             'buildings' => $projectbuildings,
