@@ -77,7 +77,7 @@
     return $.ajax({
       type: 'GET',
       url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
-      data: 'ageent_id=' + project.get('ajenct_id'),
+      data: 'agent_id=' + project.get('agent_id'),
       async: false,
       success: function(response) {
         response = window.convertToInt(response);
