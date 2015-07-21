@@ -6,9 +6,9 @@ return [
     
     'host'          => 'smtp.sendgrid.net',
     
-    'username'          => 'dealsmart',
+    'username'          => 'shradha',
     
-    'password'          => 'dealsmart@123',
+    'password'          => 'ajency#123',
     
     /*
         List of DNS enrty to whitelist ips
