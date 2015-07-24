@@ -628,7 +628,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div class="action-bar2">
 						        <div class="txt-dft"></div>
 						    </div> 
-							<h5 class="pull-left">Villa details not entered </h5>
+							<h5 class="pull-left">Villa not available </h5>
 							 
 						</div>'
 				$('.layer').tooltipster('content', html)
@@ -716,7 +716,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						        <div class="txt-dft"></div>
 						    </div> 
 							<h5 class="pull-left">
-								Plot details not entered 
+								Plot not available
 							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
@@ -805,7 +805,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						        <div class="txt-dft"></div>
 						    </div> 
 							<h5 class="pull-left">
-								Building details not entered 
+								Building not available
 							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)

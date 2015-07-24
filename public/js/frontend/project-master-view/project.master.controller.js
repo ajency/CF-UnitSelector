@@ -598,7 +598,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         if (unit === void 0 || availability === 'archived') {
-          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left">Villa details not entered </h5> </div>';
+          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left">Villa not available </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -635,7 +635,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         if (unit === void 0 || availability === 'archived') {
-          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Plot details not entered </h5> </div>';
+          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Plot not available </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -678,7 +678,7 @@
           return;
         }
         if (buildingModel === void 0) {
-          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Building details not entered </h5> </div>';
+          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Building not available </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }

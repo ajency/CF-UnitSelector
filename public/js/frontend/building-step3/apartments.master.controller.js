@@ -397,7 +397,7 @@
         'id': id
       });
       if (unit === void 0) {
-        html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Apartment details not entered </div> </div>';
+        html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Apartment not available </div> </div>';
         $('.apartment').tooltipster('content', html);
         return false;
       }
