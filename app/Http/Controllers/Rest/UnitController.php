@@ -10,6 +10,7 @@ use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
 use CommonFloor\Building;
 use CommonFloor\Phase;
+use CommonFloor\ProjectPropertyType;
 use \Input;
 
 
