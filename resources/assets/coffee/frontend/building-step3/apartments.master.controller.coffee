@@ -417,7 +417,7 @@ class ApartmentsView extends Marionette.ItemView
 							<div class="txt-dft"></div>
 						</div> 
 						<h5 class="pull-left">
-							Apartment details not entered 
+							Apartment not available 
 						</div>  
 					</div>'
 			$('.apartment').tooltipster('content', html)

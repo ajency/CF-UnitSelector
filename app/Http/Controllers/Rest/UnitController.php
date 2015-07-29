@@ -10,6 +10,7 @@ use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
 use CommonFloor\Building;
 use CommonFloor\Phase;
+use CommonFloor\ProjectPropertyType;
 use \Input;
 
 
@@ -313,8 +314,11 @@ class UnitController extends ApiGuardController {
             
             $propertyTypeId = $unitType->project_property_type_id;
             $unitTypeName = $unitType->unittype_name;
+
+            $defaultPropertyTypeId = ProjectPropertyType::find($propertyTypeId)->property_type_id;
             
-            $default = Defaults::find($propertyTypeId);
+            $default = Defaults::find($defaultPropertyTypeId);
+        
             $projectTypeName = $default->label;
             
             $default = Defaults::find($unitTypeName);
