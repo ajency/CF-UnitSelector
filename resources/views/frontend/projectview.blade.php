@@ -151,7 +151,7 @@
         <script>
         BASERESTURL = '{{ get_rest_api_url() }}';
         PROJECTID = {{ $id }};
-        AGENTID = 0;     
+        agent_id  = 0;     
         CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
