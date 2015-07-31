@@ -48,7 +48,7 @@ CommonFloor.loadJSONData = ()->
 	$.ajax
 		type : 'GET',
 		url  : BASERESTURL+'/project/'+	PROJECTID+'/step-two',
-		data : 'agent_id='+project.get('agent_id'),
+		data : 'agent_id='+AGENTID,
 		async : false
 		success :(response)->
 
