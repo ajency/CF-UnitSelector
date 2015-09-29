@@ -141,7 +141,7 @@ class ProjectController extends Controller {
     public function edit($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth','shadow', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
         $propertyTypes = get_all_property_type();
         $defaultunitTypes = get_all_unit_type();
         $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = $propertyTypehasVariants= [];
@@ -266,7 +266,7 @@ class ProjectController extends Controller {
 
     public function cost($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'shadow', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
         $projectCost = [];
 
         foreach ($projectMeta as $meta) {
@@ -334,7 +334,7 @@ class ProjectController extends Controller {
     public function svg($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints'])->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'shadow', 'skyview', 'breakpoints'])->get()->toArray();
         $svgImages = [];
 
         foreach ($projectMeta as $metaValues) {
@@ -354,7 +354,24 @@ class ProjectController extends Controller {
                             $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
                     }
                 }
-            } elseif ('breakpoints' === $metaValues['meta_key']) {
+            }
+            elseif ('shadow' === $metaValues['meta_key']) {
+                $shadowImages = unserialize($metaValues['meta_value']);
+
+                if (!empty($shadowImages)) {
+                    ksort($shadowImages);
+                    foreach ($shadowImages as $key => $images) {
+                        if (is_numeric($images)) {
+                            $imageName = Media::find($images)->image_name;
+                            $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
+                            $svgImages[$metaValues['meta_key']][$key]['NAME'] = $imageName;
+                            $svgImages[$metaValues['meta_key']][$key]['IMAGE'] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
+                        } else
+                            $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
+                    }
+                }
+            }
+             elseif ('breakpoints' === $metaValues['meta_key']) {
                 $svgImages[$metaValues['meta_key']] = (!empty($metaValues['meta_value'])) ? unserialize($metaValues['meta_value']) : [];
             } else {
                 $mediaId = $metaValues['meta_value'];

@@ -44,6 +44,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             ],
             'project_master' => $project->getProjectMasterImages(),
             'breakpoints' => $project->getProjectMasterBreakPoints(),
+            'shadow_images' => $project->getProjectMasterShadowImages(),
             'top_view' => [
                 'svg' => $faker->imageUrl( 1300, 800, 'city' ),
                 'image' => $faker->imageUrl( 1300, 800, 'city' )

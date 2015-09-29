@@ -55,6 +55,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         ];
 
         $defaultMaster = [];
+        $defaultShadow = [];
 
         // add project meta
         $projectMeta = [
@@ -76,6 +77,9 @@ class ProjectRepository implements ProjectRepositoryInterface {
                 'meta_value' => serialize($commonFloorData)]),
             new ProjectMeta(['meta_key' => 'master',
                 'meta_value' => serialize($defaultMaster)
+                    ]),
+            new ProjectMeta(['meta_key' => 'shadow',
+                'meta_value' => serialize($defaultShadow)
                     ]),
             new ProjectMeta(['meta_key' => 'google_earth',
                 'meta_value' => ''

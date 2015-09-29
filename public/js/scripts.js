@@ -339,6 +339,76 @@ function updateRoomAttributes() {
     });
 }
 
+function breakpointShadowImgUploader(position) {
+
+    var selectBtnId = 'pickfiles_' + position; 
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
+    var authtool_permission = $('div.object-master-images').attr('data-object-id')
+
+    var uploader = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: selectBtnId, // you can pass in id...
+        url: '/admin/' + objectType + '/' + objectId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "type": "shadow",
+            "position" :position ,
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '3mb',
+            mime_types: [{
+                title: "Image files",
+                extensions: "svg,jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /*document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
+            },
+            FilesAdded: function (up, files) {
+                 up.start();
+ 
+            },
+            UploadProgress: function (up, file) {
+                var fileName = file.name;
+                var fileData = fileName.split('.');
+                var fileData_1 = fileData[0].split('-');
+                var mastername = fileData_1[0];
+                var position = fileData_1[1];
+
+                $('.shadow-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
+           
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+
+                $('.shadow-' + position).text(file.name);
+
+            }
+        }
+    });
+    uploader.init();
+}
+
+function setUpShadowUploader() {
+    if (BREAKPOINTS.length === 0)
+        return false;
+
+    $.each(BREAKPOINTS, function (index, value) {  
+        breakpointShadowImgUploader(value);
+    });
+
+}
+
 function setUpProjectMasterUploader() {
 
     var objectType = $('div.object-master-images').attr('data-object-type');
@@ -389,6 +459,8 @@ function setUpProjectMasterUploader() {
                         load_str += '</div>';
                         load_str += '</td>';
                         load_str += '<td class=" "><span class="muted"></span></td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
                         load_str += '<td class=" ">';
                         load_str += '</td>';
                         load_str += '<td class=" ">';
@@ -452,12 +524,13 @@ function setUpProjectMasterUploader() {
                     str += '<td>' + fileResponse.data.filename + '</td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
                     str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
+                    str += '<td><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</a></td>';
                     str += '<td><a target="_blank" href="'+ authoringToolUrl +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool</a></td>';
                     str += '<td class="text-right">';
                     str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
                     str += '</td>';
-
                     $('#position-' + fileResponse.data.position).html(str);
+                    breakpointShadowImgUploader(fileResponse.data.position);
                 } else {
 
                     var fileName = file.name;
@@ -469,6 +542,7 @@ function setUpProjectMasterUploader() {
                     $('#position-' + position).html('');
                     $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> ' + JSON.parse(xhr.response).message + '</div>');
                     $('.project-master-images').find(".alert-error").removeClass('hidden');
+                    
 
                 }
 
@@ -485,6 +559,7 @@ function setUpProjectMasterUploader() {
 
 
 }
+
 
 function addFloorLevelUploader(level) {
 
@@ -645,6 +720,8 @@ function addFloorLevelUploader(level) {
 
 }
 
+
+
 function setUpFloorLevelUploader() {
     if (FLOORLEVELS.length === 0)
         return false;
@@ -752,6 +829,7 @@ function setUpFloorLayoutUploader() {
 $(document).ready(function () {
 
     setUpProjectMasterUploader()
+    setUpShadowUploader()
     setUpFloorLevelUploader()
     setUpFloorLayoutUploader()
 
@@ -1067,6 +1145,7 @@ function saveBreakPoint() {
     var objectType = $('div.object-master-images').attr('data-object-type');
     var objectId = $('div.object-master-images').attr('data-object-id');
     var objectId = $('div.object-master-images').attr('data-object-id');
+    
     $.ajax({
         url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media/updatebreakpoint',
         type: "POST",
@@ -1074,19 +1153,27 @@ function saveBreakPoint() {
             position: position,
         },
         success: function (response) {
+            
             $('input[name="position[]"]').each(function () {
 
-                pos = $(this).val();
+                pos = $(this).val(); 
                 className = ".auth-tool-" + pos;
+                shadowclassName = ".shadow-" + pos;
                 if ($(this).prop('checked')) {
                     $(className).removeClass('hidden');
+                    $(shadowclassName).removeClass('hidden');
+                    
                 } else {
                     $(className).addClass('hidden');
+                    $(shadowclassName).addClass('hidden');
                 }
 
             });
+
+            
         }
     });
+    
 }
 
 function deleteSvg(mediaId, type, refference) {

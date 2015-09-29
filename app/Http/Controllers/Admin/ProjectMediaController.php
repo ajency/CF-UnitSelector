@@ -36,7 +36,7 @@ class ProjectMediaController extends Controller {
      */
     public function store( $projectId, Request $request ) {
 
-        $type = Input::get( 'type' );
+        $type = Input::get( 'type' ); 
 
         $targetDir = public_path() . "/projects/" . $projectId . "/" . $type . "/";
         $imageUrl = url() . "/projects/" . $projectId . "/" . $type . "/";
@@ -68,11 +68,19 @@ class ProjectMediaController extends Controller {
 
                 $mediaId = $media->id;
                 $position = 0;
-                if ('master' !== $type) {
+                if ('google_earth' === $type) {
                     $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
                     $projectMeta->project_id = $projectId;
                     $projectMeta->meta_key = $type;
                     $projectMeta->meta_value = $mediaId;
+                    $projectMeta->save();
+                }
+                elseif ('shadow' === $type) {
+                    $position = Input::get( 'position' );  
+                    $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
+                    $unSerializedValue = unserialize( $projectMeta->meta_value );
+                    $unSerializedValue[$position] = $mediaId;
+                    $projectMeta->meta_value = serialize( $unSerializedValue );
                     $projectMeta->save();
                 } else {
 
@@ -92,6 +100,9 @@ class ProjectMediaController extends Controller {
                     $message = 'Project Master Image Successfully Uploaded';
                 } elseif ('skyview' === $type) {
                     $message = 'Sky view Image Successfully Uploaded';
+                }
+                elseif ('shadow' === $type) {
+                    $message = 'Shadow Image Successfully Uploaded';
                 }
                 
                 $code ='201';
@@ -126,7 +137,24 @@ class ProjectMediaController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        //
+        $svg_file = "C:/Users/admin/Desktop/svg/BuildingA_lowerFloorGroup.svg";
+
+        $xdoc = new \DomDocument;
+        $xdoc->Load($svg_file);
+        $tags = $xdoc->getElementsByTagName('path');
+        
+        foreach ($tags as $key => $tag) {
+            $tagName = $xdoc->getElementsByTagName('path')->item($key);
+            $attribNode = $tagName->getAttributeNode('d');
+
+            echo "Attribute Name  : " . $attribNode->name . "<br/>";
+            echo "Attribute Value : " . $attribNode->value. "<br/><br/>";
+        }
+        
+
+        //$tagName->setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'image2.png');
+
+       // echo $xdoc->saveXML();
     }
 
     /**
@@ -166,15 +194,23 @@ class ProjectMediaController extends Controller {
         {
             $breakpoints = ProjectMeta::where(['meta_key'=>'breakpoints','project_id'=>$project_id])->pluck('meta_value');
             $breakpoints = unserialize($breakpoints);
+
+            $shadowImages = ProjectMeta::where(['meta_key'=>'shadow','project_id'=>$project_id])->pluck('meta_value');
+            $shadowImages = unserialize($shadowImages);
             
             if(!empty($breakpoints) && in_array($refference, $breakpoints))
             {
                 $breakpointKey = array_search ($refference, $breakpoints);
                 unset($breakpoints[$breakpointKey]);
+                unset($shadowImages[$breakpointKey]);
             }
             $breakpointData =  ['meta_value'=>serialize($breakpoints)]; 
             ProjectMeta::where(['meta_key'=>'breakpoints','project_id'=>$project_id])->update( $breakpointData ); 
             
+            $shadowData =  ['meta_value'=>serialize($shadowImages)]; 
+            ProjectMeta::where(['meta_key'=>'shadow','project_id'=>$project_id])->update( $shadowData ); 
+            
+
             $metaValue = unserialize($metaValue);
             $metaValueKey = array_search ($id, $metaValue);
             $metaValue[$metaValueKey]='';
@@ -206,7 +242,20 @@ class ProjectMediaController extends Controller {
         {
             $projectMeta = ProjectMeta::where( ['meta_key' =>'breakpoints', 'project_id' => $projectId] )->first();
             $projectMeta->meta_value = serialize($position);
-            $projectMeta->save(); 
+            $projectMeta->save();
+
+            $shadowImages = ProjectMeta::where(['meta_key'=>'shadow','project_id'=>$projectId])->pluck('meta_value');
+            $shadowImages = unserialize($shadowImages);
+
+            $newShadowImages = [];
+            foreach ($position as $key => $value) {
+                if(isset($shadowImages[$value]))
+                    $newShadowImages[$value] = $shadowImages[$value];
+            }
+  
+            $shadowData =  ['meta_value'=>serialize($newShadowImages)]; 
+            ProjectMeta::where(['meta_key'=>'shadow','project_id'=>$projectId])->update( $shadowData ); 
+
             $msg = 'Break Points Successfully Updated';
             $code = '201';
         }
@@ -223,5 +272,6 @@ class ProjectMediaController extends Controller {
                 ], $code );
  
     }
+ 
 
 }
