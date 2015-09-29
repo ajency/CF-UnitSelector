@@ -137,24 +137,7 @@ class ProjectMediaController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        $svg_file = "C:/Users/admin/Desktop/svg/BuildingA_lowerFloorGroup.svg";
-
-        $xdoc = new \DomDocument;
-        $xdoc->Load($svg_file);
-        $tags = $xdoc->getElementsByTagName('path');
-        
-        foreach ($tags as $key => $tag) {
-            $tagName = $xdoc->getElementsByTagName('path')->item($key);
-            $attribNode = $tagName->getAttributeNode('d');
-
-            echo "Attribute Name  : " . $attribNode->name . "<br/>";
-            echo "Attribute Value : " . $attribNode->value. "<br/><br/>";
-        }
-        
-
-        //$tagName->setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', 'image2.png');
-
-       // echo $xdoc->saveXML();
+       //
     }
 
     /**

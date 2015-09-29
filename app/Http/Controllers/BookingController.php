@@ -10,6 +10,7 @@ use CommonFloor\UnitVariant;
 use CommonFloor\Unit;
 use CommonFloor\Defaults;
 use CommonFloor\ProjectPropertyType;
+use \Session;
 
 class BookingController extends Controller {
 
@@ -89,6 +90,7 @@ class BookingController extends Controller {
 
 	public function storeSessionData($unitId)
 	{
+			$Duration = '1';
 			Session::put('unitId', $unitId);
 			Session::put('startTime', time());
 			Session::put('startTime', ($Duration * 60));
@@ -144,6 +146,15 @@ class BookingController extends Controller {
 
 	}
 
+	public function updateUnitStatus($unitId,$status)
+	{
+			$unit = Unit::find($unitId);
+      $unit->availability = $status;
+      $unit->save();
+
+      return true;
+	}
+
 	public function getUnitAmount($unitId,$amountType)
 	{
 		  $sender_url = BOOKING_SERVER_URL;
@@ -188,6 +199,14 @@ class BookingController extends Controller {
 			$setSession = $this->storeSessionData($unitId);
 			$unitInfo = $this->getUnitInfo($unitId);
 
+			if ($unitInfo['availability'] =="available"){ 
+					$this->updateUnitStatus($unitId,'blocked');
+			}
+			else
+			{
+					//REDIRECT
+			}
+
 			$commonFloorData = unserialize( $project->projectMeta()->where( 'meta_key', 'cf' )->first()->meta_value );
 			$property_page_link = ($commonFloorData['property_page_link']!='')?CF_WEBSITE_URL.$commonFloorData['property_page_link']:'#';
  			 
@@ -196,5 +215,52 @@ class BookingController extends Controller {
 	                                     ->with( 'property_page_link' , $property_page_link);
 
 	}
+
+	public function makeBooking($projectId ,$unitId, Request $request)
+	{
+			$requestData = $request->all();
+			$buyerData = $requestData['buyerData'];
+			
+			$sender_url = BOOKING_SERVER_URL;
+	    $sender_url .= MAKE_BOOKING;
+
+	    /* $_POST Parameters to Send */
+	    $params = "token=".config('constant.api_token')."&user=".config('constant.api_user')."&".$buyerData; 
+	    $c = curl_init();
+	    curl_setopt($c, CURLOPT_URL, $sender_url);
+	    curl_setopt($c, CURLOPT_POST, 1);
+	    curl_setopt($c, CURLOPT_POSTFIELDS, $params);
+
+	    curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+	    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+	    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+	    $o = curl_exec($c); 
+
+	    if (curl_errno($c)) {
+	        $result= $c;
+	    }
+	    else{
+
+	        $result = $o;
+
+	       }
+
+	   /* Check HTTP Code */
+	   $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+	   curl_close($c); 
+	   if($result['message'] == 'SUCCESS')
+	   {
+	   		$buyerId = $result['buyer_id'];
+	   		$bookingId = $result['booking_id'];
+	   		Session::put('buyerId', $buyerId);
+				Session::put('bookingId', $bookingId);
+
+	   }
+	   return $result;
+
+	}
+
 
 }

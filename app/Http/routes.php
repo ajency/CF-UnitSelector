@@ -38,7 +38,7 @@ Route::get( 'project/{id}/{agentid}', 'ProjectController@show' )->where( 'id', '
  * Unit Payment route
  */
 Route::get( 'project/{id}/booknow/{unitid}', 'BookingController@bookNow' )->where( 'id', '[0-9]+' );
-Route::post( 'project/{id}/addbookingtocrm/{unitid}', 'UnitController@addBookingToCrm' );
+Route::post( 'project/{id}/makebooking/{unitid}', 'BookingController@makeBooking' );
 Route::post( 'project/{id}/makepayment/{unitid}', 'UnitController@makePament' )->where( 'id', '[0-9]+' );
 Route::get( 'project/{id}/successfullpayment/{unitid}', 'UnitController@successfullPayment' )->where( 'id', '[0-9]+' );
 Route::get( 'project/{id}/paymentfailed/{unitid}', 'UnitController@failedPayment' )->where( 'id', '[0-9]+' );

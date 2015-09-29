@@ -80,7 +80,7 @@
                                 </tr>
                                 <tr>
                                 <th>Mobile :</th><td><input type="text" name="buyer_mobile" value="" class="form-control"></td>
-                                <th>Pan card :</th><td><input type="text" name="buyer_email" value="" class="form-control"></td>
+                                <th>Pan card :</th><td><input type="text" name="buyer_pancard" value="" class="form-control"></td>
                                 </tr>
                                 <tr>
                                 <th>Buyer Type :</th><td><input type="text" name="buyer_type" value="" class="form-control"></td>
@@ -98,7 +98,7 @@
                                 <th>Pincode :</th><td><input type="text" name="buyer_pincode" value="" class="form-control"></td>
                                 </tr>
                                 <tr>
-                                <th></th><td><button type="button" class="btn btn-primary btn-cons addBuyerToCrm"><i class="fa fa-plus-circle"></i> Continue</button></td>
+                                <th></th><td><button type="button" class="btn btn-primary btn-cons makeBooking"><i class="fa fa-plus-circle"></i> Continue</button></td>
                                 </tr>
                                  
                                 </table>
@@ -242,11 +242,11 @@
        @endif
 
 <script type="text/javascript">
-$('.addBuyerToCrm').click(function (event) { 
+$('.makeBooking').click(function (event) { 
     var project_id = $("#unitId").val();
     var unit_id = $("#projectId").val();
     $.ajax({
-        url: "/project/" + project_id + "/addbookingtocrm/" + unit_id,
+        url: "/project/" + project_id + "/makebooking/" + unit_id,
         type: "POST", 
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
