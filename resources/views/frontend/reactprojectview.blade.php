@@ -16,145 +16,17 @@
 </head>
 <body>
 
-	<div id="main" class="container">
+	<div id="main">
 
 		<!-- The App will be rendered here -->
-		
+
 	</div>
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <div class="row">
-               <div class="col-xs-2 p-0">
-                    <i class="i-back i-icon"></i>
-                </div>
-                <div class="col-xs-6 p-0">
-                    <h3 class="normal margin-none">Purvankara</h3>
-                    <small>200 units in your selection</small>
-                </div>
-                <div class="col-xs-4 p-0">
-                  <ul class="list-inline">
-                    <li> <i class="i-phone i-icon"></i></li>
-                    <li> <i class="i-shortlist i-icon"></i></li>
-                    <li> <i class="i-filter i-icon"></i></li>
-                  </ul>
-                </div>
-            </div>
-          </div>
-      </div>
-  </nav>
 
-  <!-- Sun-toggle -->
-  <div class="sun-toggle">
-      <i class="i-sun i-icon"></i>
-  </div>
-
-  <!-- Sun-toggle -->
-    <div class="rotate">
-    
-  	</div>
-
-
-  	<div class="image">
-  		<img src="{{url('/images/cf-mobile/FirstSlide.jpg')}}" class="img-responsive fit"/>
-  	</div>
-  	<div class="bottom-card">
-  		<div class="blue">
-  			<div class="slider center">
-  				<div>
-
-  					<div class="card-swipe">
-
-  						<div class="row">
-  							<div class="col-xs-5">
-  								<h4 class=" margin-none text-left"> Tower 1</h4>
-  							</div>
-  							<div class="col-xs-7 text-left text-muted">
-  								Starting Rs 20 lacs
-  							</div>
-  						</div>
-  						<div class=" swipe-unit-info row">
-  							<div class="col-xs-12 text-muted">
-  								16 Floors  &nbsp;&nbsp; : &nbsp;&nbsp; 2BHK, 3BHK &nbsp; &nbsp;: &nbsp;&nbsp; 60 Units
-  							</div>  
-  						</div>
-  						<div class="row swipe-footer">
-  							<div class="col-xs-10">
-  								<sm>40</sm> Units Matching your selection 
-  							</div>
-  							<div class="col-xs-2">
-  								<a href="#"><span class="glyphicon glyphicon-chevron-right  text-right" aria-hidden="true"></span></a>
-  							</div>
-  						</div>
-  					</div>
-  				</div>
-  				<div>
-
-  					<div class="card-swipe">
-
-  						<div class="row">
-  							<div class="col-xs-5">
-  								<h4 class=" margin-none text-left"> Tower 1</h4>
-  							</div>
-  							<div class="col-xs-7 text-left text-muted">
-  								Starting Rs 20 lacs
-  							</div>
-  						</div>
-  						<div class=" swipe-unit-info row">
-  							<div class="col-xs-12 text-muted">
-  								16 Floors  &nbsp;&nbsp; : &nbsp;&nbsp; 2BHK, 3BHK &nbsp; &nbsp;: &nbsp;&nbsp; 60 Units
-  							</div>  
-  						</div>
-  						<div class="row swipe-footer">
-  							<div class="col-xs-10">
-  								<sm>40</sm> Units Matching your selection 
-  							</div>
-  							<div class="col-xs-2">
-  								<a href="#"><span class="glyphicon glyphicon-chevron-right  text-right" aria-hidden="true"></span></a>
-  							</div>
-  						</div>
-  					</div>
-  				</div>
-  				<div>
-
-  					<div class="card-swipe">
-
-  						<div class="row">
-  							<div class="col-xs-5">
-  								<h4 class=" margin-none text-left"> Tower 1</h4>
-  							</div>
-  							<div class="col-xs-7 text-left text-muted">
-  								Starting Rs 20 lacs
-  							</div>
-  						</div>
-  						<div class=" swipe-unit-info row">
-  							<div class="col-xs-12 text-muted">
-  								16 Floors  &nbsp;&nbsp; : &nbsp;&nbsp; 2BHK, 3BHK &nbsp; &nbsp;: &nbsp;&nbsp; 60 Units
-  							</div>  
-  						</div>
-  						<div class="row swipe-footer">
-  							<div class="col-xs-10">
-  								<sm>40</sm> Units Matching your selection 
-  							</div>
-  							<div class="col-xs-2">
-  								<a href="#"><span class="glyphicon glyphicon-chevron-right  text-right" aria-hidden="true"></span></a>
-  							</div>
-  						</div>
-  					</div>
-  				</div>
-
-
-
-
-
-
-  			</div>
-  		</div>
-  	</div>
-
-
-
+	<!--Global constants -->
+	<script>
+    	window.BASEURL = '{{url()}}';
+    </script>
 
 	<!-- Include external libraries here -->
     <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
@@ -164,7 +36,8 @@
     <script src="{{ asset('bower_components/slick-carousel/slick/slick.min.js' )}}"></script>
 
 	<!-- Our compiled JavaScript source file -->
-    <!--script src="{{ asset('js/frontend-react/build/App.js' )}}"></script-->
+    <script src="{{ asset('js/frontend-react/build/App.js' )}}"></script>
+
 
 	<script TYPE="text/javascript">
 
