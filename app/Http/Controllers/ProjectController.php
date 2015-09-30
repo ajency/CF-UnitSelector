@@ -53,7 +53,7 @@ class ProjectController extends Controller {
         
         $property_page_link = ($commonFloorData['property_page_link']!='')?CF_WEBSITE_URL.$commonFloorData['property_page_link']:'#';
  
-        return view( 'frontend.projectview' )->with( 'id' , $data['id'])
+        return view( 'frontend.reactprojectview' )->with( 'id' , $data['id'])
                                             ->with( 'project_title' , $data['project_title'])
                                             ->with( 'property_page_link' , $property_page_link)
                                             ->with( 'agent_id' , $agentId);
