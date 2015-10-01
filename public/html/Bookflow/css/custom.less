@@ -1,0 +1,231 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700,900);
+@import "color.less";
+@import "shadow.less";
+@import "marginPadding.less";
+
+.pNone
+{
+	padding: 0;
+}
+
+.btn
+{
+	padding: 5px;
+	.border-radius(0) !important;
+	text-transform: uppercase;
+}
+.btnOrange
+{
+	background: @brandColor;
+	color: @baseColor;
+
+	&:hover, &:active
+	{
+		background: darken(@brandColor, 10%);
+		color: @baseColor !important;
+	}
+}
+.orangeText
+{
+	color: @brandColor !important;
+}
+
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	color: @textColor;
+}   
+
+.header
+{
+	background: linear-gradient(to bottom, @brandColor 0, darken(@brandColor, 12%) 100%);
+	.BoxShadow(1px, 1px);
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	width: 100%;
+
+	h3
+	{
+		color: @baseColor;
+		font-size: 30px;
+		.TextShadow(2px, 2px);
+		font-family: 'Lato', sans-serif;
+		font-weight: 300;
+	}
+}
+
+.content
+{
+	margin-top: 80px;
+
+	h2
+	{
+		color: @textColor;
+		font-family: 'Lato', sans-serif;
+		font-weight: 300;
+		font-size: 30px;
+	}
+
+	span
+	{
+		color: @lightText;
+		font-size: 18px;
+	}
+
+	.panel-inner
+	{
+		max-width: 850px;
+		margin: auto;
+	}
+
+	.panel
+	{
+		margin-top: 0 !important;
+		.BoxShadow(0, 2px, 4px);
+
+		h4
+		{
+			font-family: 'Lato', sans-serif;
+			font-weight: 400;
+		}				
+		
+
+		.panel-heading
+		{
+			.BoxShadow(0, 1px, 2px);
+			padding: 0;		
+			.border-radius(0);	
+
+			&.active
+			{
+				background: @brandColor;
+				color: @baseColor;
+			}
+
+			a
+			{
+				text-decoration: none;
+				font-size: 18px;
+				padding: 15px;
+				display: block;
+			}
+		}		
+
+		.socialLogin
+		{
+			a
+			{
+				display: inline-block;
+				.border-radius(5px);
+				.BoxShadow(0, 2px, 4px);
+				overflow: hidden;
+
+				&:first-child
+				{
+					background: linear-gradient(to bottom, @gPlusGradient 0, darken(@gPlusGradient, 20%) 100%);
+				}
+
+				&:last-child
+				{
+					background: linear-gradient(to bottom, @fbGradient 0, darken(@fbGradient, 20%) 100%);
+				}
+
+				.sLIcon
+				{
+					float: left;
+					border-right: 1px solid rgba(0,0,0,0.3);
+					padding: 8px 7px 0 8px;
+
+					svg
+					{
+						fill:@baseColor;
+					}
+				}
+
+				.sLText
+				{
+					float: left;
+					color: @baseColor;
+					.TextShadow(1px, 2px);
+					font-size: 14px;
+					padding: 10px;
+				}
+			}
+		}
+
+		.reviewDetails
+		{
+			.buildingName
+			{
+				font-size: 30px;
+				color: @lightText;
+				border: 2px solid @lightBg;
+				border-bottom: none;
+				padding: 10px; 
+				
+			}
+			.title
+			{
+				background: @lightBg;
+				color: @textColor;
+				padding: 10px;
+				font-size: 14px;
+				font-weight: 700;
+			}
+		}
+
+		.termsConditions
+		{
+			label
+			{
+				font-weight: 400;
+				font-size: 14px;
+
+				input
+				{
+					float: left;
+					margin-right: 5px;
+				}
+
+				a
+				{
+					color: @brandColor;
+				}
+			}
+		}
+
+		.mandatory
+		{
+			background: @errorBg;
+			padding: 10px;
+			border: 1px solid @erorBorder;
+			color: @errorText; 
+		}
+
+		.personalDetails
+		{
+			label
+			{
+				float: left;
+				width: 100%;
+				font-weight: 400;			}
+			input, select
+			{
+				float: left;
+				width: 100%;
+				padding: 10px;
+				border: 1px solid @lightBg;
+				margin-bottom: 20px;
+				font-weight: 400;
+			}
+		}
+	}	
+}
