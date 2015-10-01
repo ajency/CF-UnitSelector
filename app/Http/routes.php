@@ -39,9 +39,9 @@ Route::get( 'project/{id}/{agentid}', 'ProjectController@show' )->where( 'id', '
  */
 Route::get( 'project/{id}/booknow/{unitid}', 'BookingController@bookNow' )->where( 'id', '[0-9]+' );
 Route::post( 'project/{id}/makebooking/{unitid}', 'BookingController@makeBooking' );
-Route::post( 'project/{id}/makepayment/{unitid}', 'UnitController@makePament' )->where( 'id', '[0-9]+' );
-Route::get( 'project/{id}/successfullpayment/{unitid}', 'UnitController@successfullPayment' )->where( 'id', '[0-9]+' );
-Route::get( 'project/{id}/paymentfailed/{unitid}', 'UnitController@failedPayment' )->where( 'id', '[0-9]+' );
+Route::post( 'project/{id}/makepayment/{unitid}', 'BookingController@makePayment' )->where( 'id', '[0-9]+' );
+Route::get( 'project/successfullpayment/{unitid}', 'UnitController@successfullPayment' )->where( 'id', '[0-9]+' );
+Route::get( 'project/paymentfailed/{unitid}', 'UnitController@failedPayment' )->where( 'id', '[0-9]+' );
 
 
 /**
@@ -63,6 +63,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::resource( 'project.apartment-unit', 'Admin\ProjectApartmentUnitController' );
     Route::resource( 'project.bunglow-unit', 'Admin\ProjectBunglowUnitController' );
     Route::resource( 'project.plots-unit', 'Admin\ProjectPlotUnitController' );
+    Route::resource( 'project.bunglow.group', 'Admin\PropertyTypeGroupController' );
+    Route::resource( 'project.plots.group', 'Admin\PropertyTypeGroupController' );
     Route::resource( 'project.building', 'Admin\ProjectBuildingController' );
     Route::resource( 'project.floor-layout', 'Admin\ProjectFloorLayoutController' );
     Route::resource( 'project.svg-tool', 'Admin\SvgController' );

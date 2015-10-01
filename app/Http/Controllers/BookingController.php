@@ -10,6 +10,7 @@ use CommonFloor\UnitVariant;
 use CommonFloor\Unit;
 use CommonFloor\Defaults;
 use CommonFloor\ProjectPropertyType;
+
 use \Session;
 
 class BookingController extends Controller {
@@ -90,10 +91,10 @@ class BookingController extends Controller {
 
 	public function storeSessionData($unitId)
 	{
-			$Duration = '1';
+			$Duration = EXPIREDURATION;
 			Session::put('unitId', $unitId);
 			Session::put('startTime', time());
-			Session::put('startTime', ($Duration * 60));
+			Session::put('expireDuration', ($Duration * 60));
 	}
 
 	public function getUnitInfo($unitId)
@@ -141,6 +142,8 @@ class BookingController extends Controller {
 			$unit['unit_type'] = $unitTypeLabel;
 			$unit['booking_amount'] = $this->getUnitAmount($unitId,'booking_amount');
 			$unit['selling_amount'] = $this->getUnitAmount($unitId,'sale_value');
+
+			Session::put('bookingAmount', $unit['booking_amount']);
 
 			return $unit;
 
@@ -202,10 +205,11 @@ class BookingController extends Controller {
 			if ($unitInfo['availability'] =="available"){ 
 					$this->updateUnitStatus($unitId,'blocked');
 			}
-			else
+			/*else
 			{
 					//REDIRECT
-			}
+					return redirect("/project/".$projectId."#unit-view/".$unitId); 
+			}**/
 
 			$commonFloorData = unserialize( $project->projectMeta()->where( 'meta_key', 'cf' )->first()->meta_value );
 			$property_page_link = ($commonFloorData['property_page_link']!='')?CF_WEBSITE_URL.$commonFloorData['property_page_link']:'#';
@@ -218,6 +222,7 @@ class BookingController extends Controller {
 
 	public function makeBooking($projectId ,$unitId, Request $request)
 	{
+			
 			$requestData = $request->all();
 			$buyerData = $requestData['buyerData'];
 			
@@ -225,7 +230,10 @@ class BookingController extends Controller {
 	    $sender_url .= MAKE_BOOKING;
 
 	    /* $_POST Parameters to Send */
-	    $params = "token=".config('constant.api_token')."&user=".config('constant.api_user')."&".$buyerData; 
+	    $params = "token=".config('constant.api_token')."&user=".config('constant.api_user'); 
+	    $params .= "&".$buyerData; 
+	    $params .= "&booking_status=".PAYMENT_STATUS_INITIALIZED."&old_status=".BOOKING_HISTORY_STATUS_START_BOOKING."&new_status=".BOOKING_HISTORY_STATUS_BOOKING_INITIALIZED."&comments=".BOOKING_HISTORY_COMMENT_BUYER_OPTION;
+ 
 	    $c = curl_init();
 	    curl_setopt($c, CURLOPT_URL, $sender_url);
 	    curl_setopt($c, CURLOPT_POST, 1);
@@ -250,11 +258,165 @@ class BookingController extends Controller {
 	   $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
 	   curl_close($c); 
-	   if($result['message'] == 'SUCCESS')
+	   $output = json_decode($result,true);
+
+	   if($output['message'] == 'SUCCESS')
 	   {
-	   		$buyerId = $result['buyer_id'];
-	   		$bookingId = $result['booking_id'];
+	   		$buyerId = $output['buyer_id'];
+	   		$buyerEmail = $output['buyer_email'];
+	   		$buyerName = $output['buyer_name'];
+	   		$bookingId = $output['booking_id'];
+
 	   		Session::put('buyerId', $buyerId);
+	   		Session::put('buyerEmail', $buyerEmail);
+	   		Session::put('buyerName', $buyerName);
+				Session::put('bookingId', $bookingId);
+
+	   }
+	   return $result;
+
+	}
+
+	public function makePayment($projectId , $unitId, Request $request)
+	{
+			if($request->get('mihpayid')!='')
+			{ 
+					if($request->get('status')=="success"){
+						 
+					}
+					else
+					{
+
+					}
+					 // pay_page( array ('key' => $merchantId, 'txnid' => $booking_payment_id, 'amount' => $bookingAmount,
+		    //             'firstname' => $buyerName, 'email' => $buyerEmailId, 'phone' => $buyerPhone,
+		    //             'productinfo' => $unitId, 'surl' => 'project/successfullpayment/'.$unitId, 'furl' => 'project/paymentfailed/'.$unitId, 'udf1'=>$booking_payment_id,'udf2'=>$bookingId, 'udf3'=>$buyerName, 'udf4'=>$buyerEmailId, 'udf5'=>$buyerPhone), 
+		    //             $salt); 
+
+			}
+			else
+			{
+					//Session timeout 30mins
+					$difference= time() - Session::get('startTime');
+					if(Session::get('expireDuration') < $difference){
+						//update Unit status
+							$this->updateUnitStatus($unitId,'available');
+						
+						// redirect
+							return redirect("/project/".$projectId."#unit-view/".$unitId); 
+					}
+
+
+				/***
+					PAY U Changes
+					renamed function response to payuresponse
+					renamed Class Response to PayuResponse
+				**/
+
+					include(app_path() . '\Helpers\payu.php');
+					$project =Project :: find($projectId);
+					$merchantId = $project->merchant_id;
+					$salt = $project->salt;
+
+
+					$bookingId= $request->get('booking_id');
+		      $bookingAmount= $request->get('booking_amount');
+		      $buyerEmailId = $request->get('buyer_email');
+		      $buyerName= $request->get('buyer_name');
+		      $buyerPhone= $request->get('buyer_phone');
+
+		      //$booking_payment_id=uniqid();
+		      //make entry in booking history and payment history
+		      $bookingHistory = $paymentHistory = []
+		      $bookingHistory['old_status']=BOOKING_HISTORY_STATUS_BOOKING_INITIALIZED;
+          $bookingHistory['new_status']=BOOKING_HISTORY_STATUS_BOOKING_PROGRESS;
+          $bookingHistory['comment']=BOOKING_HISTORY_COMMENT_PAYMENT_INITIALIZED;
+          
+          $paymentHistory['payment_status']=PAYMENT_STATUS_INITIALIZED;
+          $paymentHistory['history_is_active']=PAYMENT_HISTORY_ACTIVE;
+
+          $this->addBookingAndPaymentHistory($bookingId, $bookingHistory,$paymentHistory);
+		      
+
+					try{   
+						
+								$result=pay_page( array ('key' => $merchantId, 'txnid' => $bookingId, 'amount' => $bookingAmount,
+		                'firstname' => $buyerName, 'email' => $buyerEmailId, 'phone' => $buyerPhone,
+		                'productinfo' => $unitId, 'surl' => 'project/successfullpayment/'.$unitId, 'furl' => 'project/paymentfailed/'.$unitId, 'udf1'=>$bookingId,'udf2'=>$bookingId, 'udf3'=>$buyerName, 'udf4'=>$buyerEmailId, 'udf5'=>$buyerPhone), 
+		                $salt); exit;
+								 
+								if(strpos($result,'Exception') !== false){  
+									 	$this->updateUnitStatus($unitId,'available');
+									 	return redirect("/project/".$projectId."#unit-view/".$unitId); 
+										/*$unit_status = $BookingInfo->availablity_available;
+										$redirectionUrl = "/book-your-property";
+										$txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
+										$subject = 'Thanks for your interest in buying property';
+										//self::updateUnitInfoStatus($unit_id,$unit_status);
+										self::sendEmail($login_id,$name,$txt,$subject);
+										$this->_redirect($redirectionUrl);*/
+								}
+					}catch(Exception $e){ 
+							echo $e;
+							//$redirectionUrl = "/book-your-property";
+							//$this->_redirect($redirectionUrl);
+							// $redirectionUrl = "/book-your-property";
+							// $this->_redirect($redirectionUrl);
+					}
+
+			}
+
+		  
+
+	}
+
+	public function addBookingAndPaymentHistory($bookingId, $bookingHistory , $paymentHistory)
+	{
+			$sender_url = BOOKING_SERVER_URL;
+	    $sender_url .= ADD_BOOKING_PAYMENT_HISTORY;
+
+	    /* $_POST Parameters to Send */
+	    $params = "token=".config('constant.api_token')."&user=".config('constant.api_user'); 
+	    $params .= "&booking_status=".PAYMENT_STATUS_INITIALIZED."&old_status=".BOOKING_HISTORY_STATUS_START_BOOKING."&new_status=".BOOKING_HISTORY_STATUS_BOOKING_INITIALIZED."&comments=".BOOKING_HISTORY_COMMENT_BUYER_OPTION;
+ 			$params .= "&booking_status=".PAYMENT_STATUS_INITIALIZED."&old_status=".BOOKING_HISTORY_STATUS_START_BOOKING."&new_status=".BOOKING_HISTORY_STATUS_BOOKING_INITIALIZED."&comments=".BOOKING_HISTORY_COMMENT_BUYER_OPTION;
+
+
+	    $c = curl_init();
+	    curl_setopt($c, CURLOPT_URL, $sender_url);
+	    curl_setopt($c, CURLOPT_POST, 1);
+	    curl_setopt($c, CURLOPT_POSTFIELDS, $params);
+
+	    curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+	    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+	    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+	    $o = curl_exec($c); 
+
+	    if (curl_errno($c)) {
+	        $result= $c;
+	    }
+	    else{
+
+	        $result = $o;
+
+	       }
+
+	   /* Check HTTP Code */
+	   $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+	   curl_close($c); 
+	   $output = json_decode($result,true);
+
+	   if($output['message'] == 'SUCCESS')
+	   {
+	   		$buyerId = $output['buyer_id'];
+	   		$buyerEmail = $output['buyer_email'];
+	   		$buyerName = $output['buyer_name'];
+	   		$bookingId = $output['booking_id'];
+
+	   		Session::put('buyerId', $buyerId);
+	   		Session::put('buyerEmail', $buyerEmail);
+	   		Session::put('buyerName', $buyerName);
 				Session::put('bookingId', $bookingId);
 
 	   }

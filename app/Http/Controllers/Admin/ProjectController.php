@@ -1506,6 +1506,47 @@ class ProjectController extends Controller {
 
       return $result_json;      
     }
+
+    public static function get_unit_price($unitId){
+     $sender_url = BOOKING_SERVER_URL;
+     $sender_url .= GET_UNIT_PRICE;
+
+     /* $_GET Parameters to Send */
+     //$params = array('token' => config('constant.api_token'),'user' => config('constant.api_user'),'unit_id' => $unitId,'price_sheet_id' => '');
+     $params = "token=".config('constant.api_token')."&user=".config('constant.api_user')."&unit_id=".$unitId."&price_sheet_id=";   
+
+     /* Update URL to container Query String of Paramaters */
+     //$sender_url .= '?' . http_build_query($params);
+
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $params);
+
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c);  
+
+        if (curl_errno($c)) {
+            $result= $c;
+        }
+        else{
+
+            $result = $o;
+
+           }
+
+       /* Check HTTP Code */
+       $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+       curl_close($c);
+       $output = json_decode($result,true);  
+
+       return $output;      
+    }  
+    
     
     function getProjectName(Request $request)
     {

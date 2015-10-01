@@ -151,9 +151,16 @@
                     <div id="collapseThree" class="panel-collapse collapse" style="height: 0px;">
                         <div class="panel-body">
                             <h4>Payment Details </h4>
-                            <form method="post" action="/project/{{ $project['id'] }}/makepayment/{{ $unit['id'] }}">
+                            <form id="frmUnitbooking" method="post" action="/project/{{ $project['id'] }}/makepayment/{{ $unit['id'] }}">
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Make Payment</button>
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                            <input type="hidden" value="" name="booking_id"/>
+                            <input type="hidden" value="{{ $unit['booking_amount'] }}" name="booking_amount"/>
+                            <input type="hidden" value="" name="buyer_id"/>
+                            <input type="hidden" value="" name="buyer_name" id="buyer_name" />
+                            <input type="hidden" value="" name="buyer_email" id="buyer_email"/>
+                            <input type="hidden" value="" name="buyer_phone" id="buyer_phone"/>
+                            
                             </form>
                         </div>
                     </div>
@@ -241,25 +248,6 @@
         <script src="{{ asset('js/tabs_accordian.js') }}" type="text/javascript"></script>   
        @endif
 
-<script type="text/javascript">
-$('.makeBooking').click(function (event) { 
-    var project_id = $("#unitId").val();
-    var unit_id = $("#projectId").val();
-    $.ajax({
-        url: "/project/" + project_id + "/makebooking/" + unit_id,
-        type: "POST", 
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    	},
-        data: {
-            buyerData: $("#frmaddBuyer").serialize()
-        },
-        success: function (response) {
-             
-        }
-    });
-
-});
-</script>   
+        <script src="{{ asset('js/booking.js') }}" type="text/javascript" ></script>   
     </body>
 </html>
