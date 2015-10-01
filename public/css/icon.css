@@ -1,5 +1,5 @@
 .i-icon {
-  background: url(../img/sprite.png) no-repeat;
+  background: url(../../images/sprite.png) no-repeat;
   width: 26px;
   height: 25px;
   display: inline-block;
@@ -19,4 +19,3 @@
 .i-sun {
   background-position: -20px -226px;
 }
-/*# sourceMappingURL=icon.css.map */

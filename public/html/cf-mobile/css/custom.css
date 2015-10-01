@@ -143,11 +143,16 @@ body .row {
 .sun-toggle:hover {
   background: yellow;
 }
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../../fonts/glyphicons-halflings-regular.eot');
+  src: url('../../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
 /* Rotate*/
 .rotate {
   width: 50px;
   height: 50px;
-  background: url(../img/sprite.png) #fe943e no-repeat;
+  background: url(../../images/sprite.png) #fe943e no-repeat;
   background-position: -110px -43px;
   z-index: 9999;
   position: absolute;
@@ -416,7 +421,7 @@ ul.nav li a {
   margin-bottom: 10px;
 }
 .i-icon {
-  background: url(../img/sprite.png) no-repeat;
+  background: url(../../images/sprite.png) no-repeat;
   width: 26px;
   height: 25px;
   display: inline-block;
@@ -435,4 +440,31 @@ ul.nav li a {
 }
 .i-sun {
   background-position: -20px -226px;
+}
+.tabHeader .title h3 {
+  color: #565654;
+  display: inline-block;
+  margin: 10px 0;
+}
+.tabHeader .title a {
+  color: #565654;
+  display: inline-block;
+  margin: 0 20px;
+  font-size: 20px;
+}
+.tabHeader .nav-tabs li {
+  width: 25%;
+  margin: 0;
+}
+.tabHeader .nav-tabs li .active a,
+.tabHeader .nav-tabs li .hover a,
+.tabHeader .nav-tabs li .focus a {
+  margin: 0 !important;
+  border: none !important;
+  border-bottom: 2px solid #fe943e !important;
+  color: #565654;
+}
+.tabHeader .nav-tabs li a {
+  color: #bcbcba;
+  margin: 0;
 }
