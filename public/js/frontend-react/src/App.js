@@ -1,4 +1,30 @@
 var App = React.createClass({
+
+    getInitialState: function() {
+        return {data: []};
+    },
+
+    loadDataFromServer: function() {
+
+        var baseUrl = this.props.baseUrl;
+
+        $.ajax({
+          url: baseUrl+"/api/v1/project/25",
+          dataType: 'json',
+          cache: false,
+          success: function(data) {
+            this.setState({data:data});
+          }.bind(this),
+          error: function(xhr, status, err) {
+            console.error(this.props.url, status, err.toString());
+          }.bind(this)
+        });
+    },
+
+    componentDidMount: function() {
+        this.loadDataFromServer();
+    },    
+
     render: function(){
         return (
             <div {...this.props}>
@@ -87,6 +113,33 @@ var ProjectImage = React.createClass({
 var CardList = React.createClass({
     render: function() {
 
+        $('.center').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            arrows: false,
+            slidesToShow: 3,
+            responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 3
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+            }
+            ]
+        });
+
         return (
             <div className="bottom-card">
                 <div className="blue">
@@ -136,6 +189,6 @@ var CardView = React.createClass({
 
 
 React.render(
-    <App/>,
+    <App baseUrl="http://commonfloorlocal.com"/>,
     document.getElementById('main')
 );
