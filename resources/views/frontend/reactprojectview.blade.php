@@ -25,7 +25,8 @@
 
 	<!--Global constants -->
 	<script>
-    	window.BASEURL = '{{url()}}';
+    	window.baseUrl = '{{url()}}';
+    	window.projectId = '{{$id}}';
     </script>
 
 	<!-- Include external libraries here -->
@@ -38,45 +39,46 @@
 	<!-- Our compiled JavaScript source file -->
     <script src="{{ asset('js/frontend-react/build/App.js' )}}"></script>
 
+    <SCRIPT TYPE="text/javascript">
+    
+    	$('.center').slick({
+    		centerMode: true,
+    		centerPadding: '60px',
+    		arrows: false,
+    		slidesToShow: 3,
+    		responsive: [
+    		{
+    			breakpoint: 768,
+    			settings: {
+    				arrows: false,
+    				centerMode: true,
+    				centerPadding: '40px',
+    				slidesToShow: 3
+    			}
+    		},
+    		{
+    			breakpoint: 480,
+    			settings: {
+    				arrows: false,
+    				centerMode: true,
+    				centerPadding: '40px',
+    				slidesToShow: 1
+    			}
+    		}
+    		]
+    	});
 
-	<script TYPE="text/javascript">
-
-		$('.center').slick({
-			centerMode: true,
-			centerPadding: '60px',
-			arrows: false,
-			slidesToShow: 3,
-			responsive: [
-			{
-				breakpoint: 768,
-				settings: {
-					arrows: false,
-					centerMode: true,
-					centerPadding: '40px',
-					slidesToShow: 3
-				}
-			},
-			{
-				breakpoint: 480,
-				settings: {
-					arrows: false,
-					centerMode: true,
-					centerPadding: '40px',
-					slidesToShow: 1
-				}
-			}
-			]
-		});
-
-	</script>
+    </SCRIPT>
 	<script type="text/javascript" language="JavaScript">
-	  function set_body_height() { // set body height = window height
+	  function set_body_height() { 
+	  	// set body height = window height
 	  	$('.image').height($(window).height());
 	  }
 	  $(document).ready(function() {
 	  	$(window).bind('resize', set_body_height);
 	  	set_body_height();
 	  });
+
 	</script>    
 
 </body>
