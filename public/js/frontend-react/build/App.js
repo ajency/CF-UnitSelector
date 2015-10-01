@@ -1,34 +1,60 @@
 var App = React.createClass({displayName: "App",
 
     getInitialState: function() {
-        return {data: []};
+        return {data: {projectTitle:"",unitCount:""}};
     },
 
     loadDataFromServer: function() {
 
         var baseUrl = this.props.baseUrl;
+        var projectId = this.props.projectId;
+        
+        // var stepOneUrl = baseUrl+"/api/v1/project/"+this.props.projectId;
+        var projectDataUrl  = baseUrl+"/project-data.json";
 
         $.ajax({
-          url: baseUrl+"/api/v1/project/25",
+          url: projectDataUrl,
           dataType: 'json',
           cache: false,
-          success: function(data) {
+          
+          success: function(respData) {
+
+            var stepOne = respData;
+
+            var data = {};
+
+            data.projectTitle = stepOne.data.project_title;
+            data.unitCount = 0;
+
+
+
             this.setState({data:data});
+
           }.bind(this),
+
           error: function(xhr, status, err) {
             console.error(this.props.url, status, err.toString());
           }.bind(this)
+
+
+
         });
+
+
     },
 
-    componentDidMount: function() {
+    componentWillMount: function() {
         this.loadDataFromServer();
     },    
 
     render: function(){
+        var data = this.state.data;
+        var projectTitle = data.projectTitle;
+        var unitCount = data.unitCount;
+
         return (
-            React.createElement("div", React.__spread({},  this.props), 
-            React.createElement(NavBar, null), 
+            React.createElement("div", null, 
+            React.createElement(NavBar, {projectTitle: projectTitle, unitCount: unitCount}), 
             React.createElement(SunToggle, null), 
             React.createElement(Rotate, null), 
             React.createElement(ProjectImage, null), 
@@ -56,8 +82,8 @@ var NavBar = React.createClass({displayName: "NavBar",
                                 React.createElement("i", {className: "i-back i-icon"})
                             ), 
                             React.createElement("div", {className: "col-xs-6 p-0"}, 
-                                React.createElement("h3", {className: "normal margin-none"}, "Purvankara"), 
-                                React.createElement("small", null, "200 units in your selection")
+                                React.createElement("h3", {className: "normal margin-none"}, this.props.projectTitle), 
+                                React.createElement("small", null, this.props.unitCount, " units in your selection")
                             ), 
                             React.createElement("div", {className: "col-xs-4 p-0"}, 
                               React.createElement("ul", {className: "list-inline"}, 
@@ -113,33 +139,6 @@ var ProjectImage = React.createClass({displayName: "ProjectImage",
 var CardList = React.createClass({displayName: "CardList",
     render: function() {
 
-        $('.center').slick({
-            centerMode: true,
-            centerPadding: '60px',
-            arrows: false,
-            slidesToShow: 3,
-            responsive: [
-            {
-                breakpoint: 768,
-                settings: {
-                    arrows: false,
-                    centerMode: true,
-                    centerPadding: '40px',
-                    slidesToShow: 3
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    arrows: false,
-                    centerMode: true,
-                    centerPadding: '40px',
-                    slidesToShow: 1
-                }
-            }
-            ]
-        });
-
         return (
             React.createElement("div", {className: "bottom-card"}, 
                 React.createElement("div", {className: "blue"}, 
@@ -189,6 +188,6 @@ var CardView = React.createClass({displayName: "CardView",
 
 
 React.render(
-    React.createElement(App, {baseUrl: "http://commonfloorlocal.com"}),
+    React.createElement(App, {baseUrl: window.baseUrl, projectId: window.projectId}),
     document.getElementById('main')
 );

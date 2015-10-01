@@ -1,34 +1,60 @@
 var App = React.createClass({
 
     getInitialState: function() {
-        return {data: []};
+        return {data: {projectTitle:"",unitCount:""}};
     },
 
     loadDataFromServer: function() {
 
         var baseUrl = this.props.baseUrl;
+        var projectId = this.props.projectId;
+        
+        // var stepOneUrl = baseUrl+"/api/v1/project/"+this.props.projectId;
+        var projectDataUrl  = baseUrl+"/project-data.json";
 
         $.ajax({
-          url: baseUrl+"/api/v1/project/25",
+          url: projectDataUrl,
           dataType: 'json',
           cache: false,
-          success: function(data) {
+          
+          success: function(respData) {
+
+            var stepOne = respData;
+
+            var data = {};
+
+            data.projectTitle = stepOne.data.project_title;
+            data.unitCount = 0;
+
+
+
             this.setState({data:data});
+
           }.bind(this),
+
           error: function(xhr, status, err) {
             console.error(this.props.url, status, err.toString());
           }.bind(this)
+
+
+
         });
+
+
     },
 
-    componentDidMount: function() {
+    componentWillMount: function() {
         this.loadDataFromServer();
     },    
 
     render: function(){
+        var data = this.state.data;
+        var projectTitle = data.projectTitle;
+        var unitCount = data.unitCount;
+
         return (
-            <div {...this.props}>
-            <NavBar/>
+            <div>
+            <NavBar projectTitle = {projectTitle} unitCount = {unitCount}/>
             <SunToggle/>
             <Rotate/>
             <ProjectImage/>
@@ -56,8 +82,8 @@ var NavBar = React.createClass({
                                 <i className="i-back i-icon"></i>
                             </div>
                             <div className="col-xs-6 p-0">
-                                <h3 className="normal margin-none">Purvankara</h3>
-                                <small>200 units in your selection</small>
+                                <h3 className="normal margin-none">{this.props.projectTitle}</h3>
+                                <small>{this.props.unitCount} units in your selection</small>
                             </div>
                             <div className="col-xs-4 p-0">
                               <ul className="list-inline">
@@ -113,33 +139,6 @@ var ProjectImage = React.createClass({
 var CardList = React.createClass({
     render: function() {
 
-        $('.center').slick({
-            centerMode: true,
-            centerPadding: '60px',
-            arrows: false,
-            slidesToShow: 3,
-            responsive: [
-            {
-                breakpoint: 768,
-                settings: {
-                    arrows: false,
-                    centerMode: true,
-                    centerPadding: '40px',
-                    slidesToShow: 3
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    arrows: false,
-                    centerMode: true,
-                    centerPadding: '40px',
-                    slidesToShow: 1
-                }
-            }
-            ]
-        });
-
         return (
             <div className="bottom-card">
                 <div className="blue">
@@ -189,6 +188,6 @@ var CardView = React.createClass({
 
 
 React.render(
-    <App baseUrl="http://commonfloorlocal.com"/>,
+    <App baseUrl={window.baseUrl} projectId= {window.projectId}/>,
     document.getElementById('main')
 );
