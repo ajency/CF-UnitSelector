@@ -1,4 +1,5 @@
 var React = require('react');
+var AppStore = require('../stores/app-store.js');
 var NavBar = require('./project-master/navbar');
 var SunToggle = require('./project-master/suntoggle');
 var Rotate = require('./project-master/rotate');
@@ -6,62 +7,55 @@ var ProjectImage = require('./project-master/projectimage');
 var CardList = require('./project-master/cardlist');
 var CardView = require('./project-master/cardview');
 
+
+function getProjectData(){
+    console.log("App data fetch" , AppStore.getProjectData() )
+    return {data: AppStore.getProjectData()}
+}
+
+var Catalog =
+  React.createClass({
+    getInitialState:function(){
+      return getCatalog();
+    },
+    render:function(){
+      var items = this.state.items.map(function(item){
+        return <tr><td>{item.title}</td><td>${item.cost}</td><td><AddToCart item={item} /></td></tr>
+      })
+      return (
+          <table className="table table-hover">
+          {items}
+          </table>
+        )
+    }
+  });
+
 var APP = React.createClass({
 
     getInitialState: function() {
-        return {data: {projectTitle:"",unitCount:""}};
+        return getProjectData();
     },
 
-    loadDataFromServer: function() {
 
-        var baseUrl = this.props.baseUrl;
-        var projectId = this.props.projectId;
-        
-        // var stepOneUrl = baseUrl+"/api/v1/project/"+this.props.projectId;
-        var projectDataUrl  = baseUrl+"/project-data.json";
+    componentWillMount:function(){
+      AppStore.addChangeListener(this._onChange)
+    },  
 
-        $.ajax({
-          url: projectDataUrl,
-          dataType: 'json',
-          cache: false,
-          
-          success: function(respData) {
-
-            var stepOne = respData;
-
-            var data = {};
-
-            data.projectTitle = stepOne.data.project_title;
-            data.unitCount = 0;
-
-
-
-            this.setState({data:data});
-
-          }.bind(this),
-
-          error: function(xhr, status, err) {
-            console.error(this.props.url, status, err.toString());
-          }.bind(this)
-
-
-
-        });
-
-
-    },
-
-    componentWillMount: function() {
-        this.loadDataFromServer();
+    _onChange:function(){
+      this.setState(getProjectData());
     },    
 
     render: function(){
-        var data = this.state.data;
-        var projectTitle = data.projectTitle;
-        var unitCount = data.unitCount;
+        // var data = this.state.data;
+        
+        // var projectTitle = data.projectTitle;
+        // var unitCount = data.unitCount;
+
+        var projectTitle = "data.projectTitle";
+        var unitCount = "data.unitCount";
 
         return (
-            <div>
+            <div onClick = {this.handleClick}>
             <NavBar projectTitle = {projectTitle} unitCount = {unitCount}/>
             <SunToggle/>
             <Rotate/>
