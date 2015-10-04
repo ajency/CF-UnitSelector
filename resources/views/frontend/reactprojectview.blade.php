@@ -40,36 +40,7 @@
     <!--script src="{{ asset('js/frontend-react/build/App.js' )}}"></script-->
     <script src="{{asset('react-app-dist/main.js')}}"></script>
 
-    <SCRIPT TYPE="text/javascript">
-    
-    	$('.center').slick({
-    		centerMode: true,
-    		centerPadding: '60px',
-    		arrows: false,
-    		slidesToShow: 3,
-    		responsive: [
-    		{
-    			breakpoint: 768,
-    			settings: {
-    				arrows: false,
-    				centerMode: true,
-    				centerPadding: '40px',
-    				slidesToShow: 3
-    			}
-    		},
-    		{
-    			breakpoint: 480,
-    			settings: {
-    				arrows: false,
-    				centerMode: true,
-    				centerPadding: '40px',
-    				slidesToShow: 1
-    			}
-    		}
-    		]
-    	});
 
-    </SCRIPT>
 	<script type="text/javascript" language="JavaScript">
 	  function set_body_height() { 
 	  	// set body height = window height
