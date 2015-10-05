@@ -54,7 +54,7 @@
                             
                             $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=master&position=".$position;
                             
-                            $shadowImageName = (isset($svgImages['shadow'][$position])) ? $svgImages['shadow'][$position]['NAME'] :"Image"
+                            $shadowImageName = (isset($svgImages['shadow'][$position])) ? $svgImages['shadow'][$position]['NAME'] ."<a class=\"text-primary\" onclick=\"deleteSvg({{ $svgImages['shadow'][$position]['ID'] }}, 'shadow','{{ $position }}');\"><i class=\"fa fa-close\"></i></a>" :"Image"
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class="">{{ $image['NAME'] }}</td>

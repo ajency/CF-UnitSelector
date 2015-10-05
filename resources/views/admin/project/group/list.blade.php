@@ -22,7 +22,7 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">{{ get_property_type( $propertyTypeId ) }} Group</span></h4>
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug(get_property_type( $propertyTypeId )) . '/' . $projectPropertyTypeId . '/group/create') }}" ><i class="fa fa-plus"></i> Add Building</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug(get_property_type( $propertyTypeId )) . '/' . $projectPropertyTypeId . '/group/create') }}" ><i class="fa fa-plus"></i> Add Group</a>
             </div>
             <div class="grid-body">
                 <table class="table table-bordered" id="example2" >

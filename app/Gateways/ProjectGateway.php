@@ -193,16 +193,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         return $stepTwoData;
     }
 
-    public function getProjectData($projectId)
-    {
-        $projectData = [];
-        $stepOneData = $this->getProjectStepOneDetails( $projectId );
-        $stepTwoData = $this->getProjectStepTwoDetails( $projectId );
-        $projectData = $stepOneData + $stepTwoData;
-
-        return $projectData;
-    }
-    
+       
     
     public function getProjectDetails( $projectId ) {
 
