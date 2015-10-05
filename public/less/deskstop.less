@@ -1,0 +1,163 @@
+
+body {
+  -webkit-text-size-adjust:none;
+  font-family:sans-serif;
+  min-height:416px;
+
+    h1 {
+      font-size:28px;
+      font-weight:300;
+      color:#3c3c3c;
+      text-align: left;
+    }
+    h2 {
+      font-size:18px;
+      font-weight:300;
+      color:#3c3c3c;
+      text-align: left;
+    }
+    small {
+      display:block;
+      font-size:12px;
+      opacity: .6;
+      margin-top: 1px;
+    }
+    a {
+      font-size:12px;
+      color:@brand-primary ;
+    }
+}
+
+
+
+.footer{
+      font-size: 12px;
+       color:#373737;
+       position: absolute;
+       bottom: 10px;
+  a{
+       font-size: 12px;
+       opacity: .6;
+       color:#373737;
+  }
+}
+
+.card-swipe{
+      font-size:12px;
+      padding-top: 11px;
+      h4{
+        font-size: 16px;
+      }
+      .price{
+            line-height: 20px;
+      }
+      .row{
+        padding:5px 10px;
+      }
+      .swipe-footer{
+            background: #f2f2f2;
+            font-weight: 200;
+            line-height: 26px;
+            margin:0px;
+            sm{
+              color: @brand-primary;
+              font-weight: bold;
+              font-size: 15px;
+            }
+            .footer-content{
+              padding:0px;
+            }
+      }
+      .swipe-unit-info{ 
+            font-weight: 200;
+            text-align: left;
+            text-transform: uppercase;
+            b{
+              color: black;
+            }
+      }
+      @media(max-width: 320px){
+        h4{
+              font-size: 15px;
+        }
+      }
+}
+.highlight{
+  border: 1px solid @brand-primary;
+  
+   .row{
+        padding:10px;
+    }
+    h4{
+          font-size: 18px;
+    }
+}
+.mCustomScrollbar{
+  margin-top:40px;
+}
+.sidebar-nav{
+
+    li{
+        border:1px solid   lighten(@gray-lighter, 0%);
+        margin-bottom:10px;
+    }
+}
+
+
+.navbar-header{
+      color:white; 
+      z-index: 0;
+      margin:0 !important;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      left: 0;
+      height: 120px;
+       padding: 20px 20px;
+      background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.75), transparent);
+      background-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
+      }
+
+.filter-type{
+    li{
+      margin-left:10px;
+      font-weight: 300;
+      div{
+            float: left;
+            margin-right: 12px;
+            line-height: 40px;
+      }
+      a{
+              border: 1px solid #ccc;
+              border-radius: 100%;
+              width: 40px;
+              height: 40px;
+              display: inline-block;
+              padding: 5px 6px;
+      }
+    }
+}
+.rotate{
+    position: absolute;
+    z-index: 999;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    bottom: 10px;
+    color:White;
+    text-shadow:1px 1px 1px #000;
+  .i-icon-rotate{
+         background: url(../../images/sprite.png) no-repeat;
+        width: 50px;
+        height: 60px;
+        background-position: -99px -20px;
+        margin: auto;
+        display: block;
+  }
+
+}

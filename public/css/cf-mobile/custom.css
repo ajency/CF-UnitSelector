@@ -138,15 +138,6 @@ body .row {
 .navbar-default .p-0 {
   padding: 0px;
 }
-.image {
-  position: absolute;
-  top: 0px;
-  z-index: -1;
-  overflow: hidden;
-}
-.image img {
-  max-height: inherit !important;
-}
 .sun-toggle {
   width: 40px;
   height: 40px;
@@ -176,7 +167,7 @@ body .row {
   z-index: 9999;
   position: absolute;
   right: 4%;
-  bottom: 24%;
+  bottom: 27%;
   border-radius: 100%;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
@@ -213,7 +204,7 @@ body .row {
   font-size: 15px;
 }
 .card-swipe .swipe-unit-info {
-  padding: 10px 0;
+  padding: 15px 0;
   font-size: 11px;
   font-weight: 200;
   text-align: left;
@@ -233,31 +224,47 @@ body .row {
 .not-released .row {
   opacity: .5 ;
 }
-#mySwipe div b {
+.i-icon {
+  background: url(../../images/sprite.png) no-repeat;
+  width: 26px;
+  height: 25px;
+  display: inline-block;
+}
+.i-phone {
+  background-position: -20px -58px;
+}
+.i-shortlist {
+  background-position: -20px -139px;
+}
+.i-filter {
+  background-position: -20px -99px;
+}
+.i-back {
+  background-position: -20px -19px;
+}
+.i-dark-arrow {
+  background-position: -219px -19px;
+}
+.i-sun {
+  background-position: -20px -226px;
+}
+.i-marker {
+  background-position: -109px -156px;
+  margin: auto;
+  text-align: center;
   display: block;
-  font-weight: normal;
-  margin: 10px;
-  padding: 15px 0px;
-  box-shadow: 0 1px #EBEBEB;
-  background: #fff;
-  border-radius: 3px;
-  border: 1px solid;
-  line-height: 30px;
-  border-color: #E5E5E5 #D3D3D3 #B9C1C6;
+  height: 40px;
 }
-.swipe {
-  overflow: hidden;
-  visibility: hidden;
-  position: relative;
+.i-filter-white {
+  background-position: -216px -115px;
 }
-.swipe-wrap {
-  overflow: hidden;
-  position: relative;
+.i-sun-white {
+  background-position: -216px -64px;
 }
-.swipe-wrap > div {
-  float: left;
-  width: 60px;
-  position: relative;
+.slick-slide .card-swipe {
+  -webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
 }
 #disqus_thread {
   margin-top: 20px;
@@ -311,15 +318,15 @@ body .row {
   margin: 5px;
 }
 .center .slick-center .card-swipe {
-  -moz-transform: scale(1.08);
-  -ms-transform: scale(1.08);
-  -o-transform: scale(1.08);
-  -webkit-transform: scale(1.08);
+  -moz-transform: scale(1.18);
+  -ms-transform: scale(1.18);
+  -o-transform: scale(1.18);
+  -webkit-transform: scale(1.18);
   color: #000;
   opacity: 1;
-  -webkit-transform: scale(1.08);
-      -ms-transform: scale(1.08);
-          transform: scale(1.08);
+  -webkit-transform: scale(1.18);
+      -ms-transform: scale(1.18);
+          transform: scale(1.18);
 }
 .center .card-swipe {
   opacity: 0.8;
@@ -461,31 +468,82 @@ ul.nav li a {
 #carbonads .carbon-img {
   margin-bottom: 10px;
 }
-.i-icon {
-  background: url(../../images/sprite.png) no-repeat;
-  width: 26px;
-  height: 25px;
-  display: inline-block;
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
 }
-.i-phone {
-  background-position: -20px -58px;
+.fit {
+  /* set relative picture size */
+  max-width: 100%;
+  max-height: 100%;
 }
-.i-shortlist {
-  background-position: -20px -139px;
+.normal {
+  font-weight: 300;
 }
-.i-filter {
-  background-position: -20px -99px;
+.margin-none {
+  margin: 0px;
 }
-.i-back {
-  background-position: -20px -19px;
+.image {
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+  overflow: hidden;
 }
-.i-sun {
-  background-position: -20px -226px;
+.image img {
+  max-height: inherit !important;
 }
-.i-marker {
-  background-position: -26px -301px;
-  margin: auto;
-  text-align: center;
-  display: block;
+.primary-txt {
+  color: #fe943e;
 }
 /*# sourceMappingURL=custom.css.map */

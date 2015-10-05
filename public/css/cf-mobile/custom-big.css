@@ -1,0 +1,266 @@
+@import 'jquery.mCustomScrollbar.css';
+@import 'simple-sidebar.css';
+/* Social Colors */
+/*Real Wedding colors*/
+.i-icon {
+  background: url(../../images/sprite.png) no-repeat;
+  width: 26px;
+  height: 25px;
+  display: inline-block;
+}
+.i-phone {
+  background-position: -20px -58px;
+}
+.i-shortlist {
+  background-position: -20px -139px;
+}
+.i-filter {
+  background-position: -20px -99px;
+}
+.i-back {
+  background-position: -20px -19px;
+}
+.i-dark-arrow {
+  background-position: -219px -19px;
+}
+.i-sun {
+  background-position: -20px -226px;
+}
+.i-marker {
+  background-position: -109px -156px;
+  margin: auto;
+  text-align: center;
+  display: block;
+  height: 40px;
+}
+.i-filter-white {
+  background-position: -216px -115px;
+}
+.i-sun-white {
+  background-position: -216px -64px;
+}
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+.fit {
+  /* set relative picture size */
+  max-width: 100%;
+  max-height: 100%;
+}
+.normal {
+  font-weight: 300;
+}
+.margin-none {
+  margin: 0px;
+}
+.image {
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+  overflow: hidden;
+}
+.image img {
+  max-height: inherit !important;
+}
+.primary-txt {
+  color: #fe943e;
+}
+body {
+  -webkit-text-size-adjust: none;
+  font-family: sans-serif;
+  min-height: 416px;
+}
+body h1 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #3c3c3c;
+  text-align: left;
+}
+body h2 {
+  font-size: 18px;
+  font-weight: 300;
+  color: #3c3c3c;
+  text-align: left;
+}
+body small {
+  display: block;
+  font-size: 12px;
+  opacity: .6;
+  margin-top: 1px;
+}
+body a {
+  font-size: 12px;
+  color: #fe943e;
+}
+.footer {
+  font-size: 12px;
+  color: #373737;
+  position: absolute;
+  bottom: 10px;
+}
+.footer a {
+  font-size: 12px;
+  opacity: .6;
+  color: #373737;
+}
+.card-swipe {
+  font-size: 12px;
+  padding-top: 11px;
+}
+.card-swipe h4 {
+  font-size: 16px;
+}
+.card-swipe .price {
+  line-height: 20px;
+}
+.card-swipe .row {
+  padding: 5px 10px;
+}
+.card-swipe .swipe-footer {
+  background: #f2f2f2;
+  font-weight: 200;
+  line-height: 26px;
+  margin: 0px;
+}
+.card-swipe .swipe-footer sm {
+  color: #fe943e;
+  font-weight: bold;
+  font-size: 15px;
+}
+.card-swipe .swipe-footer .footer-content {
+  padding: 0px;
+}
+.card-swipe .swipe-unit-info {
+  font-weight: 200;
+  text-align: left;
+  text-transform: uppercase;
+}
+.card-swipe .swipe-unit-info b {
+  color: black;
+}
+@media (max-width: 320px) {
+  .card-swipe h4 {
+    font-size: 15px;
+  }
+}
+.highlight {
+  border: 1px solid #fe943e;
+}
+.highlight .row {
+  padding: 10px;
+}
+.highlight h4 {
+  font-size: 18px;
+}
+.mCustomScrollbar {
+  margin-top: 40px;
+}
+.sidebar-nav li {
+  border: 1px solid #d5d5d4;
+  margin-bottom: 10px;
+}
+.navbar-header {
+  color: white;
+  z-index: 0;
+  margin: 0 !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  height: 120px;
+  padding: 20px 20px;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.75), transparent);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
+}
+.filter-type li {
+  margin-left: 10px;
+  font-weight: 300;
+}
+.filter-type li div {
+  float: left;
+  margin-right: 12px;
+  line-height: 40px;
+}
+.filter-type li a {
+  border: 1px solid #ccc;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  padding: 5px 6px;
+}
+.rotate {
+  z-index: 999;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  bottom: 10px;
+  color: White;
+  text-shadow: 1px 1px 1px #000;
+}
+.rotate .i-icon-rotate {
+  background: url(../../images/sprite.png) no-repeat;
+  width: 50px;
+  height: 60px;
+  background-position: -99px -20px;
+  margin: auto;
+  display: block;
+}
+/*# sourceMappingURL=custom-big.css.map */
