@@ -5,8 +5,16 @@
     "laravel-elixir": "*"
   },
   "dependencies": {
+    "es6-promise": "^3.0.2",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.0",
     "gulp-watch": "^4.2.1",
+    "merge": "^1.2.0",
     "minimist": "^1.1.1",
+    "react": "^0.13.3",
+    "react-slick": "^0.8.0",
+    "reactify": "^1.1.1",
+    "superagent": "^1.4.0",
     "underscore": "^1.8.2"
   }
 }
