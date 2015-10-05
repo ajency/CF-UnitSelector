@@ -1,4 +1,4 @@
-<input type="hidden" value="{{ csrf_token()}}" name="_token"/> 
+
 <div class="row userauth" date-user-auth="{{(hasPermission($project['id'],['svg_auth_tool']))?1:0 }}">
     <div class="col-md-12">
         <div class="grid simple">
