@@ -563,8 +563,9 @@ section {
 .tabHeader .title a {
   color: #565654;
   display: inline-block;
-  margin: 0 20px;
+  margin: 8px 10px 0 20px;
   font-size: 20px;
+  float: left;
 }
 .tabHeader .nav-tabs {
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
