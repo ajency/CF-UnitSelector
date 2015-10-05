@@ -9,8 +9,8 @@
     <title>CommonFloor - {{ $project_title }}</title>
 
     <link href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
-    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
+    <link rel="stylesheet" href="{{ asset('css/cf-mobile/gh-fork-ribbon.min.css' )}}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/slick.css' )}}"/>
     <link href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}" rel="stylesheet">
 	<script src="{{ asset('lib/react.js' )}}"></script>
 </head>
@@ -37,38 +37,10 @@
     <script src="{{ asset('bower_components/slick-carousel/slick/slick.min.js' )}}"></script>
 
 	<!-- Our compiled JavaScript source file -->
-    <script src="{{ asset('js/frontend-react/build/App.js' )}}"></script>
+    <!--script src="{{ asset('js/frontend-react/build/App.js' )}}"></script-->
+    <script src="{{asset('react-app-dist/main.js')}}"></script>
 
-    <SCRIPT TYPE="text/javascript">
-    
-    	$('.center').slick({
-    		centerMode: true,
-    		centerPadding: '60px',
-    		arrows: false,
-    		slidesToShow: 3,
-    		responsive: [
-    		{
-    			breakpoint: 768,
-    			settings: {
-    				arrows: false,
-    				centerMode: true,
-    				centerPadding: '40px',
-    				slidesToShow: 3
-    			}
-    		},
-    		{
-    			breakpoint: 480,
-    			settings: {
-    				arrows: false,
-    				centerMode: true,
-    				centerPadding: '40px',
-    				slidesToShow: 1
-    			}
-    		}
-    		]
-    	});
 
-    </SCRIPT>
 	<script type="text/javascript" language="JavaScript">
 	  function set_body_height() { 
 	  	// set body height = window height

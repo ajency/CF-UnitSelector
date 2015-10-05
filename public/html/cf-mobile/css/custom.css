@@ -76,9 +76,10 @@ body h2 {
 body small {
   display: block;
   font-size: 11px;
+  opacity: .6;
+  margin-top: 1px;
 }
 body a {
-  margin: 0 0 0 10px;
   font-size: 12px;
   color: #fe943e;
 }
@@ -116,6 +117,24 @@ body .row {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
 }
+.navbar-default .navbar-header .badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 3px;
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #F89B1A;
+  position: absolute;
+  right: -8px;
+  border-radius: 100%;
+  width: 19px;
+  height: 20px;
+}
 .navbar-default .p-0 {
   padding: 0px;
 }
@@ -143,16 +162,21 @@ body .row {
 .sun-toggle:hover {
   background: yellow;
 }
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../../fonts/glyphicons-halflings-regular.eot');
+  src: url('../../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
 /* Rotate*/
 .rotate {
-  width: 50px;
-  height: 50px;
-  background: url(../img/sprite.png) #fe943e no-repeat;
-  background-position: -110px -43px;
+  width: 40px;
+  height: 40px;
+  background: url(../../images/sprite.png) #fe943e no-repeat;
+  background-position: -105px -30px;
   z-index: 9999;
   position: absolute;
   right: 4%;
-  bottom: 25%;
+  bottom: 24%;
   border-radius: 100%;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
@@ -174,20 +198,40 @@ body .row {
   padding-top: 15px;
   padding-bottom: 11px;
 }
+.card-swipe .price {
+  line-height: 20px;
+}
 .card-swipe .swipe-footer {
   background: #f2f2f2;
-  padding: 13px 0;
+  padding: 5px 0;
   font-weight: 200;
+  line-height: 26px;
 }
 .card-swipe .swipe-footer sm {
   color: #fe943e;
   font-weight: bold;
+  font-size: 15px;
 }
 .card-swipe .swipe-unit-info {
   padding: 10px 0;
+  font-size: 11px;
   font-weight: 200;
   text-align: left;
   text-transform: uppercase;
+}
+.card-swipe .swipe-unit-info b {
+  color: black;
+}
+@media (max-width: 320px) {
+  .card-swipe h4 {
+    font-size: 15px;
+  }
+}
+.not-released {
+  background: #E4E4E4 !important;
+}
+.not-released .row {
+  opacity: .5 ;
 }
 #mySwipe div b {
   display: block;
@@ -272,7 +316,7 @@ body .row {
   -ms-transform: scale(1.08);
   -o-transform: scale(1.08);
   -webkit-transform: scale(1.08);
-  color: #e67e22;
+  color: #000;
   opacity: 1;
   transform: scale(1.08);
 }
@@ -416,7 +460,7 @@ ul.nav li a {
   margin-bottom: 10px;
 }
 .i-icon {
-  background: url(../img/sprite.png) no-repeat;
+  background: url(../../images/sprite.png) no-repeat;
   width: 26px;
   height: 25px;
   display: inline-block;
@@ -435,4 +479,37 @@ ul.nav li a {
 }
 .i-sun {
   background-position: -20px -226px;
+}
+.i-marker {
+  background-position: -26px -301px;
+  margin: auto;
+  text-align: center;
+  display: block;
+}
+.tabHeader .title h3 {
+  color: #565654;
+  display: inline-block;
+  margin: 10px 0;
+}
+.tabHeader .title a {
+  color: #565654;
+  display: inline-block;
+  margin: 0 20px;
+  font-size: 20px;
+}
+.tabHeader .nav-tabs li {
+  width: 25%;
+  margin: 0;
+}
+.tabHeader .nav-tabs li .active a,
+.tabHeader .nav-tabs li .hover a,
+.tabHeader .nav-tabs li .focus a {
+  margin: 0 !important;
+  border: none !important;
+  border-bottom: 2px solid #fe943e !important;
+  color: #565654;
+}
+.tabHeader .nav-tabs li a {
+  color: #bcbcba;
+  margin: 0;
 }

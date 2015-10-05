@@ -546,4 +546,31 @@ section {
 .primary-txt {
   color: #fe943e;
 }
+.tabHeader .title h3 {
+  color: #565654;
+  display: inline-block;
+  margin: 10px 0;
+}
+.tabHeader .title a {
+  color: #565654;
+  display: inline-block;
+  margin: 0 20px;
+  font-size: 20px;
+}
+.tabHeader .nav-tabs li {
+  width: 25%;
+  margin: 0;
+}
+.tabHeader .nav-tabs li .active a,
+.tabHeader .nav-tabs li .hover a,
+.tabHeader .nav-tabs li .focus a {
+  margin: 0 !important;
+  border: none !important;
+  border-bottom: 2px solid #fe943e !important;
+  color: #565654;
+}
+.tabHeader .nav-tabs li a {
+  color: #bcbcba;
+  margin: 0;
+}
 /*# sourceMappingURL=custom.css.map */
