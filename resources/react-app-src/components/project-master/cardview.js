@@ -10,6 +10,7 @@ var CardView = React.createClass({
 
         if (!_.isEmpty(buildingData)){
            unitData = buildingData.unitData;
+           availableUnitData = buildingData.availableUnitData;
            noOfFloors = buildingData.no_of_floors;
            buildingName = buildingData.building_name;
 
@@ -49,7 +50,7 @@ var CardView = React.createClass({
                         </div>
                         <div className="row swipe-footer">
                             <div className="col-xs-10">
-                                <sm>{unitData.length}</sm> Units Matching your selection 
+                                <sm>{availableUnitData.length}</sm> Units Matching your selection 
                             </div>
                             <div className="col-xs-2">
                                 <a href="#"><span className="glyphicon glyphicon-chevron-right  text-right" aria-hidden="true"></span></a>
