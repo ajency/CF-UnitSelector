@@ -30,14 +30,22 @@ function getUnitTypeDetails(unitTypeId){
 }
 
 function getUnitCount(propertyType){
-	var unitCount = 0;
+	var unitCount = {"totalCount":0,"availableCount":0};
 	var units = [];
+	var availableUnits = [];
+	var totalUnitsInBuilding = [];
 
 	if (!_.isEmpty(_projectData)){
 		units = _projectData.units;
-	}
 
-	unitCount = units.length ;
+
+		totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
+		
+		availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+		
+		unitCount["totalCount"] = totalUnitsInBuilding.length ;
+		unitCount["availableCount"] = availableUnits.length ;
+	}
 
 	return unitCount;
 } 
@@ -49,14 +57,21 @@ function getBuildingUnits(buildings, allUnits){
 		buildingId = building.id;
 
 		buildingUnits = [];
+		availableBuildingUnits = [];
+		unitVariants = [];
 
 		_.each(allUnits, function(unit){
 			if(unit.building_id === buildingId){
 				buildingUnits.push(unit);
+
+				if(unit.availability === "available")
+					availableBuildingUnits.push(unit);
 			}
+			unitVariants.push(unit.unit_variant_id);
 		})
 
 		building.unitData = buildingUnits;
+		building.availableUnitData = availableBuildingUnits;
 
 
 		// get project unit types
@@ -119,9 +134,11 @@ function _getProjectMasterData(){
 		var buildingsWithUnits = [];
 
 		projectMasterData.projectTitle = projectData.project_title ; 
-		projectMasterData.unitCount = getUnitCount('Apartments') ; 
-
-
+		
+		unitCount = getUnitCount('Apartments') ;
+		projectMasterData.totalCount = unitCount.totalCount;
+		projectMasterData.availableCount = unitCount.availableCount;
+		
 		buildings = projectData.buildings;
 		allUnits = projectData.units;
 

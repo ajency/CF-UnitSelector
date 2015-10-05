@@ -5,7 +5,7 @@ var SunToggle = require('./project-master/suntoggle');
 var Rotate = require('./project-master/rotate');
 var ProjectImage = require('./project-master/projectimage');
 var CardList = require('./project-master/cardlist');
-var CardView = require('./project-master/cardview');
+
 
 
 function getProjectMasterData(){
@@ -32,7 +32,7 @@ var APP = React.createClass({
         var data = this.state.data;
         
         var projectTitle = data.projectTitle;
-        var unitCount = data.unitCount;
+        var unitCount = data.totalCount;
         var buildings = data.buildings;
 
         return (

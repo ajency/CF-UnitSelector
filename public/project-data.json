@@ -281,7 +281,7 @@
         "agent_id": 0,
         "booked_at": "2015-10-01 09:30:39",
         "breakpoint": 0,
-        "availability": "available"
+        "availability": "unavailable"
       },
       {
         "id": 100,
