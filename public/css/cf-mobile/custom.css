@@ -263,6 +263,7 @@ body .row {
   margin-top: 20px;
 }
 * {
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .bottom-card {
@@ -317,14 +318,11 @@ body .row {
   -webkit-transform: scale(1.08);
   color: #000;
   opacity: 1;
-  -webkit-transform: scale(1.08);
-      -ms-transform: scale(1.08);
-          transform: scale(1.08);
+  transform: scale(1.08);
 }
 .center .card-swipe {
   opacity: 0.8;
-  -webkit-transition: all 300ms ease;
-          transition: all 300ms ease;
+  transition: all 300ms ease;
 }
 .content {
   margin: auto;
@@ -488,4 +486,202 @@ ul.nav li a {
   text-align: center;
   display: block;
 }
-/*# sourceMappingURL=custom.css.map */
+.tabHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 9999;
+  background: #ffffff;
+}
+.tabHeader .title {
+  margin-top: 10px;
+}
+.tabHeader .title h3 {
+  color: #565654;
+  display: inline-block;
+  margin: 10px 0;
+}
+.tabHeader .title a {
+  color: #565654;
+  display: inline-block;
+  margin: 0 20px;
+  font-size: 20px;
+}
+.tabHeader .nav-tabs {
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: none;
+}
+.tabHeader .nav-tabs li {
+  width: 25%;
+  margin: 0;
+}
+.tabHeader .nav-tabs li.active a,
+.tabHeader .nav-tabs li:hover a,
+.tabHeader .nav-tabs li:focus a {
+  margin: 0 !important;
+  border: none !important;
+  border-bottom: 3px solid #fe943e !important;
+  color: #565654;
+  background: none;
+}
+.tabHeader .nav-tabs li a {
+  color: #bcbcba;
+  margin: 0;
+  border: none;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.tab-content {
+  padding: 15px;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  float: left;
+  width: 100%;
+}
+.tab-content .details {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 15px;
+}
+.tab-content .details .flatDetails {
+  border-bottom: 1px solid #bcbcba;
+}
+.tab-content .details .flatDetails h4 {
+  display: inline-block;
+  color: #565654;
+  font-weight: bold;
+}
+.tab-content .details .flatDetails span {
+  color: #706f6d;
+  display: inline-block;
+  font-size: 14px;
+  margin: 0 0 0 15px;
+}
+.tab-content .details .flatDetails .price {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+.tab-content .details .flatDetails .price span {
+  color: #bcbcba;
+}
+.tab-content .details .flatDetails .price span.availability {
+  color: #296ec3;
+  text-align: right;
+  float: right;
+}
+.tab-content .details .twodView img {
+  width: 100%;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.tab-content .details .twodView a {
+  background: url('../../images/sprite.png') no-repeat;
+  background-position: -105px -30px;
+  position: absolute;
+  z-index: 1;
+  right: 20px;
+  bottom: 20px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.tab-content .projectDetails {
+  margin-top: 20px;
+}
+.tab-content .projectDetails .roomHeading {
+  padding: 0;
+  margin-bottom: 10px;
+}
+.tab-content .projectDetails .roomHeading span {
+  float: left;
+  background: url('../../images/sprite.png') no-repeat;
+  background-position: -105px -30px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.tab-content .projectDetails .roomHeading h4 {
+  color: #fe943e;
+  margin: 10px 0 15px 10px;
+  font-weight: bold;
+  float: left;
+}
+.tab-content .projectDetails .row {
+  margin-bottom: 15px;
+}
+.tab-content .projectDetails .row .left {
+  color: #bcbcba;
+  font-size: 14px;
+  padding-left: 0;
+}
+.tab-content .projectDetails .row .right {
+  color: gray-darker;
+  font-size: 14px;
+  padding-right: 0;
+}
+.tab-content .gallery {
+  padding: 0;
+}
+.tab-content .gallery img {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.tab-content .gallery a {
+  background: url('../../images/sprite.png') no-repeat;
+  background-position: -105px -30px;
+  position: absolute;
+  z-index: 1;
+  right: 10px;
+  bottom: 25px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.tab-content #Fullscreen {
+  height: 100%;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.tab-content #Fullscreen img {
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.tabfooter {
+  position: fixed;
+  bottom: -1px;
+  width: 100%;
+  left: 0;
+  color: #ffffff;
+  text-align: center;
+  z-index: 9999;
+}
+.tabfooter button {
+  margin: 0;
+  border: none;
+  background: #fe943e;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.tabfooter button:first-child {
+  border-right: 1px solid #ffffff;
+}
+.tabfooter button div {
+  float: left;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.tabfooter button div span {
+  display: block;
+  background: url('../../images/sprite.png') no-repeat;
+  background-position: -105px -30px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin: 0 auto;
+}

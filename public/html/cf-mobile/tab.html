@@ -7,7 +7,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>CF-MOBILE</title>
 
-    <link href='css/custom.css' rel='stylesheet'/>
+    <link href='../../css/cf-mobile/custom.css' rel='stylesheet'/>
+    <link href='../../css/cf-mobile/font-awesome.css' rel='stylesheet'/>
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
     <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
@@ -34,19 +35,169 @@
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">3D</a></li>
         <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Gallery</a></li>
       </ul>                     
-
+    </div>
       <!-- Tab panes -->
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">...</div>
-        <div role="tabpanel" class="tab-pane" id="profile">...</div>
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <div class="col-xs-12 details">
+                <div class="flatDetails">
+                    <h4>Flat 1101 (3 BHK) </h4>
+                    <span>East Facing</span>
+
+                    <div class="price">Rs 20 Lacs <span>Starting Price</span>
+                    <span class="availability">Available</span>
+                    </div>
+                </div>
+                <div class="projectDetails">
+                    <div class="row">
+                      <div class="col-xs-6 left">
+                          Project Type
+                      </div>
+                      <div class="col-xs-6 right">
+                          Appartment
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 left">
+                          Floor
+                      </div>
+                      <div class="col-xs-6 right">
+                          8th floor
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 left">
+                          BHK area
+                      </div>
+                      <div class="col-xs-6 right">
+                          1000 sqft.
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 details">
+                <div class="flatDetails">
+                    <h4>Appartment Attributes </h4>
+                </div>
+                <div class="projectDetails">
+                    <div class="col-xs-12 roomHeading">                  
+                        <span></span>
+                        <h4 class="text-uppercase">Bedroom</h4>                    
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 left">
+                          Size sqft.
+                      </div>
+                      <div class="col-xs-6 right">
+                          150
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 left">
+                          Dimensions
+                      </div>
+                      <div class="col-xs-6 right">
+                          12' 10" * 10' 11"
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 left">
+                          Flooring
+                      </div>
+                      <div class="col-xs-6 right">
+                          Wooden
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 left">
+                          Dimensions
+                      </div>
+                      <div class="col-xs-6 right">
+                          12' 10" * 10' 11"
+                      </div>
+                    </div>
+                </div>
+            </div>          
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+            <div class="col-xs-12 details">
+                <div class="flatDetails">
+                    <h4>Floor Plans</h4>
+                </div>
+                <div class="twodView">                                       
+                    <img src="img/bldg-3d.png"/> 
+                    <a href="#"></a>                                   
+                </div>
+            </div>
+            <div class="col-xs-12 details">
+                <div class="flatDetails">
+                    <h4>Project Layout</h4>
+                </div>
+                <div class="twodView">                                       
+                    <img src="img/bldg-3d.png"/> 
+                    <a href="#"></a>                                   
+                </div>
+            </div>
+            <div class="col-xs-12 details">
+                <div class="flatDetails">
+                    <h4>Floor Plans</h4>
+                </div>
+                <div class="twodView">                                       
+                    <img src="img/bldg-3d.png"/> 
+                    <a href="#"></a>                                   
+                </div>
+            </div> 
+        </div>
         <div role="tabpanel" class="tab-pane" id="messages">...</div>
-        <div role="tabpanel" class="tab-pane" id="settings">...</div>
+        <div role="tabpanel" class="tab-pane" id="settings">
+            <div class="col-xs-12 gallery">                                                                      
+                <img src="img/bldg-3d.png"/> 
+                <a class="myImg" href="#"></a>                                                   
+            </div>
+            <div class="col-xs-12 gallery">                                                                      
+                <img src="img/bldg-3d.png"/> 
+                <a class="myImg" href="#"></a>                                                   
+            </div>
+            <div class="col-xs-12 gallery">                                                                      
+                <img src="img/bldg-3d.png"/> 
+                <a class="myImg" href="#"></a>                                                   
+            </div>
+            <div id="Fullscreen">
+                <img src="" alt="" />
+            </div> 
+        </div>        
+      </div>
+      <div class="tabfooter">
+          <div class="row">
+            <button class="col-xs-6 button">
+                <div><span></span></div>
+                Express interest
+            </button>
+            <button class="col-xs-6 button">
+                <div><span></span></div>
+                Book now
+            </button>
+          </div>
       </div>
 
-    </div>
-    
+   
+
      <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>  
+    <script type="text/javascript">
+         $('#Fullscreen').css('height', $(document).outerWidth() + 'px');
+          //for when you click on an image
+          $('.myImg').click(function () {
+              var src = $(this).attr('src'); //get the source attribute of the clicked image
+              $('#Fullscreen img').attr('src', src); //assign it to the tag for your fullscreen div
+              $('#Fullscreen').fadeIn();
+          });
+          $('#Fullscreen').click(function () {
+              $(this).fadeOut(); //this will hide the fullscreen div if you click away from the image. 
+          });
+    </script>
   </body>
 </html>
