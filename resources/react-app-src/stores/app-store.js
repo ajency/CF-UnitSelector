@@ -10,6 +10,24 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null , _globalStateData = {};
 
+function getUnitTypeDetails(unitTypeId){
+	var unitTypeDetails = {};
+	var unitTypes = [];
+
+	if(!_.isEmpty(_projectData)){
+		unitTypes = _projectData.unit_types;
+
+		unitTypeDetails = _.find(unitTypes, function(unitType){ 
+			if(unitType.id === unitTypeId){
+				return unitType;
+			}
+
+		 });
+
+	}
+
+	return unitTypeDetails;
+}
 
 function getUnitCount(propertyType){
 	var unitCount = 0;
@@ -40,10 +58,49 @@ function getBuildingUnits(buildings, allUnits){
 
 		building.unitData = buildingUnits;
 
+
+		// get project unit types
+		unitTypes = getSupportedUnitTypes("Apartments","Building");
+
+		building.supportedUnitTypes = unitTypes;
+
 		buildingsWithUnits.push(building);
 	})
 
 	return buildingsWithUnits;
+}
+
+function getApartmentUnitTypes(){
+
+	var apartmentVariants = [];
+	var apartmentUnitTypes = [];
+
+	if(!_.isEmpty(_projectData)){
+		apartmentVariants = _projectData.apartment_variants;
+		unitTypes = _.pluck(apartmentVariants, 'unit_type_id');
+
+		_.each(unitTypes, function(unitTypeId){
+			unitTypeDetails = getUnitTypeDetails(unitTypeId);
+			apartmentUnitTypes.push(unitTypeDetails.name);
+		})
+	}
+
+	return apartmentUnitTypes;
+}
+
+function getSupportedUnitTypes(propertyType, collectivePropertyType){
+	
+	var supportedUnitTypes = [];
+
+	switch(propertyType) {
+
+	    case "Apartments":
+	    	supportedUnitTypes = getApartmentUnitTypes();	
+	    break;
+
+	}
+
+	return supportedUnitTypes;
 }
 
 // Method to load project data from API
@@ -56,6 +113,7 @@ function _getProjectMasterData(){
 	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[]};
 	var buildings = [];
 	var allUnits= [];
+	var unitTypes= [];
 
 	if(!_.isEmpty(projectData)){
 		var buildingsWithUnits = [];

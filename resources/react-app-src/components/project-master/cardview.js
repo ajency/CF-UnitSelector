@@ -5,12 +5,28 @@ var CardView = React.createClass({
         var buildingData = this.props.building;
         var unitData = [];
         var noOfFloors = 0;
-        var buildingName = ""
+        var buildingName = "";
+        var supportedUnitTypeString = " ";
 
         if (!_.isEmpty(buildingData)){
            unitData = buildingData.unitData;
            noOfFloors = buildingData.no_of_floors;
            buildingName = buildingData.building_name;
+
+
+
+           _.each(buildingData.supportedUnitTypes, function(supportedUnitType , i){
+                
+                len = buildingData.supportedUnitTypes.length
+
+                if(i==(len-1)){
+                    supportedUnitTypeString += supportedUnitType;
+                }
+                else{
+                    supportedUnitTypeString += supportedUnitType+", ";
+                }
+                
+           })
         }
         
         
@@ -28,7 +44,7 @@ var CardView = React.createClass({
                         </div>
                         <div className=" swipe-unit-info row">
                             <div className="col-xs-12 text-muted">
-                                {noOfFloors} Floors  &nbsp;&nbsp; : &nbsp;&nbsp; 2BHK, 3BHK &nbsp; &nbsp;: &nbsp;&nbsp; {unitData.length} Units
+                                {noOfFloors} Floors  &nbsp;&nbsp; : &nbsp;&nbsp; {supportedUnitTypeString} &nbsp; &nbsp;: &nbsp;&nbsp; {unitData.length} Units
                             </div>  
                         </div>
                         <div className="row swipe-footer">

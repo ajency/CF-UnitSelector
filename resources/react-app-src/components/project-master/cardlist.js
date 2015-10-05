@@ -52,9 +52,6 @@ var CardList = React.createClass({
                             return <CardView key={i} building={building}/>  
                         });
 
-
-
-        console.log("building nodes" , buildingNodes);
         
         return (
             <div className="bottom-card">
