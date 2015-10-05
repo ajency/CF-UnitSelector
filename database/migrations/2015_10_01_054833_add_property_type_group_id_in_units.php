@@ -13,7 +13,7 @@ class AddPropertyTypeGroupIdInUnits extends Migration {
 	public function up()
 	{
 		Schema::table( 'units', function(Blueprint $table) {
-        $table->integer( 'property_type_group_id' );
+        	$table->integer( 'property_type_group_id' );
     } );
 	}
 

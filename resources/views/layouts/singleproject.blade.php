@@ -20,7 +20,7 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/cost') }}">@if($current === 'cost')@endif Cost</a>
             </li>
             @endif
-            @if(hasPermission($project['id'],['svg_auth_tool']))
+            @if($project['has_master']=='yes' && hasPermission($project['id'],['svg_auth_tool'])) 
             <li class="{{ $current === 'svg' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/svg' ) }}" >@if($current === 'svg')@endif SVGs</a>
             </li>

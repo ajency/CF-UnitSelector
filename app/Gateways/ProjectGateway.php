@@ -39,9 +39,9 @@ class ProjectGateway implements ProjectGatewayInterface {
             'id' => $project->id,
             'project_title' => $project->project_title,
             'logo' => $project->projectMeta()->where( 'meta_key', 'project_image' )->first()->meta_value,
-            'step_one' => [
+            /*'step_one' => [
                 'svg' => $project->getGoogleEarthSvgPath()
-            ],
+            ],*/
             'project_master' => $project->getProjectMasterImages(),
             'breakpoints' => $project->getProjectMasterBreakPoints(),
             'shadow_images' => $project->getProjectMasterShadowImages(),
@@ -191,6 +191,16 @@ class ProjectGateway implements ProjectGatewayInterface {
         ];
         
         return $stepTwoData;
+    }
+
+    public function getProjectData($projectId)
+    {
+        $projectData = [];
+        $stepOneData = $this->getProjectStepOneDetails( $projectId );
+        $stepTwoData = $this->getProjectStepTwoDetails( $projectId );
+        $projectData = $stepOneData + $stepTwoData;
+
+        return $projectData;
     }
     
     

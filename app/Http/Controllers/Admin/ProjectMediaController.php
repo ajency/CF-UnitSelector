@@ -68,14 +68,15 @@ class ProjectMediaController extends Controller {
 
                 $mediaId = $media->id;
                 $position = 0;
-                if ('google_earth' === $type) {
+                /*if ('google_earth' === $type) {
                     $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
                     $projectMeta->project_id = $projectId;
                     $projectMeta->meta_key = $type;
                     $projectMeta->meta_value = $mediaId;
                     $projectMeta->save();
                 }
-                elseif ('shadow' === $type) {
+                else*/
+                if ('shadow' === $type) {
                     $position = Input::get( 'position' );  
                     $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
                     $unSerializedValue = unserialize( $projectMeta->meta_value );
@@ -94,13 +95,16 @@ class ProjectMediaController extends Controller {
                     $projectMeta->save();
                 }
 
-                if ('google_earth' === $type) {
+                /*if ('google_earth' === $type) {
                     $message = 'Google Earth Image Successfully Uploaded';
-                } elseif ('master' === $type) {
+                } else*/
+
+                if ('master' === $type) {
                     $message = 'Project Master Image Successfully Uploaded';
-                } elseif ('skyview' === $type) {
-                    $message = 'Sky view Image Successfully Uploaded';
                 }
+                /* elseif ('skyview' === $type) {
+                    $message = 'Sky view Image Successfully Uploaded';
+                }*/
                 elseif ('shadow' === $type) {
                     $message = 'Shadow Image Successfully Uploaded';
                 }

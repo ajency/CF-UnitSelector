@@ -22,14 +22,16 @@ class CreatePropertyTypeGroupsTable extends Migration {
             $table->string( 'group_master', 500 )->default( 'a:0:{}' );
             $table->string( 'breakpoints', 500 )->default( 'a:0:{}' );
             $table->timestamps();
+
+            $table->foreign( 'project_property_type_id' )
+              ->references( 'id' )
+              ->on( 'project_property_types' )
+              ->onDelete( 'cascade' );
      } );
 
 
 
-      $table->foreign( 'project_property_type_id' )
-              ->references( 'id' )
-              ->on( 'project_property_types' )
-              ->onDelete( 'cascade' );
+      
 	}
 
 	/**

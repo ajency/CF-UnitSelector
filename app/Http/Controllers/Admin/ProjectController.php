@@ -89,7 +89,7 @@ class ProjectController extends Controller {
     public function show($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'shadow', 'breakpoints', 'cf'])->get()->toArray();//'google_earth', 'skyview',
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
         $defaultunitTypes = get_all_unit_type();
         $projectAttributes = $project->attributes->toArray();
@@ -141,7 +141,7 @@ class ProjectController extends Controller {
     public function edit($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth','shadow', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'shadow',  'breakpoints', 'cf'])->get()->toArray(); //'google_earth', 'skyview',
         $propertyTypes = get_all_property_type();
         $defaultunitTypes = get_all_unit_type();
         $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = $propertyTypehasVariants= [];
@@ -266,7 +266,7 @@ class ProjectController extends Controller {
 
     public function cost($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'shadow', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'shadow', 'breakpoints', 'cf'])->get()->toArray(); //'google_earth', 'skyview',
         $projectCost = [];
 
         foreach ($projectMeta as $meta) {
@@ -334,7 +334,7 @@ class ProjectController extends Controller {
     public function svg($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'shadow', 'skyview', 'breakpoints'])->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'shadow', 'breakpoints'])->get()->toArray(); //'google_earth', 'skyview',
         $svgImages = [];
 
         foreach ($projectMeta as $metaValues) {
@@ -536,8 +536,8 @@ class ProjectController extends Controller {
             $breakPointSvgData[$position]['PENDING']= $totalCount - $unitCount;
         }
         
-        $googleImageID = $project->projectMeta()->where('meta_key','google_earth')->first()->meta_value;  
-        $googleearthauthtool =SvgController :: isGoogleSvgMarked($googleImageID);  
+        //$googleImageID = $project->projectMeta()->where('meta_key','google_earth')->first()->meta_value;  
+        //$googleearthauthtool =SvgController :: isGoogleSvgMarked($googleImageID);  
  
  
         return view('admin.project.projectsummary')
@@ -548,7 +548,7 @@ class ProjectController extends Controller {
                         ->with('phaseData', $phaseData)
                         ->with('unitTypeData', $unitTypeData)
                         ->with('propertyTypes', $propertyTypes)
-                        ->with('googleearthauthtool', $googleearthauthtool)
+                        //->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
                         ->with('breakPointSvgData', $breakPointSvgData)
                         ->with('buildings', $projectBuildings)    
@@ -753,7 +753,7 @@ class ProjectController extends Controller {
 
     public function projectPublishData($projectId, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($projectId);
-        $projectMetaCondition = ($project->has_master == 'yes') ? ['master', 'google_earth', 'breakpoints'] : [ 'google_earth'];
+        $projectMetaCondition = ($project->has_master == 'yes') ? ['master', 'shadow', 'breakpoints'] : [];//'google_earth'
         $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray(); 
         if($project->has_phase == 'yes')
             $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
@@ -795,7 +795,7 @@ class ProjectController extends Controller {
         if (empty($phases)) {
             $errors['phase'] = "No phase available with status Live.";
         }
-        $masterImages = $breakpoints =  $projectBreakpoints = [];
+        $masterImages = $breakpoints = $shadowImages =  $projectBreakpoints = [];
         foreach ($projectMeta as $metaValues) {
 
             if ('master' === $metaValues['meta_key']) {
@@ -810,7 +810,19 @@ class ProjectController extends Controller {
                 if (empty($breakpoints)) {
                     $errors['breakpoints'] = "Breakpoints Not Set Project Master Images";
                 }
-            } else {
+
+
+            }
+            elseif ('shadow' === $metaValues['meta_key']) {
+                $shadowImages = unserialize($metaValues['meta_value']);
+
+                if (!empty($breakpoints) && empty($shadowImages)) {
+                    $errors['shadow'] = "Shadow Images Not Set Breakpoint";
+                }
+
+                
+            }
+             /*else {
                 $googleEarth = $metaValues['meta_value'];
                 if (empty($googleEarth)) {
                     $errors['google_earth'] = "Google Earth Image Not Found";
@@ -823,7 +835,7 @@ class ProjectController extends Controller {
                     }
                 }
 
-            }
+            }*/
         }
  
         if (!empty($breakpoints)) {
@@ -831,6 +843,10 @@ class ProjectController extends Controller {
                 $breakpointAuthtool = true;
                 if (!$breakpointAuthtool) {
                     $errors['breakpointauth'] = "Pending SVG Authoring For Project Master Images";
+                }
+
+                if (!isset($shadowImages[$breakpoint])) {
+                    $errors['breakpointauth'] = "Shadow Image not uploaded for breakpoint ".$breakpoint;
                 }
             }
         }
@@ -1186,9 +1202,9 @@ class ProjectController extends Controller {
                 $supported_types[] = "Amenity";                   
                 break;
 
-             case 'google_earth':
+             /*case 'google_earth':
                 $is_project_marked = SvgController::isGoogleSvgMarked($image_id);
-                $svgImagePath = url() . "/projects/" . $id . "/google_earth/". $imageName;
+                $svgImagePath = url() . "/projects/" . $id . "/google_earth/". $imageName;*/
                 
                 // pass Project
                 $supported_types[] = "Project";                 
@@ -1212,9 +1228,9 @@ class ProjectController extends Controller {
                 $svg_type_display = "BUILDING MASTER";
                 break;
 
-            case 'google_earth':
+            /*case 'google_earth':
                 $svg_type_display = "GOOGLE EARTH";
-                break;                
+                break;  */              
         }
 
        

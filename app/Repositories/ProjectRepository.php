@@ -81,9 +81,9 @@ class ProjectRepository implements ProjectRepositoryInterface {
             new ProjectMeta(['meta_key' => 'shadow',
                 'meta_value' => serialize($defaultShadow)
                     ]),
-            new ProjectMeta(['meta_key' => 'google_earth',
+            /*new ProjectMeta(['meta_key' => 'google_earth',
                 'meta_value' => ''
-                    ]),
+                    ]),*/
             new ProjectMeta(['meta_key' => 'skyview',
                 'meta_value' => ''
                     ]),
