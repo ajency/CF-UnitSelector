@@ -29,25 +29,19 @@ var APP = React.createClass({
     },    
 
     render: function(){
-        // var data = this.state.data;
+        var data = this.state.data;
         
-        // var projectTitle = data.projectTitle;
-        // var unitCount = data.unitCount;
-
-        var projectTitle = "data.projectTitle";
-        var unitCount = "data.unitCount";
+        var projectTitle = data.projectTitle;
+        var unitCount = data.unitCount;
+        var buildings = data.buildings;
 
         return (
-            <div onClick = {this.handleClick}>
+            <div>
             <NavBar projectTitle = {projectTitle} unitCount = {unitCount}/>
             <SunToggle/>
             <Rotate/>
             <ProjectImage/>
-            <CardList>
-                <CardView/>
-                <CardView/>
-                <CardView/>
-            </CardList>
+            <CardList buildings={buildings}/>
             </div>
 
         );

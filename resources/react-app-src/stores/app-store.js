@@ -53,7 +53,7 @@ function _loadProjectData(data) {
 
 function _getProjectMasterData(){
 	var projectData = _projectData;
-	var projectMasterData = {};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[]};
 	var buildings = [];
 	var allUnits= [];
 
