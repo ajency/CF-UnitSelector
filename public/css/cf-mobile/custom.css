@@ -593,7 +593,7 @@ section {
 .tab-content {
   padding: 15px;
   margin-top: 100px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   float: left;
   width: 100%;
 }
@@ -633,15 +633,17 @@ section {
   margin-top: 15px;
 }
 .tab-content .details .twodView a {
-  background: url('../../images/sprite.png') no-repeat;
-  background-position: -105px -30px;
+  /*background:url('../../images/sprite.png') no-repeat;
+				background-position:-105px -30px;*/
   position: absolute;
   z-index: 1;
   right: 20px;
   bottom: 20px;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
+  /*height:40px;
+				width:40px;*/
+}
+.tab-content .details .twodView a i {
+  color: #ffffff;
 }
 .tab-content .projectDetails {
   margin-top: 20px;
@@ -652,15 +654,12 @@ section {
 }
 .tab-content .projectDetails .roomHeading span {
   float: left;
-  background: url('../../images/sprite.png') no-repeat;
-  background-position: -105px -30px;
   height: 40px;
   width: 40px;
-  border-radius: 50%;
 }
 .tab-content .projectDetails .roomHeading h4 {
   color: #fe943e;
-  margin: 10px 0 15px 10px;
+  margin: 6px 0 0px 5px;
   font-weight: bold;
   float: left;
 }
@@ -685,15 +684,17 @@ section {
   margin-bottom: 15px;
 }
 .tab-content .gallery a {
-  background: url('../../images/sprite.png') no-repeat;
-  background-position: -105px -30px;
+  /*background:url('../../images/sprite.png') no-repeat;
+			background-position:-105px -30px;*/
   position: absolute;
   z-index: 1;
   right: 10px;
-  bottom: 25px;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
+  bottom: 20px;
+  /*height:40px;
+			width:40px;	*/
+}
+.tab-content .gallery a i {
+  color: #ffffff;
 }
 .tab-content #Fullscreen {
   height: 100%;
@@ -733,13 +734,4 @@ section {
   float: left;
   width: 100%;
   margin-bottom: 5px;
-}
-.tabfooter button div span {
-  display: block;
-  background: url('../../images/sprite.png') no-repeat;
-  background-position: -105px -30px;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  margin: 0 auto;
 }

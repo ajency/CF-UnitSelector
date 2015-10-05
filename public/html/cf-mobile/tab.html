@@ -82,7 +82,7 @@
                 </div>
                 <div class="projectDetails">
                     <div class="col-xs-12 roomHeading">                  
-                        <span></span>
+                        <span><i class="fa fa-2x fa-bed"></i></span>
                         <h4 class="text-uppercase">Bedroom</h4>                    
                     </div>
                     <div class="row">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="twodView">                                       
                     <img src="img/bldg-3d.png"/> 
-                    <a href="#"></a>                                   
+                    <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                   
                 </div>
             </div>
             <div class="col-xs-12 details">
@@ -137,7 +137,7 @@
                 </div>
                 <div class="twodView">                                       
                     <img src="img/bldg-3d.png"/> 
-                    <a href="#"></a>                                   
+                    <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                   
                 </div>
             </div>
             <div class="col-xs-12 details">
@@ -146,37 +146,70 @@
                 </div>
                 <div class="twodView">                                       
                     <img src="img/bldg-3d.png"/> 
-                    <a href="#"></a>                                   
+                    <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                   
                 </div>
             </div> 
         </div>
-        <div role="tabpanel" class="tab-pane" id="messages">...</div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+          <div class="col-xs-12 details">
+                <div class="flatDetails">
+                    <h4>Floor Plans</h4>
+                </div>
+                <div class="twodView">                                       
+                    <img src="img/bldg-3d.png"/> 
+                    <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                   
+                </div>
+            </div>
+            <div class="col-xs-12 details">
+                <div class="flatDetails">
+                    <h4>Project Layout</h4>
+                </div>
+                <div class="twodView">                                       
+                    <img src="img/bldg-3d.png"/> 
+                    <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                   
+                </div>
+            </div>
+            <div class="col-xs-12 details">
+                <div class="flatDetails">
+                    <h4>Floor Plans</h4>
+                </div>
+                <div class="twodView">                                       
+                    <img src="img/bldg-3d.png"/> 
+                    <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                   
+                </div>
+            </div> 
+        </div>
         <div role="tabpanel" class="tab-pane" id="settings">
             <div class="col-xs-12 gallery">                                                                      
                 <img src="img/bldg-3d.png"/> 
-                <a class="myImg" href="#"></a>                                                   
+                <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                                   
             </div>
             <div class="col-xs-12 gallery">                                                                      
                 <img src="img/bldg-3d.png"/> 
-                <a class="myImg" href="#"></a>                                                   
+                <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                                   
             </div>
             <div class="col-xs-12 gallery">                                                                      
                 <img src="img/bldg-3d.png"/> 
-                <a class="myImg" href="#"></a>                                                   
-            </div>
-            <div id="Fullscreen">
-                <img src="" alt="" />
+                <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                                   
             </div> 
         </div>        
       </div>
       <div class="tabfooter">
           <div class="row">
             <button class="col-xs-6 button">
-                <div><span></span></div>
+                <div>
+                  <span>
+                    <i class="fa fa-envelope-o"></i>
+                  </span>
+                </div>
                 Express interest
             </button>
             <button class="col-xs-6 button">
-                <div><span></span></div>
+                <div>
+                  <span>
+                    <i class="fa fa-check-square-o"></i>
+                  </span>
+                </div>
                 Book now
             </button>
           </div>
@@ -187,17 +220,5 @@
      <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>  
-    <script type="text/javascript">
-         $('#Fullscreen').css('height', $(document).outerWidth() + 'px');
-          //for when you click on an image
-          $('.myImg').click(function () {
-              var src = $(this).attr('src'); //get the source attribute of the clicked image
-              $('#Fullscreen img').attr('src', src); //assign it to the tag for your fullscreen div
-              $('#Fullscreen').fadeIn();
-          });
-          $('#Fullscreen').click(function () {
-              $(this).fadeOut(); //this will hide the fullscreen div if you click away from the image. 
-          });
-    </script>
   </body>
 </html>
