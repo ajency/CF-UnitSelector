@@ -12,7 +12,9 @@ var Api = {
   // Load project data from server via actions
   getProjectData: function(projectId) {
 
-  	var url = makeUrl('project/' + projectId);
+  	// var url = makeUrl('project/' + projectId);
+  	var url = BASE_URL+"/project-data.json";
+
 
     var data = request
 				.get(url)

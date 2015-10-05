@@ -8,32 +8,15 @@ var CardList = require('./project-master/cardlist');
 var CardView = require('./project-master/cardview');
 
 
-function getProjectData(){
-    console.log("App data fetch" , AppStore.getProjectData() )
-    return {data: AppStore.getProjectData()}
+function getProjectMasterData(){
+    return {data: AppStore.getProjectMasterData()}
 }
 
-var Catalog =
-  React.createClass({
-    getInitialState:function(){
-      return getCatalog();
-    },
-    render:function(){
-      var items = this.state.items.map(function(item){
-        return <tr><td>{item.title}</td><td>${item.cost}</td><td><AddToCart item={item} /></td></tr>
-      })
-      return (
-          <table className="table table-hover">
-          {items}
-          </table>
-        )
-    }
-  });
 
 var APP = React.createClass({
 
     getInitialState: function() {
-        return getProjectData();
+        return getProjectMasterData();
     },
 
 
@@ -42,7 +25,7 @@ var APP = React.createClass({
     },  
 
     _onChange:function(){
-      this.setState(getProjectData());
+      this.setState(getProjectMasterData());
     },    
 
     render: function(){
