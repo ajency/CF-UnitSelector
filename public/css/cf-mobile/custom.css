@@ -543,6 +543,12 @@ section {
 .image img {
   max-height: inherit !important;
 }
+.image2 {
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+  overflow: hidden;
+}
 .primary-txt {
   color: #fe943e;
 }

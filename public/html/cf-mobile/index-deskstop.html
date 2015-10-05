@@ -147,12 +147,12 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
-            <div class="image">
+            <div class="image2">
                   <div class="rotate">
               <i class="i-icon i-icon-rotate"></i>
               Press To Rotate
            </div>
-                          <img src="img/Slide_1.jpg" class="img-responsive fit"/>
+                          <img src="img/project-1.jpg" class="img-responsive fit"/>
            </div>
 
             <div class="container-fluid">
@@ -204,8 +204,12 @@
     
 
      <script type="text/javascript" language="JavaScript">
+
+    windowHeight = $(window).innerHeight() - 56;
+     $('.image2 img').css('height', windowHeight);
+     $('.image2 img').css('min-width', windowHeight * 1.6);
         function set_body_height() { // set body height = window height
-          $('.image').height($(window).height());
+          $('.image2 img').height($(window).height());
         }
         $(document).ready(function() {
           $(window).bind('resize', set_body_height);
