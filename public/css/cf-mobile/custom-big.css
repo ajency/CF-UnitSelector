@@ -114,6 +114,12 @@ section {
 .image img {
   max-height: inherit !important;
 }
+.image2 {
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+  overflow: hidden;
+}
 .primary-txt {
   color: #fe943e;
 }
@@ -121,6 +127,7 @@ body {
   -webkit-text-size-adjust: none;
   font-family: sans-serif;
   min-height: 416px;
+  overflow: hidden;
 }
 body h1 {
   font-size: 28px;
@@ -244,6 +251,9 @@ body a {
   display: inline-block;
   padding: 5px 6px;
 }
+.filter-type li a:hover {
+  opacity: .5;
+}
 .rotate {
   z-index: 999;
   margin: auto;
@@ -262,5 +272,10 @@ body a {
   background-position: -99px -20px;
   margin: auto;
   display: block;
+}
+@media screen and (min-width: 1440px) {
+  #content-1 {
+    height: 700px !important;
+  }
 }
 /*# sourceMappingURL=custom-big.css.map */
