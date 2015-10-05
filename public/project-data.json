@@ -59,26 +59,47 @@
       }
     },
     "filters": [],
-    "buildings": {
-      "id": 21,
-      "building_name": "Fame Shubhalay Parisar  Bldg 1",
-      "phase_id": 56,
-      "no_of_floors": 4,
-      "floors": [],
-      "building_master": [
-        "http://commonfloorlocal.com/projects/25/buildings/21/master-09.jpg",
-        "http://commonfloorlocal.com/projects/25/buildings/21/master-10.jpg",
-        "http://commonfloorlocal.com/projects/25/buildings/21/master-13.jpg"
-      ],
-      "created_at": "2015-10-01 09:21:00",
-      "updated_at": "2015-10-01 09:42:15",
-      "breakpoints": [
-        9
-      ],
-      "abbrevation": null,
-      "has_master": "yes",
-      "floor_rise": 2
-    },
+    "buildings": [
+      {
+        "id": 21,
+        "building_name": "Fame Shubhalay Parisar  Bldg 1",
+        "phase_id": 56,
+        "no_of_floors": 4,
+        "floors": [],
+        "building_master": [
+          "http://commonfloorlocal.com/projects/25/buildings/21/master-09.jpg",
+          "http://commonfloorlocal.com/projects/25/buildings/21/master-10.jpg",
+          "http://commonfloorlocal.com/projects/25/buildings/21/master-13.jpg"
+        ],
+        "created_at": "2015-10-01 09:21:00",
+        "updated_at": "2015-10-01 09:42:15",
+        "breakpoints": [
+          9
+        ],
+        "abbrevation": null,
+        "has_master": "yes",
+        "floor_rise": 2
+      },
+      {
+        "id": 22,
+        "building_name": " Shubhalay Parisar Bldg 2",
+        "phase_id": 56,
+        "no_of_floors": 11,
+        "floors": [],
+        "building_master": [
+          "http://commonfloorlocal.com/projects/25/buildings/22/master-00.jpg",
+          "http://commonfloorlocal.com/projects/25/buildings/22/master-01.jpg"
+        ],
+        "created_at": "2015-10-01 09:22:13",
+        "updated_at": "2015-10-01 09:42:56",
+        "breakpoints": [
+          0
+        ],
+        "abbrevation": null,
+        "has_master": "yes",
+        "floor_rise": 1
+      }
+    ],
     "bunglow_variants": [
       {
         "id": 60,

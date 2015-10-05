@@ -8,12 +8,71 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 // Define initial data points
-var _projectData = {}, _selected = null;
+var _projectData = {}, _selected = null , _globalStateData = {};
 
-// Method to load product data from mock API
-function _loadProductData(data) {
-	console.log("Project Data", data);
+
+function getUnitCount(propertyType){
+	var unitCount = 0;
+	var units = [];
+
+	if (!_.isEmpty(_projectData)){
+		units = _projectData.units;
+	}
+
+	unitCount = units.length ;
+
+	return unitCount;
+} 
+
+function getBuildingUnits(buildings, allUnits){
+	var buildingsWithUnits = [];
+
+	_.each(buildings,function(building){
+		buildingId = building.id;
+
+		buildingUnits = [];
+
+		_.each(allUnits, function(unit){
+			if(unit.building_id === buildingId){
+				buildingUnits.push(unit);
+			}
+		})
+
+		building.unitData = buildingUnits;
+
+		buildingsWithUnits.push(building);
+	})
+
+	return buildingsWithUnits;
+}
+
+// Method to load project data from API
+function _loadProjectData(data) {
 	_projectData = data['data'];
+}
+
+function _getProjectMasterData(){
+	var projectData = _projectData;
+	var projectMasterData = {};
+	var buildings = [];
+	var allUnits= [];
+
+	if(!_.isEmpty(projectData)){
+		var buildingsWithUnits = [];
+
+		projectMasterData.projectTitle = projectData.project_title ; 
+		projectMasterData.unitCount = getUnitCount('Apartments') ; 
+
+
+		buildings = projectData.buildings;
+		allUnits = projectData.units;
+
+		buildingsWithUnits = getBuildingUnits(buildings, allUnits);
+
+		projectMasterData.buildings = buildingsWithUnits;
+	}
+
+	return projectMasterData;
 }
 
 
@@ -35,7 +94,11 @@ var AppStore = merge(EventEmitter.prototype, {
 
 
 	getProjectData:function(){
-	return _projectData;
+		return _projectData;
+	},
+
+	getProjectMasterData:function(){
+		return _getProjectMasterData();
 	},
 
   	// Register callback with AppDispatcher
@@ -47,7 +110,7 @@ var AppStore = merge(EventEmitter.prototype, {
 
 	    // Respond to RECEIVE_DATA action
 	    case AppConstants.RECEIVE_DATA:
-	      _loadProductData(action.data);
+	      _loadProjectData(action.data);
 	      break;
 
 	    default:
