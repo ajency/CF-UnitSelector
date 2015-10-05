@@ -145,18 +145,7 @@
         <div class="m-l-5 no-border">
             <h3><i class="fa fa-angle-double-right text-primary"></i> Project<span class="semi-bold"> SVGs</span></h3>
         </div>
-        <h5 class="semi-bold inline m-l-5">
-            Google Earth Image :
-        </h5><span class="text-warning"> 
-            @if($project["google_earth"]=="")
-            Image Not Uploaded
-            @elseif(!$googleearthauthtool)
-               Pending SVG Authoring   
-            @else
-            Completed
-            @endif
-        </span>
-        <br>
+        
         <h5 class="semi-bold inline m-l-5">
             Project Master Image :
         </h5>

@@ -26,7 +26,11 @@ class VerifyCsrfToken extends BaseVerifier {
         if(strpos($req_uri, $exclude_uri) !== false)
         {
             return $next($request);
-        }  
+        }
+        elseif($request->get('mihpayid')!='')
+        {
+            return $next($request);
+        }   
         // ** Added to exclude csrf protection for api/v2 methods ** //
 
         return parent::handle( $request, $next );

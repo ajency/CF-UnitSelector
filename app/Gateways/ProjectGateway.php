@@ -39,11 +39,12 @@ class ProjectGateway implements ProjectGatewayInterface {
             'id' => $project->id,
             'project_title' => $project->project_title,
             'logo' => $project->projectMeta()->where( 'meta_key', 'project_image' )->first()->meta_value,
-            'step_one' => [
+            /*'step_one' => [
                 'svg' => $project->getGoogleEarthSvgPath()
-            ],
+            ],*/
             'project_master' => $project->getProjectMasterImages(),
             'breakpoints' => $project->getProjectMasterBreakPoints(),
+            'shadow_images' => $project->getProjectMasterShadowImages(),
             'top_view' => [
                 'svg' => $faker->imageUrl( 1300, 800, 'city' ),
                 'image' => $faker->imageUrl( 1300, 800, 'city' )
@@ -109,31 +110,26 @@ class ProjectGateway implements ProjectGatewayInterface {
               
             
             $buildings = $phase->projectBuildings()->get()->toArray();  
-            $projectbuildings = [];
-
             //$projectbuildings = array_merge($buildings,$projectbuildings);
             foreach($buildings as $building)
             {
-
                 $buildingData = \CommonFloor\Building :: find($building['id']);
                 
                 if(!empty($unitIds))        //AGENT UNITS ASSIGNED
                 {
                    $buildingUnits = $buildingData->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
-                    
                   
                     if(!empty($buildingUnits)) //IF NO UNITS ASSIGNED DONT SEND BUILDING DATA
-                       $projectbuildings[] = $building;
+                       $projectbuildings = array_merge($building,$projectbuildings);
                 }
                 else
                 {
                    $buildingUnits = $buildingData->projectUnits()->get()->toArray();
-                   $projectbuildings[] = $building;  
+                   $projectbuildings = array_merge($building,$projectbuildings);    
                 }
                 
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
             }
-
            $projectUnits = array_merge($units,$projectUnits); 
             
         } 
@@ -146,8 +142,11 @@ class ProjectGateway implements ProjectGatewayInterface {
 		$unitBreakpoint = SvgController :: get_primary_breakpoints($unit['id']);
         $unit['breakpoint'] = (isset($unitBreakpoint[0]['primary_breakpoint']))?$unitBreakpoint[0]['primary_breakpoint']:'';
         unset ($unit['availability']);
-        // $unit['booking_amount'] = ProjectController :: get_unit_booking_amount($unit['id']);
-        // $unit['selling_amount'] = ProjectController :: get_unit_selling_amount($unit['id']); 
+        $unit['booking_amount'] = ProjectController :: get_unit_booking_amount($unit['id']);
+        $unit['selling_amount'] = ProjectController :: get_unit_selling_amount($unit['id']); 
+        $unitPriceComponent = ProjectController :: get_unit_price($unit['id']);
+        $unit['unit_price'] = $unitPriceComponent['total_sale_value'];
+        $unit['unit_price_component'] = $unitPriceComponent['components'];
         $unitData[]=$unit;
         $variantIds[] =$unit['unit_variant_id'];  
      }    
@@ -192,6 +191,16 @@ class ProjectGateway implements ProjectGatewayInterface {
         ];
         
         return $stepTwoData;
+    }
+
+    public function getProjectData($projectId)
+    {
+        $projectData = [];
+        $stepOneData = $this->getProjectStepOneDetails( $projectId );
+        $stepTwoData = $this->getProjectStepTwoDetails( $projectId );
+        $projectData = $stepOneData + $stepTwoData;
+
+        return $projectData;
     }
     
     

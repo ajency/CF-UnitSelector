@@ -27,6 +27,7 @@
         <script>
             var BASEURL = '{{ url() }}';
             var FLOORLEVELS = [];
+            var BREAKPOINTS = [];
             var variantId = 0;
             var PROJECTID = 0;
         </script>

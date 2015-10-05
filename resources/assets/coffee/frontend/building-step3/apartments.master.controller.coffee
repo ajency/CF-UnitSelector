@@ -29,7 +29,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 												<div class="breadcrumb-bar">
 													<a class="unit_back" href="#"></a>
 												</div>
-											   
+												 
 												<div class="header-info">
 													<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
 
@@ -49,10 +49,10 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 															{{/each}}
 															 {{/each}}
 															 {{/filters}}
-															  {{#area}}
+																{{#area}}
 																<li>
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-															 	</li>
+																</li>
 															 {{/area}}
 														 {{#budget}}
 																<li>
@@ -60,13 +60,13 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 																</li>
 															 {{/budget}}
 
-															  {{#views}}
+																{{#views}}
 																 <li>
 																	<div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-														   		</li>
+																	</li>
 															 {{/views}}
 
-														   {{#facings}}
+															 {{#facings}}
 																 <li>
 																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
 																</li>
@@ -78,13 +78,13 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 																</li>
 															 {{/floor}}
 
-														  {{#status}}
+															{{#status}}
 																<li>
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 																</li>
 															 {{/status}}
 														</ul>
-																							   
+																								 
 													</div>
 												</div>
 
@@ -269,26 +269,26 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		# if CommonFloor.router.history.length == 1
 		# 	@ui.unitBack.hide()
 		$("#flexiselDemo1").flexisel(
-		    visibleItems: 11,
-		    animationSpeed: 200,
-		    autoPlay: false,
-		    autoPlaySpeed: 1000,
-		    clone:false,
-		    enableResponsiveBreakpoints: true,
-		    responsiveBreakpoints: {
-		      portrait: {
-		        changePoint:480,
-		        visibleItems: 5
-		      }, 
-		      landscape: {
-		        changePoint:640,
-		        visibleItems: 6
-		      },
-		      tablet: {
-		        changePoint:768,
-		        visibleItems: 3
-		      }
-		    }
+				visibleItems: 11,
+				animationSpeed: 200,
+				autoPlay: false,
+				autoPlaySpeed: 1000,
+				clone:false,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: {
+					portrait: {
+						changePoint:480,
+						visibleItems: 5
+					}, 
+					landscape: {
+						changePoint:640,
+						visibleItems: 6
+					},
+					tablet: {
+						changePoint:768,
+						visibleItems: 3
+					}
+				}
 		)
 		
 		results  = CommonFloor.getFilters()
@@ -482,12 +482,12 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 					<div class="list-view-container w-map animated fadeInLeft">
 						<div class="advncd-filter-wrp  unit-list">
 							<div class="legend clearfix">
-							  <ul>
+								<ul>
 								<li class="available">AVAILABLE</li>
 								<li class="sold">SOLD</li>
 								<li class="blocked">BLOCKED</li>
 								<li class="na">N/A</li>
-							  </ul>
+								</ul>
 							 </div>
 							 <div class="sort-unit"> All Units
 								<input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning">
@@ -568,12 +568,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h">
 
 										<div class="legend clearfix">
-										  <ul>
+											<ul>
 											<!--<li class="available">AVAILABLE</li>-->
 											<li class="sold">N/A</li>
 											<!--<li class="blocked">BLOCKED</li>
 											<li class="na">Available</li>-->
-										  </ul>
+											</ul>
 										</div>
 
 										
@@ -584,7 +584,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
-										  
+											
 										<div class=" master animated fadeIn">
 											<div class="single-bldg">
 												<div class="prev"></div>
@@ -592,15 +592,15 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 											</div>
 											
 											<div id="svg_loader" class="img-loader">
-											  <div class="square" ></div>
-											  <div class="square"></div>
-											  <div class="square last"></div>
-											  <div class="square clear"></div>
-											  <div class="square"></div>
-											  <div class="square last"></div>
-											  <div class="square clear"></div>
-											  <div class="square "></div>
-											  <div class="square last"></div>
+												<div class="square" ></div>
+												<div class="square"></div>
+												<div class="square last"></div>
+												<div class="square clear"></div>
+												<div class="square"></div>
+												<div class="square last"></div>
+												<div class="square clear"></div>
+												<div class="square "></div>
+												<div class="square last"></div>
 											</div>
 
 											<div class="outer-wrap" STYLE="height:100%">
@@ -629,7 +629,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 											<img class="firstimage img-responsive" src=""/>
 											<div class="project_master"></div>
 										</div>
-										  
+											
 									</div>')
 
 
@@ -731,12 +731,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						</div>'
 				$('.apartment').tooltipster('content', html)
 				return false
-            
-            
-            response = window.unit.getUnitDetails(id)
+						
+						
+			response = window.unit.getUnitDetails(id)
 			price =  window.numDifferentiation(response[3])
-                
-            
+								
+						
 			
 			html = ""
 			status = s.replaceAll(s.capitalize(availability), "_", " ")
@@ -938,10 +938,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	ratioOffsetsFor:($target, x, y) ->
 		return {
-		  x: x / $target.width(),
-		  y: y / $target.height()
+			x: x / $target.width(),
+			y: y / $target.height()
 		}
-  
+	
 	
 
 	zoomBuilding:->
