@@ -101,7 +101,7 @@ class ProjectController extends Controller {
         $projectData = [];
         $projectStepOneJson = ProjectJson::where('project_id', $projectId)
                                         ->where('type', 'step_one')->get()->first();  
-        $stepOneData = $projectStepOneJson->project_json;
+        $stepOneData = $projectStepOneJson->project_json; 
          
         $projectStepTwoJson = ProjectJson::where('project_id', $projectId)
                                         ->where('type', 'step_two')->get()->first();
@@ -118,7 +118,7 @@ class ProjectController extends Controller {
 
     public function updateResponseTable( $projectId ){
         $stepOneData = $this->projectGateway->getProjectStepOneDetails( $projectId );
-        $stepTwoData = $this->projectGateway->getProjectStepTwoDetails( $projectId );dd();
+        $stepTwoData = $this->projectGateway->getProjectStepTwoDetails( $projectId );
 
         $projectJson = ProjectJson::where('project_id', $projectId)
                                 ->where('type', 'step_one')->get()->first();
