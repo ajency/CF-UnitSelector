@@ -383,7 +383,7 @@ class ProjectController extends Controller {
                 }
             }
         }
-
+        
         return view('admin.project.svg')
                         ->with('project', $project->toArray())
                         ->with('svgImages', $svgImages)

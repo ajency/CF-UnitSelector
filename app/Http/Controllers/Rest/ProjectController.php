@@ -98,16 +98,27 @@ class ProjectController extends Controller {
 
     public function projectData( $projectId ) {
  
-        $projectData = $this->projectGateway->getProjectData( $projectId );
+        $projectData = [];
+        $projectStepOneJson = ProjectJson::where('project_id', $projectId)
+                                        ->where('type', 'step_one')->get()->first();  
+        $stepOneData = $projectStepOneJson->project_json;
+         
+        $projectStepTwoJson = ProjectJson::where('project_id', $projectId)
+                                        ->where('type', 'step_two')->get()->first();
+        $stepTwoData = $projectStepTwoJson->project_json;
+             
+
+        $projectData = $stepOneData + $stepTwoData;  
  
         return response()->json( [
                             'data' => $projectData
                         ], 200, [], JSON_NUMERIC_CHECK );
     }
 
+
     public function updateResponseTable( $projectId ){
         $stepOneData = $this->projectGateway->getProjectStepOneDetails( $projectId );
-        $stepTwoData = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        $stepTwoData = $this->projectGateway->getProjectStepTwoDetails( $projectId );dd();
 
         $projectJson = ProjectJson::where('project_id', $projectId)
                                 ->where('type', 'step_one')->get()->first();

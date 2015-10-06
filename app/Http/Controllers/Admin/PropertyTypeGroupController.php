@@ -110,11 +110,11 @@ class PropertyTypeGroupController extends Controller {
       if($group==null)
           abort(404);
     
-      $groupMaster = $group->group_master;
+      $groupMaster = unserialize($group->group_master);
       $svgImages = [];
       
       if(!empty($groupMaster))
-      { 
+      {  
           ksort($groupMaster);
           foreach ($groupMaster as $key => $images) {
                   if (is_numeric($images)) {
