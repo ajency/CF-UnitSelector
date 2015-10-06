@@ -204,7 +204,7 @@ class ProjectMediaController extends Controller {
             $data =  ['meta_value'=>serialize($metaValue)];  
  
         }
-        if($type=='shadow')
+        elseif($type=='shadow')
         {           
 
             $metaValue = unserialize($metaValue);
