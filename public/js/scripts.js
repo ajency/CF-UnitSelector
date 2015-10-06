@@ -392,6 +392,7 @@ function breakpointShadowImgUploader(position) {
                 fileResponse = JSON.parse(xhr.response);
 
                 $('.shadow-' + position).text(file.name);
+
                 $('.delete-shadow-' + position).removeClass('hidden');
                 $('.delete-shadow-' + position).attr("onclick","deleteSvg('"+ fileResponse.data.media_id +"', 'shadow','"+ position +"');");
 
@@ -526,7 +527,7 @@ function setUpProjectMasterUploader() {
                     str += '<td>' + fileResponse.data.filename + '</td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
                     str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
-                    str += '<td><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</a></td>';
+                    str += '<td><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div><a class="text-primary delete-shadow-' + fileResponse.data.position + ' hidden"><i class="fa fa-close"></i></a></td>';
                     str += '<td><a target="_blank" href="'+ authoringToolUrl +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool</a></td>';
                     str += '<td class="text-right">';
                     str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
