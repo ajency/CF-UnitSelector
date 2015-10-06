@@ -75,7 +75,7 @@ function getBuildingUnits(buildings, allUnits){
 
 
 		// get project unit types
-		unitTypes = getSupportedUnitTypes("Apartments","Building");
+		unitTypes = getSupportedUnitTypes("Apartments", buildingId);
 
 		building.supportedUnitTypes = unitTypes;
 
@@ -85,14 +85,30 @@ function getBuildingUnits(buildings, allUnits){
 	return buildingsWithUnits;
 }
 
-function getApartmentUnitTypes(){
+function getApartmentUnitTypes(buildingId){
 
 	var apartmentVariants = [];
 	var apartmentUnitTypes = [];
+	var buildingUnits = [];
+
 
 	if(!_.isEmpty(_projectData)){
+
+		allUnits = _projectData.units;
+		buildingUnits = _.filter(allUnits , function(unit){ if(unit.building_id == buildingId){return buildingId;} });
+
+		unitTypes = [];
+
+		buildingUnitVariantIds = _.uniq(_.pluck(buildingUnits, 'unit_variant_id')); 
+
 		apartmentVariants = _projectData.apartment_variants;
-		unitTypes = _.pluck(apartmentVariants, 'unit_type_id');
+
+		// get only those apartment variants whose id is any of the buildingUnitVariantIds
+		buildingUnitVariants = _.filter(apartmentVariants , function(apartmentVariant){ if( _.indexOf(buildingUnitVariantIds, apartmentVariant.id) > -1 ){return apartmentVariant;} });
+		
+		unitTypes = _.pluck(buildingUnitVariants, 'unit_type_id');
+
+	
 
 		_.each(unitTypes, function(unitTypeId){
 			unitTypeDetails = getUnitTypeDetails(unitTypeId);
@@ -103,14 +119,14 @@ function getApartmentUnitTypes(){
 	return apartmentUnitTypes;
 }
 
-function getSupportedUnitTypes(propertyType, collectivePropertyType){
+function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 	
 	var supportedUnitTypes = [];
 
 	switch(propertyType) {
 
 	    case "Apartments":
-	    	supportedUnitTypes = getApartmentUnitTypes();	
+	    	supportedUnitTypes = getApartmentUnitTypes(collectivePropertyTypeId);	
 	    break;
 
 	}
