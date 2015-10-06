@@ -70,7 +70,7 @@
                                     <div class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} shadow-{{ $position }} " id="pickfiles_{{ $position }}" >
                                     {{ $shadowImageName }} 
                                     </div>
-                                     <a  @if(isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '') onclick="deleteSvg({{ $svgImages['shadow'][$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary" @else class="text-primary hidden" @endif><i class="fa fa-close"></i></a>
+                                     <a  @if(isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '') onclick="deleteSvg({{ $svgImages['shadow'][$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" @else class="text-primary delete-shadow-{{ $position }} hidden" @endif><i class="fa fa-close"></i></a>
                                 </td>
                                 <td class=" ">
                                     <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool</a>

@@ -392,6 +392,8 @@ function breakpointShadowImgUploader(position) {
                 fileResponse = JSON.parse(xhr.response);
 
                 $('.shadow-' + position).text(file.name);
+                $('.delete-shadow-' + position).removeClass('hidden');
+                $('.delete-shadow-' + position).attr("onclick","deleteSvg('"+ fileResponse.data.media_id +"', 'shadow','"+ position +"');");
 
             }
         }
