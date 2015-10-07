@@ -566,12 +566,22 @@ section {
   display: inline-block;
   margin: 10px 0;
 }
+@media screen and (max-width: 320px) {
+  .tabHeader .title h3 {
+    font-size: 19px;
+  }
+}
 .tabHeader .title a {
   color: #565654;
   display: inline-block;
   margin: 8px 10px 0 20px;
   font-size: 20px;
   float: left;
+}
+@media screen and (max-width: 320px) {
+  .tabHeader .title a {
+    margin-top: 5px;
+  }
 }
 .tabHeader .nav-tabs {
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
@@ -594,8 +604,15 @@ section {
   color: #bcbcba;
   margin: 0;
   border: none;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
+  padding: 5px;
+}
+@media screen and (max-width: 320px) {
+  .tabHeader .nav-tabs li a {
+    padding: 3px;
+    font-size: 10px;
+  }
 }
 .tab-content {
   padding: 15px;
@@ -741,4 +758,248 @@ section {
   float: left;
   width: 100%;
   margin-bottom: 5px;
+}
+.filterHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 9999;
+  background: #373737;
+}
+.filterHeader .title {
+  color: #ffffff;
+}
+.filterHeader .title h3 {
+  display: inline-block;
+  margin: 10px 0;
+}
+.filterHeader .title a {
+  display: inline-block;
+  margin: 8px 10px 0 20px;
+  font-size: 20px;
+  float: left;
+}
+.filterHeader .title a i {
+  color: #ffffff;
+}
+.filterHeader .title span {
+  font-size: 16px;
+  margin: 14px 15px 0 0;
+}
+.filter-content {
+  margin-top: 50px;
+  float: left;
+  width: 100%;
+  margin-bottom: 60px;
+}
+.filter-content .imagecheckboxOuter {
+  border-top: 1px solid #12acac;
+  border-bottom: 1px solid #12acac;
+  margin-bottom: 20px;
+  float: left;
+  width: 100%;
+}
+.filter-content .imagecheckboxOuter .checkboxInner {
+  padding: 25px 10px 15px 10px;
+  border-right: 1px solid #12acac;
+}
+.filter-content .imagecheckboxOuter .checkboxInner:last-child {
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+.filter-content .imagecheckboxOuter .checkboxInner input {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.filter-content .imagecheckboxOuter .checkboxInner img {
+  width: 100%;
+}
+.filter-content .imagecheckboxOuter .checkboxInner span {
+  color: #12acac;
+  margin-top: 5px;
+  padding: 0;
+  font-size: 10px;
+}
+.filter-content .imagecheckboxOuter.viewType {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+.filter-content .checkboxOuter {
+  float: left;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.filter-content .checkboxOuter .checkboxnormal {
+  background: #f6f6f6;
+  float: left;
+  width: 100%;
+  padding: 10px;
+}
+.filter-content .checkboxOuter .checkboxnormal span {
+  padding-right: 0;
+}
+.filter-content .checkboxOuter .checkboxnormal input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  height: 25px;
+  width: 25px;
+}
+.filter-content .checkboxOuter .checkboxnormal label {
+  height: 25px;
+  width: 25px;
+  background: none;
+  border: 2px solid #d5d5d4;
+  text-align: center;
+  margin-top: 7px;
+  margin-bottom: 0;
+}
+.filter-content .checkboxOuter .checkboxnormal input[type=checkbox]:checked + label:before {
+  content: "\2713";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 15px;
+  background: #12acac;
+  border: none;
+  width: 25px;
+  height: 25px;
+  font-weight: 400;
+  padding-top: 4px;
+  display: block;
+  border: 2px solid rgba(0, 0, 0, 0);
+  margin: -2px 0 0 -2px;
+}
+.filter-content .checkboxOuter .checkboxnormal .availableUnits {
+  margin-top: 12px;
+}
+.filter-content .sliderOuter {
+  background: #f6f6f6;
+  padding: 35px 20px 10px 20px;
+  margin-bottom: 15px;
+}
+.filter-content .sliderOuter .tooltip {
+  opacity: 1 !important;
+}
+.filter-content .sliderOuter .tooltip.tooltip-min,
+.filter-content .sliderOuter .tooltip.tooltip-max {
+  display: block !important;
+}
+.filter-content .sliderOuter .tooltip.tooltip-min .tooltip-arrow,
+.filter-content .sliderOuter .tooltip.tooltip-max .tooltip-arrow {
+  display: none;
+}
+.filter-content .sliderOuter .tooltip.tooltip-main {
+  display: none !important;
+}
+.filter-content .sliderOuter .tooltip .tooltip-inner {
+  background: none;
+  color: #565654;
+  font-size: 12px;
+}
+.filter-content .sliderOuter .slider.slider-horizontal {
+  width: 100%;
+}
+.filter-content .sliderOuter .slider.slider-horizontal .slider-track {
+  height: 5px;
+}
+.filter-content .sliderOuter .slider.slider-horizontal .slider-track .slider-track-low,
+.filter-content .sliderOuter .slider.slider-horizontal .slider-track .slider-track-high {
+  background: #d5d5d4 !important;
+  background-image: none !important;
+}
+.filter-content .sliderOuter .slider.slider-horizontal .slider-track .slider-selection,
+.filter-content .sliderOuter .slider.slider-horizontal .slider-track .slider-handle {
+  background: #12acac !important;
+  background-image: none !important;
+}
+.filter-content .sliderOuter .slider.slider-horizontal .slider-track .slider-handle {
+  margin-top: -8px;
+}
+.filterfooter {
+  position: fixed;
+  bottom: -1px;
+  width: 100%;
+  left: 0;
+  color: #ffffff;
+  text-align: center;
+  z-index: 9999;
+}
+.filterfooter button {
+  margin: 0;
+  border: none;
+  background: #fe943e;
+  padding: 10px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.imageModal {
+  top: 15% !important;
+}
+.imageModal .modal-content {
+  border-radius: 0;
+  border: 2px solid #000000;
+}
+.imageModal .modal-body {
+  padding: 0;
+}
+.imageModal .modal-body img {
+  width: 100%;
+}
+.imageModal .modal-body .imageContent {
+  position: absolute;
+  bottom: -1px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0 15px;
+  width: 100%;
+}
+.imageModal .close {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+  top: -10px;
+  right: -10px;
+  opacity: 1;
+  height: 25px;
+  width: 25px;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  border-radius: 50%;
+  font-weight: 300;
+}
+.imageModal .close span {
+  margin-top: -2px;
+  float: left;
+  width: 100%;
+}
+.modal-backdrop.in {
+  opacity: .8 !important;
+}
+.unitSold {
+  color: #ee1f3b;
+}
+.messageBox {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  padding: 10px;
+  left: 24%;
+  top: 14%;
+}
+.messageBox a {
+  float: right;
+  margin: 3px 0px 3px 30px;
+  color: #ffffff;
+  text-decoration: none;
+  outline: none;
+}
+.messageBox a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: none;
 }
