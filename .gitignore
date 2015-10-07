@@ -3,4 +3,4 @@
 *.pot
 *.pyc
 __pycache__/
-src/server_setting/settings.py
+/src/server_setting/settings.py
