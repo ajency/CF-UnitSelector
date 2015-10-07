@@ -243,17 +243,15 @@
             $zoomRange: $("input[type='range']")
           });
         });
-    function fadeToggle() {
-          $(".no-shadow").fadeOut(1100).addClass('hide-div');
-          
-          if(!$(".no-shadow").hasClass('hide-div')) {
-              $(".no-shadow").fadeOut(1100).addClass('hide-div');
-          } else {
-              $(".no-shadow").fadeIn(1100).removeClass('hide-div');            
-          }
-      }
-
-      $('.sun-toggle').click(fadeToggle);
+      jQuery(document).ready(function(){
+     $(".sun-toggle").toggle(function() { 
+                      $(".no-shadow").fadeIn("slow");
+                      },
+                       function() { 
+                     $(".no-shadow").fadeOut("slow"); 
+                    });
+    });
+ 
       </script>
 
   </body>
