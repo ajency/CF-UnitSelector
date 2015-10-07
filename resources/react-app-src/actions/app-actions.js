@@ -9,6 +9,13 @@ var AppActions = {
       actionType: AppConstants.RECEIVE_DATA,
       data: data
     })
+  },
+
+  changeUrl: function(url){
+  	AppDispatcher.handleViewAction({
+  		actionType: AppConstants.CHANGE_URL,
+  		data: url
+  	})
   }
 }
 

@@ -5,8 +5,12 @@ var CardList = React.createClass({
 
     componentWillUnmount: function(){
         console.log("component will un mount");
-        var $sliderContainer = $(this.refs.sliderContainer.getDOMNode());
-        $sliderContainer.unslick();
+    },
+
+    componentDidMount: function() {
+        console.log("component did mount");
+        // this.forceUpdate();
+     
     },
 
     componentDidUpdate: function() {

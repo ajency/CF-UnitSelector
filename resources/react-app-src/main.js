@@ -8,13 +8,17 @@ var PROJECT_ID = window.projectId;
 // Rename Router.Route for convenience
 var Route = Router.Route;
 var Link = Router.Link;
+var History = Router.History;
+var State = Router.State;
 
 // Make API Call
 Api.getProjectData(PROJECT_ID);
 var  Building = React.createClass({
-  render: function() {
-    return (<h3>This is Apartment Selection for a building</h3>);
-  }
+	
+	render: function() {
+		console.log(this.props.params);
+		return (<div><h3>This is Apartment Selection for a building</h3></div>);
+	}
 });
 
 
@@ -32,9 +36,9 @@ var App = React.createClass({
   }
 });
 var routes = (
-  <Route handler={App}>
+  <Route path="/" handler={App}>
     <Route path="project" handler={APP}/>
-    <Route path="building" handler={Building}/>
+    <Route path="building:/id" handler={Building}/>
   </Route>
 );
 
