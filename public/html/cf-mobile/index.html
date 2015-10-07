@@ -243,14 +243,22 @@
             $zoomRange: $("input[type='range']")
           });
         });
-      jQuery(document).ready(function(){
-     $(".sun-toggle").toggle(function() { 
-                      $(".no-shadow").fadeIn("slow");
-                      },
-                       function() { 
-                     $(".no-shadow").fadeOut("slow"); 
-                    });
-    });
+  $(document).ready(function() {
+
+  var hidden = false;
+  var outlined = false;
+  
+  $('.no-shadow').show();
+  
+  $('.sun-toggle').click(function() {
+    if(hidden) $('.no-shadow').fadeIn();
+    else $('.no-shadow').fadeOut();
+    hidden = !hidden;
+  });
+
+
+  
+});
  
       </script>
 
