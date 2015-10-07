@@ -53,9 +53,11 @@
     
   </div>
 
-
-    <div class="image">
+<div class="image " >
       <img src="img/FirstSlide.jpg" class="img-responsive fit"/>
+    </div>
+    <div class="image no-shadow ">
+      <img src="img/FirstSlide2.jpg" class="img-responsive fit"/>
     </div>
      <div class="bottom-card">
     <div class="blue">
@@ -220,7 +222,17 @@
             $zoomRange: $("input[type='range']")
           });
         });
+    function fadeToggle() {
+          $(".no-shadow").fadeOut(1100).addClass('hide-div');
+          
+          if(!$(".no-shadow").hasClass('hide-div')) {
+              $(".no-shadow").fadeOut(1100).addClass('hide-div');
+          } else {
+              $(".no-shadow").fadeIn(1100).removeClass('hide-div');            
+          }
+      }
 
+      $('.sun-toggle').click(fadeToggle);
       </script>
 
   </body>

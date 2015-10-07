@@ -224,6 +224,9 @@ body .row {
 .not-released .row {
   opacity: .5 ;
 }
+.hide-div {
+  display: none;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
