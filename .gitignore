@@ -5,3 +5,4 @@
 *.pyc
 __pycache__/
 local_settings.py
+src/server_setting/settings.py
