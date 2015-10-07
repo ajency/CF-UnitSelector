@@ -36,37 +36,50 @@
     <div class="filter-content">     
       <h4 class="col-xs-12 text-center text-uppercase">Unit type</h4>
       <div class="row imagecheckboxOuter">
-          <div class="col-xs-4 checkboxInner">
+          <div class="col-xs-4 checkboxInner text-center">
             <input type="checkbox"/>
             <img src="img/bldg-3d.png" />
             <span class="text-uppercase col-xs-12 text-center">1bhk</span>
           </div>
-           <div class="col-xs-4 checkboxInner">
+           <div class="col-xs-4 checkboxInner text-center selected">
             <input type="checkbox"/>
             <img src="img/bldg-3d.png" />
             <span class="text-uppercase col-xs-12 text-center">2bhk</span>
           </div>
-           <div class="col-xs-4 checkboxInner">
+           <div class="col-xs-4 checkboxInner text-center">
             <input type="checkbox"/>
             <img src="img/bldg-3d.png" />
             <span class="text-uppercase col-xs-12 text-center">3bhk</span>
-          </div>        
-      </div>    
-      <h4 class="col-xs-12 text-center text-uppercase">Unit varients</h4>
-      <div class="checkboxOuter">  
-        <div class="checkboxnormal"> 
-          <h4 class="col-xs-9">Apartment</h4>
-          <span class="col-xs-3 text-center">
-          <input id="check1" type="checkbox" name="check" value="check1"><label></label>
-          </span>
-        </div> 
-        <div class="checkboxnormal"> 
-          <h4 class="col-xs-9">Pent house</h4>
-          <span class="col-xs-3 text-center">
-          <input id="check1" type="checkbox" name="check" value="check1"><label></label>
-          </span>
-        </div> 
-      </div> 
+          </div> 
+          <div class="col-xs-4 checkboxInner text-center">
+            <input type="checkbox"/>
+            <img src="img/bldg-3d.png" />
+            <span class="text-uppercase col-xs-12 text-center">3bhk <br> (Penthouse)</span>
+          </div>
+           <div class="col-xs-4 checkboxInner text-center">
+            <input type="checkbox"/>
+            <img src="img/bldg-3d.png" />
+            <span class="text-uppercase col-xs-12 text-center">4bhk <br> (Penthouse)</span>
+          </div>       
+      </div>  
+      <h4 class="col-xs-12 text-center text-uppercase">Budget</h4>      
+        <div class="col-xs-12 p-0 budgetOuter">
+          <div class="col-xs-6">
+             <input type="text" placeholder="MIN"/>     
+          </div>  
+          <div class="col-xs-6">
+             <input type="text" placeholder="MAX"/>     
+          </div> 
+        </div>
+      <h4 class="col-xs-12 text-center text-uppercase">Area</h4>      
+      <div class="col-xs-12 p-0 budgetOuter">
+          <div class="col-xs-6">
+             <input type="text" placeholder="MIN"/>     
+          </div>  
+          <div class="col-xs-6">
+             <input type="text" placeholder="MAX"/>     
+          </div>         
+      </div>   
       <h4 class="col-xs-12 text-center text-uppercase">Flooring</h4>
       <div class="checkboxOuter">  
         <div class="checkboxnormal"> 
@@ -89,40 +102,40 @@
         </div> 
       </div> 
       <h4 class="col-xs-12 text-center text-uppercase">Views</h4>
-      <div class="row imagecheckboxOuter viewType">
-          <div class="col-xs-4 checkboxInner">
-            <input type="checkbox"/>
-            <img src="img/bldg-3d.png" />
-            <span class="text-uppercase col-xs-12 text-center">Gym</span>
-          </div>
-           <div class="col-xs-4 checkboxInner">
-            <input type="checkbox"/>
-            <img src="img/bldg-3d.png" />
-            <span class="text-uppercase col-xs-12 text-center">Swimming pool</span>
-          </div>
-           <div class="col-xs-4 checkboxInner">
-            <input type="checkbox"/>
-            <img src="img/bldg-3d.png" />
-            <span class="text-uppercase col-xs-12 text-center">Playground</span>
-          </div>                
-      </div>  
-      <div class="row imagecheckboxOuter">
-          <div class="col-xs-4 checkboxInner">
-            <input type="checkbox"/>
-            <img src="img/bldg-3d.png" />
-            <span class="text-uppercase col-xs-12 text-center">Health center</span>
-          </div>
-           <div class="col-xs-4 checkboxInner">
-            <input type="checkbox"/>
-            <img src="img/bldg-3d.png" />
-            <span class="text-uppercase col-xs-12 text-center">Atm</span>
-          </div>
-           <div class="col-xs-4 checkboxInner">
-            <input type="checkbox"/>
-            <img src="img/bldg-3d.png" />
-            <span class="text-uppercase col-xs-12 text-center">Shopping</span>
-          </div>                
+      <div class="checkboxOuter">  
+        <div class="checkboxnormal"> 
+          <h4 class="col-xs-9">Swimming Pool</h4>
+          <span class="col-xs-3 text-center">
+          <input id="check1" type="checkbox" name="check" value="check1"><label></label>
+          </span>
+        </div> 
+        <div class="checkboxnormal"> 
+          <h4 class="col-xs-9">Club house</h4>
+          <span class="col-xs-3 text-center">
+          <input id="check1" type="checkbox" name="check" value="check1"><label></label>
+          </span>
+        </div> 
+        <div class="checkboxnormal"> 
+          <h4 class="col-xs-9">Playground</h4>
+          <span class="col-xs-3 text-center">
+          <input id="check1" type="checkbox" name="check" value="check1"><label></label>
+          </span>
+        </div> 
+        <div class="checkboxnormal"> 
+          <h4 class="col-xs-9">Courtyard</h4>
+          <span class="col-xs-3 text-center">
+          <input id="check1" type="checkbox" name="check" value="check1"><label></label>
+          </span>
+        </div>
+        <div class="checkboxnormal"> 
+          <h4 class="col-xs-9">Parking</h4>
+          <span class="col-xs-3 text-center">
+          <input id="check1" type="checkbox" name="check" value="check1"><label></label>
+          </span>
+        </div>         
       </div> 
+      
+            
       <h4 class="col-xs-12 text-center text-uppercase">Facings</h4>
       <div class="checkboxOuter">  
         <div class="checkboxnormal"> 
@@ -167,25 +180,7 @@
           <input id="check1" type="checkbox" name="check" value="check1"><label></label>
           </span>
         </div>        
-      </div> 
-      <h4 class="col-xs-12 text-center text-uppercase">Area (SQ. MT.)</h4>      
-      <div class="col-xs-12 sliderOuter">
-        <input class="sliderCust" type="text"/><br/>           
-      </div>  
-      <h4 class="col-xs-12 text-center text-uppercase">Budget</h4>      
-      <div class="col-xs-12 sliderOuter">
-        <input class="sliderBudget" type="text"/><br/>           
-      </div> 
-      <h4 class="col-xs-12 text-center text-uppercase">Availability</h4>
-      <div class="checkboxOuter">  
-        <div class="checkboxnormal"> 
-          <span class="col-xs-2">
-            <input id="check1" type="checkbox" name="check" value="check1"><label></label>
-          </span>
-          <h4 class="col-xs-10 text-capitalize availableUnits">Show available units only</h4>         
-        </div> 
-      </div>                                 
-    </div>
+      </div>       
     <div class="filterfooter">
         <div class="row">
           <button class="col-xs-12 button">
