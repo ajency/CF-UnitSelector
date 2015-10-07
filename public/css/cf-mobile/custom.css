@@ -245,6 +245,9 @@ body .row {
 .not-released .row {
   opacity: .5 ;
 }
+.hide-div {
+  display: none;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -291,7 +294,6 @@ body .row {
   margin-top: 20px;
 }
 * {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .bottom-card {
@@ -346,11 +348,14 @@ body .row {
   -webkit-transform: scale(1.18);
   color: #000;
   opacity: 1;
-  transform: scale(1.18);
+  -webkit-transform: scale(1.18);
+      -ms-transform: scale(1.18);
+          transform: scale(1.18);
 }
 .center .card-swipe {
   opacity: 0.8;
-  transition: all 300ms ease;
+  -webkit-transition: all 300ms ease;
+          transition: all 300ms ease;
 }
 .content {
   margin: auto;
@@ -683,7 +688,7 @@ section {
   position: absolute;
   z-index: 1;
   right: 20px;
-  bottom: 20px;
+  bottom: 20px
   /*height:40px;
 				width:40px;*/
 }
@@ -734,7 +739,7 @@ section {
   position: absolute;
   z-index: 1;
   right: 10px;
-  bottom: 20px;
+  bottom: 20px
   /*height:40px;
 			width:40px;	*/
 }
@@ -1017,3 +1022,4 @@ section {
   text-decoration: none;
   outline: none;
 }
+/*# sourceMappingURL=custom.css.map */
