@@ -1,7 +1,0 @@
-class_name: IntegrationTester
-modules:
-    enabled: [IntegrationHelper, Laravel5, FactoryHelper]    
-    config:
-        Laravel5:
-            environment_file: .env.testing
-

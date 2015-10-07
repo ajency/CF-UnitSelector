@@ -1,4 +1,0 @@
-Name,Building Name,Building Id,Floor,Position,Apartment Variant,Apartment  Variant Id,Direction,Direction Id,Status,Status Id,Views
-Unit G101,Gold Tower,11,1,1,2BHK variant,43,East,52,Available,available,ATM
-Unit G102,Gold Tower,11,1,2,2BHK variant,43,North,50,Available,available,"Clubhouse,ATM"
-Unit S101,Silver Tower,12,2,1,2BHK variant,43,East,52,Available,available,
