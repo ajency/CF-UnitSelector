@@ -52,13 +52,12 @@
     <div class="rotate">
     
   </div>
-<div class="image-contain">
 
-      <div class="image  ">
-        <img src="img/FirstSlide2.jpg" class="img-responsive fit no-shadow " />
-              <img src="img/FirstSlide.jpg" class="img-responsive shadow fit"/>
-
-      </div>
+<div class="image " >
+      <img src="img/FirstSlide.jpg" class="img-responsive fit"/>
+    </div>
+    <div class="image no-shadow ">
+      <img src="img/FirstSlide2.jpg" class="img-responsive fit"/>
     </div>
      <div class="bottom-card">
     <div class="blue">
@@ -232,13 +231,13 @@
      </SCRIPT>
      <script type="text/javascript" language="JavaScript">
         function set_body_height() { // set body height = window height
-          $('.image-contain').height($(window).height());
+          $('.image').height($(window).height());
         }
         $(document).ready(function() {
           $(window).bind('resize', set_body_height);
           set_body_height();
 
-          $(".image ").panzoom({
+          $(".image img").panzoom({
              startTransform: 'scale(1.4)',
              contain: 'invert',
              minScale: 1,
@@ -251,10 +250,12 @@
   var hidden = false;
   var outlined = false;
   
-  $('.shadow').show();
+  $('.no-shadow').show();
   
   $('.sun-toggle').click(function() {
-    $('.no-shadow').toggleClass('hide-shadow');
+    if(hidden) $('.no-shadow').fadeIn();
+    else $('.no-shadow').fadeOut();
+    hidden = !hidden;
   });
 
 

@@ -18,13 +18,21 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, 
 .margin-none{
   margin: 0px;
 }
-.image{
-      position: absolute;
-      top: 0px;
-      z-index: -1;
+.image-contain{
+   position: absolute;
+         top: 0px;
       overflow: hidden;
+}
+.image{
+      
+
       img{
             max-height: inherit !important;
+
+      }
+      .no-shadow{
+        position: absolute;
+        top: 0;
       }
 }
 .image2{
@@ -36,4 +44,8 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, 
 
 .primary-txt{
     color:@brand-primary;
+}
+.hide-shadow{
+  opacity: 0;
+  transition:all 0.5s ease ;
 }
