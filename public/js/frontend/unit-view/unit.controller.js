@@ -46,7 +46,7 @@
       return TopUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    TopUnitView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2> </div> <div class="pull-right"> <form action="{{bookingPortalUrl}}" method="POST"> <input type="hidden" value = "{{id}}" name="unit_id"> <button type="submit" class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button> </form> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopUnitView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2> </div> <div class="pull-right"> <a  target="_blank" href="/project/' + PROJECTID + '/booknow/{{id}}"> <button type="submit" class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button> </a> </div> <div class="clearfix"></div> </div> </div> </div>');
 
     TopUnitView.prototype.ui = {
       unitBack: '.unit_back'

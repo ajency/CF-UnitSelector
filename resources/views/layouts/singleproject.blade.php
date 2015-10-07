@@ -20,7 +20,7 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/cost') }}">@if($current === 'cost')@endif Cost</a>
             </li>
             @endif
-            @if(hasPermission($project['id'],['svg_auth_tool']))
+            @if($project['has_master']=='yes' && hasPermission($project['id'],['svg_auth_tool'])) 
             <li class="{{ $current === 'svg' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/svg' ) }}" >@if($current === 'svg')@endif SVGs</a>
             </li>
@@ -33,8 +33,10 @@
                   
         </ul> 
  
-        @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
+        @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyTypeData)
         <?php
+            $projectPropertyType = $projectPropertyTypeData['NAME'];
+            $projectPropertyTypeId = $projectPropertyTypeData['ID'];
            if($projectPropertyType === 'Apartments' ||  $projectPropertyType === 'Penthouses')
            {
                $apartmentPenthouse[] =  $projectPropertyType;
@@ -45,6 +47,11 @@
             <p class="menu-title">{{ $projectPropertyType }}</p>    
         </div>
         <ul class="big-items">
+            @if(hasPermission($project['id'],['configure_building','svg_auth_tool']))
+            <li class="{{ $current === property_type_slug($projectPropertyType).'group' ? 'active' : '' }}">
+                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType) . '/' . $projectPropertyTypeId . '/group') }}">@if($current === property_type_slug($projectPropertyType).'group')@endif Group</a>
+            </li>
+            @endif
             @if(hasPermission($project['id'],['configure_project']))
             <li class="{{ $current === property_type_slug($projectPropertyType) . '-variant' ? 'active' : '' }}">
                 <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType) . '-variant/') }}">@if($current === property_type_slug($projectPropertyType) . '-variant')@endif Configuration</a>

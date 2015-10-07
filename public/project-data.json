@@ -281,7 +281,7 @@
         "agent_id": 0,
         "booked_at": "2015-10-01 09:30:39",
         "breakpoint": 0,
-        "availability": "available"
+        "availability": "unavailable"
       },
       {
         "id": 100,
@@ -418,6 +418,23 @@
         "created_at": "2015-09-24 06:56:12",
         "updated_at": "2015-09-24 06:56:12",
         "phase_id": 56,
+        "views": [],
+        "direction": "North-East",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 106,
+        "unit_name": "Apt5",
+        "unit_variant_id": 63,
+        "position": 3,
+        "floor": 5,
+        "building_id": 22,
+        "created_at": "2015-09-24 06:56:12",
+        "updated_at": "2015-09-24 06:56:12",
+        "phase_id": 0,
         "views": [],
         "direction": "North-East",
         "agent_id": 0,

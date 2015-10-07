@@ -83,6 +83,23 @@ class Project extends Model {
         return $Images;
     }
 
+    public function getProjectMasterShadowImages() {
+        $masterValue = $this->projectMeta()->where( 'meta_key', 'shadow' )->get()->first()->meta_value;
+        $masterImages = unserialize( $masterValue );
+        $Images =[];
+        if(!empty($masterImages))
+        {
+            ksort($masterImages);
+            foreach ($masterImages as $key => $images) {
+                if($images!=''){
+                $imageName = Media::find($images)->image_name;
+                $Images[] = url() . "/projects/" .  $this->id . "/shadow/" . $imageName;
+                }
+            }
+        }
+        return $Images;
+    }
+
     public function getCFProjectStatus() {
         return 'Under Construction';
     }

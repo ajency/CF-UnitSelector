@@ -12,14 +12,43 @@ define('GET_CITIES_API_URL', 'http://www.commonfloor.com/api/geo-local-v2/get-ci
 define('GET_PROPERTIES_BY_CITY_API_URL', 'http://www.commonfloor.com/api/project-v2/get-projects?city=');
 define('GET_AREA_BY_CITY_API_URL', 'http://www.commonfloor.com/autosuggest.php?item=area&c=');
 define('GET_PROPERTIES_BY_AREA_API_URL', 'http://www.commonfloor.com/api/project-v2/get-projects?page_size=200&project_location_filter[]=null_area_');
-define('BOOKING_SERVER_URL', 'http://stage.bookingcrm.commonfloor.com/');
+//define('BOOKING_SERVER_URL', 'http://stage.bookingcrm.commonfloor.com/');
+define('BOOKING_SERVER_URL', 'http://127.0.0.1:8000/');
 define('GET_BOOKING_AMOUNT', 'get_booking_amount/');
 define('GET_SELLING_AMOUNT', 'get_total_sale_value/');
+define('GET_UNIT_PRICE', 'unit_price_sheet/');
 define('GET_UNIT_PAYMENT_PLAN', 'unit_payment_plan/');
 define('GET_UNIT_PRICE_SHEET', 'unit_price_sheet/');
 define('ADD_BOOKING_UNIT', 'addUnit/');
-define('BOOKING_PORTAL_URL', 'http://stage30.commonfloor.com/book-your-property');
+define('MAKE_BOOKING', 'makebooking/');
+define('BOOKING_PORTAL_URL', 'http://stage23.commonfloor.com/book-your-property');
 define('CF_API_KEY', 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168');
+
+/**BOOKING CONSTANT***/
+define('EXPIREDURATION', 3);
+
+define('PAYMENT_STATUS_INITIALIZED', "initialized");
+define('PAYMENT_STATUS_SUCCESSFUL', "captured");
+define('PAYMENT_STATUS_UNSUCCESSFUL', "unsuccessful");
+
+define('PAYMENT_HISTORY_ACTIVE', "1");
+define('PAYMENT_HISTORY_INACTIVE', "0");
+
+define('BOOKING_HISTORY_STATUS_START_BOOKING', "----");
+define('BOOKING_HISTORY_STATUS_BOOKING_INITIALIZED', "initialized");
+define('BOOKING_HISTORY_STATUS_BOOKING_PROGRESS', "Booking in Progress");
+define('BOOKING_HISTORY_STATUS_BOOKING_NEW', "New");
+define('BOOKING_HISTORY_STATUS_BOOKING_BOOKED', "Booked");
+define('BOOKING_HISTORY_STATUS_REFUND_INITIATED', "Refund Initiated");
+define('BOOKING_HISTORY_STATUS_REFUND_COMPLETE', "Refunded");
+define('BOOKING_HISTORY_STATUS_REFUND_ERROR', "Error while refund process");
+
+define('BOOKING_HISTORY_COMMENT_BUYER_OPTION', "Buyer choose to buy");
+define('BOOKING_HISTORY_COMMENT_PAYMENT_INITIALIZED', "Payment Initialized");
+define('BOOKING_HISTORY_COMMENT_PAYMENT_SUCCESS', "Payment Success");
+
+
+
  
 /**
  * 
@@ -63,8 +92,10 @@ function get_all_unit_type() {
 
 function project_property_types( $projectId ) {
     $propertyTypes = [];
+    
     foreach (\CommonFloor\Project::find( $projectId )->projectPropertyTypes as $projectPropertyType) {
-        $propertyTypes[$projectPropertyType->property_type_id] = get_property_type( $projectPropertyType->property_type_id );
+        $propertyTypes[$projectPropertyType->property_type_id]['NAME'] = get_property_type( $projectPropertyType->property_type_id );
+        $propertyTypes[$projectPropertyType->property_type_id]['ID'] = $projectPropertyType->id;
     }
    
     return $propertyTypes;

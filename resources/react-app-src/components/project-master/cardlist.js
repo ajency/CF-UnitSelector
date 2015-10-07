@@ -1,8 +1,16 @@
 var React = require('react');
+var CardView = require('../project-master/cardview');
 
 var CardList = React.createClass({
 
-    componentDidMount: function() {
+    componentWillUnmount: function(){
+        console.log("component will un mount");
+        var $sliderContainer = $(this.refs.sliderContainer.getDOMNode());
+        $sliderContainer.unslick();
+    },
+
+    componentDidUpdate: function() {
+        console.log("component did update");
         var $sliderContainer = $(this.refs.sliderContainer.getDOMNode());
 
         var $sliderSettings = {
@@ -35,18 +43,21 @@ var CardList = React.createClass({
         $sliderContainer.slick($sliderSettings);
     },
 
-    componentWillUnmount: function(){
-        var $sliderContainer = $(this.refs.sliderContainer.getDOMNode());
-        $sliderContainer.unslick();
-    },
-
     render: function() {
+        var buildings = this.props.buildings;
+        var buildingNodes; 
 
+
+        buildingNodes = buildings.map(function(building,i){
+                            return <CardView key={i} building={building}/>  
+                        });
+
+        
         return (
             <div className="bottom-card">
                 <div className="blue">
                     <div ref="sliderContainer" className="slider center">
-                    {this.props.children}
+                    {buildingNodes} 
                     </div>
                 </div>
             </div>
