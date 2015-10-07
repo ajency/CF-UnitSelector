@@ -34,10 +34,10 @@ class TopUnitView extends Marionette.ItemView
 												</div>
 
 												<div class="pull-right">
-													<form action="{{bookingPortalUrl}}" method="POST">
-														<input type="hidden" value = "{{id}}" name="unit_id">
+													
+													<a  target="_blank" href="/project/'+PROJECTID+'/booknow/{{id}}">
 														<button type="submit" class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button>
-													</form>
+													</a>
 												</div>
 
 											  	<div class="clearfix"></div>

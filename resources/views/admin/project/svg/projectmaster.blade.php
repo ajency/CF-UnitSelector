@@ -36,6 +36,8 @@
 
                         <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Breakpoint</th>
 
+                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Shadow Image</th>
+
                         <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
 
                         <th style="width:6%" class="text-right" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">
@@ -44,13 +46,15 @@
                         </thead>
                         <tbody id="master-img">
                             @if(!empty($svgImages['master']))
-
+                            <?php $positions = array_keys($svgImages['master'])?>
                             @foreach($svgImages['master'] as $position=> $image)
 
                             @if(isset($image['IMAGE']))
                             <?php
                             
                             $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=master&position=".$position;
+                            
+                            $shadowImageName = (isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '') ? $svgImages['shadow'][$position]['NAME']   :"Image"
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class="">{{ $image['NAME'] }}</td>
@@ -61,6 +65,13 @@
                                         <input id="checkbox{{ $position }}" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? 'checked' : '' }}   name="position[]" type="checkbox" value="{{ $position }}">
                                                <label for="checkbox{{ $position }}"></label>
                                     </div>
+                                </td>
+                                <td class=" ">
+                                    <div class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} shadow-{{ $position }} " id="pickfiles_{{ $position }}" >
+                                    {{ $shadowImageName }} 
+                                    </div>
+                                     
+                                     <a  @if(isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '') onclick="deleteSvg({{ $svgImages['shadow'][$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" @else class="text-primary delete-shadow-{{ $position }} hidden" @endif><i class="fa fa-close"></i></a>
                                 </td>
                                 <td class=" ">
                                     <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool</a>
@@ -80,7 +91,9 @@
                                 <td class=" ">
                                    
                                 </td>
-
+                                <td class=" ">
+                                   
+                                </td>
                                 <td class="text-right">
                                    
                                 </td>
@@ -99,3 +112,12 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    var BASEURL = '{{ url() }}';
+
+    var BREAKPOINTS = ['<?php echo (isset($positions))? implode("','", $positions):"" ?>'];
+    var variantId = 0;
+</script>
+

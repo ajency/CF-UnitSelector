@@ -28,6 +28,25 @@
             <hr/>
             <div class="row">
                 <div class="m-l-5 no-border">
+                    <h3><i class="fa fa-angle-double-right text-primary"></i> PayU   <span class="semi-bold">Detials</span></h3>
+                </div>
+                 <div class="col-md-5">
+                    <div class="form-group ">
+                        <label class="form-label">Merchant Id</label>
+                        <input type="text" name="merchant_id" class="form-control" placeholder="Merchant Id" 
+                               value="{{ $project['merchant_id'] }}" >
+                    </div>
+                    <div class="form-group ">
+                        <label class="form-label">Salt</label>
+                        <input type="text" name="salt" class="form-control" placeholder="Salt" 
+                               value="{{ $project['salt'] }}" >
+                    </div>
+                     
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="m-l-5 no-border">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Measurement <span class="semi-bold">Units</span></h3>
                 </div>
                 <div class="col-md-12">

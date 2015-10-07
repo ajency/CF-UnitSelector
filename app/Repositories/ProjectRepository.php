@@ -55,6 +55,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         ];
 
         $defaultMaster = [];
+        $defaultShadow = [];
 
         // add project meta
         $projectMeta = [
@@ -77,9 +78,12 @@ class ProjectRepository implements ProjectRepositoryInterface {
             new ProjectMeta(['meta_key' => 'master',
                 'meta_value' => serialize($defaultMaster)
                     ]),
-            new ProjectMeta(['meta_key' => 'google_earth',
-                'meta_value' => ''
+            new ProjectMeta(['meta_key' => 'shadow',
+                'meta_value' => serialize($defaultShadow)
                     ]),
+            /*new ProjectMeta(['meta_key' => 'google_earth',
+                'meta_value' => ''
+                    ]),*/
             new ProjectMeta(['meta_key' => 'skyview',
                 'meta_value' => ''
                     ]),
@@ -127,12 +131,16 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project_title = ucfirst($projectData['project_title']);
         $project_address = ucfirst($projectData['project_address']);
         $property_types_arr = (isset($projectData['property_types'])) ? $projectData['property_types'] : []; 
+        $merchant_id = $projectData['merchant_id'];
+        $salt = $projectData['salt'];
         $property_measurement_units = $projectData['measurement_units'];
         $property_has_phases = $projectData['has_phases'];
         $property_has_master = $projectData['has_master'];
 
         $project->project_title = $project_title;
         $project->project_address = $project_address;
+        $project->merchant_id = $merchant_id;
+        $project->salt = $salt;
         $project->measurement_units = $property_measurement_units;
         $project->has_phase = $property_has_phases;
         $project->has_master = $property_has_master;

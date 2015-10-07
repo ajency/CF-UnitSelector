@@ -29,6 +29,20 @@ class Permission {
 
                      'admin.project.unittype.destroy'=>['configure_project'], 
 
+                     'admin.project.bunglow.group.index'=>['configure_project','svg_auth_tool'],
+                     'admin.project.bunglow.group.create'=>['configure_project'],
+                     'admin.project.bunglow.group.store'=>['configure_project'],
+                     'admin.project.bunglow.group.edit'=>['configure_project','svg_auth_tool'],
+                     'admin.project.bunglow.group.update'=>['configure_project'],
+                     'admin.project.bunglow.group.destroy'=>['configure_project'],
+
+                     'admin.project.plots.group.index'=>['configure_project','svg_auth_tool'],
+                     'admin.project.plots.group.create'=>['configure_project'],
+                     'admin.project.plots.group.store'=>['configure_project'],
+                     'admin.project.plots.group.edit'=>['configure_project','svg_auth_tool'],
+                     'admin.project.plots.group.update'=>['configure_project'],
+                     'admin.project.plots.group.destroy'=>['configure_project'],
+
                      'admin.project.bunglow-variant.index'=>['configure_project'],
                      'admin.project.bunglow-variant.create'=>['configure_project'],
                      'admin.project.bunglow-variant.store'=>['configure_project'],
