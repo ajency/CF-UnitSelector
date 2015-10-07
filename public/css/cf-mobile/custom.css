@@ -135,6 +135,12 @@ body .row {
   width: 19px;
   height: 20px;
 }
+.navbar-default .navbar-header h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
 .navbar-default .p-0 {
   padding: 0px;
 }
@@ -189,6 +195,12 @@ body .row {
   padding-top: 15px;
   padding-bottom: 11px;
 }
+.card-swipe h4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
 .card-swipe .price {
   line-height: 20px;
 }
@@ -217,12 +229,24 @@ body .row {
   .card-swipe h4 {
     font-size: 15px;
   }
+  .card-swipe .row div {
+    padding: 0 9px;
+  }
+  .card-swipe .swipe-unit-info {
+    font-size: 10px;
+  }
+}
+.card-swipe.not-released .swipe-footer {
+  background: #ffffff;
 }
 .not-released {
   background: #E4E4E4 !important;
 }
 .not-released .row {
   opacity: .5 ;
+}
+.hide-div {
+  display: none;
 }
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
@@ -270,7 +294,6 @@ body .row {
   margin-top: 20px;
 }
 * {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .bottom-card {
@@ -325,11 +348,14 @@ body .row {
   -webkit-transform: scale(1.18);
   color: #000;
   opacity: 1;
-  transform: scale(1.18);
+  -webkit-transform: scale(1.18);
+      -ms-transform: scale(1.18);
+          transform: scale(1.18);
 }
 .center .card-swipe {
   opacity: 0.8;
-  transition: all 300ms ease;
+  -webkit-transition: all 300ms ease;
+          transition: all 300ms ease;
 }
 .content {
   margin: auto;
@@ -566,12 +592,22 @@ section {
   display: inline-block;
   margin: 10px 0;
 }
+@media screen and (max-width: 320px) {
+  .tabHeader .title h3 {
+    font-size: 19px;
+  }
+}
 .tabHeader .title a {
   color: #565654;
   display: inline-block;
   margin: 8px 10px 0 20px;
   font-size: 20px;
   float: left;
+}
+@media screen and (max-width: 320px) {
+  .tabHeader .title a {
+    margin-top: 5px;
+  }
 }
 .tabHeader .nav-tabs {
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
@@ -594,8 +630,15 @@ section {
   color: #bcbcba;
   margin: 0;
   border: none;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
+  padding: 5px;
+}
+@media screen and (max-width: 320px) {
+  .tabHeader .nav-tabs li a {
+    padding: 3px;
+    font-size: 10px;
+  }
 }
 .tab-content {
   padding: 15px;
@@ -645,7 +688,7 @@ section {
   position: absolute;
   z-index: 1;
   right: 20px;
-  bottom: 20px;
+  bottom: 20px
   /*height:40px;
 				width:40px;*/
 }
@@ -683,8 +726,8 @@ section {
   font-size: 14px;
   padding-right: 0;
 }
-.tab-content .gallery {
-  padding: 0;
+.tab-content .gallery h5 {
+  margin-top: 15px;
 }
 .tab-content .gallery img {
   width: 100%;
@@ -696,7 +739,7 @@ section {
   position: absolute;
   z-index: 1;
   right: 10px;
-  bottom: 20px;
+  bottom: 20px
   /*height:40px;
 			width:40px;	*/
 }
@@ -742,3 +785,241 @@ section {
   width: 100%;
   margin-bottom: 5px;
 }
+.p-0 {
+  padding: 0 !important;
+}
+.filterHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 9999;
+  background: #373737;
+}
+.filterHeader .title {
+  color: #ffffff;
+}
+.filterHeader .title h3 {
+  display: inline-block;
+  margin: 10px 0;
+}
+.filterHeader .title a {
+  display: inline-block;
+  margin: 8px 10px 0 20px;
+  font-size: 20px;
+  float: left;
+}
+.filterHeader .title a i {
+  color: #ffffff;
+}
+.filterHeader .title span {
+  font-size: 16px;
+  margin: 14px 15px 0 0;
+}
+.filter-content {
+  margin-top: 50px;
+  float: left;
+  width: 100%;
+  margin-bottom: 60px;
+}
+.filter-content .imagecheckboxOuter {
+  margin-bottom: 20px;
+  float: left;
+  width: 100%;
+  padding: 20px 0;
+  background: #f6f6f6;
+}
+.filter-content .imagecheckboxOuter .checkboxInner {
+  padding: 25px 10px 15px 10px;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+.filter-content .imagecheckboxOuter .checkboxInner.selected {
+  border: 1px solid #12acac;
+  background: #ffffff;
+}
+.filter-content .imagecheckboxOuter .checkboxInner.selected span {
+  color: #12acac;
+}
+.filter-content .imagecheckboxOuter .checkboxInner:last-child {
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+.filter-content .imagecheckboxOuter .checkboxInner input {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.filter-content .imagecheckboxOuter .checkboxInner img {
+  width: 70%;
+}
+.filter-content .imagecheckboxOuter .checkboxInner span {
+  color: #7d7c7a;
+  margin-top: 5px;
+  padding: 0;
+  font-size: 10px;
+}
+.filter-content .imagecheckboxOuter.viewType {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+.filter-content .checkboxOuter {
+  float: left;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.filter-content .checkboxOuter .checkboxnormal {
+  background: #f6f6f6;
+  float: left;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #d5d5d4;
+}
+.filter-content .checkboxOuter .checkboxnormal:first-child {
+  border-top: 1px solid #d5d5d4;
+}
+.filter-content .checkboxOuter .checkboxnormal span {
+  padding-right: 0;
+}
+.filter-content .checkboxOuter .checkboxnormal input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  height: 25px;
+  width: 25px;
+}
+.filter-content .checkboxOuter .checkboxnormal label {
+  height: 20px;
+  width: 20px;
+  background: none;
+  border: 2px solid #d5d5d4;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.filter-content .checkboxOuter .checkboxnormal input[type=checkbox]:checked + label:before {
+  content: "\2714";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 15px;
+  background: #12acac;
+  border: none;
+  width: 20px;
+  height: 20px;
+  font-weight: 400;
+  padding-top: 1px;
+  display: block;
+  border: 2px solid rgba(0, 0, 0, 0);
+  margin: -2px 0 0 -2px;
+}
+.filter-content .checkboxOuter .checkboxnormal .availableUnits {
+  margin-top: 12px;
+}
+.filter-content .budgetOuter {
+  background: #f6f6f6;
+  border-top: 1px solid #d5d5d4;
+  border-bottom: 1px solid #d5d5d4;
+  margin-bottom: 15px;
+}
+.filter-content .budgetOuter div {
+  padding: 20px 15px;
+}
+.filter-content .budgetOuter div:first-child {
+  border-right: 1px solid #d5d5d4;
+}
+.filter-content .budgetOuter div input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #bcbcba;
+  background: none;
+  padding: 5px;
+}
+.filter-content .budgetOuter div input:focus {
+  outline: none;
+}
+.filterfooter {
+  position: fixed;
+  bottom: -1px;
+  width: 100%;
+  left: 0;
+  color: #ffffff;
+  text-align: center;
+  z-index: 9999;
+}
+.filterfooter button {
+  margin: 0;
+  border: none;
+  background: #fe943e;
+  padding: 10px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.imageModal {
+  top: 15% !important;
+}
+.imageModal .modal-content {
+  border-radius: 0;
+  border: 2px solid #000000;
+}
+.imageModal .modal-body {
+  padding: 0;
+}
+.imageModal .modal-body img {
+  width: 100%;
+}
+.imageModal .modal-body .imageContent {
+  position: absolute;
+  bottom: -1px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0 15px;
+  width: 100%;
+}
+.imageModal .close {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+  top: -10px;
+  right: -10px;
+  opacity: 1;
+  height: 25px;
+  width: 25px;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  border-radius: 50%;
+  font-weight: 300;
+}
+.imageModal .close span {
+  margin-top: -2px;
+  float: left;
+  width: 100%;
+}
+.modal-backdrop.in {
+  opacity: .8 !important;
+}
+.unitSold {
+  color: #ee1f3b;
+}
+.messageBox {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  padding: 10px;
+  left: 24%;
+  top: 14%;
+}
+.messageBox a {
+  float: right;
+  margin: 3px 0px 3px 30px;
+  color: #ffffff;
+  text-decoration: none;
+  outline: none;
+}
+.messageBox a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: none;
+}
+/*# sourceMappingURL=custom.css.map */
