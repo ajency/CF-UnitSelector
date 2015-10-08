@@ -456,7 +456,7 @@ function breakpointSvgUploader(position) {
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);  
                 
-                $('.breakpointSvg-' + position).text('Upload');
+                $('.breakpointSvg-' + position).text('Import');
                 $.notify(fileResponse.message, 'success');
 
             }
