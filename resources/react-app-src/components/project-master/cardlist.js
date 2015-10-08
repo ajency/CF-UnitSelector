@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var PureRenderMixin = React.addons.PureRenderMixin;
 var CardView = require('../project-master/cardview');
+var Slider = require('react-slick');
 
 var CardList = React.createClass({
 
@@ -18,56 +19,63 @@ var CardList = React.createClass({
 
     componentDidUpdate: function() {
         console.log("component did update");
-        var $sliderContainer = $(this.refs.sliderContainer.getDOMNode());
 
-        var $sliderSettings = {
-            centerMode: true,
-            centerPadding: '60px',
-            arrows: false,
-            slidesToShow: 3,
-            responsive: [
-            {
-                breakpoint: 768,
-                settings: {
-                    arrows: false,
-                    centerMode: true,
-                    centerPadding: '40px',
-                    slidesToShow: 3
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    arrows: false,
-                    centerMode: true,
-                    centerPadding: '40px',
-                    slidesToShow: 1
-                }
-            }
-            ]
-        };
-
-        $sliderContainer.slick($sliderSettings);
     },
 
     render: function() {
         var buildings = this.props.buildings;
         var buildingNodes; 
 
+        var settings = {
+          slidesToShow: 3,
+          arrows: 0,
+          centerMode: 1,
+          centerPadding: '60px',
+          responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: 0,
+                        centerMode: 1,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: 0,
+                        centerMode: 1,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        };
+
 
         buildingNodes = buildings.map(function(building,i){
-                            return <CardView key={i} building={building}/>  
+                            return(
+                                <div>
+                                <CardView key={i} building={building}/> 
+                                </div>
+                            ); 
+                                 
                         });
 
         
-        return (
+        return (    
             <div className="bottom-card">
                 <div className="blue">
-                    <div ref="sliderContainer" className="slider center">
-                    {buildingNodes} 
+                    <Slider {...settings}>
+                        
+                    {buildingNodes}  
+
+
+                    </Slider>
                     </div>
-                </div>
-            </div>
+                    </div>
+
         );
     }
 });
