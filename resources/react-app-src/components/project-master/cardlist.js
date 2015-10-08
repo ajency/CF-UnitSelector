@@ -1,7 +1,10 @@
-var React = require('react');
+var React = require('react/addons');
+var PureRenderMixin = React.addons.PureRenderMixin;
 var CardView = require('../project-master/cardview');
 
 var CardList = React.createClass({
+
+    mixins: [PureRenderMixin],
 
     componentWillUnmount: function(){
         console.log("component will un mount");

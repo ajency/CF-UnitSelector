@@ -1,9 +1,14 @@
-var React = require('react');
+var React = require('react/addons');
+var PureRenderMixin = React.addons.PureRenderMixin;
+
 var Router = require('react-router');
 
 var Link = Router.Link;
 
 var CardView = React.createClass({
+    
+    mixins: [PureRenderMixin],
+
     render: function() {
         var buildingData = this.props.building;
         var unitData = [];

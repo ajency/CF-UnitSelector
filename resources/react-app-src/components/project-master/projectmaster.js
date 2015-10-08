@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react/addons');
+var PureRenderMixin = React.addons.PureRenderMixin;
 var AppStore = require('../../stores/app-store.js');
 var NavBar = require('../project-master/navbar');
 var SunToggle = require('../project-master/suntoggle');
@@ -14,6 +15,8 @@ function getProjectMasterData(){
 
 
 var ProjectMaster = React.createClass({
+
+    mixins: [PureRenderMixin],
 
     getInitialState: function() {
         return getProjectMasterData();
