@@ -60,8 +60,8 @@
   </div>
 
 
-    <div class="image">      
-      <img src="img/FirstSlide.jpg" class="img-responsive fit" id="imageid" data-othersource="img/bldg-3d.png" />
+    <div class="image">         
+      <img src="img/Project-noshadow.jpg" class="img-responsive fit" id="imageid" data-othersource="img/Project.jpg" />
     </div>
      <div class="bottom-card">
     <div class="blue">
@@ -261,12 +261,12 @@
 
           $(document).on('click','.sun-toggle',function(){
             var $this= $('#imageid');
-            $('.sun-toggle').toggle('slide',function(){
+            $('.sun-toggle').show('slide',function(){
               //swap src of the image on toggle is completed
               var imgsrc = $this.attr('src');
               $this.attr('src',$this.data('othersource'));
               $this.data('othersource',imgsrc);
-                $('.sun-toggle').show();
+                //$('.sun-toggle').fadeIn();
            });
           });
         

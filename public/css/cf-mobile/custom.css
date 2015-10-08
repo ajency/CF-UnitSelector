@@ -587,8 +587,7 @@ section {
 }
 .hide-shadow {
   opacity: 0;
-  -webkit-transition: all 0.5s ease ;
-          transition: all 0.5s ease ;
+  transition: all 0.5s ease ;
 }
 .svg-area {
   position: absolute;
@@ -990,36 +989,49 @@ section {
 }
 .imageModal .modal-body {
   padding: 0;
-  background: url('../../images/bldg-3d.png');
-  background-size: cover;
+  /*background:url('../../images/bldg-3d.png') no-repeat -300px 0;
+		
+	    height: 400px;
+	    width: 100%;*/
+  overflow: hidden;
   height: 400px;
-  width: 100%;
-  -webkit-animation: slide 28s linear infinite;
-  -moz-animation: slide 28s linear;
-  animation: slide 28s linear infinite;
+}
+.imageModal .modal-body img {
+  position: relative;
+  /*height:100%;	*/
+  margin-left: 50%;
+  /* margin-top: 50%;*/
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  -webkit-animation: slide 22s linear;
+  -moz-animation: slide 22s linear;
+  animation: slide 22s linear;
+  -webkit-animation-fill-mode: forwards;
+  /* Chrome, Safari, Opera */
+  animation-fill-mode: forwards;
 }
 @-webkit-keyframes slide {
   0% {
-    background-position: 0 0;
+    margin-left: 25%;
   }
   100% {
-    background-position: 600px 0;
+    margin-left: 75%;
   }
 }
 @-moz-keyframes slide {
   0% {
-    background-position: 0 0;
+    margin-left: 25%;
   }
   100% {
-    background-position: 600px 0;
+    margin-left: 75%;
   }
 }
 @keyframes slide {
   0% {
-    background-position: 0 0;
+    margin-left: 25%;
   }
   100% {
-    background-position: 600px 0;
+    margin-left: 75%;
   }
 }
 .imageModal .modal-body .imageContent {
@@ -1082,7 +1094,3 @@ section {
   text-decoration: none;
   outline: none;
 }
-<<<<<<< HEAD
-=======
-/*# sourceMappingURL=custom.css.map */
->>>>>>> 309a8bd5218511efda49a36d2350b3a26d154446

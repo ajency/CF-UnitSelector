@@ -178,7 +178,8 @@
             </div>
            </div>
 
-                          <img src="img/project-1.jpg" class="img-responsive fit"/>
+               <img src="img/Project-noshadow.jpg" class="img-responsive fit no-shadow " />
+              <img src="img/Project.jpg" class="img-responsive shadow fit"/>
                            
            </div>
 
@@ -207,7 +208,7 @@
                                 <ul class="list-inline pull-right filter-type">
                                   <li>
                                    <div> Sun </div>
-                                    <a href="#"> 
+                                    <a href="#" class="sun-toggle"> 
                                       <i class="i-sun-white i-icon"></i>
                                     </a>
                                   </li>
@@ -240,7 +241,7 @@
                 <div class="modal-content">           
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <div class="modal-body">
-                   
+                   <img src="img/bldg-3d.png"/>
                    <div class="imageContent">
                      <h4 class="text-uppercase">Playground area</h4>
                      <p>
@@ -310,6 +311,12 @@
           $('.msgBtn').click(function(){
              $('.messageBoxDesk').css('display', 'none');
           }); 
+
+          $('.shadow').show();
+  
+          $('.sun-toggle').click(function() {
+            $('.no-shadow').toggleClass('hide-shadow');             
+          });
         });
            $("#menu-toggle").click(function(e) {
         e.preventDefault();
