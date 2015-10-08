@@ -591,6 +591,14 @@ section {
   -webkit-transition: all 0.5s ease ;
           transition: all 0.5s ease ;
 }
+.svg-area {
+  position: absolute;
+  z-index: 99;
+  overflow: hidden;
+}
+.svg-area svg {
+  height: 100%;
+}
 .tabHeader {
   position: fixed;
   top: 0;
