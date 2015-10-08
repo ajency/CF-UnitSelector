@@ -19,41 +19,30 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
         Model::unguard();
-        
-        $this->call( 'RoleTableSeeder' );
-        $this->command->info( " Role Table Seeded! " );
-        
-        $this->call( 'UserTableSeeder' );
-        $this->command->info( " User Table Seeded! " );
 
         $this->call( 'PropertyTypeTableSeeder' );
         $this->command->info( " Property Type Table Seeded! " );
+
+        $this->call( 'UnitTypeTableSeeder' );
+        $this->command->info( " Unit Type Table Seeded! " );
         
         $this->call( 'RoomTypeTableSeeder' );
         $this->command->info( " Room Type Table Seeded! " );
-        
-        $this->call( 'UnitTypeTableSeeder' );
-        $this->command->info( " Unit Type Table Seeded! " );
 
         $this->call( 'DirectionSeeder' );
         $this->command->info( " Direction Seeded! " );
+
+        $this->call( 'UserTableSeeder' );
+        $this->command->info( " User Table Seeded! " );
+        
+        $this->call( 'RoleTableSeeder' );
+        $this->command->info( " Role Table Seeded! " );
  
     }
 
 }
 
-class RoleTableSeeder extends Seeder {
 
-    public function run() {
-        Role::create( [
-            'name' => 'admin',
-            'display_name' => 'Admin',
-            'project_access' => 'all',
-            'is_agent' => 'no'
-        ] );
-    }
-
-}
 
 class UserTableSeeder extends Seeder {
 
@@ -171,6 +160,19 @@ class DirectionSeeder extends Seeder {
         Defaults::create(['type' => 'direction','label'=>"Soth-East",'serialize_data'=> serialize([])]);
         Defaults::create( ['type' => 'direction','label'=>"South-West",'serialize_data'=>  serialize([])]);   
         
+    }
+
+}
+
+class RoleTableSeeder extends Seeder {
+
+    public function run() {
+        Role::create( [
+            'name' => 'admin',
+            'display_name' => 'Admin',
+            'project_access' => 'all',
+            'is_agent' => 'no'
+        ] );
     }
 
 }
