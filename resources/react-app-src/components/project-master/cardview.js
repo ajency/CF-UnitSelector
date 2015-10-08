@@ -70,6 +70,7 @@ var CardView = React.createClass({
                         </div>
                     </div>
                 </div>
+                
         );
     }
 });
