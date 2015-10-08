@@ -20,9 +20,6 @@ class DatabaseSeeder extends Seeder {
     public function run() {
         Model::unguard();
 
-        $this->call( 'UserTableSeeder' );
-        $this->command->info( " User Table Seeded! " );
-
         $this->call( 'PropertyTypeTableSeeder' );
         $this->command->info( " Property Type Table Seeded! " );
 
@@ -35,6 +32,9 @@ class DatabaseSeeder extends Seeder {
         $this->call( 'DirectionSeeder' );
         $this->command->info( " Direction Seeded! " );
 
+        $this->call( 'UserTableSeeder' );
+        $this->command->info( " User Table Seeded! " );
+        
         $this->call( 'RoleTableSeeder' );
         $this->command->info( " Role Table Seeded! " );
  
