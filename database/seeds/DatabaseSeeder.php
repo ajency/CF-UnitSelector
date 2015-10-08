@@ -19,24 +19,24 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
         Model::unguard();
-        
-        $this->call( 'RoleTableSeeder' );
-        $this->command->info( " Role Table Seeded! " );
-        
-        $this->call( 'UserTableSeeder' );
-        $this->command->info( " User Table Seeded! " );
 
         $this->call( 'PropertyTypeTableSeeder' );
         $this->command->info( " Property Type Table Seeded! " );
+
+        $this->call( 'UnitTypeTableSeeder' );
+        $this->command->info( " Unit Type Table Seeded! " );
         
         $this->call( 'RoomTypeTableSeeder' );
         $this->command->info( " Room Type Table Seeded! " );
-        
-        $this->call( 'UnitTypeTableSeeder' );
-        $this->command->info( " Unit Type Table Seeded! " );
 
         $this->call( 'DirectionSeeder' );
         $this->command->info( " Direction Seeded! " );
+
+        $this->call( 'UserTableSeeder' );
+        $this->command->info( " User Table Seeded! " );
+
+        $this->call( 'RoleTableSeeder' );
+        $this->command->info( " Role Table Seeded! " );
  
     }
 
