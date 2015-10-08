@@ -19,7 +19,7 @@ var CardView = React.createClass({
            buildingName = buildingData.building_name;
            unitsMatchingString = " Units available";
 
-           buildingUrl = "/building/"+buildingData.id;
+           buildingUrl = "building/"+buildingData.id;
 
 
 

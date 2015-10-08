@@ -1,51 +1,36 @@
 var React = require('react');
-var AppStore = require('../stores/app-store.js');
-var NavBar = require('./project-master/navbar');
-var SunToggle = require('./project-master/suntoggle');
-var Rotate = require('./project-master/rotate');
-var ProjectImage = require('./project-master/projectimage');
-var CardList = require('./project-master/cardlist');
+var ProjectMaster = require('./project-master/projectmaster');
+var BuildingMaster = require('./building-master/buildingmaster');
+var ReactRouter = require('react-router')
+var Template = require('./app-template');
+
+// Rename Router.Route for convenience
+
+var Router = ReactRouter.Router
+var Route = ReactRouter.Route
 
 
-
-function getProjectMasterData(){
-    return {data: AppStore.getProjectMasterData()}
-}
-
+var  Building = React.createClass({
+    
+    render: function() {
+        console.log(this.props.params);
+        return (<div><h3>This is Apartment Selection for a building</h3></div>);
+    }
+});
 
 var APP = React.createClass({
 
-    getInitialState: function() {
-        return getProjectMasterData();
-    },
+  render: function() {
+  return (
+      <Router>
+        <Route path="/" component={ProjectMaster}>
+            <Route path="building" component={Building}/>
+        </Route>
+      </Router>
+    );
 
-
-    componentWillMount:function(){
-      AppStore.addChangeListener(this._onChange)
-    },  
-
-    _onChange:function(){
-      this.setState(getProjectMasterData());
-    },    
-
-    render: function(){
-        var data = this.state.data;
-        
-        var projectTitle = data.projectTitle;
-        var unitCount = data.totalCount;
-        var buildings = data.buildings;
-
-        return (
-            <div>
-            <NavBar projectTitle = {projectTitle} unitCount = {unitCount}/>
-            <SunToggle/>
-            <Rotate/>
-            <ProjectImage/>
-            <CardList buildings={buildings}/>
-            </div>
-
-        );
-    }
+  }
 });
+
 
 module.exports = APP;
