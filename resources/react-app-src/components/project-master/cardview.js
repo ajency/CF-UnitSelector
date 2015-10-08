@@ -44,7 +44,7 @@ var CardView = React.createClass({
         
         
         return (
-                <div>
+                
                     <div className="card-swipe">
 
                         <div className="row">
@@ -69,8 +69,8 @@ var CardView = React.createClass({
                             </div>
                         </div>
                     </div>
-                </div>
                 
+
         );
     }
 });
