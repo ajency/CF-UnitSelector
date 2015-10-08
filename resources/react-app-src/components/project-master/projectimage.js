@@ -1,6 +1,8 @@
-var React = require('react');
+var React = require('react/addons');
+var PureRenderMixin = React.addons.PureRenderMixin;
 
 var ProjectImage = React.createClass({
+    mixins: [PureRenderMixin],	
 
     render: function(){
 

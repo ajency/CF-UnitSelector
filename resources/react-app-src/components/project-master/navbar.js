@@ -1,6 +1,9 @@
-var React = require('react');
+var React = require('react/addons');
+var PureRenderMixin = React.addons.PureRenderMixin;
 
 var NavBar = React.createClass({
+    mixins: [PureRenderMixin],
+    
     render: function(){
             return (
                 <nav className="navbar navbar-default">
