@@ -183,69 +183,69 @@ class Permission {
                 $uriPath =$request->route()->getPath(); 
 
                 
-                if($uriPath != 'admin')
-                {
-                    if($resourceName!='' && isset($resources[$resourceName]))
-                         $permission = $resources[$resourceName];
-                     elseif(isset($uri[$uriPath]))  
-                         $permission = $uri[$uriPath];
-                     else
-                        abort(403); 
+                // if($uriPath != 'admin')
+                // {
+                //     if($resourceName!='' && isset($resources[$resourceName]))
+                //          $permission = $resources[$resourceName];
+                //      elseif(isset($uri[$uriPath]))  
+                //          $permission = $uri[$uriPath];
+                //      else
+                //         abort(403); 
  
-                    $projectId = \Illuminate\Support\Facades\Route::input('project');  
+                //     $projectId = \Illuminate\Support\Facades\Route::input('project');  
                  
-                    if(!in_array('user_profile', $permission))                   
-                    {
-                        //CK FOR USER ACCESS AND PERMISSION 
-                        if(!hasPermission($projectId, $permission))
-                             abort(403);
+                //     if(!in_array('user_profile', $permission))                   
+                //     {
+                //         //CK FOR USER ACCESS AND PERMISSION 
+                //         if(!hasPermission($projectId, $permission))
+                //              abort(403);
                         
-                        /*Unit Auth*/
-                        if($resourceName =='admin.project.bunglow-unit.edit')
-                            $unitId = \Illuminate\Support\Facades\Route::input('bunglow_unit');
-                        elseif($resourceName =='admin.project.plots-unit.edit')
-                            $unitId = \Illuminate\Support\Facades\Route::input('plots_unit');
-                        elseif($resourceName =='admin.project.apartment-unit.edit')
-                            $unitId = \Illuminate\Support\Facades\Route::input('apartment_unit');
-                        else
-                            $unitId =0;
+                //         /*Unit Auth*/
+                //         if($resourceName =='admin.project.bunglow-unit.edit')
+                //             $unitId = \Illuminate\Support\Facades\Route::input('bunglow_unit');
+                //         elseif($resourceName =='admin.project.plots-unit.edit')
+                //             $unitId = \Illuminate\Support\Facades\Route::input('plots_unit');
+                //         elseif($resourceName =='admin.project.apartment-unit.edit')
+                //             $unitId = \Illuminate\Support\Facades\Route::input('apartment_unit');
+                //         else
+                //             $unitId =0;
                         
-                        if($unitId)
-                        {
-                            //if unit belongs to project
-                            isValidUnit($projectId,$unitId);
+                //         if($unitId)
+                //         {
+                //             //if unit belongs to project
+                //             isValidUnit($projectId,$unitId);
                             
-                            //If agent access units
-                            if(isAgent())
-                            {
-                               if($unitId && !hasUnitAccess($unitId))
-                                    abort(403);
-                            }
-                        }
-                        /***/
+                //             //If agent access units
+                //             if(isAgent())
+                //             {
+                //                if($unitId && !hasUnitAccess($unitId))
+                //                     abort(403);
+                //             }
+                //         }
+                //         /***/
                         
-                        /*Variant Auth*/
-                        if($resourceName =='admin.project.bunglow-variant.edit')
-                            $variantId = \Illuminate\Support\Facades\Route::input('bunglow_variant');
-                        elseif($resourceName =='admin.project.plots-variant.edit')
-                            $variantId = \Illuminate\Support\Facades\Route::input('plots_variant');
-                        elseif($resourceName =='admin.project.apartment-variant.edit')
-                            $variantId = \Illuminate\Support\Facades\Route::input('apartment_variant');
-                        else
-                            $variantId =0;
+                //         /*Variant Auth*/
+                //         if($resourceName =='admin.project.bunglow-variant.edit')
+                //             $variantId = \Illuminate\Support\Facades\Route::input('bunglow_variant');
+                //         elseif($resourceName =='admin.project.plots-variant.edit')
+                //             $variantId = \Illuminate\Support\Facades\Route::input('plots_variant');
+                //         elseif($resourceName =='admin.project.apartment-variant.edit')
+                //             $variantId = \Illuminate\Support\Facades\Route::input('apartment_variant');
+                //         else
+                //             $variantId =0;
                         
-                        if($variantId)
-                        {
-                            //if variant belongs to project
-                            isValidVariant($projectId,$variantId);
+                //         if($variantId)
+                //         {
+                //             //if variant belongs to project
+                //             isValidVariant($projectId,$variantId);
          
-                        }
-                        /****/
+                //         }
+                //         /****/
                         
                         
         
-                    }
-                }
+                //     }
+                // }
 		return $next($request);
 	}
 

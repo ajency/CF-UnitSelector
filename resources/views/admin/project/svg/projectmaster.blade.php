@@ -38,6 +38,7 @@
 
                         <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Shadow Image</th>
 
+                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Upload SVG</th>
                         <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
 
                         <th style="width:6%" class="text-right" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">
@@ -57,8 +58,8 @@
                             $shadowImageName = (isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '') ? $svgImages['shadow'][$position]['NAME']   :"Image"
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
-                                <td class="">{{ $image['NAME'] }}</td>
-                                <input type="hidden" name="image_id" value="{{$image['ID']}}">
+                                <td class="">{{ $image['NAME'] }}<input type="hidden" name="master_image_id" value="{{$image['ID']}}"></td>
+                                
                                 <td class=" "><span class="muted">{{ $position }}</span></td>
                                 <td class=" ">
                                     <div class="checkbox check-primary" >
@@ -73,6 +74,7 @@
                                      
                                      <a  @if(isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '') onclick="deleteSvg({{ $svgImages['shadow'][$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" @else class="text-primary delete-shadow-{{ $position }} hidden" @endif><i class="fa fa-close"></i></a>
                                 </td>
+                                <td class=" "> <div id="uploadsvg_{{ $position }}" class="{{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} breakpointSvg-{{ $position }}">Upload</div></td>
                                 <td class=" ">
                                     <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool</a>
                                 </td>
@@ -85,18 +87,11 @@
                            <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class=""></td>
                                 <td class=" "><span class="muted">{{ $position }}</span></td>
-                                <td class=" ">
-                                  
-                                </td>
-                                <td class=" ">
-                                   
-                                </td>
-                                <td class=" ">
-                                   
-                                </td>
-                                <td class="text-right">
-                                   
-                                </td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class="text-right"></td>
                             </tr>
 
                             @endif 
