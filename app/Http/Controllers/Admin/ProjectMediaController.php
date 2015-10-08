@@ -72,12 +72,14 @@ class ProjectMediaController extends Controller {
                         $cordinated = $path->getAttributeNode('d');
                         $points = $cordinated->value;  
 
+                        $other_details['class']='layer unassign';
                         $svgElement = new SvgElement();
                         $svgElement->svg_id = $svg->id;
                         $svgElement->object_type = 'unassign';
                         $svgElement->object_id = 0;
                         $svgElement->points =$points;
                         $svgElement->canvas_type = 'path';
+                        $svgElement->other_details = $other_details;
                         $svgElement->save();
 
                         $mediaId ='';
