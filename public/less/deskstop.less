@@ -29,7 +29,6 @@ body {
 }
 
 
-
 .footer{
       font-size: 12px;
        color:#373737;
@@ -42,7 +41,8 @@ body {
   }
 }
 
-.card-swipe{
+.card-swipe
+{
       font-size:12px;
       padding-top: 11px;
       h4{
@@ -80,6 +80,19 @@ body {
         h4{
               font-size: 15px;
         }
+      }
+&.not-released
+{    
+  .swipe-footer
+  {
+    background:@white;
+  }
+}      
+}
+.not-released{
+      background: #E4E4E4 !important;
+      .row{
+        opacity: .5 ;
       }
 }
 .highlight{
@@ -130,6 +143,14 @@ body {
             margin-right: 12px;
             line-height: 40px;
       }
+      &:last-child
+      {
+        a
+        {
+          background:@brand-primary;
+          border:1px solid @brand-primary;
+        }
+      }
       a{
               border: 1px solid #ccc;
               border-radius: 100%;
@@ -164,11 +185,139 @@ body {
   }
 
 }
+.messageBoxDesk
+{ 
+  background: rgba(0,0,0,0.5);
+  color: @white; 
+  width:320px;
+  float:right;   
 
+    .tip
+    {
+      float:left;
+      padding:10px;
+      background:rgba(0,0,0,0.5);
+    }
+     .message
+     {
+        float:left;
+        padding:9px;
+     }
+    a
+    {
+      float: right;
+      margin: 3px 0px 3px 30px;
+      color: @white;
+      text-decoration:none;
+      outline:none;
+    &:focus, &:hover
+    {
+      color: @white;
+      text-decoration:none;
+      outline:none;
+    } 
+    }
+}
+.contactForm
+{
+    position: absolute;
+    z-index: 99;
+    bottom: 50px;
+    right: 10px;
+
+    button
+    {          
+      background: @brand-primary;
+      color: @white;
+      border:none;
+      &:focus
+      {
+        outline:none;
+      }
+    }
+}
+.contactModal 
+{
+  left:320px !important;
+  .p-0
+  {
+    padding:0;
+  }
+  p
+  {
+    font-size:12px;
+    margin-top:2px;
+  }
+  .modal-dialog
+  {
+    width:400px;
+  }
+  .inputOuter
+  {
+    input
+    {
+      width:100%;
+      background:@gray-lightest;
+      border:none;
+      margin-bottom:15px;  
+      padding:10px;
+      &:focus
+      {
+        outline:none;
+      } 
+    }
+  }
+  .proceedBtn
+  {
+    margin-bottom:25px;
+    button
+    {
+      background:@brand-primary;
+      color:@white;
+      border:none;
+      padding:5px 20px;
+    }
+  }
+  .close
+  {
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 999;
+    top: -10px;
+    right: -10px;
+    opacity: 1;
+    height:25px;
+    width:25px;
+    border:2px solid @white;
+    color:@white;
+    border-radius:50%;
+    font-weight:300;
+
+    &:hover, &:focus
+    {
+      color:@white;
+      opacity: 1;  
+      outline:none;    
+    } 
+    span
+    {
+      margin-top: 0;
+      float: left;
+      width: 100%;
+    }
+}
+}
+.imageModal
+{
+    left:320px !important;
+}
+.modal-backdrop.in
+{
+    left:320px;
+}
 @media screen and (min-width: 1440px) {
       #content-1{
         height: 700px !important;
       }
 
   }
-  

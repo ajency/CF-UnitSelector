@@ -9,10 +9,32 @@
 	.modal-body
 	{	
 		padding:0;
-		img
+		background:url('../../images/bldg-3d.png');
+		background-size:cover;
+	    height: 400px;
+	    width: 100%;
+	    -webkit-animation: slide 28s linear infinite;
+       	-moz-animation: slide 28s linear;
+        animation: slide 28s linear infinite;
+
+        @-webkit-keyframes slide
 		{
-			width:100%;			
+		    0%   {background-position: 0 0;}		    
+		    100% {background-position: 600px 0;}
 		}
+
+		@-moz-keyframes slide
+		{
+		    0%   {background-position: 0 0;}		    
+		    100% {background-position: 600px 0;}
+		}
+
+		@keyframes slide
+		{
+		    0%   {background-position: 0 0;}		   	
+		    100% {background-position: 600px 0;}
+		}
+
 		.imageContent
 		{
 		    position: absolute;
@@ -38,9 +60,15 @@
 	    border-radius:50%;
 	    font-weight:300;
 
+	    &:hover, &:focus
+	    {
+	      color:@white;
+	      opacity: 1;  
+	      outline:none;    
+	    } 
 	    span
 	    {
-	    	margin-top: -2px;
+	    	margin-top: 0;
 		    float: left;
 		    width: 100%;
 	    }
