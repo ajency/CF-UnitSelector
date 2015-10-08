@@ -12,6 +12,7 @@
     "merge": "^1.2.0",
     "minimist": "^1.1.1",
     "react": "^0.13.3",
+    "react-router": "^1.0.0-rc1",
     "react-slick": "^0.8.0",
     "reactify": "^1.1.1",
     "superagent": "^1.4.0",

@@ -18,14 +18,25 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, 
 .margin-none{
   margin: 0px;
 }
-.image{
-      position: absolute;
-      top: 0px;
-      z-index: -1;
+.image-contain{
+   position: absolute;
+         top: 0px;
       overflow: hidden;
+}
+.image{
+      
+
       img{
             max-height: inherit !important;
+<<<<<<< HEAD
             width:100%;
+=======
+
+      }
+      .no-shadow{
+        position: absolute;
+        top: 0;
+>>>>>>> 309a8bd5218511efda49a36d2350b3a26d154446
       }
 }
 .image2{
@@ -37,4 +48,19 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, 
 
 .primary-txt{
     color:@brand-primary;
+}
+.hide-shadow{
+  opacity: 0;
+  transition:all 0.5s ease ;
+}
+.svg-area{
+  position: absolute;
+  z-index: 99;
+  overflow: hidden;
+  svg{
+        height: auto;
+        position: absolute;
+        top: 0px;
+        width:100%;
+  }
 }

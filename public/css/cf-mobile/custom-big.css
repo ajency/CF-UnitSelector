@@ -105,15 +105,18 @@ section {
 .margin-none {
   margin: 0px;
 }
-.image {
+.image-contain {
   position: absolute;
   top: 0px;
-  z-index: -1;
   overflow: hidden;
 }
 .image img {
   max-height: inherit !important;
   width: 100%;
+}
+.image .no-shadow {
+  position: absolute;
+  top: 0;
 }
 .image2 {
   position: absolute;
@@ -123,6 +126,22 @@ section {
 }
 .primary-txt {
   color: #fe943e;
+}
+.hide-shadow {
+  opacity: 0;
+  -webkit-transition: all 0.5s ease ;
+          transition: all 0.5s ease ;
+}
+.svg-area {
+  position: absolute;
+  z-index: 99;
+  overflow: hidden;
+}
+.svg-area svg {
+  height: auto;
+  position: absolute;
+  top: 0px;
+  width: 100%;
 }
 body {
   -webkit-text-size-adjust: none;

@@ -103,7 +103,7 @@ body .row {
 }
 .navbar-default .navbar-header {
   color: white;
-  z-index: 0;
+  z-index: 99;
   margin: 0 !important;
   position: absolute;
   top: 0;
@@ -156,7 +156,7 @@ body .row {
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
 }
-.sun-toggle:hover {
+.sun-highlight {
   background: yellow;
 }
 @font-face {
@@ -247,6 +247,13 @@ body .row {
 }
 .hide-div {
   display: none;
+}
+.us-right-content {
+  overflow: auto;
+}
+.us-right-content .image-contain {
+  width: 100%;
+  overflow: auto;
 }
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
@@ -556,15 +563,18 @@ section {
 .margin-none {
   margin: 0px;
 }
-.image {
+.image-contain {
   position: absolute;
   top: 0px;
-  z-index: -1;
   overflow: hidden;
 }
 .image img {
   max-height: inherit !important;
   width: 100%;
+}
+.image .no-shadow {
+  position: absolute;
+  top: 0;
 }
 .image2 {
   position: absolute;
@@ -574,6 +584,22 @@ section {
 }
 .primary-txt {
   color: #fe943e;
+}
+.hide-shadow {
+  opacity: 0;
+  -webkit-transition: all 0.5s ease ;
+          transition: all 0.5s ease ;
+}
+.svg-area {
+  position: absolute;
+  z-index: 99;
+  overflow: hidden;
+}
+.svg-area svg {
+  height: auto;
+  position: absolute;
+  top: 0px;
+  width: 100%;
 }
 .tabHeader {
   position: fixed;
@@ -1056,3 +1082,7 @@ section {
   text-decoration: none;
   outline: none;
 }
+<<<<<<< HEAD
+=======
+/*# sourceMappingURL=custom.css.map */
+>>>>>>> 309a8bd5218511efda49a36d2350b3a26d154446

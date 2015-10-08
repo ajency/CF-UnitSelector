@@ -5,7 +5,7 @@ var concat = require('gulp-concat');
 
 gulp.task('browserify', function() {
     gulp.src('resources/react-app-src/main.js')
-      .pipe(browserify({transform: 'reactify'}))
+      .pipe(browserify({transform: 'reactify', debug:true}))
       .pipe(concat('main.js'))
       .pipe(gulp.dest('public/react-app-dist'));
 });

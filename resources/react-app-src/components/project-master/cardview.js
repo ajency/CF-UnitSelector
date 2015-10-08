@@ -1,18 +1,30 @@
-var React = require('react');
+var React = require('react/addons');
+var PureRenderMixin = React.addons.PureRenderMixin;
+
+var Router = require('react-router');
+
+var Link = Router.Link;
 
 var CardView = React.createClass({
+    
+    mixins: [PureRenderMixin],
+
     render: function() {
         var buildingData = this.props.building;
         var unitData = [];
         var noOfFloors = 0;
         var buildingName = "";
         var supportedUnitTypeString = " ";
+        var buildingUrl = " ";
 
         if (!_.isEmpty(buildingData)){
            unitData = buildingData.unitData;
            availableUnitData = buildingData.availableUnitData;
            noOfFloors = buildingData.no_of_floors;
            buildingName = buildingData.building_name;
+           unitsMatchingString = " Units available";
+
+           buildingUrl = "building/"+buildingData.id;
 
 
 
@@ -50,14 +62,15 @@ var CardView = React.createClass({
                         </div>
                         <div className="row swipe-footer">
                             <div className="col-xs-10">
-                                <sm>{availableUnitData.length}</sm> Units Matching your selection 
+                                <sm>{availableUnitData.length}</sm> {unitsMatchingString} 
                             </div>
                             <div className="col-xs-2">
-                                <a href="#"><span className="glyphicon glyphicon-chevron-right  text-right" aria-hidden="true"></span></a>
+                                <Link to={buildingUrl}><span className="glyphicon glyphicon-chevron-right  text-right" aria-hidden="true"></span></Link>
                             </div>
                         </div>
                     </div>
                 </div>
+                
         );
     }
 });
