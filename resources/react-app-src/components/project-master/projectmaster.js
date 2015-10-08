@@ -5,6 +5,7 @@ var NavBar = require('../project-master/navbar');
 var SunToggle = require('../project-master/suntoggle');
 var Rotate = require('../project-master/rotate');
 var ProjectImage = require('../project-master/projectimage');
+var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
 var CardList = require('../project-master/cardlist');
 
 
@@ -43,7 +44,7 @@ var ProjectMaster = React.createClass({
             <NavBar projectTitle = {projectTitle} unitCount = {unitCount}/>
             <SunToggle/>
             <Rotate/>
-            <ProjectImage/>
+            <ImageContainerTemplate/>
             <CardList buildings={buildings}/>
             </div>
 
