@@ -200,6 +200,7 @@ body .row {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  color: #7d7c7a;
 }
 .card-swipe .price {
   line-height: 20px;

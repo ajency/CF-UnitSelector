@@ -115,8 +115,8 @@ section {
   width: 100%;
 }
 .image .no-shadow {
-  position: absolute !important;
-  top: 0 !important;
+  position: absolute;
+  top: 0;
 }
 .image2 {
   position: absolute;
@@ -415,6 +415,10 @@ body a {
   opacity: 0;
   -webkit-transition: all 0.5s ease ;
           transition: all 0.5s ease ;
+}
+.image2 .no-shadow {
+  position: absolute;
+  top: 0;
 }
 @media screen and (min-width: 1440px) {
   #content-1 {
