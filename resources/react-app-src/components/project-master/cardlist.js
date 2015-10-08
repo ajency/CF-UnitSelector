@@ -55,7 +55,12 @@ var CardList = React.createClass({
 
 
         buildingNodes = buildings.map(function(building,i){
-                            return <CardView key={i} building={building}/>  
+                            return(
+                                <div>
+                                <CardView key={i} building={building}/> 
+                                </div>
+                            ); 
+                                 
                         });
 
         
@@ -64,86 +69,7 @@ var CardList = React.createClass({
                 <div className="blue">
                     <Slider {...settings}>
                         
-                        <div>
-                            <div className="card-swipe">
-
-                                <div className="row">
-                                    <div className="col-xs-5">
-                                        <h4 className=" margin-none text-left"> Tower 1</h4>
-                                    </div>
-                                    <div className="col-xs-7 text-right text-muted price">
-                                        Starting at <i className="fa fa-inr"></i> 20 lacs
-                                    </div>
-                                </div>
-                                <div className=" swipe-unit-info row">
-                                    <div className="col-xs-12 text-muted">
-                                        16 Floors &nbsp;&nbsp; : &nbsp;&nbsp; 2BHK <b>+ 2</b> &nbsp; &nbsp;: &nbsp;&nbsp; 60 Units
-                                    </div>
-                                </div>
-                                <div className="row swipe-footer">
-                                    <div className="col-xs-10 text-muted">
-                                        <sm>20</sm> In Selection (40 Available)
-                                    </div>
-                                    <div className="col-xs-2">
-                                        <a href="#"><h3 className="margin-none text-right"><i className="fa fa-angle-right"></i></h3></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                         <div>
-                            <div className="card-swipe">
-
-                                <div className="row">
-                                    <div className="col-xs-5">
-                                        <h4 className=" margin-none text-left"> Tower 2</h4>
-                                    </div>
-                                    <div className="col-xs-7 text-right text-muted price">
-                                        Starting at <i className="fa fa-inr"></i> 20 lacs
-                                    </div>
-                                </div>
-                                <div className=" swipe-unit-info row">
-                                    <div className="col-xs-12 text-muted">
-                                        16 Floors &nbsp;&nbsp; : &nbsp;&nbsp; 2BHK <b>+ 2</b> &nbsp; &nbsp;: &nbsp;&nbsp; 60 Units
-                                    </div>
-                                </div>
-                                <div className="row swipe-footer">
-                                    <div className="col-xs-10 text-muted">
-                                        <sm>20</sm> In Selection (40 Available)
-                                    </div>
-                                    <div className="col-xs-2">
-                                        <a href="#"><h3 className="margin-none text-right"><i className="fa fa-angle-right"></i></h3></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                         <div>
-                            <div className="card-swipe">
-
-                                <div className="row">
-                                    <div className="col-xs-5">
-                                        <h4 className=" margin-none text-left"> Tower 3</h4>
-                                    </div>
-                                    <div className="col-xs-7 text-right text-muted price">
-                                        Starting at <i className="fa fa-inr"></i> 20 lacs
-                                    </div>
-                                </div>
-                                <div className=" swipe-unit-info row">
-                                    <div className="col-xs-12 text-muted">
-                                        16 Floors &nbsp;&nbsp; : &nbsp;&nbsp; 2BHK <b>+ 2</b> &nbsp; &nbsp;: &nbsp;&nbsp; 60 Units
-                                    </div>
-                                </div>
-                                <div className="row swipe-footer">
-                                    <div className="col-xs-10 text-muted">
-                                        <sm>20</sm> In Selection (40 Available)
-                                    </div>
-                                    <div className="col-xs-2">
-                                        <a href="#"><h3 className="margin-none text-right"><i className="fa fa-angle-right"></i></h3></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
+                    {buildingNodes}  
 
 
                     </Slider>
