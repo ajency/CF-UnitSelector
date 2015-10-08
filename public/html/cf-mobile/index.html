@@ -52,13 +52,15 @@
     <div class="rotate">
     
   </div>
+  <div class="us-right-content">
 <div class="image-contain">
 
       <div class="image  ">
-        <img src="img/FirstSlide2.jpg" class="img-responsive fit no-shadow " />
-              <img src="img/FirstSlide.jpg" class="img-responsive shadow fit"/>
+        <img src="img/Project-noshadow.jpg" class="img-responsive fit no-shadow " />
+              <img src="img/Project.jpg" class="img-responsive shadow fit"/>
 
       </div>
+           </div>
     </div>
      <div class="bottom-card">
     <div class="blue">
@@ -231,6 +233,19 @@
 
      </SCRIPT>
      <script type="text/javascript" language="JavaScript">
+       windowHeight = $(window).innerHeight() - 56;
+     $('.image-contain img').css('height', windowHeight);
+     $('.image-contain img').css('min-width', windowHeight * 1.8);
+        function set_body_height() { // set body height = window height
+          $('.image-contain img').height($(window).height());
+        }
+     windowHeight = $(window).innerHeight() - 56;
+     $('.image   ').css('height', windowHeight);
+     $('.image   ').css('min-width', windowHeight * 1.8);
+        function set_body_height() { // set body height = window height
+          $('.image   ').height($(window).height());
+        }
+
         function set_body_height() { // set body height = window height
           $('.image-contain').height($(window).height());
         }
@@ -238,13 +253,12 @@
           $(window).bind('resize', set_body_height);
           set_body_height();
 
-          $(".image ").panzoom({
-             startTransform: 'scale(1.4)',
-             contain: 'invert',
-             minScale: 1,
-             disablePan: false,
-             disableZoom: false
-          });
+          // $(".image ").panzoom({
+          //    contain: 'invert',
+          //    minScale: 1,
+          //    disablePan: false,
+          //    disableZoom: false
+          // });
         });
   $(document).ready(function() {
 
@@ -255,6 +269,7 @@
   
   $('.sun-toggle').click(function() {
     $('.no-shadow').toggleClass('hide-shadow');
+     $('.sun-toggle').toggleClass('sun-highlight');
   });
 
 

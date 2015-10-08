@@ -156,7 +156,7 @@ body .row {
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
 }
-.sun-toggle:hover {
+.sun-highlight {
   background: yellow;
 }
 @font-face {
@@ -247,6 +247,13 @@ body .row {
 }
 .hide-div {
   display: none;
+}
+.us-right-content {
+  overflow: auto;
+}
+.us-right-content .image-contain {
+  width: 100%;
+  overflow: auto;
 }
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
