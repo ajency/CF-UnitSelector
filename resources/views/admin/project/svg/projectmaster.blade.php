@@ -55,7 +55,6 @@
                             
                             $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=master&position=".$position;
                             
-                            $shadowImageName = (isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '') ? $svgImages['shadow'][$position]['NAME']   :"Image"
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class="">{{ $image['NAME'] }}<input type="hidden" name="master_image_id" value="{{$image['ID']}}"></td>
@@ -67,12 +66,16 @@
                                                <label for="checkbox{{ $position }}"></label>
                                     </div>
                                 </td>
-                                <td class=" ">
-                                    <div class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} shadow-{{ $position }} " id="pickfiles_{{ $position }}" >
-                                    {{ $shadowImageName }} 
-                                    </div>
+                                <td class="td-shadow-{{ $position }}">
+                                    @if(isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '')
+                                    {{ $svgImages['shadow'][$position]['NAME'] }} 
                                      
-                                     <a  @if(isset($svgImages['shadow'][$position]) && $svgImages['shadow'][$position]['ID'] != '') onclick="deleteSvg({{ $svgImages['shadow'][$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" @else class="text-primary delete-shadow-{{ $position }} hidden" @endif><i class="fa fa-close"></i></a>
+                                    <a onclick="deleteSvg({{ $svgImages['shadow'][$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" ><i class="fa fa-close"></i></a>
+                                     @else
+                                     <div class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} shadow-{{ $position }} " id="pickfiles_{{ $position }}" >
+                                    Image
+                                    </div>
+                                     @endif
                                 </td>
                                 <td class=" "> <div id="uploadsvg_{{ $position }}" class="{{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} breakpointSvg-{{ $position }}">Import</div></td>
                                 <td class=" ">

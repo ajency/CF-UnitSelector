@@ -391,10 +391,11 @@ function breakpointShadowImgUploader(position) {
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
 
-                $('.shadow-' + position).text(file.name);
+                var delImg = '<a onclick=\'deleteSvg("'+ fileResponse.data.media_id +'", "shadow","'+ position +'");\' class="text-primary delete-shadow-'+position+'" ><i class="fa fa-close"></i></a>';
+                $('.td-shadow-' + position).html(file.name +' '+delImg);
 
-                $('.delete-shadow-' + position).removeClass('hidden');
-                $('.delete-shadow-' + position).attr("onclick","deleteSvg('"+ fileResponse.data.media_id +"', 'shadow','"+ position +"');");
+               //$('.delete-shadow-' + position).removeClass('hidden');
+               // $('.delete-shadow-' + position).attr("onclick","");
 
             }
         }
