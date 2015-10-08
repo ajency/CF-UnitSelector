@@ -364,7 +364,7 @@ function breakpointShadowImgUploader(position) {
             max_file_size: '3mb',
             mime_types: [{
                 title: "Image files",
-                extensions: "svg,jpg,png,jpeg"
+                extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
@@ -391,10 +391,74 @@ function breakpointShadowImgUploader(position) {
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
 
-                $('.shadow-' + position).text(file.name);
+                var delImg = '<a onclick=\'deleteSvg("'+ fileResponse.data.media_id +'", "shadow","'+ position +'");\' class="text-primary delete-shadow-'+position+'" ><i class="fa fa-close"></i></a>';
+                $('.td-shadow-' + position).html(file.name +' '+delImg);
 
-                $('.delete-shadow-' + position).removeClass('hidden');
-                $('.delete-shadow-' + position).attr("onclick","deleteSvg('"+ fileResponse.data.media_id +"', 'shadow','"+ position +"');");
+               //$('.delete-shadow-' + position).removeClass('hidden');
+               // $('.delete-shadow-' + position).attr("onclick","");
+
+            }
+        }
+    });
+    uploader.init();
+}
+
+function breakpointSvgUploader(position) {
+
+    var selectBtnId = 'uploadsvg_' + position; 
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
+    var authtool_permission = $('div.object-master-images').attr('data-object-id');
+    var masterImageId = $('#position-' + position).find('td').find('input[name="master_image_id"]').val();
+
+    var uploader = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: selectBtnId, // you can pass in id...
+        url: '/admin/' + objectType + '/' + objectId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "type": "svgUploader",
+            "position" :position ,
+            "masterImageId": masterImageId,
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                title: "Svg files",
+                extensions: "svg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /*document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
+            },
+            FilesAdded: function (up, files) {
+                 up.start();
+ 
+            },
+            UploadProgress: function (up, file) {
+                var fileName = file.name;
+                var fileData = fileName.split('.');
+                var fileData_1 = fileData[0].split('-');
+                var mastername = fileData_1[0];
+                var position = fileData_1[1];
+
+                $('.breakpointSvg-' + position).html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
+               
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);  
+                
+                $('.breakpointSvg-' + position).text('Import');
+                $.notify(fileResponse.message, 'success');
 
             }
         }
@@ -408,6 +472,7 @@ function setUpShadowUploader() {
 
     $.each(BREAKPOINTS, function (index, value) {  
         breakpointShadowImgUploader(value);
+        breakpointSvgUploader(value)
     });
 
 }
@@ -462,6 +527,8 @@ function setUpProjectMasterUploader() {
                         load_str += '</div>';
                         load_str += '</td>';
                         load_str += '<td class=" "><span class="muted"></span></td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
                         load_str += '<td class=" ">';
                         load_str += '</td>';
                         load_str += '<td class=" ">';
@@ -524,7 +591,7 @@ function setUpProjectMasterUploader() {
                     }
                     
                     var str = newstr = '';
-                    str += '<td>' + fileResponse.data.filename + '</td>';
+                    str += '<td>' + fileResponse.data.filename + ' <input type="hidden" name="master_image_id" value="' + fileResponse.data.media_id + '"></td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
                     str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
                     str += '<td><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div><a class="text-primary delete-shadow-' + fileResponse.data.position + ' hidden"><i class="fa fa-close"></i></a></td>';
@@ -1162,13 +1229,16 @@ function saveBreakPoint() {
                 pos = $(this).val(); 
                 className = ".auth-tool-" + pos;
                 shadowclassName = ".shadow-" + pos;
+                svgUploadclassName = ".breakpointSvg-" + pos;
                 if ($(this).prop('checked')) {
                     $(className).removeClass('hidden');
                     $(shadowclassName).removeClass('hidden');
+                    $(svgUploadclassName).removeClass('hidden');
                     
                 } else {
                     $(className).addClass('hidden');
                     $(shadowclassName).addClass('hidden');
+                    $(svgUploadclassName).addClass('hidden');
                 }
 
             });
