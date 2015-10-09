@@ -35,7 +35,7 @@ var ImageContainerTemplate = React.createClass({
 
         var imageContainerStyle = {
           "height": windowHeight,
-          "minWidth": windowHeight * 1.6
+          "minWidth": windowHeight * 1.78
         }; 
 
 
