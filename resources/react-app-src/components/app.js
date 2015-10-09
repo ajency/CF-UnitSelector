@@ -1,25 +1,27 @@
-var React = require('react/addons');
-var PureRenderMixin = React.addons.PureRenderMixin;
+var React = require('react')
+var PureRenderMixin = require('react-addons-pure-render-mixin');
 var ProjectMaster = require('./project-master/projectmaster');
 var BuildingMaster = require('./building-master/buildingmaster');
-var ReactRouter = require('react-router')
+var Router = require('react-router-component');
 var Template = require('./app-template');
 
-// Rename Router.Route for convenience
 
-var Router = ReactRouter.Router
-var Route = ReactRouter.Route
+var Locations = Router.Locations;
+var Location = Router.Location;
 
 
 var APP = React.createClass({
 
   render: function() {
   return (
-      <Router>
-        <Route path="/" component={ProjectMaster}>
-            <Route path="building" component={BuildingMaster}/>
-        </Route>
-      </Router>
+
+
+        <Template>
+          <Locations hash>
+            <Location path="/" handler={ProjectMaster} />
+            <Location path="/buildings/:buildingId" handler={BuildingMaster} />
+          </Locations>
+        </Template>
     );
 
   }
