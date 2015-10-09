@@ -92,7 +92,9 @@ jQuery(document).ready ($)->
                 window.marker.generateMarkerTag(value)
 
             if value.canvas_type is 'path'
-                window.path.generatePathTag(value)   
+                window.path.generatePathTag(value)
+                draw.attr('viewBox', "0 0 1920 1080")   
+                draw.attr('enable-background', "new 0 01920 1080")      
 
         draw.attr('preserveAspectRatio', "xMinYMin slice")   
 
@@ -1092,7 +1094,7 @@ jQuery(document).ready ($)->
         else
             window.showDetails(currentElem)       
         
-        $('svg').on 'dblclick', '.path-type' , (e) ->
+    $('svg').on 'dblclick', '.path-type' , (e) ->
         window.EDITMODE = true
         draggableElem = ""
         elemId =  $(e.currentTarget).attr('svgid')

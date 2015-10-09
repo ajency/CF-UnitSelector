@@ -66,7 +66,9 @@ jQuery(document).ready(function($) {
         window.marker.generateMarkerTag(value);
       }
       if (value.canvas_type === 'path') {
-        return window.path.generatePathTag(value);
+        window.path.generatePathTag(value);
+        draw.attr('viewBox', "0 0 1920 1080");
+        return draw.attr('enable-background', "new 0 01920 1080");
       }
     });
     return draw.attr('preserveAspectRatio', "xMinYMin slice");
@@ -999,11 +1001,13 @@ jQuery(document).ready(function($) {
       $('#amenity-title').val($(currentElem).data("amenity-title"));
       $('#amenity-description').val($(currentElem).data("amenity-desc"));
       $('.property_type').val($(currentElem).attr('type'));
-      $('.property_type').attr('disabled', true);
+      return $('.property_type').attr('disabled', true);
     } else {
-      window.showDetails(currentElem);
+      return window.showDetails(currentElem);
     }
-    $('svg').on('dblclick', '.path-type', function(e) {});
+  });
+  $('svg').on('dblclick', '.path-type', function(e) {
+    var currentElem, currentSvgElem, draggableElem, elemId, object_type;
     window.EDITMODE = true;
     draggableElem = "";
     elemId = $(e.currentTarget).attr('svgid');
