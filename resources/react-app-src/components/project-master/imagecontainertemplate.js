@@ -8,14 +8,6 @@ var ImageContainerTemplate = React.createClass({
     componentDidMount: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
 
-        var windowHeight = $(window).innerHeight() ;
-        // $('.image-contain img').css('height', windowHeight);
-
-         $imageContainerDom.css('height', windowHeight);
-         $imageContainerDom.css('min-width', windowHeight * 1.6);
-      
-      
-
         var panZoomSettings = {
              contain: 'invert',
              minScale: 1,
@@ -29,13 +21,19 @@ var ImageContainerTemplate = React.createClass({
     },
 
     render: function(){
-        console.log("render ImageContainerTemplate");
+
+        var windowHeight = $(window).innerHeight() ;
+        
         showShadow = this.props.showShadow;
 
         var BASEURL= "http://commonfloorlocal.com";
         var imgUrl= BASEURL+'/images/cf-mobile/Project-noshadow.jpg';
         var shadowImgUrl= BASEURL+'/images/cf-mobile/Project.jpg';
 
+        var imageContainerStyle = {
+          "height": windowHeight,
+          "minWidth": windowHeight * 1.6
+        }; 
 
 
         var shadowImageClasses = classNames({
@@ -51,12 +49,12 @@ var ImageContainerTemplate = React.createClass({
               <div className="image-contain">
 
                 
-                <div ref="imageContainer" className="image">
+                <div ref="imageContainer" className="image" style={imageContainerStyle}>
 
                   <div className="svg-area" >
                     
                   </div>
-                  <img src={shadowImgUrl} className={shadowImageClasses}/>
+                  <img src={shadowImgUrl} className={shadowImageClasses} />
                   <img src={imgUrl} className="img-responsive shadow fit"/>
 
                 </div>
