@@ -1,12 +1,12 @@
-var React = require('react/addons');
-var PureRenderMixin = React.addons.PureRenderMixin;
-var ElementPan = require('react-element-pan');
+var React = require('react');
+var PureRenderMixin = require('react-addons-pure-render-mixin');
+var classNames = require('classnames');
 
 var ImageContainerTemplate = React.createClass({
     mixins: [PureRenderMixin],	
 
     componentDidMount: function(){
-        var $imageContainerDom = $(this.refs.imageContainer.getDOMNode());
+        var $imageContainerDom = $(this.refs.imageContainer);
 
         var windowHeight = $(window).innerHeight() ;
         // $('.image-contain img').css('height', windowHeight);
@@ -36,13 +36,15 @@ var ImageContainerTemplate = React.createClass({
         var imgUrl= BASEURL+'/images/cf-mobile/Project-noshadow.jpg';
         var shadowImgUrl= BASEURL+'/images/cf-mobile/Project.jpg';
 
-        var shadowImageClasses = React.addons.classSet({
+
+
+        var shadowImageClasses = classNames({
           'img-responsive': true,
           'fit': true,
           'no-shadow': true,
           'hide-shadow': showShadow != 1
-        })
-          
+        }); 
+   
 
         return (
             <div className="us-right-content">
