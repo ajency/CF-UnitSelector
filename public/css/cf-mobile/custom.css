@@ -365,6 +365,7 @@ body .row {
   margin-top: 20px;
 }
 * {
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .bottom-card {
@@ -419,14 +420,11 @@ body .row {
   -webkit-transform: scale(1.18);
   color: #000;
   opacity: 1;
-  -webkit-transform: scale(1.18);
-      -ms-transform: scale(1.18);
-          transform: scale(1.18);
+  transform: scale(1.18);
 }
 .center .card-swipe {
   opacity: 0.8;
-  -webkit-transition: all 300ms ease;
-          transition: all 300ms ease;
+  transition: all 300ms ease;
 }
 .content {
   margin: auto;
@@ -653,8 +651,7 @@ section {
 }
 .hide-shadow {
   opacity: 0;
-  -webkit-transition: all 0.5s ease ;
-          transition: all 0.5s ease ;
+  transition: all 0.5s ease ;
 }
 .svg-area {
   position: absolute;
@@ -804,7 +801,7 @@ div#spritespin {
   position: absolute;
   z-index: 1;
   right: 20px;
-  bottom: 20px
+  bottom: 20px;
   /*height:40px;
 				width:40px;*/
 }
@@ -855,7 +852,7 @@ div#spritespin {
   position: absolute;
   z-index: 1;
   right: 10px;
-  bottom: 20px
+  bottom: 20px;
   /*height:40px;
 			width:40px;	*/
 }
@@ -1098,15 +1095,23 @@ div#spritespin {
   margin-left: 50%;
   /* margin-top: 50%;*/
   -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-      transform: translateX(-50%);
+  transform: translateX(-50%);
   -webkit-animation: slide 22s linear;
+  -moz-animation: slide 22s linear;
   animation: slide 22s linear;
   -webkit-animation-fill-mode: forwards;
   /* Chrome, Safari, Opera */
   animation-fill-mode: forwards;
 }
 @-webkit-keyframes slide {
+  0% {
+    margin-left: 25%;
+  }
+  100% {
+    margin-left: 75%;
+  }
+}
+@-moz-keyframes slide {
   0% {
     margin-left: 25%;
   }
@@ -1199,4 +1204,3 @@ div#spritespin {
   color: #ffffff;
   text-decoration: none;
 }
-/*# sourceMappingURL=custom.css.map */
