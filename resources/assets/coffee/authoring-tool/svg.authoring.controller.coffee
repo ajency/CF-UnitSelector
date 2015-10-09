@@ -89,7 +89,10 @@ jQuery(document).ready ($)->
                 window.polygon.generatePolygonTag(value)
 
             if value.canvas_type is 'marker'
-                window.marker.generateMarkerTag(value)   
+                window.marker.generateMarkerTag(value)
+
+            if value.canvas_type is 'path'
+                window.path.generatePathTag(value)   
 
         draw.attr('preserveAspectRatio', "xMinYMin slice")   
 
@@ -185,7 +188,7 @@ jQuery(document).ready ($)->
         $('<option />', {value: 'unassign', text: ('Unassign').toUpperCase()}).appendTo(select)
 
     window.resetCollection = ()->
-        $('.polygon-type,.marker-grp').each (index,value)->
+        $('.polygon-type,.marker-grp, .path-type').each (index,value)->
             type =  $(value).attr 'type'
             if type is 'building'
                 bldgId = parseInt value.id
@@ -1089,6 +1092,47 @@ jQuery(document).ready ($)->
         else
             window.showDetails(currentElem)       
         
+        $('svg').on 'dblclick', '.path-type' , (e) ->
+        window.EDITMODE = true
+        draggableElem = ""
+        elemId =  $(e.currentTarget).attr('svgid')
+        window.currentSvgId = parseInt elemId
+        currentSvgElem = $(e.currentTarget)
+        
+      
+
+        currentElem = e.currentTarget
+            
+        # show edit form
+        $('.edit-box').removeClass 'hidden'
+        object_type = $(currentElem).attr('type')
+        $('.submit').addClass 'hidden'
+        $('.edit').removeClass 'hidden'
+        $('.delete').removeClass 'hidden'
+        
+        if object_type is "project"
+            # load default form
+            window.loadProjectForm()
+        else 
+            window.loadForm(object_type)  
+
+        # show primary breakpoint checked or not
+        if $(currentElem).data("primary-breakpoint") 
+            $('[name="check_primary"]').prop('checked', true)
+        
+        # populate form
+        if object_type is "amenity"
+            $('#amenity-title').val $(currentElem).data("amenity-title")                        
+            $('#amenity-description').val $(currentElem).data("amenity-desc")                        
+            $('.property_type').val $(currentElem).attr 'type'
+            $('.property_type').attr 'disabled' ,  true            
+
+        else
+            window.showDetails(currentElem)  
+
+
+
+
 
     # save svg eleement with unit data
     $('.submit').on 'click', (e) ->

@@ -411,6 +411,15 @@ body a {
 .modal-backdrop.in {
   left: 320px;
 }
+.hide-shadow {
+  opacity: 0;
+  -webkit-transition: all 0.5s ease ;
+          transition: all 0.5s ease ;
+}
+.image2 .no-shadow {
+  position: absolute;
+  top: 0;
+}
 @media screen and (min-width: 1440px) {
   #content-1 {
     height: 700px !important;
@@ -425,27 +434,41 @@ body a {
 }
 .imageModal .modal-body {
   padding: 0;
-  background: url('../../images/bldg-3d.png');
-  background-size: cover;
+  /*background:url('../../images/bldg-3d.png') no-repeat -300px 0;
+		
+	    height: 400px;
+	    width: 100%;*/
+  overflow: hidden;
   height: 400px;
-  width: 100%;
-  -webkit-animation: slide 28s linear infinite;
-  animation: slide 28s linear infinite;
+}
+.imageModal .modal-body img {
+  position: relative;
+  /*height:100%;	*/
+  margin-left: 50%;
+  /* margin-top: 50%;*/
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+  -webkit-animation: slide 22s linear;
+  animation: slide 22s linear;
+  -webkit-animation-fill-mode: forwards;
+  /* Chrome, Safari, Opera */
+  animation-fill-mode: forwards;
 }
 @-webkit-keyframes slide {
   0% {
-    background-position: 0 0;
+    margin-left: 25%;
   }
   100% {
-    background-position: 600px 0;
+    margin-left: 75%;
   }
 }
 @keyframes slide {
   0% {
-    background-position: 0 0;
+    margin-left: 25%;
   }
   100% {
-    background-position: 600px 0;
+    margin-left: 75%;
   }
 }
 .imageModal .modal-body .imageContent {
