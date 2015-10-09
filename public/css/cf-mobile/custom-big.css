@@ -136,10 +136,11 @@ section {
   position: absolute;
   z-index: 99;
   overflow: hidden;
+  width: 100%;
 }
 .svg-area svg {
   height: auto;
-  position: absolute;
+  /*position: absolute;*/
   top: 0px;
   width: 100%;
 }

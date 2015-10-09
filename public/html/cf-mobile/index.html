@@ -249,15 +249,15 @@
      </SCRIPT>
      <script type="text/javascript" language="JavaScript">
        windowHeight = $(window).innerHeight() ;
-     // $('.image-contain img').css('height', windowHeight);
+   $('.image-contain img').css('height', windowHeight);
   
      $('.image   ').css('height', windowHeight);
-     $('.image   ').css('min-width', windowHeight * 1.6);
+     $('.image   ').css('min-width', windowHeight * 1.78);
         function set_body_height() { // set body height = window height
           $('.image   ').height($(window).height());
         }
       $('.svg-area   ').css('height', windowHeight);
-         $('.svg-area   ').css('min-width', windowHeight * 1.6);
+         $('.svg-area   ').css('min-width', windowHeight * 1.78);
             function set_body_height() { // set body height = window height
               $('.svg-area   ').height($(window).height());
         }
@@ -269,14 +269,18 @@
           set_body_height();
 
           $(".image ").panzoom({
-             // startTransform: 'scale(1.1)',
              contain: 'invert',
-             minScale: 1,
+             minScale: 0,
              disablePan: false,
              disableZoom: false
           });
-          $('.image').panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
+          $('.image').panzoom("setMatrix", [1, 0, 0, 1.1, -285, 9]);
         });
+  
+
+
+
+
   $(document).ready(function() {
 
   var hidden = false;
