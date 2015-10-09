@@ -49,6 +49,12 @@
       <i class="i-sun i-icon"></i>
   </div>
   <!-- Sun-toggle -->
+
+  <div class="messageBox">
+    shadow of morning sun
+    <a class="msgBtn" href="#">X</a>
+  </div>
+  
     <div class="rotate">
     
   </div>
@@ -99,7 +105,7 @@
                   </div>
                    <div class="row swipe-footer">
                        <div class="col-xs-10 text-muted">
-                           <sm>20</sm> In Selection (40 Available)
+                           <sm>40</sm> Units Available
                       </div>
                       <div class="col-xs-2">
                          <a href="#"><h3 class="margin-none text-right"><i class="fa fa-angle-right"></i></h3></a>
@@ -111,7 +117,7 @@
          <div class="card-swipe">         
               <div class="row">
                   <div class="col-xs-5">
-                      <h4 class=" margin-none text-left"> Tower 2</h4>
+                      <h4 class=" margin-none text-left"> Tower 1</h4>
                   </div>
                   <div class="col-xs-7 text-right text-muted price">
                       Starting at <i class="fa fa-inr"></i> 20 lacs
@@ -137,7 +143,7 @@
          
               <div class="row">
                   <div class="col-xs-5">
-                      <h4 class=" margin-none text-left"> Tower 3</h4>
+                      <h4 class=" margin-none text-left"> Tower 1</h4>
                   </div>
                   <div class="col-xs-7 text-right text-muted price">
                       Starting at <i class="fa fa-inr"></i> 20 lacs
@@ -150,7 +156,7 @@
               </div>
                <div class="row swipe-footer">
                   <div class="col-xs-10">
-                       <sm>20</sm> Units Available
+                       <sm>20</sm> In selection (40 Available)
                   </div>
                   <div class="col-xs-2">
                      <a href="#"><h3 class="margin-none text-right"><i class="fa fa-angle-right"></i></h3></a>
@@ -176,6 +182,12 @@
               </div>
        </div>
       </div>
+
+    
+
+
+           
+          
         </div>
       </div>
      </div>
@@ -283,7 +295,9 @@
      $('.sun-toggle').toggleClass('sun-highlight');
   });
 
-
+  $('.msgBtn').click(function(){
+     $('.messageBox').css('display', 'none');
+  }); 
   
 });
  

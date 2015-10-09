@@ -80,7 +80,7 @@
 .tab-content
 {
 	padding:15px;
-	margin-top:75px;
+	margin-top:85px;
 	margin-bottom:40px;
 	float:left;
 	width:100%;
@@ -90,16 +90,17 @@
 		box-shadow:0px 0px 5px rgba(0,0,0,0.3);
 		margin-bottom:15px;		
 
+		h4
+		{
+			display:inline-block;
+			color:@gray-darker;
+			font-weight:bold;
+		}
+		
 		.flatDetails
 		{
 			border-bottom:1px solid @gray-light;
-			
-			h4
-			{
-				display:inline-block;
-				color:@gray-darker;
-				font-weight:bold;
-			}
+						
 			span
 			{
 				color:@gray-dark;
@@ -243,6 +244,13 @@
 	    height: 100%;
 	    display: block;
 	    margin: 0 auto;
+	}	
+}
+@media screen and (max-width:320px)
+{
+	.tab-content
+	{
+		margin-top:75px;
 	}
 }
 .tabfooter

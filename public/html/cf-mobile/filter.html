@@ -196,23 +196,15 @@
     <script src="js/bootstrap.min.js"></script>  
     <script src="js/bootstrap-slider.js"></script> 
     <script type="text/javascript">
-        $(".sliderCust").slider({ 
-          min: 635, 
-          max: 2000, 
-          value: [0, 10], 
-          tooltip: 'always',
-          focus: true 
-        });       
-    </script> 
-    <script type="text/javascript">
-      $(".sliderBudget").slider({
-        min: 20, 
-        max: 80, 
-        value: [0, 10], 
-        tooltip: 'always',
-        focus: true 
+      $(document).ready(function() {  
+          
+          $(":checkbox").on('click', function(){
+            $('.checkboxInner:has(:checked)').addClass('selected');
+            $('.checkboxInner:not(:has(:checked))').removeClass('selected');
+               
+          });
       });
-       
-    </script>  
+    </script>
+
   </body>
 </html>

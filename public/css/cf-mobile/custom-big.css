@@ -425,6 +425,17 @@ body a {
     height: 700px !important;
   }
 }
+@media screen and (min-width: 1024px) {
+  .msgOuter {
+    width: 75% !important;
+  }
+  .filterOuter {
+    width: 25% !important;
+  }
+  .filterOuter .filter-type li div {
+    display: none;
+  }
+}
 .imageModal {
   top: 15% !important;
 }
