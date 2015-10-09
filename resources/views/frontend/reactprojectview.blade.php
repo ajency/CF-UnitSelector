@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -24,20 +23,19 @@
 
 
 	<!--Global constants -->
-	<script>
+	<script type="text/javascript" language="JavaScript">
     	window.baseUrl = '{{url()}}';
     	window.projectId = '{{$id}}';
     </script>
 
-	<!-- Include external libraries here -->
     <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
     <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script>
     <script src="{{ asset('bower_components/slick-carousel/slick/slick.min.js' )}}"></script>
+    <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
 
-	<!-- Our compiled JavaScript source file -->
-    <!--script src="{{ asset('js/frontend-react/build/App.js' )}}"></script-->
+
     <script src="{{asset('react-app-dist/main.js')}}"></script>
 
 
