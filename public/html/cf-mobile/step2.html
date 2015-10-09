@@ -31,8 +31,8 @@
                     <i class="i-marker i-icon"></i>
                 </div>
                 <div class="col-xs-7 p-0">
-                    <h3 class="normal margin-none">Mantri Energia</h3>
-                    <small>500 units available in total</small>
+                    <h3 class="normal margin-none">Tower 1</h3>
+                    <small>50 units in your selection</small>
                 </div>
                 <div class="col-xs-3 p-0">
                   <ul class="list-inline pull-right">
@@ -80,64 +80,39 @@
      <div class="bottom-card">
     <div class="blue">
     <div class="slider center">
-        <div>
-            
-            <div class="card-swipe">
-             
-                  <div class="row">
-                      <div class="col-xs-5">
-                          <h4 class=" margin-none text-left"> Tower 1</h4>
-                      </div>
-                      <div class="col-xs-7 text-right text-muted price">
-                          Starting at <i class="fa fa-inr"></i> 20 lacs
-                      </div>
-                  </div>
-                   <div class=" swipe-unit-info row">
-                    <div class="col-xs-12 text-muted">
-                     16 Floors  &nbsp;&nbsp; : &nbsp;&nbsp; 2, 3BHK &nbsp; &nbsp;: &nbsp;&nbsp; 60 Units
-                     </div>  
-                  </div>
-                   <div class="row swipe-footer">
-                       <div class="col-xs-10 text-muted">
-                           <sm>20</sm> In Selection (40 Available)
-                      </div>
-                      <div class="col-xs-2">
-                         <a href="#"><h3 class="margin-none text-right"><i class="fa fa-angle-right"></i></h3></a>
-                      </div>
-                  </div>
-           </div>
-       </div>
-       <div>
-         <div class="card-swipe">         
+        <div>            
+        <div class="card-swipe">
+         
               <div class="row">
-                  <div class="col-xs-5">
-                      <h4 class=" margin-none text-left"> Tower 2</h4>
+                  <div class="col-xs-6">
+                      <h4 class=" margin-none text-left"> Floor 8 - 12</h4>
                   </div>
-                  <div class="col-xs-7 text-right text-muted price">
-                      Starting at <i class="fa fa-inr"></i> 20 lacs
+                  <div class="col-xs-6 text-right text-muted price">
+                      Starting <i class="fa fa-inr"></i> 20 lacs
                   </div>
               </div>
                <div class=" swipe-unit-info row">
                 <div class="col-xs-12 text-muted">
-                 16 Floors  &nbsp;&nbsp; : &nbsp;&nbsp; 2, 3BHK &nbsp; &nbsp;: &nbsp;&nbsp; 60 Units
+                 EAST  <b>+ 2</b> &nbsp;&nbsp; : &nbsp;&nbsp; 2BHK  &nbsp; &nbsp;: &nbsp;&nbsp; 1000 SQFT.
                  </div>  
               </div>
                <div class="row swipe-footer">
                   <div class="col-xs-10">
-                       <sm>40</sm> Units Available
+                       <sm>10</sm> In Selection ( 10 Available )
                   </div>
                   <div class="col-xs-2">
                      <a href="#"><h3 class="margin-none text-right"><i class="fa fa-angle-right"></i></h3></a>
                   </div>
               </div>
-         </div>
+       </div>
       </div>
+       
       <div>            
         <div class="card-swipe">
          
               <div class="row">
                   <div class="col-xs-5">
-                      <h4 class=" margin-none text-left"> Tower 3</h4>
+                      <h4 class=" margin-none text-left"> Tower 1</h4>
                   </div>
                   <div class="col-xs-7 text-right text-muted price">
                       Starting at <i class="fa fa-inr"></i> 20 lacs
@@ -150,7 +125,7 @@
               </div>
                <div class="row swipe-footer">
                   <div class="col-xs-10">
-                       <sm>20</sm> Units Available
+                       <sm>20</sm> In selection (40 Available)
                   </div>
                   <div class="col-xs-2">
                      <a href="#"><h3 class="margin-none text-right"><i class="fa fa-angle-right"></i></h3></a>
@@ -176,6 +151,12 @@
               </div>
        </div>
       </div>
+
+    
+
+
+           
+          
         </div>
       </div>
      </div>
@@ -243,15 +224,15 @@
      </SCRIPT>
      <script type="text/javascript" language="JavaScript">
        windowHeight = $(window).innerHeight() ;
-   $('.image-contain img').css('height', windowHeight);
+     // $('.image-contain img').css('height', windowHeight);
   
      $('.image   ').css('height', windowHeight);
-     $('.image   ').css('min-width', windowHeight * 1.78);
+     $('.image   ').css('min-width', windowHeight * 1.6);
         function set_body_height() { // set body height = window height
           $('.image   ').height($(window).height());
         }
       $('.svg-area   ').css('height', windowHeight);
-         $('.svg-area   ').css('min-width', windowHeight * 1.78);
+         $('.svg-area   ').css('min-width', windowHeight * 1.6);
             function set_body_height() { // set body height = window height
               $('.svg-area   ').height($(window).height());
         }
@@ -263,18 +244,14 @@
           set_body_height();
 
           $(".image ").panzoom({
+             // startTransform: 'scale(1.1)',
              contain: 'invert',
-             minScale: 0,
+             minScale: 1,
              disablePan: false,
              disableZoom: false
           });
-          $('.image').panzoom("setMatrix", [1, 0, 0, 1.1, -285, 9]);
+          $('.image').panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
         });
-  
-
-
-
-
   $(document).ready(function() {
 
   var hidden = false;
