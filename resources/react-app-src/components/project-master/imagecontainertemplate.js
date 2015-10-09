@@ -1,6 +1,7 @@
 var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var classNames = require('classnames');
+var SvgContainer = require('../project-master/svgcontainer');
 
 var ImageContainerTemplate = React.createClass({
     mixins: [PureRenderMixin],	
@@ -22,7 +23,9 @@ var ImageContainerTemplate = React.createClass({
 
     render: function(){
 
-        var windowHeight = $(window).innerHeight() ;
+
+        // @todo pass winfow height and width as part of state
+        var windowHeight = window.innerHeight ;
         
         showShadow = this.props.showShadow;
 
@@ -51,9 +54,6 @@ var ImageContainerTemplate = React.createClass({
                 
                 <div ref="imageContainer" className="image" style={imageContainerStyle}>
 
-                  <div className="svg-area" >
-                    
-                  </div>
                   <img src={shadowImgUrl} className={shadowImageClasses} />
                   <img src={imgUrl} className="img-responsive shadow fit"/>
 
