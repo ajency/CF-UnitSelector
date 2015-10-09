@@ -1,9 +1,6 @@
-var React = require('react/addons');
-var PureRenderMixin = React.addons.PureRenderMixin;
-
-var Router = require('react-router');
-
-var Link = Router.Link;
+var React = require('react');
+var PureRenderMixin = require('react-addons-pure-render-mixin');
+var Link = require('react-router-component').Link
 
 var CardView = React.createClass({
     
@@ -24,7 +21,7 @@ var CardView = React.createClass({
            buildingName = buildingData.building_name;
            unitsMatchingString = " Units available";
 
-           buildingUrl = "building/"+buildingData.id;
+           buildingUrl = "/buildings/"+buildingData.id;
 
 
 
@@ -44,7 +41,7 @@ var CardView = React.createClass({
         
         
         return (
-                <div>
+                
                     <div className="card-swipe">
 
                         <div className="row">
@@ -65,12 +62,12 @@ var CardView = React.createClass({
                                 <sm>{availableUnitData.length}</sm> {unitsMatchingString} 
                             </div>
                             <div className="col-xs-2">
-                                <Link to={buildingUrl}><span className="glyphicon glyphicon-chevron-right  text-right" aria-hidden="true"></span></Link>
+                                <Link href={buildingUrl}><span className="glyphicon glyphicon-chevron-right  text-right" aria-hidden="true"></span></Link>
                             </div>
                         </div>
                     </div>
-                </div>
                 
+
         );
     }
 });

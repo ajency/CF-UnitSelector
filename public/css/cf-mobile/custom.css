@@ -217,6 +217,12 @@ body .row {
   font-weight: bold;
   font-size: 15px;
 }
+.card-swipe .swipe-footer a {
+  outline: none;
+}
+.card-swipe .swipe-footer a:focus {
+  color: #fe943e;
+}
 .card-swipe .swipe-unit-info {
   padding: 15px 0;
   font-size: 11px;
@@ -596,10 +602,11 @@ section {
   position: absolute;
   z-index: 99;
   overflow: hidden;
+  width: 100%;
 }
 .svg-area svg {
   height: auto;
-  position: absolute;
+  /*position: absolute;*/
   top: 0px;
   width: 100%;
 }
@@ -879,6 +886,8 @@ section {
   top: 0;
   left: 0;
   opacity: 0;
+  margin: 0;
+  z-index: 2;
 }
 .filter-content .imagecheckboxOuter .checkboxInner img {
   width: 70%;
@@ -1068,7 +1077,7 @@ section {
   outline: none;
 }
 .imageModal .close span {
-  margin-top: 0;
+  margin-top: -2px;
   float: left;
   width: 100%;
 }

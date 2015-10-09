@@ -1,491 +1,450 @@
-(function() {
-  var CenterUnitView, LeftUnitView, TopUnitView,
-    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    hasProp = {}.hasOwnProperty;
+var CenterUnitView, LeftUnitView, TopUnitView,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-  CommonFloor.UnitView = (function(superClass) {
-    extend(UnitView, superClass);
+CommonFloor.UnitView = (function(superClass) {
+  extend(UnitView, superClass);
 
-    function UnitView() {
-      return UnitView.__super__.constructor.apply(this, arguments);
+  function UnitView() {
+    return UnitView.__super__.constructor.apply(this, arguments);
+  }
+
+  UnitView.prototype.template = '#unit-view-template';
+
+  return UnitView;
+
+})(Marionette.LayoutView);
+
+CommonFloor.UnitCtrl = (function(superClass) {
+  extend(UnitCtrl, superClass);
+
+  function UnitCtrl() {
+    return UnitCtrl.__super__.constructor.apply(this, arguments);
+  }
+
+  UnitCtrl.prototype.initialize = function() {
+    if (jQuery.isEmptyObject(project.toJSON())) {
+      project.setProjectAttributes(PROJECTID);
+      CommonFloor.loadJSONData();
     }
-
-    UnitView.prototype.template = '#unit-view-template';
-
-    return UnitView;
-
-  })(Marionette.LayoutView);
-
-  CommonFloor.UnitCtrl = (function(superClass) {
-    extend(UnitCtrl, superClass);
-
-    function UnitCtrl() {
-      return UnitCtrl.__super__.constructor.apply(this, arguments);
+    if (bunglowVariantMasterCollection.length === 0 && apartmentVariantMasterCollection.length === 0 && plotVariantMasterCollection.length === 0) {
+      return this.show(new CommonFloor.NothingFoundView);
+    } else {
+      return this.show(new CommonFloor.UnitView);
     }
+  };
 
-    UnitCtrl.prototype.initialize = function() {
-      if (jQuery.isEmptyObject(project.toJSON())) {
-        project.setProjectAttributes(PROJECTID);
-        CommonFloor.loadJSONData();
-      }
-      if (bunglowVariantMasterCollection.length === 0 && apartmentVariantMasterCollection.length === 0 && plotVariantMasterCollection.length === 0) {
-        return this.show(new CommonFloor.NothingFoundView);
-      } else {
-        return this.show(new CommonFloor.UnitView);
-      }
-    };
+  return UnitCtrl;
 
-    return UnitCtrl;
+})(Marionette.RegionController);
 
-  })(Marionette.RegionController);
+TopUnitView = (function(superClass) {
+  extend(TopUnitView, superClass);
 
-  TopUnitView = (function(superClass) {
-    extend(TopUnitView, superClass);
+  function TopUnitView() {
+    return TopUnitView.__super__.constructor.apply(this, arguments);
+  }
 
-    function TopUnitView() {
-      return TopUnitView.__super__.constructor.apply(this, arguments);
-    }
+  TopUnitView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2> </div> <div class="pull-right"> <a  target="_blank" href="/project/' + PROJECTID + '/booknow/{{id}}"> <button type="submit" class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button> </a> </div> <div class="clearfix"></div> </div> </div> </div>');
 
-    TopUnitView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2> </div> <div class="pull-right"> <a  target="_blank" href="/project/' + PROJECTID + '/booknow/{{id}}"> <button type="submit" class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button> </a> </div> <div class="clearfix"></div> </div> </div> </div>');
+  TopUnitView.prototype.ui = {
+    unitBack: '.unit_back'
+  };
 
-    TopUnitView.prototype.ui = {
-      unitBack: '.unit_back'
-    };
+  TopUnitView.prototype.serializeData = function() {
+    var data, response, unit, unitid, url;
+    data = TopUnitView.__super__.serializeData.call(this);
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    response = window.unit.getUnitDetails(unitid);
+    unit = unitCollection.findWhere({
+      id: unitid
+    });
+    data.project_title = project.get('project_title');
+    data.unitBookingAmount = window.numDifferentiation(unit.get('booking_amount'));
+    data.bookingPortalUrl = window.bookingPortalUrl;
+    return data;
+  };
 
-    TopUnitView.prototype.serializeData = function() {
-      var data, response, unit, unitid, url;
-      data = TopUnitView.__super__.serializeData.call(this);
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      response = window.unit.getUnitDetails(unitid);
-      unit = unitCollection.findWhere({
-        id: unitid
-      });
-      data.project_title = project.get('project_title');
-      data.unitBookingAmount = window.numDifferentiation(unit.get('booking_amount'));
-      data.bookingPortalUrl = window.bookingPortalUrl;
-      return data;
-    };
-
-    TopUnitView.prototype.events = function() {
-      return {
-        'click @ui.unitBack': function(e) {
-          var buildingModel, building_id, previousRoute, property, unit, unitType, unitid, url;
-          e.preventDefault();
-          previousRoute = CommonFloor.router.previous();
-          url = Backbone.history.fragment;
-          unitid = parseInt(url.split('/')[1]);
-          unit = unitCollection.findWhere({
-            id: unitid
+  TopUnitView.prototype.events = function() {
+    return {
+      'click @ui.unitBack': function(e) {
+        var buildingModel, building_id, previousRoute, property, unit, unitType, unitid, url;
+        e.preventDefault();
+        previousRoute = CommonFloor.router.previous();
+        url = Backbone.history.fragment;
+        unitid = parseInt(url.split('/')[1]);
+        unit = unitCollection.findWhere({
+          id: unitid
+        });
+        unitType = unitTypeMasterCollection.findWhere({
+          'id': unit.get('unit_type_id')
+        });
+        property = window.propertyTypes[unitType.get('property_type_id')];
+        if (s.decapitalize(property) === 'penthouses' || s.decapitalize(property) === 'apartments') {
+          buildingModel = buildingCollection.findWhere({
+            'id': unit.get('building_id')
           });
-          unitType = unitTypeMasterCollection.findWhere({
-            'id': unit.get('unit_type_id')
-          });
-          property = window.propertyTypes[unitType.get('property_type_id')];
-          if (s.decapitalize(property) === 'penthouses' || s.decapitalize(property) === 'apartments') {
-            buildingModel = buildingCollection.findWhere({
-              'id': unit.get('building_id')
-            });
-            building_id = buildingModel.get('id');
-            if (Object.keys(buildingModel.get('building_master')).length === 0) {
-              return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
-            } else {
-              return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
-            }
+          building_id = buildingModel.get('id');
+          if (Object.keys(buildingModel.get('building_master')).length === 0) {
+            return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
           } else {
-            if (Object.keys(project.get('project_master')).length === 0) {
-              return CommonFloor.navigate('/list-view', true);
-            } else {
-              return CommonFloor.navigate('/master-view', true);
-            }
+            return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+          }
+        } else {
+          if (Object.keys(project.get('project_master')).length === 0) {
+            return CommonFloor.navigate('/list-view', true);
+          } else {
+            return CommonFloor.navigate('/master-view', true);
           }
         }
-      };
+      }
     };
+  };
 
-    return TopUnitView;
+  return TopUnitView;
 
-  })(Marionette.ItemView);
+})(Marionette.ItemView);
 
-  CommonFloor.TopUnitCtrl = (function(superClass) {
-    extend(TopUnitCtrl, superClass);
+CommonFloor.TopUnitCtrl = (function(superClass) {
+  extend(TopUnitCtrl, superClass);
 
-    function TopUnitCtrl() {
-      return TopUnitCtrl.__super__.constructor.apply(this, arguments);
+  function TopUnitCtrl() {
+    return TopUnitCtrl.__super__.constructor.apply(this, arguments);
+  }
+
+  TopUnitCtrl.prototype.initialize = function() {
+    var response, unit, unitid, url;
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    unit = unitCollection.findWhere({
+      id: unitid
+    });
+    response = window.unit.getUnitDetails(unitid);
+    unit.set('type', s.capitalize(response[2]));
+    return this.show(new TopUnitView({
+      model: unit
+    }));
+  };
+
+  return TopUnitCtrl;
+
+})(Marionette.RegionController);
+
+LeftUnitView = (function(superClass) {
+  extend(LeftUnitView, superClass);
+
+  function LeftUnitView() {
+    return LeftUnitView.__super__.constructor.apply(this, arguments);
+  }
+
+  LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-4 col-lg-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-total-units"></span> <div class="unit-label m-t-10"> <h3>{{unit_variant}}</h3> <h6 class="text-muted">Unit Variant</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label m-t-10"> <h3>{{type}}</h3> <h6 class="text-muted">Unit Type</h6> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label m-t-10"> <h3>{{area}} {{measurement_units}}</h3> <h6 class="text-muted">Area</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label m-t-10"> <h3 class="price">{{price}}</h3> <h6 class="text-muted">Price</h6> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="bold property {{classname}}">{{property_type}}</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <a class="accordion-toggle collapsed text-primary panel-title m-b-5 block" data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" > <h4 class="inline-block"> {{level_name}} </h4> </a> </div> <div id="{{id}}" class="panel-collapse collapse collapseLevel" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="bold m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="m-b-15 clearfix"> <div class="sim-icon"> <div class="alert "> <i class="{{type}}-ico"></i> </div> </div> <div class="sim-details"> <h5><a href="' + BASEURL + '/project/' + PROJECTID + '/#unit-view/{{id}}">{{unit_name}}</a> </h5> {{unit_type}} ({{area}} {{units}})<br> {{variant}}<br> <span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span> </div> </div> {{/similarUnits}} </div> </div> </div>');
+
+  LeftUnitView.prototype.serializeData = function() {
+    var attributes, data, floor, response, similarUnits, temp, unit, unitid, url;
+    data = LeftUnitView.__super__.serializeData.call(this);
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    response = window.unit.getUnitDetails(unitid);
+    unit = unitCollection.findWhere({
+      id: unitid
+    });
+    floor = response[0].get('floor');
+    attributes = [];
+    if (response[2] === 'apartment' || response[2] === 'Penthouse') {
+      attributes.push({
+        'attribute': 'Floor',
+        'value': unit.get('floor')
+      });
     }
-
-    TopUnitCtrl.prototype.initialize = function() {
-      var response, unit, unitid, url;
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      unit = unitCollection.findWhere({
-        id: unitid
+    if (response[4] !== null) {
+      $.each(response[4], function(index, value) {
+        return attributes.push({
+          'attribute': s.capitalize(index),
+          'value': value
+        });
       });
-      response = window.unit.getUnitDetails(unitid);
-      unit.set('type', s.capitalize(response[2]));
-      return this.show(new TopUnitView({
-        model: unit
-      }));
-    };
-
-    return TopUnitCtrl;
-
-  })(Marionette.RegionController);
-
-  LeftUnitView = (function(superClass) {
-    extend(LeftUnitView, superClass);
-
-    function LeftUnitView() {
-      return LeftUnitView.__super__.constructor.apply(this, arguments);
     }
+    similarUnits = this.getSimilarUnits(unit);
+    temp = [];
+    $.each(similarUnits[0], function(index, value) {
+      var res;
+      res = window.unit.getUnitDetails(value.get('id'));
+      return temp.push({
+        'unit_name': value.get('unit_name'),
+        'unit_type': res[1].get('name'),
+        'price': window.numDifferentiation(res[3]),
+        'area': res[0].get('super_built_up_area'),
+        'variant': res[0].get('unit_variant_name'),
+        'id': value.get('id'),
+        'type': similarUnits[2],
+        'units': project.get('measurement_units')
+      });
+    });
+    data.area = response[0].get('super_built_up_area');
+    data.type = response[1].get('name');
+    data.unit_variant = response[0].get('unit_variant_name');
+    data.levels = this.generateLevels(floor, response, unit);
+    data.attributes = attributes;
+    data.similarUnits = temp;
+    data.similarUnitsText = similarUnits[1];
+    data.measurement_units = project.get('measurement_units');
+    data.property_type = s.capitalize(response[2] + ' Attribute(s)');
+    data.classname = 'hidden';
+    data.unitSellingAmount = Marionette.getOption(this, 'unitSellingAmount');
+    if (attributes.length !== 0) {
+      data.classname = '';
+    }
+    return data;
+  };
 
-    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-4 col-lg-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-total-units"></span> <div class="unit-label m-t-10"> <h3>{{unit_variant}}</h3> <h6 class="text-muted">Unit Variant</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label m-t-10"> <h3>{{type}}</h3> <h6 class="text-muted">Unit Type</h6> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label m-t-10"> <h3>{{area}} {{measurement_units}}</h3> <h6 class="text-muted">Area</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label m-t-10"> <h3 class="price">{{price}}</h3> <h6 class="text-muted">Price</h6> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="bold property {{classname}}">{{property_type}}</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <a class="accordion-toggle collapsed text-primary panel-title m-b-5 block" data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" > <h4 class="inline-block"> {{level_name}} </h4> </a> </div> <div id="{{id}}" class="panel-collapse collapse collapseLevel" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="bold m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="m-b-15 clearfix"> <div class="sim-icon"> <div class="alert "> <i class="{{type}}-ico"></i> </div> </div> <div class="sim-details"> <h5><a href="' + BASEURL + '/project/' + PROJECTID + '/#unit-view/{{id}}">{{unit_name}}</a> </h5> {{unit_type}} ({{area}} {{units}})<br> {{variant}}<br> <span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span> </div> </div> {{/similarUnits}} </div> </div> </div>');
+  LeftUnitView.prototype.getSimilarUnits = function(unit) {
+    var i, text, unitColl, unitModel, unitid, units, unitsArr, url;
+    units = [];
+    i = 0;
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    unitModel = unitMasterCollection.findWhere({
+      'id': unitid
+    });
+    unitColl = CommonFloor.getUnitsProperty(unitModel);
+    unitsArr = unitColl[0];
+    text = unitColl[1];
+    $.each(unitsArr.toArray(), function(index, value) {
+      if (value.get('id') !== unitid && value.get('availability') === 'available') {
+        units.push(value);
+        i++;
+      }
+      if (i === 3) {
+        return false;
+      }
+    });
+    if (unitsArr.length === 1) {
+      text = '';
+    }
+    if (units.length === 0) {
+      text = '';
+    }
+    return [units, text, unitColl[2]];
+  };
 
-    LeftUnitView.prototype.serializeData = function() {
-      var attributes, data, floor, response, similarUnits, temp, unit, unitid, url;
-      data = LeftUnitView.__super__.serializeData.call(this);
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      response = window.unit.getUnitDetails(unitid);
-      unit = unitCollection.findWhere({
-        id: unitid
-      });
-      floor = response[0].get('floor');
-      attributes = [];
-      if (response[2] === 'apartment' || response[2] === 'Penthouse') {
-        attributes.push({
-          'attribute': 'Floor',
-          'value': unit.get('floor')
-        });
-      }
-      if (response[4] !== null) {
-        $.each(response[4], function(index, value) {
-          return attributes.push({
-            'attribute': s.capitalize(index),
-            'value': value
-          });
-        });
-      }
-      similarUnits = this.getSimilarUnits(unit);
-      temp = [];
-      $.each(similarUnits[0], function(index, value) {
-        var res;
-        res = window.unit.getUnitDetails(value.get('id'));
-        return temp.push({
-          'unit_name': value.get('unit_name'),
-          'unit_type': res[1].get('name'),
-          'price': window.numDifferentiation(res[3]),
-          'area': res[0].get('super_built_up_area'),
-          'variant': res[0].get('unit_variant_name'),
-          'id': value.get('id'),
-          'type': similarUnits[2],
-          'units': project.get('measurement_units')
-        });
-      });
-      data.area = response[0].get('super_built_up_area');
-      data.type = response[1].get('name');
-      data.unit_variant = response[0].get('unit_variant_name');
-      data.levels = this.generateLevels(floor, response, unit);
-      data.attributes = attributes;
-      data.similarUnits = temp;
-      data.similarUnitsText = similarUnits[1];
-      data.measurement_units = project.get('measurement_units');
-      data.property_type = s.capitalize(response[2] + ' Attribute(s)');
-      data.classname = 'hidden';
-      data.unitSellingAmount = Marionette.getOption(this, 'unitSellingAmount');
-      if (attributes.length !== 0) {
-        data.classname = '';
-      }
-      return data;
-    };
-
-    LeftUnitView.prototype.getSimilarUnits = function(unit) {
-      var i, text, unitColl, unitModel, unitid, units, unitsArr, url;
-      units = [];
-      i = 0;
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      unitModel = unitMasterCollection.findWhere({
-        'id': unitid
-      });
-      unitColl = CommonFloor.getUnitsProperty(unitModel);
-      unitsArr = unitColl[0];
-      text = unitColl[1];
-      $.each(unitsArr.toArray(), function(index, value) {
-        if (value.get('id') !== unitid && value.get('availability') === 'available') {
-          units.push(value);
-          i++;
-        }
-        if (i === 3) {
-          return false;
-        }
-      });
-      if (unitsArr.length === 1) {
-        text = '';
-      }
-      if (units.length === 0) {
-        text = '';
-      }
-      return [units, text, unitColl[2]];
-    };
-
-    LeftUnitView.prototype.generateLevels = function(floor, response, unit) {
-      var levels;
-      levels = [];
-      $.each(floor, function(index, value) {
-        var level_id, level_name, rooms;
-        rooms = [];
-        level_name = 'Level  ' + index;
-        if (response[2] === 'apartment') {
-          level_name = 'Room details';
-        }
-        $.each(value.rooms_data, function(ind, val) {
-          var attributes;
-          attributes = [];
-          $.each(val.atributes, function(ind_att, val_att) {
-            if (val_att.attribute_value !== "") {
-              return attributes.push({
-                'attribute': s.capitalize(val_att.attribute_key),
-                'value': val_att.attribute_value
-              });
-            }
-          });
-          return rooms.push({
-            'room_name': val.room_name,
-            'attributes': attributes
-          });
-        });
-        if (rooms.length > 0) {
-          level_id = s.replaceAll(level_name, " ", "_");
-          return levels.push({
-            'level_name': level_name,
-            'rooms': rooms,
-            'id': level_id
-          });
-        }
-      });
-      return levels;
-    };
-
-    LeftUnitView.prototype.onShow = function() {
-      var response, unitModel, unitid, url;
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      response = window.unit.getUnitDetails(unitid);
-      unitModel = unitMasterCollection.findWhere({
-        'id': unitid
-      });
-      $('.price').text(window.numDifferentiation(unitModel.get('selling_amount')));
+  LeftUnitView.prototype.generateLevels = function(floor, response, unit) {
+    var levels;
+    levels = [];
+    $.each(floor, function(index, value) {
+      var level_id, level_name, rooms;
+      rooms = [];
+      level_name = 'Level  ' + index;
       if (response[2] === 'apartment') {
-        return $('.collapseLevel').collapse('show');
+        level_name = 'Room details';
       }
-    };
-
-    return LeftUnitView;
-
-  })(Marionette.ItemView);
-
-  CommonFloor.LeftUnitCtrl = (function(superClass) {
-    extend(LeftUnitCtrl, superClass);
-
-    function LeftUnitCtrl() {
-      return LeftUnitCtrl.__super__.constructor.apply(this, arguments);
-    }
-
-    LeftUnitCtrl.prototype.initialize = function() {
-      var unitid, url;
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      return this.show(new LeftUnitView);
-    };
-
-    return LeftUnitCtrl;
-
-  })(Marionette.RegionController);
-
-  CenterUnitView = (function(superClass) {
-    extend(CenterUnitView, superClass);
-
-    function CenterUnitView() {
-      return CenterUnitView.__super__.constructor.apply(this, arguments);
-    }
-
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-8 col-lg-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master hidden"> <h4 class="title">Position</h4> </li> <li class="booking"> <h4 class="title">Payment Plan</h4> </li> </ul> </div> <div class="price-mode-dropdown hidden"> <div class="plan-select form-inline"> <!--h5 class="inline-block">Payment Plan: </h5--> <select class="form-control" id="paymentplan"> <option value="payment_plan_breakdown"> Payment Plan Breakdown </option> <option value="price_breakup"> Price Breakup </option> </select> </div> <div class="plan-amount text-right"> <h5 class="inline-block">Total Sale Value: </h5> <h4 class="inline-block bold text-primary"><span class="rec" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> {{totalSaleValue}}</span></h4> </div> <div class="clearfix"></div> </div> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage animated fadeIn img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
-
-    CenterUnitView.prototype.ui = {
-      imagesContainer: '.us-right-content'
-    };
-
-    CenterUnitView.prototype.serializeData = function() {
-      var data, id, unit, unitPaymentPlan, url;
-      data = CenterUnitView.__super__.serializeData.call(this);
-      url = Backbone.history.fragment;
-      id = url.split('/')[1];
-      unit = unitCollection.findWhere({
-        'id': parseInt(id)
+      $.each(value.rooms_data, function(ind, val) {
+        var attributes;
+        attributes = [];
+        $.each(val.atributes, function(ind_att, val_att) {
+          if (val_att.attribute_value !== "") {
+            return attributes.push({
+              'attribute': s.capitalize(val_att.attribute_key),
+              'value': val_att.attribute_value
+            });
+          }
+        });
+        return rooms.push({
+          'room_name': val.room_name,
+          'attributes': attributes
+        });
       });
-      unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
-      data.totalSaleValue = window.numDifferentiation(unit.get('selling_amount'));
-      return data;
-    };
+      if (rooms.length > 0) {
+        level_id = s.replaceAll(level_name, " ", "_");
+        return levels.push({
+          'level_name': level_name,
+          'rooms': rooms,
+          'id': level_id
+        });
+      }
+    });
+    return levels;
+  };
 
-    CenterUnitView.prototype.events = {
-      'click .threeD': function(e) {
-        var html, response;
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.firstimage').hide();
-        $('.images').empty();
-        response = this.generateLevels();
-        html = '';
-        $.each(response[1], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="3d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img lazy" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
-        });
-        $('.images').html(html);
-        $('.img').lazy({
-          bind: "event"
-        });
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.threeD').addClass('current');
-        $('.external').removeClass('current');
-        $('.twoD').removeClass('current');
-        $('.gallery').removeClass('current');
-        $('.master').removeClass('current');
-        return $('.booking').removeClass('current');
-      },
-      'click .twoD': function(e) {
-        var html, response;
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.firstimage').hide();
-        $('.images').empty();
-        response = this.generateLevels();
-        html = '';
-        $.each(response[0], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="2d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img lazy" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
-        });
-        $('.images').html(html);
-        $('.img').lazy({
-          bind: "event"
-        });
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.twoD').addClass('current');
-        $('.external').removeClass('current');
-        $('.threeD').removeClass('current');
-        $('.gallery').removeClass('current');
-        $('.master').removeClass('current');
-        return $('.booking').removeClass('current');
-      },
-      'click .external': function(e) {
-        var html, response;
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.firstimage').hide();
-        $('.images').empty();
-        response = this.generateLevels();
-        html = '';
-        html += '<div class="external-wrapper"> <div id="rotate_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="animated fadeIn hidden external-container"> <img class="img-responsive external-img" src="' + response[3].get('external3durl') + '" /> </div> </div>';
-        $('.images').html(html);
-        $('#rotate_loader').removeClass('hidden');
-        $('.external-img').load(function() {
-          $('#rotate_loader').addClass('hidden');
-          return $('.external-container').removeClass('hidden');
-        });
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.external').addClass('current');
-        $('.threeD').removeClass('current');
-        $('.twoD').removeClass('current');
-        $('.gallery').removeClass('current');
-        $('.master').removeClass('current');
-        return $('.booking').removeClass('current');
-      },
-      'click .gallery': function(e) {
-        var html, response;
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.images').empty();
-        $('.firstimage').hide();
-        response = this.generateLevels();
-        html = '';
-        $.each(response[3].get('galleryurl'), function(index, value) {
-          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img lazy" data-src="' + value + '" /> </a> </div>';
-        });
-        $('.images').html(html);
-        $('.img').lazy({
-          bind: "event"
-        });
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.gallery').addClass('current');
-        $('.threeD').removeClass('current');
-        $('.twoD').removeClass('current');
-        $('.external').removeClass('current');
-        $('.master').removeClass('current');
-        return $('.booking').removeClass('current');
-      },
-      'click .master': function(e) {
-        $('.price-mode-dropdown').addClass('hidden');
-        $('.firstimage').show();
-        $('.images').empty();
-        this.loadMaster();
-        $('.master').addClass('current');
-        $('.gallery').removeClass('current');
-        $('.threeD').removeClass('current');
-        $('.twoD').removeClass('current');
-        $('.external').removeClass('current');
-        return $('.booking').removeClass('current');
-      },
-      'change #paymentplan': function(e) {
-        var html, selectedMode, unitPaymentPlan, unitPlanMilestones, unitPriceSheet, unitPriceSheetComponents, unitTotalSaleValue;
-        selectedMode = $('#paymentplan').val();
-        $('.price-mode-dropdown').removeClass('hidden');
-        unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
-        unitPriceSheet = Marionette.getOption(this, 'unitPriceSheet');
-        $('.images').empty();
-        $('.firstimage').hide();
-        html = '';
-        html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
-        if (selectedMode === "payment_plan_breakdown") {
-          if (!unitPaymentPlan) {
-            html += "No Data Found";
-          } else {
-            unitPlanMilestones = unitPaymentPlan.milestones;
-            unitTotalSaleValue = unitPaymentPlan.total_sale_value;
-            _.each(unitPlanMilestones, function(milestone, key) {
-              var amount, perc;
-              perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
-              amount = window.numDifferentiation(milestone.amount);
-              return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
-            });
-          }
-        } else if (selectedMode === "price_breakup") {
-          if (!unitPriceSheet) {
-            html += "No Data Found";
-          } else {
-            unitPriceSheetComponents = unitPriceSheet.components;
-            unitTotalSaleValue = unitPriceSheet.total_sale_value;
-            _.each(unitPriceSheetComponents, function(component, key) {
-              var component_amt, perc;
-              perc = window.calculatePerc(component.amount, unitTotalSaleValue);
-              component_amt = window.numDifferentiation(component.amount);
-              return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + component.component_price_type + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + component.cost_type + '</span> </div> <div> <span class="label">Sub Type:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + component.component_price_sub_type + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + component_amt + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
-            });
-          }
-        }
-        html += '</ul> </div>';
-        return $('.images').html(html);
-      },
-      'click .booking': function(e) {
-        var html, unitPaymentPlan, unitPlanMilestones, unitPriceSheet, unitPriceSheetComponents, unitTotalSaleValue;
-        $('#paymentplan option[value="payment_plan_breakdown"]').attr('selected', 'selected');
-        $('.price-mode-dropdown').removeClass('hidden');
-        unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
-        unitPriceSheet = Marionette.getOption(this, 'unitPriceSheet');
-        $('.images').empty();
-        $('.firstimage').hide();
-        html = '';
-        html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
+  LeftUnitView.prototype.onShow = function() {
+    var response, unitModel, unitid, url;
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    response = window.unit.getUnitDetails(unitid);
+    unitModel = unitMasterCollection.findWhere({
+      'id': unitid
+    });
+    $('.price').text(window.numDifferentiation(unitModel.get('selling_amount')));
+    if (response[2] === 'apartment') {
+      return $('.collapseLevel').collapse('show');
+    }
+  };
+
+  return LeftUnitView;
+
+})(Marionette.ItemView);
+
+CommonFloor.LeftUnitCtrl = (function(superClass) {
+  extend(LeftUnitCtrl, superClass);
+
+  function LeftUnitCtrl() {
+    return LeftUnitCtrl.__super__.constructor.apply(this, arguments);
+  }
+
+  LeftUnitCtrl.prototype.initialize = function() {
+    var unitid, url;
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    return this.show(new LeftUnitView);
+  };
+
+  return LeftUnitCtrl;
+
+})(Marionette.RegionController);
+
+CenterUnitView = (function(superClass) {
+  extend(CenterUnitView, superClass);
+
+  function CenterUnitView() {
+    return CenterUnitView.__super__.constructor.apply(this, arguments);
+  }
+
+  CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-8 col-lg-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master hidden"> <h4 class="title">Position</h4> </li> <li class="booking"> <h4 class="title">Payment Plan</h4> </li> </ul> </div> <div class="price-mode-dropdown hidden"> <div class="plan-select form-inline"> <!--h5 class="inline-block">Payment Plan: </h5--> <select class="form-control" id="paymentplan"> <option value="payment_plan_breakdown"> Payment Plan Breakdown </option> <option value="price_breakup"> Price Breakup </option> </select> </div> <div class="plan-amount text-right"> <h5 class="inline-block">Total Sale Value: </h5> <h4 class="inline-block bold text-primary"><span class="rec" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> {{totalSaleValue}}</span></h4> </div> <div class="clearfix"></div> </div> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage animated fadeIn img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
+
+  CenterUnitView.prototype.ui = {
+    imagesContainer: '.us-right-content'
+  };
+
+  CenterUnitView.prototype.serializeData = function() {
+    var data, id, unit, unitPaymentPlan, url;
+    data = CenterUnitView.__super__.serializeData.call(this);
+    url = Backbone.history.fragment;
+    id = url.split('/')[1];
+    unit = unitCollection.findWhere({
+      'id': parseInt(id)
+    });
+    unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
+    data.totalSaleValue = window.numDifferentiation(unit.get('selling_amount'));
+    return data;
+  };
+
+  CenterUnitView.prototype.events = {
+    'click .threeD': function(e) {
+      var html, response;
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.firstimage').hide();
+      $('.images').empty();
+      response = this.generateLevels();
+      html = '';
+      $.each(response[1], function(index, value) {
+        return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="3d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img lazy" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
+      });
+      $('.images').html(html);
+      $('.img').lazy({
+        bind: "event"
+      });
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.threeD').addClass('current');
+      $('.external').removeClass('current');
+      $('.twoD').removeClass('current');
+      $('.gallery').removeClass('current');
+      $('.master').removeClass('current');
+      return $('.booking').removeClass('current');
+    },
+    'click .twoD': function(e) {
+      var html, response;
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.firstimage').hide();
+      $('.images').empty();
+      response = this.generateLevels();
+      html = '';
+      $.each(response[0], function(index, value) {
+        return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="2d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img lazy" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
+      });
+      $('.images').html(html);
+      $('.img').lazy({
+        bind: "event"
+      });
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.twoD').addClass('current');
+      $('.external').removeClass('current');
+      $('.threeD').removeClass('current');
+      $('.gallery').removeClass('current');
+      $('.master').removeClass('current');
+      return $('.booking').removeClass('current');
+    },
+    'click .external': function(e) {
+      var html, response;
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.firstimage').hide();
+      $('.images').empty();
+      response = this.generateLevels();
+      html = '';
+      html += '<div class="external-wrapper"> <div id="rotate_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="animated fadeIn hidden external-container"> <img class="img-responsive external-img" src="' + response[3].get('external3durl') + '" /> </div> </div>';
+      $('.images').html(html);
+      $('#rotate_loader').removeClass('hidden');
+      $('.external-img').load(function() {
+        $('#rotate_loader').addClass('hidden');
+        return $('.external-container').removeClass('hidden');
+      });
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.external').addClass('current');
+      $('.threeD').removeClass('current');
+      $('.twoD').removeClass('current');
+      $('.gallery').removeClass('current');
+      $('.master').removeClass('current');
+      return $('.booking').removeClass('current');
+    },
+    'click .gallery': function(e) {
+      var html, response;
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.images').empty();
+      $('.firstimage').hide();
+      response = this.generateLevels();
+      html = '';
+      $.each(response[3].get('galleryurl'), function(index, value) {
+        return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img lazy" data-src="' + value + '" /> </a> </div>';
+      });
+      $('.images').html(html);
+      $('.img').lazy({
+        bind: "event"
+      });
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.gallery').addClass('current');
+      $('.threeD').removeClass('current');
+      $('.twoD').removeClass('current');
+      $('.external').removeClass('current');
+      $('.master').removeClass('current');
+      return $('.booking').removeClass('current');
+    },
+    'click .master': function(e) {
+      $('.price-mode-dropdown').addClass('hidden');
+      $('.firstimage').show();
+      $('.images').empty();
+      this.loadMaster();
+      $('.master').addClass('current');
+      $('.gallery').removeClass('current');
+      $('.threeD').removeClass('current');
+      $('.twoD').removeClass('current');
+      $('.external').removeClass('current');
+      return $('.booking').removeClass('current');
+    },
+    'change #paymentplan': function(e) {
+      var html, selectedMode, unitPaymentPlan, unitPlanMilestones, unitPriceSheet, unitPriceSheetComponents, unitTotalSaleValue;
+      selectedMode = $('#paymentplan').val();
+      $('.price-mode-dropdown').removeClass('hidden');
+      unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
+      unitPriceSheet = Marionette.getOption(this, 'unitPriceSheet');
+      $('.images').empty();
+      $('.firstimage').hide();
+      html = '';
+      html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
+      if (selectedMode === "payment_plan_breakdown") {
         if (!unitPaymentPlan) {
           html += "No Data Found";
         } else {
           unitPlanMilestones = unitPaymentPlan.milestones;
           unitTotalSaleValue = unitPaymentPlan.total_sale_value;
-          unitPriceSheetComponents = unitPriceSheet.components;
           _.each(unitPlanMilestones, function(milestone, key) {
             var amount, perc;
             perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
@@ -493,195 +452,208 @@
             return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
           });
         }
-        html += '</ul> </div>';
-        $('.images').html(html);
-        $('.booking').addClass('current');
-        $('.master').removeClass('current');
-        $('.gallery').removeClass('current');
-        $('.threeD').removeClass('current');
-        $('.twoD').removeClass('current');
-        return $('.external').removeClass('current');
-      },
-      'mouseover .next,.prev': function(e) {
-        var html, id, response, unitColl, unitModel;
-        id = parseInt($(e.target).attr('data-id'));
-        unitModel = unitCollection.findWhere({
-          'id': id
-        });
-        response = window.unit.getUnitDetails(id);
-        unitColl = CommonFloor.getUnitsProperty(unitModel);
-        html = '<div class="svg-info"> <i class="' + unitColl[2] + '-ico"></i> <h5 class=" m-t-0">' + unitModel.get('unit_name') + '</h5> <div class="details"> <span>' + response[1].get('name') + '</span></br> <div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>' + window.numDifferentiation(response[3]) + '</div> <!--<div>Area: <span>' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span></div> <div>Variant: <span>' + response[0].get('unit_variant_name') + '</span></div>--> </div> </div>';
-        return $(e.target).tooltipster('content', html);
-      },
-      'click .next,.prev': function(e) {
-        var id, unitModel;
-        id = parseInt($(e.target).attr('data-id'));
-        unitModel = unitCollection.findWhere({
-          'id': id
-        });
-        CommonFloor.navigate('/unit-view/' + id, true);
-        return CommonFloor.router.storeRoute();
+      } else if (selectedMode === "price_breakup") {
+        if (!unitPriceSheet) {
+          html += "No Data Found";
+        } else {
+          unitPriceSheetComponents = unitPriceSheet.components;
+          unitTotalSaleValue = unitPriceSheet.total_sale_value;
+          _.each(unitPriceSheetComponents, function(component, key) {
+            var component_amt, perc;
+            perc = window.calculatePerc(component.amount, unitTotalSaleValue);
+            component_amt = window.numDifferentiation(component.amount);
+            return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + component.component_price_type + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + component.cost_type + '</span> </div> <div> <span class="label">Sub Type:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + component.component_price_sub_type + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + component_amt + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
+          });
+        }
       }
-    };
-
-    CenterUnitView.prototype.onShow = function() {
-      var building, flag, height, html, id, response, unit, url;
-      flag = 0;
-      this.getNextPrevUnit();
-      response = this.generateLevels();
+      html += '</ul> </div>';
+      return $('.images').html(html);
+    },
+    'click .booking': function(e) {
+      var html, unitPaymentPlan, unitPlanMilestones, unitPriceSheet, unitPriceSheetComponents, unitTotalSaleValue;
+      $('#paymentplan option[value="payment_plan_breakdown"]').attr('selected', 'selected');
+      $('.price-mode-dropdown').removeClass('hidden');
+      unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
+      unitPriceSheet = Marionette.getOption(this, 'unitPriceSheet');
+      $('.images').empty();
+      $('.firstimage').hide();
       html = '';
-      $.each(response[0], function(index, value) {
-        flag = 1;
-        return html += '<div class="layouts animated fadeIn"> <a class="fancybox" href="' + value + '"> <img class="img lazy" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
-      });
-      $('.twoD').addClass('current');
-      $('.threeD').removeClass('current');
-      $('.external').removeClass('current');
+      html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
+      if (!unitPaymentPlan) {
+        html += "No Data Found";
+      } else {
+        unitPlanMilestones = unitPaymentPlan.milestones;
+        unitTotalSaleValue = unitPaymentPlan.total_sale_value;
+        unitPriceSheetComponents = unitPriceSheet.components;
+        _.each(unitPlanMilestones, function(milestone, key) {
+          var amount, perc;
+          perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
+          amount = window.numDifferentiation(milestone.amount);
+          return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
+        });
+      }
+      html += '</ul> </div>';
+      $('.images').html(html);
+      $('.booking').addClass('current');
+      $('.master').removeClass('current');
       $('.gallery').removeClass('current');
-      if (response[0].length === 0) {
-        flag = 1;
-        $.each(response[1], function(index, value) {
-          return html += '<img data-src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
-        });
-        $('.threeD').addClass('current');
-        $('.external').removeClass('current');
-        $('.twoD').removeClass('current');
-        $('.gallery').removeClass('current');
-      }
-      $('.images').html(html);
-      $('.level').attr('class', 'level Level_0 ' + _.last(response[2]));
-      if (response[4] === 'apartment') {
-        $('.level').attr('class', 'level Level_0 apartment_level');
-      }
-      if (!_.isUndefined(response[3].get('external3durl'))) {
-        flag = 1;
-        html = '<div class="external-wrapper"> <div id="rotate_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="animated fadeIn hidden external-container"> <img class=" img-responsive external-img"  src="' + response[3].get('external3durl') + '" /> </div> </div>';
-        $('.images').html(html);
-        $('.external').addClass('current');
-        $('.threeD').removeClass('current');
-        $('.twoD').removeClass('current');
-        $('.gallery').removeClass('current');
-      }
-      if (response[0].length === 0) {
-        $('.twoD').hide();
-      }
-      if (response[1].length === 0) {
-        $('.threeD').hide();
-      }
-      if (_.isUndefined(response[3].get('external3durl'))) {
-        $('.external').hide();
-      }
-      if (_.isUndefined(response[3].get('galleryurl'))) {
-        $('.gallery').hide();
-      }
-      url = Backbone.history.fragment;
-      id = url.split('/')[1];
-      unit = unitCollection.findWhere({
-        'id': parseInt(id)
+      $('.threeD').removeClass('current');
+      $('.twoD').removeClass('current');
+      return $('.external').removeClass('current');
+    },
+    'mouseover .next,.prev': function(e) {
+      var html, id, response, unitColl, unitModel;
+      id = parseInt($(e.target).attr('data-id'));
+      unitModel = unitCollection.findWhere({
+        'id': id
       });
-      building = buildingCollection.findWhere({
-        'id': parseInt(unit.get('building_id'))
-      });
-      if (project.get('project_master').length !== 0 || building.get('building_master').length !== 0) {
-        $('.master').removeClass('hidden');
-      }
-      if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl'))) {
-        $('.gallery').addClass('current');
-        $('.threeD').removeClass('current');
-        $('.twoD').removeClass('current');
-        $('.external').removeClass('current');
-        flag = 1;
-        if (!_.isUndefined(response[3].get('galleryurl'))) {
-          $.each(response[3].get('galleryurl'), function(index, value) {
-            return html += '<div class="animated fadeIn"><img class="img" data-src="' + value + '" /></div>';
-          });
-        }
-      }
-      if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))) {
-        this.loadMaster();
-        flag = 1;
-        $('.master').addClass('current');
-        $('.gallery').removeClass('current');
-        $('.threeD').removeClass('current');
-        $('.twoD').removeClass('current');
-        $('.external').removeClass('current');
-      }
-      height = this.ui.imagesContainer.height();
-      if ($(window).width() > 991) {
-        $('.unit-details').mCustomScrollbar({
-          theme: 'cf-scroll'
-        });
-      }
-      $('.images').html(html);
-      $('.external-img').load(function() {
-        $('#rotate_loader').addClass('hidden');
-        return $('.external-container').removeClass('hidden');
-      });
-      if (flag === 0) {
-        html = '<div class="invoice-items animated fadeIn"> <div class="row"> <div class="col-sm-5 form-inline m-b-20"> <h5 class="inline-block">Payment Plan: </h5><select class="form-control" id="paymentplans"> <option value="3363"> Payment Plan </option> <option value="3364"> Price Breakdown </option> </select> </div> <div class="col-sm-7 text-right"> <h5 class="inline-block">Booking Amount: </h5> <h4 class="inline-block bold text-primary"><span class="rec" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span></h4> </div> </div> <ul id="paymentTable"> <li style="list-style: none"><span class="msPercent">4.5%</span></li> <li class="milestoneList milestoneReached"> <div class="msName"> Application </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span> </div> <div> Total: <span class="total0"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span> </div> <div> Total: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span> </div> </div><span class="barBg" style="width:4.5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">26%</span> </li> <li class="milestoneList"> <div class="msName"> Plinth </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue1 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 19,83,761</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service1 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 61,298</span> </div> <div> Total: <span class="total1"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 20,45,059</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue11 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 19,83,761</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service11 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 61,298</span> </div> <div> Total: <span class="total11" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 20,45,059</span> </div> </div><span class="barBg" style="width:26%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">11%</span> </li> <li class="milestoneList"> <div class="msName"> 1st Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue2 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service2 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total2"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue12 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service12 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total12" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div><span class="barBg" style="width:11%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">11%</span> </li> <li class="milestoneList"> <div class="msName"> 3rd Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue3 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service3 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total3"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue13 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service13 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total13" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div><span class="barBg" style="width:11%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">11%</span> </li> <li class="milestoneList"> <div class="msName"> 5th Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue4 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service4 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total4"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue14 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service14 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total14" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div><span class="barBg" style="width:11%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">11%</span> </li> <li class="milestoneList"> <div class="msName"> 7th Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue5 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service5 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total5"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue15 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service15 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total15" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div><span class="barBg" style="width:11%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">10.5%</span> </li> <li class="milestoneList"> <div class="msName"> 9th Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue6 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,01,134</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service6 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 24,755</span> </div> <div> Total: <span class="total6"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,25,889</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue16 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,01,134</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service16 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 24,755</span> </div> <div> Total: <span class="total16" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,25,889</span> </div> </div><span class="barBg" style="width:10.5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">5%</span> </li> <li class="milestoneList"> <div class="msName"> Brick Work </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue7 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service7 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total7"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue17 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service17 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total17" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div><span class="barBg" style="width:5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">5%</span> </li> <li class="milestoneList"> <div class="msName"> Flooring </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue8 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service8 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total8"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue18 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service18 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total18" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div><span class="barBg" style="width:5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">5%</span> </li> <li class="milestoneList"> <div class="msName"> Possession </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue9 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service9 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total9"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue19 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service19 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total19" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div><span class="barBg" style="width:5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div> </li> </ul> </div>';
-      }
-      $(".fancybox").fancybox();
-      $('.img').lazy({
-        bind: 'event'
-      });
-      return this.iniTooltip();
-    };
-
-    CenterUnitView.prototype.loadMaster = function() {
-      var breakpoint, breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
-      $('.master').removeClass('hidden');
-      url = Backbone.history.fragment;
-      id = url.split('/')[1];
-      unit = unitCollection.findWhere({
-        'id': parseInt(id)
-      });
-      breakpoint = unit.get('breakpoint');
       response = window.unit.getUnitDetails(id);
-      building = buildingCollection.findWhere({
-        'id': parseInt(unit.get('building_id'))
+      unitColl = CommonFloor.getUnitsProperty(unitModel);
+      html = '<div class="svg-info"> <i class="' + unitColl[2] + '-ico"></i> <h5 class=" m-t-0">' + unitModel.get('unit_name') + '</h5> <div class="details"> <span>' + response[1].get('name') + '</span></br> <div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>' + window.numDifferentiation(response[3]) + '</div> <!--<div>Area: <span>' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span></div> <div>Variant: <span>' + response[0].get('unit_variant_name') + '</span></div>--> </div> </div>';
+      return $(e.target).tooltipster('content', html);
+    },
+    'click .next,.prev': function(e) {
+      var id, unitModel;
+      id = parseInt($(e.target).attr('data-id'));
+      unitModel = unitCollection.findWhere({
+        'id': id
       });
-      if (response[2] === 'apartment' || response[2] === 'Penthouse') {
-        transitionImages = [];
-        svgs = {};
-        breakpoints = building.get('breakpoints');
-        $.each(breakpoints, function(index, value) {
-          return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + unit.get('building_id') + '/master-' + value + '.svg';
+      CommonFloor.navigate('/unit-view/' + id, true);
+      return CommonFloor.router.storeRoute();
+    }
+  };
+
+  CenterUnitView.prototype.onShow = function() {
+    var building, flag, height, html, id, response, unit, url;
+    flag = 0;
+    this.getNextPrevUnit();
+    response = this.generateLevels();
+    html = '';
+    $.each(response[0], function(index, value) {
+      flag = 1;
+      return html += '<div class="layouts animated fadeIn"> <a class="fancybox" href="' + value + '"> <img class="img lazy" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
+    });
+    $('.twoD').addClass('current');
+    $('.threeD').removeClass('current');
+    $('.external').removeClass('current');
+    $('.gallery').removeClass('current');
+    if (response[0].length === 0) {
+      flag = 1;
+      $.each(response[1], function(index, value) {
+        return html += '<img data-src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
+      });
+      $('.threeD').addClass('current');
+      $('.external').removeClass('current');
+      $('.twoD').removeClass('current');
+      $('.gallery').removeClass('current');
+    }
+    $('.images').html(html);
+    $('.level').attr('class', 'level Level_0 ' + _.last(response[2]));
+    if (response[4] === 'apartment') {
+      $('.level').attr('class', 'level Level_0 apartment_level');
+    }
+    if (!_.isUndefined(response[3].get('external3durl'))) {
+      flag = 1;
+      html = '<div class="external-wrapper"> <div id="rotate_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="animated fadeIn hidden external-container"> <img class=" img-responsive external-img"  src="' + response[3].get('external3durl') + '" /> </div> </div>';
+      $('.images').html(html);
+      $('.external').addClass('current');
+      $('.threeD').removeClass('current');
+      $('.twoD').removeClass('current');
+      $('.gallery').removeClass('current');
+    }
+    if (response[0].length === 0) {
+      $('.twoD').hide();
+    }
+    if (response[1].length === 0) {
+      $('.threeD').hide();
+    }
+    if (_.isUndefined(response[3].get('external3durl'))) {
+      $('.external').hide();
+    }
+    if (_.isUndefined(response[3].get('galleryurl'))) {
+      $('.gallery').hide();
+    }
+    url = Backbone.history.fragment;
+    id = url.split('/')[1];
+    unit = unitCollection.findWhere({
+      'id': parseInt(id)
+    });
+    building = buildingCollection.findWhere({
+      'id': parseInt(unit.get('building_id'))
+    });
+    if (project.get('project_master').length !== 0 || building.get('building_master').length !== 0) {
+      $('.master').removeClass('hidden');
+    }
+    if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl'))) {
+      $('.gallery').addClass('current');
+      $('.threeD').removeClass('current');
+      $('.twoD').removeClass('current');
+      $('.external').removeClass('current');
+      flag = 1;
+      if (!_.isUndefined(response[3].get('galleryurl'))) {
+        $.each(response[3].get('galleryurl'), function(index, value) {
+          return html += '<div class="animated fadeIn"><img class="img" data-src="' + value + '" /></div>';
         });
-        $.merge(transitionImages, building.get('building_master'));
-        first = BASEURL + '/projects/' + PROJECTID + '/buildings/' + unit.get('building_id') + '/master-' + breakpoint + '.svg';
-        if (building.get('building_master').length !== 0) {
-          $('.firstimage').attr('src', transitionImages[breakpoint]);
-          $('.firstimage').load(function() {
-            return $('.images').load(first, function() {
-              $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
-              $('.apartment,.amenity,.booked_by_agent').each(function(ind, item) {
-                var itemid;
-                itemid = parseInt(item.id);
-                return $('#' + itemid).attr('class', "no-fill");
-              });
-              return $('#' + id).attr('class', 'layer svg_active');
-            });
-          });
-        }
-        if (building.get('building_master').length === 0) {
-          $('.master').hide();
-        }
-        return;
       }
-      svgs = [];
-      breakpoints = project.get('breakpoints');
-      $.each(breakpoints, function(index, value) {
-        return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
+    }
+    if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))) {
+      this.loadMaster();
+      flag = 1;
+      $('.master').addClass('current');
+      $('.gallery').removeClass('current');
+      $('.threeD').removeClass('current');
+      $('.twoD').removeClass('current');
+      $('.external').removeClass('current');
+    }
+    height = this.ui.imagesContainer.height();
+    if ($(window).width() > 991) {
+      $('.unit-details').mCustomScrollbar({
+        theme: 'cf-scroll'
       });
-      first = BASEURL + '/projects/' + PROJECTID + '/master/master-' + breakpoint + '.svg';
+    }
+    $('.images').html(html);
+    $('.external-img').load(function() {
+      $('#rotate_loader').addClass('hidden');
+      return $('.external-container').removeClass('hidden');
+    });
+    if (flag === 0) {
+      html = '<div class="invoice-items animated fadeIn"> <div class="row"> <div class="col-sm-5 form-inline m-b-20"> <h5 class="inline-block">Payment Plan: </h5><select class="form-control" id="paymentplans"> <option value="3363"> Payment Plan </option> <option value="3364"> Price Breakdown </option> </select> </div> <div class="col-sm-7 text-right"> <h5 class="inline-block">Booking Amount: </h5> <h4 class="inline-block bold text-primary"><span class="rec" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span></h4> </div> </div> <ul id="paymentTable"> <li style="list-style: none"><span class="msPercent">4.5%</span></li> <li class="milestoneList milestoneReached"> <div class="msName"> Application </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span> </div> <div> Total: <span class="total0"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span> </div> <div> Total: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span> </div> </div><span class="barBg" style="width:4.5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">26%</span> </li> <li class="milestoneList"> <div class="msName"> Plinth </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue1 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 19,83,761</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service1 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 61,298</span> </div> <div> Total: <span class="total1"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 20,45,059</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue11 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 19,83,761</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service11 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 61,298</span> </div> <div> Total: <span class="total11" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 20,45,059</span> </div> </div><span class="barBg" style="width:26%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">11%</span> </li> <li class="milestoneList"> <div class="msName"> 1st Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue2 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service2 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total2"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue12 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service12 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total12" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div><span class="barBg" style="width:11%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">11%</span> </li> <li class="milestoneList"> <div class="msName"> 3rd Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue3 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service3 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total3"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue13 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service13 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total13" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div><span class="barBg" style="width:11%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">11%</span> </li> <li class="milestoneList"> <div class="msName"> 5th Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue4 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service4 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total4"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue14 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service14 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total14" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div><span class="barBg" style="width:11%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">11%</span> </li> <li class="milestoneList"> <div class="msName"> 7th Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue5 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service5 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total5"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue15 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service15 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span> </div> <div> Total: <span class="total15" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span> </div> </div><span class="barBg" style="width:11%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">10.5%</span> </li> <li class="milestoneList"> <div class="msName"> 9th Slab </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue6 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,01,134</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service6 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 24,755</span> </div> <div> Total: <span class="total6"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,25,889</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue16 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,01,134</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service16 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 24,755</span> </div> <div> Total: <span class="total16" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,25,889</span> </div> </div><span class="barBg" style="width:10.5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">5%</span> </li> <li class="milestoneList"> <div class="msName"> Brick Work </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue7 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service7 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total7"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue17 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service17 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total17" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div><span class="barBg" style="width:5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">5%</span> </li> <li class="milestoneList"> <div class="msName"> Flooring </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue8 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service8 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total8"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue18 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service18 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total18" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div><span class="barBg" style="width:5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent">5%</span> </li> <li class="milestoneList"> <div class="msName"> Possession </div> <div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue9 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service9 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total9"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div> <div class="msVal"> <div> <span class="label">Amount:</span> <span class= "percentageValue19 label"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service19 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span> </div> <div> Total: <span class="total19" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span> </div> </div><span class="barBg" style="width:5%"></span> </li> <li style="list-style: none; display: inline"> <div class="clearfix"></div> </li> </ul> </div>';
+    }
+    $(".fancybox").fancybox();
+    $('.img').lazy({
+      bind: 'event'
+    });
+    return this.iniTooltip();
+  };
+
+  CenterUnitView.prototype.loadMaster = function() {
+    var breakpoint, breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
+    $('.master').removeClass('hidden');
+    url = Backbone.history.fragment;
+    id = url.split('/')[1];
+    unit = unitCollection.findWhere({
+      'id': parseInt(id)
+    });
+    breakpoint = unit.get('breakpoint');
+    response = window.unit.getUnitDetails(id);
+    building = buildingCollection.findWhere({
+      'id': parseInt(unit.get('building_id'))
+    });
+    if (response[2] === 'apartment' || response[2] === 'Penthouse') {
       transitionImages = [];
-      $.merge(transitionImages, project.get('project_master'));
-      if (project.get('project_master').length !== 0) {
+      svgs = {};
+      breakpoints = building.get('breakpoints');
+      $.each(breakpoints, function(index, value) {
+        return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + unit.get('building_id') + '/master-' + value + '.svg';
+      });
+      $.merge(transitionImages, building.get('building_master'));
+      first = BASEURL + '/projects/' + PROJECTID + '/buildings/' + unit.get('building_id') + '/master-' + breakpoint + '.svg';
+      if (building.get('building_master').length !== 0) {
         $('.firstimage').attr('src', transitionImages[breakpoint]);
         $('.firstimage').load(function() {
           return $('.images').load(first, function() {
             $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
-            $('.villa,.plot,.building,.amenity,.booked_by_agent').each(function(ind, item) {
+            $('.apartment,.amenity,.booked_by_agent').each(function(ind, item) {
               var itemid;
               itemid = parseInt(item.id);
               return $('#' + itemid).attr('class', "no-fill");
@@ -690,147 +662,170 @@
           });
         });
       }
-      if (project.get('project_master').length === 0) {
-        return $('.master').hide();
+      if (building.get('building_master').length === 0) {
+        $('.master').hide();
       }
-    };
-
-    CenterUnitView.prototype.iniTooltip = function() {
-      $('.next').tooltipster({
-        theme: 'tooltipster-shadow circle-tooltip',
-        contentAsHTML: true,
-        onlyOne: true,
-        arrow: false,
-        interactive: true,
-        trigger: 'hover',
-        position: 'left',
-        delay: 50
-      });
-      return $('.prev').tooltipster({
-        theme: 'tooltipster-shadow circle-tooltip',
-        contentAsHTML: true,
-        onlyOne: true,
-        arrow: false,
-        interactive: true,
-        trigger: 'hover',
-        position: 'right',
-        delay: 50
-      });
-    };
-
-    CenterUnitView.prototype.generateLevels = function() {
-      var floor, i, level, response, threeD, twoD, unitD, unitid, url;
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      response = window.unit.getUnitDetails(unitid);
-      twoD = [];
-      threeD = [];
-      level = [];
-      floor = response[0].get('floor');
-      i = 0;
-      unitD = unitCollection.findWhere({
-        id: unitid
-      });
-      $.each(floor, function(index, value) {
-        var level_name;
-        if (!_.isUndefined(value.url2dlayout_image) && value.url2dlayout_image !== "") {
-          twoD.push(value.url2dlayout_image);
-        }
-        if (!_.isUndefined(value.url3dlayout_image) && value.url3dlayout_image !== "") {
-          threeD.push(value.url3dlayout_image);
-        }
-        level_name = 'Level  ' + index;
-        if (response[2] === 'apartment') {
-          level.push("");
-        } else {
-          level.push(s.replaceAll('Level ' + i, " ", "_"));
-        }
-        return i = i + 1;
-      });
-      return [twoD, threeD, level, response[0], response[2]];
-    };
-
-    CenterUnitView.prototype.getNextPrevUnit = function() {
-      var next, prev, unitModel, unitid, url;
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      unitModel = unitCollection.findWhere({
-        'id': unitid
-      });
-      CommonFloor.getUnitsProperty(unitModel);
-      window.tempColl.setRecord(unitModel);
-      next = tempColl.next();
-      if (_.isUndefined(next)) {
-        $('.next').hide();
-      } else {
-        $('.next').attr('data-id', next.get('id'));
-      }
-      prev = tempColl.prev();
-      if (_.isUndefined(prev)) {
-        return $('.prev').hide();
-      } else {
-        return $('.prev').attr('data-id', prev.get('id'));
-      }
-    };
-
-    return CenterUnitView;
-
-  })(Marionette.ItemView);
-
-  CommonFloor.CenterUnitCtrl = (function(superClass) {
-    extend(CenterUnitCtrl, superClass);
-
-    function CenterUnitCtrl() {
-      return CenterUnitCtrl.__super__.constructor.apply(this, arguments);
+      return;
     }
+    svgs = [];
+    breakpoints = project.get('breakpoints');
+    $.each(breakpoints, function(index, value) {
+      return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
+    });
+    first = BASEURL + '/projects/' + PROJECTID + '/master/master-' + breakpoint + '.svg';
+    transitionImages = [];
+    $.merge(transitionImages, project.get('project_master'));
+    if (project.get('project_master').length !== 0) {
+      $('.firstimage').attr('src', transitionImages[breakpoint]);
+      $('.firstimage').load(function() {
+        return $('.images').load(first, function() {
+          $('.unassign').attr('style', "opacity: 0;fill-opacity: 0;");
+          $('.villa,.plot,.building,.amenity,.booked_by_agent').each(function(ind, item) {
+            var itemid;
+            itemid = parseInt(item.id);
+            return $('#' + itemid).attr('class', "no-fill");
+          });
+          return $('#' + id).attr('class', 'layer svg_active');
+        });
+      });
+    }
+    if (project.get('project_master').length === 0) {
+      return $('.master').hide();
+    }
+  };
 
-    CenterUnitCtrl.prototype.initialize = function() {
-      var unitPaymentPlan, unitPaymentPlanAjx, unitPriceSheet, unitPriceSheetAjx, unitid, url;
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      unitPaymentPlan = {
-        method: "GET",
-        url: BASERESTURL + "/get-unit-payment-plan",
-        data: {
-          unit_id: unitid
-        }
-      };
-      unitPriceSheet = {
-        method: "GET",
-        url: BASERESTURL + "/get-unit-price-sheet",
-        data: {
-          unit_id: unitid
-        }
-      };
-      unitPriceSheetAjx = $.ajax(unitPriceSheet);
-      unitPaymentPlanAjx = $.ajax(unitPaymentPlan);
-      return $.when(unitPaymentPlanAjx, unitPriceSheetAjx).done((function(_this) {
-        return function(paymentPlanResp, priceSheetResp) {
-          var paymentPlan, priceSheet;
-          paymentPlan = paymentPlanResp[0]['data'];
-          priceSheet = priceSheetResp[0]['data'];
-          if (!paymentPlan) {
-            unitPaymentPlan = paymentPlanResp[0]['data'];
-          } else {
-            unitPaymentPlan = paymentPlanResp[0]['data'];
-          }
-          if (!priceSheet) {
-            unitPriceSheet = priceSheetResp[0]['data'];
-          } else {
-            unitPriceSheet = priceSheetResp[0]['data'];
-          }
-          return _this.show(new CenterUnitView({
-            unitPaymentPlan: unitPaymentPlan,
-            unitPriceSheet: unitPriceSheet
-          }));
-        };
-      })(this));
+  CenterUnitView.prototype.iniTooltip = function() {
+    $('.next').tooltipster({
+      theme: 'tooltipster-shadow circle-tooltip',
+      contentAsHTML: true,
+      onlyOne: true,
+      arrow: false,
+      interactive: true,
+      trigger: 'hover',
+      position: 'left',
+      delay: 50
+    });
+    return $('.prev').tooltipster({
+      theme: 'tooltipster-shadow circle-tooltip',
+      contentAsHTML: true,
+      onlyOne: true,
+      arrow: false,
+      interactive: true,
+      trigger: 'hover',
+      position: 'right',
+      delay: 50
+    });
+  };
+
+  CenterUnitView.prototype.generateLevels = function() {
+    var floor, i, level, response, threeD, twoD, unitD, unitid, url;
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    response = window.unit.getUnitDetails(unitid);
+    twoD = [];
+    threeD = [];
+    level = [];
+    floor = response[0].get('floor');
+    i = 0;
+    unitD = unitCollection.findWhere({
+      id: unitid
+    });
+    $.each(floor, function(index, value) {
+      var level_name;
+      if (!_.isUndefined(value.url2dlayout_image) && value.url2dlayout_image !== "") {
+        twoD.push(value.url2dlayout_image);
+      }
+      if (!_.isUndefined(value.url3dlayout_image) && value.url3dlayout_image !== "") {
+        threeD.push(value.url3dlayout_image);
+      }
+      level_name = 'Level  ' + index;
+      if (response[2] === 'apartment') {
+        level.push("");
+      } else {
+        level.push(s.replaceAll('Level ' + i, " ", "_"));
+      }
+      return i = i + 1;
+    });
+    return [twoD, threeD, level, response[0], response[2]];
+  };
+
+  CenterUnitView.prototype.getNextPrevUnit = function() {
+    var next, prev, unitModel, unitid, url;
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    unitModel = unitCollection.findWhere({
+      'id': unitid
+    });
+    CommonFloor.getUnitsProperty(unitModel);
+    window.tempColl.setRecord(unitModel);
+    next = tempColl.next();
+    if (_.isUndefined(next)) {
+      $('.next').hide();
+    } else {
+      $('.next').attr('data-id', next.get('id'));
+    }
+    prev = tempColl.prev();
+    if (_.isUndefined(prev)) {
+      return $('.prev').hide();
+    } else {
+      return $('.prev').attr('data-id', prev.get('id'));
+    }
+  };
+
+  return CenterUnitView;
+
+})(Marionette.ItemView);
+
+CommonFloor.CenterUnitCtrl = (function(superClass) {
+  extend(CenterUnitCtrl, superClass);
+
+  function CenterUnitCtrl() {
+    return CenterUnitCtrl.__super__.constructor.apply(this, arguments);
+  }
+
+  CenterUnitCtrl.prototype.initialize = function() {
+    var unitPaymentPlan, unitPaymentPlanAjx, unitPriceSheet, unitPriceSheetAjx, unitid, url;
+    url = Backbone.history.fragment;
+    unitid = parseInt(url.split('/')[1]);
+    unitPaymentPlan = {
+      method: "GET",
+      url: BASERESTURL + "/get-unit-payment-plan",
+      data: {
+        unit_id: unitid
+      }
     };
+    unitPriceSheet = {
+      method: "GET",
+      url: BASERESTURL + "/get-unit-price-sheet",
+      data: {
+        unit_id: unitid
+      }
+    };
+    unitPriceSheetAjx = $.ajax(unitPriceSheet);
+    unitPaymentPlanAjx = $.ajax(unitPaymentPlan);
+    return $.when(unitPaymentPlanAjx, unitPriceSheetAjx).done((function(_this) {
+      return function(paymentPlanResp, priceSheetResp) {
+        var paymentPlan, priceSheet;
+        paymentPlan = paymentPlanResp[0]['data'];
+        priceSheet = priceSheetResp[0]['data'];
+        if (!paymentPlan) {
+          unitPaymentPlan = paymentPlanResp[0]['data'];
+        } else {
+          unitPaymentPlan = paymentPlanResp[0]['data'];
+        }
+        if (!priceSheet) {
+          unitPriceSheet = priceSheetResp[0]['data'];
+        } else {
+          unitPriceSheet = priceSheetResp[0]['data'];
+        }
+        return _this.show(new CenterUnitView({
+          unitPaymentPlan: unitPaymentPlan,
+          unitPriceSheet: unitPriceSheet
+        }));
+      };
+    })(this));
+  };
 
-    return CenterUnitCtrl;
+  return CenterUnitCtrl;
 
-  })(Marionette.RegionController);
-
-}).call(this);
-
-//# sourceMappingURL=../../frontend/unit-view/unit.controller.js.map
+})(Marionette.RegionController);
