@@ -1,5 +1,5 @@
-var React = require('react/addons');
-var PureRenderMixin = React.addons.PureRenderMixin;
+var React = require('react');
+var PureRenderMixin = require('react-addons-pure-render-mixin');
 var AppStore = require('../../stores/app-store.js');
 var NavBar = require('../project-master/navbar');
 var SunToggle = require('../project-master/suntoggle');
