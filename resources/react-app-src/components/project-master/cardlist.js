@@ -1,5 +1,5 @@
-var React = require('react/addons');
-var PureRenderMixin = React.addons.PureRenderMixin;
+var React = require('react');
+var PureRenderMixin = require('react-addons-pure-render-mixin');
 var CardView = require('../project-master/cardview');
 var Slider = require('react-slick');
 
@@ -12,7 +12,7 @@ var CardList = React.createClass({
     },
 
     componentDidUpdate: function() {
-           var $sliderContainer = $(this.refs.sliderContainer.getDOMNode());
+           var $sliderContainer = $(this.refs.sliderContainer);
 
            var $sliderSettings = {
                centerMode: true,
@@ -55,8 +55,8 @@ var CardList = React.createClass({
 
         buildingNodes = buildings.map(function(building,i){
                             return(
-                                <div>
-                                <CardView key={i} building={building}/> 
+                                <div key={i}>
+                                <CardView  building={building}/> 
                                 </div>
                             ); 
                                  
