@@ -405,7 +405,7 @@ function breakpointShadowImgUploader(position) {
 
 function breakpointSvgUploader(position) {
 
-    var selectBtnId = 'uploadsvg_' + position; 
+    var selectBtnId = 'uploadsvg_' + position;  
     var objectType = $('div.object-master-images').attr('data-object-type');
     var objectId = $('div.object-master-images').attr('data-object-id');
     var authtool_permission = $('div.object-master-images').attr('data-object-id');
@@ -594,13 +594,15 @@ function setUpProjectMasterUploader() {
                     str += '<td>' + fileResponse.data.filename + ' <input type="hidden" name="master_image_id" value="' + fileResponse.data.media_id + '"></td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
                     str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
-                    str += '<td><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div><a class="text-primary delete-shadow-' + fileResponse.data.position + ' hidden"><i class="fa fa-close"></i></a></td>';
+                    str += '<td><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div></td>';
+                    str += '<td><div class="hidden breakpointSvg-' + fileResponse.data.position + '" id="uploadsvg_' + fileResponse.data.position + '" >Import</div></td>';
                     str += '<td><a target="_blank" href="'+ authoringToolUrl +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool</a></td>';
                     str += '<td class="text-right">';
                     str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
                     str += '</td>';
                     $('#position-' + fileResponse.data.position).html(str);
                     breakpointShadowImgUploader(fileResponse.data.position);
+                    breakpointSvgUploader(fileResponse.data.position);
                 } else {
 
                     var fileName = file.name;
