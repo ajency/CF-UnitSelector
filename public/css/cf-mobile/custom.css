@@ -315,6 +315,31 @@ body .row {
   width: 100%;
   overflow: auto;
 }
+/* Modal CSS */
+.modal-full-width {
+  z-index: 9999 !important;
+}
+.modal-full-width .modal-dialog {
+  margin: 0px;
+  top: 0px;
+  height: 100%;
+}
+.modal-full-width .modal-dialog .modal-content {
+  border-radius: 0px;
+  height: 100%;
+}
+.modal-full-width .modal-dialog .modal-content .modal-header {
+  background: #333;
+  color: white;
+}
+.modal-full-width .modal-dialog .modal-content .modal-header .modal-title {
+  line-height: 1.7;
+}
+.modal-full-width .modal-dialog .modal-content .modal-body {
+  padding: 0px !important;
+  overflow-x: scroll;
+  height: 450px;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -885,6 +910,9 @@ div#spritespin {
 .p-0 {
   padding: 0 !important;
 }
+.m-t-20 {
+  margin-top: 20px;
+}
 .filterHeader {
   position: fixed;
   top: 0;
@@ -914,17 +942,16 @@ div#spritespin {
   margin: 14px 15px 0 0;
 }
 .filter-content {
-  margin-top: 50px;
-  float: left;
   width: 100%;
   margin-bottom: 60px;
 }
 .filter-content .imagecheckboxOuter {
   margin-bottom: 20px;
-  float: left;
   width: 100%;
   padding: 20px 0;
   background: #f6f6f6;
+  border-top: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
 }
 .filter-content .imagecheckboxOuter .checkboxInner {
   padding: 25px 10px 15px 10px;
@@ -963,7 +990,7 @@ div#spritespin {
 .filter-content .checkboxOuter {
   float: left;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .filter-content .checkboxOuter .checkboxnormal {
   background: #f6f6f6;
@@ -1015,9 +1042,9 @@ div#spritespin {
 }
 .filter-content .budgetOuter {
   background: #f6f6f6;
-  border-top: 1px solid #d5d5d4;
-  border-bottom: 1px solid #d5d5d4;
-  margin-bottom: 15px;
+  border-top: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
+  margin-bottom: 20px;
 }
 .filter-content .budgetOuter div {
   padding: 20px 15px;
