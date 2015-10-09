@@ -605,6 +605,10 @@ section {
   top: 0px;
   width: 100%;
 }
+div#spritespin {
+  width: 100% !important;
+  height: 100% !important;
+}
 .tabHeader {
   position: fixed;
   top: 0;

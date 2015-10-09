@@ -49,7 +49,7 @@
       <i class="i-sun i-icon"></i>
   </div>
   <!-- Sun-toggle -->
-    <div class="rotate">
+    <div class="rotate" id="next">
     
   </div>
   <div class="us-right-content">
@@ -70,9 +70,9 @@
   </g>
 
 </svg>
-</div>
-              <img src="img/Project-noshadow.jpg" class="img-responsive fit no-shadow " />
-              <img src="img/Project.jpg" class="img-responsive shadow fit"/>
+</div><div id='spritespin'></div>
+             <!--  <img src="img/Project-noshadow.jpg" class="img-responsive fit no-shadow " />
+              <img src="img/Project.jpg" class="img-responsive shadow fit"/> -->
 
       </div>
            </div>
@@ -215,8 +215,9 @@
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
     <script src="js/jquery.panzoom.js"></script>
-    <script src="js/jquery.mousewheel.js"></script>    
-    
+    <script src="js/jquery.mousewheel.js"></script>   
+     <script src="http://spritespin.ginie.eu/spritespin.js"></script>     
+
      <SCRIPT TYPE="text/javascript">
 
         $('.center').slick({
@@ -274,7 +275,7 @@
              disablePan: false,
              disableZoom: false
           });
-          $('.image').panzoom("setMatrix", [1, 0, 0, 1.1, -285, 9]);
+          $('.image').panzoom("setMatrix", [1, 0, 0, 1.1, -371, 9]);
         });
   
 
@@ -293,7 +294,57 @@
      $('.sun-toggle').toggleClass('sun-highlight');
   });
 
+// use helper method to generate an array of image urls. We have 34 frames in total
+var frames = SpriteSpin.sourceArray('img/project_{frame}.jpg', { 
+    frame: [1, 10], 
+    digits: 3 
+});
 
+// these are the frame numbers that will show a detail bubble
+var details = [0, 5];
+// the current index in the details array
+var detailIndex = 0;
+
+// initialise spritespin
+var spin = $('#spritespin');
+spin.spritespin({
+    source: frames,
+    width: 1920,
+    sense: -1,
+    height: 1080,
+    animate: false
+});
+// get the api object. This is used to trigger animation to play up to a specific frame
+var api = spin.spritespin("api");
+
+spin.bind("onLoad", function(){
+    var data = api.data;
+    data.stage.prepend($(".details .detail")); // add current details
+    data.stage.find(".detail").hide();         // hide current details
+}).bind("onFrame", function(){
+    var data = api.data;
+    data.stage.find(".detail:visible").stop(false).fadeOut();
+    data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
+});
+    
+$( "#prev" ).click(function(){
+    setDetailIndex(detailIndex - 1);
+});
+    
+$( "#next" ).click(function(){
+    setDetailIndex(detailIndex + 1);
+});
+
+function setDetailIndex(index){
+    detailIndex = index;
+    if (detailIndex < 0){
+        detailIndex = details.length - 1;
+    }
+    if (detailIndex >= details.length){
+        detailIndex = 0;
+    }
+    api.playTo(details[detailIndex]);
+}
   
 });
  
