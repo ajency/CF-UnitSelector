@@ -1876,6 +1876,7 @@ def bookings(request):
 									locals(), 
 									context_instance = RequestContext(request))
 
+
 @login_required
 def buyer_list(request):
 	if 'user_role' not in request.session:
@@ -2191,3 +2192,66 @@ def get_project_plan_units(request):
 			return HttpResponse(json.dumps(project_units_price_sheets))
 	except Exception as e:
 		return None
+
+@token_required
+def makeBooking(request):
+	try:
+		if request.method == 'POST':
+
+			#Add buyer
+			buyer = booking_engine_buyers()
+			buyer.buyer_name = request.POST['buyer_name']
+			buyer.email = request.POST['buyer_email']
+			buyer.phone = request.POST['buyer_mobile']
+			buyer.pan_card_number = request.POST['buyer_pancard']
+			buyer.buyer_type = request.POST['buyer_type']
+			buyer.address_line_1 = request.POST['buyer_address1']
+			buyer.address_line_2 = request.POST['buyer_address2']
+			buyer.city = request.POST['buyer_city']
+			buyer.state = request.POST['buyer_state']
+			buyer.country = request.POST['buyer_country']
+			buyer.pincode = request.POST['buyer_pincode']
+			buyer.save()
+			buyerId = buyer.id
+
+			#Add booking
+			booking = booking_engine_bookings()
+			booking.buyer_id = buyerId
+			booking.unit_id = request.POST['unitId']
+			booking.status = request.POST['booking_status']
+			booking.booking_date = datetime.now()
+			booking.payment_plan_id = ''
+			booking.price_sheet_id = ''
+ 			booking.save()
+			bookingId = booking.id
+
+			#Add booking history
+			bookingHistory = booking_engine_booking_history()
+			bookingHistory.booking_id = bookingId
+			bookingHistory.old_status = request.POST['old_status']
+			bookingHistory.new_status = request.POST['new_status']
+			bookingHistory.comments = request.POST['comments']
+			bookingHistory.updated_on = datetime.now()
+			bookingHistory.updated_by = request.POST['buyer_name']
+ 			bookingHistory.save()
+
+			result = {}
+			result['buyer_id'] = buyerId
+			result['buyer_name'] = buyer.buyer_name
+			result['buyer_email'] = buyer.email
+			result['buyer_mobile'] = buyer.phone
+			result['booking_id'] = bookingId
+			result['message'] = "SUCCESS"
+
+			data = json.dumps(result)
+			return HttpResponse(data)
+		else:
+			result['message'] = "FAILURE"
+			data = json.dumps(result)
+			return HttpResponse(data)
+
+	except Exception as e:
+		print '%s %s (%s)' % ('makeBooking Error',e.message, type(e))
+		return HttpResponse(e.message)
+
+

@@ -26,35 +26,23 @@
         <!-- <h3 class="page-header">Buyer's List</h3> -->
             <div class="panel panel-default">
                 <div class="panel-heading" align="center">
-                    Bookings
+                    {{ title }}
                 </div>
                 <!-- /.panel-heading -->
-                <div class="panel-body">
+               <div class="panel-body">
                     <div class="dataTable_wrapper">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-booking">
                             <thead>
                                 <tr>
-                                    <th>Booking Id</th>
-                                    <th>Buyer Name</th>
-                                    <th>Email Address</th>
-                                    <th>Phone</th>
+                                    <th>Project Id</th>
                                     <th>Project Name</th>
-                                    <th>Unit Purchased</th>
-                                    <th>Purchase Date</th>
-                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            	{% for booking in bookings %}
+                                {% for project in projects %}
                                 <tr>
-                                    <td><a href="/booking-info/{{ booking.booking_id }}">{{ booking.booking_id }}</a></td>
-                                    <td>{{ booking.buyer_name }}</td>
-                                    <td>{{ booking.email }}</td>
-                                    <td>{{ booking.phone }}</td>
-                                    <td>{{ booking.project_name }}</td>
-                                    <td>{{ booking.unit_purchased }}</td>
-                                    <td>{{ booking.purchase_date }}</td>
-                                    <td>{{ booking.status }}</td>
+                                    <td>{{ project.cf_project_id }}</td>
+                                    <td>{{ project.project_title }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -65,8 +53,7 @@
                 <!-- /.panel-body -->
             </div>
             <!-- /.panel -->
-    }
-    }
+  
     </div>
     <!-- /.col-lg-12 -->
 </div>

@@ -75,6 +75,9 @@ urlpatterns = patterns('',
     url('^addUnit/$', 'booking_engine.views.addUnit', name='addUnit'),
     url('^deleteUnit/$', 'booking_engine.views.deleteUnit', name='deleteUnit'),
 
+    #BOOKING API 
+    url('^makebooking/$', 'booking_engine.views.makeBooking', name='makeBooking'),
+  
     # url('^update_payment_plan_for_project/$', 'booking_engine.views.update_payment_plan_for_project', name='update_payment_plan_for_project'),
     # url('^update_price_sheet_for_project/$', 'booking_engine.views.update_price_sheet_for_project', name='update_price_sheet_for_project'),
     
