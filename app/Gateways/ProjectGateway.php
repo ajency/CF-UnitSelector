@@ -120,12 +120,12 @@ class ProjectGateway implements ProjectGatewayInterface {
                    $buildingUnits = $buildingData->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
                   
                     if(!empty($buildingUnits)) //IF NO UNITS ASSIGNED DONT SEND BUILDING DATA
-                       $projectbuildings = array_merge($building,$projectbuildings);
+                       $projectbuildings[] = $building;//array_merge($building,$projectbuildings);
                 }
                 else
                 {
                    $buildingUnits = $buildingData->projectUnits()->get()->toArray();
-                   $projectbuildings = array_merge($building,$projectbuildings);    
+                   $projectbuildings[] = $building;//array_merge($building,$projectbuildings);    
                 }
                 
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
@@ -224,7 +224,6 @@ class ProjectGateway implements ProjectGatewayInterface {
         $projectUnits = [];
         $projectbuildings = [];
         $buildingUnitdata = [];
-        $phaseIdArr =[];
        
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
@@ -241,19 +240,16 @@ class ProjectGateway implements ProjectGatewayInterface {
             $phase = \CommonFloor\Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray();  
-            //$projectbuildings = array_merge($buildings,$projectbuildings);
+            $projectbuildings = array_merge($buildings,$projectbuildings);
             foreach($buildings as $building)
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
-
-                $projectbuildings[] = $building;
             }
 
             $projectUnits = array_merge($units,$projectUnits); 
-        }
-       
+        }    
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);  
       $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
 
