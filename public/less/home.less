@@ -134,7 +134,7 @@ body .row {
               z-index: 9999;
               position: absolute;
               right: 4%;
-              bottom: 29%;
+              bottom: 160px;
               border-radius: 100%;
               box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
               padding: 5px 4px;
@@ -183,6 +183,9 @@ body .row {
             line-height: 26px;
             color:@gray;
             height: 45px;
+             @media(max-width: 320px){
+               height:40px;
+              }
             sm{
               color: @gray-darker;
               font-weight: bold;
@@ -206,6 +209,9 @@ body .row {
                 color: @gray-darker;
                 font-size: 10px;
                 font-weight:400;
+                 @media(max-width: 320px){
+                    font-size: 9px;
+                 }
               }
             }
             .arrow
@@ -309,7 +315,8 @@ body .row {
 
 /* Modal CSS */
 .modal-full-width{
-      z-index: 9999 !important;
+      z-index: 99999 !important;
+          overflow-y: hidden;
   .modal-dialog{
         margin: 0px;
        top: 0px;
@@ -329,7 +336,7 @@ body .row {
            .modal-body{
                  padding: 0px !important;
                   overflow-x: scroll;
-                  height: 450px;
+                  height: 100%;
             }
        }
   }
