@@ -144,8 +144,8 @@ class ProjectGateway implements ProjectGatewayInterface {
         unset ($unit['availability']);
         $unit['booking_amount'] = rand(5, 15);//ProjectController :: get_unit_booking_amount($unit['id']);
         $unit['selling_amount'] = rand(5, 15);//ProjectController :: get_unit_selling_amount($unit['id']); 
-        $unitPriceComponent = []//ProjectController :: get_unit_price($unit['id']);  
-        $unit['unit_price'] = rand(5, 15);;
+        $unitPriceComponent = [];//ProjectController :: get_unit_price($unit['id']);  
+        $unit['unit_price'] = rand(5, 15);
         $unit['unit_price_component'] = [];
         // if(isset($unitPriceComponent['error']))
         // {
