@@ -1,15 +1,9 @@
 var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
-var Modal = require('../modal/modal');
-var ReactDOM = require('react-dom');
 
 
 var NavBar = React.createClass({
     mixins: [PureRenderMixin],
-
-    showFilterModal: function(){
-        $(ReactDOM.findDOMNode(this.refs.modal)).modal();
-    },
     
     render: function(){
             return (
@@ -28,8 +22,7 @@ var NavBar = React.createClass({
                               <ul className="list-inline">
                                 <li> <i className="i-phone i-icon"></i></li>
                                 <li> <i className="i-shortlist i-icon"></i></li>
-                                <li onClick={this.showFilterModal}> <i className="i-filter i-icon"></i></li>
-                                <Modal ref="modal" />
+                                <li onClick={this.props.showFilterModal} data-backdrop="false"> <i className="i-filter i-icon"></i></li>
                               </ul>
                             </div>
                         </div>

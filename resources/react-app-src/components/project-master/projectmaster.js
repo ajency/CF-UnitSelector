@@ -8,6 +8,8 @@ var ProjectImage = require('../project-master/projectimage');
 var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
 var CardList = require('../project-master/cardlist');
 var immutabilityHelpers = require('react-addons-update');
+var ReactDOM = require('react-dom');
+var Modal = require('../modal/modal');
 
 
 
@@ -68,7 +70,11 @@ var ProjectMaster = React.createClass({
 
     _onChange:function(){
       this.setState(getStateData());
-    },    
+    }, 
+
+    showFilterModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.modal)).modal();
+    },
 
     render: function(){
         var data = this.state.data;
@@ -82,7 +88,10 @@ var ProjectMaster = React.createClass({
             <NavBar 
                 projectTitle = {projectTitle} 
                 unitCount = {unitCount}
+                showFilterModal = {this.showFilterModal}
+
             />
+            <Modal ref="modal" />
             <SunToggle 
                 toggelSunView = {this.toggelSunView} 
                 showShadow={data.showShadow}
