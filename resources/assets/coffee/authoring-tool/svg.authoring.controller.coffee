@@ -94,9 +94,9 @@ jQuery(document).ready ($)->
             if value.canvas_type is 'path'
                 console.log value
                 window.path.generatePathTag(value)
-                draw.attr('viewBox', "0 0 1920 1080")   
-                draw.attr('enable-background', "new 0 01920 1080")      
-
+                   
+        draw.attr('viewBox', "0 0 1920 1080")   
+        draw.attr('enable-background', "new 0 01920 1080")   
         draw.attr('preserveAspectRatio', "xMinYMin slice")   
 
 
