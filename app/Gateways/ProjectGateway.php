@@ -250,7 +250,7 @@ class ProjectGateway implements ProjectGatewayInterface {
 
             $projectUnits = array_merge($units,$projectUnits); 
         }
-      if(count($buildings)==1)
+      if(count($projectbuildings)==1)
         $projectbuildings[]=$projectbuildings;    
     
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);  
