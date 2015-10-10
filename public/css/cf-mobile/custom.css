@@ -112,8 +112,8 @@ body .row {
   left: 0;
   height: 120px;
   padding: 10px;
-  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.75), transparent);
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.96), transparent);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), transparent);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
 }
@@ -218,6 +218,7 @@ body .row {
   font-weight: 200;
   line-height: 26px;
   color: #7d7c7a;
+  height: 45px;
 }
 .card-swipe .swipe-footer sm {
   color: #565654;
@@ -335,6 +336,7 @@ body .row {
 .modal-full-width .modal-dialog .modal-content .modal-header {
   background: #333;
   color: white;
+  padding: 10px 0PX;
 }
 .modal-full-width .modal-dialog .modal-content .modal-header .modal-title {
   line-height: 1.7;
@@ -343,6 +345,14 @@ body .row {
   padding: 0px !important;
   overflow-x: scroll;
   height: 450px;
+}
+/* svg */
+.in-selection {
+  fill: rgba(16, 165, 169, 0.34) !important;
+}
+.not-in-selection,
+.not-availabel {
+  fill: rgba(0, 0, 0, 0.46) !important;
 }
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
@@ -390,7 +400,6 @@ body .row {
   margin-top: 20px;
 }
 * {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .bottom-card {
@@ -445,11 +454,14 @@ body .row {
   -webkit-transform: scale(1.18);
   color: #000;
   opacity: 1;
-  transform: scale(1.18);
+  -webkit-transform: scale(1.18);
+      -ms-transform: scale(1.18);
+          transform: scale(1.18);
 }
 .center .card-swipe {
   opacity: 0.8;
-  transition: all 300ms ease;
+  -webkit-transition: all 300ms ease;
+          transition: all 300ms ease;
 }
 .content {
   margin: auto;
@@ -662,7 +674,9 @@ section {
   width: 100%;
 }
 .image .no-shadow {
-  position: absolute;
+  position: absolute !important;
+  -webkit-transition: visibility 0s 0.6s, opacity 0.6s linear;
+          transition: visibility 0s 0.6s, opacity 0.6s linear;
   top: 0;
 }
 .image2 {
@@ -676,7 +690,8 @@ section {
 }
 .hide-shadow {
   opacity: 0;
-  transition: all 0.5s ease ;
+  -webkit-transition: all 0.5s ease ;
+          transition: all 0.5s ease ;
 }
 .svg-area {
   position: absolute;
@@ -826,7 +841,7 @@ div#spritespin {
   position: absolute;
   z-index: 1;
   right: 20px;
-  bottom: 20px;
+  bottom: 20px
   /*height:40px;
 				width:40px;*/
 }
@@ -877,7 +892,7 @@ div#spritespin {
   position: absolute;
   z-index: 1;
   right: 10px;
-  bottom: 20px;
+  bottom: 20px
   /*height:40px;
 			width:40px;	*/
 }
@@ -1122,23 +1137,15 @@ div#spritespin {
   margin-left: 50%;
   /* margin-top: 50%;*/
   -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
   -webkit-animation: slide 22s linear;
-  -moz-animation: slide 22s linear;
   animation: slide 22s linear;
   -webkit-animation-fill-mode: forwards;
   /* Chrome, Safari, Opera */
   animation-fill-mode: forwards;
 }
 @-webkit-keyframes slide {
-  0% {
-    margin-left: 25%;
-  }
-  100% {
-    margin-left: 75%;
-  }
-}
-@-moz-keyframes slide {
   0% {
     margin-left: 25%;
   }
@@ -1231,3 +1238,4 @@ div#spritespin {
   color: #ffffff;
   text-decoration: none;
 }
+/*# sourceMappingURL=custom.css.map */

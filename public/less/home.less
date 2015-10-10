@@ -64,8 +64,8 @@ body .row {
       left: 0;
       height: 120px;
       padding: 10px;
-      background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.75), transparent);
-      background-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent);
+      background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.96), transparent);
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), transparent);
       background-repeat: repeat-x;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
   .badge {
@@ -182,6 +182,7 @@ body .row {
             font-weight: 200;
             line-height: 26px;
             color:@gray;
+            height: 45px;
             sm{
               color: @gray-darker;
               font-weight: bold;
@@ -319,6 +320,7 @@ body .row {
           .modal-header{
             background: #333;
             color: white;
+            padding: 10px 0PX;
             .modal-title{
                   line-height: 1.7;
             }
@@ -331,4 +333,12 @@ body .row {
             }
        }
   }
+}
+
+/* svg */
+.in-selection{
+      fill: rgba(16, 165, 169, 0.34) !important;
+}
+.not-in-selection, .not-availabel{
+      fill: rgba(0, 0, 0, 0.46) !important;
 }
