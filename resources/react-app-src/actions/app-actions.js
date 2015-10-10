@@ -16,6 +16,13 @@ var AppActions = {
   		actionType: AppConstants.CHANGE_URL,
   		data: url
   	})
+  },
+
+  updateProjectData: function(dataToUpdate){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.UPDATE_DATA,
+      data: dataToUpdate
+    })
   }
 }
 

@@ -8,7 +8,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 // Define initial data points
-var _projectData = {}, _selected = null , _globalStateData = {};
+var _projectData = {}, _selected = null , _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false}};
 
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
@@ -137,11 +137,19 @@ function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 // Method to load project data from API
 function _loadProjectData(data) {
 	_projectData = data['data'];
+	_globalStateData = _getProjectMasterData();
+}
+
+function _updateProjectData(dataToUpdate){
+
+	_globalStateData.data.showShadow = true;
+	_globalStateData = newProjectData;
 }
 
 function _getProjectMasterData(){
 	var projectData = _projectData;
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[]};
+	var finalData = {};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -163,7 +171,9 @@ function _getProjectMasterData(){
 		projectMasterData.buildings = buildingsWithUnits;
 	}
 
-	return projectMasterData;
+	finalData = {"data": projectMasterData};
+
+	return finalData;
 }
 
 
@@ -171,11 +181,13 @@ function _getProjectMasterData(){
 var AppStore = merge(EventEmitter.prototype, {
   
 	emitChange:function(){
+	console.log("emit change");
 	this.emit(CHANGE_EVENT)
 	},
 
 	// components to register with the store
 	addChangeListener:function(callback){
+		console.log("addChangeListener");
 	this.on(CHANGE_EVENT, callback)
 	},
 
@@ -192,6 +204,10 @@ var AppStore = merge(EventEmitter.prototype, {
 		return _getProjectMasterData();
 	},
 
+	getStateData: function(){
+		return _globalStateData;
+	},
+
   	// Register callback with AppDispatcher
 	dispatcherIndex: AppDispatcher.register(function(payload) {
 	  var action = payload.action;
@@ -203,6 +219,14 @@ var AppStore = merge(EventEmitter.prototype, {
 	    case AppConstants.RECEIVE_DATA:
 	      _loadProjectData(action.data);
 	      break;
+
+	    // case AppConstants.CHANGE_URL:
+	    //   _loadProjectData(action.data);
+	    //   break;	  
+
+	    case AppConstants.UPDATE_DATA:
+	      _updateProjectData(action.data);
+	      break;		          
 
 	    default:
 	      return true;

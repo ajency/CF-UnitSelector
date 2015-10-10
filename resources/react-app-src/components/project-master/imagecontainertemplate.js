@@ -35,7 +35,7 @@ var ImageContainerTemplate = React.createClass({
 
         var imageContainerStyle = {
           "height": windowHeight,
-          "minWidth": windowHeight * 1.6
+          "minWidth": windowHeight * 1.78
         }; 
 
 
@@ -43,7 +43,7 @@ var ImageContainerTemplate = React.createClass({
           'img-responsive': true,
           'fit': true,
           'no-shadow': true,
-          'hide-shadow': showShadow != 1
+          'hide-shadow': showShadow === false
         }); 
    
 
