@@ -92,6 +92,7 @@ jQuery(document).ready ($)->
                 window.marker.generateMarkerTag(value)
 
             if value.canvas_type is 'path'
+                console.log value
                 window.path.generatePathTag(value)
                 draw.attr('viewBox', "0 0 1920 1080")   
                 draw.attr('enable-background', "new 0 01920 1080")      
@@ -463,7 +464,8 @@ jQuery(document).ready ($)->
             details['ellipseWidth'] = window.ellipseWidth
             details['ellipseHeight'] = window.ellipseHeight
             details['marker_type'] = 'earthlocation'            
-
+        else if window.canvas_type is "path" 
+            myObject['points'] =  $('.area').val()
         else
             myObject['points'] =  $('.area').val().split(',')
 
@@ -487,7 +489,9 @@ jQuery(document).ready ($)->
 
                 if svg_type is "google_earth"
                     window.is_project_marked = true
-                
+
+                if window.canvas_type is "path" 
+                    myObject['points'] = myObject['points'][0] 
                 
                 window.svgData.data.push myObject
 
@@ -1097,11 +1101,11 @@ jQuery(document).ready ($)->
     $('svg').on 'dblclick', '.path-type' , (e) ->
         window.EDITMODE = true
         draggableElem = ""
+        window.canvas_type = "path"
         elemId =  $(e.currentTarget).attr('svgid')
         window.currentSvgId = parseInt elemId
         currentSvgElem = $(e.currentTarget)
-        
-      
+        $('.area').val $(e.currentTarget).attr('d')
 
         currentElem = e.currentTarget
             

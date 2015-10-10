@@ -66,6 +66,7 @@ jQuery(document).ready(function($) {
         window.marker.generateMarkerTag(value);
       }
       if (value.canvas_type === 'path') {
+        console.log(value);
         window.path.generatePathTag(value);
         draw.attr('viewBox', "0 0 1920 1080");
         return draw.attr('enable-background', "new 0 01920 1080");
@@ -425,6 +426,8 @@ jQuery(document).ready(function($) {
       details['ellipseWidth'] = window.ellipseWidth;
       details['ellipseHeight'] = window.ellipseHeight;
       details['marker_type'] = 'earthlocation';
+    } else if (window.canvas_type === "path") {
+      myObject['points'] = $('.area').val();
     } else {
       myObject['points'] = $('.area').val().split(',');
     }
@@ -448,6 +451,9 @@ jQuery(document).ready(function($) {
         }
         if (svg_type === "google_earth") {
           window.is_project_marked = true;
+        }
+        if (window.canvas_type === "path") {
+          myObject['points'] = myObject['points'][0];
         }
         window.svgData.data.push(myObject);
         draw.clear();
@@ -1010,9 +1016,11 @@ jQuery(document).ready(function($) {
     var currentElem, currentSvgElem, draggableElem, elemId, object_type;
     window.EDITMODE = true;
     draggableElem = "";
+    window.canvas_type = "path";
     elemId = $(e.currentTarget).attr('svgid');
     window.currentSvgId = parseInt(elemId);
     currentSvgElem = $(e.currentTarget);
+    $('.area').val($(e.currentTarget).attr('d'));
     currentElem = e.currentTarget;
     $('.edit-box').removeClass('hidden');
     object_type = $(currentElem).attr('type');
