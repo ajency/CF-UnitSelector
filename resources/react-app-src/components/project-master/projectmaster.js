@@ -10,26 +10,63 @@ var CardList = require('../project-master/cardlist');
 
 
 
-function getProjectMasterData(){
-    return {data: AppStore.getProjectMasterData()}
+function getStateData(){
+    console.log("getStateData");
+    return AppStore.getStateData();
 }
 
 
 var ProjectMaster = React.createClass({
 
-    mixins: [PureRenderMixin],
 
     getInitialState: function() {
-        return getProjectMasterData();
+        return getStateData();
+    },
+
+    toggelSunView: function(evt){
+        $clickedDiv = $(evt.currentTarget);
+
+        if($clickedDiv.hasClass('sun-highlight')){
+            showShadow = false;
+        }
+        else{
+            showShadow = true;    
+        }
+
+        dataToSet = {
+            property: "showShadow",
+            value: showShadow
+        }
+
+        this.updateStateData(dataToSet);
+
+    },
+
+    updateStateData: function(dataToSet){
+        oldState = getStateData();
+        console.log(oldState);
+        newState = oldState;
+
+
+        if(dataToSet.property === "showShadow"){
+            newState.data.showShadow = dataToSet.value;
+        }
+
+        console.log(newState);
+
+        this.setState(newState);
+
     },
 
 
     componentWillMount:function(){
-      AppStore.addChangeListener(this._onChange)
+        console.log("componentWillMount");
+        AppStore.addChangeListener(this._onChange)
     },  
 
     _onChange:function(){
-      this.setState(getProjectMasterData());
+        console.log("_onChange");
+      this.setState(getStateData());
     },    
 
     render: function(){
@@ -41,10 +78,18 @@ var ProjectMaster = React.createClass({
 
         return (
             <div>
-            <NavBar projectTitle = {projectTitle} unitCount = {unitCount}/>
-            <SunToggle/>
+            <NavBar 
+                projectTitle = {projectTitle} 
+                unitCount = {unitCount}
+            />
+            <SunToggle 
+                toggelSunView = {this.toggelSunView} 
+                showShadow={data.showShadow}
+            />
             <Rotate/>
-            <ImageContainerTemplate/>
+            <ImageContainerTemplate 
+                showShadow={data.showShadow}
+            />
             <CardList buildings={buildings}/>
             </div>
 
