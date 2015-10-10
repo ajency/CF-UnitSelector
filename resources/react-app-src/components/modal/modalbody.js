@@ -1,30 +1,30 @@
 var React = require('react');
 var classNames = require('classnames');
 
-var ReactMixin = {
+// var ReactMixin = {
 
-    checkboxCheck:function(evt){
+//     checkboxCheck:function(evt){
 
-        $checkBox = $(evt.currentTarget);
+//         $checkBox = $(evt.currentTarget);
 
-        if($checkBox.is(":checked")){
-            this.state.isFilterChecked = true;
-        }
+//         if($checkBox.is(":checked")){
+//             this.state.isFilterChecked = true;
+//         }
 
-    }
-}
+//     }
+// }
 
 var ModalBody = React.createClass({
 
-    mixins:[ReactMixin],
+    // mixins:[ReactMixin],
   
     render: function () {
 
-        var checkOuterDivClass = classNames({
-          'col-xs-4': true,
-          'checkboxInner': true,
-          'selected': this.state.isFilterChecked 
-        }); 
+        // var checkOuterDivClass = classNames({
+        //   'col-xs-4': true,
+        //   'checkboxInner': true,
+        //   'selected': this.state.isFilterChecked 
+        // }); 
 
         return (
                 <div className="modal-body">
@@ -32,17 +32,17 @@ var ModalBody = React.createClass({
                         <h5 className=" text-center text-uppercase m-t-20">Unit type</h5>
                         <div className="row imagecheckboxOuter">
                             <div className={checkOuterDivClass}>
-                                <input ref="checkboxRef" type="checkbox" onClick={this.props.checkboxCheck}/>
+                                <input ref="checkboxRef" type="checkbox" />
                                 <img src="img/bldg-3d.png" />
                                 <span className="text-uppercase col-xs-12 text-center">1bhk</span>
                             </div>
                             <div className="col-xs-4 checkboxInner text-center selected">
-                                <input  ref="checkboxRef" type="checkbox" onClick={this.props.checkboxCheck}/>
+                                <input  ref="checkboxRef" type="checkbox" />
                                 <img src="img/bldg-3d.png" />
                                 <span className="text-uppercase col-xs-12 text-center">2bhk</span>
                             </div>
                             <div className="col-xs-4 checkboxInner text-center">
-                                <input ref="checkboxRef" type="checkbox" onClick={this.props.checkboxCheck}/>
+                                <input ref="checkboxRef" type="checkbox" />
                                 <img src="img/bldg-3d.png" />
                                 <span className="text-uppercase col-xs-12 text-center">3bhk</span>
                             </div>
