@@ -251,7 +251,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             $projectUnits = array_merge($units,$projectUnits); 
         }
       if(count($buildings)==1)
-        $buildings[]=$buildings;    
+        $projectbuildings[]=$projectbuildings;    
     
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);  
       $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
