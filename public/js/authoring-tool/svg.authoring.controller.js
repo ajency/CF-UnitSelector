@@ -425,9 +425,12 @@ jQuery(document).ready(function($) {
       details['ellipseWidth'] = window.ellipseWidth;
       details['ellipseHeight'] = window.ellipseHeight;
       details['marker_type'] = 'earthlocation';
+    } else if (window.canvas_type === "path") {
+      myObject['points'] = $('.area').val();
     } else {
       myObject['points'] = $('.area').val().split(',');
     }
+    console.log(myObject['points']);
     myObject['other_details'] = details;
     if ($('[name="check_primary"]').is(":checked") === true) {
       myObject['primary_breakpoint'] = window.breakpoint_position;
@@ -1010,9 +1013,11 @@ jQuery(document).ready(function($) {
     var currentElem, currentSvgElem, draggableElem, elemId, object_type;
     window.EDITMODE = true;
     draggableElem = "";
+    window.canvas_type = "path";
     elemId = $(e.currentTarget).attr('svgid');
     window.currentSvgId = parseInt(elemId);
     currentSvgElem = $(e.currentTarget);
+    $('.area').val($(e.currentTarget).attr('d'));
     currentElem = e.currentTarget;
     $('.edit-box').removeClass('hidden');
     object_type = $(currentElem).attr('type');
