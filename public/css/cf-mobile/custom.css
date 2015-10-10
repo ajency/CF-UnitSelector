@@ -245,12 +245,12 @@ body .row {
 }
 .card-swipe .swipe-footer .arrow a {
   position: absolute;
-  height: 28px;
-  width: 28px;
+  height: 40px;
+  width: 40px;
   background: #fe943e;
   text-align: center;
   border-radius: 50%;
-  top: -18px;
+  top: -26px;
   right: 15px;
   outline: none;
   text-decoration: none;
@@ -261,7 +261,7 @@ body .row {
 }
 .card-swipe .swipe-footer .arrow a h3 {
   font-size: 16px;
-  margin-top: 3px;
+  margin-top: 8px;
 }
 .card-swipe .swipe-footer .arrow a h3 i {
   color: #ffffff;
@@ -1011,7 +1011,13 @@ div#spritespin {
   z-index: 2;
 }
 .filter-content .imagecheckboxOuter .checkboxInner img {
-  width: 70%;
+  width: 50%;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+  -webkit-transition-property: -webkit-filter, filter;
+          transition-property: filter;
+  -webkit-transition-duration: 1s;
+          transition-duration: 1s;
 }
 .filter-content .imagecheckboxOuter .checkboxInner span {
   color: #7d7c7a;
@@ -1115,6 +1121,10 @@ div#spritespin {
   text-transform: uppercase;
   font-size: 14px;
 }
+.selected img {
+  -webkit-filter: grayscale(0) !important;
+          filter: grayscale(0) !important;
+}
 .imageModal {
   top: 15% !important;
 }
@@ -1202,7 +1212,7 @@ div#spritespin {
 }
 .messageBox {
   position: absolute;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.83);
   color: #ffffff;
   padding: 10px;
   left: 24%;

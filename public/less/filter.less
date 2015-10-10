@@ -87,8 +87,13 @@
 
 			img
 			{
-				width:70%;								
+				width:50%;	
+				filter: grayscale(1);
+				filter: grayscale(1);
+				transition-property: filter;
+				transition-duration: 1s;							
 			}
+
 			
 			span
 			{
@@ -219,3 +224,8 @@
 	    font-size:14px;	        	
     }
 }
+.selected{
+				img{
+					filter: grayscale(0) !important;
+				}
+			}
