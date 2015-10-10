@@ -165,7 +165,6 @@ class SvgController extends Controller {
 	 */
 	public function update($project_id, $id, Request $request)
 	{
-
 		$svgElement = SvgElement::find($id);
 		
 		// if (isset($request['image_id'])) {
@@ -177,7 +176,7 @@ class SvgController extends Controller {
 		if (isset($request['object_id'])) {
 			$svgElement->object_id = $request['object_id'];
 		}
-		if (isset($request['points'])) {
+		if (isset($request['points']) && $request['canvas_type']!='path') {
 			$svgElement->points = $request['points'];
 		}
 		if (isset($request['canvas_type'])) {

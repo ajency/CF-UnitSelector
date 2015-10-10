@@ -463,7 +463,8 @@ jQuery(document).ready ($)->
             details['ellipseWidth'] = window.ellipseWidth
             details['ellipseHeight'] = window.ellipseHeight
             details['marker_type'] = 'earthlocation'            
-
+        else if window.canvas_type is "path" 
+            myObject['points'] =  $('.area').val()
         else
             myObject['points'] =  $('.area').val().split(',')
 
@@ -1097,11 +1098,11 @@ jQuery(document).ready ($)->
     $('svg').on 'dblclick', '.path-type' , (e) ->
         window.EDITMODE = true
         draggableElem = ""
+        window.canvas_type = "path"
         elemId =  $(e.currentTarget).attr('svgid')
         window.currentSvgId = parseInt elemId
         currentSvgElem = $(e.currentTarget)
-        
-      
+        $('.area').val $(e.currentTarget).attr('d')
 
         currentElem = e.currentTarget
             
