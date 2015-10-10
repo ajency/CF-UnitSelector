@@ -22,7 +22,7 @@ var NavBar = React.createClass({
                               <ul className="list-inline">
                                 <li> <i className="i-phone i-icon"></i></li>
                                 <li> <i className="i-shortlist i-icon"></i></li>
-                                <li onClick={this.props.showFilterModal} data-backdrop="false"> <i className="i-filter i-icon"></i></li>
+                                <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i></li>
                               </ul>
                             </div>
                         </div>
