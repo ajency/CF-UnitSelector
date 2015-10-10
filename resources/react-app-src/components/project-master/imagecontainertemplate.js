@@ -29,7 +29,7 @@ var ImageContainerTemplate = React.createClass({
         
         showShadow = this.props.showShadow;
 
-        var BASEURL= "http://commonfloorlocal.com";
+        var BASEURL= window.baseUrl;
         var imgUrl= BASEURL+'/images/cf-mobile/Project-noshadow.jpg';
         var shadowImgUrl= BASEURL+'/images/cf-mobile/Project.jpg';
 
