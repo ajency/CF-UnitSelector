@@ -173,7 +173,7 @@ body .row {
   z-index: 9999;
   position: absolute;
   right: 4%;
-  bottom: 29%;
+  bottom: 160px;
   border-radius: 100%;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
@@ -220,6 +220,11 @@ body .row {
   color: #7d7c7a;
   height: 45px;
 }
+@media (max-width: 320px) {
+  .card-swipe .swipe-footer {
+    height: 40px;
+  }
+}
 .card-swipe .swipe-footer sm {
   color: #565654;
   font-weight: bold;
@@ -242,6 +247,11 @@ body .row {
   color: #565654;
   font-size: 10px;
   font-weight: 400;
+}
+@media (max-width: 320px) {
+  .card-swipe .swipe-footer span b {
+    font-size: 9px;
+  }
 }
 .card-swipe .swipe-footer .arrow a {
   position: absolute;
@@ -322,7 +332,8 @@ body .row {
 }
 /* Modal CSS */
 .modal-full-width {
-  z-index: 9999 !important;
+  z-index: 99999 !important;
+  overflow-y: hidden;
 }
 .modal-full-width .modal-dialog {
   margin: 0px;
@@ -344,7 +355,7 @@ body .row {
 .modal-full-width .modal-dialog .modal-content .modal-body {
   padding: 0px !important;
   overflow-x: scroll;
-  height: 450px;
+  height: 100%;
 }
 /* svg */
 .in-selection {
