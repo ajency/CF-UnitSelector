@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
     <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
+      <link href="../../css/cf-mobile/animsition.min.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,7 +23,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body class="animsition">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -402,7 +403,7 @@
     <script src="js/jquery.panzoom.js"></script>
     <script src="js/jquery.mousewheel.js"></script>   
      <script src="http://spritespin.ginie.eu/spritespin.js"></script>     
-
+<script src="js/animsition.min.js" charset="utf-8"></script>
      <SCRIPT TYPE="text/javascript">
 
         $('.center').slick({
@@ -485,6 +486,30 @@
 
        /* SUN TOGGLE */
       $(document).ready(function() {
+           $(".animsition").animsition({
+
+                 inClass: 'fade-in',
+                 outClass: 'fade-out',
+                 inDuration: 1500,
+                 outDuration: 1200,
+                 linkElement: '.animsition-link',
+                 loading: true,
+                 loadingParentElement: 'body', 
+                 loadingClass: 'animsition-loading',
+                 unSupportCss: ['animation-duration',
+                     '-webkit-animation-duration',
+                     '-o-animation-duration'
+                 ],
+
+                 overlay: false,
+
+                 overlayClass: 'animsition-overlay-slide',
+                 overlayParentElement: 'body'
+             });
+
+
+
+
 
         var hidden = false;
         var outlined = false;
@@ -559,6 +584,15 @@
             
           });
            
+
+
+
+
+
+
+
+        
+
       </script>
 
   </body>

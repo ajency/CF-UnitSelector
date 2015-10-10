@@ -443,6 +443,9 @@ body a {
     display: none;
   }
 }
+.animsition-loading {
+  z-index: 99999 !important;
+}
 .imageModal {
   top: 15% !important;
 }
