@@ -115,7 +115,9 @@ section {
   width: 100%;
 }
 .image .no-shadow {
-  position: absolute;
+  position: absolute !important;
+  -webkit-transition: visibility 0s 0.6s, opacity 0.6s linear;
+          transition: visibility 0s 0.6s, opacity 0.6s linear;
   top: 0;
 }
 .image2 {
