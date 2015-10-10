@@ -7,11 +7,11 @@ var Rotate = require('../project-master/rotate');
 var ProjectImage = require('../project-master/projectimage');
 var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
 var CardList = require('../project-master/cardlist');
+var immutabilityHelpers = require('react-addons-update');
 
 
 
 function getStateData(){
-    console.log("getStateData");
     return AppStore.getStateData();
 }
 
@@ -44,15 +44,18 @@ var ProjectMaster = React.createClass({
 
     updateStateData: function(dataToSet){
         oldState = getStateData();
-        console.log(oldState);
+        
         newState = oldState;
 
 
         if(dataToSet.property === "showShadow"){
-            newState.data.showShadow = dataToSet.value;
+            
+            newState = immutabilityHelpers( oldState, { data: 
+                                                        {showShadow: {$set: dataToSet.value} 
+                                                        }
+                                                      });
         }
 
-        console.log(newState);
 
         this.setState(newState);
 
@@ -60,12 +63,10 @@ var ProjectMaster = React.createClass({
 
 
     componentWillMount:function(){
-        console.log("componentWillMount");
         AppStore.addChangeListener(this._onChange)
     },  
 
     _onChange:function(){
-        console.log("_onChange");
       this.setState(getStateData());
     },    
 

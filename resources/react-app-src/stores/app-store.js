@@ -2,7 +2,6 @@ var AppDispatcher = require('../dispatchers/app-dispatcher');
 var AppConstants = require('../constants/app-constants');
 var merge = require('merge');
 var EventEmitter = require('events').EventEmitter;
-var immutabilityHelpers = require('react-addons-update');
 
 
 // event that our components are going to listen when change happens
