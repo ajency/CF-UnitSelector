@@ -72,7 +72,9 @@
   </g>
 
 </svg>
-</div><div id='spritespin' class="no-shadow"></div>
+</div>
+
+<div id='spritespin' class="no-shadow"></div>
   <img src="img/Project.jpg" class="img-responsive shadow fit"/> 
              <!--  <img src="img/Project-noshadow.jpg" class="img-responsive fit no-shadow " />
               <img src="img/Project.jpg" class="img-responsive shadow fit"/> -->
@@ -507,7 +509,7 @@
           });
 
           // these are the frame numbers that will show a detail bubble
-          var details = [0, 30, 50];
+          var details = [0, 30, 50]; // 00 , 15, 45 , 60
           // the current index in the details array
           var detailIndex = 0;
 
@@ -533,9 +535,9 @@
               data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
           });
               
-          $( "#prev" ).click(function(){
-              setDetailIndex(detailIndex - 1);
-          });
+          // $( "#prev" ).click(function(){
+          //     setDetailIndex(detailIndex - 1);
+          // });
               
           $( "#next" ).click(function(){
               setDetailIndex(detailIndex + 1);
