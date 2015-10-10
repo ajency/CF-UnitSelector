@@ -20,11 +20,11 @@ var ModalBody = React.createClass({
   
     render: function () {
 
-        // var checkOuterDivClass = classNames({
-        //   'col-xs-4': true,
-        //   'checkboxInner': true,
-        //   'selected': this.state.isFilterChecked 
-        // }); 
+        var checkOuterDivClass = classNames({
+          'col-xs-4': true,
+          'checkboxInner': true,
+          'selected': true
+        }); 
 
         return (
                 <div className="modal-body">
