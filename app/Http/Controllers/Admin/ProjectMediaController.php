@@ -65,7 +65,7 @@ class ProjectMediaController extends Controller {
                     $request->file( 'file' )->move( $targetDir, $newFilename );
 
                     $svgPath  = $targetDir. $newFilename;
-                    $xdoc = new DomDocument;
+                    $xdoc = new DomDocument();
                     $xdoc->Load($svgPath);
                     $paths = $xdoc->getElementsByTagName('path');
 
