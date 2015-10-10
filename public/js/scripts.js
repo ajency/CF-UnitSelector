@@ -376,7 +376,9 @@ function breakpointShadowImgUploader(position) {
             },
             FilesAdded: function (up, files) {
                  up.start();
- 
+                 var load_str = '<div class="progress progress-small " style="margin:0;">';
+                 load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
+                 $('.td-shadow-' + position).html(load_str);
             },
             UploadProgress: function (up, file) {
                 var fileName = file.name;
@@ -385,7 +387,7 @@ function breakpointShadowImgUploader(position) {
                 var mastername = fileData_1[0];
                 var position = fileData_1[1];
 
-                $('.shadow-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
+                $('.td-shadow-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
            
             },
             FileUploaded: function (up, file, xhr) {
@@ -594,7 +596,7 @@ function setUpProjectMasterUploader() {
                     str += '<td>' + fileResponse.data.filename + ' <input type="hidden" name="master_image_id" value="' + fileResponse.data.media_id + '"></td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
                     str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
-                    str += '<td><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div></td>';
+                    str += '<td class="td-shadow-' + fileResponse.data.position + '"><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div></td>';
                     str += '<td><div class="hidden breakpointSvg-' + fileResponse.data.position + '" id="uploadsvg_' + fileResponse.data.position + '" >Import</div></td>';
                     str += '<td><a target="_blank" href="'+ authoringToolUrl +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool</a></td>';
                     str += '<td class="text-right">';

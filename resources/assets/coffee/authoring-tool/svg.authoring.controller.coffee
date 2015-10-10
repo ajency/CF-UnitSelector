@@ -92,10 +92,11 @@ jQuery(document).ready ($)->
                 window.marker.generateMarkerTag(value)
 
             if value.canvas_type is 'path'
+                console.log value
                 window.path.generatePathTag(value)
-                draw.attr('viewBox', "0 0 1920 1080")   
-                draw.attr('enable-background', "new 0 01920 1080")      
-
+                   
+        draw.attr('viewBox', "0 0 1920 1080")   
+        draw.attr('enable-background', "new 0 01920 1080")   
         draw.attr('preserveAspectRatio', "xMinYMin slice")   
 
 
@@ -488,7 +489,9 @@ jQuery(document).ready ($)->
 
                 if svg_type is "google_earth"
                     window.is_project_marked = true
-                
+
+                if window.canvas_type is "path" 
+                    myObject['points'] = myObject['points'][0] 
                 
                 window.svgData.data.push myObject
 
