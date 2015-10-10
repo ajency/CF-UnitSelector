@@ -240,7 +240,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             $phase = \CommonFloor\Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray();  
-            $projectbuildings = array_merge($projectbuildings,$buildings);
+            $projectbuildings = array_merge($buildings,$projectbuildings);
             foreach($buildings as $building)
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
@@ -249,7 +249,10 @@ class ProjectGateway implements ProjectGatewayInterface {
             }
 
             $projectUnits = array_merge($units,$projectUnits); 
-        }    
+        }
+      if(count($buildings)==1)
+        $buildings[]=$buildings;    
+    
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);  
       $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
 
