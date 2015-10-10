@@ -376,7 +376,9 @@ function breakpointShadowImgUploader(position) {
             },
             FilesAdded: function (up, files) {
                  up.start();
- 
+                 var load_str = '<div class="progress progress-small " style="margin:0;">';
+                 load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
+                 $('.td-shadow-' + position).html(load_str);
             },
             UploadProgress: function (up, file) {
                 var fileName = file.name;
@@ -385,7 +387,7 @@ function breakpointShadowImgUploader(position) {
                 var mastername = fileData_1[0];
                 var position = fileData_1[1];
 
-                $('.td-shadow-' + position).html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
+                $('.td-shadow-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
            
             },
             FileUploaded: function (up, file, xhr) {
