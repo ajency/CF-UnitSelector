@@ -67,11 +67,11 @@ jQuery(document).ready(function($) {
       }
       if (value.canvas_type === 'path') {
         console.log(value);
-        window.path.generatePathTag(value);
-        draw.attr('viewBox', "0 0 1920 1080");
-        return draw.attr('enable-background', "new 0 01920 1080");
+        return window.path.generatePathTag(value);
       }
     });
+    draw.attr('viewBox', "0 0 1920 1080");
+    draw.attr('enable-background', "new 0 01920 1080");
     return draw.attr('preserveAspectRatio', "xMinYMin slice");
   };
   window.createPanel = function(data) {
