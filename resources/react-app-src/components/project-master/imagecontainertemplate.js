@@ -53,7 +53,7 @@ var ImageContainerTemplate = React.createClass({
 
                 
                 <div ref="imageContainer" className="image" style={imageContainerStyle}>
-
+                  <SvgContainer/>
                   <img src={shadowImgUrl} className={shadowImageClasses} />
                   <img src={imgUrl} className="img-responsive shadow fit"/>
 

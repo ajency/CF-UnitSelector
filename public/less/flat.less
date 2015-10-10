@@ -11,6 +11,7 @@
     left: 24%;
     top: 14%;
     display:block;
+    z-index: 9999;
 
     a
     {
@@ -26,4 +27,23 @@
 		outline:none;
 	}	
     }
+}
+.tooltipOuter
+{
+	position:absolute;
+	top:30%;
+	left:10%;
+	z-index:5;
+	a
+	{
+		color: @white;
+	    background: rgba(0,0,0,0.7);
+	    padding: 12px;
+	    text-decoration:none;
+	    &:focus
+	    {
+	    	color:@white;
+	    	text-decoration:none;
+	    }
+	}
 }

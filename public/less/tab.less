@@ -80,7 +80,7 @@
 .tab-content
 {
 	padding:15px;
-	margin-top:75px;
+	margin-top:85px;
 	margin-bottom:40px;
 	float:left;
 	width:100%;
@@ -90,16 +90,17 @@
 		box-shadow:0px 0px 5px rgba(0,0,0,0.3);
 		margin-bottom:15px;		
 
+		h4
+		{
+			display:inline-block;
+			color:@gray-darker;
+			font-weight:bold;
+		}
+		
 		.flatDetails
 		{
 			border-bottom:1px solid @gray-light;
-			
-			h4
-			{
-				display:inline-block;
-				color:@gray-darker;
-				font-weight:bold;
-			}
+						
 			span
 			{
 				color:@gray-dark;
@@ -120,6 +121,31 @@
 					color:@real-blue;
 					text-align:right;
 					float:right;
+				}
+			}
+			.dimensionalViewBtn
+			{
+				float:right;
+				margin-top:9px;
+
+				a
+				{					
+				    border: 1px solid @gray-light;				    
+				    padding: 5px;
+				    color: @gray-darker;
+				    font-size: 10px;
+				    font-weight: 700;
+				    float:left;
+				    &:first-child
+				    {
+				    	border-radius: 10px 0 0 10px;
+				    	background:@gray-lighter;
+				    }
+				    &:last-child
+				    {
+				    	border-left: 0;
+    					border-radius: 0 10px 10px 0;
+				    }
 				}
 			}	
 		}	
@@ -243,6 +269,13 @@
 	    height: 100%;
 	    display: block;
 	    margin: 0 auto;
+	}	
+}
+@media screen and (max-width:320px)
+{
+	.tab-content
+	{
+		margin-top:75px;
 	}
 }
 .tabfooter
@@ -262,7 +295,7 @@
 	    background:@brand-primary;
 	    padding:5px;
 	    text-transform:uppercase;
-	    font-size:14px;
+	    font-size:10px;
 
 	    &:first-child
 	    {

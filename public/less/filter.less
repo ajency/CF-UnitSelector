@@ -2,6 +2,9 @@
 {
 	padding:0 !important;
 }
+.m-t-20{
+	margin-top:20px;
+}
 .filterHeader
 {
 
@@ -43,19 +46,17 @@
 }
 .filter-content
 {
-	margin-top:50px;
-	float:left;
 	width:100%;
 	margin-bottom:60px;
 	
 	.imagecheckboxOuter
 	{		
 		margin-bottom:20px;
-		float:left;
 		width:100%;
 		padding: 20px 0;
 		background:@gray-lightest;
-
+		border-top: 1px solid #E0E0E0;
+    	border-bottom: 1px solid #E0E0E0;
 		.checkboxInner
 		{
 			padding:25px 10px 15px 10px;
@@ -70,12 +71,7 @@
 			{
 				color:@teal;
 			}
-		}
-
-			&:last-child
-			{
-				border:1px solid rgba(0,0,0,0);
-			}
+		}			
 
 			input
 			{
@@ -85,6 +81,8 @@
 			    top: 0;
 			    left: 0;
 			    opacity: 0;
+			    margin:0;
+			    z-index:2;
 			}
 
 			img
@@ -111,7 +109,7 @@
 	{
 		float:left;
 		width:100%;
-		margin-bottom:15px;
+		margin-bottom:20px;
 
 		.checkboxnormal
 		{
@@ -176,9 +174,9 @@
 	.budgetOuter
 	{
 		background:@gray-lightest;
-		border-top:1px solid @gray-lighter;
-		border-bottom:1px solid @gray-lighter;
-		margin-bottom:15px;
+		border-top: 1px solid #E0E0E0;
+   		border-bottom: 1px solid #E0E0E0;
+		 margin-bottom: 20px;
 		div
 		{
 			padding:20px 15px;

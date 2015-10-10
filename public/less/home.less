@@ -134,7 +134,7 @@ body .row {
               z-index: 9999;
               position: absolute;
               right: 4%;
-              bottom: 27%;
+              bottom: 29%;
               border-radius: 100%;
               box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
               padding: 5px 4px;
@@ -162,32 +162,105 @@ body .row {
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;
-        color:@gray;
+        color:@gray-darker;
+        margin-bottom:10px;
+        text-transform:uppercase;
       }
       
       .price{
             line-height: 20px;
+            text-transform:uppercase;
+            span
+            {
+              color:@brand-primary;
+              margin-left: 5px;
+            }
       }
       .swipe-footer{
             background: #f2f2f2;
             padding: 5px 0;
             font-weight: 200;
             line-height: 26px;
+            color:@gray;
             sm{
-              color: @brand-primary;
+              color: @gray-darker;
               font-weight: bold;
-              font-size: 15px;
+              font-size: 16px;
+              margin-top: 2px;
+              float:left;
             }
-            a{
-
+            span
+            {
+              float: left;
+              margin-left: 10px;
+              line-height: 1.2;
+              font-weight: 400;
+              margin-bottom: 9px;
+              text-transform: uppercase;
+              font-size: 9px;
+              margin-top: 5px;              
+              color:@gray-light;
+              b
+              {
+                color: @gray-darker;
+                font-size: 10px;
+                font-weight:400;
+              }
+            }
+            .arrow
+            {
+              a
+              {
+                position: absolute;
+                height: 28px;
+                width: 28px;
+                background: @brand-primary;
+                text-align: center;
+                border-radius: 50%;
+                top: -18px;
+                right: 15px;
+                outline:none;
+                text-decoration:none;
+                border:2px solid @white;
+                &:focus
+                {
+                  color:@brand-primary;
+                }
+                h3
+                {
+                  font-size: 16px;
+                  margin-top: 3px;
+                  i
+                  {
+                    color:@white;
+                  }
+                }
+              }
             }
       }
       .swipe-unit-info{
-            padding: 15px 0;
+            padding: 0 0 5px 0;
             font-size: 11px;  
             font-weight: 200;
             text-align: left;
             text-transform: uppercase;
+            
+            span
+            {
+              float:left
+            }
+            li
+            {
+                  font-size: 12px;                 
+                  float: left;
+                  line-height: 1;
+                  margin: 0 15px;
+                  text-align: center;
+                  width: 6px;
+                  list-style: inside;
+                  color:@gray-light;
+            }
+
             b{
               color: black;
             }           
@@ -218,7 +291,7 @@ body .row {
 }
 .not-released{
       background: #E4E4E4 !important;
-      .row{
+      .price, .swipe-unit-info{
         opacity: .5 ;
       }
 }
@@ -231,4 +304,31 @@ body .row {
       width:100%;
       overflow: auto;
     }
+}
+
+/* Modal CSS */
+.modal-full-width{
+      z-index: 9999 !important;
+  .modal-dialog{
+        margin: 0px;
+       top: 0px;
+       height: 100%;
+       .modal-content{
+          border-radius: 0px;
+          height: 100%;
+          .modal-header{
+            background: #333;
+            color: white;
+            .modal-title{
+                  line-height: 1.7;
+            }
+           
+          }
+           .modal-body{
+                 padding: 0px !important;
+                  overflow-x: scroll;
+                  height: 450px;
+            }
+       }
+  }
 }
