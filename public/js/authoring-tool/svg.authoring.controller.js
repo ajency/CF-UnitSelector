@@ -66,6 +66,7 @@ jQuery(document).ready(function($) {
         window.marker.generateMarkerTag(value);
       }
       if (value.canvas_type === 'path') {
+        console.log(value);
         window.path.generatePathTag(value);
         draw.attr('viewBox', "0 0 1920 1080");
         return draw.attr('enable-background', "new 0 01920 1080");
@@ -430,7 +431,6 @@ jQuery(document).ready(function($) {
     } else {
       myObject['points'] = $('.area').val().split(',');
     }
-    console.log(myObject['points']);
     myObject['other_details'] = details;
     if ($('[name="check_primary"]').is(":checked") === true) {
       myObject['primary_breakpoint'] = window.breakpoint_position;
@@ -451,6 +451,9 @@ jQuery(document).ready(function($) {
         }
         if (svg_type === "google_earth") {
           window.is_project_marked = true;
+        }
+        if (window.canvas_type === "path") {
+          myObject['points'] = myObject['points'][0];
         }
         window.svgData.data.push(myObject);
         draw.clear();

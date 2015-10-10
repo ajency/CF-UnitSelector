@@ -10,6 +10,7 @@ use CommonFloor\ProjectMeta;
 use CommonFloor\Media;
 use CommonFloor\Svg;
 use CommonFloor\SvgElement;
+use \DomDocument;
 
 
 class ProjectMediaController extends Controller {
@@ -64,7 +65,7 @@ class ProjectMediaController extends Controller {
                     $request->file( 'file' )->move( $targetDir, $newFilename );
 
                     $svgPath  = $imageUrl. $newFilename;
-                    $xdoc = new \DomDocument;
+                    $xdoc = new DomDocument;
                     $xdoc->Load($svgPath);
                     $paths = $xdoc->getElementsByTagName('path');
 
