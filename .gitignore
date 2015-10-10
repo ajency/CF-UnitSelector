@@ -10,3 +10,6 @@
 /vendor
 /.env
 /server.php
+/wsgi.py
+/newenv
+/log
