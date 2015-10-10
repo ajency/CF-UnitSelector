@@ -240,7 +240,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             $phase = \CommonFloor\Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray();  
-            $projectbuildings = array_merge($buildings,$projectbuildings);
+            $projectbuildings = array_merge($projectbuildings,$buildings);
             foreach($buildings as $building)
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
