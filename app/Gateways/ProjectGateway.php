@@ -120,12 +120,12 @@ class ProjectGateway implements ProjectGatewayInterface {
                    $buildingUnits = $buildingData->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
                   
                     if(!empty($buildingUnits)) //IF NO UNITS ASSIGNED DONT SEND BUILDING DATA
-                       $projectbuildings = array_merge($building,$projectbuildings);
+                       $projectbuildings[] = $building;//array_merge($building,$projectbuildings);
                 }
                 else
                 {
                    $buildingUnits = $buildingData->projectUnits()->get()->toArray();
-                   $projectbuildings = array_merge($building,$projectbuildings);    
+                   $projectbuildings[] = $building;//array_merge($building,$projectbuildings);    
                 }
                 
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
@@ -240,7 +240,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             $phase = \CommonFloor\Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray();  
-            $projectbuildings = array_merge($projectbuildings,$buildings);
+            $projectbuildings = array_merge($buildings,$projectbuildings);
             foreach($buildings as $building)
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
