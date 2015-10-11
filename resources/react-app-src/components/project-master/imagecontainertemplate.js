@@ -48,19 +48,20 @@ var ImageContainerTemplate = React.createClass({
    
 
         return (
+
             <div className="us-right-content">
-              <div className="image-contain">
+                <div className="image-contain">
+                    
+                    <div ref="imageContainer" className="image" style={imageContainerStyle}>
+                        <SvgContainer/>
 
-                
-                <div ref="imageContainer" className="image" style={imageContainerStyle}>
-                  <SvgContainer/>
-                  <img src={shadowImgUrl} className={shadowImageClasses} />
-                  <img src={imgUrl} className="img-responsive shadow fit"/>
-
+                        <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
+                        <img src={imgUrl} className="img-responsive shadow fit"/>
+                       
+                    </div>
                 </div>
-                
-              </div>
-            </div>
+            </div>            
+
         );
     }
 });

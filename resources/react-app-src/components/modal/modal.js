@@ -8,7 +8,8 @@ var Modal = React.createClass({
     var $modal = $(this.refs.myModal);
 
     var modalSettings = {
-      backdrop: false
+      backdrop: false,
+      show:false
     };
 
     $modal.modal(modalSettings);
