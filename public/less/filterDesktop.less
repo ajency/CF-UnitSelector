@@ -1,0 +1,97 @@
+.float-nav {
+  position: fixed; z-index: 1;
+  top: 1.375em; right: 1.375em;
+  overflow: hidden;
+  width: 200px; height: 200px;
+  padding: 10px;
+  text-align: left;
+  background: #fff;  
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.2),
+    0 4px 10px rgba(0,0,0,0.15);
+  transition: all 300ms cubic-bezier(.6,-0.3,.3,1.3);
+}
+.float-nav.closed {
+  width: 0; height: 0;
+  border: 5px solid #fff;
+  border-radius: 50%;
+}
+
+.float-nav a {
+  display: inline-block;
+  color: #333;
+  text-decoration:none;  
+}
+.float-nav a:hover
+{
+  text-decoration:none;
+}
+.float-nav > a { -webkit-tap-highlight-color: rgba(0,0,0,0); 
+  text-decoration:none;
+}
+
+.float-nav .toggle {
+  position: absolute;
+  top: 5px; right: 0;
+  width: 20px; height:20px;
+  font-size: 16px; line-height: 1.375em;
+  font-weight: 300; text-align: center;
+  transform: rotate(45deg);
+  transform-origin: 50%;
+  transition: all 300ms;
+  text-decoration:none;
+}
+.float-nav.closed .toggle {
+  transform: rotate(0);
+  text-decoration:none;
+  top:0;
+}
+
+.float-nav ul {
+      position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;    
+    -webkit-transition: all 300ms;
+    transition: all 300ms;
+    width: 100%;
+    list-style:none;
+}
+.float-nav.closed ul { opacity: 0; }
+
+.float-nav li {
+  color:#333;
+  padding: 10px; margin-bottom: 0;
+  transition: all 600ms; 
+
+  h6
+  {
+    font-size:8px;
+    margin:0;
+  }
+
+  }
+.float-nav.closed li { margin-bottom: 1.375em; }
+
+.float-nav li
+{
+  &.filterLiTop
+  {
+    border-bottom:1px solid @gray-light;
+    h5
+    {
+      margin:0;
+      font-size:10px;
+      .filterHeader
+      {
+        color:@brand-primary;
+      }
+    }
+  }
+  &.filterCheckbox
+  {
+    background:@gray-lightest;
+
+    
+  }
+} 
