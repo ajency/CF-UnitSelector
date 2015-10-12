@@ -66,13 +66,15 @@ var ImageContainerTemplate = React.createClass({
     },
 
     resetIndex: function(){
-      detailIndex = detailIndex-1;
-    }
+      detailIndex = 0;
+    },
 
 
 
     setDetailIndex: function() {
        this.incrementIndex();
+
+       alert(detailIndex);
 
        if (detailIndex < 0) {
          detailIndex = details.length - 1;
