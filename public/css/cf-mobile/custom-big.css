@@ -448,6 +448,7 @@ body a {
 }
 .imageModal {
   top: 15% !important;
+  bottom: 10%;
 }
 .imageModal .modal-content {
   border-radius: 0;

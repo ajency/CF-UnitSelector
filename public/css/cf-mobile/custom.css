@@ -55,6 +55,10 @@ section {
   vertical-align: baseline;
   background: transparent;
 }
+html,
+body {
+  height: 100%;
+}
 body {
   -webkit-text-size-adjust: none;
   font-family: sans-serif;
@@ -173,14 +177,14 @@ body .row {
   z-index: 9999;
   position: absolute;
   right: 4%;
-  bottom: 6%;
+  bottom: 28%;
   border-radius: 100%;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
 }
 @media (max-width: 320px) {
   .rotate {
-    bottom: 20%;
+    bottom: 30%;
   }
 }
 /* Swipe css*/
@@ -995,7 +999,8 @@ div#spritespin {
 }
 .filter-content {
   width: 100%;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
+  float: left;
 }
 .filter-content .imagecheckboxOuter {
   margin-bottom: 20px;
@@ -1145,6 +1150,7 @@ div#spritespin {
 }
 .imageModal {
   top: 15% !important;
+  bottom: 10%;
 }
 .imageModal .modal-content {
   border-radius: 0;
