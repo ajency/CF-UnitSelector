@@ -3,8 +3,21 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var classNames = require('classnames');
 var SvgContainer = require('../project-master/svgcontainer');
 
+var spin;
+var api;
+var detailIndex = 0;
+var details = [0, 30, 50]
+
+
 var ImageContainerTemplate = React.createClass({
     mixins: [PureRenderMixin],	
+
+    getDefaultProps: function(){
+      return {
+        detailIndex: 0,
+        details : [0, 30, 50] ,// 00 , 15, 45 , 60
+      }
+    },    
 
     componentDidMount: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
@@ -19,7 +32,55 @@ var ImageContainerTemplate = React.createClass({
         $imageContainerDom.panzoom(panZoomSettings);
 
         $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
+
+        var frames = SpriteSpin.sourceArray('../html/cf-mobile/img/mantri/ProjectView_{frame}.jpg', {
+         frame: [1, 60],
+         digits: 4
+       });
+
+        spin = $(this.refs.spritespin);
+        
+        spin.spritespin({
+         source: frames,
+         width: 1920,
+         sense: -1,
+         height: 1080,
+         animate: false
+        });
+
+        // get the api object. This is used to trigger animation to play up to a specific frame
+        api = spin.spritespin("api");
+
+        console.log("apiii");
+
+        spin.bind("onLoad", function() {
+         var data = api.data;
+           data.stage.prepend($(".details .detail")); // add current details
+           data.stage.find(".detail").hide(); // hide current details
+         }).bind("onFrame", function() {
+           var data = api.data;
+           data.stage.find(".detail:visible").stop(false).fadeOut();
+           data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
+         });            
     },
+
+    componentDidUpdate: function(){
+
+    },
+
+    setDetailIndex: function(index) {
+      
+       detailIndex = index;
+       if (detailIndex < 0) {
+         detailIndex = details.length - 1;
+       }
+       if (detailIndex >= details.length) {
+         detailIndex = 0;
+       }
+       console.log("clickkk");
+       console.log(api);
+       api.playTo(details[detailIndex]);
+    },    
 
     render: function(){
 
@@ -43,7 +104,7 @@ var ImageContainerTemplate = React.createClass({
           'img-responsive': true,
           'fit': true,
           'no-shadow': true,
-          'hide-shadow': showShadow === false
+          'hide-shadow': showShadow 
         }); 
    
 
@@ -56,9 +117,13 @@ var ImageContainerTemplate = React.createClass({
                         <SvgContainer/>
 
                         <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
-                        <img src={imgUrl} className="img-responsive shadow fit"/>
+                        <img src={shadowImgUrl} className="img-responsive shadow fit"/>
                        
                     </div>
+                </div>
+
+                <div ref="next" className="rotate" onClick={this.setDetailIndex.bind(this, detailIndex+1)}>
+                    
                 </div>
             </div>            
 
