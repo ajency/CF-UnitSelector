@@ -96,7 +96,6 @@ var ProjectMaster = React.createClass({
                 toggelSunView = {this.toggelSunView} 
                 showShadow={data.showShadow}
             />
-            <Rotate/>
             <ImageContainerTemplate 
                 showShadow={data.showShadow}
             />

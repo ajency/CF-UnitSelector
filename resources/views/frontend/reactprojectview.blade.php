@@ -35,6 +35,7 @@
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script>
     <script src="{{ asset('bower_components/slick-carousel/slick/slick.min.js' )}}"></script>
     <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
+    <script src="{{ asset('bower_components/spritespin/release/spritespin.min.js' )}}"></script>  
 
 
     <script src="{{asset('react-app-dist/main.js')}}"></script>

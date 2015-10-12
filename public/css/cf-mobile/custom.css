@@ -55,6 +55,10 @@ section {
   vertical-align: baseline;
   background: transparent;
 }
+html,
+body {
+  height: 100%;
+}
 body {
   -webkit-text-size-adjust: none;
   font-family: sans-serif;
@@ -173,10 +177,15 @@ body .row {
   z-index: 9999;
   position: absolute;
   right: 4%;
-  bottom: 160px;
+  bottom: 28%;
   border-radius: 100%;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
+}
+@media (max-width: 320px) {
+  .rotate {
+    bottom: 30%;
+  }
 }
 /* Swipe css*/
 #console {
@@ -333,7 +342,7 @@ body .row {
 /* Modal CSS */
 .modal-full-width {
   z-index: 99999 !important;
-  overflow-y: hidden;
+  overflow-y: hidden!important;
 }
 .modal-full-width .modal-dialog {
   margin: 0px;
@@ -365,6 +374,9 @@ body .row {
 .not-availabel {
   fill: rgba(0, 0, 0, 0.46) !important;
 }
+.site-wrapper.animsition {
+  height: 100% !important;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -390,7 +402,7 @@ body .row {
   background-position: -20px -226px;
 }
 .i-marker {
-  background-position: -109px -156px;
+  background-position: -113px -156px;
   margin: auto;
   text-align: center;
   display: block;
@@ -990,7 +1002,8 @@ div#spritespin {
 }
 .filter-content {
   width: 100%;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
+  float: left;
 }
 .filter-content .imagecheckboxOuter {
   margin-bottom: 20px;
@@ -1062,7 +1075,8 @@ div#spritespin {
   position: absolute;
   opacity: 0;
   height: 25px;
-  width: 25px;
+  width: 100%;
+  left: 0;
 }
 .filter-content .checkboxOuter .checkboxnormal label {
   height: 20px;
@@ -1072,6 +1086,7 @@ div#spritespin {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 0;
+  margin-left: 50px;
 }
 .filter-content .checkboxOuter .checkboxnormal input[type=checkbox]:checked + label:before {
   content: "\2714";
@@ -1138,6 +1153,7 @@ div#spritespin {
 }
 .imageModal {
   top: 15% !important;
+  bottom: 10%;
 }
 .imageModal .modal-content {
   border-radius: 0;
