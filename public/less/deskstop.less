@@ -18,9 +18,12 @@ body {
     }
     small {
       display:block;
-      font-size:12px;
-      opacity: .6;
+      font-size:12px;      
       margin-top: 1px;
+      span
+      {
+        opacity:0.6;
+      }
     }
     a {
       font-size:12px;
@@ -47,34 +50,125 @@ body {
       padding-top: 11px;
       h4{
         font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;       
+        margin-bottom:15px;
+        margin-top:15px;
+        text-transform:uppercase;
+        padding:0 10px;
       }
       .price{
             line-height: 20px;
-      }
-      .row{
-        padding:5px 10px;
-      }
+            text-transform:uppercase;
+            padding:0 25px;
+             span
+            {
+              color:@brand-primary;
+              margin-left: 5px;
+            }
+      }     
       .swipe-footer{
             background: #f2f2f2;
+            padding: 5px 0;
             font-weight: 200;
             line-height: 26px;
-            margin:0px;
+            color:@gray;
+            height: 45px;
+             @media(max-width: 320px){
+               height:40px;
+              }
+            > div
+            {
+              padding: 4px 10px;
+            } 
             sm{
-              color: @brand-primary;
+              color: @gray-darker;
               font-weight: bold;
-              font-size: 15px;
+              font-size: 16px;
+              margin-top: 2px;
+              float:left;
             }
-            .footer-content{
-              padding:0px;
+            span
+            {
+              float: left;
+              margin-left: 10px;
+              line-height: 1.2;
+              font-weight: 400;
+              margin-bottom: 9px;
+              text-transform: uppercase;
+              font-size: 9px;
+              margin-top: 5px;              
+              color:@gray-light;
+              b
+              {
+                color: @gray-darker;
+                font-size: 10px;
+                font-weight:400;
+                 @media(max-width: 320px){
+                    font-size: 9px;
+                 }
+              }
+            }
+            .arrow
+            {
+              a
+              {
+                position: absolute;
+                height:40px;
+                width: 40px;
+                background: @gray-light;
+                text-align: center;
+                border-radius: 50%;
+                top: -26px;
+                right: 15px;
+                outline:none;
+                text-decoration:none;
+                border:2px solid @white;
+                &:focus
+                {
+                  color:@brand-primary;
+                }
+                h3
+                {
+                      font-size: 16px;
+                      margin-top: 8px;
+                  i
+                  {
+                    color:@white;
+                  }
+                }
+              }
             }
       }
-      .swipe-unit-info{ 
+      .swipe-unit-info{
+            padding: 0 10px 5px;
+            font-size: 11px;  
             font-weight: 200;
             text-align: left;
             text-transform: uppercase;
+            
+            span
+            {
+              float:left
+            }
+            li
+            {
+                  font-size: 12px;                 
+                  float: left;
+                  line-height: 1;
+                  margin: 0 15px;
+                  text-align: center;
+                  width: 6px;
+                  list-style: inside;
+                  color:@gray-light;
+                  border:none;
+            }
+
             b{
               color: black;
-            }
+            }           
       }
       @media(max-width: 320px){
         h4{
@@ -85,28 +179,34 @@ body {
 {    
   .swipe-footer
   {
-    background:@white;
+    background:#f2f2f2;
+    color:@gray-darker;
   }
 }      
 }
 .not-released{
       background: #E4E4E4 !important;
-      .row{
+      .price, .swipe-unit-info{
         opacity: .5 ;
+        text-transform:uppercase;
+      }
+      .swipe-footer
+      {
+        text-transform:uppercase;
       }
 }
 .highlight{
-  border: 1px solid @brand-primary;
-
-   .row{
-        padding:10px;
-    }
+  border: 1px solid @brand-primary !important;
     h4{
           font-size: 18px;
     }
+    .swipe-footer .arrow a
+    {
+      background:@brand-primary;
+    }
 }
 .mCustomScrollbar{
-  margin-top:40px;
+  margin-top:20px;
 }
 .sidebar-nav{
 
@@ -143,12 +243,54 @@ body {
             margin-right: 12px;
             line-height: 40px;
       }
+      a
+      {
+        i
+        {
+          float:left;
+        }
+      }
       &:last-child
       {
         a
         {
           background:@brand-primary;
           border:1px solid @brand-primary;
+          position:relative;
+
+          span
+          {
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            background: @white;
+            border-radius: 50%;
+            top: 0px;
+            right: -6px;
+            font-size: 9px;
+            text-align: center;
+            padding: 2px 0 0 0;
+            color: @gray;
+          }
+        &:hover
+        {
+          width: auto;
+          border-radius: 5px;          
+          opacity:1;
+          i
+          {
+            float:left;
+          }
+          div
+          {
+            float:left;
+            line-height: 33px;
+            margin-left: 5px;        
+            color: #fff;
+            margin-right: 2px;
+            display:block;
+          }
+        }  
         }
       }
       a{
@@ -222,45 +364,69 @@ body {
 {
     position: absolute;
     z-index: 99;
-    bottom: 50px;
-    right: 10px;
+    bottom: 10px;
+    left: 10px;
 
     button
     {          
-      background: @brand-primary;
+      background: @teal;
       color: @white;
       border:none;
+      border-radius:3px;
+      font-size: 10px;
+      padding: 7px 10px 5px;      
+      text-transform: uppercase;      
       &:focus
       {
         outline:none;
+      }
+      i
+      {
+        margin-right:5px;
       }
     }
 }
 .contactModal 
 {
   left:320px !important;
+  top:15% !important;
+  .modal-body
+  {
+    float:left;
+    width:100%;
+  }
   .p-0
   {
     padding:0;
   }
   p
   {
-    font-size:12px;
+    font-size:11px;
     margin-top:2px;
+    color:@gray-light;
   }
   .modal-dialog
   {
-    width:400px;
+    width: 320px;
+    border-radius: 0;
+  }
+  .modal-content
+  {
+  border-radius:0;
   }
   .inputOuter
   {
+     padding:0px 30px 30px 30px;
     input
     {
       width:100%;
-      background:@gray-lightest;
+      background:none;
       border:none;
       margin-bottom:15px;  
-      padding:10px;
+      padding: 10px 0px 5px 0;
+      border-bottom: 1px solid @gray-lighter;
+      font-size:10px;
+      text-transform:uppercase;
       &:focus
       {
         outline:none;
@@ -269,27 +435,28 @@ body {
   }
   .proceedBtn
   {
-    margin-bottom:25px;
+    margin-bottom:15px;
     button
     {
-      background:@brand-primary;
-      color:@white;
+      background:@teal;
       border:none;
-      padding:5px 20px;
+      color:@white;
+      padding: 6px 30px 4px;
+      text-transform: uppercase;
+      font-size: 10px;
+      border-radius: 2px;
     }
   }
   .close
   {
-    position: absolute;
-    background-color: rgba(0,0,0,0.8);
+    position: absolute;   
     z-index: 999;
-    top: -10px;
-    right: -10px;
+    top: 10px;
+    right: 10px;
     opacity: 1;
     height:25px;
-    width:25px;
-    border:2px solid @white;
-    color:@white;
+    width:25px;   
+    color:@gray-lighter;
     border-radius:50%;
     font-weight:300;
 
@@ -325,6 +492,43 @@ body {
   {
     position:absolute;
     top:0;
+  }
+}
+.outSideView
+{
+    h6
+    {
+      margin-top:20px;
+    }
+  img
+  {
+    width:100%;
+    padding-right:10px;
+  }
+}
+.towerDropdown, .towerDropdown.open
+{
+  button
+  {
+    background: none;
+    border: 1px solid @brand-primary;
+    padding: 0;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    color: @brand-primary;
+    line-height: 0;
+    margin-top: -3px;
+    box-shadow:none;
+    &:focus, &:hover
+    {
+      background: none; 
+      border: 1px solid @brand-primary;
+      color: @brand-primary;
+      outline:none !important;
+      box-shadow:none;
+    }
+    
   }
 }
 @media screen and (min-width: 1440px) {
