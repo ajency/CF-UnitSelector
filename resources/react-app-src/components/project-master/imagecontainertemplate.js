@@ -7,12 +7,16 @@ var spin;
 var api;
 var detailIndex = 0;
 var details = [0, 30, 50]
+var PROJECTID = window.projectId;
+var BASEURL = window.baseUrl;
 
 
 var ImageContainerTemplate = React.createClass({
-    mixins: [PureRenderMixin],	
 
     componentDidMount: function(){
+
+        details = this.props.breakpoints;
+        
         var $imageContainerDom = $(this.refs.imageContainer);
 
         var panZoomSettings = {
@@ -26,7 +30,11 @@ var ImageContainerTemplate = React.createClass({
 
         $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
 
-        var frames = SpriteSpin.sourceArray('../html/cf-mobile/img/mantri/ProjectView_{frame}.jpg', {
+        var masterImagePrefix = "ProjectView";
+
+        var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'_{frame}.jpg'
+
+        var frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
          frame: [1, 60],
          digits: 4
        });
@@ -44,8 +52,6 @@ var ImageContainerTemplate = React.createClass({
         // get the api object. This is used to trigger animation to play up to a specific frame
         api = spin.spritespin("api");
 
-        console.log("apiii");
-
         spin.bind("onLoad", function() {
          var data = api.data;
            data.stage.prepend($(".details .detail")); // add current details
@@ -59,6 +65,8 @@ var ImageContainerTemplate = React.createClass({
 
     componentDidUpdate: function(){
 
+      details = this.props.breakpoints;
+      console.log(details);
     },
 
     incrementIndex: function(){
@@ -72,16 +80,18 @@ var ImageContainerTemplate = React.createClass({
 
 
     setDetailIndex: function() {
+
        this.incrementIndex();
-
-       alert(detailIndex);
-
+ 
        if (detailIndex < 0) {
          detailIndex = details.length - 1;
        }
        if (detailIndex >= details.length) {
          this.resetIndex();
        }
+
+       this.props.updateChosenBreakPoint(details[detailIndex]);
+
 
        api.playTo(details[detailIndex]);
     },    
@@ -118,7 +128,7 @@ var ImageContainerTemplate = React.createClass({
                 <div className="image-contain">
                     
                     <div ref="imageContainer" className="image" style={imageContainerStyle}>
-                        <SvgContainer/>
+                        <SvgContainer chosenBreakpoint={this.props.chosenBreakpoint} key={this.props.chosenBreakpoint}/>
 
                         <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
                         <img src={shadowImgUrl} className="img-responsive shadow fit"/>
