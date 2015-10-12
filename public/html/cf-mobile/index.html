@@ -23,8 +23,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="animsition">
-
+  <body >
+<div class="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -129,78 +129,7 @@
                   </div>
            </div>
        </div>
-       <div>
-         <div class="card-swipe">         
-              <div class="row">
-                  <div class="col-xs-12">
-                      <h4 class=" margin-none text-left"> Tower 1</h4>
-                  </div>
-                  <div class="col-xs-12 text-muted price">
-                      From <span><i class="fa fa-inr"></i> 20 lacs</span>
-                  </div>
-              </div>
-               <div class=" swipe-unit-info row">
-                <div class="col-xs-12 text-muted">
-                 <span>16 Floors</span><li></li> <span>2, 3BHK </span>
-                 </div>  
-              </div>
-               <div class="row swipe-footer">
-                  <div class="col-xs-12">
-                       <sm>40</sm> <span><b>Available</b> <br> 60 total units</span>
-                    <div class=" arrow">
-                       <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
-                    </div>
-                  </div>                   
-              </div>
-         </div>
-      </div>
-      <div>            
-        <div class="card-swipe">
-         
-              <div class="row">
-                  <div class="col-xs-12">
-                      <h4 class=" margin-none text-left"> Tower 1</h4>
-                  </div>
-                  <div class="col-xs-12 text-muted price">
-                       From <span><i class="fa fa-inr"></i> 20 lacs</span>
-                  </div>
-              </div>
-               <div class=" swipe-unit-info row">
-                <div class="col-xs-12 text-muted">
-                <span>17 Floors</span><li></li> <span>2, 3BHK </span>
-                 </div>  
-              </div>
-               <div class="row swipe-footer">
-                  <div class="col-xs-12">
-                      <sm>10</sm> <span><b>Matching your selection</b> <br> 60 total units</span>
-                    <div class="arrow">
-                       <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
-                    </div>
-                  </div>                   
-              </div>
-       </div>
-      </div> 
-            <div>            
-        <div class="card-swipe not-released">
-         
-              <div class="row">
-                  <div class="col-xs-12">
-                      <h4 class=" margin-none text-left"> Tower 6</h4>
-                  </div>
-                  <div class="col-xs-12 text-muted price">
-                       From <span><i class="fa fa-inr"></i> 20 lacs</span>
-                  </div>
-              </div>
-               <div class=" swipe-unit-info row">
-                <div class="col-xs-12 text-muted">
-                <span>17 Floors</span><li></li> <span>2, 3BHK </span>
-                 </div>  
-              </div>
-               <div class="row swipe-footer">
-                  <div class="col-xs-12 text-muted text-uppercase">Tower not available  </div>                 
-              </div>
-       </div>
-      </div> 
+   
    <!--    <div>            
         <div class="card-swipe not-released">
          
@@ -429,6 +358,10 @@
           centerPadding: '60px',
             arrows: false,
           slidesToShow: 3,
+          initialSlide:0,
+           accessibility: false,
+             infinite: true,
+      
           responsive: [
             {
               breakpoint: 768,
@@ -450,7 +383,7 @@
             }
           ]
         });
-
+      
      </SCRIPT>
      <script type="text/javascript" language="JavaScript">
      /* CHECKBOX-HIGHLIGHT*/
@@ -494,7 +427,7 @@
              contain: 'invert',
              minScale: 1,
              disablePan: false,
-             disableZoom: false
+             disableZoom: false,
           });
 
           $('.image').panzoom("setMatrix", [1, 0, 0, 1.1, -371, 9]);
@@ -613,6 +546,6 @@
         
 
       </script>
-    
+    </div>
   </body>
 </html>
