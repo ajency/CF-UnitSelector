@@ -112,8 +112,8 @@ body .row {
   left: 0;
   height: 120px;
   padding: 10px;
-  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.75), transparent);
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.96), transparent);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), transparent);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
 }
@@ -173,10 +173,15 @@ body .row {
   z-index: 9999;
   position: absolute;
   right: 4%;
-  bottom: 29%;
+  bottom: 6%;
   border-radius: 100%;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
+}
+@media (max-width: 320px) {
+  .rotate {
+    bottom: 20%;
+  }
 }
 /* Swipe css*/
 #console {
@@ -218,6 +223,12 @@ body .row {
   font-weight: 200;
   line-height: 26px;
   color: #7d7c7a;
+  height: 45px;
+}
+@media (max-width: 320px) {
+  .card-swipe .swipe-footer {
+    height: 40px;
+  }
 }
 .card-swipe .swipe-footer sm {
   color: #565654;
@@ -242,14 +253,19 @@ body .row {
   font-size: 10px;
   font-weight: 400;
 }
+@media (max-width: 320px) {
+  .card-swipe .swipe-footer span b {
+    font-size: 9px;
+  }
+}
 .card-swipe .swipe-footer .arrow a {
   position: absolute;
-  height: 28px;
-  width: 28px;
+  height: 40px;
+  width: 40px;
   background: #fe943e;
   text-align: center;
   border-radius: 50%;
-  top: -18px;
+  top: -26px;
   right: 15px;
   outline: none;
   text-decoration: none;
@@ -260,7 +276,7 @@ body .row {
 }
 .card-swipe .swipe-footer .arrow a h3 {
   font-size: 16px;
-  margin-top: 3px;
+  margin-top: 8px;
 }
 .card-swipe .swipe-footer .arrow a h3 i {
   color: #ffffff;
@@ -319,6 +335,41 @@ body .row {
   width: 100%;
   overflow: auto;
 }
+/* Modal CSS */
+.modal-full-width {
+  z-index: 99999 !important;
+  overflow-y: hidden!important;
+}
+.modal-full-width .modal-dialog {
+  margin: 0px;
+  top: 0px;
+  height: 100%;
+}
+.modal-full-width .modal-dialog .modal-content {
+  border-radius: 0px;
+  height: 100%;
+}
+.modal-full-width .modal-dialog .modal-content .modal-header {
+  background: #333;
+  color: white;
+  padding: 10px 0PX;
+}
+.modal-full-width .modal-dialog .modal-content .modal-header .modal-title {
+  line-height: 1.7;
+}
+.modal-full-width .modal-dialog .modal-content .modal-body {
+  padding: 0px !important;
+  overflow-x: scroll;
+  height: 100%;
+}
+/* svg */
+.in-selection {
+  fill: rgba(16, 165, 169, 0.34) !important;
+}
+.not-in-selection,
+.not-availabel {
+  fill: rgba(0, 0, 0, 0.46) !important;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -344,7 +395,7 @@ body .row {
   background-position: -20px -226px;
 }
 .i-marker {
-  background-position: -109px -156px;
+  background-position: -113px -156px;
   margin: auto;
   text-align: center;
   display: block;
@@ -365,7 +416,6 @@ body .row {
   margin-top: 20px;
 }
 * {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .bottom-card {
@@ -420,11 +470,14 @@ body .row {
   -webkit-transform: scale(1.18);
   color: #000;
   opacity: 1;
-  transform: scale(1.18);
+  -webkit-transform: scale(1.18);
+      -ms-transform: scale(1.18);
+          transform: scale(1.18);
 }
 .center .card-swipe {
   opacity: 0.8;
-  transition: all 300ms ease;
+  -webkit-transition: all 300ms ease;
+          transition: all 300ms ease;
 }
 .content {
   margin: auto;
@@ -637,7 +690,9 @@ section {
   width: 100%;
 }
 .image .no-shadow {
-  position: absolute;
+  position: absolute !important;
+  -webkit-transition: visibility 0s 0.6s, opacity 0.6s linear;
+          transition: visibility 0s 0.6s, opacity 0.6s linear;
   top: 0;
 }
 .image2 {
@@ -651,7 +706,8 @@ section {
 }
 .hide-shadow {
   opacity: 0;
-  transition: all 0.5s ease ;
+  -webkit-transition: all 0.5s ease ;
+          transition: all 0.5s ease ;
 }
 .svg-area {
   position: absolute;
@@ -801,7 +857,7 @@ div#spritespin {
   position: absolute;
   z-index: 1;
   right: 20px;
-  bottom: 20px;
+  bottom: 20px
   /*height:40px;
 				width:40px;*/
 }
@@ -852,7 +908,7 @@ div#spritespin {
   position: absolute;
   z-index: 1;
   right: 10px;
-  bottom: 20px;
+  bottom: 20px
   /*height:40px;
 			width:40px;	*/
 }
@@ -906,6 +962,9 @@ div#spritespin {
 .p-0 {
   padding: 0 !important;
 }
+.m-t-20 {
+  margin-top: 20px;
+}
 .filterHeader {
   position: fixed;
   top: 0;
@@ -935,17 +994,16 @@ div#spritespin {
   margin: 14px 15px 0 0;
 }
 .filter-content {
-  margin-top: 50px;
-  float: left;
   width: 100%;
   margin-bottom: 60px;
 }
 .filter-content .imagecheckboxOuter {
   margin-bottom: 20px;
-  float: left;
   width: 100%;
   padding: 20px 0;
   background: #f6f6f6;
+  border-top: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
 }
 .filter-content .imagecheckboxOuter .checkboxInner {
   padding: 25px 10px 15px 10px;
@@ -969,7 +1027,13 @@ div#spritespin {
   z-index: 2;
 }
 .filter-content .imagecheckboxOuter .checkboxInner img {
-  width: 70%;
+  width: 50%;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+  -webkit-transition-property: -webkit-filter, filter;
+          transition-property: filter;
+  -webkit-transition-duration: 1s;
+          transition-duration: 1s;
 }
 .filter-content .imagecheckboxOuter .checkboxInner span {
   color: #7d7c7a;
@@ -984,7 +1048,7 @@ div#spritespin {
 .filter-content .checkboxOuter {
   float: left;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .filter-content .checkboxOuter .checkboxnormal {
   background: #f6f6f6;
@@ -1038,9 +1102,9 @@ div#spritespin {
 }
 .filter-content .budgetOuter {
   background: #f6f6f6;
-  border-top: 1px solid #d5d5d4;
-  border-bottom: 1px solid #d5d5d4;
-  margin-bottom: 15px;
+  border-top: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
+  margin-bottom: 20px;
 }
 .filter-content .budgetOuter div {
   padding: 20px 15px;
@@ -1075,6 +1139,10 @@ div#spritespin {
   text-transform: uppercase;
   font-size: 14px;
 }
+.selected img {
+  -webkit-filter: grayscale(0) !important;
+          filter: grayscale(0) !important;
+}
 .imageModal {
   top: 15% !important;
 }
@@ -1097,23 +1165,15 @@ div#spritespin {
   margin-left: 50%;
   /* margin-top: 50%;*/
   -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
   -webkit-animation: slide 22s linear;
-  -moz-animation: slide 22s linear;
   animation: slide 22s linear;
   -webkit-animation-fill-mode: forwards;
   /* Chrome, Safari, Opera */
   animation-fill-mode: forwards;
 }
 @-webkit-keyframes slide {
-  0% {
-    margin-left: 25%;
-  }
-  100% {
-    margin-left: 75%;
-  }
-}
-@-moz-keyframes slide {
   0% {
     margin-left: 25%;
   }
@@ -1170,7 +1230,7 @@ div#spritespin {
 }
 .messageBox {
   position: absolute;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.83);
   color: #ffffff;
   padding: 10px;
   left: 24%;
@@ -1206,3 +1266,4 @@ div#spritespin {
   color: #ffffff;
   text-decoration: none;
 }
+/*# sourceMappingURL=custom.css.map */

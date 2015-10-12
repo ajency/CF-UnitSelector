@@ -64,8 +64,8 @@ body .row {
       left: 0;
       height: 120px;
       padding: 10px;
-      background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.75), transparent);
-      background-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent);
+      background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.96), transparent);
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.96), transparent);
       background-repeat: repeat-x;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
   .badge {
@@ -134,10 +134,13 @@ body .row {
               z-index: 9999;
               position: absolute;
               right: 4%;
-              bottom: 29%;
+              bottom: 6%;
               border-radius: 100%;
               box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
               padding: 5px 4px;
+               @media(max-width: 320px){
+               bottom: 20%;
+         }
 }
 /* Swipe css*/
 #console {
@@ -182,6 +185,10 @@ body .row {
             font-weight: 200;
             line-height: 26px;
             color:@gray;
+            height: 45px;
+             @media(max-width: 320px){
+               height:40px;
+              }
             sm{
               color: @gray-darker;
               font-weight: bold;
@@ -205,6 +212,9 @@ body .row {
                 color: @gray-darker;
                 font-size: 10px;
                 font-weight:400;
+                 @media(max-width: 320px){
+                    font-size: 9px;
+                 }
               }
             }
             .arrow
@@ -212,12 +222,12 @@ body .row {
               a
               {
                 position: absolute;
-                height: 28px;
-                width: 28px;
+                height:40px;
+                width: 40px;
                 background: @brand-primary;
                 text-align: center;
                 border-radius: 50%;
-                top: -18px;
+                top: -26px;
                 right: 15px;
                 outline:none;
                 text-decoration:none;
@@ -228,8 +238,8 @@ body .row {
                 }
                 h3
                 {
-                  font-size: 16px;
-                  margin-top: 3px;
+                      font-size: 16px;
+                      margin-top: 8px;
                   i
                   {
                     color:@white;
@@ -304,4 +314,41 @@ body .row {
       width:100%;
       overflow: auto;
     }
+}
+
+/* Modal CSS */
+.modal-full-width{
+      z-index: 99999 !important;
+          overflow-y: hidden!important;
+  .modal-dialog{
+        margin: 0px;
+       top: 0px;
+       height: 100%;
+       .modal-content{
+          border-radius: 0px;
+          height: 100%;
+          .modal-header{
+            background: #333;
+            color: white;
+            padding: 10px 0PX;
+            .modal-title{
+                  line-height: 1.7;
+            }
+           
+          }
+           .modal-body{
+                 padding: 0px !important;
+                  overflow-x: scroll;
+                  height: 100%;
+            }
+       }
+  }
+}
+
+/* svg */
+.in-selection{
+      fill: rgba(16, 165, 169, 0.34) !important;
+}
+.not-in-selection, .not-availabel{
+      fill: rgba(0, 0, 0, 0.46) !important;
 }

@@ -120,12 +120,12 @@ class ProjectGateway implements ProjectGatewayInterface {
                    $buildingUnits = $buildingData->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
                   
                     if(!empty($buildingUnits)) //IF NO UNITS ASSIGNED DONT SEND BUILDING DATA
-                       $projectbuildings = array_merge($building,$projectbuildings);
+                       $projectbuildings[] = $building;//array_merge($building,$projectbuildings);
                 }
                 else
                 {
                    $buildingUnits = $buildingData->projectUnits()->get()->toArray();
-                   $projectbuildings = array_merge($building,$projectbuildings);    
+                   $projectbuildings[] = $building;//array_merge($building,$projectbuildings);    
                 }
                 
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
@@ -142,19 +142,21 @@ class ProjectGateway implements ProjectGatewayInterface {
 		$unitBreakpoint = SvgController :: get_primary_breakpoints($unit['id']);
         $unit['breakpoint'] = (isset($unitBreakpoint[0]['primary_breakpoint']))?$unitBreakpoint[0]['primary_breakpoint']:'';
         unset ($unit['availability']);
-        $unit['booking_amount'] = ProjectController :: get_unit_booking_amount($unit['id']);
-        $unit['selling_amount'] = ProjectController :: get_unit_selling_amount($unit['id']); 
-        $unitPriceComponent = ProjectController :: get_unit_price($unit['id']);  
-        if(isset($unitPriceComponent['error']))
-        {
-            $unit['unit_price'] = 0;
-            $unit['unit_price_component'] = [];
-        }
-        else
-        {
-            $unit['unit_price'] = $unitPriceComponent['total_sale_value'];
-            $unit['unit_price_component'] = $unitPriceComponent['components'];
-        }
+        $unit['booking_amount'] = rand(5, 15);//ProjectController :: get_unit_booking_amount($unit['id']);
+        $unit['selling_amount'] = rand(5, 15);//ProjectController :: get_unit_selling_amount($unit['id']); 
+        $unitPriceComponent = [];//ProjectController :: get_unit_price($unit['id']);  
+        $unit['unit_price'] = rand(5, 15);
+        $unit['unit_price_component'] = [];
+        // if(isset($unitPriceComponent['error']))
+        // {
+        //     $unit['unit_price'] = 0;
+        //     $unit['unit_price_component'] = [];
+        // }
+        // else
+        // {
+        //     $unit['unit_price'] = $unitPriceComponent['total_sale_value'];
+        //     $unit['unit_price_component'] = $unitPriceComponent['components'];
+        // }
         
         $unitData[]=$unit;
         $variantIds[] =$unit['unit_variant_id'];  

@@ -27,7 +27,7 @@
   background-position: -20px -226px;
 }
 .i-marker {
-  background-position: -109px -156px;
+  background-position: -113px -156px;
   margin: auto;
   text-align: center;
   display: block;
@@ -115,7 +115,9 @@ section {
   width: 100%;
 }
 .image .no-shadow {
-  position: absolute;
+  position: absolute !important;
+  -webkit-transition: visibility 0s 0.6s, opacity 0.6s linear;
+          transition: visibility 0s 0.6s, opacity 0.6s linear;
   top: 0;
 }
 .image2 {
@@ -440,6 +442,9 @@ body a {
   .filterOuter .filter-type li div {
     display: none;
   }
+}
+.animsition-loading {
+  z-index: 99999 !important;
 }
 .imageModal {
   top: 15% !important;

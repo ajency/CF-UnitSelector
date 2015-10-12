@@ -1,3 +1,5 @@
 module.exports = {
   RECEIVE_DATA: 'RECEIVE_DATA',
+  CHANGE_URL: 'CHANGE_URL',
+  UPDATE_DATA: 'UPDATE_DATA',
 }

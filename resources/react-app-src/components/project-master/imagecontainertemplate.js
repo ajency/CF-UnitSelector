@@ -29,13 +29,13 @@ var ImageContainerTemplate = React.createClass({
         
         showShadow = this.props.showShadow;
 
-        var BASEURL= "http://commonfloorlocal.com";
+        var BASEURL= window.baseUrl;
         var imgUrl= BASEURL+'/images/cf-mobile/Project-noshadow.jpg';
         var shadowImgUrl= BASEURL+'/images/cf-mobile/Project.jpg';
 
         var imageContainerStyle = {
           "height": windowHeight,
-          "minWidth": windowHeight * 1.6
+          "minWidth": windowHeight * 1.78
         }; 
 
 
@@ -43,7 +43,7 @@ var ImageContainerTemplate = React.createClass({
           'img-responsive': true,
           'fit': true,
           'no-shadow': true,
-          'hide-shadow': showShadow != 1
+          'hide-shadow': showShadow === false
         }); 
    
 
