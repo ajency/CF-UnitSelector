@@ -27,7 +27,7 @@
   background-position: -20px -226px;
 }
 .i-marker {
-  background-position: -109px -156px;
+  background-position: -113px -156px;
   margin: auto;
   text-align: center;
   display: block;
@@ -443,8 +443,12 @@ body a {
     display: none;
   }
 }
+.animsition-loading {
+  z-index: 99999 !important;
+}
 .imageModal {
   top: 15% !important;
+  bottom: 10%;
 }
 .imageModal .modal-content {
   border-radius: 0;
