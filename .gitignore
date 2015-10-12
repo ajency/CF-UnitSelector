@@ -11,5 +11,5 @@
 /.env
 /server.php
 /wsgi.py
-/newenv
+/env
 /log
