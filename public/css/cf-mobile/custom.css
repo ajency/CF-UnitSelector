@@ -374,6 +374,9 @@ body .row {
 .not-availabel {
   fill: rgba(0, 0, 0, 0.46) !important;
 }
+.site-wrapper.animsition {
+  height: 100%;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
