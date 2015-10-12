@@ -1003,7 +1003,8 @@ div#spritespin {
   position: absolute;
   opacity: 0;
   height: 25px;
-  width: 25px;
+  width: 100%;
+  left: 0;
 }
 .filter-content .checkboxOuter .checkboxnormal label {
   height: 20px;
@@ -1013,6 +1014,7 @@ div#spritespin {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 0;
+  margin-left: 50px;
 }
 .filter-content .checkboxOuter .checkboxnormal input[type=checkbox]:checked + label:before {
   content: "\2714";
