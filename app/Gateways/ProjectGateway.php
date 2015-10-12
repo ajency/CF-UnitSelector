@@ -120,12 +120,12 @@ class ProjectGateway implements ProjectGatewayInterface {
                    $buildingUnits = $buildingData->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
                   
                     if(!empty($buildingUnits)) //IF NO UNITS ASSIGNED DONT SEND BUILDING DATA
-                       $projectbuildings = array_merge($building,$projectbuildings);
+                       $projectbuildings[] = $building;//array_merge($building,$projectbuildings);
                 }
                 else
                 {
                    $buildingUnits = $buildingData->projectUnits()->get()->toArray();
-                   $projectbuildings = array_merge($building,$projectbuildings);    
+                   $projectbuildings[] = $building;//array_merge($building,$projectbuildings);    
                 }
                 
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
@@ -249,10 +249,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             }
 
             $projectUnits = array_merge($units,$projectUnits); 
-        }
-      if(count($buildings)==1)
-        $buildings[]=$buildings;    
-    
+        }    
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);  
       $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
 
