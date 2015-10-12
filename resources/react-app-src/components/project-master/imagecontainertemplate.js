@@ -12,13 +12,6 @@ var details = [0, 30, 50]
 var ImageContainerTemplate = React.createClass({
     mixins: [PureRenderMixin],	
 
-    getDefaultProps: function(){
-      return {
-        detailIndex: 0,
-        details : [0, 30, 50] ,// 00 , 15, 45 , 60
-      }
-    },    
-
     componentDidMount: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
 
@@ -68,17 +61,26 @@ var ImageContainerTemplate = React.createClass({
 
     },
 
-    setDetailIndex: function(index) {
-      
-       detailIndex = index;
+    incrementIndex: function(){
+      detailIndex = detailIndex+1;
+    },
+
+    resetIndex: function(){
+      detailIndex = detailIndex-1;
+    }
+
+
+
+    setDetailIndex: function() {
+       this.incrementIndex();
+
        if (detailIndex < 0) {
          detailIndex = details.length - 1;
        }
        if (detailIndex >= details.length) {
-         detailIndex = 0;
+         this.resetIndex();
        }
-       console.log("clickkk");
-       console.log(api);
+
        api.playTo(details[detailIndex]);
     },    
 
@@ -122,7 +124,7 @@ var ImageContainerTemplate = React.createClass({
                     </div>
                 </div>
 
-                <div ref="next" className="rotate" onClick={this.setDetailIndex.bind(this, detailIndex+1)}>
+                <div ref="next" className="rotate" onClick={this.setDetailIndex}>
                     
                 </div>
             </div>            
