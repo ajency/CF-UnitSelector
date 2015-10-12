@@ -12,8 +12,8 @@ define('GET_CITIES_API_URL', 'http://www.commonfloor.com/api/geo-local-v2/get-ci
 define('GET_PROPERTIES_BY_CITY_API_URL', 'http://www.commonfloor.com/api/project-v2/get-projects?city=');
 define('GET_AREA_BY_CITY_API_URL', 'http://www.commonfloor.com/autosuggest.php?item=area&c=');
 define('GET_PROPERTIES_BY_AREA_API_URL', 'http://www.commonfloor.com/api/project-v2/get-projects?page_size=200&project_location_filter[]=null_area_');
-//define('BOOKING_SERVER_URL', 'http://booking-engine-crm.com/');
-define('BOOKING_SERVER_URL', 'http://127.0.0.1:8000/');
+define('BOOKING_SERVER_URL', 'http://booking-engine-crm.com/');
+//define('BOOKING_SERVER_URL', 'http://127.0.0.1:8000/');
 define('GET_BOOKING_AMOUNT', 'get_booking_amount/');
 define('GET_SELLING_AMOUNT', 'get_total_sale_value/');
 define('GET_UNIT_PRICE', 'unit_price_sheet/');
@@ -21,7 +21,7 @@ define('GET_UNIT_PAYMENT_PLAN', 'unit_payment_plan/');
 define('GET_UNIT_PRICE_SHEET', 'unit_price_sheet/');
 define('ADD_BOOKING_UNIT', 'addUnit/');
 define('MAKE_BOOKING', 'makebooking/');
-define('BOOKING_PORTAL_URL', 'http://stage23.commonfloor.com/book-your-property');
+define('BOOKING_PORTAL_URL', 'http://booking-engine-crm.com/book-your-property');
 define('CF_API_KEY', 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168');
 
 /**BOOKING CONSTANT***/
