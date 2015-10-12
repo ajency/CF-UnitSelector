@@ -31,29 +31,29 @@ var ModalBody = React.createClass({
                     <div className="filter-content">
                         <h5 className=" text-center text-uppercase m-t-20">Unit type</h5>
                         <div className="row imagecheckboxOuter">
-                            <div className={checkOuterDivClass}>
-                                <input ref="checkboxRef" type="checkbox" />
-                                <img src="img/bldg-3d.png" />
+                            <div className="col-xs-4 checkboxInner text-center ">
+                                <input ref="checkboxRef " type="checkBox" />
+                                 <img src="../images/icon/1bhk.png" />
                                 <span className="text-uppercase col-xs-12 text-center">1bhk</span>
                             </div>
                             <div className="col-xs-4 checkboxInner text-center selected">
                                 <input  ref="checkboxRef" type="checkbox" />
-                                <img src="img/bldg-3d.png" />
+                                <img src="../images/icon/2bhk.png" />
                                 <span className="text-uppercase col-xs-12 text-center">2bhk</span>
                             </div>
                             <div className="col-xs-4 checkboxInner text-center">
                                 <input ref="checkboxRef" type="checkbox" />
-                                <img src="img/bldg-3d.png" />
+                                <img src="../images/icon/3bhk.png" />
                                 <span className="text-uppercase col-xs-12 text-center">3bhk</span>
                             </div>
                             <div className="col-xs-4 checkboxInner text-center">
                                 <input ref="checkboxRef" type="checkbox" />
-                                <img src="img/bldg-3d.png" />
+                                <img src="../images/icon/4bhk.png" />
                                 <span className="text-uppercase col-xs-12 text-center">3bhk <br/> (Penthouse)</span>
                             </div>
                             <div className="col-xs-4 checkboxInner text-center">
                                 <input ref="checkboxRef" type="checkbox" />
-                                <img src="img/bldg-3d.png" />
+                                <img src="../images/icon/3bhk.png" />
                                 <span className="text-uppercase col-xs-12 text-center">4bhk <br/> (Penthouse)</span>
                             </div>
                         </div>

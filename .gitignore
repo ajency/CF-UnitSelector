@@ -1,6 +1,9 @@
 /vendor
 /log
 /node_modules
+/node_modules-1
+/node_modules-2
+/node_modules-3
 .env
 public/bower_components
 methods/bower_components
@@ -9,3 +12,4 @@ public/.htaccess
 tests/_output/*
 public/projects/
 
+wsgi.py

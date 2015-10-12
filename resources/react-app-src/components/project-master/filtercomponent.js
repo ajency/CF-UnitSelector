@@ -22,12 +22,12 @@ var FilterComponent = React.createClass({
                       <div className="row imagecheckboxOuter">
                           <div className="col-xs-4 checkboxInner text-center">
                             <input type="checkbox"/>
-                            <img src="img/bldg-3d.png" />
+                            <img src="img/icon/1bhk.png" />
                             <span className="text-uppercase col-xs-12 text-center">1bhk</span>
                           </div>
                            <div className="col-xs-4 checkboxInner text-center selected">
                             <input type="checkbox"/>
-                            <img src="img/bldg-3d.png" />
+                             <img src="img/icon/2bhk.png" />
                             <span className="text-uppercase col-xs-12 text-center">2bhk</span>
                           </div>
                            <div className="col-xs-4 checkboxInner text-center">
