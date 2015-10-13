@@ -523,14 +523,19 @@ class ProjectBunglowUnitController extends Controller {
             $result = $o;
 
            }
+        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+        echo  $status;
+          
+       if(curl_getinfo($c, CURLINFO_HTTP_CODE) === '200') 
+            echo "CURLINFO_HTTP_CODE returns a string.";
 
-       if(curl_getinfo($c, CURLINFO_HTTP_CODE) === '200') echo "CURLINFO_HTTP_CODE returns a string.";
-     if(curl_getinfo($c, CURLINFO_HTTP_CODE) === 200) echo "CURLINFO_HTTP_CODE returns an integer.";
+       if(curl_getinfo($c, CURLINFO_HTTP_CODE) === 200) 
+            echo "CURLINFO_HTTP_CODE returns an integer.";
 
        $status = curl_getinfo($c); dd($status);
 
        /* Check HTTP Code */
-       $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+       
 
        curl_close($c); 
  
