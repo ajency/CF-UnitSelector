@@ -498,7 +498,7 @@ class ProjectBunglowUnitController extends Controller {
         $sender_url .= ADD_BOOKING_UNIT;
 
         /* $_GET Parameters to Send */
-        $params = array('unit_id' => $unitId,'unit_name' => $unitName,'project_id' => $projectId );
+        $params = array('token'=>config('constant.api_token'), 'user'=>config('constant.api_user'), 'unit_id' => $unitId,'unit_name' => $unitName,'project_id' => $projectId );
          //$params = "token=".config('constant.api_token')."&user=".config('constant.api_user')."&unit_id=".$unitId."&unit_name=".$unitName."&project_id=".$projectId; 
       
         /* Update URL to container Query String of Paramaters */
