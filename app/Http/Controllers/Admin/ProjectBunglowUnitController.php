@@ -528,7 +528,7 @@ class ProjectBunglowUnitController extends Controller {
        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
        curl_close($c); 
-        dd($result);
+ 
        return $result;      
     }
     
