@@ -124,11 +124,16 @@
 			float:left;
 			width:100%;
 			padding:10px;
+			height:60px;
 			border-bottom:1px solid @gray-lighter;
 
 			&:first-child
 			{
 				border-top:1px solid @gray-lighter;
+			}
+			h5
+			{
+				margin-top:14px;
 			}
 			span
 			{
@@ -194,14 +199,35 @@
 			}
 			input
 			{
-				width:100%;
-				border:none;
-				border-bottom:1px solid @gray-light;
-				background:none;
-				padding:5px;
-				&:focus
+				border: none;
+			    background: none;
+			    padding: 5px;
+			    width: 100%;
+			    border-bottom: 1px solid  @gray-light;
+			    outline: none;
+			    &:focus
 				{
 					outline:none;
+				}
+			}
+			
+			select
+			{
+				border: none;
+			    background: none;
+			    padding: 5px;
+			    width: 100%;
+			    border-bottom: 1px solid  @gray-light;
+			    outline: none;
+			    &:focus
+				{
+					outline:none;
+				}
+				option
+				{
+					background:none;
+					border:none;
+					font-size:10px;					
 				}
 			}
 		}

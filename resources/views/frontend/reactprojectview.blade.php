@@ -53,6 +53,20 @@
 	  });
 
 	</script>    
+    <script type="text/javascript">
+        $(document).ready(function() {
+             
+            if(self!=top)
+            {
+                $(window).bind( 'hashchange', function(e) { 
+                var anchor = document.location.hash;
 
+                //window.parent.updateUrl(anchor);
+                    window.parent.postMessage(anchor, "*");
+                });
+            }
+        });   
+
+      </script>
 </body>
 </html>

@@ -503,7 +503,7 @@ class ProjectBunglowUnitController extends Controller {
       
         /* Update URL to container Query String of Paramaters */
         //$sender_url .= '?' . http_build_query($params);
-        echo $sender_url;
+ 
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
         curl_setopt($c, CURLOPT_POST, 1);
@@ -528,7 +528,7 @@ class ProjectBunglowUnitController extends Controller {
        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
        curl_close($c); 
-       dd($result);
+ 
        return $result;      
     }
     
