@@ -909,4 +909,7 @@ body a {
 .float-nav li.budgetOuter > div select:focus {
   outline: none;
 }
+.float-nav li.additionalFilters h6 {
+  color: #fe943e;
+}
 /*# sourceMappingURL=custom-big.css.map */
