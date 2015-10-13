@@ -30,13 +30,14 @@ var ImageContainerTemplate = React.createClass({
 
         $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
 
-        var masterImagePrefix = "ProjectView";
+        var masterImagePrefix = "master-";
+        var digitsInName = 2; 
 
-        var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'_{frame}.jpg'
+        var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'{frame}.jpg'
 
         var frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
          frame: [1, 60],
-         digits: 4
+         digits: digitsInName
        });
 
         spin = $(this.refs.spritespin);
@@ -90,10 +91,10 @@ var ImageContainerTemplate = React.createClass({
          this.resetIndex();
        }
 
-       this.props.updateChosenBreakPoint(details[detailIndex]);
-
-
        api.playTo(details[detailIndex]);
+
+
+       this.props.updateChosenBreakPoint(details[detailIndex]);
     },    
 
     render: function(){

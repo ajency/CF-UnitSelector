@@ -7,9 +7,9 @@ var SvgContainer = React.createClass({
     render: function(){
       var chosenBreakpoint = this.props.chosenBreakpoint;
 
-      var svgNamePrefix = "ProjectView";
+      var svgNamePrefix = "master-";
 
-    	var svgUrl= window.baseUrl+'/projects/'+(window.projectId)+'/master/'+svgNamePrefix+'_'+chosenBreakpoint+'.svg'; //will come based on breakpoint
+    	var svgUrl= window.baseUrl+'/projects/'+(window.projectId)+'/master/'+svgNamePrefix+''+chosenBreakpoint+'.svg'; //will come based on breakpoint
         
         return (
 

@@ -26,7 +26,6 @@ var ProjectMaster = React.createClass({
     },
 
     updateChosenBreakPoint: function(chosenBreakPoint){
-        console.log("Break point changed "+chosenBreakPoint);
         dataToSet = {
             property: "chosenBreakpoint",
             value: chosenBreakPoint
