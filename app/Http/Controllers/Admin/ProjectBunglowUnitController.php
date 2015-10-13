@@ -498,13 +498,13 @@ class ProjectBunglowUnitController extends Controller {
         $sender_url .= ADD_BOOKING_UNIT;
 
         /* $_GET Parameters to Send */
-        //$params = array('unit_id' => $unitId,'unit_name' => $unitName,'project_id' => $projectId );
-         $params = "token=".config('constant.api_token')."&user=".config('constant.api_user')."&unit_id=".$unitId."&unit_name=".$unitName."&project_id=".$projectId; 
+        $params = array('unit_id' => $unitId,'unit_name' => $unitName,'project_id' => $projectId );
+         //$params = "token=".config('constant.api_token')."&user=".config('constant.api_user')."&unit_id=".$unitId."&unit_name=".$unitName."&project_id=".$projectId; 
       
         /* Update URL to container Query String of Paramaters */
         //$sender_url .= '?' . http_build_query($params);
-        echo $sender_url;
-        echo $params;
+       // echo $sender_url;
+        //echo $params;
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
         curl_setopt($c, CURLOPT_POST, 1);
@@ -529,7 +529,7 @@ class ProjectBunglowUnitController extends Controller {
        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
        curl_close($c); 
-       dd($result);
+       //dd($result);
        return $result;      
     }
     
