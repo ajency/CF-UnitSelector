@@ -188,28 +188,75 @@
                                       <div class="row">
                                         <div class="col-xs-4">
                                           <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
                                           <label>1BHK</label>
                                         </div>
                                         <div class="col-xs-4">
                                           <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
                                           <label>2BHK</label>
                                         </div>
                                         <div class="col-xs-4">
                                           <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
                                           <label>3BHK</label>
                                         </div>
                                       </div>
                                       <div class="row">
                                         <div class="col-xs-4">
                                           <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
                                           <label>4BHK</label>
                                         </div>
-                                        <div class="col-xs-4">
+                                        <div class="col-xs-8">
                                           <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
                                           <label>4BHK (Penthouse)</label>
                                         </div>                                        
                                       </div>
 
+                                    </li>
+                                    <li><h6 class="text-uppercase">Budget</h6></li>
+                                    <li class="budgetOuter">                                      
+                                        <div class="col-xs-6">
+                                           <select>
+                                             <option>MIN</option>
+                                             <option>10</option>
+                                             <option>20</option>
+                                             <option>30</option>
+                                             <option>40</option>
+                                           </select> 
+                                        </div>  
+                                        <div class="col-xs-6">
+                                           <select>
+                                             <option>MAX</option>
+                                             <option>10</option>
+                                             <option>20</option>
+                                             <option>30</option>
+                                             <option>50</option>
+                                           </select> 
+                                        </div>          
+                                    </li>
+                                    <li><h6 class="text-uppercase">Area</h6></li>
+                                    <li class="budgetOuter">                                      
+                                        <div class="col-xs-6">
+                                           <select>
+                                             <option>MIN</option>
+                                             <option>10</option>
+                                             <option>20</option>
+                                             <option>30</option>
+                                             <option>40</option>
+                                           </select> 
+                                        </div>  
+                                        <div class="col-xs-6">
+                                           <select>
+                                             <option>MAX</option>
+                                             <option>10</option>
+                                             <option>20</option>
+                                             <option>30</option>
+                                             <option>50</option>
+                                           </select> 
+                                        </div>          
                                     </li>
                                   </ul>
                                   <a class="toggle" href="#">+</a>
@@ -313,10 +360,10 @@
             $('.no-shadow').toggleClass('hide-shadow');            
           });
 
-          var floatNav = $('.float-nav');
-
-          floatNav.on('click', function(e) {
-            $(this).toggleClass('closed');
+          //var floatNav = $('.float-nav');
+            var toggle = $('.toggle');
+          toggle.on('click', function(e) {
+            $('.float-nav').toggleClass('closed');
             e.stopPropagation();
             e.preventDefault();
           });
