@@ -262,6 +262,9 @@
                                       <h6 class="text-uppercase">Additional Filters <i class="fa fa-angle-down"></i></h6>
                                     </li>
                                     <li class="filterCheckbox moreFilters">                                    
+                                      <ul>
+                                      <li><h6 class="text-uppercase">Flooring</h6></li>
+                                      <li class="facingContent">
                                       <div class="row">
                                         <div class="col-xs-4">
                                           <input type="checkbox" />
@@ -278,20 +281,85 @@
                                           <label class="checkboxLabel"></label>
                                           <label>Marble</label>
                                         </div>
+                                      </div>                                     
+                                      </li>
+                                      <li><h6 class="text-uppercase">Views</h6></li>
+                                      <li class="facingContent">
+                                      <div class="row">
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>Swimming pool</label>
+                                        </div>
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>Club house</label>
+                                        </div>
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>Playground</label>
+                                        </div>
                                       </div>
                                       <div class="row">
                                         <div class="col-xs-4">
                                           <input type="checkbox" />
                                           <label class="checkboxLabel"></label>
-                                          <label>4BHK</label>
+                                          <label>Courtyard</label>
                                         </div>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-4">
                                           <input type="checkbox" />
                                           <label class="checkboxLabel"></label>
-                                          <label>4BHK (Penthouse)</label>
+                                          <label>Parking</label>
+                                        </div>                                        
+                                      </div>                                     
+                                      </li>
+                                      <li><h6 class="text-uppercase">Facings</h6></li>
+                                      <li class="facingContent">
+                                      <div class="row">
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>North</label>
+                                        </div>
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>South</label>
+                                        </div>
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>East</label>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>West</label>
+                                        </div>
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>North-East</label>
+                                        </div> 
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>North-West</label>
                                         </div>                                        
                                       </div>
-
+                                      <div class="row">
+                                        <div class="col-xs-4">
+                                          <input type="checkbox" />
+                                          <label class="checkboxLabel"></label>
+                                          <label>South-East</label>
+                                        </div>
+                                      </div>                                     
+                                      </li>
+                                      </ul>
                                     </li>
                                   </ul>
                                   <a class="toggle" href="#">+</a>
@@ -400,7 +468,11 @@
           toggle.on('click', function(e) {
             $('.float-nav').toggleClass('closed');
             e.stopPropagation();
-            e.preventDefault();
+            e.preventDefault();          
+          });
+
+          $('.additionalFilters').on('click', function(e) {
+            $('.moreFilters').slideToggle();         
           });
         });
            $("#menu-toggle").click(function(e) {
