@@ -53,6 +53,15 @@ var ProjectMaster = React.createClass({
 
     },
 
+    updateRotateShadow: function(showShadowStatus){
+        dataToSet = {
+            property: "showShadow",
+            value: showShadowStatus
+        },
+
+        this.updateStateData(dataToSet);
+    },
+
     updateStateData: function(dataToSet){
         oldState = getStateData();
         
@@ -76,6 +85,7 @@ var ProjectMaster = React.createClass({
 
 
         this.setState(newState);
+        AppStore.updateGlobalState(newState);
 
     },
 
@@ -118,6 +128,7 @@ var ProjectMaster = React.createClass({
                 breakpoints = {data.breakpoints}
                 chosenBreakpoint = {data.chosenBreakpoint}
                 updateChosenBreakPoint = {this.updateChosenBreakPoint}
+                updateRotateShadow = {this.updateRotateShadow}
             />
             <CardList buildings={buildings}/>
             </div>

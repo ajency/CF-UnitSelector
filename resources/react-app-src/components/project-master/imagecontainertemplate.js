@@ -82,6 +82,14 @@ var ImageContainerTemplate = React.createClass({
 
     setDetailIndex: function() {
 
+       // check if shadow image is present, if present then hide it
+       prevShowShadow = this.props.showShadow;
+       
+       if( this.props.showShadow ){
+          this.props.updateRotateShadow(false);
+       }
+
+
        this.incrementIndex();
  
        if (detailIndex < 0) {
@@ -95,6 +103,7 @@ var ImageContainerTemplate = React.createClass({
 
 
        this.props.updateChosenBreakPoint(details[detailIndex]);
+
     },    
 
     render: function(){
@@ -106,8 +115,10 @@ var ImageContainerTemplate = React.createClass({
         showShadow = this.props.showShadow;
 
         var BASEURL= window.baseUrl;
-        var imgUrl= BASEURL+'/images/cf-mobile/Project-noshadow.jpg';
-        var shadowImgUrl= BASEURL+'/images/cf-mobile/Project.jpg';
+        
+        var shadowImagePrefix = "shadow-";
+
+        var shadowImgUrl = BASEURL+'/projects/'+PROJECTID+'/shadow/'+shadowImagePrefix+''+this.props.chosenBreakpoint+'.jpg';
 
         var imageContainerStyle = {
           "height": windowHeight,
@@ -132,7 +143,7 @@ var ImageContainerTemplate = React.createClass({
                         <SvgContainer chosenBreakpoint={this.props.chosenBreakpoint} key={this.props.chosenBreakpoint}/>
 
                         <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
-                        <img src={shadowImgUrl} className="img-responsive shadow fit"/>
+                        <img key={this.props.chosenBreakpoint+1} src={shadowImgUrl}  className="img-responsive shadow fit"/>
                        
                     </div>
                 </div>

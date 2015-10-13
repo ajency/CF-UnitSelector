@@ -8,7 +8,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 // Define initial data points
-var _projectData = {}, _selected = null , _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false}};
+var _projectData = {}, _selected = null , _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0}};
 
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
@@ -146,6 +146,10 @@ function _updateProjectData(dataToUpdate){
 	_globalStateData = newProjectData;
 }
 
+function _updateGlobalState(newStateData){
+	_globalStateData = newStateData;
+}
+
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
@@ -161,7 +165,7 @@ function _getProjectMasterData(){
 
 		breakpoints = projectData.breakpoints 
 		projectMasterData.breakpoints = breakpoints; 
-		projectMasterData.chosenBreakpoint = breakpoints[0] ; 
+		projectMasterData.chosenBreakpoint = breakpoints[0] ;  
 		
 		unitCount = getUnitCount('Apartments') ;
 		projectMasterData.totalCount = unitCount.totalCount;
@@ -210,6 +214,10 @@ var AppStore = merge(EventEmitter.prototype, {
 
 	getStateData: function(){
 		return _globalStateData;
+	},
+
+	updateGlobalState: function(newState){
+		_updateGlobalState(newState);
 	},
 
   	// Register callback with AppDispatcher
