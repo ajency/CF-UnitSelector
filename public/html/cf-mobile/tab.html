@@ -119,13 +119,12 @@
                 <div class="flatDetails">
                     <h4 class="text-uppercase">2D Floor Plan</h4>
                     <div class="dimensionalViewBtn">
-                      <a href="#">2D</a>
-                      <a href="#">3D</a>
+                      <a id="twoD" href="#">2D</a>
+                      <a id="threeD" href="#">3D</a>
                     </div>
                 </div>
                 <div class="twodView">                                       
-                    <img src="img/bldg-3d.png"/> 
-                    <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                   
+                  <img src="img/Project-noshadow.jpg" class="img-responsive fit" id="imageid"/>
                 </div>
             </div>            
         </div>
@@ -189,30 +188,21 @@
             $('#Fullscreen').click(function () {
                 $(this).fadeOut(); //this will hide the fullscreen div if you click away from the image. 
             });
+           
+            $( document ).ready(function() {               
+                $( "#twoD" ).click(function() {
+                   $("#threeD").css('background', '#fff');
+                  $(this).css('background', '#d5d5d4');
+                   $('#imageid').attr('src','img/Project-noshadow.jpg');
+                });
+                $( "#threeD" ).click(function() {
+                  $("#twoD").css('background', '#fff');
+                   $(this).css('background', '#d5d5d4');
+                  $('#imageid').attr('src','img/Project.jpg');
+                });                
+            });
 
-            /*function requestFullScreen() {
 
-              var el = document.body;
-
-              // Supports most browsers and their versions.
-              var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen 
-              || el.mozRequestFullScreen || el.msRequestFullScreen;
-
-              if (requestMethod) {
-
-                // Native full screen.
-                requestMethod.call(el);
-
-              } else if (typeof window.ActiveXObject !== "undefined") {
-
-                // Older IE.
-                var wscript = new ActiveXObject("WScript.Shell");
-
-                if (wscript !== null) {
-                  wscript.SendKeys("{F11}");
-                }
-              }
-            }*/
     </script>
   </body>
 </html>
