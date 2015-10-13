@@ -506,18 +506,13 @@ class ProjectBunglowUnitController extends Controller {
  
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
-        curl_setopt($c, CURLOPT_POST, true);
+        curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, $params);
 
         curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
-       // curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-        //curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
-        //curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
-
-        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-        
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
         $o = curl_exec($c); 
 
         if (curl_errno($c)) {
@@ -529,10 +524,16 @@ class ProjectBunglowUnitController extends Controller {
 
            }
 
+       if(curl_getinfo($c, CURLINFO_HTTP_CODE) === '200') echo "CURLINFO_HTTP_CODE returns a string.";
+     if(curl_getinfo($c, CURLINFO_HTTP_CODE) === 200) echo "CURLINFO_HTTP_CODE returns an integer.";
+
+       $status = curl_getinfo($c); dd($status);
+
        /* Check HTTP Code */
        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
        curl_close($c); 
+ 
        return $result;      
     }
     
