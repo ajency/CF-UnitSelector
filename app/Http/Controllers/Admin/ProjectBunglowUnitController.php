@@ -506,10 +506,9 @@ class ProjectBunglowUnitController extends Controller {
  
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
-        curl_setopt($c, CURLOPT_HTTPHEADER, array("REMOTE_ADDR: 139.162.29.106", "HTTP_X_FORWARDED_FOR: 139.162.29.106"));
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, $params);
-
+        
 
         curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
