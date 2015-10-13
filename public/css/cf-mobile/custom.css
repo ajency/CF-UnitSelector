@@ -165,6 +165,9 @@ body .row {
   margin: 12px 10px;
   display: block;
 }
+.navbar-default a:focus {
+  outline: none;
+}
 .sun-toggle {
   width: 40px;
   height: 40px;
