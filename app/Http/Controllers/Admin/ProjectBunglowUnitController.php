@@ -517,6 +517,7 @@ class ProjectBunglowUnitController extends Controller {
 
         if (curl_errno($c)) {
             $result= $c;
+            \Log::error($c);
         }
         else{
 
