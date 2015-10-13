@@ -30,13 +30,14 @@ var ImageContainerTemplate = React.createClass({
 
         $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
 
-        var masterImagePrefix = "ProjectView";
+        var masterImagePrefix = "master-";
+        var digitsInName = 2; 
 
-        var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'_{frame}.jpg'
+        var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'{frame}.jpg'
 
         var frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
          frame: [1, 60],
-         digits: 4
+         digits: digitsInName
        });
 
         spin = $(this.refs.spritespin);
@@ -81,6 +82,14 @@ var ImageContainerTemplate = React.createClass({
 
     setDetailIndex: function() {
 
+       // check if shadow image is present, if present then hide it
+       prevShowShadow = this.props.showShadow;
+       
+       if( this.props.showShadow ){
+          this.props.updateRotateShadow(false);
+       }
+
+
        this.incrementIndex();
  
        if (detailIndex < 0) {
@@ -90,10 +99,11 @@ var ImageContainerTemplate = React.createClass({
          this.resetIndex();
        }
 
+       api.playTo(details[detailIndex]);
+
+
        this.props.updateChosenBreakPoint(details[detailIndex]);
 
-
-       api.playTo(details[detailIndex]);
     },    
 
     render: function(){
@@ -105,8 +115,10 @@ var ImageContainerTemplate = React.createClass({
         showShadow = this.props.showShadow;
 
         var BASEURL= window.baseUrl;
-        var imgUrl= BASEURL+'/images/cf-mobile/Project-noshadow.jpg';
-        var shadowImgUrl= BASEURL+'/images/cf-mobile/Project.jpg';
+        
+        var shadowImagePrefix = "shadow-";
+
+        var shadowImgUrl = BASEURL+'/projects/'+PROJECTID+'/shadow/'+shadowImagePrefix+''+this.props.chosenBreakpoint+'.jpg';
 
         var imageContainerStyle = {
           "height": windowHeight,
@@ -131,7 +143,7 @@ var ImageContainerTemplate = React.createClass({
                         <SvgContainer chosenBreakpoint={this.props.chosenBreakpoint} key={this.props.chosenBreakpoint}/>
 
                         <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
-                        <img src={shadowImgUrl} className="img-responsive shadow fit"/>
+                        <img key={this.props.chosenBreakpoint+1} src={shadowImgUrl}  className="img-responsive shadow fit"/>
                        
                     </div>
                 </div>
