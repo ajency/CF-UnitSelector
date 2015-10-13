@@ -513,7 +513,9 @@ class ProjectBunglowUnitController extends Controller {
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
-        $o = curl_exec($c); 
+        $o = curl_exec($c);
+        var_dump($o);
+        var_dump(curl_getinfo($c)); 
 
         if (curl_errno($c)) {
             $result= $c;
