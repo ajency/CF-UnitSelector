@@ -101,6 +101,25 @@ body .row {
   .p-0{
     padding: 0px;
   }
+  .filterNumber
+  {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    background:@brand-primary;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    text-align: center;
+    color:@white;
+    font-size: 10px;
+  }
+  .backIcon
+  {
+    text-align: center;
+    margin: 12px 10px;
+    display: block;
+  }
 }
 
 
@@ -251,6 +270,10 @@ body .row {
                 }
               }
             }
+            .matchSelection
+            {
+            padding-top:2px;
+            }
       }
       .swipe-unit-info{
             padding: 0 0 5px 0;
@@ -267,7 +290,7 @@ body .row {
             {
                   font-size: 12px;                 
                   float: left;
-                  line-height: 1.5;
+                  line-height: 1.3;
                   margin: 0 15px;
                   text-align: center;
                   width: 6px;
@@ -299,7 +322,12 @@ body .row {
 {    
   .swipe-footer
   {
-    background:@white;
+    background:@gray-lightest;
+    padding-top:8px;
+    > div
+    {
+      color:@gray-darker;
+    }
   }
 }
 }
