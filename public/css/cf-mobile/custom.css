@@ -863,7 +863,7 @@ div#spritespin {
 }
 .tab-content .details .flatDetails .dimensionalViewBtn {
   float: right;
-  margin-top: 9px;
+  margin-top: 15px;
 }
 .tab-content .details .flatDetails .dimensionalViewBtn a {
   border: 1px solid #bcbcba;
@@ -872,6 +872,8 @@ div#spritespin {
   font-size: 10px;
   font-weight: 700;
   float: left;
+  text-decoration: none;
+  outline: none;
 }
 .tab-content .details .flatDetails .dimensionalViewBtn a:first-child {
   border-radius: 10px 0 0 10px;
@@ -880,6 +882,11 @@ div#spritespin {
 .tab-content .details .flatDetails .dimensionalViewBtn a:last-child {
   border-left: 0;
   border-radius: 0 10px 10px 0;
+}
+.tab-content .details .flatDetails .dimensionalViewBtn a:focus,
+.tab-content .details .flatDetails .dimensionalViewBtn a:hover {
+  text-decoration: none;
+  outline: none;
 }
 .tab-content .details .twodView img {
   width: 100%;
@@ -1091,10 +1098,14 @@ div#spritespin {
   float: left;
   width: 100%;
   padding: 10px;
+  height: 60px;
   border-bottom: 1px solid #d5d5d4;
 }
 .filter-content .checkboxOuter .checkboxnormal:first-child {
   border-top: 1px solid #d5d5d4;
+}
+.filter-content .checkboxOuter .checkboxnormal h5 {
+  margin-top: 14px;
 }
 .filter-content .checkboxOuter .checkboxnormal span {
   padding-right: 0;
@@ -1126,9 +1137,9 @@ div#spritespin {
   background: #12acac;
   border: none;
   width: 20px;
-  height: 18px;
+  height: 20px;
   font-weight: 400;
-  padding-top: 0px;
+  padding-top: 1px;
   display: block;
   border: 2px solid rgba(0, 0, 0, 0);
   margin: -2px 0 0 -2px;
@@ -1147,6 +1158,17 @@ div#spritespin {
 }
 .filter-content .budgetOuter div:first-child {
   border-right: 1px solid #d5d5d4;
+}
+.filter-content .budgetOuter div input {
+  border: none;
+  background: none;
+  padding: 5px;
+  width: 100%;
+  border-bottom: 1px solid #bcbcba;
+  outline: none;
+}
+.filter-content .budgetOuter div input:focus {
+  outline: none;
 }
 .filter-content .budgetOuter div select {
   border: none;
