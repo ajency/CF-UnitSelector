@@ -1148,15 +1148,21 @@ div#spritespin {
 .filter-content .budgetOuter div:first-child {
   border-right: 1px solid #d5d5d4;
 }
-.filter-content .budgetOuter div input {
-  width: 100%;
+.filter-content .budgetOuter div select {
   border: none;
-  border-bottom: 1px solid #bcbcba;
   background: none;
   padding: 5px;
-}
-.filter-content .budgetOuter div input:focus {
+  width: 100%;
+  border-bottom: 1px solid #bcbcba;
   outline: none;
+}
+.filter-content .budgetOuter div select:focus {
+  outline: none;
+}
+.filter-content .budgetOuter div select option {
+  background: none;
+  border: none;
+  font-size: 10px;
 }
 .filterfooter {
   position: fixed;

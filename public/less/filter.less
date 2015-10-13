@@ -192,16 +192,24 @@
 			{
 				border-right:1px solid @gray-lighter;
 			}
-			input
+			
+			select
 			{
-				width:100%;
-				border:none;
-				border-bottom:1px solid @gray-light;
-				background:none;
-				padding:5px;
-				&:focus
+				border: none;
+			    background: none;
+			    padding: 5px;
+			    width: 100%;
+			    border-bottom: 1px solid  @gray-light;
+			    outline: none;
+			    &:focus
 				{
 					outline:none;
+				}
+				option
+				{
+					background:none;
+					border:none;
+					font-size:10px;					
 				}
 			}
 		}
