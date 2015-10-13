@@ -731,6 +731,9 @@ body a {
 .modal-backdrop.in {
   opacity: .8 !important;
 }
+.modalBtn {
+  margin-top: 150px;
+}
 .float-nav {
   position: fixed;
   z-index: 1;

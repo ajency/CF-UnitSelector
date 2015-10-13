@@ -1304,6 +1304,9 @@ div#spritespin {
 .modal-backdrop.in {
   opacity: .8 !important;
 }
+.modalBtn {
+  margin-top: 150px;
+}
 .unitSold {
   color: #ee1f3b;
 }
