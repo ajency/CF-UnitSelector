@@ -68,26 +68,49 @@ class ProjectMediaController extends Controller {
                     $xdoc = new DomDocument();
                     $xdoc->Load($svgPath);
                     $paths = $xdoc->getElementsByTagName('path');
+                    if(!empty($paths))
+                    {
+                        foreach ($paths as $key => $path) {
+                            $cordinated = $path->getAttributeNode('d');
+                            $points = $cordinated->value;  
 
-                    foreach ($paths as $key => $path) {
-                        $cordinated = $path->getAttributeNode('d');
-                        $points = $cordinated->value;  
-
-                        $other_details['class']='layer unassign';
-                        $svgElement = new SvgElement();
-                        $svgElement->svg_id = $svg->id;
-                        $svgElement->object_type = 'unassign';
-                        $svgElement->object_id = 0;
-                        $svgElement->points =$points;
-                        $svgElement->canvas_type = 'path';
-                        $svgElement->other_details = $other_details;
-                        $svgElement->save();
-
-                        $mediaId ='';
-                        $message =  $fileName .' Svg Successfully Uploaded';
-                        $code ='201';
+                            $other_details['class']='layer unassign';
+                            $svgElement = new SvgElement();
+                            $svgElement->svg_id = $svg->id;
+                            $svgElement->object_type = 'unassign';
+                            $svgElement->object_id = 0;
+                            $svgElement->points =$points;
+                            $svgElement->canvas_type = 'path';
+                            $svgElement->other_details = $other_details;
+                            $svgElement->save();
     
+                        }
                     }
+
+                    $polygons = $xdoc->getElementsByTagName('polygon');
+                    if(!empty($polygons))
+                    {
+                        foreach ($polygons as $key => $polygon) {
+                            $cordinated = $polygon->getAttributeNode('points');
+                            $points= $cordinated->value;  
+
+                            $other_details['class']='layer unassign';
+                            $svgElement = new SvgElement();
+                            $svgElement->svg_id = $svg->id;
+                            $svgElement->object_type = 'unassign';
+                            $svgElement->object_id = 0;
+                            $svgElement->points =$points;
+                            $svgElement->canvas_type = 'polygon';
+                            $svgElement->other_details = $other_details;
+                            $svgElement->save();
+    
+                        }
+                    }
+                    
+
+                    $mediaId ='';
+                    $message =  $fileName .' Svg Successfully Uploaded';
+                    $code ='201';
                     \File::delete($targetDir. $newFilename);
 
             }
