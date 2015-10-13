@@ -518,16 +518,18 @@ class ProjectBunglowUnitController extends Controller {
         if (curl_errno($c)) {
             $result= $c;
             \Log::error($c);
+            echo 'error';
         }
         else{
 
             $result = $o;
+            echo 'success';
 
            }
 
        /* Check HTTP Code */
        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-
+       dd($status);
        curl_close($c); 
        
        return $result;      
