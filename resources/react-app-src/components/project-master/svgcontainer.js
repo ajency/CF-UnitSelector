@@ -3,11 +3,13 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Isvg = require('react-inlinesvg');
 
 var SvgContainer = React.createClass({
-    mixins: [PureRenderMixin],		
 
     render: function(){
-    	var BASEURL= "http://commonfloorlocal.com";
-    	var svgUrl= BASEURL+'/images/cf-mobile/project.svg';
+      var chosenBreakpoint = this.props.chosenBreakpoint;
+
+      var svgNamePrefix = "ProjectView";
+
+    	var svgUrl= window.baseUrl+'/projects/'+(window.projectId)+'/master/'+svgNamePrefix+'_'+chosenBreakpoint+'.svg'; //will come based on breakpoint
         
         return (
 

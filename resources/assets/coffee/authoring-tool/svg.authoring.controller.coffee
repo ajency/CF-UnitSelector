@@ -96,8 +96,8 @@ jQuery(document).ready ($)->
                 window.path.generatePathTag(value)
                    
         draw.attr('viewBox', "0 0 1920 1080")   
-        draw.attr('enable-background', "new 0 01920 1080")   
-        draw.attr('preserveAspectRatio', "xMinYMin slice")   
+        draw.attr('enable-background', "new 0 1920 1080")  
+        draw.attr('preserveAspectRatio', "xMinYMin slice")  
 
 
     #function to create left side panel
@@ -490,8 +490,8 @@ jQuery(document).ready ($)->
                 if svg_type is "google_earth"
                     window.is_project_marked = true
 
-                if window.canvas_type is "path" 
-                    myObject['points'] = myObject['points'][0] 
+                if myObject['canvas_type'] is "path" 
+                    myObject['points'] = myObject['points'][0]  
                 
                 window.svgData.data.push myObject
 
@@ -1222,6 +1222,10 @@ jQuery(document).ready ($)->
                         
                 window.svgData.data.splice(indexToSplice,1)
                 myObject['id'] =  svgElemId
+
+                if myObject['canvas_type'] is "path" 
+                    myObject['points'] = myObject['points'][0] 
+
                 window.svgData.data.push myObject
                 # clear svg 
                 draw.clear()

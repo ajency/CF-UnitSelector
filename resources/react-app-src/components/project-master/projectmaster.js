@@ -25,6 +25,16 @@ var ProjectMaster = React.createClass({
         return getStateData();
     },
 
+    updateChosenBreakPoint: function(chosenBreakPoint){
+        console.log("Break point changed "+chosenBreakPoint);
+        dataToSet = {
+            property: "chosenBreakpoint",
+            value: chosenBreakPoint
+        }
+
+        this.updateStateData(dataToSet);
+    },
+
     toggelSunView: function(evt){
         $clickedDiv = $(evt.currentTarget);
 
@@ -57,6 +67,13 @@ var ProjectMaster = React.createClass({
                                                         }
                                                       });
         }
+        if(dataToSet.property === "chosenBreakpoint"){
+            
+            newState = immutabilityHelpers( oldState, { data: 
+                                                        {chosenBreakpoint: {$set: dataToSet.value} 
+                                                        }
+                                                      });
+        }
 
 
         this.setState(newState);
@@ -82,6 +99,7 @@ var ProjectMaster = React.createClass({
         var projectTitle = data.projectTitle;
         var unitCount = data.totalCount;
         var buildings = data.buildings;
+        var breakpoints = data.breakpoints;
 
         return (
             <div>
@@ -98,6 +116,9 @@ var ProjectMaster = React.createClass({
             />
             <ImageContainerTemplate 
                 showShadow={data.showShadow}
+                breakpoints = {data.breakpoints}
+                chosenBreakpoint = {data.chosenBreakpoint}
+                updateChosenBreakPoint = {this.updateChosenBreakPoint}
             />
             <CardList buildings={buildings}/>
             </div>

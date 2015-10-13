@@ -149,7 +149,7 @@ function _updateProjectData(dataToUpdate){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -158,6 +158,10 @@ function _getProjectMasterData(){
 		var buildingsWithUnits = [];
 
 		projectMasterData.projectTitle = projectData.project_title ; 
+
+		breakpoints = projectData.breakpoints 
+		projectMasterData.breakpoints = breakpoints; 
+		projectMasterData.chosenBreakpoint = breakpoints[0] ; 
 		
 		unitCount = getUnitCount('Apartments') ;
 		projectMasterData.totalCount = unitCount.totalCount;

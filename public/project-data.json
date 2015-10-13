@@ -17,9 +17,9 @@
       "http://commonfloor.local/projects/25/master/master-06.jpg"
     ],
     "breakpoints": [
-      0,
-      3,
-      6
+      1,
+      14,
+      44
     ],
     "top_view": {
       "svg": "http://lorempixel.com/1300/800/city/",

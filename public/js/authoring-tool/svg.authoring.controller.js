@@ -71,7 +71,7 @@ jQuery(document).ready(function($) {
       }
     });
     draw.attr('viewBox', "0 0 1920 1080");
-    draw.attr('enable-background', "new 0 01920 1080");
+    draw.attr('enable-background', "new 0 1920 1080");
     return draw.attr('preserveAspectRatio', "xMinYMin slice");
   };
   window.createPanel = function(data) {
@@ -452,7 +452,7 @@ jQuery(document).ready(function($) {
         if (svg_type === "google_earth") {
           window.is_project_marked = true;
         }
-        if (window.canvas_type === "path") {
+        if (myObject['canvas_type'] === "path") {
           myObject['points'] = myObject['points'][0];
         }
         window.svgData.data.push(myObject);
@@ -1128,6 +1128,9 @@ jQuery(document).ready(function($) {
         });
         window.svgData.data.splice(indexToSplice, 1);
         myObject['id'] = svgElemId;
+        if (myObject['canvas_type'] === "path") {
+          myObject['points'] = myObject['points'][0];
+        }
         window.svgData.data.push(myObject);
         draw.clear();
         types = window.getPendingObjects(window.svgData);
