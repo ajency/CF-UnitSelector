@@ -503,7 +503,7 @@ class ProjectBunglowUnitController extends Controller {
       
         /* Update URL to container Query String of Paramaters */
         //$sender_url .= '?' . http_build_query($params);
-   
+ 
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
         curl_setopt($c, CURLOPT_POST, 1);
@@ -513,27 +513,22 @@ class ProjectBunglowUnitController extends Controller {
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
-        $o = curl_exec($c);
-        var_dump($o);
-        var_dump(curl_getinfo($c)); 
+        $o = curl_exec($c); 
 
         if (curl_errno($c)) {
             $result= $c;
-            \Log::error($c);
-            echo 'error';
         }
         else{
 
             $result = $o;
-            echo 'success';
 
            }
 
        /* Check HTTP Code */
        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-       dd($status);
+
        curl_close($c); 
-       
+        dd($result);
        return $result;      
     }
     
