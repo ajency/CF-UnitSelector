@@ -32,7 +32,6 @@ var FilterType = React.createClass({
         var filterValueNodes ;
 
         if(filterDisplayType==="imageCheckbox"){
-            console.log("imageCheckbox");
             filterValueNodes = filterValues.map(function(filterValue,i){
                             console.log("filterValues");
                             console.log(filterValue);
