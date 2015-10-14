@@ -57,9 +57,13 @@ var ProjectMaster = React.createClass({
         dataToSet = {
             property: "showShadow",
             value: showShadowStatus
-        },
+        };
 
-        this.updateStateData(dataToSet);
+        // this.updateStateData(dataToSet);
+
+        var delay=100000; //1 seconds
+
+        setTimeout(this.updateStateData(dataToSet), delay);
     },
 
     updateStateData: function(dataToSet){
