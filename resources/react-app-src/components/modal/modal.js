@@ -22,7 +22,11 @@ var Modal = React.createClass({
     		<div className="modal-dialog" role="document">
         		<div className="modal-content">    	
             		<ModalHeader/>
-            		<ModalBody modalData = {modalData}/>
+            		<ModalBody 
+                  modalData = {modalData}
+                  selectFilter={this.props.selectFilter}
+                  search_filters={this.props.search_filters}
+                />
           		</div>
         	</div>
       </div>

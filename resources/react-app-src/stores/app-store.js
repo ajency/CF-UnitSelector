@@ -187,6 +187,7 @@ function getApartmentFilterTypes(propertyType){
 		var filterType ={};
 
 		if(supportedFilterType==="unitTypes"){
+			filterType.type = "unitTypes";
 			filterType.filterName = "Unit Type";
 			filterType.filterDisplayType = "imageCheckbox";
 

@@ -32,7 +32,11 @@ var ModalBody = React.createClass({
 
         return (
                 <div className="modal-body">
-                    <FilterContent filterTypes = {filterTypes}/>
+                    <FilterContent 
+                      filterTypes = {filterTypes}
+                      selectFilter={this.props.selectFilter}
+                      search_filters={this.props.search_filters}
+                    />
                 </div>
         )
   }

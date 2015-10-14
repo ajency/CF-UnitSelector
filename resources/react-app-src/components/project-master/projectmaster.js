@@ -53,6 +53,27 @@ var ProjectMaster = React.createClass({
 
     },
 
+    updateSearchFilters: function(filterType, filterValue){
+        dataToSet = {
+            property: "search_filters",
+            filterType: filterType,
+            value: filterValue
+        }
+
+        this.updateStateData(dataToSet);
+    },
+
+    selectFilter: function(evt){
+        alert("filter selected");
+        isChecked = evt.target.checked;
+
+        filterType = $(evt.target).data("filtertype");
+        filterValue = $(evt.target).val();
+
+        this.updateSearchFilters(filterType, filterValue);
+
+    },
+
     updateRotateShadow: function(showShadowStatus){
         dataToSet = {
             property: "showShadow",
@@ -86,6 +107,18 @@ var ProjectMaster = React.createClass({
                                                         }
                                                       });
         }
+        if(dataToSet.property === "search_filters"){
+
+            filterType = dataToSet.filterType;
+
+            mutatedfilter =  {};
+            mutatedfilter[filterType] = {$push: [dataToSet.value]}
+            
+            newState = immutabilityHelpers( oldState, { data: 
+                                                        {search_filters: mutatedfilter
+                                                        }
+                                                      });
+        }        
 
 
         this.setState(newState);
@@ -122,9 +155,13 @@ var ProjectMaster = React.createClass({
                 projectTitle = {projectTitle} 
                 unitCount = {unitCount}
                 showFilterModal = {this.showFilterModal}
-
             />
-            <Modal ref="modal" modalData={filterTypes}/>
+            <Modal 
+                ref="modal" 
+                modalData={filterTypes}
+                selectFilter={this.selectFilter}
+                search_filters={data.search_filters}
+            />
             <SunToggle 
                 toggelSunView = {this.toggelSunView} 
                 showShadow={data.showShadow}

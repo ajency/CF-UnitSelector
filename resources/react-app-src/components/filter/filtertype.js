@@ -31,22 +31,24 @@ var FilterType = React.createClass({
                             var filterValueName = filterValue.name ;
                             var imgSrc = "../images/icon/"+filterValueName.toLowerCase()+".png";
 
+                            var searchedFilter = this.props.searchedFilter; 
+
                             var imgCheckboxClass = classNames({
                               'col-xs-4': true,
                               'checkboxInner': true,
                               'text-center': true,
-                              'selected': filterValue.isSelected === true
+                              'selected': (_.indexOf(searchedFilter,filterValue.id) > -1)
                             }); 
 
                             return(
                                 <div key={i} className={imgCheckboxClass}>
-                                    <input ref="checkboxRef " type="checkBox" />
+                                    <input ref="checkboxRef " type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
                                     <img src={imgSrc} />
                                     <span className="text-uppercase col-xs-12 text-center">{filterValue.name}</span>
                                 </div>
                             ); 
                                  
-                        });            
+                        }.bind(this));            
         }
         else if(filterDisplayType==="normalCheckbox"){
             filterValueNodes = filterValues.map(function(filterValue,i){
