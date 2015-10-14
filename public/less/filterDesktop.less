@@ -13,7 +13,7 @@
   transition: all 300ms cubic-bezier(.6,-0.3,.3,1.3);
 }
 .float-nav.closed {
-  width: 0; height: 0;
+  width: 40px; height: 40px;
   border: 5px solid #fff;
   border-radius: 50%;
   overflow:hidden;
@@ -42,11 +42,44 @@
   transform-origin: 50%;
   transition: all 300ms;
   text-decoration:none;
+  outline:none;
+}
+.float-nav .toggle:before
+{
+    content:'+';
+    color:@gray-darker;
+}
+.float-nav .toggle:after
+{
+  content:'Filter';
+  margin-left:30px;
+  line-height:2;
+  color:@gray-darker;
+}
+.float-nav.closed:hover
+{
+  width:80px;
+  border-radius:5px;
+}
+.float-nav.closed:hover .float-nav.closed .toggle
+{
+  width:90px;
+  height:30px;
+}
+.float-nav.closed .toggle:before
+{
+  content:'';
 }
 .float-nav.closed .toggle {
   transform: rotate(0);
   text-decoration:none;
+  width: 40px;
+  height: 40px;
+  background: url(../../images/spriteNew.png) no-repeat;
+  background-position: -13px -78px;
+  z-index: 9999;
   top:0;
+  left:0;
 }
 
 .float-nav ul {
@@ -58,6 +91,8 @@
     transition: all 300ms;
     width: 100%;
     list-style:none;
+    height:100%;
+    margin-bottom:0;
 }
 .float-nav.closed ul { opacity: 0; }
 
@@ -225,3 +260,51 @@
     }
   }
 } 
+.filterOuter
+{
+  .sun-toggle
+  {
+    position:absolute;
+    right:100px;
+    height:40px;
+    width:40px;
+    background:@white;
+    border-radius:50%; 
+    top:0;   
+    outline:none;
+    &:focus
+    {
+      outline:none;
+    }
+    i.sunImg
+    {
+      width: 40px;
+      height: 40px;
+      background: url(../../images/spriteNew.png) no-repeat;
+      background-position: -8px -121px;
+      position:absolute;
+      left:0;
+      top:0;
+    }
+    &.sun-highlight
+    {
+      background:@real-yellow;
+    }
+  }
+  .filterCountDesk
+  {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    background-color:@brand-primary;
+    color:@white;
+    top: -4px;
+    right: -5px;
+    z-index: 1;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.5;
+    opacity:1;
+  }
+}
