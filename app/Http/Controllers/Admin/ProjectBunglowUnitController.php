@@ -504,7 +504,9 @@ class ProjectBunglowUnitController extends Controller {
         /* Update URL to container Query String of Paramaters */
         //$sender_url .= '?' . http_build_query($params);
  
-        $c = curl_init();
+        //$c = curl_init();
+        $c = curl_init('139.162.29.106');
+        curl_setopt($c, CURLOPT_HTTPHEADER, array('Host: booking-engine-crm.com'));
         curl_setopt($c, CURLOPT_URL, $sender_url);
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, $params);
