@@ -4,28 +4,22 @@ var RangeComponent = require('../filter/rangecomponent');
 
 var FilterType = React.createClass({
 
-    getDefaultProps: function(){
-        return {
-            filterName: "Unit Type",
-            filterDisplayType: "normalCheckbox",
-            filterValues : [{id:2,name:"2BHK",isSelected: true},{id:3,name:"3BHK",isSelected: true},{id:3,name:"3BHK",isSelected: true},{id:3,name:"3BHK",isSelected: true},{id:3,name:"3BHK",isSelected: true}]
-        }
-    },   
-
     render: function () {
+
+        var filterType = this.props.filterType;
 
         {/* Based on type of filter to be displayed generate filterDisplayType */}
        
-        var filterDisplayType = this.props.filterDisplayType;
-        var filterValues = this.props.filterValues;
+        var filterDisplayType = filterType.filterDisplayType;
+        var filterValues = filterType.filterValues;
 
 
         var filterTypeClasses = classNames({
           'row': true,
-          'imagecheckboxOuter': (this.props.filterDisplayType==="imageCheckbox"),
-          'p-0': this.props.filterDisplayType==="range",
-          'budgetOuter': this.props.filterDisplayType==="range", 
-          'checkboxOuter': this.props.filterDisplayType==="normalCheckbox", 
+          'imagecheckboxOuter': (filterDisplayType==="imageCheckbox"),
+          'p-0': filterDisplayType==="range",
+          'budgetOuter': filterDisplayType==="range", 
+          'checkboxOuter': filterDisplayType==="normalCheckbox", 
         }); 
 
 
@@ -35,11 +29,13 @@ var FilterType = React.createClass({
             filterValueNodes = filterValues.map(function(filterValue,i){
                             console.log("filterValues");
                             console.log(filterValue);
+                            var filterValueName = filterValue.name ;
+                            var imgSrc = "../images/icon/"+filterValueName.toLowerCase()+".png";
                             return(
                                 <div key={i} className="col-xs-4 checkboxInner text-center ">
                                     <input ref="checkboxRef " type="checkBox" />
-                                    <img src="../images/icon/1bhk.png" />
-                                    <span className="text-uppercase col-xs-12 text-center">1bhk</span>
+                                    <img src={imgSrc} />
+                                    <span className="text-uppercase col-xs-12 text-center">{filterValue.name}</span>
                                 </div>
                             ); 
                                  
@@ -70,7 +66,7 @@ var FilterType = React.createClass({
         return (
                 <div className="filter-type">
 
-                    <h5 className=" text-center text-uppercase m-t-20">{this.props.filterName}</h5>
+                    <h5 className=" text-center text-uppercase m-t-20">{filterType.filterName}</h5>
 
                     <div className={filterTypeClasses}>
                         {filterValueNodes}

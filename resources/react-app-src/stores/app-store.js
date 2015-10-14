@@ -8,7 +8,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 // Define initial data points
-var _projectData = {}, _selected = null , _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0}};
+var _projectData = {}, _selected = null , _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0, "filterTypes":[]}};
 
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
@@ -153,7 +153,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0,"filterTypes":[]};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -177,6 +177,11 @@ function _getProjectMasterData(){
 		buildingsWithUnits = getBuildingUnits(buildings, allUnits);
 
 		projectMasterData.buildings = buildingsWithUnits;
+		projectMasterData.filterTypes = [{
+          filterName: "Unit Type",
+          filterDisplayType: "imageCheckbox",
+          filterValues : [{id:1,name:"1BHK", isSelected: true},{id:2,name:"2BHK", isSelected: true},{id:3,name:"3BHK",isSelected: true},{id:4,name:"4BHK",isSelected: true}]
+        }];
 	}
 
 	finalData = {"data": projectMasterData};

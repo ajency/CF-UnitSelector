@@ -21,6 +21,9 @@ var ModalBody = React.createClass({
   
     render: function () {
 
+
+        var filterTypes = this.props.modalData;        
+
         var checkOuterDivClass = classNames({
           'col-xs-4': true,
           'checkboxInner': true,
@@ -29,7 +32,7 @@ var ModalBody = React.createClass({
 
         return (
                 <div className="modal-body">
-                    <FilterContent />
+                    <FilterContent filterTypes = {filterTypes}/>
                 </div>
         )
   }

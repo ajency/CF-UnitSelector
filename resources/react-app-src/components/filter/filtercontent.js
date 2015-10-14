@@ -5,7 +5,7 @@ var FilterContent = React.createClass({
 
     render: function () {
 
-        filterTypes = [{name:"Unit Type"},{name:"Budget"}];
+        filterTypes = this.props.filterTypes;
 
         filterTypeNodes = filterTypes.map(function(filterType,i){
                             return(

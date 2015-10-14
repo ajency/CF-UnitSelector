@@ -16,12 +16,13 @@ var Modal = React.createClass({
   },
 
   render: function () {
+    var modalData = this.props.modalData; 
     return (
 		<div className="modal fade modal-full-width" ref="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
     		<div className="modal-dialog" role="document">
         		<div className="modal-content">    	
             		<ModalHeader/>
-            		<ModalBody/>
+            		<ModalBody modalData = {modalData}/>
           		</div>
         	</div>
       </div>
