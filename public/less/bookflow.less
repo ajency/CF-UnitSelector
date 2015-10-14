@@ -1,0 +1,375 @@
+@baseColor: #fff;
+@brandColor: #f60;
+@textColor: #333;
+@lightText: #999;
+@gPlusGradient: #e57f79;
+@fbGradient: #6b84c1;
+@lightBg: #edeef0;
+@errorBg: #fcf8e3;
+@erorBorder: #fcf8e3;
+@errorText: #8a6d3b;
+.pNone
+{
+	padding: 0;
+}
+
+.btn
+{
+	padding: 5px;
+	.border-radius(0) !important;
+	text-transform: uppercase;
+	&:focus
+	{
+		outline:none;
+	}
+}
+.btnOrange
+{
+	background: @brandColor;
+	color: @baseColor;
+
+	&:hover, &:focus
+	{
+		background: darken(@brandColor, 10%);
+		color: @baseColor !important;
+		outline:none;
+	}
+}
+.orangeText
+{
+	color: @brandColor !important;
+}
+
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	color: @textColor;
+}   
+
+.header
+{
+	background: linear-gradient(to bottom, @brandColor 0, darken(@brandColor, 12%) 100%);
+	.BoxShadow(1px, 1px);
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	width: 100%;
+
+	h3
+	{
+		color: @baseColor;
+		font-size: 30px;
+		.TextShadow(2px, 2px);
+		font-family: 'Lato', sans-serif;
+		font-weight: 300;
+	}
+}
+
+.content
+{
+	margin-top: 80px;
+
+	h2
+	{
+		color: @textColor;
+		font-family: 'Lato', sans-serif;
+		font-weight: 300;
+		font-size: 30px;
+	}
+
+	span
+	{
+		color: @lightText;
+		font-size: 18px;
+	}
+
+	.panel-inner
+	{
+		max-width: 850px;
+		margin: auto;
+	}
+
+	.panel
+	{
+		margin-top: 0 !important;
+		.BoxShadow(0, 2px, 4px);
+
+		h4
+		{
+			font-family: 'Lato', sans-serif;
+			font-weight: 400;
+		}				
+		
+
+		.panel-heading
+		{
+			.BoxShadow(0, 1px, 2px);
+			padding: 0;		
+			.border-radius(0);	
+
+			&.active
+			{
+				background: @brandColor;
+				color: @baseColor;
+			}
+
+			a
+			{
+				text-decoration: none;
+				font-size: 18px;
+				padding: 15px;
+				display: block;
+			}
+		}		
+
+		
+
+		.reviewDetails
+		{
+			.buildingName
+			{
+				font-size: 30px;
+				color: @lightText;
+				border: 2px solid @lightBg;
+				border-bottom: none;
+				padding: 10px; 
+				
+			}
+			.title
+			{
+				background: @lightBg;
+				color: @textColor;
+				padding: 10px;
+				font-size: 14px;
+				font-weight: 700;
+			}
+		}
+
+		.termsConditions
+		{
+			label
+			{
+				font-weight: 400;
+				font-size: 14px;
+
+				input
+				{
+					float: left;
+					margin-right: 5px;
+				}
+
+				a
+				{
+					color: @brandColor;
+				}
+			}
+		}
+
+		.mandatory
+		{
+			background: @errorBg;
+			padding: 10px;
+			border: 1px solid @erorBorder;
+			color: @errorText; 
+		}
+
+		.personalDetails
+		{
+			label
+			{
+				float: left;
+				width: 100%;
+				font-weight: 400;			}
+			input, select
+			{
+				float: left;
+				width: 100%;
+				padding: 10px;
+				border: 1px solid @lightBg;
+				margin-bottom: 20px;
+				font-weight: 400;
+				&:focus
+				{
+					outline:none;
+				}
+			}
+		}
+	}	
+}
+.BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: rgba(0,0,0,0.3)) {
+	box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	-webkit-box-shadow: @arguments;
+}
+
+.TextShadow(@x: 0, @y: 0, @blur: 2px, @color: rgba(0,0,0,0.3)) {
+	text-shadow: @arguments;
+	-moz-text-shadow: @arguments;
+	-webkit-text-shadow: @arguments;
+}
+
+.border-radius (@radius: 5px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+	border-radius:         @radius;
+}
+@iterations: 35;
+
+.marginTop-loop (@i) when (@i >= 0) {
+    .mT@{i} {
+        margin-top: ~"@{i}px";
+    }
+    .marginTop-loop(@i - 5);
+}
+.marginTop-loop (@iterations);
+
+.marginBottom-loop (@i) when (@i >= 0) {
+    .mB@{i} {
+        margin-bottom: ~"@{i}px";
+    }
+    .marginBottom-loop(@i - 5);
+}
+.marginBottom-loop (@iterations);
+
+.marginLeft-loop (@i) when (@i >= 0) {
+    .mL@{i} {
+        margin-left: ~"@{i}px";
+    }
+    .marginLeft-loop(@i - 5);
+}
+.marginLeft-loop (@iterations);
+
+.marginRight-loop (@i) when (@i >= 0) {
+    .mR@{i} {
+        margin-right: ~"@{i}px";
+    }
+    .marginRight-loop(@i - 5);
+}
+.marginRight-loop (@iterations);
+
+.paddingTop-loop (@i) when (@i >= 0) {
+    .pT@{i} {
+        padding-top: ~"@{i}px";
+    }
+    .paddingTop-loop(@i - 5);
+}
+.paddingTop-loop (@iterations);
+
+.paddingBottom-loop (@i) when (@i >= 0) {
+    .pB@{i} {
+        padding-bottom: ~"@{i}px";
+    }
+    .paddingBottom-loop(@i - 5);
+}
+.paddingBottom-loop (@iterations);
+
+.paddingLeft-loop (@i) when (@i >= 0) {
+    .pL@{i} {
+        padding-left: ~"@{i}px";
+    }
+    .paddingLeft-loop(@i - 5);
+}
+.paddingLeft-loop (@iterations);
+
+.paddingRight-loop (@i) when (@i >= 0) {
+    .pR@{i} {
+        padding-right: ~"@{i}px";
+    }
+    .paddingRight-loop(@i - 5);
+}
+.paddingRight-loop (@iterations);
+.accordion 
+{
+	max-width:850px;
+}
+.unitName
+{
+	color:@textColor !important;
+}
+.unitDetails
+{
+	font-weight:700;
+	color:@textColor;
+	padding-top:15px !important;
+	a
+	{
+		color:@brand-primary;
+		text-decoration:none;
+		outline:none;
+		&:hover, &:focus
+		{
+			text-decoration:none;
+			outline:none;
+			color:@brand-primary;
+		}
+	}
+}
+.titleDetails
+{
+	padding:0 !important;
+}
+.bookingFlow
+{
+	.modal-backdrop
+	{
+		left:0 !important;
+	}
+}
+.priceSheetModal
+{
+	h5
+	{
+		font-weight:700;
+		margin:10px 20px 20px 20px;
+	}
+	.contentOuter
+	{
+		border:1px solid @gray-light;
+		.row
+		{
+			border-bottom:1px solid @gray-light;
+			
+			&:last-child
+			{
+				border-bottom:none;
+			}
+			&.titles
+			{
+				div
+				{
+					font-weight:700;
+				}
+			}
+			div
+			{
+				padding:10px 5px;
+				border-right:1px solid @gray-light;
+				&:last-child
+				{
+					border-right:none;
+				}
+			}
+		}
+	}
+	.close
+	{
+		position:absolute;
+		right:10px;
+		z-index:9999;
+		top:5px;
+	}
+	.saleOuter
+	{
+		.saleValue
+		{
+			font-weight:700;
+		}
+	}
+}
