@@ -27,12 +27,19 @@ var FilterType = React.createClass({
 
         if(filterDisplayType==="imageCheckbox"){
             filterValueNodes = filterValues.map(function(filterValue,i){
-                            console.log("filterValues");
-                            console.log(filterValue);
+
                             var filterValueName = filterValue.name ;
                             var imgSrc = "../images/icon/"+filterValueName.toLowerCase()+".png";
+
+                            var imgCheckboxClass = classNames({
+                              'col-xs-4': true,
+                              'checkboxInner': true,
+                              'text-center': true,
+                              'selected': filterValue.isSelected === true
+                            }); 
+
                             return(
-                                <div key={i} className="col-xs-4 checkboxInner text-center ">
+                                <div key={i} className={imgCheckboxClass}>
                                     <input ref="checkboxRef " type="checkBox" />
                                     <img src={imgSrc} />
                                     <span className="text-uppercase col-xs-12 text-center">{filterValue.name}</span>

@@ -8,17 +8,25 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 // Define initial data points
-var _projectData = {}, _selected = null , _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0, "filterTypes":[]}};
+var _projectData = {}, _selected = null ;
+var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{unitTypes:[]}}};
 
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
 	var unitTypes = [];
 
+	var searchFilterUnitTypes = _globalStateData.data.search_filters.unitTypes;
+
 	if(!_.isEmpty(_projectData)){
 		unitTypes = _projectData.unit_types;
 
 		unitTypeDetails = _.find(unitTypes, function(unitType){ 
+			unitType.isSelected = false;
+
 			if(unitType.id === unitTypeId){
+				if(_.indexOf(searchFilterUnitTypes, unitTypeId)> -1){
+					unitType.isSelected = true;
+				}
 				return unitType;
 			}
 
@@ -184,6 +192,7 @@ function getApartmentFilterTypes(propertyType){
 
 			// get filter values ie the unit types for the apartment
 			apartmentUnitTypes = getApartmentUnitTypes("all");
+			
 			filterType.filterValues = apartmentUnitTypes;
 
 			filterTypes.push(filterType);
@@ -225,7 +234,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0,"filterTypes":[]};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{unitTypes:[]} };
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
