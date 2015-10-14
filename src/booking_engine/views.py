@@ -773,15 +773,15 @@ def book_payment_structure(request):
 				if 'Lumpsump' in payment_plan_milestone.cost_type:
 					book_payment_plan_milestone.entered_value = 'Rs. '+str(payment_plan_milestone.amount)
 					book_payment_plan_milestone.total_amount = payment_plan_milestone.amount
-					current_total_value = current_total_value + book_payment_plan_milestone.total_amount
+					current_total_value = current_total_value + float(book_payment_plan_milestone.total_amount)
 				elif 'Remaining Percentage' in payment_plan_milestone.cost_type:
 					book_payment_plan_milestone.entered_value = str(payment_plan_milestone.amount) + '% of the Total Sale Value'
 					book_payment_plan_milestone.total_amount = float(int(total_sale_value)*int(payment_plan_milestone.amount)/100) - current_total_value
-					current_total_value = current_total_value + book_payment_plan_milestone.total_amount
+					current_total_value = current_total_value + float(book_payment_plan_milestone.total_amount)
 				elif 'Percentage' in payment_plan_milestone.cost_type:
 					book_payment_plan_milestone.entered_value = str(payment_plan_milestone.amount) + '% of the Total Sale Value'
 					book_payment_plan_milestone.total_amount = int(total_sale_value)*int(payment_plan_milestone.amount)/100
-					current_total_value = current_total_value + book_payment_plan_milestone.total_amount
+					current_total_value = current_total_value + float(book_payment_plan_milestone.total_amount)
 				else:
 					book_payment_plan_milestone.entered_value = str(payment_plan_milestone.amount)
 					book_payment_plan_milestone.total_amount = payment_plan_milestone.amount
