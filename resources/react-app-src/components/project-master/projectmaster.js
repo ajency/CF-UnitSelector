@@ -57,9 +57,13 @@ var ProjectMaster = React.createClass({
         dataToSet = {
             property: "showShadow",
             value: showShadowStatus
-        },
+        };
 
-        this.updateStateData(dataToSet);
+        // this.updateStateData(dataToSet);
+
+        var delay=100000; //1 seconds
+
+        setTimeout(this.updateStateData(dataToSet), delay);
     },
 
     updateStateData: function(dataToSet){
@@ -110,6 +114,8 @@ var ProjectMaster = React.createClass({
         var buildings = data.buildings;
         var breakpoints = data.breakpoints;
 
+        var filterTypes = data.filterTypes;
+
         return (
             <div>
             <NavBar 
@@ -118,7 +124,7 @@ var ProjectMaster = React.createClass({
                 showFilterModal = {this.showFilterModal}
 
             />
-            <Modal ref="modal" />
+            <Modal ref="modal" modalData={filterTypes}/>
             <SunToggle 
                 toggelSunView = {this.toggelSunView} 
                 showShadow={data.showShadow}

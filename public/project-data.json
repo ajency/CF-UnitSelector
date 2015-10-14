@@ -58,7 +58,35 @@
         "starting_price": 33163
       }
     },
-    "filters": [],
+    "filters": {
+      "defaults": [
+        "area",
+        "budget",
+        "views",
+        "direction",
+        "floor"
+      ],
+      "Villa": [
+        "unitTypes",
+        "unitVariantNames",
+        "Flooring",
+        "Parking"
+      ],
+      "Plot": [
+        "unitTypes",
+        "unitVariantNames",
+        "Has Well"
+      ],
+      "Apartment": [
+        "unitTypes"
+      ],
+      "Penthouse": [
+        "unitTypes",
+        "unitVariantNames",
+        "Flooring"
+      ],
+      "_token": "T5LBEprYFSw4pGXqd9K0spbZj7eyf0wpNrvnPmfT"
+    },
     "buildings": [
       {
         "id": 21,
@@ -451,22 +479,22 @@
       },
       {
         "id": 89,
-        "name": "1.5BHK",
+        "name": "2BHK",
         "property_type_id": 59
       },
       {
         "id": 90,
-        "name": "30X40 SQ.FT",
+        "name": "3BHK",
         "property_type_id": 60
       },
       {
         "id": 91,
-        "name": "1BHK",
+        "name": "4BHK",
         "property_type_id": 61
       },
       {
         "id": 92,
-        "name": "1.5BHK",
+        "name": "3BHK",
         "property_type_id": 61
       }
     ],

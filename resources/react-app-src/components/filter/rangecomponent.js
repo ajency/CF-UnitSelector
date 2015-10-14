@@ -1,8 +1,6 @@
 var React = require('react');
-var ModalHeader = require('../modal/modalheader');
-var ModalBody = require('../modal/modalbody');
 
-var Modal = React.createClass({
+var RangeComponent = React.createClass({
 
   componentDidMount : function(){
     var $modal = $(this.refs.myModal);
@@ -16,13 +14,12 @@ var Modal = React.createClass({
   },
 
   render: function () {
-    var modalData = this.props.modalData; 
     return (
 		<div className="modal fade modal-full-width" ref="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
     		<div className="modal-dialog" role="document">
         		<div className="modal-content">    	
             		<ModalHeader/>
-            		<ModalBody modalData = {modalData}/>
+            		<ModalBody/>
           		</div>
         	</div>
       </div>
@@ -30,4 +27,4 @@ var Modal = React.createClass({
   }
 });
 
-module.exports = Modal;
+module.exports = RangeComponent;

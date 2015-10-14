@@ -8,17 +8,25 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 // Define initial data points
-var _projectData = {}, _selected = null , _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0}};
+var _projectData = {}, _selected = null ;
+var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{unitTypes:[]}}};
 
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
 	var unitTypes = [];
 
+	var searchFilterUnitTypes = _globalStateData.data.search_filters.unitTypes;
+
 	if(!_.isEmpty(_projectData)){
 		unitTypes = _projectData.unit_types;
 
 		unitTypeDetails = _.find(unitTypes, function(unitType){ 
+			unitType.isSelected = false;
+
 			if(unitType.id === unitTypeId){
+				if(_.indexOf(searchFilterUnitTypes, unitTypeId)> -1){
+					unitType.isSelected = true;
+				}
 				return unitType;
 			}
 
@@ -94,25 +102,42 @@ function getApartmentUnitTypes(buildingId){
 
 	if(!_.isEmpty(_projectData)){
 
+		// get all units in the project
 		allUnits = _projectData.units;
-		buildingUnits = _.filter(allUnits , function(unit){ if(unit.building_id == buildingId){return buildingId;} });
 
-		unitTypes = [];
 
+		// based on buildingId passed either return all or only specific building's units 
+
+		if (buildingId==="all") {
+			buildingUnits = _.filter(allUnits , function(unit){ return unit; });
+		}
+		else{
+			buildingUnits = _.filter(allUnits , function(unit){ if(unit.building_id == buildingId){return unit;} });
+		}
+		
+
+		// get unique unit variant id for the above building units
 		buildingUnitVariantIds = _.uniq(_.pluck(buildingUnits, 'unit_variant_id')); 
 
+		
+		unitTypes = [];
+
+		// get all apartment variants
 		apartmentVariants = _projectData.apartment_variants;
 
 		// get only those apartment variants whose id is any of the buildingUnitVariantIds
 		buildingUnitVariants = _.filter(apartmentVariants , function(apartmentVariant){ if( _.indexOf(buildingUnitVariantIds, apartmentVariant.id) > -1 ){return apartmentVariant;} });
-		
-		unitTypes = _.pluck(buildingUnitVariants, 'unit_type_id');
+
+
+		// get only unique unit Type ids 
+		unitTypes = _.uniq((_.pluck(buildingUnitVariants, 'unit_type_id')));
 
 	
 
 		_.each(unitTypes, function(unitTypeId){
 			unitTypeDetails = getUnitTypeDetails(unitTypeId);
-			apartmentUnitTypes.push(unitTypeDetails.name);
+
+			apartmentUnitTypes.push(unitTypeDetails);
 		})
 	}
 
@@ -126,7 +151,8 @@ function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 	switch(propertyType) {
 
 	    case "Apartments":
-	    	supportedUnitTypes = getApartmentUnitTypes(collectivePropertyTypeId);	
+	    	unitTypes = getApartmentUnitTypes(collectivePropertyTypeId);
+	    	supportedUnitTypes = _.pluck(unitTypes, 'name');
 	    break;
 
 	}
@@ -134,10 +160,65 @@ function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 	return supportedUnitTypes;
 }
 
+function getFilterTypes(propertyType){
+
+	var filterTypes = [];
+
+	switch (propertyType) {
+	    
+	    case "Apartment":
+	        filterTypes = getApartmentFilterTypes(propertyType);
+	        break;
+
+	}
+
+	return filterTypes;
+
+}
+
+function getApartmentFilterTypes(propertyType){
+	
+	var filterTypes = [];
+
+	supportedFilterTypes = _projectData["filters"][propertyType];
+
+	_.each(supportedFilterTypes, function(supportedFilterType){
+
+		var filterType ={};
+
+		if(supportedFilterType==="unitTypes"){
+			filterType.filterName = "Unit Type";
+			filterType.filterDisplayType = "imageCheckbox";
+
+			// get filter values ie the unit types for the apartment
+			apartmentUnitTypes = getApartmentUnitTypes("all");
+			
+			filterType.filterValues = apartmentUnitTypes;
+
+			filterTypes.push(filterType);
+		}
+	});
+
+	// filterTypes = [{
+ //          filterName: "Unit Type",
+ //          filterDisplayType: "imageCheckbox",
+ //          filterValues : [{id:1,name:"1BHK", isSelected: true},{id:2,name:"2BHK", isSelected: true},{id:3,name:"3BHK",isSelected: true},{id:4,name:"5BHK",isSelected: true}]
+ //        }];
+
+    return filterTypes;
+
+}
+
 // Method to load project data from API
 function _loadProjectData(data) {
+	console.log("_loadProjectData");
 	_projectData = data['data'];
+	console.log("global data");
 	_globalStateData = _getProjectMasterData();
+	console.log("global data2");
+	console.log(_globalStateData);
+
+
 }
 
 function _updateProjectData(dataToUpdate){
@@ -153,7 +234,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{unitTypes:[]} };
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -177,6 +258,8 @@ function _getProjectMasterData(){
 		buildingsWithUnits = getBuildingUnits(buildings, allUnits);
 
 		projectMasterData.buildings = buildingsWithUnits;
+
+        projectMasterData.filterTypes = getFilterTypes("Apartment");
 	}
 
 	finalData = {"data": projectMasterData};
