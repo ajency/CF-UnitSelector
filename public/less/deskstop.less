@@ -39,9 +39,12 @@ body {
        position: absolute;
        bottom: 10px;
   a{
-       font-size: 12px;
-       opacity: .6;
+       font-size: 12px;       
        color:#373737;
+       &:focus, &:hover
+       {
+        color:#373737;
+       }
   }
 }
 
@@ -86,6 +89,7 @@ body {
               &.matchingSelection
               {
                 font-size:11px;
+                text-transform:uppercase;
               }
             } 
             sm{
@@ -347,6 +351,7 @@ body {
   /*float:right;   */
   margin:auto;
   display:inline-block;
+  margin-top:30px;
 
     .tip
     {
@@ -360,6 +365,7 @@ body {
         float:left;
         padding: 11px 9px 9px 9px;
         font-size: 9px;
+        text-transform:capitalize;
      }
     a
     {
@@ -381,10 +387,11 @@ body {
 {
     position: absolute;
     z-index: 99;
-    bottom: 10px;
-    right: 10px;
+    right: 0px;
     float: left;
-    width: 100%;
+    top: 3px;
+    float: left;
+    
 
     .callUs 
     {
@@ -394,13 +401,14 @@ body {
     }
     button
     {          
-      background: @teal;
+      background: @brand-primary;
       color: @white;
-      border:none;
-      border-radius:3px;
+      border: none;
+      border-radius: 3px;
       font-size: 8px;
-      padding: 2px 30px 1px 20px;      
-      text-transform: uppercase;      
+      padding: 0px 7px 0px 0px;
+      text-transform: uppercase;
+      height: 23px;     
       &:focus
       {
         outline:none;
@@ -413,17 +421,19 @@ body {
       {
         height:31px;
         width:31px;
-        background: url(../../images/spriteNew.png) no-repeat;    
-        background-position: -13px -16px;
+        background: url(../../images/phoneIcon.png) no-repeat;            
         //margin: auto;
         float: left;
-        transform: scale(0.75);
+        transform: scale(0.6);
+        -webkit-transform: scale(0.6);
+        margin-left: -1px;
       }
       .enquiryText
       {
         float: left;
-        margin-top:9px;
-        margin-left:3px;
+        margin-top: 6px;
+        margin-left: -4px;
+        font-size: 8px;
       }
     }
 }
@@ -441,6 +451,11 @@ body {
       margin-top:10px;
     }
   }
+  .content
+  {
+    margin-top:10px;
+    margin-bottom:15px;
+  }
   .p-0
   {
     padding:0;
@@ -453,16 +468,20 @@ body {
   }
   .modal-dialog
   {
-    width: 320px;
+    width: 500px;
     border-radius: 0;
   }
   .modal-content
   {
   border-radius:0;
   }
+  .rightSide
+  {
+    border-left:1px solid @gray-lighter;
+  }
   .inputOuter
   {
-     padding:0px 30px 30px 30px;
+     padding:10px;
     input
     {
       width:100%;
@@ -480,11 +499,10 @@ body {
     }
   }
   .proceedBtn
-  {
-    margin-bottom:15px;
+  {   
     button
     {
-      background:@teal;
+      background:@brand-primary;
       border:none;
       color:@white;
       padding: 6px 30px 4px;
@@ -519,16 +537,41 @@ body {
       width: 100%;
     }
   }
-  .inquiryImg
+  .modalLogo
   {
-    height:94px;
-    width:88px;
-    background: url(../../images/spriteNew.png) no-repeat;    
-    background-position: -5px -208px;
+    height:59px;
+    width:148px;
+    background: url(../../images/logo.jpg) no-repeat;        
     margin: auto;
     display: block;
+    margin-top:10px;
+    transform:scale(0.8);
+    -webkit-transform:scale(0.8);
   }
-
+  .help
+  {
+    text-transform: uppercase;
+    font-size: 9px;
+    margin-top: 15px;
+    float: left;
+    width: 100%;
+  }
+  h5
+  {
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 3px;
+    float: left;
+    width: 100%;
+    color: @brand-primary;
+  }
+  .developers
+  {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: @gray-light;
+    margin-bottom: 20px;
+  }
 }
 .imageModal
 {
@@ -548,31 +591,7 @@ body {
   {
     position:absolute;
     top:0;
-  }
-  .footer
-  {
-    color:@white;
-    text-align:right;
-    font-size:10px;
-    right:10px;
-    h4
-    {
-      font-size:15px;
-    }
-    a
-    {
-      opacity:1;
-      color:@white;
-      text-decoration:none;
-      outline:none;
-      &:focus
-      {
-        color:@white;
-        text-decoration:none;
-        outline:none;
-      }
-    }
-  }
+  }  
 }
 .outSideView
 {
@@ -611,6 +630,38 @@ body {
     
   }
 }
+.styled-select 
+{
+   width: 100%;
+   height: 34px;
+   overflow: hidden;
+   background: url(../../images/arrowDown.png) no-repeat right;
+   border: none;   
+
+  select
+  {
+   background: transparent;
+   width: 100%;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+   cursor:pointer;
+   text-transform:uppercase;
+   &:focus
+   {
+    outline:none;
+   }
+   option
+   {
+    font-size:12px;
+   }
+
+   }
+}
 .logoOuter 
 {
   float:left;
@@ -623,6 +674,9 @@ body {
   height:65px;
   width:100%;
   float:left;
+  transform:scale(0.8);
+  -webkit-transform:scale(0.8);
+  margin-left:-34px;
 }
 .unitDetails
 {
@@ -638,13 +692,16 @@ body {
     .sideBarLogo
     {
       width:53%;
+      margin-left:-18px;
     }
     h4
     {
-      float:left;
+      float:right;
       width:45%;
       margin-top:27px;
       text-align:right;
+      text-transform:uppercase;
+      font-size:16px;
       button
       {
         margin-left: 5px;
@@ -684,4 +741,25 @@ body {
     border: 20px solid #000;
     float: left;
     padding: 15px;
+  }
+  .zoomBtns
+  {
+    float: left;
+    margin-top: 40px;
+    width: 20px;
+    margin-left: -13px;
+    button
+    {
+      background: @white;
+      color: @gray-darker;
+      border: none;
+      margin-bottom: 5px;
+      width: 20px;
+      text-align: center;
+      border-radius: 3px;
+      &:focus
+      {
+        outline:none;
+      }
+    }
   }

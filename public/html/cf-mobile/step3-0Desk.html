@@ -32,15 +32,15 @@
          <i class="i-icon i-dark-arrow"></i>
           <div class="logoOuter titleOuter">
             <i class="sideBarLogo "></i>
-            <h4 class="margin-none dropdown towerDropdown"> Floor 1 - 7
-            <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              <i class="fa fa-angle-down"></i>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li><a href="#">Floor 8 - 12</a></li>
-              <li><a href="#">Floor 13 - 17</a></li>             
-            </ul>
-          </h4>
+            <h4 class="margin-none"> 
+              <div class="styled-select">
+                 <select>
+                    <option>Floor 1 - 7</option>
+                    <option>Floor 8 - 12</option>
+                    <option>Floor 13 - 17</option>                    
+                 </select>
+              </div>
+            </h4>
           </div>
           <div class="col-xs-12 unitDetails"><small class="text-uppercase">30 units in your selection<span> (40 Available)</span></small>
           </div>
@@ -124,13 +124,9 @@
                
             </ul>
         </div>    
-            <div class="contactForm text-center text-uppercase">
-            <h6>Call us 1800 121 0000</h6>
-            <span class="callUs">For instance call us or </span>
-              <button type="button" class="button" data-toggle="modal" data-target="#contactModal">
-                <span class="phoneImg"></span>
-                <span class="enquiryText">Request call back</span>
-              </button>
+            <div class="footer">
+               <h4 class="primary-txt"> Call 1800 180 180 180</h4>
+              <a href="#"> Commonfloor </a> |      <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a> <br> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
             </div>
             
         </div>
@@ -142,13 +138,7 @@
             <div class="image2">
                   <div class="rotate">
               <i class="i-icon i-icon-rotate"></i>
-              Press To Rotate
-                         
-            <div class="footer">
-               <h4 class="primary-txt"> Call 1800 180 180 180</h4>
-              <a href="#"> Commonfloor </a> |      <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a> <br> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
-            </div>
-
+              Press To Rotate                                     
            </div>
 
                <img src="img/Project-noshadow.jpg" class="img-responsive fit no-shadow " />
@@ -165,6 +155,10 @@
                           <div class="row">
                               <div class="col-xs-12 p-0 msgOuter">
                                 <div class="col-lg-12 text-center">
+                                <div class="zoomBtns">
+                                <button>+</button>
+                                <button>-</button>
+                                </div>
                                 <div class="messageBoxDesk">
                                 <div class="tip">
                                   Tip
@@ -369,7 +363,14 @@
                                 </span>
                                 <a href="#" class="sun-toggle"> 
                                   <i class="sunImg"></i>
+                                  <span class="sunText">Sun</span>
                                 </a>
+                                <div class="contactForm text-center text-uppercase">            
+                                  <button type="button" class="button" data-toggle="modal" data-target="#contactModal">
+                                    <span class="phoneImg"></span>
+                                    <span class="enquiryText">Contact Us</span>
+                                  </button>
+                                </div>
                               </div>
                               </div>
                                                                  
@@ -406,18 +407,29 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content col-lg-12 p-0">           
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <div class="modal-body">
-                   <span class="inquiryImg"></span>
+                  <div class="modal-body">                   
                     <h4 class="margin-none text-center">Have us call you</h4>
                     <p class="text-muted text-center">Please fill this short form to view contact details.</p>
-                    <div class="p-0 col-lg-12 inputOuter">
-                      <input type="text" placeholder="Name" />                   
-                      <input type="email" placeholder="Email ID" />                   
-                      <input type="text" placeholder="Mobile Number" />                      
-                    </div>
-                    <div class="p-0 col-lg-12 proceedBtn text-center">
-                    <button class="button">Proceed</button>
-                    </div>
+                      <div class="row">
+                        <div class="col-xs-12 content">
+                            <div class="col-xs-6 text-center">
+                              <span class="modalLogo"></span>
+                              <div class="developers">Mantri Energia developers</div>
+                              <span class="help">Need Help? Contact us</span>
+                              <h5>Toll free: 1800 121 0000</h5>
+                            </div>
+                            <div class="col-xs-6 rightSide">
+                              <div class="p-0 col-lg-12 inputOuter">
+                                <input type="text" placeholder="Name" />                   
+                                <input type="email" placeholder="Email ID" />                   
+                                <input type="text" placeholder="Mobile" />                      
+                              </div>
+                              <div class="p-0 col-lg-12 proceedBtn text-center">
+                                <button class="button">Submit</button>
+                              </div>
+                            </div>
+                        </div>
+                      </div>    
                     
                   </div>            
                 </div>

@@ -453,13 +453,20 @@ body {
 .successOuter .cancleBooking:focus {
   outline: none;
 }
+.successOuter i {
+  color: #296ec3;
+  margin-right: 4px;
+}
 .failureOuter {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   padding: 15px;
   width: 500px !important;
-  margin: 0 auto;
-  display: block;
-  text-align: center;
+  height: 230px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin-top: -120px;
+  margin-left: -250px;
 }
 .failureOuter i {
   color: #ee1f3b;
@@ -473,6 +480,17 @@ body {
   float: left;
   margin-top: 4px;
 }
+.failureOuter .transactionFailed {
+  color: #ee1f3b;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+.failureOuter .transactionNo {
+  font-size: 11px;
+  padding-left: 0;
+}
 .failureOuter .tryAgain {
   margin-top: 20px;
   background: #12acac;
@@ -481,8 +499,44 @@ body {
   padding: 5px 10px 4px;
   font-size: 10px;
   margin-bottom: 10px;
+  margin-left: 0;
+  float: left;
 }
 .failureOuter .tryAgain:focus {
+  outline: none;
+}
+.timeoutOuter {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  width: 400px !important;
+  height: 150px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin-top: -75px;
+  margin-left: -200px;
+  color: #296ec3;
+}
+.timeoutOuter .failureMsg {
+  color: #565654;
+}
+.timeoutOuter .transactionFailed {
+  color: #565654;
+  font-size: 14px;
+  padding-left: 0;
+}
+.timeoutOuter .tryAgain {
+  margin-top: 20px;
+  background: #12acac;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px 4px;
+  font-size: 10px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  float: left;
+}
+.timeoutOuter .tryAgain:focus {
   outline: none;
 }
 /*# sourceMappingURL=bookflow.css.map */
