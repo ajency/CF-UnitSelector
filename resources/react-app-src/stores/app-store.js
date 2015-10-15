@@ -9,7 +9,12 @@ var CHANGE_EVENT = 'change';
 
 // Define initial data points
 var _projectData = {}, _selected = null ;
-var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{"unitTypes":[]} } };
+var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[1,14,44], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{"unitTypes":[]} } };
+
+
+function getFilteredBuildingData(applied_filters){
+
+}
 
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
@@ -235,7 +240,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{"unitTypes":[]}};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[1,4,14], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{"unitTypes":[]}};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -302,6 +307,12 @@ var AppStore = merge(EventEmitter.prototype, {
 
 	updateGlobalState: function(newState){
 		_updateGlobalState(newState);
+	},
+
+	getFilteredBuildingData: function(){
+		var newBuildingData = _getFilteredBuildingData();
+
+		return newBuildingData;
 	},
 
   	// Register callback with AppDispatcher

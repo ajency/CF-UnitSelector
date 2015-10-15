@@ -94,10 +94,21 @@ var ProjectMaster = React.createClass({
             value: this.state.data.search_filters
         };
 
-        console.log(dataToSet);
-
         this.updateStateData(dataToSet);
 
+        // need to update 
+
+        this.updateBuildingData();
+
+        // data.totalCount
+        // data.buildings
+
+    },
+
+    updateBuildingData: function(){
+        oldState = getStateData();
+
+        newBuildingData = AppStore.getFilteredProjectMasterData();
     },
 
     updateStateData: function(dataToSet){
