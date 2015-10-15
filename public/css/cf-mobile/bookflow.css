@@ -1,0 +1,485 @@
+/* Social Colors */
+/*Real Wedding colors*/
+.pNone {
+  padding: 0;
+}
+.btn {
+  padding: 5px;
+  border-radius: 0 !important;
+  text-transform: uppercase;
+}
+.btn:focus {
+  outline: none;
+}
+.btnOrange {
+  background: #ff6600;
+  color: #ffffff;
+}
+.btnOrange:hover,
+.btnOrange:focus {
+  background: #cc5200;
+  color: #ffffff !important;
+  outline: none;
+}
+.orangeText {
+  color: #ff6600 !important;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #333333;
+}
+.header {
+  background: -webkit-linear-gradient(top, #ff6600 0, #c24e00 100%);
+  background: linear-gradient(to bottom, #ff6600 0, #c24e00 100%);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  width: 100%;
+}
+.header h3 {
+  color: #ffffff;
+  font-size: 30px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+.content {
+  margin-top: 80px;
+}
+.content h2 {
+  color: #333333;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+}
+.content span {
+  color: #999999;
+  font-size: 18px;
+}
+.content .panel-inner {
+  max-width: 850px;
+  margin: auto;
+}
+.content .panel {
+  margin-top: 0 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.content .panel h4 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+}
+.content .panel .panel-heading {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  border-radius: 0;
+}
+.content .panel .panel-heading.active {
+  background: #ff6600;
+  color: #ffffff;
+}
+.content .panel .panel-heading a {
+  text-decoration: none;
+  font-size: 18px;
+  padding: 15px;
+  display: block;
+}
+.content .panel .reviewDetails .buildingName {
+  font-size: 30px;
+  color: #999999;
+  border: 2px solid #edeef0;
+  border-bottom: none;
+  padding: 10px;
+}
+.content .panel .reviewDetails .title {
+  background: #edeef0;
+  color: #333333;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.content .panel .termsConditions label {
+  font-weight: 400;
+  font-size: 14px;
+}
+.content .panel .termsConditions label input {
+  float: left;
+  margin-right: 5px;
+}
+.content .panel .termsConditions label a {
+  color: #ff6600;
+}
+.content .panel .mandatory {
+  background: #fcf8e3;
+  padding: 10px;
+  border: 1px solid #fcf8e3;
+  color: #8a6d3b;
+}
+.content .panel .personalDetails label {
+  float: left;
+  width: 100%;
+  font-weight: 400;
+}
+.content .panel .personalDetails input,
+.content .panel .personalDetails select {
+  float: left;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #edeef0;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+.content .panel .personalDetails input:focus,
+.content .panel .personalDetails select:focus {
+  outline: none;
+}
+.mT35 {
+  margin-top: 35px;
+}
+.mT30 {
+  margin-top: 30px;
+}
+.mT25 {
+  margin-top: 25px;
+}
+.mT20 {
+  margin-top: 20px;
+}
+.mT15 {
+  margin-top: 15px;
+}
+.mT10 {
+  margin-top: 10px;
+}
+.mT5 {
+  margin-top: 5px;
+}
+.mT0 {
+  margin-top: 0px;
+}
+.mB35 {
+  margin-bottom: 35px;
+}
+.mB30 {
+  margin-bottom: 30px;
+}
+.mB25 {
+  margin-bottom: 25px;
+}
+.mB20 {
+  margin-bottom: 20px;
+}
+.mB15 {
+  margin-bottom: 15px;
+}
+.mB10 {
+  margin-bottom: 10px;
+}
+.mB5 {
+  margin-bottom: 5px;
+}
+.mB0 {
+  margin-bottom: 0px;
+}
+.mL35 {
+  margin-left: 35px;
+}
+.mL30 {
+  margin-left: 30px;
+}
+.mL25 {
+  margin-left: 25px;
+}
+.mL20 {
+  margin-left: 20px;
+}
+.mL15 {
+  margin-left: 15px;
+}
+.mL10 {
+  margin-left: 10px;
+}
+.mL5 {
+  margin-left: 5px;
+}
+.mL0 {
+  margin-left: 0px;
+}
+.mR35 {
+  margin-right: 35px;
+}
+.mR30 {
+  margin-right: 30px;
+}
+.mR25 {
+  margin-right: 25px;
+}
+.mR20 {
+  margin-right: 20px;
+}
+.mR15 {
+  margin-right: 15px;
+}
+.mR10 {
+  margin-right: 10px;
+}
+.mR5 {
+  margin-right: 5px;
+}
+.mR0 {
+  margin-right: 0px;
+}
+.pT35 {
+  padding-top: 35px;
+}
+.pT30 {
+  padding-top: 30px;
+}
+.pT25 {
+  padding-top: 25px;
+}
+.pT20 {
+  padding-top: 20px;
+}
+.pT15 {
+  padding-top: 15px;
+}
+.pT10 {
+  padding-top: 10px;
+}
+.pT5 {
+  padding-top: 5px;
+}
+.pT0 {
+  padding-top: 0px;
+}
+.pB35 {
+  padding-bottom: 35px;
+}
+.pB30 {
+  padding-bottom: 30px;
+}
+.pB25 {
+  padding-bottom: 25px;
+}
+.pB20 {
+  padding-bottom: 20px;
+}
+.pB15 {
+  padding-bottom: 15px;
+}
+.pB10 {
+  padding-bottom: 10px;
+}
+.pB5 {
+  padding-bottom: 5px;
+}
+.pB0 {
+  padding-bottom: 0px;
+}
+.pL35 {
+  padding-left: 35px;
+}
+.pL30 {
+  padding-left: 30px;
+}
+.pL25 {
+  padding-left: 25px;
+}
+.pL20 {
+  padding-left: 20px;
+}
+.pL15 {
+  padding-left: 15px;
+}
+.pL10 {
+  padding-left: 10px;
+}
+.pL5 {
+  padding-left: 5px;
+}
+.pL0 {
+  padding-left: 0px;
+}
+.pR35 {
+  padding-right: 35px;
+}
+.pR30 {
+  padding-right: 30px;
+}
+.pR25 {
+  padding-right: 25px;
+}
+.pR20 {
+  padding-right: 20px;
+}
+.pR15 {
+  padding-right: 15px;
+}
+.pR10 {
+  padding-right: 10px;
+}
+.pR5 {
+  padding-right: 5px;
+}
+.pR0 {
+  padding-right: 0px;
+}
+.accordion {
+  max-width: 850px;
+}
+.unitName {
+  color: #333333 !important;
+}
+.unitDetails {
+  font-weight: 700;
+  color: #333333;
+  padding: 0 !important;
+  padding-top: 15px !important;
+}
+.unitDetails a {
+  color: #fe943e;
+  text-decoration: none;
+  outline: none;
+}
+.unitDetails a:hover,
+.unitDetails a:focus {
+  text-decoration: none;
+  outline: none;
+  color: #fe943e;
+}
+.titleDetails {
+  padding: 0 !important;
+}
+.bookingFlow .modal-backdrop {
+  left: 0 !important;
+}
+.priceSheetModal .modal-content {
+  border-radius: 0;
+}
+.priceSheetModal h5 {
+  font-weight: 700;
+  margin: 10px 20px 20px 20px;
+}
+.priceSheetModal .contentOuter {
+  border: 1px solid #bcbcba;
+}
+.priceSheetModal .contentOuter .row {
+  border-bottom: 1px solid #bcbcba;
+}
+.priceSheetModal .contentOuter .row:last-child {
+  border-bottom: none;
+}
+.priceSheetModal .contentOuter .row.titles div {
+  font-weight: 700;
+}
+.priceSheetModal .contentOuter .row div {
+  padding: 10px 5px;
+  border-right: 1px solid #bcbcba;
+}
+.priceSheetModal .contentOuter .row div:last-child {
+  border-right: none;
+}
+.priceSheetModal .close {
+  position: absolute;
+  right: 10px;
+  z-index: 9999;
+  top: 5px;
+}
+.priceSheetModal .saleOuter .saleValue {
+  font-weight: 700;
+}
+.successOuter {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  color: #7d7c7a;
+  font-size: 12px;
+}
+.successOuter .booked {
+  background: #0eab08;
+  color: #ffffff;
+  padding: 4px 10px 3px;
+  border: none;
+  float: right;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+.successOuter a {
+  text-decoration: none;
+  outline: none;
+  color: #296ec3;
+}
+.successOuter a:hover,
+.successOuter a:focus {
+  text-decoration: none;
+  outline: none;
+  color: #296ec3;
+}
+.successOuter .titles {
+  font-weight: 800;
+  color: #333333;
+  font-size: 12px;
+}
+.successOuter .unitTitle {
+  font-weight: 700;
+  font-size: 16px;
+}
+.successOuter .unitDetails {
+  border: none;
+  font-weight: 800;
+  padding: 0;
+}
+.successOuter .cancleBooking {
+  font-size: 10px;
+  padding: 5px 10px 4px;
+  background: #12acac;
+  color: #ffffff;
+  border: none;
+  float: right;
+}
+.failureOuter {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  width: 500px !important;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+.failureOuter i {
+  color: #ee1f3b;
+  float: left;
+  margin-right: 6px;
+}
+.failureOuter .failureMsg {
+  color: #ee1f3b;
+  font-weight: 800;
+  font-size: 15px;
+  float: left;
+  margin-top: 4px;
+}
+.failureOuter .tryAgain {
+  margin-top: 20px;
+  background: #12acac;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px 4px;
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+.failureOuter .tryAgain:focus {
+  outline: none;
+}
+/*# sourceMappingURL=bookflow.css.map */
