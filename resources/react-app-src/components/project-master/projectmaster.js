@@ -111,8 +111,24 @@ var ProjectMaster = React.createClass({
 
             filterType = dataToSet.filterType;
 
+            oldataTochange = oldState["data"]["search_filters"][filterType];
+
+            valueToSet = dataToSet.value;
+
+            // if valueToset is already present in array then remove it from array
+            //  if valueToset is not present then add to the array
+            indexOfELem = _.indexOf(oldataTochange,valueToSet);
+            
+            if (indexOfELem > -1) {
+                
+                oldataTochange.splice(indexOfELem, 1);
+
+            }else{
+                oldataTochange.push(valueToSet);
+            }
+
             mutatedfilter =  {};
-            mutatedfilter[filterType] = {$push: [dataToSet.value]}
+            mutatedfilter[filterType] = {$set: oldataTochange};
             
             newState = immutabilityHelpers( oldState, { data: 
                                                         {search_filters: mutatedfilter
@@ -140,6 +156,7 @@ var ProjectMaster = React.createClass({
     },
 
     render: function(){
+        console.log("project master re renders");
         var data = this.state.data;
         
         var projectTitle = data.projectTitle;

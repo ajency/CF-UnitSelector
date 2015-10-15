@@ -6,6 +6,8 @@ var FilterType = React.createClass({
 
     render: function () {
 
+        console.log("re render");
+
         var filterType = this.props.filterType;
 
         {/* Based on type of filter to be displayed generate filterDisplayType */}
@@ -32,12 +34,19 @@ var FilterType = React.createClass({
                             var imgSrc = "../images/icon/"+filterValueName.toLowerCase()+".png";
 
                             var searchedFilter = this.props.searchedFilter; 
+                            var filtervalueId = (filterValue.id); 
+                            filtervalueId = filtervalueId.toString();
+
+                            var isSelected = (_.indexOf(searchedFilter,filtervalueId) > -1);
+
+                            console.log("isSelected");
+                            console.log(isSelected);
 
                             var imgCheckboxClass = classNames({
                               'col-xs-4': true,
                               'checkboxInner': true,
                               'text-center': true,
-                              'selected': (_.indexOf(searchedFilter,filterValue.id) > -1)
+                              'selected': isSelected
                             }); 
 
                             return(
