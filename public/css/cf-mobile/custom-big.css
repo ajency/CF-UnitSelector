@@ -1253,10 +1253,14 @@ body a {
   line-height: 1;
   width: 5px;
 }
-.step4HeaderDesk .tabHeader .nav-tab li a {
+.step4HeaderDesk .tabHeader .nav-tabs li a {
   border: none !important;
 }
-.step4HeaderDesk .tabHeader .nav-tab li.active a {
+.step4HeaderDesk .tabHeader .nav-tabs li:hover,
+.step4HeaderDesk .tabHeader .nav-tabs li:focus {
+  background: none !important;
+}
+.step4HeaderDesk .tabHeader .nav-tabs li.active a {
   border: none !important;
   background: none !important;
 }
