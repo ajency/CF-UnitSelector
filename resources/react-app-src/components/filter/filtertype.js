@@ -6,6 +6,8 @@ var FilterType = React.createClass({
 
     render: function () {
 
+        console.log("re render");
+
         var filterType = this.props.filterType;
 
         {/* Based on type of filter to be displayed generate filterDisplayType */}
@@ -31,22 +33,29 @@ var FilterType = React.createClass({
                             var filterValueName = filterValue.name ;
                             var imgSrc = "../images/icon/"+filterValueName.toLowerCase()+".png";
 
+                            var searchedFilter = this.props.searchedFilter; 
+                            var filtervalueId = (filterValue.id); 
+                            filtervalueId = filtervalueId.toString();
+
+                            var isSelected = (_.indexOf(searchedFilter,filtervalueId) > -1);
+
+
                             var imgCheckboxClass = classNames({
                               'col-xs-4': true,
                               'checkboxInner': true,
                               'text-center': true,
-                              'selected': filterValue.isSelected === true
+                              'selected': isSelected
                             }); 
 
                             return(
                                 <div key={i} className={imgCheckboxClass}>
-                                    <input ref="checkboxRef " type="checkBox" />
+                                    <input ref="checkboxRef " type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
                                     <img src={imgSrc} />
                                     <span className="text-uppercase col-xs-12 text-center">{filterValue.name}</span>
                                 </div>
                             ); 
                                  
-                        });            
+                        }.bind(this));            
         }
         else if(filterDisplayType==="normalCheckbox"){
             filterValueNodes = filterValues.map(function(filterValue,i){
@@ -64,8 +73,6 @@ var FilterType = React.createClass({
         else if(filterDisplayType==="range"){
             filterValueNodes = ( <RangeComponent listItems={filterValues} /> );
         }
-
-        console.log(filterValueNodes);
 
 
         {/* filter display type can be - imageCheckbox / range / checkbox */}

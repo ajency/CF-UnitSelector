@@ -70,8 +70,8 @@ jQuery(document).ready(function($) {
         return window.path.generatePathTag(value);
       }
     });
-    draw.attr('viewBox', "0 0 1920 1080");
-    draw.attr('enable-background', "new 0 1920 1080");
+    draw.attr('viewBox', "0 0 1300 731.25");
+    draw.attr('enable-background', "new 0 1300 731.25");
     return draw.attr('preserveAspectRatio', "xMinYMin slice");
   };
   window.createPanel = function(data) {
@@ -771,9 +771,9 @@ jQuery(document).ready(function($) {
     $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
     window.windowWidth = 1300;
     $('canvas').css('width', window.windowWidth);
-    $('canvas').css('height', window.windowWidth / 2);
+    $('canvas').css('height', window.windowWidth * 0.5625);
     $('.svg-canvas').css('width', window.windowWidth);
-    $('.svg-canvas').css('height', window.windowWidth / 2);
+    $('.svg-canvas').css('height', window.windowWidth * 0.5625);
     return document.addEventListener('keydown', keydownFunc, false);
   });
   keydownFunc = function(e) {

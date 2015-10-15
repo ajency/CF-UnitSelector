@@ -53,6 +53,26 @@ var ProjectMaster = React.createClass({
 
     },
 
+    updateSearchFilters: function(filterType, filterValue){
+        dataToSet = {
+            property: "search_filters",
+            filterType: filterType,
+            value: filterValue
+        }
+
+        this.updateStateData(dataToSet);
+    },
+
+    selectFilter: function(evt){
+        isChecked = evt.target.checked;
+
+        filterType = $(evt.target).data("filtertype");
+        filterValue = $(evt.target).val();
+
+        this.updateSearchFilters(filterType, filterValue);
+
+    },
+
     updateRotateShadow: function(showShadowStatus){
         dataToSet = {
             property: "showShadow",
@@ -64,6 +84,20 @@ var ProjectMaster = React.createClass({
         var delay=100000; //1 seconds
 
         setTimeout(this.updateStateData(dataToSet), delay);
+    },
+
+    applyFilters: function(evt){
+
+        alert("filters applied");
+        dataToSet = {
+            property: "applied_filters",
+            value: this.state.data.search_filters
+        };
+
+        console.log(dataToSet);
+
+        this.updateStateData(dataToSet);
+
     },
 
     updateStateData: function(dataToSet){
@@ -86,6 +120,44 @@ var ProjectMaster = React.createClass({
                                                         }
                                                       });
         }
+        if(dataToSet.property === "search_filters"){
+
+            filterType = dataToSet.filterType;
+
+            oldataTochange = oldState["data"]["search_filters"][filterType];
+
+            valueToSet = dataToSet.value;
+
+            // if valueToset is already present in array then remove it from array
+            //  if valueToset is not present then add to the array
+            indexOfELem = _.indexOf(oldataTochange,valueToSet);
+            
+            if (indexOfELem > -1) {
+                
+                oldataTochange.splice(indexOfELem, 1);
+
+            }else{
+                oldataTochange.push(valueToSet);
+            }
+
+            mutatedfilter =  {};
+            mutatedfilter[filterType] = {$set: oldataTochange};
+            
+            newState = immutabilityHelpers( oldState, { data: 
+                                                        {search_filters: mutatedfilter
+                                                        }
+                                                      });
+        } 
+        if(dataToSet.property === "applied_filters"){
+
+            valueToSet = dataToSet.value;
+
+            newState = immutabilityHelpers( oldState, { data: 
+                                                        {applied_filters: 
+                                                            {$set: valueToSet}
+                                                        }
+                                                      });
+        }       
 
 
         this.setState(newState);
@@ -107,6 +179,7 @@ var ProjectMaster = React.createClass({
     },
 
     render: function(){
+        console.log("project master re renders");
         var data = this.state.data;
         
         var projectTitle = data.projectTitle;
@@ -122,9 +195,14 @@ var ProjectMaster = React.createClass({
                 projectTitle = {projectTitle} 
                 unitCount = {unitCount}
                 showFilterModal = {this.showFilterModal}
-
             />
-            <Modal ref="modal" modalData={filterTypes}/>
+            <Modal 
+                ref="modal" 
+                modalData={filterTypes}
+                selectFilter={this.selectFilter}
+                search_filters={data.search_filters}
+                applyFilters = {this.applyFilters}
+            />
             <SunToggle 
                 toggelSunView = {this.toggelSunView} 
                 showShadow={data.showShadow}
