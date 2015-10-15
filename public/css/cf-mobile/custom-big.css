@@ -1434,6 +1434,7 @@ body {
 .unitDetails {
   font-weight: 700;
   color: #333333;
+  padding: 0 !important;
   padding-top: 15px !important;
 }
 .unitDetails a {
@@ -1452,6 +1453,9 @@ body {
 }
 .bookingFlow .modal-backdrop {
   left: 0 !important;
+}
+.priceSheetModal .modal-content {
+  border-radius: 0;
 }
 .priceSheetModal h5 {
   font-weight: 700;
@@ -1484,5 +1488,88 @@ body {
 }
 .priceSheetModal .saleOuter .saleValue {
   font-weight: 700;
+}
+.successOuter {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  color: #7d7c7a;
+  font-size: 12px;
+}
+.successOuter .booked {
+  background: #0eab08;
+  color: #ffffff;
+  padding: 4px 10px 3px;
+  border: none;
+  float: right;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+.successOuter a {
+  text-decoration: none;
+  outline: none;
+  color: #296ec3;
+}
+.successOuter a:hover,
+.successOuter a:focus {
+  text-decoration: none;
+  outline: none;
+  color: #296ec3;
+}
+.successOuter .titles {
+  font-weight: 800;
+  color: #333333;
+  font-size: 12px;
+}
+.successOuter .unitTitle {
+  font-weight: 700;
+  font-size: 16px;
+}
+.successOuter .unitDetails {
+  border: none;
+  font-weight: 800;
+  padding: 0;
+}
+.successOuter .cancleBooking {
+  font-size: 10px;
+  padding: 5px 10px 4px;
+  background: #12acac;
+  color: #ffffff;
+  border: none;
+  float: right;
+}
+.successOuter .cancleBooking:focus {
+  outline: none;
+}
+.failureOuter {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  width: 500px !important;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+.failureOuter i {
+  color: #ee1f3b;
+  float: left;
+  margin-right: 6px;
+}
+.failureOuter .failureMsg {
+  color: #ee1f3b;
+  font-weight: 800;
+  font-size: 15px;
+  float: left;
+  margin-top: 4px;
+}
+.failureOuter .tryAgain {
+  margin-top: 20px;
+  background: #12acac;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px 4px;
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+.failureOuter .tryAgain:focus {
+  outline: none;
 }
 /*# sourceMappingURL=custom-big.css.map */
