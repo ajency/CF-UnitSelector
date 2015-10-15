@@ -64,7 +64,6 @@ var ProjectMaster = React.createClass({
     },
 
     selectFilter: function(evt){
-        alert("filter selected");
         isChecked = evt.target.checked;
 
         filterType = $(evt.target).data("filtertype");
@@ -85,6 +84,20 @@ var ProjectMaster = React.createClass({
         var delay=100000; //1 seconds
 
         setTimeout(this.updateStateData(dataToSet), delay);
+    },
+
+    applyFilters: function(evt){
+
+        alert("filters applied");
+        dataToSet = {
+            property: "applied_filters",
+            value: this.state.data.search_filters
+        };
+
+        console.log(dataToSet);
+
+        this.updateStateData(dataToSet);
+
     },
 
     updateStateData: function(dataToSet){
@@ -134,7 +147,17 @@ var ProjectMaster = React.createClass({
                                                         {search_filters: mutatedfilter
                                                         }
                                                       });
-        }        
+        } 
+        if(dataToSet.property === "applied_filters"){
+
+            valueToSet = dataToSet.value;
+
+            newState = immutabilityHelpers( oldState, { data: 
+                                                        {applied_filters: 
+                                                            {$set: valueToSet}
+                                                        }
+                                                      });
+        }       
 
 
         this.setState(newState);
@@ -178,6 +201,7 @@ var ProjectMaster = React.createClass({
                 modalData={filterTypes}
                 selectFilter={this.selectFilter}
                 search_filters={data.search_filters}
+                applyFilters = {this.applyFilters}
             />
             <SunToggle 
                 toggelSunView = {this.toggelSunView} 

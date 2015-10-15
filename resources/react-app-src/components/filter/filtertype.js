@@ -39,8 +39,6 @@ var FilterType = React.createClass({
 
                             var isSelected = (_.indexOf(searchedFilter,filtervalueId) > -1);
 
-                            console.log("isSelected");
-                            console.log(isSelected);
 
                             var imgCheckboxClass = classNames({
                               'col-xs-4': true,
@@ -75,8 +73,6 @@ var FilterType = React.createClass({
         else if(filterDisplayType==="range"){
             filterValueNodes = ( <RangeComponent listItems={filterValues} /> );
         }
-
-        console.log(filterValueNodes);
 
 
         {/* filter display type can be - imageCheckbox / range / checkbox */}

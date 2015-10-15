@@ -29,7 +29,7 @@ var FilterContent = React.createClass({
                 {filterTypeNodes}
                 <div className="filterfooter">
                     <div className="row">
-                        <button className="col-xs-12 button">
+                        <button className="col-xs-12 button" data-dismiss="modal" onClick = {this.props.applyFilters}>
                             Apply
                         </button>
                     </div>

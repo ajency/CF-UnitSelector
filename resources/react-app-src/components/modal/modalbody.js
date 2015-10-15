@@ -36,6 +36,7 @@ var ModalBody = React.createClass({
                       filterTypes = {filterTypes}
                       selectFilter={this.props.selectFilter}
                       search_filters={this.props.search_filters}
+                      applyFilters = {this.props.applyFilters}
                     />
                 </div>
         )
