@@ -390,7 +390,8 @@ function saveBuyerInfo($buyer_id,$buyer_name,$email,$phone){
         $sad = curl_error($c);
         throw new Exception($sad);
       }
-      $info=curl_getinfo($c,CURLINFO_HTTP_CODE);
+      $info=curl_getinfo($c,CURLINFO_HTTP_CODE); echo $info; exit;
+      
       curl_close($c);
       if($info==200)
       {
