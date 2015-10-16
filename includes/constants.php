@@ -5,11 +5,6 @@ define('DBUSER','root');
 define('PASSWORD','');
 define('DATABSE','booking_engine');
 
-define('CF_HOST','localhost');
-define('CF_DBUSER','root');
-define('CF_PASSWORD','');
-define('CF_DATABSE','commonfloor');
-
 
 //constant Variable
 define('EXPIREDURATION','15');
