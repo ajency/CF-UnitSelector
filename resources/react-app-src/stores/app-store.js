@@ -10,7 +10,7 @@ var CHANGE_EVENT = 'change';
 
 // Define initial data points
 var _projectData = {}, _selected = null ;
-var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[1,14,44], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{"unitTypes":[]} , "isFilterApplied":false } };
+var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[1,14,44], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{} , "isFilterApplied":false } };
 
 
 function getFilteredBuildingData(applied_filters){
@@ -87,6 +87,11 @@ function getUnitCount(propertyType,filters){
 			_.each(appliedFilters, function(appliedFilter, key){
 				if(key==="unitTypes"){
 					unitTypesTocheck = appliedFilter; // array of unit type ids
+
+					if(unitTypesTocheck.length === 0){
+						filteredUnits = availableUnits ;
+					}
+					else
 
 					// loop through each of the available units and get its unit variant id
 					_.each(availableUnits, function(availableUnit){
@@ -330,7 +335,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[1,4,14], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{"unitTypes":[]}, isFilterApplied:false};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[1,4,14], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{}, isFilterApplied:false};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];

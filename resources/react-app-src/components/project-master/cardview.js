@@ -4,8 +4,6 @@ var Link = require('react-router-component').Link
 var classNames = require('classnames');
 
 var CardView = React.createClass({
-    
-    mixins: [PureRenderMixin],
 
     render: function() {
         var buildingData = this.props.building;
@@ -19,7 +17,7 @@ var CardView = React.createClass({
         var unitCount = 0;
         var unitCountDisplayString = "available"; 
 
-        var isZeroUnits = false;
+        var isZeroUnits = isZeroInSelection = false;
 
         if (!_.isEmpty(buildingData)){
           
@@ -62,6 +60,9 @@ var CardView = React.createClass({
         if(availableUnitData.length==0){
           isZeroUnits = true;
         }
+        if(filteredUnitData.length==0){
+          isZeroInSelection = true;
+        }
 
         // if no units in the tower are enabled then disable cardview
         var cardClasses = classNames({
@@ -74,8 +75,19 @@ var CardView = React.createClass({
         
         var arrowClasses = classNames({
           arrow: true,
-          hide: isZeroUnits
+          hide: isZeroUnits||isZeroInSelection
         });
+
+        
+
+        domToDisplay = ( <div><sm>{unitCount}</sm><span className="units"><b>{unitCountDisplayString}</b><br/>{unitData.length} total units</span>
+                          <div className={arrowClasses}>
+                              <Link href={buildingUrl}><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></Link>
+                          </div>
+                          </div>);
+
+        if(isZeroUnits)
+          domToDisplay = (<b>Units Not Available</b>);
         
         
         return (
@@ -90,18 +102,17 @@ var CardView = React.createClass({
                                   From <span className="price-tag"><i className="fa fa-inr"></i> 20 lacs</span>
                             </div>
                         </div>
+                        
                         <div className=" swipe-unit-info row">
-                         <div className="col-xs-12 text-muted">
-                            <span> {noOfFloors} Floors</span><li></li> <span> {supportedUnitTypeString} </span>
-                         </div>  
+                           <div className="col-xs-12 text-muted">
+                              <span> {noOfFloors} Floors</span><li></li> <span> {supportedUnitTypeString} </span>
+                           </div>  
                         </div>
+
                         <div className="row swipe-footer">
                              <div className="col-xs-12 text-muted text-uppercase">
-                               <sm> {unitCount} </sm> <span className="units"><b>{unitCountDisplayString}</b> <br/> {unitData.length} total units</span>
-                              <div className={arrowClasses}>
-                               <Link href={buildingUrl}><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></Link>
-                            </div>
-                          </div>  
+                                {domToDisplay}
+                              </div>  
                         </div>
                     </div>
                 
