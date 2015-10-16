@@ -429,6 +429,7 @@ class Misc {
 	public static function show_page ( $result )
 	{
 		if ( $result['status'] === Misc::SUCCESS )
+			echo $result['data']; exit;
 			header( 'Location:' . $result['data'] );
 		else
 			throw new Exception( $result['data'] );
