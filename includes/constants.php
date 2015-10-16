@@ -2,7 +2,7 @@
 //Database
 define('HOST','localhost');
 define('DBUSER','root');
-define('PASSWORD','');
+define('PASSWORD','Ajency#123');
 define('DATABSE','booking_engine');
 
 
