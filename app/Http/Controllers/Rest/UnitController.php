@@ -344,6 +344,8 @@ class UnitController extends ApiGuardController {
             $response_data['project_title'] = $project->project_title;
             $response_data['measurement_units'] = $project->measurement_units;
             $response_data['has_phase'] = $project->has_phase;
+            $response_data['merchant_id'] = $project->merchant_id;
+            $response_data['salt'] = $project->salt;
 
             // PROJECT META DATA - builder name
             $projectBuilderName = ProjectMeta::where( 'project_id', '=', $project_id )->where( 'meta_key', '=', 'builder_name' )->first();

@@ -407,6 +407,11 @@ body .row {
   height: 100% !important;
   opacity: .9 !important;
 }
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .rotate {
+    bottom: 47%;
+  }
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -776,8 +781,8 @@ div#spritespin {
 .tabHeader .title h3 {
   color: #565654;
   display: inline-block;
-  margin: 14px 0 10px;
-  font-size: 19px;
+  margin: 14px 0 16px;
+  font-size: 16px;
   text-transform: uppercase;
 }
 @media screen and (max-width: 320px) {
@@ -832,6 +837,7 @@ div#spritespin {
 .tab-content {
   padding: 15px;
   margin-top: 85px;
+  margin-bottom: 30px;
   float: left;
   width: 100%;
 }
@@ -846,8 +852,9 @@ div#spritespin {
 .tab-content .details h4 {
   display: inline-block;
   color: #565654;
-  font-weight: bold;
+  font-weight: normal;
   margin-top: 20px;
+  text-transform: uppercase;
 }
 .tab-content .details h5 {
   margin-top: 20px;
@@ -933,8 +940,9 @@ div#spritespin {
 .tab-content .projectDetails .roomHeading h4 {
   color: #fe943e;
   margin: 6px 0 0px 5px;
-  font-weight: bold;
+  font-weight: normal;
   float: left;
+  text-transform: uppercase;
 }
 .tab-content .projectDetails .row {
   margin-bottom: 15px;
@@ -989,14 +997,14 @@ div#spritespin {
   }
 }
 .tabfooter {
-  /*position: fixed;
-    bottom: -1px;*/
+  position: fixed;
+  bottom: -1px;
   width: 100%;
   float: left;
   /*left: 0;	  */
   color: #ffffff;
-  text-align: center
-  /*z-index:9999;   */
+  text-align: center;
+  z-index: 9999;
 }
 .tabfooter button {
   margin: 0;
