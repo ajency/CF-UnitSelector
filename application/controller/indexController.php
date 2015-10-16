@@ -6,7 +6,7 @@
 
     
     $unitData = json_decode(getUnitInfo($unitId),true);
- 
+    print_r($unitData);exit;
     $status = $unitData['data']['unit']['status'];
     if($status==='available')
     {
