@@ -12,4 +12,4 @@ public/.htaccess
 tests/_output/*
 public/projects/
 
-wsgi.py
+storage
