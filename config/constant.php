@@ -20,6 +20,7 @@ return [
                            'dev.commonfloor.com',
                            'stage23.commonfloor.com',
                            'commonfloor.com',
+                           'unitselector.com',
                           ),
     
     /*
