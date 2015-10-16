@@ -44,7 +44,7 @@ define('getUnitStatus','http://45.118.135.216/api/v2/get-unit-status?unit_id=');
 define('updateUnitStatus','http://45.118.135.216/api/v2/unit/');
  
 define('payuUrl','https://test.payu.in/merchant/postservice.php?form=2'); 
-define('unitSelectorAuthKey','957ef76ea1f19aef1af0d341ae18e565f874a4c6'); 
+define('unitSelectorAuthKey','117ce294ece0684f69ad92ae450ba370b1259f69'); 
 define('bookingCrmAuthKey','43e-22a3c758e02ebdf0472b'); 
 define('USER','19');
 

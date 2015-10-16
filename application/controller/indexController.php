@@ -21,7 +21,7 @@
     }
     else
     {
-      header('location:http://unitselector-booking.local/public/unit.php');
+      header('location:http://booking.cfunitselectortest.com/public/unit.php');
       exit;
     }
     
@@ -390,8 +390,7 @@ function saveBuyerInfo($buyer_id,$buyer_name,$email,$phone){
         $sad = curl_error($c);
         throw new Exception($sad);
       }
-      $info=curl_getinfo($c,CURLINFO_HTTP_CODE); echo $info; exit;
-      
+      $info=curl_getinfo($c,CURLINFO_HTTP_CODE);
       curl_close($c);
       if($info==200)
       {
