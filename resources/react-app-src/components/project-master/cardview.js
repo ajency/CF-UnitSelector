@@ -8,24 +8,28 @@ var CardView = React.createClass({
 
     render: function() {
         var buildingData = this.props.building;
+        var isFilterApplied = this.props.isFilterApplied;
         var unitData = [];
         var noOfFloors = 0;
         var buildingName = "";
         var supportedUnitTypeString = " ";
         var buildingUrl = " ";
+        
+        var unitCount = 0;
+        var unitCountDisplayString = "available"; 
 
         if (!_.isEmpty(buildingData)){
-           unitData = buildingData.unitData;
-           availableUnitData = buildingData.availableUnitData;
-           noOfFloors = buildingData.no_of_floors;
-           buildingName = buildingData.building_name;
-           unitsMatchingString = " Units available";
+          
+          unitData = buildingData.unitData;
+          availableUnitData = buildingData.availableUnitData;
+          filteredUnitData = buildingData.filteredUnitData;
+          noOfFloors = buildingData.no_of_floors;
+          buildingName = buildingData.building_name;
+          
 
-           buildingUrl = "/buildings/"+buildingData.id;
+          buildingUrl = "/buildings/"+buildingData.id;
 
-
-
-           _.each(buildingData.supportedUnitTypes, function(supportedUnitType , i){
+          _.each(buildingData.supportedUnitTypes, function(supportedUnitType , i){
                 
                 len = buildingData.supportedUnitTypes.length
 
@@ -36,7 +40,20 @@ var CardView = React.createClass({
                     supportedUnitTypeString += supportedUnitType+", ";
                 }
                 
-           })
+           });
+
+          // Check if applied filters have atleast one filter array with size greater than 0 m if yes => filters have been applied else not
+
+          if(isFilterApplied){
+            unitCount = filteredUnitData.length;
+            unitCountDisplayString = "matching your selection";
+          }
+          else{
+            unitCount = availableUnitData.length;
+            unitCountDisplayString = "available";
+          }
+
+
         }
         
         
@@ -59,7 +76,7 @@ var CardView = React.createClass({
                         </div>
                         <div className="row swipe-footer">
                              <div className="col-xs-12 text-muted text-uppercase">
-                               <sm> {availableUnitData.length} </sm> <span className="units"><b>Available</b> <br/> {unitData.length} total units</span>
+                               <sm> {unitCount} </sm> <span className="units"><b>{unitCountDisplayString}</b> <br/> {unitData.length} total units</span>
                               <div className="arrow">
                                <Link href={buildingUrl}><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></Link>
                             </div>

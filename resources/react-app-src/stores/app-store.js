@@ -10,7 +10,7 @@ var CHANGE_EVENT = 'change';
 
 // Define initial data points
 var _projectData = {}, _selected = null ;
-var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[1,14,44], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{"unitTypes":[]} } };
+var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[1,14,44], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{"unitTypes":[]} , "isFilterApplied":false } };
 
 
 function getFilteredBuildingData(applied_filters){
@@ -330,7 +330,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[1,4,14], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{"unitTypes":[]}};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[1,4,14], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{"unitTypes":[]}, isFilterApplied:false};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -391,6 +391,9 @@ function getFilteredProjectMasterData(){
 
 
 	newProjectData.buildings = buildingsWithUnits;
+
+	// since filters are applied set isFilterAPplied as true
+	newProjectData.isFilterApplied = true;
 	
 
     return newProjectData;

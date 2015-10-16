@@ -49,6 +49,7 @@ var CardList = React.createClass({
     render: function() {
         var buildings = this.props.buildings;
         var buildingNodes; 
+        var isFilterApplied = this.props.isFilterApplied;
 
   
 
@@ -56,7 +57,10 @@ var CardList = React.createClass({
         buildingNodes = buildings.map(function(building,i){
                             return(
                                 <div key={i}>
-                                <CardView  building={building}/> 
+                                <CardView  
+                                  building={building}
+                                  isFilterApplied={isFilterApplied}
+                                /> 
                                 </div>
                             ); 
                                  
