@@ -15,7 +15,7 @@ class WhitelistIp {
 	{	
         
         $dnsList = config('constant.cf_dns_list'); 
-		$getHost = $_SERVER['HTTP_HOST'];dd($getHost);
+		$getHost = $_SERVER['HTTP_HOST'];
        
   //       if (!in_array($getHost, $dnsList)) {
 		// 	return response()->json( [
