@@ -106,6 +106,18 @@ class ProjectController extends Controller {
         $projectStepTwoJson = ProjectJson::where('project_id', $projectId)
                                         ->where('type', 'step_two')->get()->first();
         $stepTwoData = $projectStepTwoJson->project_json;
+
+        if(!empty($stepTwoData))                             //UPDATE CURRENT UNIT STATUS TO JSON DATA
+        {
+            $unitData = [];
+            $units = $stepTwoData['units'];
+            foreach ($units as $unit)
+            {
+                $unit['availability']=  \CommonFloor\Unit::find($unit['id'])->availability;
+                $unitData[]=$unit;
+            }
+            $stepTwoData['units']=$unitData;
+        }
              
 
         $projectData = $stepOneData + $stepTwoData;  
