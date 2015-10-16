@@ -1253,15 +1253,29 @@ body a {
   line-height: 1;
   width: 5px;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li a {
-  border: none !important;
+.step4HeaderDesk .tabHeader .nav-tabs {
+  border: none;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li:hover,
-.step4HeaderDesk .tabHeader .nav-tabs li:focus {
-  background: none !important;
+.step4HeaderDesk .tabHeader .nav-tabs li {
+  padding: 10px 10px 0 10px;
+}
+.step4HeaderDesk .tabHeader .nav-tabs li a {
+  border: none ;
+  background: none ;
+  color: #7d7c7a;
+  text-transform: uppercase;
+  font-size: 10px;
+  padding: 0 0 5px 0;
+}
+.step4HeaderDesk .tabHeader .nav-tabs li a:hover,
+.step4HeaderDesk .tabHeader .nav-tabs li a:focus {
+  background: none;
+  color: #fe943e;
 }
 .step4HeaderDesk .tabHeader .nav-tabs li.active a {
-  border: none !important;
-  background: none !important;
+  border: none;
+  background: none;
+  color: #fe943e;
+  border-bottom: 2px solid #fe943e;
 }
 /*# sourceMappingURL=custom-big.css.map */

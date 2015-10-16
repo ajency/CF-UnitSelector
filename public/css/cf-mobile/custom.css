@@ -407,6 +407,11 @@ body .row {
   height: 100% !important;
   opacity: .9 !important;
 }
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .rotate {
+    bottom: 47%;
+  }
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -832,6 +837,7 @@ div#spritespin {
 .tab-content {
   padding: 15px;
   margin-top: 85px;
+  margin-bottom: 30px;
   float: left;
   width: 100%;
 }
