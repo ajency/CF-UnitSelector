@@ -26,6 +26,7 @@ var Modal = React.createClass({
                   modalData = {modalData}
                   selectFilter={this.props.selectFilter}
                   search_filters={this.props.search_filters}
+                  applyFilters = {this.props.applyFilters}
                 />
           		</div>
         	</div>

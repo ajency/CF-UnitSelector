@@ -67,7 +67,6 @@ var ImageContainerTemplate = React.createClass({
     componentDidUpdate: function(){
 
       details = this.props.breakpoints;
-      console.log(details);
     },
 
     incrementIndex: function(){

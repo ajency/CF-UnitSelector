@@ -9,7 +9,7 @@ var CHANGE_EVENT = 'change';
 
 // Define initial data points
 var _projectData = {}, _selected = null ;
-var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{unitTypes:[]}}};
+var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{"unitTypes":[]} } };
 
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
@@ -212,12 +212,12 @@ function getApartmentFilterTypes(propertyType){
 
 // Method to load project data from API
 function _loadProjectData(data) {
-	console.log("_loadProjectData");
+	
 	_projectData = data['data'];
-	console.log("global data");
+	
 	_globalStateData = _getProjectMasterData();
-	console.log("global data2");
-	console.log(_globalStateData);
+	
+	
 
 
 }
@@ -235,7 +235,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{unitTypes:[]} };
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[00 , 15, 45 , 60], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{"unitTypes":[]}};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -279,8 +279,8 @@ var AppStore = merge(EventEmitter.prototype, {
 
 	// components to register with the store
 	addChangeListener:function(callback){
-		console.log("addChangeListener");
-	this.on(CHANGE_EVENT, callback)
+	
+		this.on(CHANGE_EVENT, callback)
 	},
 
 	removeChangeListener:function(callback){
