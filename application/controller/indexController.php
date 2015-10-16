@@ -6,7 +6,7 @@
 
     
     $unitData = json_decode(getUnitInfo($unitId),true);
-    print_r($unitData);exit;
+ 
     $status = $unitData['data']['unit']['status'];
     if($status==='available')
     {
@@ -390,7 +390,7 @@ function saveBuyerInfo($buyer_id,$buyer_name,$email,$phone){
         $sad = curl_error($c);
         throw new Exception($sad);
       }
-      $info=curl_getinfo($c,CURLINFO_HTTP_CODE); echo $info; exit;
+      $info=curl_getinfo($c,CURLINFO_HTTP_CODE);
       curl_close($c);
       if($info==200)
       {
