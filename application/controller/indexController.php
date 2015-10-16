@@ -6,7 +6,7 @@
 
     
     $unitData = json_decode(getUnitInfo($unitId),true);
-    
+
     $status = $unitData['data']['unit']['status'];
     if($status==='available')
     {
@@ -55,7 +55,7 @@
 
     function saveBookingHistory($booking_id,$old_status, $new_status, $comments,$buyer_name){
 
-        $booking_id = $_SESSION['booking_id'];
+        //$booking_id = $_SESSION['booking_id'];
         $old_status=booking_history_status_booking_start;
         $new_status=booking_history_status_booking_initialized;
         $comments=booking_history_comment_buyer_option;
