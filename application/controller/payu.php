@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Returns the pay page url or the merchant js file.
  * 
@@ -34,44 +35,16 @@ function pay_page ( $params, $salt )
 		$_POST['furl'] = $params['furl'];
 		
 		$result = response( $_POST, $salt );
-		// echo "inside pay_page";
-		Misc::show_page( $result );
-		//Misc::show_reponse( $result );
+		Misc::show_reponse( $result );
 	} else {
-		$host = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$host = (isset( $_SERVER['https'] ) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		
 		if ( isset( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ) $params['surl'] = $host;
 		if ( isset( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ) $params['furl'] = $host;
 		
 		$result = pay( $params, $salt );
-		try{
-			Misc::show_page( $result );
-		}catch(Exception $e){
-			return $e;
-		}
+		Misc::show_page( $result );
 	}
-}
-
-function is_ssl() {
-	if ( isset($_SERVER['HTTPS']) ) {
-		if ( 'on' == strtolower($_SERVER['HTTPS']) )
-			return true;
-		if ( '1' == $_SERVER['HTTPS'] )
-			return true;
-	} elseif ( isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] ) ) {
-		return true;
-	}
-	return false;
-}	
-
-function payment_success() {
-/* Payment success logic goes here. */
-	//console.log("inside payment_success");
-    //echo "Congratulations !! The Payment is successful.";
-}
-
-function payment_failure() {
-/* Payment failure logic goes here. */
-    //echo "We are sorry. The Payment has failed";
 }
 
 /**
@@ -342,7 +315,7 @@ class Curl {
 		$this->_parseRawData( $rawData );
 		if ( $this->options["header"] ) $this->content = $rawData;
 		if ( $this->return_result ) return $this->content;
-		//echo $this->content;
+		echo $this->content;
 	}
 
 }
@@ -455,59 +428,16 @@ class Misc {
 
 	public static function show_page ( $result )
 	{
-		if ( $result['status'] === Misc::SUCCESS ){
-			// print_r($result);
-			//$this->_forward('/manage-property-bookings/booking');}
-			//session_start();
-			//$_SESSION['login']['Booking']['payment_id'] = $_POST['udf2'];
-			// $_SESSION['login']['resultMSG'] = 'unsuccessful';
-			// $_REQUEST['resultMSG']="unsuccessful";
-
-			// //print_r($_POST);
-			// header( 'resultMSG:unsuccessful' );
-
+		if ( $result['status'] === Misc::SUCCESS )
 			header( 'Location:' . $result['data'] );
-			exit;
-		}
-		else{
-			// $_SESSION['login']['resultMSG'] = 'unsuccessful';
+		else
 			throw new Exception( $result['data'] );
-			//Misc::sendEmail();
-		}
 	}
-
-	// private function sendEmail(){
-	// 	$login_id=$_SESSION['login']['login_id'];
- //        $name=$_SESSION['public_user_auth']['public_user_name'];
- //        require_once('util/CFMail.php');
- //        $txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
- //        $subject = 'Thanks for booking your property';
-
- //        $mail = new CFMail();
- //        $mail->setBodyHtml($txt);
- //        $mail->setSubject($subject);
- //        $mail->setCategory(CFMail::MAIL_TYPE_CONFIRM_PAYMENT);
- //        $mail->setFrom('support@commonfloor.com','CF Support');
- //        $mail->addTo($login_id, $name);  
- //        try
- //        {
- //            $mail->send();
- //        }
- //        catch(Exception $e)
- //        {
- //            $logger = Zend_Registry::get('logger');
- //            $logger->crit("Faced exception " . $e->getMessage() . " while trying to send payment email from Authorize to $login_id");
- //        }
- //    }
 
 	public static function show_reponse ( $result )
 	{
-		// echo "inside show response";
-		// print_r($result);
-		if ( $result['status'] === Misc::SUCCESS ){
-			
+		if ( $result['status'] === Misc::SUCCESS )
 			$result['data']();
-		}
 		else
 			return $result['data'];
 	}
