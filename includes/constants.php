@@ -39,9 +39,9 @@ define('BookPriceStructure','http://bookingcrm.cfunitselectortest.com/book_payme
 define('getBookingAmt','http://bookingcrm.cfunitselectortest.com/get_booking_amount/');
 define('getTotalSaleValue','http://bookingcrm.cfunitselectortest.com/get_total_sale_value/');
 
-define('unitSummary','http://phase2.cfunitselectortest.com/api/v2/unit/');
-define('getUnitStatus','http://phase2.cfunitselectortest.com/api/v2/get-unit-status?unit_id=');
-define('updateUnitStatus','http://phase2.cfunitselectortest.com/api/v2/unit/');
+define('unitSummary','http://45.118.135.216/api/v2/unit/');
+define('getUnitStatus','http://45.118.135.216/api/v2/get-unit-status?unit_id=');
+define('updateUnitStatus','http://45.118.135.216/api/v2/unit/');
  
 define('payuUrl','https://test.payu.in/merchant/postservice.php?form=2'); 
 define('unitSelectorAuthKey','957ef76ea1f19aef1af0d341ae18e565f874a4c6'); 
