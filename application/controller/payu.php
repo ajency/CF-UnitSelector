@@ -65,7 +65,7 @@ function is_ssl() {
 
 function payment_success() {
 /* Payment success logic goes here. */
-	console.log("inside payment_success");
+	//console.log("inside payment_success");
     //echo "Congratulations !! The Payment is successful.";
 }
 
@@ -467,6 +467,7 @@ class Misc {
 			// header( 'resultMSG:unsuccessful' );
 
 			header( 'Location:' . $result['data'] );
+			exit;
 		}
 		else{
 			// $_SESSION['login']['resultMSG'] = 'unsuccessful';
