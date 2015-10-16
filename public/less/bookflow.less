@@ -439,6 +439,11 @@ body
     		outline:none;
     	}
     }
+    i
+    {
+    	color:@real-blue;
+    	margin-right:4px;
+    }
 
 }
 .failureOuter
@@ -446,9 +451,12 @@ body
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
     padding: 15px;
     width:500px !important;
-    margin:0 auto;
-    display:block;
-    text-align:center;
+    height: 230px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -120px;
+    margin-left: -250px;
     i
     {    	
     	color:@real-red;
@@ -462,7 +470,20 @@ body
     	font-size:15px;
     	float: left;
     	margin-top: 4px;
+    }
+    .transactionFailed
+    {
+    	color:@real-red;
+    	font-size:12px;
+    	font-weight:700;
+    	margin-bottom:20px;
+    	padding-left:0;
     }	
+    .transactionNo
+    {
+    	font-size:11px;
+    	padding-left:0;
+    }
     .tryAgain 
     {
     	margin-top: 20px;
@@ -472,9 +493,53 @@ body
 	    padding: 5px 10px 4px;
 	    font-size: 10px;
 	    margin-bottom: 10px;
+	    margin-left:0;
+	    float:left;
 	    &:focus
 	    {
 	    	outline:none;
 	    }
     }
+}
+.timeoutOuter
+{
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+    padding: 15px;
+    width:400px !important;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -75px;
+    margin-left: -200px;
+    color: @real-blue;
+
+    .failureMsg
+    {
+    	color: @gray-darker;
+    }
+    .transactionFailed
+    {
+    	color: @gray-darker;
+    	font-size:14px;
+    	padding-left:0
+    }
+    .tryAgain 
+    {
+    	margin-top: 20px;
+	    background: @teal;
+	    color: @white;
+	    border: none;
+	    padding: 5px 10px 4px;
+	    font-size: 10px;
+	    margin-bottom: 10px;
+	    margin-left:0;
+	    float:left;
+	    &:focus
+	    {
+	    	outline:none;
+	    }
+
+    }
+
 }
