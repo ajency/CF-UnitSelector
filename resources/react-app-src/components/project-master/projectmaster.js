@@ -94,10 +94,24 @@ var ProjectMaster = React.createClass({
             value: this.state.data.search_filters
         };
 
-        console.log(dataToSet);
-
         this.updateStateData(dataToSet);
 
+        this.updateProjectMasterData();
+
+
+    },
+
+    updateProjectMasterData: function(){
+        oldState = getStateData();
+
+        newProjectData = AppStore.getFilteredProjectMasterData();
+
+        dataToSet = {
+            property: "data",
+            value: newProjectData
+        };
+
+        this.updateStateData(dataToSet);
     },
 
     updateStateData: function(dataToSet){
@@ -186,6 +200,8 @@ var ProjectMaster = React.createClass({
         var unitCount = data.totalCount;
         var buildings = data.buildings;
         var breakpoints = data.breakpoints;
+        var applied_filters = data.applied_filters;
+        var isFilterApplied = data.isFilterApplied;
 
         var filterTypes = data.filterTypes;
 
@@ -214,7 +230,10 @@ var ProjectMaster = React.createClass({
                 updateChosenBreakPoint = {this.updateChosenBreakPoint}
                 updateRotateShadow = {this.updateRotateShadow}
             />
-            <CardList buildings={buildings}/>
+            <CardList 
+                buildings={buildings}
+                isFilterApplied = {isFilterApplied}
+            />
             </div>
 
         );
