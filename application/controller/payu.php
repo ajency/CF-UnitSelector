@@ -66,12 +66,12 @@ function is_ssl() {
 function payment_success() {
 /* Payment success logic goes here. */
 	console.log("inside payment_success");
-    echo "Congratulations !! The Payment is successful.";
+    //echo "Congratulations !! The Payment is successful.";
 }
 
 function payment_failure() {
 /* Payment failure logic goes here. */
-    echo "We are sorry. The Payment has failed";
+    //echo "We are sorry. The Payment has failed";
 }
 
 /**
@@ -342,7 +342,7 @@ class Curl {
 		$this->_parseRawData( $rawData );
 		if ( $this->options["header"] ) $this->content = $rawData;
 		if ( $this->return_result ) return $this->content;
-		echo $this->content;
+		//echo $this->content;
 	}
 
 }
