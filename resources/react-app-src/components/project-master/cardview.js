@@ -1,6 +1,7 @@
 var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Link = require('react-router-component').Link
+var classNames = require('classnames');
 
 var CardView = React.createClass({
     
@@ -17,6 +18,8 @@ var CardView = React.createClass({
         
         var unitCount = 0;
         var unitCountDisplayString = "available"; 
+
+        var isZeroUnits = false;
 
         if (!_.isEmpty(buildingData)){
           
@@ -55,11 +58,29 @@ var CardView = React.createClass({
 
 
         }
+
+        if(availableUnitData.length==0){
+          isZeroUnits = true;
+        }
+
+        // if no units in the tower are enabled then disable cardview
+        var cardClasses = classNames({
+          'card-swipe': true,
+          'not-released': isZeroUnits
+        }); 
+
+        
+
+        
+        var arrowClasses = classNames({
+          arrow: true,
+          hide: isZeroUnits
+        });
         
         
         return (
                 
-                    <div className="card-swipe">
+                    <div className={cardClasses}>
 
                         <div className="row">
                             <div className="col-xs-12">
@@ -77,7 +98,7 @@ var CardView = React.createClass({
                         <div className="row swipe-footer">
                              <div className="col-xs-12 text-muted text-uppercase">
                                <sm> {unitCount} </sm> <span className="units"><b>{unitCountDisplayString}</b> <br/> {unitData.length} total units</span>
-                              <div className="arrow">
+                              <div className={arrowClasses}>
                                <Link href={buildingUrl}><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></Link>
                             </div>
                           </div>  
