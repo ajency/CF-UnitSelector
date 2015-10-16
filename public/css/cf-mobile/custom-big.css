@@ -447,6 +447,7 @@ body a {
   background-position: -99px -20px;
   margin: auto;
   display: block;
+  cursor: pointer;
 }
 .messageBoxDesk {
   background: rgba(0, 0, 0, 0.5);
@@ -461,12 +462,12 @@ body a {
   float: left;
   padding: 10px;
   background: rgba(0, 0, 0, 0.5);
-  font-size: 9px;
+  font-size: 11px;
 }
 .messageBoxDesk .message {
   float: left;
   padding: 11px 9px 9px 9px;
-  font-size: 9px;
+  font-size: 11px;
   text-transform: capitalize;
 }
 .messageBoxDesk a {
@@ -523,9 +524,9 @@ body a {
 }
 .contactForm button .enquiryText {
   float: left;
-  margin-top: 6px;
+  margin-top: 5px;
   margin-left: -4px;
-  font-size: 8px;
+  font-size: 10px;
 }
 .contactModal {
   left: 320px !important;
@@ -732,7 +733,42 @@ body a {
   border-top: 1px solid #bcbcba;
 }
 .unitDetails small {
-  font-size: 9px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.unitDetails small.zoomEffect {
+  animation: zoomEffect 2s;
+  -webkit-animation: zoomEffect 2s;
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+          transition: transform 0.3s ease-out;
+}
+@keyframes zoomEffect {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@-webkit-keyframes zoomEffect {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }
 .titleOuter .sideBarLogo {
   width: 53%;
@@ -792,6 +828,85 @@ body a {
 }
 .zoomBtns button:focus {
   outline: none;
+}
+.in-selection {
+  fill: rgba(16, 165, 169, 0.34) !important;
+}
+.not-in-selection,
+.not-availabel {
+  fill: rgba(0, 0, 0, 0.46) !important;
+}
+.pop-up-in {
+  -webkit-animation: pop-in 1s both;
+  animation: pop-in 1s both;
+}
+.pop-up-out {
+  -webkit-animation: pop-out 1s both;
+  animation: pop-out 1s both;
+}
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(0) translate(50%, 0);
+  }
+  100% {
+    top: 50%;
+    left: 50%;
+    margin: -206px 0 0 -304px;
+    opacity: 1;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(1) translate(0%, 0);
+  }
+}
+@-webkit-keyframes pop-in {
+  0% {
+    opacity: 0;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(0) translate(50%, 0);
+  }
+  100% {
+    top: 50%;
+    left: 50%;
+    margin: -206px 0 0 -304px;
+    opacity: 1;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(1) translate(0%, 0);
+  }
+}
+@keyframes pop-out {
+  0% {
+    top: 50%;
+    left: 50%;
+    margin: -206px 0 0 -304px;
+    opacity: 1;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transform: scale(1) translate(0%, 0);
+            transform: scale(1) translate(0%, 0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transform: scale(0) translate(50%, 0);
+            transform: scale(0) translate(50%, 0);
+  }
+}
+@-webkit-keyframes pop-out {
+  0% {
+    top: 50%;
+    left: 50%;
+    margin: -206px 0 0 -304px;
+    opacity: 1;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(1) translate(0%, 0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(0) translate(50%, 0);
+  }
 }
 .imageModal {
   top: 15% !important;
@@ -883,7 +998,7 @@ body a {
   position: fixed;
   z-index: 1;
   top: 23px;
-  right: 115px;
+  right: 144px;
   overflow-x: hidden;
   overflow-y: auto;
   width: 370px;
@@ -942,9 +1057,9 @@ body a {
 .float-nav .toggle:after {
   content: 'Filter';
   margin-left: 30px;
-  line-height: 2.2;
+  line-height: 2;
   color: #565654;
-  font-size: 16px;
+  font-size: 18px;
   text-transform: uppercase;
 }
 .float-nav.closed:hover {
@@ -966,7 +1081,7 @@ body a {
   width: 26px;
   height: 30px;
   background: url(../../images/spriteNew.png) no-repeat;
-  background-position: -13px -78px;
+  background-position: -18px -78px;
   z-index: 9999;
   top: -10px;
   -ms-transform: scale(0.5);
@@ -1092,6 +1207,9 @@ body a {
 .float-nav li.budgetOuter > div select:focus {
   outline: none;
 }
+.float-nav li.additionalFilters {
+  cursor: pointer;
+}
 .float-nav li.additionalFilters h6 {
   color: #fe943e;
 }
@@ -1122,7 +1240,7 @@ body a {
   position: absolute;
   left: 0px;
   height: 22px;
-  width: 42px;
+  width: 49px;
   background: #ffffff;
   border-radius: 3px;
   top: 3px;
@@ -1145,9 +1263,9 @@ body a {
 }
 .filterOuter .sun-toggle .sunText {
   float: left;
-  margin-top: 6px;
-  font-size: 8px;
-  margin-left: 20px;
+  margin-top: 5px;
+  font-size: 10px;
+  margin-left: 22px;
   color: #333;
   text-transform: uppercase;
 }
@@ -1161,7 +1279,7 @@ body a {
   background-color: #fe943e;
   color: #ffffff;
   top: -4px;
-  right: 88px;
+  right: 115px;
   z-index: 1;
   border-radius: 50%;
   text-align: center;
