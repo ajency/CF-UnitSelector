@@ -4,8 +4,6 @@ var Link = require('react-router-component').Link
 var classNames = require('classnames');
 
 var CardView = React.createClass({
-    
-    mixins: [PureRenderMixin],
 
     render: function() {
         var buildingData = this.props.building;

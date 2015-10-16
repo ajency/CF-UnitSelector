@@ -88,6 +88,11 @@ function getUnitCount(propertyType,filters){
 				if(key==="unitTypes"){
 					unitTypesTocheck = appliedFilter; // array of unit type ids
 
+					if(unitTypesTocheck.length === 0){
+						filteredUnits = availableUnits ;
+					}
+					else
+
 					// loop through each of the available units and get its unit variant id
 					_.each(availableUnits, function(availableUnit){
 						unitVariantId = availableUnit.unit_variant_id;
