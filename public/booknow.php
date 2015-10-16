@@ -8,7 +8,7 @@ if(isset($_GET['unitId']) && isset($_GET['timeout']))
     $unit_status = availablity_available;
     updateUnitStatus($unitId ,$unit_status);
     
-    header('location:http://unitselector-booking.local/public/timeout.php');
+    header('location:http://booking.cfunitselectortest.com/public/timeout.php');
     exit;
 
 }
@@ -19,7 +19,7 @@ if(isset($_GET['unitId']) && isset($_GET['projectId']))
 }
 else
 {
-    header('location:http://unitselector-booking.local/public/unit.php');
+    header('location:http://booking.cfunitselectortest.com/public/unit.php');
     exit;
 }
 
@@ -351,7 +351,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
 
              });
              var unitId = $("input[name='unit_id']").val();
-             var redirectPropertyUrl ="http://unitselector-booking.local/public/booknow.php?timeout=true&unitId="+unitId;
+             var redirectPropertyUrl ="http://booking.cfunitselectortest.com/public/booknow.php?timeout=true&unitId="+unitId;
         </script>
     </body>
 </html>

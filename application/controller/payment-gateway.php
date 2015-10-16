@@ -110,7 +110,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
             $txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
             $subject = 'Thanks for your interest in buying property';
             
-            header('location:http://unitselector-booking.local/public/timeout.php');
+            header('location:http://booking.cfunitselectortest.com/public/timeout.php');
             exit;
         }else{
 
