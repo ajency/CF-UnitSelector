@@ -98,17 +98,24 @@ var ProjectMaster = React.createClass({
 
         // need to update 
 
-        this.updateBuildingData();
+        this.updateProjectMasterData();
 
         // data.totalCount
         // data.buildings
 
     },
 
-    updateBuildingData: function(){
+    updateProjectMasterData: function(){
         oldState = getStateData();
 
-        newBuildingData = AppStore.getFilteredProjectMasterData();
+        newProjectData = AppStore.getFilteredProjectMasterData();
+
+        dataToSet = {
+            property: "data",
+            value: newProjectData
+        };
+
+        this.updateStateData(dataToSet);
     },
 
     updateStateData: function(dataToSet){

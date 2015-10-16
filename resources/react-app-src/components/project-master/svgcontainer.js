@@ -16,7 +16,6 @@ var SvgContainer = React.createClass({
     },
 
     svgLoaded: function(){
-      alert("svg is successfully loaded");
       svgDom = $(".svg-area");
       $(svgDom).find("svg .building").attr("class", "in-selection");
     },

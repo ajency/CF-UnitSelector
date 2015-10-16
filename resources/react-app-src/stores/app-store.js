@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatchers/app-dispatcher');
 var AppConstants = require('../constants/app-constants');
 var merge = require('merge');
 var EventEmitter = require('events').EventEmitter;
+var immutabilityHelpers = require('react-addons-update');
 
 
 // event that our components are going to listen when change happens
@@ -42,59 +43,151 @@ function getUnitTypeDetails(unitTypeId){
 	return unitTypeDetails;
 }
 
-function getUnitCount(propertyType){
-	var unitCount = {"totalCount":0,"availableCount":0};
+function getUnitTypeIdFromUnitVariantId(propertyType,unitVariantId){
+
+	var variants;
+
+	if(propertyType==="Apartments"){
+		variants = _projectData.apartment_variants;
+
+		unitVariant = _.findWhere(variants, {id: unitVariantId});
+
+	}
+
+	return unitVariant.unit_type_id;
+
+
+}
+
+function getUnitCount(propertyType,filters){
+	var unitCount = {"total":[],"available":[], "filtered":[]};
 	var units = [];
 	var availableUnits = [];
 	var totalUnitsInBuilding = [];
+	var filteredUnits = [];
+
+	var appliedFilters = filters;
 
 	if (!_.isEmpty(_projectData)){
 		units = _projectData.units;
 
-
+		// get all units that have building associated to it
 		totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
-		
+
+
+		// from all the building units get only those units that are available
 		availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+
+		// apply filters based on applied filters and return count of filtered units
+		if(_.isEmpty(appliedFilters)){
+			filteredUnits = [];
+		}
+		else{
+
+			_.each(appliedFilters, function(appliedFilter, key){
+				if(key==="unitTypes"){
+					unitTypesTocheck = appliedFilter; // array of unit type ids
+
+					// loop through each of the available units and get its unit variant id
+					_.each(availableUnits, function(availableUnit){
+						unitVariantId = availableUnit.unit_variant_id;
+						
+						// get unit type id from unit variant id
+						unitTypeId = getUnitTypeIdFromUnitVariantId(propertyType,unitVariantId);
+
+						if(_.indexOf(unitTypesTocheck, unitTypeId.toString()) > -1){
+							filteredUnits.push(availableUnit);
+						}
+					});
+
+
+				}
+			});
+
+		}
 		
-		unitCount["totalCount"] = totalUnitsInBuilding.length ;
-		unitCount["availableCount"] = availableUnits.length ;
+		unitCount["total"] = totalUnitsInBuilding ;
+		unitCount["available"] = availableUnits ;
+		unitCount["filtered"] = filteredUnits ;
 	}
 
 	return unitCount;
 } 
 
-function getBuildingUnits(buildings, allUnits){
-	var buildingsWithUnits = [];
+function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 
+	
+	var buildingsWithUnits = [];
+	
 	_.each(buildings,function(building){
+		
 		buildingId = building.id;
+		
 
 		buildingUnits = [];
+		
 		availableBuildingUnits = [];
+		
 		unitVariants = [];
+		
+		filteredBuildingUnits = [];
+		
 
 		_.each(allUnits, function(unit){
+			
 			if(unit.building_id === buildingId){
+				
 				buildingUnits.push(unit);
+				
 
-				if(unit.availability === "available")
+				if(unit.availability === "available"){
+					
 					availableBuildingUnits.push(unit);
+					
+					
+					// if the available unit is also present in filtered units then push it to the array of filteredbuildingUnits
+					_.each(allFilteredUnits,function(filteredUnit){
+						
+						if(filteredUnit.id === unit.id){
+							
+							filteredBuildingUnits.push(unit);
+							
+						}
+						
+					});	
+						
+				}
+				
+
 			}
 			unitVariants.push(unit.unit_variant_id);
+			
 		})
 
+		
+		// get all unit data
 		building.unitData = buildingUnits;
+
+		
+		// get available unit data
 		building.availableUnitData = availableBuildingUnits;
 
+		
+		// get all filtered unit data
+		building.filteredUnitData = filteredBuildingUnits;
 
+		
 		// get project unit types
 		unitTypes = getSupportedUnitTypes("Apartments", buildingId);
 
+		
 		building.supportedUnitTypes = unitTypes;
+		
 
 		buildingsWithUnits.push(building);
-	})
-
+		
+	});
+	
 	return buildingsWithUnits;
 }
 
@@ -222,9 +315,6 @@ function _loadProjectData(data) {
 	
 	_globalStateData = _getProjectMasterData();
 	
-	
-
-
 }
 
 function _updateProjectData(dataToUpdate){
@@ -254,14 +344,15 @@ function _getProjectMasterData(){
 		projectMasterData.breakpoints = breakpoints; 
 		projectMasterData.chosenBreakpoint = breakpoints[0] ;  
 		
-		unitCount = getUnitCount('Apartments') ;
-		projectMasterData.totalCount = unitCount.totalCount;
-		projectMasterData.availableCount = unitCount.availableCount;
+		unitCount = getUnitCount('Apartments',{}) ;
+		projectMasterData.totalCount = unitCount.total.length;
+		projectMasterData.availableCount = unitCount.available.length;
+		projectMasterData.filteredCount = unitCount.filtered.length;
 		
 		buildings = projectData.buildings;
 		allUnits = projectData.units;
 
-		buildingsWithUnits = getBuildingUnits(buildings, allUnits);
+		buildingsWithUnits = getBuildingUnits(buildings, allUnits, []);
 
 		projectMasterData.buildings = buildingsWithUnits;
 
@@ -271,6 +362,42 @@ function _getProjectMasterData(){
 	finalData = {"data": projectMasterData};
 
 	return finalData;
+}
+
+function getFilteredProjectMasterData(){
+	
+	var newProjectData = {};
+	
+
+	newProjectData = _globalStateData.data;
+
+	
+
+	apartmentUnits =  getUnitCount('Apartments', _globalStateData.data.applied_filters) ;
+	
+	newProjectData.availableCount = apartmentUnits.available.length;
+	
+	newProjectData.filteredCount = apartmentUnits.filtered.length;
+	
+
+	buildings = _projectData.buildings;
+	
+	allUnits = _projectData.units;
+	
+	filteredUnits = apartmentUnits.filtered;
+	
+
+	buildingsWithUnits = getBuildingUnits(buildings, allUnits, filteredUnits );
+
+
+	newProjectData.buildings = buildingsWithUnits;
+	
+
+    return newProjectData;
+
+
+
+
 }
 
 
@@ -309,10 +436,11 @@ var AppStore = merge(EventEmitter.prototype, {
 		_updateGlobalState(newState);
 	},
 
-	getFilteredBuildingData: function(){
-		var newBuildingData = _getFilteredBuildingData();
 
-		return newBuildingData;
+	getFilteredProjectMasterData: function(){
+		var newProjectData = getFilteredProjectMasterData();
+
+		return newProjectData;
 	},
 
   	// Register callback with AppDispatcher
