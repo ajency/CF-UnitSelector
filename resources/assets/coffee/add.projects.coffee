@@ -8,28 +8,28 @@ jQuery(document).ready ($)->
     $.notify.defaults globalPosition : 'bottom right'
 
 
-    cfCityFetchOptions =
-        method:"GET"
-        url: "/api/v1/get-cities"
-        async: false
+    # cfCityFetchOptions =
+    #     method:"GET"
+    #     url: "/api/v1/get-cities"
+    #     async: false
 
-    $.ajax(cfCityFetchOptions).done (resp, textStatus ,xhr)=>
-        apiResp = resp.data
-        response =  $.parseJSON apiResp
-        cities = response.results
-        $('#add_project select[name="city"]').empty()
-        $('#add_project select[name="city"]') .append $('<option value="">Choose City</option>')  
-        _.each cities, (value, key) ->
-            $('#add_project select[name="city"]').append $('<option/>',
-              value: value.city_name
-              text: value.city_name)
+    # $.ajax(cfCityFetchOptions).done (resp, textStatus ,xhr)=>
+    #     apiResp = resp.data
+    #     response =  $.parseJSON apiResp
+    #     cities = response.results
+    #     $('#add_project select[name="city"]').empty()
+    #     $('#add_project select[name="city"]') .append $('<option value="">Choose City</option>')  
+    #     _.each cities, (value, key) ->
+    #         $('#add_project select[name="city"]').append $('<option/>',
+    #           value: value.city_name
+    #           text: value.city_name)
 
-     $( document ).ajaxComplete (args...)->
-         xhr = args[1]
-         if xhr.status in [201,202,203]
-             $.notify xhr.responseJSON.message, 'success'
-         else if xhr.status in [200]
-             $.notify xhr.responseJSON.message, 'error'
+    #  $( document ).ajaxComplete (args...)->
+    #      xhr = args[1]
+    #      if xhr.status in [201,202,203]
+    #          $.notify xhr.responseJSON.message, 'success'
+    #      else if xhr.status in [200]
+    #          $.notify xhr.responseJSON.message, 'error'
 
                                 
                                 

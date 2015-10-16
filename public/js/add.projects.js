@@ -1,7 +1,5 @@
-var slice = [].slice;
-
 jQuery(document).ready(function($) {
-  var cfCityFetchOptions, checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
+  var checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -9,37 +7,6 @@ jQuery(document).ready(function($) {
   });
   $.notify.defaults({
     globalPosition: 'bottom right'
-  });
-  cfCityFetchOptions = {
-    method: "GET",
-    url: "/api/v1/get-cities",
-    async: false
-  };
-  $.ajax(cfCityFetchOptions).done((function(_this) {
-    return function(resp, textStatus, xhr) {
-      var apiResp, cities, response;
-      apiResp = resp.data;
-      response = $.parseJSON(apiResp);
-      cities = response.results;
-      $('#add_project select[name="city"]').empty();
-      $('#add_project select[name="city"]').append($('<option value="">Choose City</option>'));
-      return _.each(cities, function(value, key) {
-        return $('#add_project select[name="city"]').append($('<option/>', {
-          value: value.city_name,
-          text: value.city_name
-        }));
-      });
-    };
-  })(this));
-  $(document).ajaxComplete(function() {
-    var args, ref, ref1, xhr;
-    args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-    xhr = args[1];
-    if ((ref = xhr.status) === 201 || ref === 202 || ref === 203) {
-      return $.notify(xhr.responseJSON.message, 'success');
-    } else if ((ref1 = xhr.status) === 200) {
-      return $.notify(xhr.responseJSON.message, 'error');
-    }
   });
   $('form button[type="reset"]').click();
   $("select").select2();
