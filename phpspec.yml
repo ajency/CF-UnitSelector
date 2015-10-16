@@ -1,5 +1,0 @@
-suites:
-    main:
-        namespace: CommonFloor
-        psr4_prefix: CommonFloor
-        src_path: app
