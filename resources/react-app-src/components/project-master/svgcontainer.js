@@ -22,7 +22,7 @@ var SvgContainer = React.createClass({
     },
 
     render: function(){
-      console.log("svg render");
+      
       var chosenBreakpoint = this.props.chosenBreakpoint;
 
       var svgNamePrefix = "master-";

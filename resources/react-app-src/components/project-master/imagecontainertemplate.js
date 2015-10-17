@@ -81,6 +81,15 @@ var ImageContainerTemplate = React.createClass({
           
           console.log("stop");
 
+                  svgData = {
+          svgClasses: {'svg-area': true,
+                       'hide': false
+                  }
+        }
+
+        this.setState(svgData);
+          
+
          }.bind(this))  ;       
     },
 
@@ -100,6 +109,17 @@ var ImageContainerTemplate = React.createClass({
 
 
     setDetailIndex: function() {
+
+        svgData = {
+          svgClasses: {'svg-area': true,
+                       'hide': true
+                  }
+        }
+
+        this.setState(svgData);
+
+        // hide svg area
+        $(this.refs.svgContainer).find("svg .svg-area").addClass("hide");
 
        // check if shadow image is present, if present then hide it
        prevShowShadow = this.props.showShadow;
@@ -160,6 +180,7 @@ var ImageContainerTemplate = React.createClass({
                     
                     <div ref="imageContainer" className="image" style={imageContainerStyle}>
                         <SvgContainer 
+                          ref="svgContainer"
                           svgData={svgData} 
                           chosenBreakpoint={this.props.chosenBreakpoint} 
                           key={this.props.chosenBreakpoint}
