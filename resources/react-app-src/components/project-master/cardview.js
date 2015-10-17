@@ -75,7 +75,7 @@ var CardView = React.createClass({
         
         var arrowClasses = classNames({
           arrow: true,
-          hide: isZeroUnits||isZeroInSelection
+          hide: isZeroUnits||(isZeroInSelection && isFilterApplied)
         });
 
         

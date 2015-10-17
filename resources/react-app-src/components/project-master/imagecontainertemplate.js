@@ -10,10 +10,22 @@ var details = [0, 30, 50]
 var PROJECTID = window.projectId;
 var BASEURL = window.baseUrl;
 
+var svgData = {
+          svgClasses: {'svg-area': true,
+                       'hide': false
+                  }
+        }
 
 var ImageContainerTemplate = React.createClass({
 
+    getInitialState: function() {
+        return svgData;
+    },
+
+
     componentDidMount: function(){
+
+        console.log("componentDidMount for image")
 
         details = this.props.breakpoints;
         
@@ -57,11 +69,19 @@ var ImageContainerTemplate = React.createClass({
          var data = api.data;
            data.stage.prepend($(".details .detail")); // add current details
            data.stage.find(".detail").hide(); // hide current details
-         }).bind("onFrame", function() {
+         })
+
+        spin.bind("onFrame", function() {
            var data = api.data;
            data.stage.find(".detail:visible").stop(false).fadeOut();
            data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
-         });            
+         });    
+
+        spin.bind("onAnimationStop", function(){
+          
+          console.log("stop");
+
+         }.bind(this))  ;       
     },
 
     componentDidUpdate: function(){
@@ -139,7 +159,11 @@ var ImageContainerTemplate = React.createClass({
                 <div className="image-contain">
                     
                     <div ref="imageContainer" className="image" style={imageContainerStyle}>
-                        <SvgContainer chosenBreakpoint={this.props.chosenBreakpoint} key={this.props.chosenBreakpoint}/>
+                        <SvgContainer 
+                          svgData={svgData} 
+                          chosenBreakpoint={this.props.chosenBreakpoint} 
+                          key={this.props.chosenBreakpoint}
+                        />
 
                         <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
                         <img key={this.props.chosenBreakpoint+1} src={shadowImgUrl}  className="img-responsive shadow fit"/>
