@@ -296,9 +296,13 @@ function saveBuyerInfo($buyer_id,$buyer_name,$email,$phone){
 
         function refund_amount($unit_id){
             $booking_amount=getBookingAmount($unit_id,"booking_amount"); //echo " booking_amount: ".$booking_amount; 
+            $unitinfo = json_decode(getUnitInfo($unit_id),true);
+            $unitData =$unitinfo['data'] ; 
+            $merchantId =$unitData['merchant_id'] ; 
+            $salt =$unitData['salt'] ; 
             $payuUrl=payuUrl;
-            $key = "gtKFFx";
-            $salt = "eCwWELxi";
+            $key = $merchantId;
+            $salt = $salt;
             $command = "cancel_refund_transaction";//"verify_payment";//cancel_refund_transaction
             $var1 =$_SESSION["mihpayid"]; //echo " mihpayid: ".$var1;
             $var2 = rand(1000000,9999999);//uniqid();
@@ -348,7 +352,7 @@ function saveBuyerInfo($buyer_id,$buyer_name,$email,$phone){
 
                 $status="deleted";
                 updateBookingInfo($booking_id,$old_status); 
-                updateUnitStatus($unitId ,$unit_status);  
+                updateUnitStatus($unit_id ,$unit_status);  
             }else{
                 $new_status=booking_history_status_refund_Error;
                 $comments=booking_history_comment_refund_not_completed;
@@ -361,6 +365,7 @@ function saveBuyerInfo($buyer_id,$buyer_name,$email,$phone){
             savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid);
             return $data->status;
     }
+
 
 
     function getUnitInfo($unit_id){

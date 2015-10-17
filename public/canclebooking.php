@@ -9,9 +9,9 @@ unset($_SESSION);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Unit</title>
+    <title>CF-MOBILE</title>
 
-    <link href='css/custom-big.css' rel='stylesheet'/>
+    <link href='css/bookflow.css' rel='stylesheet'/>
     <link href='css/font-awesome.css' rel='stylesheet'/>
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
@@ -27,21 +27,27 @@ unset($_SESSION);
     <![endif]-->
   </head>
 
-    <body class="bookingFlow">
+    <body class="bookingFlow">      
         <div class="container-fluid header mB25">
             <div class="container">
-                <h3 class="text-center mT10 mB10">Leonel McGlynn (Unit 11) - #15</h3>
+                <h3 class="text-center mT10 mB10">Apply for an Appartment</h3>
             </div>
         </div>
+
         <div class="container-fluid content">
-            <div class="col-md-12 col-sm-12 col-xs-12 text-center mT20 mB15">
-                <a href="booknow.php?unitId=15&projectId=s6yjsx"> <button class="btn btnOrange">Book Now</button>
-             </div>
-        </div>
-    
-            
+            <div class="container">
+                
+                <div class="timeoutOuter">                  
+                    <span class="failureMsg">Booking cancled successfully</span>
+                    <span class="transactionFailed mT20 col-xs-12"> For Refund please contact <a href="#">commonfloor.support@int</a></span>
+                </div>
+                
+            </div>
+        </div>                 
 
-         
-
+        <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.panzoom.js"></script>       
     </body>
 </html>
