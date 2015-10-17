@@ -22,6 +22,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $old_status = booking_history_status_booking_progress;  
         $new_status = booking_history_status_booking_booked;   
         $comments = booking_history_comment_payment_success;  
+        $payment_history_is_active=payment_history_active;
         $mihpayid_Val = $_POST['mihpayid'];
         $_SESSION["mihpayid"]=$_POST['mihpayid'];
         $_SESSION["booking_id"]= $booking_id;
@@ -47,6 +48,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         // self::sendEmail($login_id,$name,$txt,$subject);
         updateBookingInfo($booking_id,$status); 
         $unit_status = availablity_available;
+        $payment_history_is_active=payment_history_active;
         updateUnitStatus($unitId ,$unit_status);
         saveBookingHistory($booking_id,$old_status, $new_status, $comments,$buyer_name);
         savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
