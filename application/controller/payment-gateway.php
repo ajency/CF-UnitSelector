@@ -58,7 +58,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         
 }else{  
     if(isset($_POST['contact_email']) && isset($_POST['contact_name']) && isset($_POST['contact_mobile'])) {  
-        echo '123'; exit;
+        
         $buyer_id = $_SESSION["buyer_id"];
         $unit_id = $_POST['unit_id'];
         $_SESSION["unitId"]=$unit_id;
