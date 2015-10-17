@@ -283,7 +283,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                         <div class="col-md-12 col-sm-12 col-xs-12 text-center mT10 termsConditions">
                             <div>Complete your booking safely with us.</div>
                             <label>
-                                <input type="checkbox"/>
+                                 <input type="checkbox" name="acceptterm"  id="acceptterm" />
                                 I accept the <a href="#">Terms and Conditions</a>
                             </label>
                         </div>

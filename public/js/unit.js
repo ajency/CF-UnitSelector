@@ -231,18 +231,27 @@ function validateForm()
     if(name=='')
     {
         alert('Enter Your Name');
+        $("#acc-1").click();
         err++;
     }
-    if(email=='')
+    else if(email=='')
     {
         alert('Enter Your Email');
+        $("#acc-1").click();
         err++;
     }
-    if(mobile=='')
+    else if(mobile=='')
     {
         alert('Enter Your Phone');
+        $("#acc-1").click();
         err++;
     }
+    else if(!$("input[name='acceptterm']").is(':checked'))
+    {
+        alert('Accept terms and condition to proceeed ');
+        err++;
+    }
+ 
 
     if(err==0)
     {
@@ -250,4 +259,5 @@ function validateForm()
     }
 
 }
+
 
