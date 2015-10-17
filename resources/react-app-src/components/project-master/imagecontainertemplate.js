@@ -78,11 +78,9 @@ var ImageContainerTemplate = React.createClass({
          });    
 
         spin.bind("onAnimationStop", function(){
-          
-          console.log("stop");
 
-                  svgData = {
-          svgClasses: {'svg-area': true,
+          svgData = {
+              svgClasses: {'svg-area': true,
                        'hide': false
                   }
         }
@@ -172,6 +170,7 @@ var ImageContainerTemplate = React.createClass({
           'hide-shadow': showShadow 
         }); 
    
+        var buildings = this.props.buildings;
 
         return (
 
@@ -184,6 +183,7 @@ var ImageContainerTemplate = React.createClass({
                           svgData={svgData} 
                           chosenBreakpoint={this.props.chosenBreakpoint} 
                           key={this.props.chosenBreakpoint}
+                          buildings = {buildings}
                         />
 
                         <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
