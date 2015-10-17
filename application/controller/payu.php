@@ -430,7 +430,6 @@ class Misc {
 	{
 		if ( $result['status'] === Misc::SUCCESS )
 			header( 'Location:' . $result['data'] );
-			exit;
 		else
 			throw new Exception( $result['data'] );
 	}
