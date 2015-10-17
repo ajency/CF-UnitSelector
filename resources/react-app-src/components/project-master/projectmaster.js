@@ -88,7 +88,6 @@ var ProjectMaster = React.createClass({
 
     applyFilters: function(evt){
 
-        alert("filters applied");
         dataToSet = {
             property: "applied_filters",
             value: this.state.data.search_filters
@@ -112,6 +111,7 @@ var ProjectMaster = React.createClass({
         };
 
         this.updateStateData(dataToSet);
+
     },
 
     updateStateData: function(dataToSet){
@@ -229,6 +229,7 @@ var ProjectMaster = React.createClass({
                 chosenBreakpoint = {data.chosenBreakpoint}
                 updateChosenBreakPoint = {this.updateChosenBreakPoint}
                 updateRotateShadow = {this.updateRotateShadow}
+                buildings =  {buildings}
             />
             <CardList 
                 buildings={buildings}
