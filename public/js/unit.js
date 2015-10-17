@@ -206,7 +206,7 @@ function refundAmount(id,url){
                 alert("Issue while cancelling the book. Please contact Administrator for further process"); 
             }else{
                 //location.reload(); /////------------load the page
-                window.location= "http://unitselector-booking.local/public/unit.php";
+                window.location= "canclebooking.php";
             }
         },
         error: function(transport){
