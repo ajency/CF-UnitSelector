@@ -113,7 +113,9 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
             header('location:http://booking.cfunitselectortest.com/public/timeout.php');
             exit;
         }else{
-
+            print_r(array ('key' => $_SESSION["merchant_id"], 'txnid' => $booking_payment_id, 'amount' => $booking_amount,
+            'firstname' => $_POST['contact_name'], 'email' => $_POST['contact_email'], 'phone' => $_POST['contact_mobile'],
+            'productinfo' => $unit_id, 'surl' => PAYMENT_SUCCESS, 'furl' => PAYMENT_FAILURE, 'udf1'=>$booking_id,'udf2'=>$booking_payment_id, 'udf3'=>$_POST['contact_name'], 'udf4'=>$_POST['contact_email'], 'udf5'=>$_POST['contact_mobile'],'udf6'=>$booking_amount)); exit;
             pay_page( array ('key' => $_SESSION["merchant_id"], 'txnid' => $booking_payment_id, 'amount' => $booking_amount,
             'firstname' => $_POST['contact_name'], 'email' => $_POST['contact_email'], 'phone' => $_POST['contact_mobile'],
             'productinfo' => $unit_id, 'surl' => PAYMENT_SUCCESS, 'furl' => PAYMENT_FAILURE, 'udf1'=>$booking_id,'udf2'=>$booking_payment_id, 'udf3'=>$_POST['contact_name'], 'udf4'=>$_POST['contact_email'], 'udf5'=>$_POST['contact_mobile'],'udf6'=>$booking_amount), 
