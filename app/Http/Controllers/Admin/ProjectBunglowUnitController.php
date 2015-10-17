@@ -505,7 +505,6 @@ class ProjectBunglowUnitController extends Controller {
         //$sender_url .= '?' . http_build_query($params);
  
         $c = curl_init();
-        //curl_setopt($c, CURLOPT_HTTPHEADER, array('Host: bookingcrm.cfunitselectortest.com'));
         curl_setopt($c, CURLOPT_URL, $sender_url);
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, $params);
