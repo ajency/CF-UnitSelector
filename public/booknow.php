@@ -183,10 +183,10 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                         }
                         ?>
                                 <div class="col-xs-3">
-                                    <i class="fa fa-inr"></i> <?php echo $booking_amount;?>
+                                    <i class="fa fa-inr"></i>  <?php echo $totalSaleValue;?>
                                 </div>
                                 <div class="col-xs-3">
-                                     <i class="fa fa-inr"></i> <?php echo $totalSaleValue;?>
+                                     <i class="fa fa-inr"></i><?php echo $booking_amount;?>
                                 </div>
                             </div>
                         </div>

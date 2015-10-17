@@ -131,10 +131,10 @@ $bookingId = $_SESSION['booking_id'];
                             }
                             ?>   
                                 <div class="col-xs-3">
-                                    <i class="fa fa-inr"></i> <?php echo $booking_amount;?>
+                                    <i class="fa fa-inr"></i> <?php echo $totalSaleValue;?>
                                 </div>
                                 <div class="col-xs-3">
-                                     <i class="fa fa-inr"></i> <?php echo $totalSaleValue;?>
+                                     <i class="fa fa-inr"></i> <?php echo $booking_amount;?>
                                 </div>
                             </div>
                         </div>
