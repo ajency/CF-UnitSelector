@@ -116,9 +116,6 @@ var ImageContainerTemplate = React.createClass({
 
         this.setState(svgData);
 
-        // hide svg area
-        $(this.refs.svgContainer).find("svg .svg-area").addClass("hide");
-
        // check if shadow image is present, if present then hide it
        prevShowShadow = this.props.showShadow;
        

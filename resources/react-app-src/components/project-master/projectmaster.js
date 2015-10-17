@@ -111,6 +111,7 @@ var ProjectMaster = React.createClass({
         };
 
         this.updateStateData(dataToSet);
+
     },
 
     updateStateData: function(dataToSet){
