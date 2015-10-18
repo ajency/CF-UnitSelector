@@ -86,8 +86,6 @@ var SvgContainer = React.createClass({
 
       var svgNamePrefix = "master-";
 
-      console.log(this.props.svgData);
-
       var svgClasses = classNames(this.props.svgData.svgClasses);
 
     	var svgUrl= window.baseUrl+'/projects/'+(window.projectId)+'/master/'+svgNamePrefix+''+chosenBreakpoint+'.svg'; //will come based on breakpoint

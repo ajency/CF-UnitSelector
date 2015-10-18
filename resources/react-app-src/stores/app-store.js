@@ -13,10 +13,6 @@ var _projectData = {}, _selected = null ;
 var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{} , "isFilterApplied":false } };
 
 
-function getFilteredBuildingData(applied_filters){
-
-}
-
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
 	var unitTypes = [];

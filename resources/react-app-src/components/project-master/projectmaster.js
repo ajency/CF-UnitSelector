@@ -25,6 +25,10 @@ var ProjectMaster = React.createClass({
         return getStateData();
     },
 
+    projectDataUpdateCallBack: function(){
+        console.log("project State Data  updated");
+    },
+
     updateChosenBreakPoint: function(chosenBreakPoint){
         dataToSet = {
             property: "chosenBreakpoint",
@@ -87,6 +91,8 @@ var ProjectMaster = React.createClass({
     },
 
     applyFilters: function(evt){
+
+        console.log("Apply filters");
 
         dataToSet = {
             property: "applied_filters",
@@ -174,7 +180,7 @@ var ProjectMaster = React.createClass({
         }       
 
 
-        this.setState(newState);
+        this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState);
 
     },

@@ -41,7 +41,10 @@ var CardList = React.createClass({
                 ]
             };
 
-           $sliderContainer.slick($sliderSettings);
+            if(!($sliderContainer.hasClass('slick-initialized'))){
+              $sliderContainer.slick($sliderSettings);
+            }
+           
        },
 
 
