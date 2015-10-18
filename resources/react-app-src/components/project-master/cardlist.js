@@ -65,10 +65,10 @@ var CardList = React.createClass({
 
         // On swipe event
         $sliderContainer.on('swipe', function(event, slick, direction){
-          alert("swipee");
-          console.log(event);
-          console.log(slick);
-          console.log(direction);
+          console.log("swipee");
+          // console.log(event);
+          // console.log(slick);
+          // console.log(direction);
           // left
         });
 
