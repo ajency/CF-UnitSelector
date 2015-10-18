@@ -10,7 +10,7 @@ var CHANGE_EVENT = 'change';
 
 // Define initial data points
 var _projectData = {}, _selected = null ;
-var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{} , "isFilterApplied":false } };
+var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -331,7 +331,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{}, isFilterApplied:false};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -391,7 +391,43 @@ function getFilteredProjectMasterData(){
 	buildingsWithUnits = getBuildingUnits(buildings, allUnits, filteredUnits );
 
 
+	// return first building that has filtered units
+	var buildingIndexToHighlight = -1;
+	var filteredCount = 0;
+	var buildingToHighlight = {};
+	var availableBuildingIndex = 0;
+
+	while(filteredCount==0){
+		buildingIndexToHighlight++;
+		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+		filteredCount = buildingToHighlight.filteredUnitData.length;
+		availableCount = buildingToHighlight.availableUnitData.length;
+		
+		if(availableCount>0){
+			availableBuildingIndex = buildingIndexToHighlight;
+		}
+	}
+
+	if(_.isEmpty(buildingToHighlight)){
+		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+	}
+
+	newProjectData.unitIndexToHighlight = buildingIndexToHighlight	
+
+
 	newProjectData.buildings = buildingsWithUnits;
+
+	// get primary breakpoint for the unit to be higlighted
+	breakpoints = newProjectData.breakpoints;
+
+	chosenBreakpointIndex = _.indexOf(breakpoints , newProjectData.chosenBreakpoint);
+
+	newChosenBreakpointIndex = chosenBreakpointIndex+1;
+
+	if(newChosenBreakpointIndex >= breakpoints.length)
+		newChosenBreakpointIndex = 0;
+
+	newProjectData.chosenBreakpoint = breakpoints[newChosenBreakpointIndex];
 
 	// since filters are applied set isFilterAPplied as true
 	newProjectData.isFilterApplied = true;

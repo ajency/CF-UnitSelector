@@ -44,6 +44,19 @@ var CardList = React.createClass({
             if(!($sliderContainer.hasClass('slick-initialized'))){
               $sliderContainer.slick($sliderSettings);
             }
+
+            // On swipe event
+            $sliderContainer.on('swipe', function(event, slick, direction){
+              alert("swipte");
+              console.log(event);
+              console.log(slick);
+              console.log(direction);
+              // left
+            });
+
+            var currentSlide = $sliderContainer.slick('slickCurrentSlide');
+
+            console.log(currentSlide);
            
        },
 

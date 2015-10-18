@@ -27,6 +27,15 @@ var ProjectMaster = React.createClass({
 
     projectDataUpdateCallBack: function(){
         console.log("project State Data  updated");
+        spinDom = $(ReactDOM.findDOMNode(this.refs.imageContainer)).find("#spritespin");
+        spinApi = spinDom.spritespin("api");
+
+        chosenBreakPoint = this.state.data.chosenBreakpoint
+        spinApi.playTo(chosenBreakPoint);
+
+        slideToGotTo = this.state.data.unitIndexToHighlight;
+        slickDom = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".slider");
+        slickDom.slick('slickGoTo',slideToGotTo);
     },
 
     updateChosenBreakPoint: function(chosenBreakPoint){
@@ -230,6 +239,7 @@ var ProjectMaster = React.createClass({
                 showShadow={data.showShadow}
             />
             <ImageContainerTemplate 
+                ref= "imageContainer"
                 showShadow={data.showShadow}
                 breakpoints = {data.breakpoints}
                 chosenBreakpoint = {data.chosenBreakpoint}
@@ -238,6 +248,7 @@ var ProjectMaster = React.createClass({
                 buildings =  {buildings}
             />
             <CardList 
+                ref = "cardList"
                 buildings={buildings}
                 isFilterApplied = {isFilterApplied}
             />
