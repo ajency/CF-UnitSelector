@@ -6,8 +6,6 @@ var FilterType = React.createClass({
 
     render: function () {
 
-        console.log("re render");
-
         var filterType = this.props.filterType;
 
         {/* Based on type of filter to be displayed generate filterDisplayType */}
