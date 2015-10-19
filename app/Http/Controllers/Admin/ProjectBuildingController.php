@@ -73,6 +73,8 @@ class ProjectBuildingController extends Controller {
         $building->floors = [];
         $building->building_master = [];
         $building->breakpoints = [];
+        $building->shadow_images = [];
+
         $building->save();
         
         Session::flash('success_message','Building Successfully Created');
@@ -103,7 +105,8 @@ class ProjectBuildingController extends Controller {
             abort(404);
         $floorLayouts = $project->floorLayout()->get();
         $buildingMaster = $building->building_master;
-        $svgImages = [];
+        $shadowImageData = $building->shadow_images;
+        $svgImages = $shadowImages = [];
         
         if(!empty($buildingMaster))
         { 
@@ -115,6 +118,19 @@ class ProjectBuildingController extends Controller {
                     }
                     else
                         $svgImages[$key]['ID'] = $images;
+            }
+        }
+
+        if(!empty($shadowImageData))
+        {  
+            ksort($shadowImageData);
+            foreach ($shadowImageData as $key => $images) {
+                    if (is_numeric($images)) {
+                        $imageName = Media::find($images)->image_name;
+                        $shadowImages[$key] = ["ID"=>$images,"NAME"=>$imageName, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
+                    }
+                    else
+                        $shadowImages[$key]['ID'] = $images;
             }
         }
         
@@ -139,7 +155,8 @@ class ProjectBuildingController extends Controller {
                         ->with( 'building', $building )
                         ->with( 'floorLayouts', $floorLayouts )
                          ->with('disabled', $disabled)
-                        ->with( 'svgImages', $svgImages );
+                        ->with( 'svgImages', $svgImages )
+                        ->with( 'shadowImages', $shadowImages );
     }
 
     /**
