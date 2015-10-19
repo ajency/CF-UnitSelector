@@ -200,6 +200,16 @@ body a {
   font-size: 12px;
   color: #fe943e;
 }
+.btn-primary {
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+}
+.btn-primary:hover,
+.btn-primary.focus {
+  outline: none !important;
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+}
 .footer {
   font-size: 12px;
   color: white;
@@ -526,7 +536,7 @@ body a {
   padding: 0;
 }
 .contactModal p {
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 2px;
   color: #bcbcba;
 }
@@ -550,20 +560,11 @@ body a {
   margin-bottom: 15px;
   padding: 10px 0px 5px 0;
   border-bottom: 1px solid #d5d5d4;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
 }
 .contactModal .inputOuter input:focus {
   outline: none;
-}
-.contactModal .proceedBtn button {
-  background: #fe943e;
-  border: none;
-  color: #ffffff;
-  padding: 6px 30px 4px;
-  text-transform: uppercase;
-  font-size: 10px;
-  border-radius: 2px;
 }
 .contactModal .close {
   position: absolute;
@@ -601,14 +602,13 @@ body a {
 }
 .contactModal .help {
   text-transform: uppercase;
-  font-size: 9px;
+  font-size: 12px;
   margin-top: 15px;
   float: left;
   width: 100%;
 }
 .contactModal h5 {
   text-transform: uppercase;
-  font-size: 12px;
   margin-top: 3px;
   float: left;
   width: 100%;
@@ -616,7 +616,7 @@ body a {
 }
 .contactModal .developers {
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 12px;
   color: #bcbcba;
   margin-bottom: 20px;
 }
@@ -1001,8 +1001,8 @@ body a {
   top: 20px;
   right: 144px;
   overflow: hidden;
-  width: 370px;
-  height: 340px;
+  width: 420px;
+  height: 360px;
   padding: 6px;
   text-align: left;
   background: #fff;
@@ -1055,10 +1055,10 @@ body a {
 }
 .float-nav .toggle:after {
   content: 'Filter';
-  margin-left: 30px;
-  line-height: 2;
+  margin-left: 27px;
+  line-height: 1.8;
   color: #565654;
-  font-size: 18px;
+  font-size: 20px;
   text-transform: uppercase;
 }
 .float-nav.closed:hover .float-nav.closed .toggle {
@@ -1078,11 +1078,11 @@ body a {
   background: url(../../images/spriteNew.png) no-repeat;
   background-position: -18px -78px;
   z-index: 9999;
-  top: -10px;
-  -ms-transform: scale(0.5);
-      transform: scale(0.5);
-  -webkit-transform: scale(0.5);
-  left: -5px;
+  top: -1px;
+  -ms-transform: scale(0.6);
+      transform: scale(0.6);
+  -webkit-transform: scale(0.6);
+  left: 5px;
 }
 .float-nav ul {
   position: absolute;
@@ -1110,7 +1110,6 @@ body a {
   width: 100%;
 }
 .float-nav li h6 {
-  font-size: 9px;
   margin: 8px 0 0 0;
 }
 .float-nav.closed li {
@@ -1121,7 +1120,6 @@ body a {
 }
 .float-nav li.filterLiTop h5 {
   margin: 0;
-  font-size: 10px;
 }
 .float-nav li.filterLiTop h5 .filterHeader {
   color: #fe943e;
@@ -1136,8 +1134,8 @@ body a {
 }
 .float-nav li.filterCheckbox .row > div label {
   float: left;
-  font-size: 9px;
-  margin-top: 3px;
+  font-size: 12px;
+  margin-top: 0px;
   text-transform: uppercase;
   margin-left: 5px;
   font-weight: 200;
@@ -1196,7 +1194,7 @@ body a {
   border: none;
   background: #f6f6f6;
   width: 100%;
-  font-size: 10px;
+  font-size: 12px;
   border-bottom: 1px solid #bcbcba;
   padding: 5px;
 }

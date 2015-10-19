@@ -166,13 +166,13 @@
                        <div class="row">
                            <div class="col-sm-3">
                               <a href="#" class="sun-toggle btn btn-default btn-sm"> 
-                                    <i class="sunImg"></i>
-                                    <span class="sunText">Sun</span>
+                                    <i class="fa fa-sun-o"></i>
+                                    <span class="sunText text-uppercase">Sun</span>
                                </a>
                            </div>
                            <div class="col-sm-3 col-sm-offset-3">
                                 <div class="filterOuter">
-                                    <nav class="float-nav closed">
+                                    <nav class="float-nav closed" id="filters">
                                        <ul>
                                           <li class="filterLiTop">
                                              <h5 class="text-uppercase">Filters (<span class="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span class="filterHeader">Clear filters</span></h5>
@@ -373,9 +373,9 @@
                            </div>
                            <div class="col-sm-3">
                               <div class="pull-right text-center text-uppercase">            
-                                       <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#contactModal">
-                                       <span class="phoneImg"></span>
-                                       <span class="enquiryText">Contact Us</span>
+                                       <button type="button" class="btn btn-default btn-sm btn-primary" data-toggle="modal" data-target="#contactModal">
+                                       <i class="fa fa-phone"></i>
+                                       <span class="enquiryText text-uppercase">Contact Us</span>
                                        </button>
                               </div>
                            </div>
@@ -655,7 +655,7 @@
                                     <input type="text" placeholder="Mobile" />                      
                                  </div>
                                  <div class="p-0 col-lg-12 proceedBtn text-center">
-                                    <button class="button">Submit</button>
+                                    <button class="btn btn-primary btn-default text-uppercase">Submit</button>
                                  </div>
                               </div>
                            </div>
@@ -757,6 +757,10 @@
          autoHideScrollbar:true,
          theme:"rounded"
          });
+         $("#filters ul").mCustomScrollbar({
+          autoHideScrollbar:true,
+          theme:"rounded"
+        });
          
          });
          })(jQuery);
