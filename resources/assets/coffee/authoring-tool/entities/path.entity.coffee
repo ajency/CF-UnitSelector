@@ -25,6 +25,7 @@ class Path extends Backbone.Model
 
         # add additional class to identify shape
         path.addClass('path-type')
+        path.addClass(item.object_type+item.object_id)
 
         # set data attrib for primary breakpoint, if set
         if item.primary_breakpoint isnt null

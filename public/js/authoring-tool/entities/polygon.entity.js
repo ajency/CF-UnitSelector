@@ -41,6 +41,7 @@ Polygon = (function(superClass) {
       svgid: item.id
     });
     polygon.addClass('polygon-type');
+    polygon.addClass(item.object_type + item.object_id);
     if (item.primary_breakpoint !== null) {
       polygon.data('primary-breakpoint', item.primary_breakpoint);
     }

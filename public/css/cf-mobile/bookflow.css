@@ -95,20 +95,6 @@ body {
 .bookFlowContent .bookAptOuter > div:last-child {
   padding-right: 0px;
 }
-.bookFlowContent .bookAptOuter .bookApmt {
-  font-size: 14px;
-  font-weight: 600;
-  opacity: 0.9;
-  color: #fe943e;
-  margin-top: 12px;
-  float: left;
-}
-.bookFlowContent .bookAptOuter .flatNo {
-  color: #ffffff;
-  float: left;
-  margin-top: 11px;
-  margin-left: 5px;
-}
 .bookFlowContent .bookAptOuter i {
   font-size: 12px;
 }
@@ -137,6 +123,19 @@ body {
   text-decoration: none;
 }
 .bookFlowContent .bookAptOuter .priceSheet:focus {
+  outline: none;
+}
+.bookFlowContent .bookAptOuter .download {
+  color: #ffffff;
+  margin-left: 10px;
+  margin-top: 15px;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  outline: none;
+}
+.bookFlowContent .bookAptOuter .download:focus {
+  text-decoration: none;
   outline: none;
 }
 .bookFlowContent .bookAptOuter .booked {
@@ -583,7 +582,7 @@ body {
   margin-left: -15px;
 }
 .unitDetails i {
-  color: #333333 !important;
+  color: #fe943e !important;
 }
 .unitDetails > div {
   width: 20%;
@@ -655,6 +654,24 @@ body {
   margin: auto;
   display: table;
 }
+.successOuter .bookApmt {
+  font-size: 17px;
+  font-weight: 700;
+  color: #333333;
+  margin-top: 22px;
+  float: left;
+}
+.successOuter .flatNo {
+  color: #333333;
+  float: left;
+  margin-top: 22px;
+  margin-left: 5px;
+  font-size: 17px;
+  font-weight: 700;
+}
+.successOuter h5 {
+  color: #333333;
+}
 .successOuter .booked {
   background: #0eab08;
   color: #ffffff;
@@ -713,6 +730,10 @@ body {
 }
 .successOuter .bottomSection {
   margin-top: -2px;
+}
+.successOuter .cancelBookingOuter {
+  padding: 20px 0 0 0 ;
+  border-top: 1px solid #bcbcba;
 }
 .failureOuter {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
@@ -836,21 +857,40 @@ body {
   color: #fe943e !important;
 }
 .successContent .cancleText {
-  float: left;
-  font-size: 11px;
-  color: #bcbcba;
-  width: 70%;
+  float: right;
+  font-size: 12px;
+  width: 61%;
+}
+.successContent .note {
+  margin-top: 10px;
+  font-size: 12px;
 }
 .successContent .cancleBooking {
-  float: left;
-  width: 30%;
-  font-size: 11px;
-  background: #12acac;
+  float: right;
+  width: auto;
+  font-size: 10px;
+  background: #fe943e;
   color: #ffffff;
-  padding: 4px 2px;
+  padding: 6px 10px 4px 10px;
   text-align: center;
   text-decoration: none;
   border-radius: 3px;
   margin-top: 5px;
+  text-transform: uppercase;
+}
+.successContent .bookedUser > div:last-child {
+  margin-bottom: 20px;
+}
+.successContent .bookedUser .title {
+  font-size: 14px;
+  text-transform: capitalize;
+  width: 75px;
+  float: left;
+  line-height: 1.5;
+}
+.successContent .bookedUser .detail {
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.5;
 }
 /*# sourceMappingURL=bookflow.css.map */

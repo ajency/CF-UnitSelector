@@ -113,8 +113,11 @@ class ProjectGateway implements ProjectGatewayInterface {
             //$projectbuildings = array_merge($buildings,$projectbuildings);
             foreach($buildings as $building)
             {
+
                 $buildingData = \CommonFloor\Building :: find($building['id']);
-                
+                $primaryBreakpoint = \CommonFloor\SvgElement::where(['object_type'=>'building', 'object_id'=>$building['id']])->where( 'primary_breakpoint', '!=', 'null' )->pluck('primary_breakpoint');
+                $building['primary_breakpoint'] = $primaryBreakpoint;
+                 
                 if(!empty($unitIds))        //AGENT UNITS ASSIGNED
                 {
                    $buildingUnits = $buildingData->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
