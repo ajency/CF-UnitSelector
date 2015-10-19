@@ -1122,9 +1122,10 @@ jQuery(document).ready ($)->
         else 
             window.loadForm(object_type)  
 
-        # show primary breakpoint checked or not
-        if $(currentElem).data("primary-breakpoint") 
-            $('[name="check_primary"]').prop('checked', true)
+
+         # show primary breakpoint checked or not
+        if !(_.isNull $(currentElem).data("primary-breakpoint")) && !(_.isUndefined $(currentElem).data("primary-breakpoint"))
+            $('[name="check_primary"]').prop('checked', true)    
         
         # populate form
         if object_type is "amenity"
