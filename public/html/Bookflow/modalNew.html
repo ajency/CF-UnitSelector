@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CF-MOBILE</title>
+
+    <link href='../../css/cf-mobile/custom-big.css' rel='stylesheet'/>
+    <link href='../../css/cf-mobile/font-awesome.css' rel='stylesheet'/>
+
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <style type="text/css">
+    #overlay{position:absolute;top:0;left:0;height:100%;width:100%;background:black;opacity:0.7;z-index:1;}
+#msg{position:absolute;height:0;left:0;background:wheat;overflow:hidden;z-index:2;}
+
+.dd{height:30px;width:100px;margin:30px;padding-top:25px;border:1px solid orange;}
+.clickable{cursor:pointer;}
+  </style>
+  <body>
+
+  <div id="overlay"></div>
+<div id="msg">Click on me to minimize again</div>
+
+<div id="d1" class="dd clickable">Div One</div>
+<div id="d2" class="dd clickable">Div Two</div>
+<div id="d3" class="dd clickable">Div Three</div>
+<div id="d4" class="dd clickable">Div Four</div>
+
+<script src="../cf-mobile/js/jquery.min.js"></script>
+<script type="text/javascript">
+  /*
+http://stackoverflow.com/questions/29145391/expansion-and-contraction-of-div-on-click
+*/
+
+$('#overlay').hide(); //if overlay displayed, js is broken - here to aid testing
+
+var xx, yy, mPos = { x: -1, y: -1 }; //mouse position
+$(document).mousemove(function(event) {
+    mPos.x = event.pageX;
+    mPos.y = event.pageY;
+});
+
+$('.dd').click(function(){
+    xx = mPos.x;
+    yy = mPos.y;
+    $('#msg').css({top:mPos.y+'px',left:mPos.x+'px'}).animate({
+        height: '400px',
+        width: '500px',
+        left: $(window).width() / 3,
+        top: $(window).height() / 6
+    },500,function(){
+        //use a callback to show overlay ONLY when animation finished
+        $('#overlay').show(); 
+    });
+});
+$('#msg').click(function(){
+    $('#overlay').hide();
+    $('#msg').animate({
+        height: '0px',
+        width: '0px',
+        left: xx+'px',
+        top: yy+'px'
+    },500);
+});
+
+</script>
+  </body>
+  </html>
