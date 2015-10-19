@@ -523,6 +523,8 @@ def calc_total_sale_value(id, is_booked, price_sheet_id=None):
 				total_sale_value_lumpsump = 0.0
 				total_sale_value_percentage = 0.0
 				print unit_id
+				logging.info('unit_id')
+				logging.info(unit_id)
 				unit_extra_info = getUnitData(str(unit_id))
 				
 				if(price_sheet_components):
