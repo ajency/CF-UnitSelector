@@ -74,15 +74,16 @@ body
 	}
 }
 
-.content
+.bookFlowContent
 {
 	background:url(../../images/cf-mobile/Project-noshadow.jpg) no-repeat;
 	height:50%;
 	background-size:cover;
+	height:300px;
 	position:relative;
 	.absoluteLayout
 	{
-		height:280px;
+		height:300px;
 		width:100%;
 		background:rgba(0,0,0,0.5);
 		position:absolute;
@@ -100,6 +101,7 @@ body
 		font-weight: 300;	
 		margin-bottom:5px;	
 		margin-top:50px;	
+		text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 	}
 
 	.spanText
@@ -111,18 +113,35 @@ body
 	}
 	.bookAptOuter
 	{
-		width:750px;
+		width:950px;
 		margin:0 auto;
+		> div
+		{
+			&:first-child
+			{
+				margin-left:-15px;
+				padding-left:0;
+			}
+			&:last-child
+			{				
+				padding-right:0px;
+			}
+		}
 		.bookApmt
 		{
 			font-size: 14px;
 		    font-weight: 600;
 		    opacity: 0.9;
 		    color:@brand-primary;
+		    margin-top: 12px;
+    		float: left;
 		}
 		.flatNo
 		{
 			color:@white;
+		    float: left;
+		    margin-top: 11px;
+		    margin-left: 5px;
 		}
 		i
 		{
@@ -141,22 +160,76 @@ body
 		    width: 100%;
 		    padding-right: 26px;
 		}
+		.priceSheet
+		{
+			font-size: 10px;
+		    color: @white;
+		    text-transform: uppercase;
+		    background: rgba(0,0,0,0.5);
+		    padding: 3px 15px;
+		    border: 1px solid @white;
+		    border-radius: 3px;
+		    margin-top: 11px;
+		    float: left;
+		    margin-left: 10px;
+		    text-decoration:none;
+		    &:focus
+		    {
+		    	outline:none;
+		    }
+		}
+		.booked
+		{
+			background: @real-green;
+		    color: white;
+		    font-size: 10px;
+		    text-transform: uppercase;
+		    padding:3px 10px;
+		    float: right;
+		    margin-top: 12px;
+		    border-radius: 3px;
+		}
+		.priceOuter
+		{
+			width: 120px;
+    		float: right;
+    		&:first-child
+    		{
+    			.amount
+    			{
+    				margin-right:33px;
+    			}
+    			.totalPrice 
+    			{
+    				padding-right:0;
+    			}
+    		}	
+		}
+		.borderDiv
+		{
+			float: right;
+		    border: 1px solid @gray-light;
+		    height: 40px;		    
+		    margin-left: 20px;
+		    transform: rotate(25deg);
+		    -webkit-transform: rotate(25deg);
+		}
 	}
-	.absoluteAccordion
+	.panel-group
 	{
-		width:750px;
-		position:absolute;
-		left:50%;
-		margin-left:-375px;
-		top:185px;
-		background:@white;
 		.BoxShadow(0, 1px, 2px);
+		background:@white;
+		padding:0;		
+		width:950px;
+		float:none;
+		margin:auto;		
 	}
 	.panel-inner
 	{
-		max-width: 850px;
+		max-width: 950px;
 		margin: auto;
-	}
+		padding:10px 30px 30px;
+	}	
 
 	.panel
 	{
@@ -164,7 +237,7 @@ body
 		.BoxShadow(0, 0px, 0px);
 		border-radius:0;
 		border:none;
-		border-bottom:1px solid @gray-light;
+		border-bottom:none;
 		&:last-child
 		{
 			border-bottom:none;
@@ -174,9 +247,9 @@ body
 		{
 			font-family: 'Lato', sans-serif;
 			font-weight: 400;
-		}				
-		
-
+			font-size:12px;
+			text-transform:uppercase;
+		}						
 		.panel-heading
 		{
 			.BoxShadow(0, 0px, 0px);
@@ -188,15 +261,20 @@ body
 			&.active
 			{				
 				color:  @brand-primary;
+				a
+				{
+					border-bottom:1px solid  @brand-primary;
+				}
 			}
 
 			a
 			{
 				text-decoration: none;
-				font-size: 10px;
-				padding: 20px 15px 15px 15px;
+				font-size: 12px;
+				padding: 20px 0 15px 0;
 				display: block;
-				text-transform:uppercase
+				text-transform:uppercase;
+				border-bottom:1px solid @gray-light;
 			}
 		}		
 
@@ -225,16 +303,60 @@ body
 
 		.termsConditions
 		{
+			font-size:12px;
 			label
 			{
 				font-weight: 400;
-				font-size: 14px;
+				font-size: 12px;
+				margin-top:px;
 
-				input
-				{
-					float: left;
-					margin-right: 5px;
-				}
+			  input[type=checkbox] 
+		      {
+		        position:absolute;
+		        opacity:0;
+		        height:15px;
+		        width:20px;
+		        left:0;     
+		        margin-top:0;
+		        float:left;
+		        
+		      }
+		      .accept
+		      {
+		      	float:left;
+		      }
+		      label.checkboxLabel
+		      {
+		        height:15px;
+		        width:15px;
+		        background:none;
+		        border:2px solid @gray-lighter;
+		        text-align:center;
+		        margin-top: 0px !important;
+		        float:left;
+		        margin-right:5px;
+		      }     
+
+		      input[type=checkbox]:checked + label:before 
+		      {
+		          content: "\2714";
+		          text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+		          font-size: 15px;
+		          color: #f3f3f3;
+		          text-align: center;
+		          line-height: 15px;
+		          background:@teal;
+		          border: none;
+		          width: 15px;
+		          height:15px;
+		          font-weight: 400; 
+		          padding-top:2px;
+		          display:block;           
+		          border:2px solid rgba(0,0,0,0);  
+		          margin:-2px 0 0 -2px;  
+		          line-height: 0.8;
+		          font-size: 12px;
+		      }
 
 				a
 				{
@@ -262,17 +384,112 @@ body
 			{
 				float: left;
 				width: 100%;
-				padding: 10px;
-				border: 1px solid @lightBg;
+				padding: 10px 10px 5px 5px;
+				border:none;
+				border-bottom: 1px solid @lightBg;
 				margin-bottom: 20px;
 				font-weight: 400;
+				font-size:10px;
+				text-transform:uppercase;
+				&:focus
+				{
+					outline:none;
+				}
+			}
+			.btnOuter
+			{
+				margin-left:-15px;
+			}
+			
+		}
+		.btnOuter
+		{
+			padding:0;
+
+			button
+			{
+				font-size:10px;
+				border-radius:3px !important;
 				&:focus
 				{
 					outline:none;
 				}
 			}
 		}
+		.panel-body
+		{
+			border-top:none !important;
+		}
+		.plusMinusOuter
+		{
+
+			.plusMinusIcon
+			{
+				float: right;
+			    color: @gray;
+			    font-size: 18px;
+			    border: 1px solid @gray;
+			    padding: 2px;
+			    line-height: 0.6;
+			    border-radius: 3px;	
+			    height: 16px;
+    			width: 16px;
+    			text-align:center;
+			    &.minusIcon
+			    {
+			    	display:block;
+			    	line-height: 0.4;
+			    }	
+			    &.plusIcon
+			    {
+			    	display:none;
+			    }	    
+			}
+
+			&.collapsed 
+			{
+				.plusMinusIcon
+				{
+					&.minusIcon
+				    {
+				    	display:none;
+				    }
+				    &.plusIcon
+				    {
+				    	display:block;
+				    }
+				}
+			}	
+		}
+		
 	}	
+	.bottomSection
+	{
+		background: @gray-lightest;
+	    float: left;
+	    padding: 30px 0;
+	    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+	    width:950px;
+	    > div
+	    {
+	    	&:first-child
+	    	{
+	    		border-right:1px solid @gray-lighter;
+	    	}
+	    }
+	    .rightContent
+	    {
+	    	h5
+	    	{
+	    		font-weight:700;
+	    		margin-bottom: 5px;
+	    	}
+	    	p
+	    	{
+	    		font-size:11px;
+	    	}
+	    }
+	}
 }
 .BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: rgba(0,0,0,0.3)) {
 	box-shadow: @arguments;
@@ -369,7 +586,18 @@ body
 	font-weight:700;
 	color:@textColor;
 	padding:0 !important;
-	padding-top:15px !important;
+	padding-top:25px !important;
+	font-size:12px;
+	text-transform:uppercase;
+	margin-left:-15px;
+	i
+	{
+		color:@textColor !important;
+	}
+	> div
+	{
+		width:20%;
+	}
 	a
 	{
 		color:@brand-primary;
@@ -386,6 +614,14 @@ body
 .titleDetails
 {
 	padding:0 !important;
+	font-size:11px;
+	text-transform:uppercase;
+	margin-left:-15px;
+	margin-bottom:25px;
+	> div
+	{
+		width:20%;
+	}
 }
 .bookingFlow
 {
@@ -451,10 +687,13 @@ body
 }
 .successOuter
 {
-	box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+	
     padding: 15px;
     color:@gray;
     font-size:12px;
+    width:950px;
+    margin:auto;
+    display:table;
     .booked
     {
     	background: @real-green;
@@ -492,8 +731,12 @@ body
     .unitDetails
     {
     	border:none;
-    	font-weight:800;
+    	font-weight:600;
     	padding:0;
+    	> div
+    	{
+    		width:20%;
+    	}
     }
     .cancleBooking
     {
@@ -503,9 +746,12 @@ body
     	color:@white;
     	border:none;
     	float:right;
-    	&:focus
+    	text-decoration:none;
+    	&:focus, &:hover
     	{
     		outline:none;
+    		color:@white;
+    		text-decoration:none;
     	}
     }
     i
@@ -513,7 +759,10 @@ body
     	color:@real-blue;
     	margin-right:4px;
     }
-
+    .bottomSection
+	{
+		margin-top: -2px;
+	}
 }
 .failureOuter
 {
@@ -611,4 +860,77 @@ body
 
     }
 
+}
+.bookingFooter
+{	
+    text-align: center;
+    float:left;
+    width: 100%;
+    margin-top:40px;
+    margin-bottom:20px;
+    a
+    {
+    	font-size: 12px;	    
+	    color: @gray-darker;
+	    text-decoration: none;
+	    outline: none;
+	    &:hover
+	    {
+	    	color:@gray-darker;
+	    	text-decoration:none;
+	    }
+    }
+    .privacyOuter
+    {
+    	font-size: 12px;
+
+    	a
+    	{
+    		margin:0 5px;
+    		text-decoration:none;
+    	}
+    }
+}
+.successContent
+{
+	padding:20px;
+	background:@white;
+	.BoxShadow(0, -2px, 2px);
+	width:950px;
+	.reviewDetails
+	{
+		> div 
+		{
+			&:first-child
+			{
+				border-bottom:1px solid @gray-light;
+				margin-bottom:15px;
+			}
+		}
+		
+	}
+	.unitName
+	{
+		color:@brand-primary !important;
+	}
+	.cancleText
+	{
+		float: left;
+	    font-size: 11px;
+	    color: @gray-light;
+	    width: 70%;
+	}
+	.cancleBooking
+	{
+		float: left;
+	    width: 30%;
+	    font-size: 11px;
+	    background: @teal;
+	    color: @white;
+	    padding: 4px 2px;
+	    text-align: center;
+	    text-decoration: none;
+	    border-radius: 3px;
+	    margin-top: 5px;
+	}	
 }
