@@ -246,7 +246,11 @@ var ProjectMaster = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
     },
 
-    rotateImage: function(rotateToBreakpoint){
+    rotateImage: function(unitData){
+
+        rotateToBreakpoint = unitData.primary_breakpoint;
+        unitId = unitData.id;
+        
         // hide svg area
 
         // update chosen breakpoint to primary breakpoint of tower of current slide
@@ -259,6 +263,9 @@ var ProjectMaster = React.createClass({
 
         chosenBreakPoint = this.state.data.chosenBreakpoint
         spinApi.playTo(chosenBreakPoint);
+
+        // show tooltip for respective tower 
+
     },
 
     render: function(){

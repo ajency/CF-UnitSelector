@@ -42,9 +42,7 @@ var CardList = React.createClass({
 
       building = _.findWhere(buildings, {id: towerId});
 
-      primaryBreakPoint = building.primary_breakpoint;
-
-      this.props.rotateImage(primaryBreakPoint);
+      this.props.rotateImage(building);
         
     },
 
