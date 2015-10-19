@@ -190,6 +190,7 @@ class SvgController extends Controller {
         	$svgbreakpointUpdate = SvgController::unset_primary_breakpoint($request['object_id'],$request['object_type'],$request['primary_breakpoint']);
 
         	if ($svgbreakpointUpdate) {
+        		
         		$svgElement->primary_breakpoint = $request['primary_breakpoint'];
         	}
         	
