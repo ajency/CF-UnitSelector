@@ -7,6 +7,7 @@ var CardView = React.createClass({
 
     render: function() {
         var buildingData = this.props.building;
+        var buildingId = buildingData.id;
         var isFilterApplied = this.props.isFilterApplied;
         var unitData = [];
         var noOfFloors = 0;
@@ -92,7 +93,7 @@ var CardView = React.createClass({
         
         return (
                 
-                    <div className={cardClasses}>
+                    <div className={cardClasses} data-unitid={buildingId}>
 
                         <div className="row">
                             <div className="col-xs-12">

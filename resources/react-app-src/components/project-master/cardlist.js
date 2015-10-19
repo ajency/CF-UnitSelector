@@ -34,6 +34,20 @@ var CardList = React.createClass({
 
     mixins: [PureRenderMixin],
 
+    swipeCard: function(event, slick, direction){
+      towerId = $(event.currentTarget).find(".slick-center").children( ".card-swipe" ).data("unitid");
+      towerId = parseInt(towerId);
+
+      buildings = this.props.buildings;
+
+      building = _.findWhere(buildings, {id: towerId});
+
+      primaryBreakPoint = building.primary_breakpoint;
+
+      this.props.rotateImage(primaryBreakPoint);
+        
+    },
+
     componentWillUnmount: function(){
         
         var $sliderContainer = $(this.refs.sliderContainer);
@@ -64,13 +78,7 @@ var CardList = React.createClass({
         }
 
         // On swipe event
-        $sliderContainer.on('swipe', function(event, slick, direction){
-          console.log("swipee");
-          // console.log(event);
-          // console.log(slick);
-          // console.log(direction);
-          // left
-        });
+        $sliderContainer.on('swipe', this.swipeCard);
 
 
            

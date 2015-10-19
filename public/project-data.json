@@ -119,7 +119,8 @@
         "breakpoints": [],
         "abbrevation": "",
         "has_master": "no",
-        "floor_rise": 123456
+        "floor_rise": 123456,
+        "primary_breakpoint": 1
       },
       {
         "id": 3,
@@ -133,7 +134,8 @@
         "breakpoints": [],
         "abbrevation": "",
         "has_master": "no",
-        "floor_rise": 332244
+        "floor_rise": 332244,
+        "primary_breakpoint": 14
       },
       {
         "id": 4,
@@ -147,7 +149,8 @@
         "breakpoints": [],
         "abbrevation": "",
         "has_master": "no",
-        "floor_rise": 432132
+        "floor_rise": 432132,
+        "primary_breakpoint": 14
       },
       {
         "id": 5,
@@ -161,7 +164,8 @@
         "breakpoints": [],
         "abbrevation": "",
         "has_master": "no",
-        "floor_rise": 65432
+        "floor_rise": 65432,
+        "primary_breakpoint": 14
       },
       {
         "id": 6,
@@ -175,7 +179,8 @@
         "breakpoints": [],
         "abbrevation": "",
         "has_master": "no",
-        "floor_rise": 433443
+        "floor_rise": 433443,
+        "primary_breakpoint": 44
       }
     ],
     "bunglow_variants": [],
