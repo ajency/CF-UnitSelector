@@ -711,6 +711,9 @@ section {
   vertical-align: baseline;
   background: transparent;
 }
+.clear {
+  clear: both;
+}
 .fit {
   /* set relative picture size */
   max-width: 100%;
@@ -766,6 +769,22 @@ section {
 div#spritespin {
   width: 100% !important;
   height: 100% !important;
+}
+.footer {
+  font-size: 14px;
+  color: #ffffff;
+  position: absolute;
+  bottom: 10px;
+  z-index: 1;
+  right: 25px;
+  text-align: right;
+}
+.footer .primary-txt {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+.footer a {
+  font-size: 14px;
+  color: #ffffff;
 }
 .tabHeader {
   position: fixed;
