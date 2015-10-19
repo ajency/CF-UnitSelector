@@ -198,13 +198,16 @@ def getUnitInfo(unit_id):
 	try:
 		response = urllib2.urlopen(request)
 		response_json = json.load(response)
+		print '9900'
 	except urllib2.URLError as e:
 		print 'getUnitInfo Error => ' +e.reason 
 		result = {}
 		result['error']=True
 		result['error_message']= 'getUnitInfo Error => ' + e.reason
+		print '7700'
 		return result
 
+	print response_json
 	return response_json
 
 def updateUnitInfoStatus(unit_id, unit_status):
