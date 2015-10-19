@@ -193,22 +193,18 @@ def getUnitInfo(unit_id):
 	unitSummary = constants.UNIT_SUMMARY_URL
 
 	sender_url = unitSummary + unit_id
-	print sender_url
 	request = urllib2.Request(sender_url)
 	request.add_header('X-Authorization', authKey)
 	try:
 		response = urllib2.urlopen(request)
 		response_json = json.load(response)
-		print '9900'
 	except urllib2.URLError as e:
 		print 'getUnitInfo Error => ' +e.reason 
 		result = {}
 		result['error']=True
 		result['error_message']= 'getUnitInfo Error => ' + e.reason
-		print '7700'
 		return result
 
-	print response_json
 	return response_json
 
 def updateUnitInfoStatus(unit_id, unit_status):
