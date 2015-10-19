@@ -7,7 +7,9 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, del, dfn, em, 
   vertical-align:baseline;
   background:transparent;
 }
-
+.clear{
+  clear:both;
+}
  .fit { /* set relative picture size */
     max-width: 100%;
     max-height: 100%;
@@ -67,3 +69,23 @@ div#spritespin {
     width: 100% !important;
     height: 100% !important;
 }
+ .footer
+  {
+    font-size: 14px;
+    color: @white;
+    position: absolute;
+    bottom: 10px;
+    z-index: 1;
+    right: 25px;
+    text-align: right;
+    .primary-txt
+    {
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+    }
+    a
+    {
+      font-size: 14px;
+      color: @white;
+    }
+
+  }
