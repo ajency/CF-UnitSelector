@@ -859,12 +859,10 @@ body {
 .successContent .cancleText {
   float: right;
   font-size: 12px;
-  color: #bcbcba;
   width: 61%;
 }
 .successContent .note {
   margin-top: 10px;
-  color: #bcbcba;
   font-size: 12px;
 }
 .successContent .cancleBooking {
