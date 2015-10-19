@@ -246,6 +246,21 @@ var ProjectMaster = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
     },
 
+    rotateImage: function(rotateToBreakpoint){
+        // hide svg area
+
+        // update chosen breakpoint to primary breakpoint of tower of current slide
+        this.updateChosenBreakPoint(rotateToBreakpoint);
+
+
+        // move sprite spin to the chosen breakpoint
+        spinDom = $(ReactDOM.findDOMNode(this.refs.imageContainer)).find("#spritespin");
+        spinApi = spinDom.spritespin("api");
+
+        chosenBreakPoint = this.state.data.chosenBreakpoint
+        spinApi.playTo(chosenBreakPoint);
+    },
+
     render: function(){
         console.log("project master re renders");
         var data = this.state.data;
@@ -291,6 +306,7 @@ var ProjectMaster = React.createClass({
                 ref = "cardList"
                 buildings={buildings}
                 isFilterApplied = {isFilterApplied}
+                rotateImage = {this.rotateImage}
             />
             </div>
 
