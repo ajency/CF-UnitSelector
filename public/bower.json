@@ -70,7 +70,8 @@
     "jquery-bridget": "~1.1.0",
     "jquery.event.drag-new": "*",
     "jquery-magnificent": "~2.0.0",
-    "slick-carousel": "~1.5.8"
+    "slick-carousel": "~1.5.8",
+    "qtip2": "~2.2.1"
   },
   "resolutions": {
     "underscore": "~1.8.2",

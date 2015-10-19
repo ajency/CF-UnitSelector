@@ -1,7 +1,5 @@
 @import 'var';
 
-@baseColor: #fff;
-@brandColor: #FE943E;
 @textColor: #333;
 @lightText: #999;
 @gPlusGradient: #e57f79;
@@ -25,21 +23,24 @@
 		outline:none;
 	}
 }
-.btnOrange
+.btn-primary
 {
-	background: @brandColor;
-	color: @baseColor;
+	background: @brand-primary !important;
+	border:1px solid @brand-primary !important;
+	color: @white;
+	border-radius:3px !important;
 
 	&:hover, &:focus
 	{
-		background: darken(@brandColor, 10%);
-		color: @baseColor !important;
+		background: darken(@brand-primary, 10%) !important;
+		color: @white !important;
+		border:1px solid @brand-primary !important;
 		outline:none;
 	}
 }
 .orangeText
 {
-	color: @brandColor !important;
+	color: @brand-primary !important;
 }
 
 *
@@ -57,7 +58,7 @@ body
 
 .header
 {
-	background: linear-gradient(to bottom, @brandColor 0, darken(@brandColor, 12%) 100%);
+	background: linear-gradient(to bottom, @brand-primary 0, darken(@brand-primary, 12%) 100%);
 	.BoxShadow(1px, 1px);
 	position: fixed;
 	z-index: 999;
@@ -66,7 +67,7 @@ body
 
 	h3
 	{
-		color: @baseColor;
+		color: @white;
 		font-size: 30px;
 		.TextShadow(2px, 2px);
 		font-family: 'Lato', sans-serif;
@@ -107,13 +108,13 @@ body
 	.spanText
 	{
 		color: @gray-lighter;
-		font-size: 10px;
+		font-size: 12px;
     	text-transform: uppercase;
     	margin-bottom:50px;
 	}
 	.bookAptOuter
 	{
-		width:950px;
+		
 		margin:0 auto;
 		> div
 		{
@@ -130,19 +131,25 @@ body
 		i
 		{
 			font-size:12px;
+			float: left;
+    		margin-top: 2px;
+    		margin-left: 20px;
 		}
 		.amount
 		{
 			color: @white;
     		margin-left: 10px;
+    		float: left;
+		    margin-bottom: 0;
+		    margin-top: 0;
 		}
 		.totalPrice
 		{
-			font-size: 8px;
+			font-size: 10px;
 		    color: @white;
 		    float: left;
 		    width: 100%;
-		    padding-right: 26px;
+		    padding-right: 51px;
 		}
 		.priceSheet
 		{
@@ -190,7 +197,7 @@ body
 		}
 		.priceOuter
 		{
-			width: 120px;
+			width: 140px;
     		float: right;
     		&:first-child
     		{
@@ -200,7 +207,7 @@ body
     			}
     			.totalPrice 
     			{
-    				padding-right:0;
+    				padding-right:0px;
     			}
     		}	
 		}
@@ -213,19 +220,27 @@ body
 		    transform: rotate(25deg);
 		    -webkit-transform: rotate(25deg);
 		}
+		.bookApmt
+		{				    
+		    color:@white;		    
+		}
+		.flatNo
+		{
+			color:@white;		    
+		}
 	}
 	.panel-group
 	{
 		.BoxShadow(0, 1px, 2px);
 		background:@white;
 		padding:0;		
-		width:950px;
+		
 		float:none;
 		margin:auto;		
 	}
 	.panel-inner
 	{
-		max-width: 950px;
+		
 		margin: auto;
 		padding:10px 30px 30px;
 	}	
@@ -302,12 +317,12 @@ body
 
 		.termsConditions
 		{
-			font-size:12px;
+			font-size:16px;
 			label
 			{
 				font-weight: 400;
 				font-size: 12px;
-				margin-top:px;
+				margin-top:10px;
 
 			  input[type=checkbox] 
 		      {
@@ -359,7 +374,7 @@ body
 
 				a
 				{
-					color: @brandColor;
+					color: @brand-primary;
 				}
 			}
 		}
@@ -374,6 +389,7 @@ body
 
 		.personalDetails
 		{
+			padding:0;
 			label
 			{
 				float: left;
@@ -388,32 +404,21 @@ body
 				border-bottom: 1px solid @lightBg;
 				margin-bottom: 20px;
 				font-weight: 400;
-				font-size:10px;
+				font-size:12px;
 				text-transform:uppercase;
 				&:focus
 				{
 					outline:none;
 				}
-			}
-			.btnOuter
-			{
-				margin-left:-15px;
-			}
+			}			
 			
 		}
 		.btnOuter
 		{
-			padding:0;
-
 			button
 			{
-				font-size:10px;
-				border-radius:3px !important;
-				&:focus
-				{
-					outline:none;
-				}
-			}
+				margin-top:25px;
+			}		
 		}
 		.panel-body
 		{
@@ -467,8 +472,9 @@ body
 		background: @gray-lightest;
 	    float: left;
 	    padding: 30px 0;
+	    width:100%;
 	    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
-	    width:950px;
+	   
 	    > div
 	    {
 	    	&:first-child
@@ -507,74 +513,10 @@ body
 	-moz-border-radius:    @radius;
 	border-radius:         @radius;
 }
-@iterations: 35;
 
-.marginTop-loop (@i) when (@i >= 0) {
-    .mT@{i} {
-        margin-top: ~"@{i}px";
-    }
-    .marginTop-loop(@i - 5);
-}
-.marginTop-loop (@iterations);
-
-.marginBottom-loop (@i) when (@i >= 0) {
-    .mB@{i} {
-        margin-bottom: ~"@{i}px";
-    }
-    .marginBottom-loop(@i - 5);
-}
-.marginBottom-loop (@iterations);
-
-.marginLeft-loop (@i) when (@i >= 0) {
-    .mL@{i} {
-        margin-left: ~"@{i}px";
-    }
-    .marginLeft-loop(@i - 5);
-}
-.marginLeft-loop (@iterations);
-
-.marginRight-loop (@i) when (@i >= 0) {
-    .mR@{i} {
-        margin-right: ~"@{i}px";
-    }
-    .marginRight-loop(@i - 5);
-}
-.marginRight-loop (@iterations);
-
-.paddingTop-loop (@i) when (@i >= 0) {
-    .pT@{i} {
-        padding-top: ~"@{i}px";
-    }
-    .paddingTop-loop(@i - 5);
-}
-.paddingTop-loop (@iterations);
-
-.paddingBottom-loop (@i) when (@i >= 0) {
-    .pB@{i} {
-        padding-bottom: ~"@{i}px";
-    }
-    .paddingBottom-loop(@i - 5);
-}
-.paddingBottom-loop (@iterations);
-
-.paddingLeft-loop (@i) when (@i >= 0) {
-    .pL@{i} {
-        padding-left: ~"@{i}px";
-    }
-    .paddingLeft-loop(@i - 5);
-}
-.paddingLeft-loop (@iterations);
-
-.paddingRight-loop (@i) when (@i >= 0) {
-    .pR@{i} {
-        padding-right: ~"@{i}px";
-    }
-    .paddingRight-loop(@i - 5);
-}
-.paddingRight-loop (@iterations);
 .accordion 
 {
-	max-width:850px;
+	max-width:100%;
 }
 .unitName
 {
@@ -591,7 +533,7 @@ body
 	margin-left:-15px;
 	i
 	{
-		color:@textColor !important;
+		color:@brand-primary !important;
 	}
 	> div
 	{
@@ -690,7 +632,7 @@ body
     padding: 15px;
     color:@gray;
     font-size:12px;
-    width:950px;
+   
     margin:auto;
     display:table;
     .bookApmt
@@ -921,7 +863,7 @@ body
 	padding:20px;
 	background:@white;
 	.BoxShadow(0, -2px, 2px);
-	width:950px;
+	
 	.reviewDetails
 	{
 		> div 

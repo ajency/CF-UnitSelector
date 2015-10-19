@@ -11,14 +11,17 @@
 .btn:focus {
   outline: none;
 }
-.btnOrange {
-  background: #fe943e;
+.btn-primary {
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
   color: #ffffff;
+  border-radius: 3px !important;
 }
-.btnOrange:hover,
-.btnOrange:focus {
-  background: #fe780b;
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #fe780b !important;
   color: #ffffff !important;
+  border: 1px solid #fe943e !important;
   outline: none;
 }
 .orangeText {
@@ -80,12 +83,11 @@ body {
 }
 .bookFlowContent .spanText {
   color: #d5d5d4;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
   margin-bottom: 50px;
 }
 .bookFlowContent .bookAptOuter {
-  width: 950px;
   margin: 0 auto;
 }
 .bookFlowContent .bookAptOuter > div:first-child {
@@ -97,17 +99,23 @@ body {
 }
 .bookFlowContent .bookAptOuter i {
   font-size: 12px;
+  float: left;
+  margin-top: 2px;
+  margin-left: 20px;
 }
 .bookFlowContent .bookAptOuter .amount {
   color: #ffffff;
   margin-left: 10px;
+  float: left;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 .bookFlowContent .bookAptOuter .totalPrice {
-  font-size: 8px;
+  font-size: 10px;
   color: #ffffff;
   float: left;
   width: 100%;
-  padding-right: 26px;
+  padding-right: 51px;
 }
 .bookFlowContent .bookAptOuter .priceSheet {
   font-size: 10px;
@@ -149,14 +157,14 @@ body {
   border-radius: 3px;
 }
 .bookFlowContent .bookAptOuter .priceOuter {
-  width: 120px;
+  width: 140px;
   float: right;
 }
 .bookFlowContent .bookAptOuter .priceOuter:first-child .amount {
   margin-right: 33px;
 }
 .bookFlowContent .bookAptOuter .priceOuter:first-child .totalPrice {
-  padding-right: 0;
+  padding-right: 0px;
 }
 .bookFlowContent .bookAptOuter .borderDiv {
   float: right;
@@ -167,18 +175,22 @@ body {
       transform: rotate(25deg);
   -webkit-transform: rotate(25deg);
 }
+.bookFlowContent .bookAptOuter .bookApmt {
+  color: #ffffff;
+}
+.bookFlowContent .bookAptOuter .flatNo {
+  color: #ffffff;
+}
 .bookFlowContent .panel-group {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   background: #ffffff;
   padding: 0;
-  width: 950px;
   float: none;
   margin: auto;
 }
 .bookFlowContent .panel-inner {
-  max-width: 950px;
   margin: auto;
   padding: 10px 30px 30px;
 }
@@ -238,12 +250,12 @@ body {
   font-weight: 700;
 }
 .bookFlowContent .panel .termsConditions {
-  font-size: 12px;
+  font-size: 16px;
 }
 .bookFlowContent .panel .termsConditions label {
   font-weight: 400;
   font-size: 12px;
-  margin-top: px;
+  margin-top: 10px;
 }
 .bookFlowContent .panel .termsConditions label input[type=checkbox] {
   position: absolute;
@@ -295,6 +307,9 @@ body {
   border: 1px solid #fcf8e3;
   color: #8a6d3b;
 }
+.bookFlowContent .panel .personalDetails {
+  padding: 0;
+}
 .bookFlowContent .panel .personalDetails label {
   float: left;
   width: 100%;
@@ -309,25 +324,15 @@ body {
   border-bottom: 1px solid #edeef0;
   margin-bottom: 20px;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
 }
 .bookFlowContent .panel .personalDetails input:focus,
 .bookFlowContent .panel .personalDetails select:focus {
   outline: none;
 }
-.bookFlowContent .panel .personalDetails .btnOuter {
-  margin-left: -15px;
-}
-.bookFlowContent .panel .btnOuter {
-  padding: 0;
-}
 .bookFlowContent .panel .btnOuter button {
-  font-size: 10px;
-  border-radius: 3px !important;
-}
-.bookFlowContent .panel .btnOuter button:focus {
-  outline: none;
+  margin-top: 25px;
 }
 .bookFlowContent .panel .panel-body {
   border-top: none !important;
@@ -361,8 +366,8 @@ body {
   background: #f6f6f6;
   float: left;
   padding: 30px 0;
+  width: 100%;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
-  width: 950px;
 }
 .bookFlowContent .bottomSection > div:first-child {
   border-right: 1px solid #d5d5d4;
@@ -374,200 +379,8 @@ body {
 .bookFlowContent .bottomSection .rightContent p {
   font-size: 11px;
 }
-.mT35 {
-  margin-top: 35px;
-}
-.mT30 {
-  margin-top: 30px;
-}
-.mT25 {
-  margin-top: 25px;
-}
-.mT20 {
-  margin-top: 20px;
-}
-.mT15 {
-  margin-top: 15px;
-}
-.mT10 {
-  margin-top: 10px;
-}
-.mT5 {
-  margin-top: 5px;
-}
-.mT0 {
-  margin-top: 0px;
-}
-.mB35 {
-  margin-bottom: 35px;
-}
-.mB30 {
-  margin-bottom: 30px;
-}
-.mB25 {
-  margin-bottom: 25px;
-}
-.mB20 {
-  margin-bottom: 20px;
-}
-.mB15 {
-  margin-bottom: 15px;
-}
-.mB10 {
-  margin-bottom: 10px;
-}
-.mB5 {
-  margin-bottom: 5px;
-}
-.mB0 {
-  margin-bottom: 0px;
-}
-.mL35 {
-  margin-left: 35px;
-}
-.mL30 {
-  margin-left: 30px;
-}
-.mL25 {
-  margin-left: 25px;
-}
-.mL20 {
-  margin-left: 20px;
-}
-.mL15 {
-  margin-left: 15px;
-}
-.mL10 {
-  margin-left: 10px;
-}
-.mL5 {
-  margin-left: 5px;
-}
-.mL0 {
-  margin-left: 0px;
-}
-.mR35 {
-  margin-right: 35px;
-}
-.mR30 {
-  margin-right: 30px;
-}
-.mR25 {
-  margin-right: 25px;
-}
-.mR20 {
-  margin-right: 20px;
-}
-.mR15 {
-  margin-right: 15px;
-}
-.mR10 {
-  margin-right: 10px;
-}
-.mR5 {
-  margin-right: 5px;
-}
-.mR0 {
-  margin-right: 0px;
-}
-.pT35 {
-  padding-top: 35px;
-}
-.pT30 {
-  padding-top: 30px;
-}
-.pT25 {
-  padding-top: 25px;
-}
-.pT20 {
-  padding-top: 20px;
-}
-.pT15 {
-  padding-top: 15px;
-}
-.pT10 {
-  padding-top: 10px;
-}
-.pT5 {
-  padding-top: 5px;
-}
-.pT0 {
-  padding-top: 0px;
-}
-.pB35 {
-  padding-bottom: 35px;
-}
-.pB30 {
-  padding-bottom: 30px;
-}
-.pB25 {
-  padding-bottom: 25px;
-}
-.pB20 {
-  padding-bottom: 20px;
-}
-.pB15 {
-  padding-bottom: 15px;
-}
-.pB10 {
-  padding-bottom: 10px;
-}
-.pB5 {
-  padding-bottom: 5px;
-}
-.pB0 {
-  padding-bottom: 0px;
-}
-.pL35 {
-  padding-left: 35px;
-}
-.pL30 {
-  padding-left: 30px;
-}
-.pL25 {
-  padding-left: 25px;
-}
-.pL20 {
-  padding-left: 20px;
-}
-.pL15 {
-  padding-left: 15px;
-}
-.pL10 {
-  padding-left: 10px;
-}
-.pL5 {
-  padding-left: 5px;
-}
-.pL0 {
-  padding-left: 0px;
-}
-.pR35 {
-  padding-right: 35px;
-}
-.pR30 {
-  padding-right: 30px;
-}
-.pR25 {
-  padding-right: 25px;
-}
-.pR20 {
-  padding-right: 20px;
-}
-.pR15 {
-  padding-right: 15px;
-}
-.pR10 {
-  padding-right: 10px;
-}
-.pR5 {
-  padding-right: 5px;
-}
-.pR0 {
-  padding-right: 0px;
-}
 .accordion {
-  max-width: 850px;
+  max-width: 100%;
 }
 .unitName {
   color: #333333 !important;
@@ -582,7 +395,7 @@ body {
   margin-left: -15px;
 }
 .unitDetails i {
-  color: #333333 !important;
+  color: #fe943e !important;
 }
 .unitDetails > div {
   width: 20%;
@@ -650,7 +463,6 @@ body {
   padding: 15px;
   color: #7d7c7a;
   font-size: 12px;
-  width: 950px;
   margin: auto;
   display: table;
 }
@@ -847,7 +659,6 @@ body {
   box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
-  width: 950px;
 }
 .successContent .reviewDetails > div:first-child {
   border-bottom: 1px solid #bcbcba;

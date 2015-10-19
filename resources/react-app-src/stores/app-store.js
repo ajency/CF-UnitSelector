@@ -423,13 +423,17 @@ function getFilteredProjectMasterData(){
 
 	// get primary breakpoint for the unit to be higlighted
 	breakpoints = newProjectData.breakpoints;
+	newChosenBreakpoint = buildingToHighlight.primary_breakpoint;
+	newProjectData.chosenBreakpoint = newChosenBreakpoint;
 
-	chosenBreakpointIndex = _.indexOf(breakpoints , newProjectData.chosenBreakpoint);
+	// chosenBreakpointIndex = _.indexOf(breakpoints , newProjectData.chosenBreakpoint);
 
-	newChosenBreakpointIndex = chosenBreakpointIndex+1;
+	// newChosenBreakpointIndex = chosenBreakpointIndex+1;
 
-	if(newChosenBreakpointIndex >= breakpoints.length)
-		newChosenBreakpointIndex = 0;
+	// if(newChosenBreakpointIndex >= breakpoints.length)
+	// 	newChosenBreakpointIndex = 0;
+
+
 
 	newProjectData.chosenBreakpoint = breakpoints[newChosenBreakpointIndex];
 

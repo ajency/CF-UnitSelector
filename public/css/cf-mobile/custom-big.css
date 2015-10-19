@@ -94,6 +94,9 @@ section {
   vertical-align: baseline;
   background: transparent;
 }
+.clear {
+  clear: both;
+}
 .fit {
   /* set relative picture size */
   max-width: 100%;
@@ -150,6 +153,22 @@ div#spritespin {
   width: 100% !important;
   height: 100% !important;
 }
+.footer {
+  font-size: 14px;
+  color: #ffffff;
+  position: absolute;
+  bottom: 10px;
+  z-index: 1;
+  right: 25px;
+  text-align: right;
+}
+.footer .primary-txt {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+.footer a {
+  font-size: 14px;
+  color: #ffffff;
+}
 body {
   -webkit-text-size-adjust: none;
   font-family: sans-serif;
@@ -181,19 +200,29 @@ body a {
   font-size: 12px;
   color: #fe943e;
 }
+.btn-primary {
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+}
+.btn-primary:hover,
+.btn-primary.focus {
+  outline: none !important;
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+}
 .footer {
   font-size: 12px;
-  color: #373737;
+  color: white;
   position: absolute;
   bottom: 10px;
 }
 .footer a {
   font-size: 12px;
-  color: #373737;
+  color: white;
 }
 .footer a:focus,
 .footer a:hover {
-  color: #373737;
+  color: #ccc;
 }
 .card-swipe {
   font-size: 12px;
@@ -349,14 +378,15 @@ body a {
 .highlight .swipe-footer .arrow a {
   background: #fe943e;
 }
-.mCustomScrollbar {
-  margin-top: 20px;
-  float: left;
+#content-1 {
+  margin-top: 15%;
   width: 100%;
+  height: 80% !important;
+  clear: both;
 }
 .sidebar-nav li {
   border: 1px solid #d5d5d4;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .navbar-header {
   color: white;
@@ -458,17 +488,16 @@ body a {
   margin: auto;
   display: inline-block;
   margin-top: 30px;
+  font-size: 12px;
 }
 .messageBoxDesk .tip {
   float: left;
   padding: 10px;
   background: rgba(0, 0, 0, 0.5);
-  font-size: 11px;
 }
 .messageBoxDesk .message {
   float: left;
   padding: 11px 9px 9px 9px;
-  font-size: 11px;
   text-transform: capitalize;
 }
 .messageBoxDesk a {
@@ -476,7 +505,6 @@ body a {
   margin: 0 0 0 30px;
   color: #ffffff;
   text-decoration: none;
-  font-size: 9px;
   outline: none;
 }
 .messageBoxDesk a:focus,
@@ -485,49 +513,8 @@ body a {
   text-decoration: none;
   outline: none;
 }
-.contactForm {
-  position: absolute;
-  z-index: 99;
-  right: 0px;
-  top: 3px;
-  float: left;
-}
-.contactForm .callUs {
-  font-size: 8px;
-  display: block;
-  margin-bottom: 10px;
-}
-.contactForm button {
-  background: #fe943e;
-  color: #ffffff;
-  border: none;
-  border-radius: 3px;
-  font-size: 8px;
-  padding: 0px 7px 0px 0px;
-  text-transform: uppercase;
-  height: 23px;
-}
-.contactForm button:focus {
-  outline: none;
-}
-.contactForm button i {
-  margin-right: 5px;
-}
-.contactForm button .phoneImg {
-  height: 31px;
-  width: 31px;
-  background: url(../../images/phoneIcon.png) no-repeat;
-  float: left;
-  -ms-transform: scale(0.6);
-      transform: scale(0.6);
-  -webkit-transform: scale(0.6);
-  margin-left: -1px;
-}
-.contactForm button .enquiryText {
-  float: left;
-  margin-top: 5px;
-  margin-left: -4px;
-  font-size: 10px;
+.navbar-header {
+  z-index: 9999;
 }
 .contactModal {
   left: 320px !important;
@@ -549,7 +536,7 @@ body a {
   padding: 0;
 }
 .contactModal p {
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 2px;
   color: #bcbcba;
 }
@@ -573,20 +560,11 @@ body a {
   margin-bottom: 15px;
   padding: 10px 0px 5px 0;
   border-bottom: 1px solid #d5d5d4;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
 }
 .contactModal .inputOuter input:focus {
   outline: none;
-}
-.contactModal .proceedBtn button {
-  background: #fe943e;
-  border: none;
-  color: #ffffff;
-  padding: 6px 30px 4px;
-  text-transform: uppercase;
-  font-size: 10px;
-  border-radius: 2px;
 }
 .contactModal .close {
   position: absolute;
@@ -624,14 +602,13 @@ body a {
 }
 .contactModal .help {
   text-transform: uppercase;
-  font-size: 9px;
+  font-size: 12px;
   margin-top: 15px;
   float: left;
   width: 100%;
 }
 .contactModal h5 {
   text-transform: uppercase;
-  font-size: 12px;
   margin-top: 3px;
   float: left;
   width: 100%;
@@ -639,7 +616,7 @@ body a {
 }
 .contactModal .developers {
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 12px;
   color: #bcbcba;
   margin-bottom: 20px;
 }
@@ -651,25 +628,9 @@ body a {
   -webkit-transition: all 0.5s ease ;
           transition: all 0.5s ease ;
 }
-.image2 .no-shadow {
+.image-contain .no-shadow {
   position: absolute;
   top: 0;
-}
-.image2 .footer {
-  font-size: 14px;
-  color: #ffffff;
-  position: absolute;
-  bottom: 10px;
-  z-index: 1;
-  right: 25px;
-  text-align: right;
-}
-.image2 .footer .primary-txt {
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
-}
-.image2 .footer a {
-  font-size: 14px;
-  color: #ffffff;
 }
 .outSideView h6 {
   margin-top: 20px;
@@ -1037,11 +998,11 @@ body a {
 .float-nav {
   position: fixed;
   z-index: 1;
-  top: 23px;
+  top: 20px;
   right: 144px;
   overflow: hidden;
-  width: 370px;
-  height: 340px;
+  width: 420px;
+  height: 360px;
   padding: 6px;
   text-align: left;
   background: #fff;
@@ -1050,9 +1011,8 @@ body a {
           transition: all 300ms cubic-bezier(0.6, -0.3, 0.3, 1.3);
 }
 .float-nav.closed {
-  width: 60px;
-  height: 14px;
-  border: 5px solid #fff;
+  width: 80px;
+  height: 30px;
   border-radius: 3px;
   overflow: hidden;
 }
@@ -1095,15 +1055,11 @@ body a {
 }
 .float-nav .toggle:after {
   content: 'Filter';
-  margin-left: 30px;
-  line-height: 2;
+  margin-left: 27px;
+  line-height: 1.8;
   color: #565654;
-  font-size: 18px;
+  font-size: 20px;
   text-transform: uppercase;
-}
-.float-nav.closed:hover {
-  width: 60px;
-  border-radius: 3px;
 }
 .float-nav.closed:hover .float-nav.closed .toggle {
   width: 90px;
@@ -1122,11 +1078,11 @@ body a {
   background: url(../../images/spriteNew.png) no-repeat;
   background-position: -18px -78px;
   z-index: 9999;
-  top: -10px;
-  -ms-transform: scale(0.5);
-      transform: scale(0.5);
-  -webkit-transform: scale(0.5);
-  left: -5px;
+  top: -1px;
+  -ms-transform: scale(0.6);
+      transform: scale(0.6);
+  -webkit-transform: scale(0.6);
+  left: 5px;
 }
 .float-nav ul {
   position: absolute;
@@ -1154,7 +1110,6 @@ body a {
   width: 100%;
 }
 .float-nav li h6 {
-  font-size: 9px;
   margin: 8px 0 0 0;
 }
 .float-nav.closed li {
@@ -1165,7 +1120,6 @@ body a {
 }
 .float-nav li.filterLiTop h5 {
   margin: 0;
-  font-size: 10px;
 }
 .float-nav li.filterLiTop h5 .filterHeader {
   color: #fe943e;
@@ -1180,8 +1134,8 @@ body a {
 }
 .float-nav li.filterCheckbox .row > div label {
   float: left;
-  font-size: 9px;
-  margin-top: 3px;
+  font-size: 12px;
+  margin-top: 0px;
   text-transform: uppercase;
   margin-left: 5px;
   font-weight: 200;
@@ -1240,7 +1194,7 @@ body a {
   border: none;
   background: #f6f6f6;
   width: 100%;
-  font-size: 10px;
+  font-size: 12px;
   border-bottom: 1px solid #bcbcba;
   padding: 5px;
 }

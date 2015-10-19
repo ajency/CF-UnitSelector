@@ -31,19 +31,29 @@ body {
       color:@brand-primary ;
     }
 }
-
+.btn-primary
+{
+  background:@brand-primary !important;
+  border:1px solid @brand-primary !important;
+  &:hover, &.focus
+  {
+    outline:none !important;
+    background:@brand-primary !important;
+    border:1px solid @brand-primary  !important;
+  }
+}
 
 .footer{
       font-size: 12px;
-       color:#373737;
+       color:white;
        position: absolute;
        bottom: 10px;
   a{
        font-size: 12px;       
-       color:#373737;
+       color:white;
        &:focus, &:hover
        {
-        color:#373737;
+        color:#ccc;
        }
   }
 }
@@ -221,16 +231,17 @@ body {
       background:@brand-primary;
     }
 }
-.mCustomScrollbar{
-  margin-top:20px;
-  float:left;
+#content-1{
+  margin-top:15%;
   width:100%;
+  height: 80% !important;
+  clear:both;
 }
 .sidebar-nav{
 
     li{
         border:1px solid   lighten(@gray-lighter, 0%);
-        margin-bottom:10px;
+        margin-bottom:20px;
     }
 }
 
@@ -355,19 +366,18 @@ body {
   margin:auto;
   display:inline-block;
   margin-top:30px;
+  font-size:12px;
 
     .tip
     {
       float:left;
       padding:10px;
       background:rgba(0,0,0,0.5);
-      font-size: 11px;
     }
      .message
      {
         float:left;
         padding: 11px 9px 9px 9px;
-        font-size: 11px;
         text-transform:capitalize;
      }
     a
@@ -376,7 +386,6 @@ body {
       margin: 0 0 0 30px;
       color: @white;
       text-decoration:none;
-      font-size: 9px;
       outline:none;
     &:focus, &:hover
     {
@@ -386,59 +395,9 @@ body {
     } 
     }
 }
-.contactForm
-{
-    position: absolute;
-    z-index: 99;
-    right: 0px;
-    float: left;
-    top: 3px;
-    float: left;
-    
 
-    .callUs 
-    {
-      font-size: 8px;
-      display: block;
-      margin-bottom: 10px;
-    }
-    button
-    {          
-      background: @brand-primary;
-      color: @white;
-      border: none;
-      border-radius: 3px;
-      font-size: 8px;
-      padding: 0px 7px 0px 0px;
-      text-transform: uppercase;
-      height: 23px;     
-      &:focus
-      {
-        outline:none;
-      }
-      i
-      {
-        margin-right:5px;
-      }
-      .phoneImg
-      {
-        height:31px;
-        width:31px;
-        background: url(../../images/phoneIcon.png) no-repeat;            
-        //margin: auto;
-        float: left;
-        transform: scale(0.6);
-        -webkit-transform: scale(0.6);
-        margin-left: -1px;
-      }
-      .enquiryText
-      {
-        float: left;
-        margin-top: 5px;
-        margin-left: -4px;
-        font-size: 10px;
-      }
-    }
+.navbar-header{
+  z-index: 9999;
 }
 .contactModal 
 {
@@ -465,7 +424,7 @@ body {
   }
   p
   {
-    font-size:11px;
+    font-size:14px;
     margin-top:2px;
     color:@gray-light;
   }
@@ -493,27 +452,14 @@ body {
       margin-bottom:15px;  
       padding: 10px 0px 5px 0;
       border-bottom: 1px solid @gray-lighter;
-      font-size:10px;
+      font-size:12px;
       text-transform:uppercase;
       &:focus
       {
         outline:none;
       } 
     }
-  }
-  .proceedBtn
-  {   
-    button
-    {
-      background:@brand-primary;
-      border:none;
-      color:@white;
-      padding: 6px 30px 4px;
-      text-transform: uppercase;
-      font-size: 10px;
-      border-radius: 2px;
-    }
-  }
+  }  
   .close
   {
     position: absolute;   
@@ -554,15 +500,14 @@ body {
   .help
   {
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 12px;
     margin-top: 15px;
     float: left;
     width: 100%;
   }
   h5
   {
-    text-transform: uppercase;
-    font-size: 12px;
+    text-transform: uppercase;    
     margin-top: 3px;
     float: left;
     width: 100%;
@@ -571,7 +516,7 @@ body {
   .developers
   {
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 12px;
     color: @gray-light;
     margin-bottom: 20px;
   }
@@ -585,33 +530,14 @@ body {
   opacity: 0;
   transition:all 0.5s ease ;
 }
-.image2
+.image-contain
 {
   .no-shadow
   {
     position:absolute;
     top:0;
   }  
-  .footer
-  {
-    font-size: 14px;
-    color: @white;
-    position: absolute;
-    bottom: 10px;
-    z-index: 1;
-    right: 25px;
-    text-align: right;
-    .primary-txt
-    {
-      text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
-    }
-    a
-    {
-      font-size: 14px;
-      color: @white;
-    }
-
-  }
+ 
 }
 .outSideView
 {
