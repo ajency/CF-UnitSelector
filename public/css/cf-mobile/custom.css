@@ -461,7 +461,7 @@ body .row {
   box-sizing: border-box;
 }
 .bottom-card {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100% !important;
 }

@@ -26,7 +26,6 @@ var ProjectMaster = React.createClass({
     },
 
     projectDataUpdateCallBack: function(){
-        console.log("project State Data  updated");
         spinDom = $(ReactDOM.findDOMNode(this.refs.imageContainer)).find("#spritespin");
         spinApi = spinDom.spritespin("api");
 
@@ -246,7 +245,30 @@ var ProjectMaster = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
     },
 
+    showTooltip: function(unitId,text){
+        classname = ".building"+unitId;
+        $(".building").qtip({ // Grab some elements to apply the tooltip to
+            content: text,
+            show: {
+                when: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready
+            },
+            hide: false,
+            style: {
+                classes: 'qtip-light',
+                tip: {
+                    corner: 'bottom center',
+                    mimic: 'bottom left',
+                    border: 1,
+                    width: 88,
+                    height: 66
+                }
+            } // Don't specify a hide event
+        })
+    },
+
     rotateImage: function(unitData){
+        console.log("rotate");
 
         rotateToBreakpoint = unitData.primary_breakpoint;
         unitId = unitData.id;
@@ -266,10 +288,11 @@ var ProjectMaster = React.createClass({
 
         // show tooltip for respective tower 
 
+        this.showTooltip(unitData.id,unitData.building_name);
+
     },
 
     render: function(){
-        console.log("project master re renders");
         var data = this.state.data;
         
         var projectTitle = data.projectTitle;

@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/font-awesome.css' )}}"/>  
     <link href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}" rel="stylesheet">
+    <link href="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.css' )}}" rel="stylesheet">
 	<script src="{{ asset('lib/react.js' )}}"></script>
 </head>
 <body>
@@ -37,6 +38,7 @@
     <script src="{{ asset('bower_components/slick-carousel/slick/slick.min.js' )}}"></script>
     <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
     <script src="{{ asset('bower_components/spritespin/release/spritespin.min.js' )}}"></script>  
+    <script src="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.js' )}}"></script>  
 
 
     <script src="{{asset('react-app-dist/main.js')}}"></script>
