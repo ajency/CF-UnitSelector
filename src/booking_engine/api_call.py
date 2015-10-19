@@ -193,6 +193,7 @@ def getUnitInfo(unit_id):
 	unitSummary = constants.UNIT_SUMMARY_URL
 
 	sender_url = unitSummary + unit_id
+	print sender_url
 	request = urllib2.Request(sender_url)
 	request.add_header('X-Authorization', authKey)
 	try:
