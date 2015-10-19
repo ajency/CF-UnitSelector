@@ -44,7 +44,7 @@
           </div>
           <div class="col-xs-12 unitDetails"><small class="text-uppercase">30 units in your selection<span> (40 Available)</span></small>
           </div>
-<div id="content-1" class="content" style="height:350px;">
+<div id="content-1" class="content" style="height:450px;">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <div class="card-swipe highlight">
@@ -124,10 +124,7 @@
                
             </ul>
         </div>    
-            <div class="footer">
-               <h4 class="primary-txt"> Call 1800 180 180 180</h4>
-              <a href="#"> Commonfloor </a> |      <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a> <br> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
-            </div>
+           
             
         </div>
         <!-- /#sidebar-wrapper -->
@@ -140,6 +137,10 @@
               <i class="i-icon i-icon-rotate"></i>
               Press To Rotate                                     
            </div>
+            <div class="footer">
+               <h4 class="primary-txt"> Call 1800 180 180 180</h4>
+              <a href="#"> Commonfloor </a> |      <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a> <br> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
+            </div>
 
                <img src="img/Project-noshadow.jpg" class="img-responsive fit no-shadow " />
               <img src="img/Project.jpg" class="img-responsive shadow fit"/>
@@ -170,7 +171,7 @@
                                 </div>
                               
                               <div class="filterOuter">
-                                <nav class="float-nav closed">
+                                <nav class="float-nav closed" id="filters">
                                   <ul>
                                     <li class="filterLiTop">
                                     <h5 class="text-uppercase">Filters (<span class="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span class="filterHeader">Clear filters</span></h5>
@@ -506,7 +507,10 @@
           autoHideScrollbar:true,
           theme:"rounded"
         });
-        
+        $("#filters ul").mCustomScrollbar({
+          autoHideScrollbar:true,
+          theme:"rounded"
+        });
       });
     })(jQuery);
       </script>

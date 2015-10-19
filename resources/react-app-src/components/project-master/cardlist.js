@@ -3,45 +3,77 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var CardView = require('../project-master/cardview');
 var Slider = require('react-slick');
 
+var $sliderSettings = {
+   centerMode: true,
+   centerPadding: '60px',
+   arrows: false,
+   slidesToShow: 3,
+   responsive: [
+   {
+       breakpoint: 768,
+       settings: {
+           arrows: false,
+           centerMode: true,
+           centerPadding: '40px',
+           slidesToShow: 3
+       }
+   },
+   {
+       breakpoint: 480,
+        settings: {
+            arrows: false,
+            centerMode: true,
+           centerPadding: '40px',
+           slidesToShow: 1
+       }
+   }
+    ]
+};
+
 var CardList = React.createClass({
 
     mixins: [PureRenderMixin],
 
     componentWillUnmount: function(){
-        console.log("component will un mount");
+        
+        var $sliderContainer = $(this.refs.sliderContainer);
+
+        if($sliderContainer.hasClass('slick-initialized')){
+              $sliderContainer.slick('unslick');
+            }
+        
     },
+    componentDidMount: function() {
+      
+      var $sliderContainer = $(this.refs.sliderContainer);
+
+      if(!($sliderContainer.hasClass('slick-initialized'))){
+        $sliderContainer.slick($sliderSettings);
+      }
+           
+       },    
 
     componentDidUpdate: function() {
-           var $sliderContainer = $(this.refs.sliderContainer);
+       
+       var $sliderContainer = $(this.refs.sliderContainer);
+       $sliderContainer.slick('unslick');
 
-           var $sliderSettings = {
-               centerMode: true,
-               centerPadding: '60px',
-               arrows: false,
-               slidesToShow: 3,
-               responsive: [
-               {
-                   breakpoint: 768,
-                   settings: {
-                       arrows: false,
-                       centerMode: true,
-                       centerPadding: '40px',
-                       slidesToShow: 3
-                   }
-               },
-               {
-                   breakpoint: 480,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                       centerPadding: '40px',
-                       slidesToShow: 1
-                   }
-               }
-                ]
-            };
 
-           $sliderContainer.slick($sliderSettings);
+        if(!($sliderContainer.hasClass('slick-initialized'))){
+          $sliderContainer.slick($sliderSettings);
+        }
+
+        // On swipe event
+        $sliderContainer.on('swipe', function(event, slick, direction){
+          console.log("swipee");
+          // console.log(event);
+          // console.log(slick);
+          // console.log(direction);
+          // left
+        });
+
+
+           
        },
 
 
