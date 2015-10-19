@@ -31,7 +31,17 @@ body {
       color:@brand-primary ;
     }
 }
-
+.btn-primary
+{
+  background:@brand-primary !important;
+  border:1px solid @brand-primary !important;
+  &:hover, &.focus
+  {
+    outline:none !important;
+    background:@brand-primary !important;
+    border:1px solid @brand-primary  !important;
+  }
+}
 
 .footer{
       font-size: 12px;
@@ -414,7 +424,7 @@ body {
   }
   p
   {
-    font-size:11px;
+    font-size:14px;
     margin-top:2px;
     color:@gray-light;
   }
@@ -442,27 +452,14 @@ body {
       margin-bottom:15px;  
       padding: 10px 0px 5px 0;
       border-bottom: 1px solid @gray-lighter;
-      font-size:10px;
+      font-size:12px;
       text-transform:uppercase;
       &:focus
       {
         outline:none;
       } 
     }
-  }
-  .proceedBtn
-  {   
-    button
-    {
-      background:@brand-primary;
-      border:none;
-      color:@white;
-      padding: 6px 30px 4px;
-      text-transform: uppercase;
-      font-size: 10px;
-      border-radius: 2px;
-    }
-  }
+  }  
   .close
   {
     position: absolute;   
@@ -503,15 +500,14 @@ body {
   .help
   {
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 12px;
     margin-top: 15px;
     float: left;
     width: 100%;
   }
   h5
   {
-    text-transform: uppercase;
-    font-size: 12px;
+    text-transform: uppercase;    
     margin-top: 3px;
     float: left;
     width: 100%;
@@ -520,7 +516,7 @@ body {
   .developers
   {
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 12px;
     color: @gray-light;
     margin-bottom: 20px;
   }
