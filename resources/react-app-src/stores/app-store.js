@@ -10,14 +10,17 @@ var CHANGE_EVENT = 'change';
 
 // Define initial data points
 var _projectData = {}, _selected = null ;
-var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{"unitTypes":[]} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
+var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
 	var unitTypeDetails = {};
 	var unitTypes = [];
+	var search_filters = _globalStateData.data.search_filters;
+	var searchFilterUnitTypes = [];
 
-	var searchFilterUnitTypes = _globalStateData.data.search_filters.unitTypes;
+	if(search_filters.length > 0)
+		searchFilterUnitTypes = _globalStateData.data.search_filters.unitTypes;
 
 	if(!_.isEmpty(_projectData)){
 		unitTypes = _projectData.unit_types;
@@ -331,7 +334,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{"unitTypes":[]},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
+	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -368,13 +371,10 @@ function _getProjectMasterData(){
 function getFilteredProjectMasterData(){
 	
 	var newProjectData = {};
-	
+	var newProjectData = _globalStateData.data;
+	var appliedFilters = _globalStateData.data.applied_filters;
 
-	newProjectData = _globalStateData.data;
-
-	
-
-	apartmentUnits =  getUnitCount('Apartments', _globalStateData.data.applied_filters) ;
+	apartmentUnits =  getUnitCount('Apartments', appliedFilters) ;
 	
 	newProjectData.availableCount = apartmentUnits.available.length;
 	
@@ -399,6 +399,10 @@ function getFilteredProjectMasterData(){
 
 	while(filteredCount==0){
 		buildingIndexToHighlight++;
+		
+		if(buildingIndexToHighlight >= (buildingsWithUnits.length-1))
+			break;
+		
 		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
 		filteredCount = buildingToHighlight.filteredUnitData.length;
 		availableCount = buildingToHighlight.availableUnitData.length;
@@ -430,8 +434,12 @@ function getFilteredProjectMasterData(){
 	newProjectData.chosenBreakpoint = breakpoints[newChosenBreakpointIndex];
 
 	// since filters are applied set isFilterAPplied as true
-	newProjectData.isFilterApplied = true;
-	
+	if(_.isEmpty(appliedFilters)){
+		newProjectData.isFilterApplied = false;
+	}
+	else{
+		newProjectData.isFilterApplied = true;
+	}
 
     return newProjectData;
 

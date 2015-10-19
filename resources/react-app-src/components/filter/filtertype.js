@@ -24,6 +24,7 @@ var FilterType = React.createClass({
 
 
         var filterValueNodes ;
+        var isSelected;
 
         if(filterDisplayType==="imageCheckbox"){
             filterValueNodes = filterValues.map(function(filterValue,i){
@@ -35,7 +36,10 @@ var FilterType = React.createClass({
                             var filtervalueId = (filterValue.id); 
                             filtervalueId = filtervalueId.toString();
 
-                            var isSelected = (_.indexOf(searchedFilter,filtervalueId) > -1);
+                            if(searchedFilter.length == 0)
+                                isSelected = false;
+                            else
+                                isSelected = (_.indexOf(searchedFilter,filtervalueId) > -1);
 
 
                             var imgCheckboxClass = classNames({

@@ -115,6 +115,23 @@ var ProjectMaster = React.createClass({
 
     },
 
+    unapplyFilters: function(evt){
+
+        console.log("Un Apply filters");
+
+        dataToSet ={
+            property: "reset_filters",
+            value: {}
+        };
+
+        this.updateStateData(dataToSet);
+
+        this.updateProjectMasterData();
+
+
+    },
+
+
     updateProjectMasterData: function(){
         oldState = getStateData();
 
@@ -149,11 +166,33 @@ var ProjectMaster = React.createClass({
                                                         }
                                                       });
         }
+        if(dataToSet.property === "reset_filters"){
+            
+            newState = immutabilityHelpers( oldState, { data: 
+                                                        {
+                                                            search_filters: {$set: dataToSet.value},
+                                                            applied_filters: {$set: dataToSet.value}
+                                                        }
+                                                      });
+        }
         if(dataToSet.property === "search_filters"){
 
             filterType = dataToSet.filterType;
 
-            oldataTochange = oldState["data"]["search_filters"][filterType];
+            oldSearchFilters = oldState["data"]["search_filters"];
+            
+            oldSearchFilterKeys = _.keys(oldSearchFilters);
+
+            if(_.contains(oldSearchFilterKeys,filterType)){
+                oldataTochange = oldSearchFilters[filterType];
+            }
+            else{
+                oldSearchFilters[filterType] = [];
+                oldataTochange = oldSearchFilters[filterType];
+            }
+            
+
+            
 
             valueToSet = dataToSet.value;
 
@@ -233,6 +272,7 @@ var ProjectMaster = React.createClass({
                 selectFilter={this.selectFilter}
                 search_filters={data.search_filters}
                 applyFilters = {this.applyFilters}
+                unapplyFilters = {this.unapplyFilters}
             />
             <SunToggle 
                 toggelSunView = {this.toggelSunView} 

@@ -21,7 +21,9 @@ var Modal = React.createClass({
 		<div className="modal fade modal-full-width" ref="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
     		<div className="modal-dialog" role="document">
         		<div className="modal-content">    	
-            		<ModalHeader/>
+            		<ModalHeader
+                  unapplyFilters = {this.props.unapplyFilters}
+                />
             		<ModalBody 
                   modalData = {modalData}
                   selectFilter={this.props.selectFilter}
