@@ -17,12 +17,12 @@ class WhitelistIp {
         $dnsList = config('constant.cf_dns_list'); 
 		$getHost = $_SERVER['HTTP_HOST'];
        
-        if (!in_array($getHost, $dnsList)) {
-			return response()->json( [
-				'code' => 'forbidden_access',
-				'message' => 'This '.$getHost.' has no access to the api'
-				], 403 );
-		}
+  //       if (!in_array($getHost, $dnsList)) {
+		// 	return response()->json( [
+		// 		'code' => 'forbidden_access',
+		// 		'message' => 'This '.$getHost.' has no access to the api'
+		// 		], 403 );
+		// }
         
         return $next($request);
 	}

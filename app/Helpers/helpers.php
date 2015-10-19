@@ -21,7 +21,8 @@ define('GET_UNIT_PAYMENT_PLAN', 'unit_payment_plan/');
 define('GET_UNIT_PRICE_SHEET', 'unit_price_sheet/');
 define('ADD_BOOKING_UNIT', 'addUnit/');
 define('MAKE_BOOKING', 'makebooking/');
-define('BOOKING_PORTAL_URL', 'http://booking-engine-crm.com/book-your-property');
+define('BOOKING_PORTAL_URL', 'http://bookingcrm.cfunitselectortest.com/book-your-property');
+//define('BOOKING_PORTAL_URL', 'http://127.0.0.1:8000/book-your-property');
 define('CF_API_KEY', 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168');
 
 /**BOOKING CONSTANT***/

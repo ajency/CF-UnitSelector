@@ -6,7 +6,12 @@ var Api = require('./utils/projectDataAPI');
 
 var PROJECT_ID = window.projectId;
 
-
+ SpriteSpin._originalStopAnimation = SpriteSpin.stopAnimation;
+  SpriteSpin.stopAnimation = function(data){
+    SpriteSpin._originalStopAnimation(data);
+    data.target.trigger('onAnimationStop');
+  };
+  
 // Make API Call
 Api.getProjectData(PROJECT_ID);
 

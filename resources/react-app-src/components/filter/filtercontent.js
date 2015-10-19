@@ -11,7 +11,12 @@ var FilterContent = React.createClass({
 
 
         filterTypeNodes = filterTypes.map(function(filterType,i){
-                            searchedFilter = search_filters[filterType.type];
+                            
+                            if(_.isEmpty(search_filters))
+                                searchedFilter = [];
+                            else
+                                searchedFilter = search_filters[filterType.type];
+
                             return(
                                 <div key={i}>
                                 <FilterType  
