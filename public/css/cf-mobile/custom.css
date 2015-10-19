@@ -1263,24 +1263,50 @@ div#spritespin {
   -webkit-filter: grayscale(0) !important;
           filter: grayscale(0) !important;
 }
-.imageModal {
-  top: 15% !important;
-  bottom: 10%;
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.7;
+  z-index: 1;
 }
-.imageModal .modal-content {
-  border-radius: 0;
+.imageModal {
+  margin-left: 0 !important;
   border: 2px solid #000000;
 }
-.imageModal .modal-body {
-  padding: 0;
-  /*background:url('../../images/bldg-3d.png') no-repeat -300px 0;
-		
-	    height: 400px;
-	    width: 100%;*/
-  overflow: hidden;
-  height: 400px;
+.imageModal#msg {
+  position: absolute;
+  height: 0;
+  left: 0;
+  background: wheat;
+  z-index: 2;
 }
-.imageModal .modal-body img {
+.imageModal#msg.closed {
+  overflow: hidden;
+}
+.imageModal.closed {
+  border: none;
+}
+.imageModal .modal-dialog {
+  height: 400px;
+  width: 500px;
+}
+.imageModal .modal-dialog .modal-content {
+  height: 100%;
+}
+.imageModal .modal-dialog .modal-body {
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+.imageModal .imgOuter {
+  overflow: hidden;
+  height: 100%;
+}
+.imageModal img {
   position: relative;
   /*height:100%;	*/
   margin-left: 50%;
@@ -1310,7 +1336,7 @@ div#spritespin {
     margin-left: 75%;
   }
 }
-.imageModal .modal-body .imageContent {
+.imageModal .imageContent {
   position: absolute;
   bottom: -1px;
   color: #ffffff;
