@@ -47,6 +47,21 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label class="form-label">Group<span class="text-primary">*</span></label>
+
+                        <select name="property_type_group" class="select2 form-control m-b-5" data-parsley-required>
+                            <option value="">Select Group</option>
+                            @foreach($propertyTypeGroups as $propertyTypeGroup)
+                            <option @if($unit['property_type_group_id']==$propertyTypeGroup['id']){{'selected'}}@endif value="{{$propertyTypeGroup['id']}}">{{$propertyTypeGroup['property_type_group_name']}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                
+                </div>
+                <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
                         <label class="form-label">Phase<span class="text-primary">*</span></label>
                         @if($project['has_phase']=='yes')
                         <select {{ $disabled }} class="select2 form-control m-b-5" name="phase" data-parsley-required>
@@ -68,8 +83,6 @@
                     </div>
                   
                 </div>
-                </div>
-                <div class="row">
                 <div class="col-md-4">
                 <div class="form-group">
                         <label class="form-label">Direction<span class="text-primary">*</span></label>
