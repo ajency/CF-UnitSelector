@@ -168,6 +168,12 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 			
 		})
 
+		// from all building units get start price
+		unitPrices = [];
+		unitPrices = _.pluck(buildingUnits, "selling_amount");
+		minStartPrice = _.min(unitPrices);
+		building.minStartPrice = minStartPrice;
+
 		
 		// get all unit data
 		building.unitData = buildingUnits;

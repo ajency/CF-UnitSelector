@@ -14,6 +14,7 @@ var CardView = React.createClass({
         var buildingName = "";
         var supportedUnitTypeString = " ";
         var buildingUrl = " ";
+        var minStartPrice = buildingData.minStartPrice;
         
         var unitCount = 0;
         var unitCountDisplayString = "available"; 
@@ -100,7 +101,7 @@ var CardView = React.createClass({
                                 <h4 className=" margin-none text-left"> {buildingName}</h4>
                             </div>
                             <div className="col-xs-12 text-muted price">
-                                  From <span className="price-tag"><i className="fa fa-inr"></i> 20 lacs</span>
+                                  From <span className="price-tag"><i className="fa fa-inr"></i> {minStartPrice} </span>
                             </div>
                         </div>
                         
