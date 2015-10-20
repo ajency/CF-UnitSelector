@@ -179,7 +179,7 @@ class Permission {
                       'admin/project/{project}/downloadsamplefile/{filename}'=>['configure_unit'],
                       'admin/project/{project}/bunglow-unit/{id}/updatestatus'=>['unit_status_update'],
                       'admin/project/{project}/plots/{projectpropertytypeid}/group/validategroupname'=>['configure_project'],
-
+                      'admin/project/{project}/bunglow/{projectpropertytypeid}/group/validategroupname'=>['configure_project'],
                               
                 ];
                
