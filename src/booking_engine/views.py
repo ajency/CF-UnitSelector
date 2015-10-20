@@ -522,9 +522,7 @@ def calc_total_sale_value(id, is_booked, price_sheet_id=None):
 					price_sheet_components = booking_engine_pricesheet_component.objects.filter(pricesheet_id=unit_info.price_sheet_id)
 				total_sale_value_lumpsump = 0.0
 				total_sale_value_percentage = 0.0
-				print unit_id
-				logging.error('unit_id')
-				logging.error(unit_id)
+
 				unit_extra_info = getUnitData(str(unit_id))
 				
 				if(price_sheet_components):
