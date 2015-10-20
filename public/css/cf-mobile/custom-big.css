@@ -215,6 +215,7 @@ body a {
   color: white;
   position: absolute;
   bottom: 10px;
+  z-index: 9999;
 }
 .footer a {
   font-size: 12px;
@@ -468,9 +469,11 @@ body a {
   left: 0;
   right: 0;
   text-align: center;
-  bottom: 10px;
+  bottom: 0px;
   color: White;
   text-shadow: 1px 1px 1px #000;
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.75), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 }
 .rotate .i-icon-rotate {
   background: url(../../images/sprite.png) no-repeat;
@@ -514,7 +517,7 @@ body a {
   outline: none;
 }
 .navbar-header {
-  z-index: 9999;
+  z-index: 99;
 }
 .contactModal {
   left: 320px !important;
@@ -792,17 +795,14 @@ body a {
 .zoomBtns {
   float: left;
   margin-top: 40px;
-  width: 20px;
-  margin-left: -13px;
+  width: 25px;
+  margin-left: 17px;
 }
 .zoomBtns button {
-  background: #ffffff;
-  color: #565654;
-  border: none;
-  margin-bottom: 5px;
-  width: 20px;
+  width: 25px;
   text-align: center;
-  border-radius: 3px;
+  padding: 2px 0px;
+  margin-bottom: 5px;
 }
 .zoomBtns button:focus {
   outline: none;
