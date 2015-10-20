@@ -48,7 +48,7 @@ var ImageContainerTemplate = React.createClass({
         var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'{frame}.jpg'
 
         var frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
-         frame: [1, 60],
+         frame: [0, 59],
          digits: digitsInName
        });
 
