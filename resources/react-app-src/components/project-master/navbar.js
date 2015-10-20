@@ -1,5 +1,6 @@
 var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
+var classNames = require('classnames');
 
 
 var NavBar = React.createClass({
@@ -9,6 +10,25 @@ var NavBar = React.createClass({
 
       var buildings = this.props.buildings; 
       var isFilterApplied = this.props.isFilterApplied;
+
+      var appliedFilterCount = "";     
+      var applied_filters = this.props.applied_filters;
+      var appliedCount = 0;
+
+      if(_.isEmpty(applied_filters)){
+        appliedFilterCount = "";
+        filterClasses = classNames({
+          "filterNumber" : false
+        });
+      }
+      else{
+        appliedFilterKeys = _.keys(applied_filters);
+        appliedFilterCount = appliedFilterKeys.length;
+        filterClasses = classNames({
+          "filterNumber" : true
+        });
+      }
+
 
       unitCount = this.props.unitCount;
       availableUnitCount = 0;
@@ -34,7 +54,9 @@ var NavBar = React.createClass({
       else{
         unitCount = availableUnitCount;
         selectionText = "units available in total";
-      }       
+      } 
+
+     
 
       return (
           <nav className="navbar navbar-default">
@@ -51,7 +73,7 @@ var NavBar = React.createClass({
                       <div className="col-xs-4 p-0">
                         <ul className="list-inline pull-right">
                           <li> <i className="i-phone i-icon"></i></li>
-                          <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i></li>
+                          <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i><span className={filterClasses}>{appliedFilterCount}</span></li>
                         </ul>
                       </div>
                   </div>

@@ -371,6 +371,7 @@ var ProjectMaster = React.createClass({
                 showFilterModal = {this.showFilterModal}
                 buildings = {buildings}
                 isFilterApplied = {isFilterApplied}
+                applied_filters = {applied_filters}
             />
             <Modal 
                 ref="modal" 
