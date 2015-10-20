@@ -91,6 +91,27 @@ function validateBuildingName(obj, buildingId) {
     });
 }
 
+function validateGroupName(obj, groupId , projectPropertTypeId , property_type_slug) {  
+    $(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/project/"+ PROJECTID +"/"+property_type_slug+"/"+projectPropertTypeId+"/group/validategroupname",
+        type: "POST",
+        data: {
+            name: obj.value,
+            project_id: PROJECTID,
+            group_id: groupId,
+            project_property_type_id: projectPropertTypeId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
 function validateEmail(obj, userId) {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
@@ -587,9 +608,13 @@ function setUpProjectMasterUploader() {
                     {
                         var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=master&position="+fileResponse.data.position;
                     }
-                    else
+                    else if(objectType=='building')
                     {
                        var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=building_master&position="+fileResponse.data.position+"&building="+objectId; 
+                    }
+                    else
+                    {
+                       var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=group_master&position="+fileResponse.data.position+"&group="+objectId; 
                     }
                     
                     var str = newstr = '';
