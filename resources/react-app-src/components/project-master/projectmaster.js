@@ -128,6 +128,8 @@ var ProjectMaster = React.createClass({
 
         console.log("Apply filters");
 
+        this.destroyTooltip();
+
         dataToSet = {
             property: "applied_filters",
             value: this.state.data.search_filters

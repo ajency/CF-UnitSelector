@@ -46,7 +46,7 @@ var NavBar = React.createClass({
                       </div>
                       <div className="col-xs-6 p-0">
                           <h3 className="normal margin-none">{this.props.projectTitle} </h3>
-                          <small>{this.props.unitCount} {selectionText}</small>
+                          <small>{unitCount} {selectionText}</small>
                       </div>
                       <div className="col-xs-4 p-0">
                         <ul className="list-inline pull-right">
