@@ -38,7 +38,7 @@
                             <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Gruop Name<span class="text-primary">*</span></label>
-                                       <input required="" type="text" class="form-control" name="group_name" placeholder="Enter Group Name" data-parsley-required onchange="validateBuildingName(this,0);" ><div class="cf-loader hidden"></div>
+                                       <input required="" type="text" class="form-control" name="group_name" placeholder="Enter Group Name" data-parsley-required onchange="validateGroupName(this,0,{{ $projectPropertyTypeId }},'{{ property_type_slug(get_property_type( $propertyTypeId ))}}');" ><div class="cf-loader hidden"></div>
                                         </div>
 
                                     </div>

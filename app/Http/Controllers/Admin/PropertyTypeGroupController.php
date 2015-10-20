@@ -54,11 +54,11 @@ class PropertyTypeGroupController extends Controller {
     $phases = $project->projectPhase()->where('status','not_live')->get()->toArray(); 
     $current = property_type_slug(get_property_type( $propertyTypeId )).'group';
     return view( 'admin.project.group.create' )
-                    ->with( 'project', $project->toArray() )
-                    ->with( 'projectPropertyTypeId', $projectPropertyTypeId )
-                    ->with( 'propertyTypeId', $propertyTypeId )
-                    ->with( 'current', $current )
-                    ->with( 'phases', $phases );
+                                        ->with( 'project', $project->toArray() )
+                                        ->with( 'projectPropertyTypeId', $projectPropertyTypeId )
+                                        ->with( 'propertyTypeId', $propertyTypeId )
+                                        ->with( 'current', $current )
+                                        ->with( 'phases', $phases );
 	}
 
 	/**
@@ -74,12 +74,13 @@ class PropertyTypeGroupController extends Controller {
       $group->project_property_type_id = $projectPropertyTypeId;
       $group->phase_id = $formData['phase_id'];
       $group->has_master = $formData['has_master'];
-      $group->group_master = serialize( [] );
-      $group->breakpoints = serialize( [] );
+      $group->group_master =  [] ;
+      $group->breakpoints =  [] ;
+      $group->shadow_images =  [] ;
       $group->save();
 
       $propertyTypeId = \CommonFloor\ProjectPropertyType::find( $projectPropertyTypeId )->property_type_id;
-      $groupName = property_type_slug(get_property_type( $propertyTypeId )).'group';
+      $groupName = get_property_type( $propertyTypeId ).' group';
       Session::flash('success_message',$groupName.' Successfully Created');
       return redirect( url( 'admin/project/'.$projectId.'/'.property_type_slug(get_property_type($propertyTypeId)).'/'.$projectPropertyTypeId .'/group/'.$group->id . '/edit' ) );
   }
@@ -110,8 +111,10 @@ class PropertyTypeGroupController extends Controller {
       if($group==null)
           abort(404);
     
-      $groupMaster = unserialize($group->group_master);
+      $groupMaster = $group->group_master;
+      $shadowImages = $group->shadow_images;
       $svgImages = [];
+      $svgShadowImages = [];
       
       if(!empty($groupMaster))
       {  
@@ -123,6 +126,19 @@ class PropertyTypeGroupController extends Controller {
                   }
                   else
                       $svgImages[$key]['ID'] = $images;
+          }
+      }
+
+      if(!empty($shadowImages))
+      {  
+          ksort($shadowImages);
+          foreach ($shadowImages as $key => $images) {
+                  if (is_numeric($images)) {
+                      $imageName = Media::find($images)->image_name;
+                      $svgShadowImages[$key] = ["ID"=>$images,"NAME"=>$imageName, "IMAGE"=> url() . "/projects/" . $projectId . "/group/". $groupId ."/" . $imageName]; 
+                  }
+                  else
+                      $svgShadowImages[$key]['ID'] = $images;
           }
       }
       
@@ -142,13 +158,17 @@ class PropertyTypeGroupController extends Controller {
       $disabled =(!hasPermission($project['id'],['configure_project']))?'disabled':'';
 
       $current = property_type_slug(get_property_type( $propertyTypeId )).'group';
+
       return view( 'admin.project.group.edit' )
-                      ->with( 'project', $project->toArray() )
-                      ->with( 'current', $current )
-                      ->with( 'phases', $phases )
-                      ->with( 'group', $group )
-                       ->with('disabled', $disabled)
-                      ->with( 'svgImages', $svgImages );
+                                      ->with( 'project', $project->toArray() )
+                                      ->with( 'current', $current )
+                                      ->with( 'phases', $phases )
+                                      ->with( 'group', $group )
+                                       ->with('disabled', $disabled)
+                                       ->with( 'projectPropertyTypeId', $projectPropertyTypeId )
+                                       ->with( 'propertyTypeId', $propertyTypeId )
+                                      ->with( 'svgImages', $svgImages )
+                                      ->with( 'svgShadowImages', $svgShadowImages );
     }
 
 	/**
@@ -157,9 +177,20 @@ class PropertyTypeGroupController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update( $projectId, $projectPropertyTypeId, $groupId , Request $request)
 	{
-		//
+		  $formData = $request->all();
+      $group = PropertyTypeGroup::find($groupId);
+      $group->property_type_group_name = ucfirst($formData['group_name']);
+      $group->phase_id = $formData['phase_id'];
+      $group->has_master = $formData['has_master'];
+
+      $group->save();
+
+      $propertyTypeId = \CommonFloor\ProjectPropertyType::find( $projectPropertyTypeId )->property_type_id;
+      $groupName = get_property_type( $propertyTypeId ).' group';
+      Session::flash('success_message',$groupName.' Successfully Updated');
+      return redirect( url( 'admin/project/'.$projectId.'/'.property_type_slug(get_property_type($propertyTypeId)).'/'.$projectPropertyTypeId .'/group/'.$group->id . '/edit' ) );
 	}
 
 	/**
@@ -172,5 +203,42 @@ class PropertyTypeGroupController extends Controller {
 	{
 		//
 	}
+
+   public function validateGroupnName($projectId,$projectPropertyTypeId,Request $request) {
+        $name = $request->input('name');
+        $projectId = $request->input('project_id');
+        $groupId = $request->input('group_id');
+        $projectPropertyTypeId = $request->input('project_property_type_id');
+        
+        $project = Project::find( $projectId );
+        $phases =  $project->projectPhase()->get()->toArray();
+        $phaseIds =[];
+        foreach($phases as $phase)
+        {
+            $phaseIds[]=$phase['id'];
+        }
+        
+        $msg = '';
+        $flag = true;
+
+        if ($groupId)
+            $groupData = PropertyTypeGroup::whereIn('phase_id',$phaseIds)->where('project_property_type_id', $projectPropertyTypeId)->where('property_type_group_name', $name)->where('id', '!=', $groupId)->get()->toArray();
+        else
+            $groupData = PropertyTypeGroup::whereIn('phase_id',$phaseIds)->where('project_property_type_id', $projectPropertyTypeId)->where('property_type_group_name', $name)->get()->toArray();
+
+
+        if (!empty($groupData)) {
+            $msg = 'Group Name Already Taken';
+            $flag = false;
+        }
+
+
+        return response()->json([
+                    'code' => 'group_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
+    } 
+  
 
 }
