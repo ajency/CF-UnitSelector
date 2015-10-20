@@ -55,6 +55,11 @@ var ProjectMaster = React.createClass({
         slideToGotTo = this.state.data.unitIndexToHighlight;
         slickDom = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".slider");
         slickDom.slick('slickGoTo',slideToGotTo);
+
+        buildings = this.state.data.buildings;
+        buildingToHighlight = buildings[slideToGotTo];
+        buildingName = buildingToHighlight.building_name;
+        this.showTooltip(buildingName);
     },
 
     updateChosenBreakPoint: function(chosenBreakPoint){
@@ -63,7 +68,7 @@ var ProjectMaster = React.createClass({
             value: chosenBreakPoint
         }
 
-        this.updateStateData(dataToSet);
+        this.updateStateData([dataToSet]);
     },
 
     toggelSunView: function(evt){
@@ -81,7 +86,7 @@ var ProjectMaster = React.createClass({
             value: showShadow
         }
 
-        this.updateStateData(dataToSet);
+        this.updateStateData([dataToSet]);
 
     },
 
@@ -92,7 +97,7 @@ var ProjectMaster = React.createClass({
             value: filterValue
         }
 
-        this.updateStateData(dataToSet);
+        this.updateStateData([dataToSet]);
     },
 
     selectFilter: function(evt){
@@ -116,7 +121,7 @@ var ProjectMaster = React.createClass({
 
         var delay=100000; //1 seconds
 
-        setTimeout(this.updateStateData(dataToSet), delay);
+        setTimeout(this.updateStateData([dataToSet]), delay);
     },
 
     applyFilters: function(evt){
@@ -128,7 +133,7 @@ var ProjectMaster = React.createClass({
             value: this.state.data.search_filters
         };
 
-        this.updateStateData(dataToSet);
+        this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
 
@@ -144,7 +149,7 @@ var ProjectMaster = React.createClass({
             value: {}
         };
 
-        this.updateStateData(dataToSet);
+        this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
 
@@ -162,90 +167,102 @@ var ProjectMaster = React.createClass({
             value: newProjectData
         };
 
-        this.updateStateData(dataToSet);
+        this.updateStateData([dataToSet]);
 
     },
 
-    updateStateData: function(dataToSet){
+    updateStateData: function(data){
         oldState = getStateData();
         
         newState = oldState;
 
+        _.each(data, function(dataToSet){
 
-        if(dataToSet.property === "showShadow"){
-            
-            newState = immutabilityHelpers( oldState, { data: 
-                                                        {showShadow: {$set: dataToSet.value} 
-                                                        }
-                                                      });
-        }
-        if(dataToSet.property === "chosenBreakpoint"){
-            
-            newState = immutabilityHelpers( oldState, { data: 
-                                                        {chosenBreakpoint: {$set: dataToSet.value} 
-                                                        }
-                                                      });
-        }
-        if(dataToSet.property === "reset_filters"){
-            
-            newState = immutabilityHelpers( oldState, { data: 
-                                                        {
-                                                            search_filters: {$set: dataToSet.value},
-                                                            applied_filters: {$set: dataToSet.value}
-                                                        }
-                                                      });
-        }
-        if(dataToSet.property === "search_filters"){
-
-            filterType = dataToSet.filterType;
-
-            oldSearchFilters = oldState["data"]["search_filters"];
-            
-            oldSearchFilterKeys = _.keys(oldSearchFilters);
-
-            if(_.contains(oldSearchFilterKeys,filterType)){
-                oldataTochange = oldSearchFilters[filterType];
-            }
-            else{
-                oldSearchFilters[filterType] = [];
-                oldataTochange = oldSearchFilters[filterType];
-            }
-            
-
-            
-
-            valueToSet = dataToSet.value;
-
-            // if valueToset is already present in array then remove it from array
-            //  if valueToset is not present then add to the array
-            indexOfELem = _.indexOf(oldataTochange,valueToSet);
-            
-            if (indexOfELem > -1) {
+            if(dataToSet.property === "showShadow"){
                 
-                oldataTochange.splice(indexOfELem, 1);
-
-            }else{
-                oldataTochange.push(valueToSet);
+                newState = immutabilityHelpers( oldState, { data: 
+                                                            {showShadow: {$set: dataToSet.value} 
+                                                            }
+                                                          });
             }
+            if(dataToSet.property === "chosenBreakpoint"){
+                
+                newState = immutabilityHelpers( oldState, { data: 
+                                                            {chosenBreakpoint: {$set: dataToSet.value} 
+                                                            }
+                                                          });
+            }
+            if(dataToSet.property === "reset_filters"){
+                
+                newState = immutabilityHelpers( oldState, { data: 
+                                                            {
+                                                                search_filters: {$set: dataToSet.value},
+                                                                applied_filters: {$set: dataToSet.value}
+                                                            }
+                                                          });
+            }
+            if(dataToSet.property === "search_filters"){
 
-            mutatedfilter =  {};
-            mutatedfilter[filterType] = {$set: oldataTochange};
-            
-            newState = immutabilityHelpers( oldState, { data: 
-                                                        {search_filters: mutatedfilter
-                                                        }
-                                                      });
-        } 
-        if(dataToSet.property === "applied_filters"){
+                filterType = dataToSet.filterType;
 
-            valueToSet = dataToSet.value;
+                oldSearchFilters = oldState["data"]["search_filters"];
+                
+                oldSearchFilterKeys = _.keys(oldSearchFilters);
 
-            newState = immutabilityHelpers( oldState, { data: 
-                                                        {applied_filters: 
-                                                            {$set: valueToSet}
-                                                        }
-                                                      });
-        }       
+                if(_.contains(oldSearchFilterKeys,filterType)){
+                    oldataTochange = oldSearchFilters[filterType];
+                }
+                else{
+                    oldSearchFilters[filterType] = [];
+                    oldataTochange = oldSearchFilters[filterType];
+                }
+                
+
+                
+
+                valueToSet = dataToSet.value;
+
+                // if valueToset is already present in array then remove it from array
+                //  if valueToset is not present then add to the array
+                indexOfELem = _.indexOf(oldataTochange,valueToSet);
+                
+                if (indexOfELem > -1) {
+                    
+                    oldataTochange.splice(indexOfELem, 1);
+
+                }else{
+                    oldataTochange.push(valueToSet);
+                }
+
+                mutatedfilter =  {};
+                mutatedfilter[filterType] = {$set: oldataTochange};
+                
+                newState = immutabilityHelpers( oldState, { data: 
+                                                            {search_filters: mutatedfilter
+                                                            }
+                                                          });
+            } 
+            if(dataToSet.property === "applied_filters"){
+
+                valueToSet = dataToSet.value;
+
+                newState = immutabilityHelpers( oldState, { data: 
+                                                            {applied_filters: 
+                                                                {$set: valueToSet}
+                                                            }
+                                                          });
+            } 
+            if(dataToSet.property === "unitIndexToHighlight"){
+                newState = immutabilityHelpers( oldState, { data: 
+                                                            {unitIndexToHighlight: {$set: dataToSet.value} 
+                                                            }
+                                                          });                
+            }  
+
+            oldState = newState;               
+
+        })
+    
 
 
         this.setState(newState, this.projectDataUpdateCallBack);
@@ -295,29 +312,32 @@ var ProjectMaster = React.createClass({
     },  
 
     rotateImage: function(unitData){
-        console.log("rotate");
-
-        this.destroyTooltip();
+      
 
         rotateToBreakpoint = unitData.primary_breakpoint;
         unitId = unitData.id;
         
         // hide svg area
 
+        allbuildings = this.state.data.buildings;
+        allbuildingIds = _.pluck(allbuildings,"id");
+
+        unitIndexToHighlight = _.indexOf(allbuildingIds,unitId)
+
+
         // update chosen breakpoint to primary breakpoint of tower of current slide
-        this.updateChosenBreakPoint(rotateToBreakpoint);
+        // update unit index to higlight
+        this.updateStateData([{property:"chosenBreakpoint",value:rotateToBreakpoint},{property:"unitIndexToHighlight", value:unitIndexToHighlight }]);
 
 
-        // move sprite spin to the chosen breakpoint
-        spinDom = $(ReactDOM.findDOMNode(this.refs.imageContainer)).find("#spritespin");
-        spinApi = spinDom.spritespin("api");
+        // // move sprite spin to the chosen breakpoint
+        // spinDom = $(ReactDOM.findDOMNode(this.refs.imageContainer)).find("#spritespin");
+        // spinApi = spinDom.spritespin("api");
 
-        chosenBreakPoint = this.state.data.chosenBreakpoint
-        spinApi.playTo(chosenBreakPoint);
+        // chosenBreakPoint = this.state.data.chosenBreakpoint
+        // spinApi.playTo(chosenBreakPoint);
 
-        // show tooltip for respective tower 
 
-        // this.showTooltip(unitData.id,unitData.building_name);
 
     },
 
@@ -373,6 +393,7 @@ var ProjectMaster = React.createClass({
                 buildings={buildings}
                 isFilterApplied = {isFilterApplied}
                 rotateImage = {this.rotateImage}
+                destroyTooltip = {this.destroyTooltip}
             />
             </div>
 

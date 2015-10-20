@@ -35,6 +35,7 @@ var CardList = React.createClass({
     mixins: [PureRenderMixin],
 
     swipeCard: function(event, slick, direction){
+      this.props.destroyTooltip();
       towerId = $(event.currentTarget).find(".slick-center").children( ".card-swipe" ).data("unitid");
       towerId = parseInt(towerId);
 
