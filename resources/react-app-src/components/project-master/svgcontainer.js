@@ -57,7 +57,7 @@ var SvgContainer = React.createClass({
       $(svgDom).find("svg .building").each(function(ind, item) {
         var id = parseInt(item.id);
 
-        svgElemClassName = 'building building'+id;
+        svgElemClassName = 'svg-light building building'+id;
 
         if(id == highlightedBuildingId)
           svgElemClassName = 'show-qtooltip building building'+id;
