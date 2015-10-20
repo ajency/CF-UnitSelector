@@ -1943,7 +1943,7 @@ def getPropertyDetail(request):
 def getUnitData(unit_id):
 	get_unit_info = api_call.getUnitInfo(unit_id)
 	if 'error' in get_unit_info:
-		print getUnitInfo['error_message']
+		print get_unit_info['error_message']
 		return None
 	return get_unit_info
 
