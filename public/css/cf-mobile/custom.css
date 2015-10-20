@@ -413,7 +413,8 @@ body .row {
   }
 }
 .svg-light {
-  opacity: 0;
+  opacity: 0.3;
+  fill: #ffffff;
 }
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
