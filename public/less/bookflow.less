@@ -77,7 +77,7 @@ body
 
 .bookFlowContent
 {
-	background:url(../../images/cf-mobile/Project-noshadow.jpg) no-repeat;
+	background:url(../../html/Bookflow/img/Project-noshadow.jpg) no-repeat;
 	height:50%;
 	background-size:cover;
 	height:300px;
@@ -116,30 +116,24 @@ body
 	{
 		
 		margin:0 auto;
-		> div
-		{
-			&:first-child
-			{
-				margin-left:-15px;
-				padding-left:0;
-			}
+		.row > div
+		{			
 			&:last-child
-			{				
-				padding-right:0px;
+			{								
+				text-align:right;
 			}
 		}		
 		i
 		{
 			font-size:12px;
-			float: left;
-    		margin-top: 2px;
-    		margin-left: 20px;
+			display: inline-block;
+    		margin-top: 2px;    		
 		}
 		.amount
 		{
 			color: @white;
     		margin-left: 10px;
-    		float: left;
+    		display: inline-block;
 		    margin-bottom: 0;
 		    margin-top: 0;
 		}
@@ -149,7 +143,7 @@ body
 		    color: @white;
 		    float: left;
 		    width: 100%;
-		    padding-right: 51px;
+		    padding-right: 27px;
 		}
 		.priceSheet
 		{
@@ -164,6 +158,7 @@ body
 		    float: left;
 		    margin-left: 10px;
 		    text-decoration:none;
+		    float:right;
 		    &:focus
 		    {
 		    	outline:none;
@@ -178,6 +173,7 @@ body
 			text-transform:uppercase;
 			text-decoration:none;
 			outline:none;
+			float:right;
 			&:focus
 			{
 				text-decoration:none;
@@ -198,12 +194,12 @@ body
 		.priceOuter
 		{
 			width: 140px;
-    		float: right;
-    		&:first-child
+    		display:inline-block;
+    		&:last-child
     		{
     			.amount
     			{
-    				margin-right:33px;
+    				margin-right:46px;
     			}
     			.totalPrice 
     			{
@@ -213,9 +209,10 @@ body
 		}
 		.borderDiv
 		{
-			float: right;
-		    border: 1px solid @gray-light;
-		    height: 40px;		    
+			display:inline-block;
+		    background:@gray-light;
+		    height: 40px;
+		    width:1px;		    
 		    margin-left: 20px;
 		    transform: rotate(25deg);
 		    -webkit-transform: rotate(25deg);
@@ -302,8 +299,7 @@ body
 				color: @lightText;
 				border: 2px solid @lightBg;
 				border-bottom: none;
-				padding: 10px; 
-				
+				padding: 10px; 				
 			}
 			.title
 			{
@@ -313,6 +309,30 @@ body
 				font-size: 14px;
 				font-weight: 700;
 			}
+			.detailsOuter
+		    {
+		    	padding:0;
+		    	float:left;
+		    	width:100%;
+		    	> div
+		    	{
+		    		width:20%;
+		    	}
+		    	a
+				{
+					color:@brand-primary;
+					text-decoration:none;
+					outline:none;
+					float: left;
+    				margin-top: 20px;
+					&:hover, &:focus
+					{
+						text-decoration:none;
+						outline:none;
+						color:@brand-primary;
+					}
+				}
+		    }
 		}
 
 		.termsConditions
@@ -534,35 +554,15 @@ body
 	i
 	{
 		color:@brand-primary !important;
-	}
-	> div
-	{
-		width:20%;
-	}
-	a
-	{
-		color:@brand-primary;
-		text-decoration:none;
-		outline:none;
-		&:hover, &:focus
-		{
-			text-decoration:none;
-			outline:none;
-			color:@brand-primary;
-		}
-	}
+	}		
 }
 .titleDetails
 {
 	padding:0 !important;
 	font-size:11px;
 	text-transform:uppercase;
-	margin-left:-15px;
-	margin-bottom:25px;
-	> div
-	{
-		width:20%;
-	}
+	margin-left:-15px;	
+	margin-top:5px;	
 }
 .bookingFlow
 {
@@ -573,6 +573,10 @@ body
 }
 .priceSheetModal
 {
+	.modal-body
+	{
+		padding:15px 0;		
+	}
 	.modal-content
 	{
 		border-radius:0;
@@ -620,6 +624,7 @@ body
 	}
 	.saleOuter
 	{
+		margin-top:20px;
 		.saleValue
 		{
 			font-weight:700;
@@ -631,10 +636,9 @@ body
 	
     padding: 15px;
     color:@gray;
-    font-size:12px;
-   
+    font-size:12px;   
     margin:auto;
-    display:table;
+    display:table;    
     .bookApmt
 	{
 		font-size: 17px;
@@ -694,28 +698,9 @@ body
     {
     	border:none;
     	font-weight:600;
-    	padding:0;
-    	> div
-    	{
-    		width:20%;
-    	}
+    	padding:0;    	
     }
-    .cancleBooking
-    {
-    	font-size:10px;
-    	padding:5px 10px 4px;
-    	background:@teal;
-    	color:@white;
-    	border:none;
-    	float:right;
-    	text-decoration:none;
-    	&:focus, &:hover
-    	{
-    		outline:none;
-    		color:@white;
-    		text-decoration:none;
-    	}
-    }
+  
     i
     {
     	color:@real-blue;
@@ -728,7 +713,14 @@ body
 	.cancelBookingOuter
 	{
 		padding: 20px 0 0 0 ;
-	    border-top: 1px solid @gray-light;		   
+	    border-top: 1px solid @gray-light;	
+	    margin-top:40px;	 
+	    a
+	    {
+	    	margin-bottom:10px;
+	    	color:@white;
+	    	float:right;
+	    }  
 	}
 }
 .failureOuter
@@ -931,4 +923,137 @@ body
 		    line-height: 1.5;
 		}
 	}
+}
+@media screen and (max-width:767px)
+{	
+	.bookFlowContent
+	{
+		.bookAptOuter
+		{
+			.row
+			{
+				> div
+				{
+					text-align:center !important;
+				}
+			}		
+			.priceOuter 
+			{
+				width:120px;
+			}	
+			.totalPrice 
+			{
+				padding-right:0;
+			}
+			.borderDiv
+			{
+				margin:10px 2%;
+			}
+			i, .amount 
+			{
+				float:none;
+				display:inline-block;
+				margin:0;
+			}
+			.amount 
+			{
+				margin-left:10px;
+				margin-right:0 !important;
+			}
+		}
+		h3
+		{
+			font-size:150%;
+		}
+		.panel-inner  
+		{
+			padding: 10px 15px 30px;
+		}
+		
+	} 
+	.detailsOuter 
+	{
+		padding:0 !important;
+		> div
+		{
+			width:50% !important;
+		}
+	}
+	.panel-body
+	{
+		padding:15px 0 !important;
+	}
+	.successOuter
+	{
+		padding:20px 0;
+	}
+	.successContent 
+	{
+		.BoxShadow(0, 0px, 2px);
+		padding:0 !important;
+		.bookedUser
+		{
+			padding:0 !important;
+		}
+		.cancelBookingOuter
+		{
+			margin-top:20px;
+		}
+		.note 
+		{
+			margin-bottom:10px;
+		}
+		.cancleText
+		{
+			float:left;
+			margin-bottom:10px;
+		}		
+		.bookApmt, .flatNo 
+		{
+			font-size:14px !important;
+		}
+		.reviewDetails > div:first-child
+		{
+			margin-bottom:0;
+		}
+		
+	}
+	.bookAptOuter
+	{
+		.download
+		{
+			float:left ;
+			width:100% ;
+			text-align:center;
+		}
+		.priceSheet 
+		{
+			float:none !important;
+			display:inline-block ;
+			margin-left:0;
+		}
+	}
+	.bookFlowContent .container
+	{
+		padding:0;
+	}	
+}
+@media screen and (max-width:320px)
+{
+	.unitDetails 
+	{
+		font-size:10px;
+	}
+	.successOuter 
+	{
+	 .cancelBookingOuter a
+	 {
+		float:left;
+	 }
+	 .cancleText 
+	 {
+	 	float:left;
+	 	width:100%;
+	 }
+	} 
 }

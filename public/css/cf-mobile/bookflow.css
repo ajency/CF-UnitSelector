@@ -57,7 +57,7 @@ body {
   font-weight: 300;
 }
 .bookFlowContent {
-  background: url(../../images/cf-mobile/Project-noshadow.jpg) no-repeat;
+  background: url(../../html/Bookflow/img/Project-noshadow.jpg) no-repeat;
   height: 50%;
   background-size: cover;
   height: 300px;
@@ -90,23 +90,18 @@ body {
 .bookFlowContent .bookAptOuter {
   margin: 0 auto;
 }
-.bookFlowContent .bookAptOuter > div:first-child {
-  margin-left: -15px;
-  padding-left: 0;
-}
-.bookFlowContent .bookAptOuter > div:last-child {
-  padding-right: 0px;
+.bookFlowContent .bookAptOuter .row > div:last-child {
+  text-align: right;
 }
 .bookFlowContent .bookAptOuter i {
   font-size: 12px;
-  float: left;
+  display: inline-block;
   margin-top: 2px;
-  margin-left: 20px;
 }
 .bookFlowContent .bookAptOuter .amount {
   color: #ffffff;
   margin-left: 10px;
-  float: left;
+  display: inline-block;
   margin-bottom: 0;
   margin-top: 0;
 }
@@ -115,7 +110,7 @@ body {
   color: #ffffff;
   float: left;
   width: 100%;
-  padding-right: 51px;
+  padding-right: 27px;
 }
 .bookFlowContent .bookAptOuter .priceSheet {
   font-size: 10px;
@@ -129,6 +124,7 @@ body {
   float: left;
   margin-left: 10px;
   text-decoration: none;
+  float: right;
 }
 .bookFlowContent .bookAptOuter .priceSheet:focus {
   outline: none;
@@ -141,6 +137,7 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   outline: none;
+  float: right;
 }
 .bookFlowContent .bookAptOuter .download:focus {
   text-decoration: none;
@@ -158,18 +155,19 @@ body {
 }
 .bookFlowContent .bookAptOuter .priceOuter {
   width: 140px;
-  float: right;
+  display: inline-block;
 }
-.bookFlowContent .bookAptOuter .priceOuter:first-child .amount {
-  margin-right: 33px;
+.bookFlowContent .bookAptOuter .priceOuter:last-child .amount {
+  margin-right: 46px;
 }
-.bookFlowContent .bookAptOuter .priceOuter:first-child .totalPrice {
+.bookFlowContent .bookAptOuter .priceOuter:last-child .totalPrice {
   padding-right: 0px;
 }
 .bookFlowContent .bookAptOuter .borderDiv {
-  float: right;
-  border: 1px solid #bcbcba;
+  display: inline-block;
+  background: #bcbcba;
   height: 40px;
+  width: 1px;
   margin-left: 20px;
   -ms-transform: rotate(25deg);
       transform: rotate(25deg);
@@ -248,6 +246,27 @@ body {
   padding: 10px;
   font-size: 14px;
   font-weight: 700;
+}
+.bookFlowContent .panel .reviewDetails .detailsOuter {
+  padding: 0;
+  float: left;
+  width: 100%;
+}
+.bookFlowContent .panel .reviewDetails .detailsOuter > div {
+  width: 20%;
+}
+.bookFlowContent .panel .reviewDetails .detailsOuter a {
+  color: #fe943e;
+  text-decoration: none;
+  outline: none;
+  float: left;
+  margin-top: 20px;
+}
+.bookFlowContent .panel .reviewDetails .detailsOuter a:hover,
+.bookFlowContent .panel .reviewDetails .detailsOuter a:focus {
+  text-decoration: none;
+  outline: none;
+  color: #fe943e;
 }
 .bookFlowContent .panel .termsConditions {
   font-size: 16px;
@@ -397,32 +416,18 @@ body {
 .unitDetails i {
   color: #fe943e !important;
 }
-.unitDetails > div {
-  width: 20%;
-}
-.unitDetails a {
-  color: #fe943e;
-  text-decoration: none;
-  outline: none;
-}
-.unitDetails a:hover,
-.unitDetails a:focus {
-  text-decoration: none;
-  outline: none;
-  color: #fe943e;
-}
 .titleDetails {
   padding: 0 !important;
   font-size: 11px;
   text-transform: uppercase;
   margin-left: -15px;
-  margin-bottom: 25px;
-}
-.titleDetails > div {
-  width: 20%;
+  margin-top: 5px;
 }
 .bookingFlow .modal-backdrop {
   left: 0 !important;
+}
+.priceSheetModal .modal-body {
+  padding: 15px 0;
 }
 .priceSheetModal .modal-content {
   border-radius: 0;
@@ -455,6 +460,9 @@ body {
   right: 10px;
   z-index: 9999;
   top: 5px;
+}
+.priceSheetModal .saleOuter {
+  margin-top: 20px;
 }
 .priceSheetModal .saleOuter .saleValue {
   font-weight: 700;
@@ -518,24 +526,6 @@ body {
   font-weight: 600;
   padding: 0;
 }
-.successOuter .unitDetails > div {
-  width: 20%;
-}
-.successOuter .cancleBooking {
-  font-size: 10px;
-  padding: 5px 10px 4px;
-  background: #12acac;
-  color: #ffffff;
-  border: none;
-  float: right;
-  text-decoration: none;
-}
-.successOuter .cancleBooking:focus,
-.successOuter .cancleBooking:hover {
-  outline: none;
-  color: #ffffff;
-  text-decoration: none;
-}
 .successOuter i {
   color: #296ec3;
   margin-right: 4px;
@@ -546,6 +536,12 @@ body {
 .successOuter .cancelBookingOuter {
   padding: 20px 0 0 0 ;
   border-top: 1px solid #bcbcba;
+  margin-top: 40px;
+}
+.successOuter .cancelBookingOuter a {
+  margin-bottom: 10px;
+  color: #ffffff;
+  float: right;
 }
 .failureOuter {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
@@ -703,5 +699,98 @@ body {
   font-size: 14px;
   color: #333333;
   line-height: 1.5;
+}
+@media screen and (max-width: 767px) {
+  .bookFlowContent .bookAptOuter .row > div {
+    text-align: center !important;
+  }
+  .bookFlowContent .bookAptOuter .priceOuter {
+    width: 120px;
+  }
+  .bookFlowContent .bookAptOuter .totalPrice {
+    padding-right: 0;
+  }
+  .bookFlowContent .bookAptOuter .borderDiv {
+    margin: 10px 2%;
+  }
+  .bookFlowContent .bookAptOuter i,
+  .bookFlowContent .bookAptOuter .amount {
+    float: none;
+    display: inline-block;
+    margin: 0;
+  }
+  .bookFlowContent .bookAptOuter .amount {
+    margin-left: 10px;
+    margin-right: 0 !important;
+  }
+  .bookFlowContent h3 {
+    font-size: 150%;
+  }
+  .bookFlowContent .panel-inner {
+    padding: 10px 15px 30px;
+  }
+  .detailsOuter {
+    padding: 0 !important;
+  }
+  .detailsOuter > div {
+    width: 50% !important;
+  }
+  .panel-body {
+    padding: 15px 0 !important;
+  }
+  .successOuter {
+    padding: 20px 0;
+  }
+  .successContent {
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    padding: 0 !important;
+  }
+  .successContent .bookedUser {
+    padding: 0 !important;
+  }
+  .successContent .cancelBookingOuter {
+    margin-top: 20px;
+  }
+  .successContent .note {
+    margin-bottom: 10px;
+  }
+  .successContent .cancleText {
+    float: left;
+    margin-bottom: 10px;
+  }
+  .successContent .bookApmt,
+  .successContent .flatNo {
+    font-size: 14px !important;
+  }
+  .successContent .reviewDetails > div:first-child {
+    margin-bottom: 0;
+  }
+  .bookAptOuter .download {
+    float: left ;
+    width: 100% ;
+    text-align: center;
+  }
+  .bookAptOuter .priceSheet {
+    float: none !important;
+    display: inline-block;
+    margin-left: 0;
+  }
+  .bookFlowContent .container {
+    padding: 0;
+  }
+}
+@media screen and (max-width: 320px) {
+  .unitDetails {
+    font-size: 10px;
+  }
+  .successOuter .cancelBookingOuter a {
+    float: left;
+  }
+  .successOuter .cancleText {
+    float: left;
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=bookflow.css.map */
