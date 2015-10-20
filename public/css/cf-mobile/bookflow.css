@@ -16,6 +16,7 @@
   border: 1px solid #fe943e !important;
   color: #ffffff;
   border-radius: 3px !important;
+  outline: none;
 }
 .btn-primary:hover,
 .btn-primary:focus {
@@ -94,7 +95,7 @@ body {
   text-align: right;
 }
 .bookFlowContent .bookAptOuter i {
-  font-size: 12px;
+  font-size: 16px;
   display: inline-block;
   margin-top: 2px;
 }
@@ -319,12 +320,14 @@ body {
 }
 .bookFlowContent .panel .termsConditions label a {
   color: #fe943e;
+  outline: none;
 }
 .bookFlowContent .panel .mandatory {
   background: #fcf8e3;
   padding: 10px;
   border: 1px solid #fcf8e3;
   color: #8a6d3b;
+  margin-bottom: 20px;
 }
 .bookFlowContent .panel .personalDetails {
   padding: 0;
@@ -355,6 +358,9 @@ body {
 }
 .bookFlowContent .panel .panel-body {
   border-top: none !important;
+}
+.bookFlowContent .panel .plusMinusOuter {
+  outline: none;
 }
 .bookFlowContent .panel .plusMinusOuter .plusMinusIcon {
   float: right;
@@ -543,6 +549,9 @@ body {
   color: #ffffff;
   float: right;
 }
+.successOuter .detailsOuter > div {
+  width: 20%;
+}
 .failureOuter {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   padding: 15px;
@@ -648,6 +657,7 @@ body {
 .bookingFooter .privacyOuter a {
   margin: 0 5px;
   text-decoration: none;
+  outline: none;
 }
 .successContent {
   padding: 20px;
@@ -754,7 +764,7 @@ body {
     margin-top: 20px;
   }
   .successContent .note {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   .successContent .cancleText {
     float: left;

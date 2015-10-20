@@ -43,9 +43,9 @@ class PropertyTypeGroup extends Model {
 
 	public function toArray() {
         $data = parent::toArray();
-        $data['breakpoints'] = (!empty($data['breakpoints']))?unserialize($data['breakpoints']):[];
-        $groupMasters = unserialize($data['group_master']);
-        $shadowImages = unserialize($data['shadow_images']);
+        //$data['breakpoints'] = (!empty($data['breakpoints']))?unserialize($data['breakpoints']):[];
+        $groupMasters = $data['group_master'];
+        $shadowImages = $data['shadow_images'];
         $groupId = $data['id'];
         $phaseId = $data['phase_id'];
         $projectId = Phase::find( $phaseId )->project_id;
