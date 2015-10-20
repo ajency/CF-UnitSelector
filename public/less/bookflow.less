@@ -28,7 +28,7 @@
 	background: @brand-primary !important;
 	border:1px solid @brand-primary !important;
 	color: @white;
-	border-radius:3px !important;
+	border-radius:3px !important;outline:none;
 
 	&:hover, &:focus
 	{
@@ -125,7 +125,7 @@ body
 		}		
 		i
 		{
-			font-size:12px;
+			font-size:16px;
 			display: inline-block;
     		margin-top: 2px;    		
 		}
@@ -395,6 +395,7 @@ body
 				a
 				{
 					color: @brand-primary;
+					outline:none;
 				}
 			}
 		}
@@ -405,6 +406,7 @@ body
 			padding: 10px;
 			border: 1px solid @erorBorder;
 			color: @errorText; 
+			margin-bottom:20px;
 		}
 
 		.personalDetails
@@ -446,7 +448,7 @@ body
 		}
 		.plusMinusOuter
 		{
-
+			outline:none;
 			.plusMinusIcon
 			{
 				float: right;
@@ -722,6 +724,13 @@ body
 	    	float:right;
 	    }  
 	}
+	.detailsOuter
+	{
+		> div
+		{
+			width:20%;
+		}
+	}
 }
 .failureOuter
 {
@@ -847,6 +856,7 @@ body
     	{
     		margin:0 5px;
     		text-decoration:none;
+    		outline:none;
     	}
     }
 }
@@ -1001,7 +1011,7 @@ body
 		}
 		.note 
 		{
-			margin-bottom:10px;
+			margin-bottom:20px;
 		}
 		.cancleText
 		{
