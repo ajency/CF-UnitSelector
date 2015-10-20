@@ -145,6 +145,7 @@ var ProjectMaster = React.createClass({
     unapplyFilters: function(evt){
 
         console.log("Un Apply filters");
+        this.destroyTooltip();
 
         dataToSet ={
             property: "reset_filters",
