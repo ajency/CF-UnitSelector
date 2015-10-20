@@ -303,10 +303,10 @@ function getApartmentFilterTypes(propertyType){
 	});
 
 	// filterTypes = [{
- //          filterName: "Unit Type",
- //          filterDisplayType: "imageCheckbox",
- //          filterValues : [{id:1,name:"1BHK", isSelected: true},{id:2,name:"2BHK", isSelected: true},{id:3,name:"3BHK",isSelected: true},{id:4,name:"5BHK",isSelected: true}]
- //        }];
+ 	//          filterName: "Unit Type",
+ 	//          filterDisplayType: "imageCheckbox",
+ 	//          filterValues : [{id:1,name:"1BHK", isSelected: true},{id:2,name:"2BHK", isSelected: true},{id:3,name:"3BHK",isSelected: true},{id:4,name:"5BHK",isSelected: true}]
+ 	//        }];
 
     return filterTypes;
 
@@ -425,17 +425,6 @@ function getFilteredProjectMasterData(){
 	breakpoints = newProjectData.breakpoints;
 	newChosenBreakpoint = buildingToHighlight.primary_breakpoint;
 	newProjectData.chosenBreakpoint = newChosenBreakpoint;
-
-	// chosenBreakpointIndex = _.indexOf(breakpoints , newProjectData.chosenBreakpoint);
-
-	// newChosenBreakpointIndex = chosenBreakpointIndex+1;
-
-	// if(newChosenBreakpointIndex >= breakpoints.length)
-	// 	newChosenBreakpointIndex = 0;
-
-
-
-	newProjectData.chosenBreakpoint = breakpoints[newChosenBreakpointIndex];
 
 	// since filters are applied set isFilterAPplied as true
 	if(_.isEmpty(appliedFilters)){

@@ -9,6 +9,9 @@ use File;
 use \Input;
 use CommonFloor\Media;
 use CommonFloor\Building;
+use CommonFloor\Svg;
+use CommonFloor\SvgElement;
+use \DomDocument;
 
 class BuildingMediaController extends Controller {
 
@@ -36,6 +39,8 @@ class BuildingMediaController extends Controller {
      * @return Response
      */
     public function store($buildingId, Request $request) {
+
+        $type = Input::get( 'type' ); 
         $building = Building::find($buildingId);
         $projectId = $request->get('projectId');
         $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId;
@@ -44,9 +49,73 @@ class BuildingMediaController extends Controller {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             list($width, $height) = getimagesize($file);
+            
+            if ('svgUploader' === $type) {
+
+                    $position = Input::get( 'position' );  
+                    $masterImageId = Input::get( 'masterImageId' ); 
+                    $svg = Svg::firstOrCreate( array('image_id' => $masterImageId) );
+                    $svg->save();
+
+                    $fileName = $file->getClientOriginalName();
+                    $fileData = explode('.', $fileName);
+                    $newFilename = $fileName;
+                    $request->file( 'file' )->move( $targetDir, $newFilename );
+
+                    $svgPath  = $targetDir. '/'.$newFilename;
+                    $xdoc = new DomDocument();
+                    $xdoc->Load($svgPath);
+                    $paths = $xdoc->getElementsByTagName('path');
+                    if(!empty($paths))
+                    {
+                        foreach ($paths as $key => $path) {
+                            $cordinated = $path->getAttributeNode('d');
+                            $points = $cordinated->value;  
+
+                            $other_details['class']='layer unassign';
+                            $svgElement = new SvgElement();
+                            $svgElement->svg_id = $svg->id;
+                            $svgElement->object_type = 'unassign';
+                            $svgElement->object_id = 0;
+                            $svgElement->points =$points;
+                            $svgElement->canvas_type = 'path';
+                            $svgElement->other_details = $other_details;
+                            $svgElement->save();
     
-            if(($width >=1600 && $height >=800) && ($height==($width/2)))
+                        }
+                    }
+
+                    $polygons = $xdoc->getElementsByTagName('polygon');
+                    if(!empty($polygons))
+                    {
+                        foreach ($polygons as $key => $polygon) {
+                            $cordinated = $polygon->getAttributeNode('points');
+                            $points= $cordinated->value;  
+
+                            $other_details['class']='layer unassign';
+                            $svgElement = new SvgElement();
+                            $svgElement->svg_id = $svg->id;
+                            $svgElement->object_type = 'unassign';
+                            $svgElement->object_id = 0;
+                            $svgElement->points =$points;
+                            $svgElement->canvas_type = 'polygon';
+                            $svgElement->other_details = $other_details;
+                            $svgElement->save();
+    
+                        }
+                    }
+                    
+
+                    $mediaId ='';
+                    $message =  $fileName .' Svg Successfully Uploaded';
+                    $code ='201';
+                    \File::delete($targetDir. $newFilename);
+
+            }
+            else
             {
+            //if(($width >=1600 && $height >=800) && ($height==($width/2)))
+            //{
                 $fileName = $file->getClientOriginalName();
                 $fileData = explode('.', $fileName);
                 $newFilename = $fileName;
@@ -59,18 +128,35 @@ class BuildingMediaController extends Controller {
                 $media->mediable_type = 'CommonFloor\Building';
                 $media->save();
                 $mediaId = $media->id;
-                $buildingMaster = $building->building_master;
-                $file =  $fileData[0];
-                $fileArr = explode('-', $file);
-                $position = $fileArr[1];
 
-                $buildingMaster[$position] = $media->id;
-                $building->building_master = $buildingMaster;
-                $building->save();
-                $code ='201';
-                $message ='Building Master Image Added';
+                if ('shadow' === $type) {
+                    $shadowImages =  $building->shadow_images;
+                    $file =  $fileData[0];
+                    $fileArr = explode('-', $file);
+                    $position = $fileArr[1];
+
+                    $shadowImages[$position] = $media->id;
+                    $building->shadow_images = $shadowImages;
+                    $building->save();
+                    $code ='201';
+                    $message ='Shadow Image Added';
+                } 
+                else
+                {
+                    $buildingMaster = $building->building_master;
+                    $file =  $fileData[0];
+                    $fileArr = explode('-', $file);
+                    $position = $fileArr[1];
+
+                    $buildingMaster[$position] = $media->id;
+                    $building->building_master = $buildingMaster;
+                    $building->save();
+                    $code ='201';
+                    $message ='Building Master Image Added'; 
+                }
+          }      
                 
-            }
+           /* }
             else
             {
                 $code ='200';
@@ -78,7 +164,7 @@ class BuildingMediaController extends Controller {
                 $newFilename ='';
                 $mediaId ='';
                 $position ='';
-            }
+            }*/
         }
         return response()->json([
                     'code' => 'building_media_added',
@@ -134,22 +220,41 @@ class BuildingMediaController extends Controller {
         $refference = Input::get('refference');
         $projectId = Input::get( 'projectId' );
 
+
         $building = Building::find($buildingId);
         $metaValue = $building->building_master;
+        $shadowImages = $building->shadow_images;
         $breakpoints = $building->breakpoints; 
         $data = [];
-        
-        $breakpoints = (!empty($breakpoints))?unserialize($breakpoints):[];
-        $breakpointKey = array_search ($refference, $breakpoints);
-        unset($breakpoints[$breakpointKey]);
-        $breakpoints = serialize($breakpoints);
-        
-        $metaValueKey = array_search ($id, $metaValue);
-        $metaValue[$metaValueKey]='';
-  
-        $building->breakpoints = $breakpoints;
-        $building->building_master = $metaValue;
-        $building->save();
+        if($type=='master')
+        {
+            $breakpoints = (!empty($breakpoints))?unserialize($breakpoints):[];
+            $breakpointKey = array_search ($refference, $breakpoints);
+            unset($breakpoints[$breakpointKey]);
+            $breakpoints = serialize($breakpoints);
+
+            $shadowImages = (!empty($shadowImages))?unserialize($shadowImages):[];
+            $shadowImagesKey = array_search ($refference, $shadowImages);
+            unset($shadowImages[$shadowImagesKey]);
+            $shadowImages = $shadowImages;
+            
+            $metaValueKey = array_search ($id, $metaValue);
+            $metaValue[$metaValueKey]='';
+      
+            $building->breakpoints = $breakpoints;
+            $building->shadow_images = $shadowImages;
+            $building->building_master = $metaValue;
+            $building->save();
+        }
+        elseif($type=='shadow')
+        {   
+            
+            $position = array_search($id, $shadowImages);  
+            unset($shadowImages[$position]);
+            $building->shadow_images = $shadowImages;
+            $building->save();  
+ 
+        }
        
         $media = Media::find( $id );
         $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/".$media->image_name;

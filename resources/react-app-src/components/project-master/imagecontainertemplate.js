@@ -22,10 +22,7 @@ var ImageContainerTemplate = React.createClass({
         return svgData;
     },
 
-
     componentDidMount: function(){
-
-        console.log("componentDidMount for image")
 
         details = this.props.breakpoints;
         
@@ -48,7 +45,7 @@ var ImageContainerTemplate = React.createClass({
         var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'{frame}.jpg'
 
         var frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
-         frame: [1, 60],
+         frame: [0, 59],
          digits: digitsInName
        });
 
@@ -72,14 +69,12 @@ var ImageContainerTemplate = React.createClass({
          })
 
         spin.bind("onFrame", function() {
-          console.log("on frame");
            var data = api.data;
            data.stage.find(".detail:visible").stop(false).fadeOut();
            data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
          });    
 
         spin.bind("onAnimationStop", function(){
-          console.log("on animation stop");
           svgData = {
               svgClasses: {'svg-area': true,
                        'hide': false
@@ -108,7 +103,11 @@ var ImageContainerTemplate = React.createClass({
 
 
     setDetailIndex: function() {
-        console.log("set detail index")
+        console.log("set detail index");
+
+        // destroy existing tooltips;
+        this.props.destroyTooltip();
+
         svgData = {
           svgClasses: {'svg-area': true,
                        'hide': true
@@ -182,6 +181,8 @@ var ImageContainerTemplate = React.createClass({
                           chosenBreakpoint={this.props.chosenBreakpoint} 
                           key={this.props.chosenBreakpoint}
                           buildings = {buildings}
+                          buildingToHighlight = {this.props.buildingToHighlight}
+                          showTooltip = {this.props.showTooltip}
                         />
 
                         <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>

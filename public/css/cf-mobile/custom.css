@@ -412,6 +412,9 @@ body .row {
     bottom: 47%;
   }
 }
+.svg-light {
+  opacity: 0;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
