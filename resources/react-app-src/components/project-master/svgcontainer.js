@@ -60,7 +60,7 @@ var SvgContainer = React.createClass({
         svgElemClassName = 'svg-light building building'+id;
 
         if(id == highlightedBuildingId)
-          svgElemClassName = 'show-qtooltip building building'+id;
+          svgElemClassName = 'svg-light show-qtooltip building building'+id;
         
         // apply filter inselection class 
         if(_.contains(filteredBuildingIds, id)){
