@@ -182,6 +182,7 @@ var ImageContainerTemplate = React.createClass({
                           chosenBreakpoint={this.props.chosenBreakpoint} 
                           key={this.props.chosenBreakpoint}
                           buildings = {buildings}
+                          buildingToHighlight = {this.props.buildingToHighlight}
                         />
 
                         <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>

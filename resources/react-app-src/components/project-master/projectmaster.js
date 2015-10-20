@@ -76,6 +76,7 @@ var ProjectMaster = React.createClass({
     },
 
     selectFilter: function(evt){
+        console.log("selectFilter");
         isChecked = evt.target.checked;
 
         filterType = $(evt.target).data("filtertype");
@@ -245,27 +246,27 @@ var ProjectMaster = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
     },
 
-    showTooltip: function(unitId,text){
-        classname = ".building"+unitId;
-        $(".building").qtip({ // Grab some elements to apply the tooltip to
-            content: text,
-            show: {
-                when: false, // Don't specify a show event
-                ready: true // Show the tooltip when ready
-            },
-            hide: false,
-            style: {
-                classes: 'qtip-light',
-                tip: {
-                    corner: 'bottom center',
-                    mimic: 'bottom left',
-                    border: 1,
-                    width: 88,
-                    height: 66
-                }
-            } // Don't specify a hide event
-        })
-    },
+    // showTooltip: function(unitId,text){
+    //     classname = ".building"+unitId;
+    //     $(".building").qtip({ // Grab some elements to apply the tooltip to
+    //         content: text,
+    //         show: {
+    //             when: false, // Don't specify a show event
+    //             ready: true // Show the tooltip when ready
+    //         },
+    //         hide: false,
+    //         style: {
+    //             classes: 'qtip-light',
+    //             tip: {
+    //                 corner: 'bottom center',
+    //                 mimic: 'bottom left',
+    //                 border: 1,
+    //                 width: 88,
+    //                 height: 66
+    //             }
+    //         } // Don't specify a hide event
+    //     })
+    // },
 
     rotateImage: function(unitData){
         console.log("rotate");
@@ -288,7 +289,7 @@ var ProjectMaster = React.createClass({
 
         // show tooltip for respective tower 
 
-        this.showTooltip(unitData.id,unitData.building_name);
+        // this.showTooltip(unitData.id,unitData.building_name);
 
     },
 
@@ -303,6 +304,10 @@ var ProjectMaster = React.createClass({
         var isFilterApplied = data.isFilterApplied;
 
         var filterTypes = data.filterTypes;
+
+        var unitIndexToHighlight = data.unitIndexToHighlight;
+
+        var buildingToHighlight = buildings[unitIndexToHighlight];
 
         return (
             <div>
@@ -331,6 +336,7 @@ var ProjectMaster = React.createClass({
                 updateChosenBreakPoint = {this.updateChosenBreakPoint}
                 updateRotateShadow = {this.updateRotateShadow}
                 buildings =  {buildings}
+                buildingToHighlight = {buildingToHighlight}
             />
             <CardList 
                 ref = "cardList"

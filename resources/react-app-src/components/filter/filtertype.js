@@ -60,17 +60,18 @@ var FilterType = React.createClass({
                         }.bind(this));            
         }
         else if(filterDisplayType==="normalCheckbox"){
+            that = this;
             filterValueNodes = filterValues.map(function(filterValue,i){
                             return(
                                 <div key={i} className="checkboxnormal">
                                     <h5 className="col-xs-9 normal">Swimming Pool</h5>
                                     <span className="col-xs-3 text-center">
-                                            <input id="check1" type="checkbox" name="check" value="check1"/><label></label>
+                                            <input id="check1" type="checkbox" name="check" value="check1" onClick={that.props.selectFilter}/><label></label>
                                     </span>
                                 </div>                              
                             ); 
                                  
-                        });              
+                        }.bind(this));              
         }
         else if(filterDisplayType==="range"){
             filterValueNodes = ( <RangeComponent listItems={filterValues} /> );

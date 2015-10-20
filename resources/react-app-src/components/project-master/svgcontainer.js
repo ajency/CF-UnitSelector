@@ -3,6 +3,25 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Isvg = require('react-inlinesvg');
 var classNames = require('classnames');
 
+var qtipSettings = { // Grab some elements to apply the tooltip to
+            content: "Dummy Text",
+            show: {
+                when: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready
+            },
+            hide: false,
+            style: {
+                classes: 'qtip-light',
+                tip: {
+                    corner: 'bottom center',
+                    mimic: 'bottom left',
+                    border: 1,
+                    width: 88,
+                    height: 66
+                }
+            } // Don't specify a hide event
+        };
+
 var SvgContainer = React.createClass({
 
     componentDidMount: function(){
@@ -16,7 +35,23 @@ var SvgContainer = React.createClass({
      
     },
 
+    showTooltip: function(propertytype,unitId,text){
+
+        $(".building").qtip("disable");
+
+        if(propertytype=="building"){
+          unitTypeClass = ".building"; 
+        }
+        classname = unitTypeClass+""+unitId;
+
+        qtipSettings['content'] = text;
+
+        $(classname).qtip(qtipSettings);
+    },    
+
     svgLoaded: function(){
+
+      console.log("svg loaded");
 
       var filteredBuildingIds = [];
       var notAvailableBuildingIds = [];
@@ -26,20 +61,10 @@ var SvgContainer = React.createClass({
 
       _.each(buildings,function(building){
 
-
-
           // // find all filtered units
           filteredUnits = building.filteredUnitData;
           availableUnits = building.availableUnitData;
-          // allUnits = building.unitData;
-
-          // filteredBldgIds = _.unique(_.pluck(filteredUnits,"building_id"));
-          // filteredBuildingIds = _.union(filteredBuildingIds, filteredBldgIds);
-
-          // notAvailableUnits = _.difference(allUnits,availableUnits);
-
-          // notAvailableBldgIds = _.unique(_.pluck(notAvailableUnits,"building_id"));
-          // notAvailableBuildingIds = _.union(notAvailableBuildingIds, notAvailableBldgIds);
+ 
           if(availableUnits.length==0){
             notAvailableBuildingIds.push(building.id);
           }
@@ -55,24 +80,30 @@ var SvgContainer = React.createClass({
 
       svgDom = $(".svg-area");
 
-        // Loop through each building svg element in svg
-        $(svgDom).find("svg .building").each(function(ind, item) {
-          var id = parseInt(item.id);
+      // Loop through each building svg element in svg
+      $(svgDom).find("svg .building").each(function(ind, item) {
+        var id = parseInt(item.id);
 
-          svgElemClassName = 'building building'+id;
-          
-          // apply filter inselection class 
-          if(_.contains(filteredBuildingIds, id)){
-            svgElemClassName+=" in-selection";
-            $('.building'+id).attr("class", svgElemClassName);
-          }
+        svgElemClassName = 'building building'+id;
+        
+        // apply filter inselection class 
+        if(_.contains(filteredBuildingIds, id)){
+          svgElemClassName+=" in-selection";
+          $('.building'+id).attr("class", svgElemClassName);
+        }
 
-          if(_.contains(notAvailableBuildingIds, id)){
-            svgElemClassName+=" not-in-selection";
-            $('.building'+id).attr("class", svgElemClassName);
-          }
-        });
+        if(_.contains(notAvailableBuildingIds, id)){
+          svgElemClassName+=" not-in-selection";
+          $('.building'+id).attr("class", svgElemClassName);
+        }
+      });
 
+
+      // need current highlighted building
+      buildingToHighlight = this.props.buildingToHighlight;
+
+      // apply tooltip only for higlighted building svg
+      this.showTooltip("building",buildingToHighlight.id,buildingToHighlight.building_name);
 
 
 
