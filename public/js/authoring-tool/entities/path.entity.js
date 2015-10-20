@@ -26,6 +26,7 @@ Path = (function(superClass) {
       svgid: item.id
     });
     path.addClass('path-type');
+    path.addClass('svg-light');
     path.addClass(item.object_type + item.object_id);
     if (item.primary_breakpoint !== null) {
       path.data('primary-breakpoint', item.primary_breakpoint);
