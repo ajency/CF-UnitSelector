@@ -12,6 +12,26 @@ var ReactDOM = require('react-dom');
 var Modal = require('../modal/modal');
 
 
+var qtipSettings = { // Grab some elements to apply the tooltip to
+            content: "Dummy Text",
+            show: {
+                when: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready
+            },
+            hide: false,
+            style: {
+                classes: 'qtip-light',
+                tip: {
+                    corner: 'bottom center',
+                    mimic: 'bottom left',
+                    border: 1,
+                    width: 88,
+                    height: 66
+                }
+            } // Don't specify a hide event
+        };
+
+
 
 function getStateData(){
     return AppStore.getStateData();
@@ -246,30 +266,38 @@ var ProjectMaster = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
     },
 
-    // showTooltip: function(unitId,text){
-    //     classname = ".building"+unitId;
-    //     $(".building").qtip({ // Grab some elements to apply the tooltip to
-    //         content: text,
-    //         show: {
-    //             when: false, // Don't specify a show event
-    //             ready: true // Show the tooltip when ready
-    //         },
-    //         hide: false,
-    //         style: {
-    //             classes: 'qtip-light',
-    //             tip: {
-    //                 corner: 'bottom center',
-    //                 mimic: 'bottom left',
-    //                 border: 1,
-    //                 width: 88,
-    //                 height: 66
-    //             }
-    //         } // Don't specify a hide event
-    //     })
-    // },
+    destroyTooltip: function(){
+        var classname = ".show-qtooltip";
+        var isqtipInitialised = false;
+        var qtipApi;
+
+        // check of qtip is already initialised or not
+        if('object' === typeof $(".show-qtooltip").data('qtip'))
+          isqtipInitialised = true;
+
+        if(isqtipInitialised){
+          // destroy qtip
+          qtipApi = $(classname).qtip('api');
+          qtipApi.destroy();
+        }
+    },    
+
+    showTooltip: function(text){
+
+ 
+        var classname = ".show-qtooltip";
+   
+        // initialise qtip
+
+        qtipSettings['content'] = text;
+
+        $(classname).qtip(qtipSettings);
+    },  
 
     rotateImage: function(unitData){
         console.log("rotate");
+
+        this.destroyTooltip();
 
         rotateToBreakpoint = unitData.primary_breakpoint;
         unitId = unitData.id;
@@ -337,6 +365,8 @@ var ProjectMaster = React.createClass({
                 updateRotateShadow = {this.updateRotateShadow}
                 buildings =  {buildings}
                 buildingToHighlight = {buildingToHighlight}
+                destroyTooltip = {this.destroyTooltip}
+                showTooltip = {this.showTooltip}
             />
             <CardList 
                 ref = "cardList"
