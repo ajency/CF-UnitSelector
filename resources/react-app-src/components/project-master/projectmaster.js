@@ -357,12 +357,17 @@ var ProjectMaster = React.createClass({
 
         var buildingToHighlight = buildings[unitIndexToHighlight];
 
+        var availableUnitData = buildings.availableUnitData;
+        var filteredUnitData = buildings.filteredUnitData;
+
         return (
             <div>
             <NavBar 
                 projectTitle = {projectTitle} 
                 unitCount = {unitCount}
                 showFilterModal = {this.showFilterModal}
+                buildings = {buildings}
+                isFilterApplied = {isFilterApplied}
             />
             <Modal 
                 ref="modal" 
