@@ -124,6 +124,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'project/{project}/downloadsamplefile/{filename}', 'Admin\ProjectController@downloadSampleFile' );
     Route::post( 'project/{project}/bunglow-unit/{id}/updatestatus', 'Admin\ProjectBunglowUnitController@updateStatus' );
     Route::post( 'project/{project}/plots/{projectpropertytypeid}/group/validategroupname', 'Admin\PropertyTypeGroupController@validateGroupnName' );
+    Route::post( 'project/{project}/bunglow/{projectpropertytypeid}/group/validategroupname', 'Admin\PropertyTypeGroupController@validateGroupnName' );
     Route::post( 'group/{id}/media/updatebreakpoint', 'Admin\PropertyTypeGroupMediaController@updateBreakPoint' );
 });
 
