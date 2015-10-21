@@ -143,11 +143,6 @@ var CardView = React.createClass({
                                 <div className="swipe-footer">
                                     <div className="col-xs-12">
                                         {domToDisplay}
-                                        <div className="arrow">
-                                            <a href="#">
-                                                <h3 className="margin-none"><i className="fa fa-angle-right"></i></h3>
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
