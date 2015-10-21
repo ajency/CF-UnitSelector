@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>CommonFloor - {{ $project_title }}</title>
 
-    <link href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
+    <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
     <link rel="stylesheet" href="{{ asset('css/cf-mobile/gh-fork-ribbon.min.css' )}}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/slick.css' )}}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}"/>
@@ -23,23 +23,40 @@
 		<!-- The App will be rendered here -->
 
 	</div>
+    
 
-
-	<!--Global constants -->
-	<script type="text/javascript" language="JavaScript">
-    	window.baseUrl = '{{url()}}';
-    	window.projectId = '{{$id}}';
-    </script>
-
+    
     <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
     <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
-    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
+    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script> 
+    <script src="{{ asset('bower_components/mobile-detect/mobile-detect.js') }}"></script>
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script>
     <script src="{{ asset('bower_components/slick-carousel/slick/slick.min.js' )}}"></script>
     <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
     <script src="{{ asset('bower_components/spritespin/release/spritespin.min.js' )}}"></script>  
-    <script src="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.js' )}}"></script>  
+    <script src="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.js' )}}"></script> 
 
+
+	<!--Global constants -->
+	<script type="text/javascript" language="JavaScript">
+        var md = new MobileDetect(window.navigator.userAgent);
+
+        detectedMobile = md.mobile();
+
+        if(_.isNull(detectedMobile)){
+            detectedMobile = false;
+            $("#size-stylesheet").attr("href", "../css/custom-big.css");
+            
+        }
+
+        window.isMobile = detectedMobile;
+    	window.baseUrl = '{{url()}}';
+    	window.projectId = '{{$id}}';
+    </script>
+
+    if()
+
+   
 
     <script src="{{asset('react-app-dist/main.js')}}"></script>
 
