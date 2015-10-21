@@ -12,17 +12,17 @@
   outline: none;
 }
 .btnOrange {
-  background: #ff6600;
+  background: #fe943e;
   color: #ffffff;
 }
 .btnOrange:hover,
 .btnOrange:focus {
-  background: #cc5200;
+  background: #fe780b;
   color: #ffffff !important;
   outline: none;
 }
 .orangeText {
-  color: #ff6600 !important;
+  color: #fe943e !important;
 }
 * {
   margin: 0;
@@ -34,8 +34,8 @@ body {
   color: #333333;
 }
 .header {
-  background: -webkit-linear-gradient(top, #ff6600 0, #c24e00 100%);
-  background: linear-gradient(to bottom, #ff6600 0, #c24e00 100%);
+  background: -webkit-linear-gradient(top, #fe943e 0, #fd7201 100%);
+  background: linear-gradient(to bottom, #fe943e 0, #fd7201 100%);
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -54,17 +54,71 @@ body {
   font-weight: 300;
 }
 .content {
-  margin-top: 80px;
+  background: url(../../images/cf-mobile/Project-noshadow.jpg) no-repeat;
+  height: 50%;
+  background-size: cover;
+  position: relative;
 }
-.content h2 {
-  color: #333333;
-  font-family: 'Lato', sans-serif;
+.content .absoluteLayout {
+  height: 280px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.content .container {
+  position: relative;
+}
+.content h3 {
+  color: #ffffff;
   font-weight: 300;
-  font-size: 30px;
+  margin-bottom: 5px;
+  margin-top: 50px;
 }
-.content span {
-  color: #999999;
-  font-size: 18px;
+.content .spanText {
+  color: #d5d5d4;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+}
+.content .bookAptOuter {
+  width: 750px;
+  margin: 0 auto;
+}
+.content .bookAptOuter .bookApmt {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.9;
+  color: #fe943e;
+}
+.content .bookAptOuter .flatNo {
+  color: #ffffff;
+}
+.content .bookAptOuter i {
+  font-size: 12px;
+}
+.content .bookAptOuter .amount {
+  color: #ffffff;
+  margin-left: 10px;
+}
+.content .bookAptOuter .totalPrice {
+  font-size: 8px;
+  color: #ffffff;
+  float: left;
+  width: 100%;
+  padding-right: 26px;
+}
+.content .absoluteAccordion {
+  width: 750px;
+  position: absolute;
+  left: 50%;
+  margin-left: -375px;
+  top: 185px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 .content .panel-inner {
   max-width: 850px;
@@ -72,30 +126,38 @@ body {
 }
 .content .panel {
   margin-top: 0 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #bcbcba;
+}
+.content .panel:last-child {
+  border-bottom: none;
 }
 .content .panel h4 {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
 }
 .content .panel .panel-heading {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
   padding: 0;
   border-radius: 0;
+  background: #ffffff;
+  border: none;
 }
 .content .panel .panel-heading.active {
-  background: #ff6600;
-  color: #ffffff;
+  color: #fe943e;
 }
 .content .panel .panel-heading a {
   text-decoration: none;
-  font-size: 18px;
-  padding: 15px;
+  font-size: 10px;
+  padding: 20px 15px 15px 15px;
   display: block;
+  text-transform: uppercase;
 }
 .content .panel .reviewDetails .buildingName {
   font-size: 30px;
@@ -120,7 +182,7 @@ body {
   margin-right: 5px;
 }
 .content .panel .termsConditions label a {
-  color: #ff6600;
+  color: #fe943e;
 }
 .content .panel .mandatory {
   background: #fcf8e3;
@@ -453,13 +515,20 @@ body {
 .successOuter .cancleBooking:focus {
   outline: none;
 }
+.successOuter i {
+  color: #296ec3;
+  margin-right: 4px;
+}
 .failureOuter {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   padding: 15px;
   width: 500px !important;
-  margin: 0 auto;
-  display: block;
-  text-align: center;
+  height: 230px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin-top: -120px;
+  margin-left: -250px;
 }
 .failureOuter i {
   color: #ee1f3b;
@@ -473,6 +542,17 @@ body {
   float: left;
   margin-top: 4px;
 }
+.failureOuter .transactionFailed {
+  color: #ee1f3b;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+.failureOuter .transactionNo {
+  font-size: 11px;
+  padding-left: 0;
+}
 .failureOuter .tryAgain {
   margin-top: 20px;
   background: #12acac;
@@ -481,8 +561,44 @@ body {
   padding: 5px 10px 4px;
   font-size: 10px;
   margin-bottom: 10px;
+  margin-left: 0;
+  float: left;
 }
 .failureOuter .tryAgain:focus {
+  outline: none;
+}
+.timeoutOuter {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  width: 400px !important;
+  height: 150px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin-top: -75px;
+  margin-left: -200px;
+  color: #296ec3;
+}
+.timeoutOuter .failureMsg {
+  color: #565654;
+}
+.timeoutOuter .transactionFailed {
+  color: #565654;
+  font-size: 14px;
+  padding-left: 0;
+}
+.timeoutOuter .tryAgain {
+  margin-top: 20px;
+  background: #12acac;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px 4px;
+  font-size: 10px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  float: left;
+}
+.timeoutOuter .tryAgain:focus {
   outline: none;
 }
 /*# sourceMappingURL=bookflow.css.map */

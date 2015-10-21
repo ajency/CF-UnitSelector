@@ -1,7 +1,7 @@
 @import 'var';
 
 @baseColor: #fff;
-@brandColor: #f60;
+@brandColor: #FE943E;
 @textColor: #333;
 @lightText: #999;
 @gPlusGradient: #e57f79;
@@ -76,22 +76,82 @@ body
 
 .content
 {
-	margin-top: 80px;
-
-	h2
+	background:url(../../images/cf-mobile/Project-noshadow.jpg) no-repeat;
+	height:50%;
+	background-size:cover;
+	position:relative;
+	.absoluteLayout
 	{
-		color: @textColor;
-		font-family: 'Lato', sans-serif;
-		font-weight: 300;
-		font-size: 30px;
+		height:280px;
+		width:100%;
+		background:rgba(0,0,0,0.5);
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	.container
+	{
+		position:relative;
 	}
 
-	span
+	h3
 	{
-		color: @lightText;
-		font-size: 18px;
+		color: @white;		
+		font-weight: 300;	
+		margin-bottom:5px;	
+		margin-top:50px;	
 	}
 
+	.spanText
+	{
+		color: @gray-lighter;
+		font-size: 10px;
+    	text-transform: uppercase;
+    	margin-bottom:50px;
+	}
+	.bookAptOuter
+	{
+		width:750px;
+		margin:0 auto;
+		.bookApmt
+		{
+			font-size: 14px;
+		    font-weight: 600;
+		    opacity: 0.9;
+		    color:@brand-primary;
+		}
+		.flatNo
+		{
+			color:@white;
+		}
+		i
+		{
+			font-size:12px;
+		}
+		.amount
+		{
+			color: @white;
+    		margin-left: 10px;
+		}
+		.totalPrice
+		{
+			font-size: 8px;
+		    color: @white;
+		    float: left;
+		    width: 100%;
+		    padding-right: 26px;
+		}
+	}
+	.absoluteAccordion
+	{
+		width:750px;
+		position:absolute;
+		left:50%;
+		margin-left:-375px;
+		top:185px;
+		background:@white;
+		.BoxShadow(0, 1px, 2px);
+	}
 	.panel-inner
 	{
 		max-width: 850px;
@@ -101,7 +161,14 @@ body
 	.panel
 	{
 		margin-top: 0 !important;
-		.BoxShadow(0, 2px, 4px);
+		.BoxShadow(0, 0px, 0px);
+		border-radius:0;
+		border:none;
+		border-bottom:1px solid @gray-light;
+		&:last-child
+		{
+			border-bottom:none;
+		}
 
 		h4
 		{
@@ -112,22 +179,24 @@ body
 
 		.panel-heading
 		{
-			.BoxShadow(0, 1px, 2px);
+			.BoxShadow(0, 0px, 0px);
 			padding: 0;		
 			.border-radius(0);	
+			background: @white;
+			border:none;
 
 			&.active
-			{
-				background: @brandColor;
-				color: @baseColor;
+			{				
+				color:  @brand-primary;
 			}
 
 			a
 			{
 				text-decoration: none;
-				font-size: 18px;
-				padding: 15px;
+				font-size: 10px;
+				padding: 20px 15px 15px 15px;
 				display: block;
+				text-transform:uppercase
 			}
 		}		
 
@@ -439,6 +508,11 @@ body
     		outline:none;
     	}
     }
+    i
+    {
+    	color:@real-blue;
+    	margin-right:4px;
+    }
 
 }
 .failureOuter
@@ -446,9 +520,12 @@ body
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
     padding: 15px;
     width:500px !important;
-    margin:0 auto;
-    display:block;
-    text-align:center;
+    height: 230px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -120px;
+    margin-left: -250px;
     i
     {    	
     	color:@real-red;
@@ -462,7 +539,20 @@ body
     	font-size:15px;
     	float: left;
     	margin-top: 4px;
+    }
+    .transactionFailed
+    {
+    	color:@real-red;
+    	font-size:12px;
+    	font-weight:700;
+    	margin-bottom:20px;
+    	padding-left:0;
     }	
+    .transactionNo
+    {
+    	font-size:11px;
+    	padding-left:0;
+    }
     .tryAgain 
     {
     	margin-top: 20px;
@@ -472,9 +562,53 @@ body
 	    padding: 5px 10px 4px;
 	    font-size: 10px;
 	    margin-bottom: 10px;
+	    margin-left:0;
+	    float:left;
 	    &:focus
 	    {
 	    	outline:none;
 	    }
     }
+}
+.timeoutOuter
+{
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+    padding: 15px;
+    width:400px !important;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -75px;
+    margin-left: -200px;
+    color: @real-blue;
+
+    .failureMsg
+    {
+    	color: @gray-darker;
+    }
+    .transactionFailed
+    {
+    	color: @gray-darker;
+    	font-size:14px;
+    	padding-left:0
+    }
+    .tryAgain 
+    {
+    	margin-top: 20px;
+	    background: @teal;
+	    color: @white;
+	    border: none;
+	    padding: 5px 10px 4px;
+	    font-size: 10px;
+	    margin-bottom: 10px;
+	    margin-left:0;
+	    float:left;
+	    &:focus
+	    {
+	    	outline:none;
+	    }
+
+    }
+
 }

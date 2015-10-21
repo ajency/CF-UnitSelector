@@ -25,6 +25,19 @@ var ProjectMaster = React.createClass({
         return getStateData();
     },
 
+    projectDataUpdateCallBack: function(){
+        console.log("project State Data  updated");
+        spinDom = $(ReactDOM.findDOMNode(this.refs.imageContainer)).find("#spritespin");
+        spinApi = spinDom.spritespin("api");
+
+        chosenBreakPoint = this.state.data.chosenBreakpoint
+        spinApi.playTo(chosenBreakPoint);
+
+        slideToGotTo = this.state.data.unitIndexToHighlight;
+        slickDom = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".slider");
+        slickDom.slick('slickGoTo',slideToGotTo);
+    },
+
     updateChosenBreakPoint: function(chosenBreakPoint){
         dataToSet = {
             property: "chosenBreakpoint",
@@ -88,13 +101,46 @@ var ProjectMaster = React.createClass({
 
     applyFilters: function(evt){
 
-        alert("filters applied");
+        console.log("Apply filters");
+
         dataToSet = {
             property: "applied_filters",
             value: this.state.data.search_filters
         };
 
-        console.log(dataToSet);
+        this.updateStateData(dataToSet);
+
+        this.updateProjectMasterData();
+
+
+    },
+
+    unapplyFilters: function(evt){
+
+        console.log("Un Apply filters");
+
+        dataToSet ={
+            property: "reset_filters",
+            value: {}
+        };
+
+        this.updateStateData(dataToSet);
+
+        this.updateProjectMasterData();
+
+
+    },
+
+
+    updateProjectMasterData: function(){
+        oldState = getStateData();
+
+        newProjectData = AppStore.getFilteredProjectMasterData();
+
+        dataToSet = {
+            property: "data",
+            value: newProjectData
+        };
 
         this.updateStateData(dataToSet);
 
@@ -120,11 +166,33 @@ var ProjectMaster = React.createClass({
                                                         }
                                                       });
         }
+        if(dataToSet.property === "reset_filters"){
+            
+            newState = immutabilityHelpers( oldState, { data: 
+                                                        {
+                                                            search_filters: {$set: dataToSet.value},
+                                                            applied_filters: {$set: dataToSet.value}
+                                                        }
+                                                      });
+        }
         if(dataToSet.property === "search_filters"){
 
             filterType = dataToSet.filterType;
 
-            oldataTochange = oldState["data"]["search_filters"][filterType];
+            oldSearchFilters = oldState["data"]["search_filters"];
+            
+            oldSearchFilterKeys = _.keys(oldSearchFilters);
+
+            if(_.contains(oldSearchFilterKeys,filterType)){
+                oldataTochange = oldSearchFilters[filterType];
+            }
+            else{
+                oldSearchFilters[filterType] = [];
+                oldataTochange = oldSearchFilters[filterType];
+            }
+            
+
+            
 
             valueToSet = dataToSet.value;
 
@@ -160,7 +228,7 @@ var ProjectMaster = React.createClass({
         }       
 
 
-        this.setState(newState);
+        this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState);
 
     },
@@ -186,6 +254,8 @@ var ProjectMaster = React.createClass({
         var unitCount = data.totalCount;
         var buildings = data.buildings;
         var breakpoints = data.breakpoints;
+        var applied_filters = data.applied_filters;
+        var isFilterApplied = data.isFilterApplied;
 
         var filterTypes = data.filterTypes;
 
@@ -202,19 +272,26 @@ var ProjectMaster = React.createClass({
                 selectFilter={this.selectFilter}
                 search_filters={data.search_filters}
                 applyFilters = {this.applyFilters}
+                unapplyFilters = {this.unapplyFilters}
             />
             <SunToggle 
                 toggelSunView = {this.toggelSunView} 
                 showShadow={data.showShadow}
             />
             <ImageContainerTemplate 
+                ref= "imageContainer"
                 showShadow={data.showShadow}
                 breakpoints = {data.breakpoints}
                 chosenBreakpoint = {data.chosenBreakpoint}
                 updateChosenBreakPoint = {this.updateChosenBreakPoint}
                 updateRotateShadow = {this.updateRotateShadow}
+                buildings =  {buildings}
             />
-            <CardList buildings={buildings}/>
+            <CardList 
+                ref = "cardList"
+                buildings={buildings}
+                isFilterApplied = {isFilterApplied}
+            />
             </div>
 
         );
