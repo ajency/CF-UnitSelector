@@ -3,7 +3,7 @@
 define('HOST','localhost');
 define('DBUSER','root');
 define('PASSWORD','Ajency#123');
-define('DATABSE','booking_engine');
+define('DATABASE','booking_engine');
 
 define('SITE_URL','http://booking.cfunitselectortest.com/');
 define('UNITSELECTOR_URL','http://45.118.135.216/');
