@@ -1,6 +1,6 @@
 .step4Desk
 {
-	padding:15px;
+	padding:15px 0 !important;
 	.backOuter
 	{	
 		padding:0;		
@@ -77,14 +77,20 @@
 	{
 		ul
 		{
+			margin-bottom: 0;
 			li
 			{
 				display:inline-block;
-				padding:10px 10px 0 10px;
+				padding:20px 30px 0 30px;
+				&:first-child
+				{
+					padding-left:15px;
+				}
 				a
 				{
 					color:@gray-darker;
-					padding-bottom:10px;
+					padding-bottom:15px;
+					float:left;
 					border-bottom:2px solid rgba(0,0,0,0);
 					text-decoration:none;
 					outline:none;
@@ -103,7 +109,25 @@
 						border-bottom:2px solid @brand-primary;
 					}
 				}
+				&.stickyButtons
+				{
+					display:none;
+					padding-top: 15px;
+				}
 			}
+		}
+		&.stick {
+		    position: fixed;
+		    top: 0;
+		    z-index: 10000;		   
+		    background: @white;
+		    width: 100%;
+		    box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+
+		    .stickyButtons
+		    {
+		    	display: block;
+		    }
 		}
 	}
 	.contentHEader
@@ -126,6 +150,10 @@
 	.detailView
 	{
 		margin-bottom:50px;
+		.contentHEader
+		{
+			margin-top: -5px;
+		}
 		.unit
 		{			
 			h5
@@ -203,11 +231,22 @@
 			.text
 			{
 				float:left;
-				width:60%;
+				width:70%;
 				padding-left:10px;
 				margin-top: 12px;
 			    font-size: 12px;
 			    font-weight: 600;
+			}
+			.disabled
+			{
+				.icon
+				{
+					background: @gray-lighter;
+				}
+				.text
+				{
+					color: @gray-light;
+				}
 			}
 		}
 		.similarFlat 
@@ -235,6 +274,24 @@
 				}
 			}
 		}
+		.specificationOuter 
+		{
+			margin-top: 30px;
+			h4
+			{
+				margin-bottom: 20px;
+			}
+			.textInner 
+			{
+				margin-bottom: 30px;
+				h5
+				{
+					margin-bottom: 10px;
+				}
+			}
+		}
+
+		
 }
 .pNone
 {
