@@ -1294,83 +1294,71 @@ body a {
   line-height: 1.5;
   opacity: 1;
 }
-.step4HeaderDesk {
+.step4Desk {
   padding: 15px;
 }
-.step4HeaderDesk .backOuter {
+.step4Desk .backOuter {
   padding: 0;
 }
-.step4HeaderDesk .backOuter i {
+.step4Desk .backOuter i {
   float: left;
   -ms-transform: scale(0.6);
       transform: scale(0.6);
   -webkit-transform: scale(0.6);
   margin-left: -5px;
 }
-.step4HeaderDesk .backOuter .back {
-  font-size: 10px;
+.step4Desk .backOuter .back {
+  font-size: 12px;
   float: left;
   margin-top: 5px;
   margin-left: 5px;
 }
-.step4HeaderDesk h4 {
+.step4Desk h4 {
   float: left;
   font-size: 20px;
   margin: 0;
 }
-.step4HeaderDesk .available {
+.step4Desk .available {
   border: 1px solid #0eab08;
   border-radius: 3px;
-  font-size: 8px;
+  font-size: 10px;
   padding: 2px 5px 1px;
   color: #0eab08;
-  margin-top: 3px;
+  margin-top: 0;
   float: left;
   margin-left: 10px;
 }
-.step4HeaderDesk .rightSide {
+.step4Desk .rightSide {
   padding-top: 25px;
 }
-.step4HeaderDesk .price {
+.step4Desk .price {
   color: #7d7c7a;
-  font-size: 10px;
+  font-size: 12px;
 }
-.step4HeaderDesk .amount {
+.step4Desk .amount {
   color: #fe943e;
-  font-size: 10px;
+  font-size: 12px;
   margin-left: 10px;
   margin-right: 10px;
 }
-.step4HeaderDesk button {
-  background: #fe943e;
-  border: none;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 9px;
-  padding: 5px 10px 3px;
-  border-radius: 3px;
-}
-.step4HeaderDesk button:focus {
-  outline: none;
-}
-.step4HeaderDesk .flatDetails {
+.step4Desk .flatDetails {
   margin-top: 5px;
   padding-left: 25px;
   border-bottom: 1px solid #d5d5d4;
   padding-bottom: 10px;
 }
-.step4HeaderDesk .flatDetails .units {
+.step4Desk .flatDetails .units {
   float: left;
-  font-size: 10px;
+  font-size: 12px;
   color: #bcbcba;
   margin: 0 5px;
 }
-.step4HeaderDesk .flatDetails ul {
+.step4Desk .flatDetails ul {
   float: left;
   margin: 0;
   text-align: center;
 }
-.step4HeaderDesk .flatDetails ul li {
+.step4Desk .flatDetails ul li {
   float: left;
   color: #bcbcba;
   margin: 0 10px;
@@ -1378,29 +1366,39 @@ body a {
   line-height: 1;
   width: 5px;
 }
-.step4HeaderDesk .tabHeader .nav-tabs {
-  border: none;
-}
-.step4HeaderDesk .tabHeader .nav-tabs li {
+.step4Desk .tabHeader ul li {
+  display: inline-block;
   padding: 10px 10px 0 10px;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li a {
-  border: none ;
-  background: none ;
-  color: #7d7c7a;
-  text-transform: uppercase;
-  font-size: 10px;
-  padding: 0 0 5px 0;
+.step4Desk .tabHeader ul li a {
+  color: #565654;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
+  text-decoration: none;
+  outline: none;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li a:hover,
-.step4HeaderDesk .tabHeader .nav-tabs li a:focus {
-  background: none;
+.step4Desk .tabHeader ul li a:hover,
+.step4Desk .tabHeader ul li a:focus {
+  text-decoration: none;
+  outline: none;
   color: #fe943e;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li.active a {
-  border: none;
-  background: none;
+.step4Desk .tabHeader ul li.active a {
   color: #fe943e;
   border-bottom: 2px solid #fe943e;
+}
+.step4Desk .contentHEader {
+  background: #d5d5d4;
+  padding: 15px 25px;
+}
+.step4Desk .contentHEader .contentTitle {
+  padding: 5px 20px 5px 0;
+  border-right: 1px solid #bcbcba;
+}
+.step4Desk .contentHEader .contentText {
+  padding: 0 20px;
+}
+.pNone {
+  padding: 0;
 }
 /*# sourceMappingURL=custom-big.css.map */
