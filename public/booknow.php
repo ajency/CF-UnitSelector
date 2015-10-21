@@ -94,7 +94,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                  <input type="hidden" name="project_id" value="<?php echo $projectId?>" >
                  <input type="hidden" name="merchant_id" value="<?php echo $merchantId?>" >
                  <input type="hidden" name="salt" value="<?php echo $salt ?>" >
-                 <input type="text" name="bookingId" value="<?php echo $bookingId ?>" >
+                 <input type="hidden" name="bookingId" value="<?php echo $bookingId ?>" >
 
                 <div class="panel-group col-md-12 col-sm-12 col-xs-12" id="accordion" role="tablist" aria-multiselectable="true">
                   <div class="panel-inner">
