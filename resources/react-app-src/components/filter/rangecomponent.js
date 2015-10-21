@@ -24,6 +24,7 @@ var RangeComponent = React.createClass({
 
     this.props.selectFilter(filterEvent);
   },
+  
 
   render: function () {
 

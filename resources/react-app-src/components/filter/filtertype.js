@@ -29,6 +29,7 @@ var FilterType = React.createClass({
         if(filterDisplayType==="imageCheckbox"){
             filterValueNodes = filterValues.map(function(filterValue,i){
 
+                
                             var filterValueName = filterValue.name ;
                             var imgSrc = "../images/icon/"+filterValueName.toLowerCase()+".png";
 
@@ -36,10 +37,17 @@ var FilterType = React.createClass({
                             var filtervalueId = (filterValue.id); 
                             filtervalueId = filtervalueId.toString();
 
-                            if(searchedFilter.length == 0)
+
+                            if (searchedFilter === undefined || searchedFilter === null) {
                                 isSelected = false;
-                            else
-                                isSelected = (_.indexOf(searchedFilter,filtervalueId) > -1);
+                            }else{
+                                if(searchedFilter.length == 0)
+                                    isSelected = false;
+                                else
+                                    isSelected = (_.indexOf(searchedFilter,filtervalueId) > -1);
+                            }
+
+                            
 
 
                             var imgCheckboxClass = classNames({
@@ -61,19 +69,22 @@ var FilterType = React.createClass({
         }
         else if(filterDisplayType==="normalCheckbox"){
             filterValueNodes = filterValues.map(function(filterValue,i){
+
+                
                             return(
                                 <div key={i} className="checkboxnormal">
-                                    <h5 className="col-xs-9 normal">Swimming Pool</h5>
+                                    <h5 className="col-xs-9 normal">{filterValue.name}</h5>
                                     <span className="col-xs-3 text-center">
-                                            <input id="check1" type="checkbox" name="check" value="check1"/><label></label>
+                                            <input type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id} /><label></label>
                                     </span>
                                 </div>                              
                             ); 
                                  
-                        });              
+                        }.bind(this));              
         }
         else if(filterDisplayType==="range"){
-            filterValueNodes = ( <RangeComponent listItems={filterValues} /> );
+            
+            filterValueNodes = ( <RangeComponent listItems={filterValues} listType={filterType.type} selectFilter={this.props.selectFilter} /> );
         }
 
 

@@ -66,12 +66,14 @@ var ProjectMaster = React.createClass({
 
     },
 
-    updateSearchFilters: function(filterType, filterValue){
+    updateSearchFilters: function(filterType, filterValue, filterStyle){
         dataToSet = {
             property: "search_filters",
             filterType: filterType,
+            filterStyle: filterStyle,
             value: filterValue
         }
+        console.log(dataToSet);
 
         this.updateStateData(dataToSet);
     },
@@ -80,11 +82,24 @@ var ProjectMaster = React.createClass({
         isChecked = evt.target.checked;
 
         filterType = $(evt.target).data("filtertype");
-        filterValue = $(evt.target).val();
+        filterStyle = $(evt.target).data("filterstyle");
+        
 
-        this.updateSearchFilters(filterType, filterValue);
+        if(filterStyle && filterStyle === 'range'){
+           //if(evt.target.dataset.type === 'min'){
+            filterValue = [evt.min,evt.max];
+           /*}else if(evt.target.dataset.type === 'max'){
+            filterValue = {max: evt.target.value};
+           }*/
+          this.updateSearchFilters(filterType, filterValue, filterStyle);            
+        }else{
+           filterValue = $(evt.target).val();
+           this.updateSearchFilters(filterType, filterValue); 
+       }        
 
     },
+    
+
 
     updateRotateShadow: function(showShadowStatus){
         dataToSet = {
