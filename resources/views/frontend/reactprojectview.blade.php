@@ -40,16 +40,19 @@
 	<!--Global constants -->
 	<script type="text/javascript" language="JavaScript">
         var md = new MobileDetect(window.navigator.userAgent);
+        var isMobile;
 
         detectedMobile = md.mobile();
 
         if(_.isNull(detectedMobile)){
-            detectedMobile = false;
-            $("#size-stylesheet").attr("href", "../css/custom-big.css");
+            isMobile = false;
+            $("#size-stylesheet").attr("href", "../css/cf-mobile/custom-big.css");
             
+        }else{
+            isMobile = true;
         }
 
-        window.isMobile = detectedMobile;
+        window.isMobile = isMobile;
     	window.baseUrl = '{{url()}}';
     	window.projectId = '{{$id}}';
     </script>

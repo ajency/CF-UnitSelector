@@ -2,7 +2,8 @@ var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var AppStore = require('../../stores/app-store.js');
 var NavBar = require('../project-master/navbar');
-var SunToggle = require('../project-master/suntoggle');
+var SideBar = require('../project-master/sidebar');
+var PageContent = require('../project-master/pagecontent');
 var Rotate = require('../project-master/rotate');
 var ProjectImage = require('../project-master/projectimage');
 var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
@@ -363,50 +364,69 @@ var ProjectMaster = React.createClass({
         var availableUnitData = buildings.availableUnitData;
         var filteredUnitData = buildings.filteredUnitData;
 
-        return (
-            <div>
-            <NavBar 
-                projectTitle = {projectTitle} 
-                unitCount = {unitCount}
-                showFilterModal = {this.showFilterModal}
-                buildings = {buildings}
-                isFilterApplied = {isFilterApplied}
-                applied_filters = {applied_filters}
-            />
-            <Modal 
-                ref="modal" 
-                modalData={filterTypes}
-                selectFilter={this.selectFilter}
-                search_filters={data.search_filters}
-                applyFilters = {this.applyFilters}
-                unapplyFilters = {this.unapplyFilters}
-            />
-            <SunToggle 
-                toggelSunView = {this.toggelSunView} 
-                showShadow={data.showShadow}
-            />
-            <ImageContainerTemplate 
-                ref= "imageContainer"
-                showShadow={data.showShadow}
-                breakpoints = {data.breakpoints}
-                chosenBreakpoint = {data.chosenBreakpoint}
-                updateChosenBreakPoint = {this.updateChosenBreakPoint}
-                updateRotateShadow = {this.updateRotateShadow}
-                buildings =  {buildings}
-                buildingToHighlight = {buildingToHighlight}
-                destroyTooltip = {this.destroyTooltip}
-                showTooltip = {this.showTooltip}
-            />
-            <CardList 
-                ref = "cardList"
-                buildings={buildings}
-                isFilterApplied = {isFilterApplied}
-                rotateImage = {this.rotateImage}
-                destroyTooltip = {this.destroyTooltip}
-            />
-            </div>
+        var domToDisplay;
 
-        );
+
+        // display dom based on whether it is a mobile or a desktop view
+        if(window.isMobile){
+            domToDisplay = (
+                <div>
+                    <NavBar 
+                        projectTitle = {projectTitle} 
+                        unitCount = {unitCount}
+                        showFilterModal = {this.showFilterModal}
+                        buildings = {buildings}
+                        isFilterApplied = {isFilterApplied}
+                        applied_filters = {applied_filters}
+                    />
+                    <Modal 
+                        ref="modal" 
+                        modalData={filterTypes}
+                        selectFilter={this.selectFilter}
+                        search_filters={data.search_filters}
+                        applyFilters = {this.applyFilters}
+                        unapplyFilters = {this.unapplyFilters}
+                    />
+                    <SunToggle 
+                        toggelSunView = {this.toggelSunView} 
+                        showShadow={data.showShadow}
+                    />
+                    <ImageContainerTemplate 
+                        ref= "imageContainer"
+                        showShadow={data.showShadow}
+                        breakpoints = {data.breakpoints}
+                        chosenBreakpoint = {data.chosenBreakpoint}
+                        updateChosenBreakPoint = {this.updateChosenBreakPoint}
+                        updateRotateShadow = {this.updateRotateShadow}
+                        buildings =  {buildings}
+                        buildingToHighlight = {buildingToHighlight}
+                        destroyTooltip = {this.destroyTooltip}
+                        showTooltip = {this.showTooltip}
+                    />
+                    <CardList 
+                        ref = "cardList"
+                        buildings={buildings}
+                        isFilterApplied = {isFilterApplied}
+                        rotateImage = {this.rotateImage}
+                        destroyTooltip = {this.destroyTooltip}
+                    />
+                </div>
+            );
+        }
+        else{
+            domToDisplay = (
+                <div id="wrapper">
+      
+                    <SideBar/>
+                  
+                    <PageContent/>
+       
+                </div>
+            );            
+        }
+
+
+        return domToDisplay;
     }
 });
 
