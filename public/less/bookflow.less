@@ -114,15 +114,31 @@ body
 	}
 	.bookAptOuter
 	{
-		
-		margin:0 auto;
-		.row > div
-		{			
-			&:last-child
-			{								
-				text-align:right;
-			}
-		}		
+		.row 
+		{	
+			width:100%;
+			float:left;
+			margin:0;
+			> div
+			{
+				&:first-child
+				{
+					margin-top:15px;
+					padding:0;
+				}
+				&:last-child
+				{								
+					text-align:right;
+					padding:0;
+				}
+			}	
+		}
+		> div 
+		{
+			float:right;
+			width:460px;
+		}
+		margin:0 auto;			
 		i
 		{
 			font-size:16px;
@@ -158,10 +174,17 @@ body
 		    float: left;
 		    margin-left: 10px;
 		    text-decoration:none;
-		    float:right;
+		    float:left;
+		    line-height:1.8;
 		    &:focus
 		    {
 		    	outline:none;
+		    }
+		    i
+		    {
+		    	float:left;
+		    	margin-right:5px;
+		    	margin-top:1px;
 		    }
 		}
 		.download
@@ -232,7 +255,7 @@ body
 		background:@white;
 		padding:0;		
 		
-		float:none;
+		float:left;
 		margin:auto;		
 	}
 	.panel-inner
@@ -293,6 +316,12 @@ body
 
 		.reviewDetails
 		{
+			
+			h4
+			{
+				border-bottom:1px solid @gray-light;
+				padding-bottom:5px;
+			}
 			.buildingName
 			{
 				font-size: 30px;
@@ -407,6 +436,19 @@ body
 			border: 1px solid @erorBorder;
 			color: @errorText; 
 			margin-bottom:20px;
+			a
+			{
+				text-decoration:none;
+				outline:none;
+				float:right;
+				color: @errorText; 
+				&:focus, &:hover
+				{
+					text-decoration:none;
+					outline:none;
+					color: @errorText; 
+				}
+			}
 		}
 
 		.personalDetails
@@ -419,13 +461,10 @@ body
 				font-weight: 400;			}
 			input, select
 			{
-				float: left;
-				width: 100%;
-				padding: 10px 10px 5px 5px;
+				box-shadow:none;
 				border:none;
 				border-bottom: 1px solid @lightBg;
-				margin-bottom: 20px;
-				font-weight: 400;
+				margin-bottom: 20px;				
 				font-size:12px;
 				text-transform:uppercase;
 				&:focus
@@ -627,6 +666,7 @@ body
 	.saleOuter
 	{
 		margin-top:20px;
+		margin-bottom:20px;
 		.saleValue
 		{
 			font-weight:700;
@@ -641,6 +681,7 @@ body
     font-size:12px;   
     margin:auto;
     display:table;    
+    width:100%;
     .bookApmt
 	{
 		font-size: 17px;
@@ -876,6 +917,7 @@ body
 				margin-bottom:15px;
 			}
 		}
+
 		
 	}
 	.unitName
@@ -885,9 +927,18 @@ body
 	.cancleText
 	{
 		float: right;
-	    font-size: 12px;
-	    
+	    font-size: 12px;	    
 	    width: 61%;
+	    i
+	    {
+	    	margin-top:4px;
+	    	float:left;
+	    }
+	    .text
+	    {
+	    	float:left;
+	    	width:95%;
+	    }
 	}
 	.note
 	{
@@ -939,14 +990,12 @@ body
 	.bookFlowContent
 	{
 		.bookAptOuter
-		{
-			.row
+		{			
+			> div
 			{
-				> div
-				{
-					text-align:center !important;
-				}
-			}		
+				text-align:center !important;
+				width:100%;
+			}				
 			.priceOuter 
 			{
 				width:120px;
@@ -1029,7 +1078,7 @@ body
 		
 	}
 	.bookAptOuter
-	{
+	{		
 		.download
 		{
 			float:left ;
