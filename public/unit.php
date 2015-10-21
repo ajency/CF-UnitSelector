@@ -30,7 +30,7 @@ unset($_SESSION);
     <body class="bookingFlow">
         <div class="container-fluid header mB25">
             <div class="container">
-                <h3 class="text-center mT10 mB10">Leonel McGlynn (Unit 11) - #15</h3>
+                <h3 class="text-center mT10 mB10">Legend Apartments (FC1) - #75</h3>
             </div>
         </div>
         <div class="container-fluid content">
