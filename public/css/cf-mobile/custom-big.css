@@ -697,7 +697,7 @@ body a {
   margin-top: -15px;
 }
 .sideBarLogo {
-  background: url('../../images/logo.jpg') no-repeat;
+  /* background:url('../../images/logo.jpg') no-repeat;*/
   height: 65px;
   width: 100%;
   float: left;
@@ -1388,17 +1388,95 @@ body a {
   border-bottom: 2px solid #fe943e;
 }
 .step4Desk .contentHEader {
-  background: #d5d5d4;
+  background: #f6f6f6;
   padding: 15px 25px;
 }
 .step4Desk .contentHEader .contentTitle {
   padding: 5px 20px 5px 0;
   border-right: 1px solid #bcbcba;
+  color: #706f6d;
+  font-weight: 600;
 }
 .step4Desk .contentHEader .contentText {
   padding: 0 20px;
+  color: #7d7c7a;
+}
+.step4Desk .detailView {
+  margin-bottom: 50px;
+}
+.step4Desk .detailView .unit h5 {
+  margin-top: 0;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.step4Desk .detailView .unit .roomDetails {
+  margin-top: 50px;
+  border-right: 1px solid #f6f6f6;
+}
+.step4Desk .detailView .unit .roomDetails .left,
+.step4Desk .detailView .unit .roomDetails .right {
+  color: #bcbcba;
+  font-size: 12px;
+  padding: 5px 15px;
+}
+.step4Desk .detailView .unit .roomDetails .right {
+  color: #565654;
+}
+.step4Desk .floorDetails {
+  padding: 30px 15px;
+  margin-bottom: 50px;
+}
+.step4Desk .floorDetails img {
+  width: 100%;
+  height: 400px;
+}
+.step4Desk .floorDetails .plan {
+  margin-top: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.step4Desk .outsideView .floorDetails .plan {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.step4Desk .amenitiesDetails .row > div {
+  margin: 20px 0;
+}
+.step4Desk .amenitiesDetails .icon {
+  float: left;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #7d7c7a;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2.8;
+}
+.step4Desk .amenitiesDetails .text {
+  float: left;
+  width: 60%;
+  padding-left: 10px;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.step4Desk .similarFlat {
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+.step4Desk .similarFlat .contentTitle {
+  border-right: none;
+}
+.step4Desk .similarFlat .moreFlats {
+  padding: 30px 15px;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe h5 {
+  padding: 5px 10px 15px;
+  font-weight: 600;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe ul {
+  float: left;
 }
 .pNone {
-  padding: 0;
+  padding: 0 !important;
 }
 /*# sourceMappingURL=custom-big.css.map */
