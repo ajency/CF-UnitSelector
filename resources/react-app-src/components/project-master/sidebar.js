@@ -1,5 +1,6 @@
 var React = require('react');
 var CardView = require('../project-master/cardview');
+var NavBar = require('../project-master/navbar');
 
 var SideBar = React.createClass({
   render: function () {
@@ -360,9 +361,7 @@ var SideBar = React.createClass({
 
     return (
              <div id="sidebar-wrapper">
-                <div className="logoOuter"><i className="sideBarLogo"></i></div>
-                <div className="col-xs-12 unitDetails"><small className="text-uppercase"><b>500 units Available in total</b></small></div>
-                <div className="clear"></div>
+                <NavBar />
                 <div id="content-1" className="content" >
                     <ul className="sidebar-nav">
                     	{buildingNodes}
