@@ -6,9 +6,8 @@
 
     
     $unitData = json_decode(getUnitInfo($unitId),true);
-
     $status = $unitData['data']['unit']['status'];
-    if($status==='available')
+    if($status=='available')
     {
         saveBookingInfo($bookingId,$unitId,$buyer_id);
 
@@ -21,7 +20,7 @@
     }
     else
     {
-      header('location:http://booking.cfunitselectortest.com/public/unit.php');
+      header('location:'.SITE_URL.'public/unit.php');
       exit;
     }
     
@@ -185,15 +184,16 @@
       }
 
 
-function saveBuyerInfo($buyer_id,$buyer_name,$email,$phone){
+function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
+
 
     $t=time();
     $date= date('Y-m-d H:i:s',$t);
-
+    $billingData = serialize($billingData);
 
     //mysql_select_db('test', $conn);
-    $sql = 'INSERT INTO booking_engine_buyers'.' (buyer_id, buyer_name, email, phone, pan_card_number, buyer_type, address_line_1, address_line_2,city,state,country,pincode) VALUES ("'
-                                                      .$buyer_id.'","'.$buyer_name.'","'.$email.'","'.$phone.'","'.null.'","'.null.'","'.null.'","'.null.'","'.null.'","'.null.'","'.null.'","'.null.'")';
+    $sql = "INSERT INTO booking_engine_buyers (buyer_id, buyer_name, email, phone, pan_card_number, buyer_type, address_line_1, address_line_2,city,state,country,pincode,biiling_info) VALUES ('
+                                                      ".$buyer_id."','".$buyerData["NAME"]."','".$buyerData["EMAIL"]."','".$buyerData["PHONE"]."','".$buyerData["PANCARD"]."','".$buyerData["BUYER_TYPE"]."','".$buyerData["ADDRESS"]."','','".$buyerData["CITY"]."','".$buyerData["STATE"]."','".$buyerData["COUNTRY"]."','".$buyerData["ZIPCODE"]."','".$billingData."')";
 
     $retval = mysql_query($sql );
      if(! $retval )
@@ -365,7 +365,6 @@ function saveBuyerInfo($buyer_id,$buyer_name,$email,$phone){
             savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid);
             return $data->status;
     }
-
 
 
     function getUnitInfo($unit_id){

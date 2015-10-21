@@ -30,12 +30,12 @@ unset($_SESSION);
     <body class="bookingFlow">
         <div class="container-fluid header mB25">
             <div class="container">
-                <h3 class="text-center mT10 mB10">Leonel McGlynn (FC1) - #75</h3>
+                <h3 class="text-center mT10 mB10">Leonel McGlynn (Unit 11) - #15</h3>
             </div>
         </div>
         <div class="container-fluid content">
             <div class="col-md-12 col-sm-12 col-xs-12 text-center mT20 mB15">
-                <a href="booknow.php?unitId=75&projectId=of905c"> <button class="btn btnOrange">Book Now</button>
+                <a href="booknow.php?unitId=15&projectId=s6yjsx"> <button class="btn btnOrange">Book Now</button>
              </div>
         </div>
     

@@ -22,6 +22,39 @@ function startTimer(duration, display){
 
 }
 
+function copyBillingInfo(obj){
+    if($(obj).is(':checked'))
+    {
+        $("input[name='billing_first_name']").val($("input[name='contact_first_name']").val());
+        $("input[name='billing_last_name']").val($("input[name='contact_last_name']").val());
+        $("input[name='billing_email']").val($("input[name='contact_email']").val());
+        $("input[name='billing_mobile']").val($("input[name='contact_mobile']").val());
+        $("input[name='billing_pancard']").val($("input[name='contact_pancard']").val());
+        $("input[name='billing_city']").val($("input[name='contact_city']").val());
+        $("input[name='billing_address']").val($("input[name='contact_address']").val());
+        $("input[name='billing_zipcode']").val($("input[name='contact_zipcode']").val());
+        $("select[name='billing_buyer_type']").val($("select[name='buyer_type']").val());
+        $("input[name='billing_state']").val($("input[name='contact_state']").val());
+        $("input[name='billing_country']").val($("input[name='contact_country']").val());
+    }
+    else
+    {
+        $("input[name='billing_first_name']").val('');
+        $("input[name='billing_last_name']").val('');
+        $("input[name='billing_email']").val('');
+        $("input[name='billing_mobile']").val('');
+        $("input[name='billing_pancard']").val('');
+        $("input[name='billing_city']").val('');
+        $("input[name='billing_address']").val('');
+        $("input[name='billing_zipcode']").val('');
+        $("select[name='billing_buyer_type']").val('');
+        $("input[name='billing_state']").val('');
+        $("input[name='billing_country']").val('');
+    }
+    
+
+}
+
 function getPriceSheet(id,is_booked,apartment_name,project_id,url){
 	// $('#myModalViewFullPriceSheet').click(function(){
             // $('#myModalFullPriceSheet').modal('show');
@@ -259,5 +292,4 @@ function validateForm()
     }
 
 }
-
 

@@ -4,7 +4,7 @@ include('constants.php');
 $servername = HOST;
 $username = DBUSER;  
 $password = PASSWORD;  
-$dbname = DATABSE;  
+$dbname = DATABASE;  
 
 
 //connection to the database
