@@ -397,18 +397,18 @@ body {
 .bookFlowContent .panel .plusMinusOuter .plusMinusIcon {
   float: right;
   color: #7d7c7a;
-  font-size: 18px;
+  font-size: 17px;
   border: 1px solid #7d7c7a;
-  padding: 2px;
-  line-height: 0.6;
+  padding: 0;
+  line-height: 0.9;
   border-radius: 3px;
-  height: 16px;
-  width: 16px;
+  height: 15px;
+  width: 15px;
   text-align: center;
 }
 .bookFlowContent .panel .plusMinusOuter .plusMinusIcon.minusIcon {
   display: block;
-  line-height: 0.4;
+  line-height: 0.7;
 }
 .bookFlowContent .panel .plusMinusOuter .plusMinusIcon.plusIcon {
   display: none;
