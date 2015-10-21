@@ -45,7 +45,7 @@
 
         if(_.isNull(detectedMobile)){
             detectedMobile = false;
-            $("#size-stylesheet").attr("href", "css/cf-mobile/custom-big.css");
+            $("#size-stylesheet").attr("href", "../css/custom-big.css");
             
         }
 
