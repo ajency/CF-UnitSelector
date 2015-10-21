@@ -9,6 +9,10 @@ define('SITE_URL','http://booking.cfunitselectortest.com/');
 define('UNITSELECTOR_URL','http://45.118.135.216/');
 define('BOOKINGCRM_URL','http://bookingcrm.cfunitselectortest.com/');
 
+define('payuUrl','https://test.payu.in/merchant/postservice.php?form=2'); 
+define('unitSelectorAuthKey','117ce294ece0684f69ad92ae450ba370b1259f69'); 
+define('bookingCrmAuthKey','43e-22a3c758e02ebdf0472b'); 
+define('USER','19');
 
 
 //constant Variable
@@ -52,10 +56,7 @@ define('unitSummary',UNITSELECTOR_URL.'api/v2/unit/');
 define('getUnitStatus',UNITSELECTOR_URL.'api/v2/get-unit-status?unit_id=');
 define('updateUnitStatus',UNITSELECTOR_URL.'api/v2/unit/');
  
-define('payuUrl','https://test.payu.in/merchant/postservice.php?form=2'); 
-define('unitSelectorAuthKey','957ef76ea1f19aef1af0d341ae18e565f874a4c6'); 
-define('bookingCrmAuthKey','43e-22a3c758e02ebdf0472b'); 
-define('USER','19');
+
 
 define('PAYMENT_SUCCESS', SITE_URL.'public/payment-success.php');
 define('PAYMENT_FAILURE', SITE_URL.'public/payment-failure.php');
