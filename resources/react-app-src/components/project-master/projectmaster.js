@@ -4,6 +4,7 @@ var AppStore = require('../../stores/app-store.js');
 var NavBar = require('../project-master/navbar');
 var SideBar = require('../project-master/sidebar');
 var PageContent = require('../project-master/pagecontent');
+var SunToggle = require('../project-master/suntoggle');
 var Rotate = require('../project-master/rotate');
 var ProjectImage = require('../project-master/projectimage');
 var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
