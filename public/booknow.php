@@ -26,7 +26,7 @@ else
 $_SESSION['unitId']= $unitId;
 $_SESSION['projectId']=$projectId;
 $bookingId=uniqid();
-$unitinfo = bookNow($bookingId,$unitId);
+$unitinfo = bookNow($bookingId,$unitId); print_r($unitinfo);exit;
 $counter = EXPIREDURATION*60;
 $unitData =$unitinfo['data'] ; 
 $merchantId =$unitData['merchant_id'] ; 
