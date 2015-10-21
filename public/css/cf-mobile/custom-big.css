@@ -1316,7 +1316,7 @@ body a {
 .step4Desk h4 {
   float: left;
   font-size: 20px;
-  margin: 0;
+  margin: 10px 0 0 0;
 }
 .step4Desk .available {
   border: 1px solid #0eab08;
@@ -1324,22 +1324,15 @@ body a {
   font-size: 10px;
   padding: 2px 5px 1px;
   color: #0eab08;
-  margin-top: 0;
+  margin-top: 10px;
   float: left;
   margin-left: 10px;
 }
 .step4Desk .rightSide {
   padding-top: 25px;
 }
-.step4Desk .price {
-  color: #7d7c7a;
-  font-size: 12px;
-}
-.step4Desk .amount {
-  color: #fe943e;
-  font-size: 12px;
-  margin-left: 10px;
-  margin-right: 10px;
+.step4Desk .rightSide button i {
+  margin-left: 5px;
 }
 .step4Desk .flatDetails {
   margin-top: 5px;

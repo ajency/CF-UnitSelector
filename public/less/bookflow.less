@@ -997,7 +997,14 @@ body
 	.bookFlowContent
 	{
 		.bookAptOuter
-		{			
+		{	
+			.row > div
+			{
+				&:last-child
+				{
+					text-align:center;
+				}
+			}		
 			> div
 			{
 				text-align:center !important;
@@ -1103,6 +1110,10 @@ body
 	{
 		padding:0;
 	}	
+	.buttonOuter
+	{
+		text-align:center;
+	}
 }
 @media screen and (max-width:320px)
 {

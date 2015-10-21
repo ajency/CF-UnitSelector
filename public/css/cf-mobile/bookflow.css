@@ -759,6 +759,9 @@ body {
   line-height: 1.5;
 }
 @media screen and (max-width: 767px) {
+  .bookFlowContent .bookAptOuter .row > div:last-child {
+    text-align: center;
+  }
   .bookFlowContent .bookAptOuter > div {
     text-align: center !important;
     width: 100%;
@@ -838,6 +841,9 @@ body {
   }
   .bookFlowContent .container {
     padding: 0;
+  }
+  .buttonOuter {
+    text-align: center;
   }
 }
 @media screen and (max-width: 320px) {
