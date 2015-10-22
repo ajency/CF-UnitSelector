@@ -1,6 +1,7 @@
 <?php
 require_once '../../includes/include.php';
 
+
     $c = curl_init();  
     $authKey=bookingCrmAuthKey;
     $isBooked = false;

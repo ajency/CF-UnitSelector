@@ -459,5 +459,49 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
         
     }
 
+    function sendMail($to,$subject,$body)
+    {
+        try {
+              $mail = new PHPMailer(true); //New instance, with exceptions enabled
+
+              //$body             = file_get_contents('contents.html');
+              $body             = preg_replace('/\\\\/','', $body); //Strip backslashes
+
+              $mail->IsSMTP();                           // tell the class to use SMTP
+              $mail->SMTPAuth   = true;                  // enable SMTP authentication
+              $mail->Port       = 587;                    // set the SMTP server port
+              $mail->Host       = MAIL_HOST; // SMTP server
+              $mail->Username   = MAIL_USER;     // SMTP server username
+              $mail->Password   = MAIL_PASS;            // SMTP server password
+
+              $mail->IsSendmail();  // tell the class to use Sendmail
+
+              $mail->AddReplyTo("prajay@ajency.in","Prajay Verenkar");
+
+              $mail->From       = "prajay@ajency.in";
+              $mail->FromName   = "Prajay Verenkar";
+
+              //$to = "someone@example...com";
+
+              $mail->AddAddress($to);
+
+              $mail->Subject  = $subject;
+
+              $mail->AltBody    = $message; // optional, comment out and test
+              $mail->WordWrap   = 80; // set word wrap
+
+              $mail->MsgHTML($body);
+
+              $mail->IsHTML(true); // send as HTML
+
+              $mail->Send();
+              return true;
+            } catch (phpmailerException $e) {
+              //echo $e->errorMessage();
+              return false;
+            }
+
+    }
+
 
 ?>
