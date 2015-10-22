@@ -5,6 +5,10 @@ var classNames = require('classnames');
 
 var CardView = React.createClass({
 
+    selectCard: function(){
+      console.log("select card");
+    },
+
     render: function() {
         var buildingData = this.props.building;
         var buildingId = buildingData.id;
@@ -71,7 +75,8 @@ var CardView = React.createClass({
         // if no units in the tower are enabled then disable cardview
         var cardClasses = classNames({
           'card-swipe': true,
-          'not-released': isZeroUnits
+          'not-released': isZeroUnits,
+          'highlight': (window.isMobile === false) && (0)
         }); 
 
 
@@ -94,7 +99,7 @@ var CardView = React.createClass({
 
 
         if(window.isMobile){
-          mainDom = ( <div className={cardClasses} data-unitid={buildingId}>
+          mainDom = ( <div className={cardClasses} data-unitid={buildingId} onClick={this.selectCard}>
                           <div className="row">
                               <div className="col-xs-12">
                                   <h4 className=" margin-none text-left"> {buildingName}</h4>
@@ -122,7 +127,7 @@ var CardView = React.createClass({
         else{
 
           mainDom = (     <li className="sidebar-brand">
-                            <div className="card-swipe highlight">
+                            <div className={cardClasses}>
                                 <div className="row">
                                     <div className="col-xs-12">
                                         <h4 className=" margin-none text-left text-uppercase"> {buildingName}</h4>

@@ -221,7 +221,7 @@ var ImageContainerTemplate = React.createClass({
                       <br /> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                   </div>
 
-                  <div className="rotate">
+                  <div className="rotate" onClick={this.setDetailIndex}>
                       <i id="next" className="i-icon i-icon-rotate"></i> Press To Rotate
                   </div>
 

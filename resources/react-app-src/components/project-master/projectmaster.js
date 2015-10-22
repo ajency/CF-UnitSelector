@@ -440,7 +440,18 @@ var ProjectMaster = React.createClass({
 
                     <div id="page-content-wrapper">
 
-                        <ImageContainerTemplate/>
+                        <ImageContainerTemplate
+                            ref= "imageContainer"
+                            showShadow={data.showShadow}
+                            breakpoints = {data.breakpoints}
+                            chosenBreakpoint = {data.chosenBreakpoint}
+                            updateChosenBreakPoint = {this.updateChosenBreakPoint}
+                            updateRotateShadow = {this.updateRotateShadow}
+                            buildings =  {buildings}
+                            buildingToHighlight = {buildingToHighlight}
+                            destroyTooltip = {this.destroyTooltip}
+                            showTooltip = {this.showTooltip}                        
+                        />
                         
 
                         <div className="container-fluid">
