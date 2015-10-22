@@ -221,6 +221,8 @@ var ProjectMaster = React.createClass({
 
                 filterType = dataToSet.filterType;
 
+                filterStyle = dataToSet.filterStyle;
+
                 oldSearchFilters = oldState["data"]["search_filters"];
                 
                 oldSearchFilterKeys = _.keys(oldSearchFilters);
@@ -249,6 +251,19 @@ var ProjectMaster = React.createClass({
                 }else{
                     oldataTochange.push(valueToSet);
                 }
+
+                //For range filter, reset the filter with new min max value
+                if(filterStyle == 'range'){
+                    oldataTochange = [];
+                    _.each(valueToSet, function(rangeValue){
+                        oldataTochange.push(rangeValue);
+                    });
+                    
+                }
+
+
+
+
 
                 mutatedfilter =  {};
                 mutatedfilter[filterType] = {$set: oldataTochange};
