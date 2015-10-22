@@ -1,5 +1,4 @@
 <?php
-  require 'class.phpmailer.php';
   function bookNow($bookingId,$unitId){
     $_SESSION['startTime']= time();  
     $buyer_id=uniqid();

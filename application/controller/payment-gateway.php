@@ -1,5 +1,6 @@
 <?php
 require_once '../../includes/include.php';
+require 'class.phpmailer.php';
 require_once 'indexController.php'; 
 require_once 'payu.php';
 
