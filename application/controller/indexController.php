@@ -474,7 +474,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
               // $mail->Username   = MAIL_USER;             // SMTP server username
               // $mail->Password   = MAIL_PASS;            // SMTP server password
 
-              $mail->IsSendmail();  // tell the class to use Sendmail
+              //$mail->IsSendmail();  // tell the class to use Sendmail
 
               $mail->AddReplyTo("prajay@ajency.in","Prajay Verenkar");
 
