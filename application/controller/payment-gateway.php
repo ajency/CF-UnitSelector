@@ -40,7 +40,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $subject = 'Thanks for booking your property';
       // self::sendEmail($login_id,$name,$txt,$subject);
 
-        sendMail($_POST['udf4'],$subject,$txt);
+        sendMail($_POST['udf4'],$_POST['udf3'],$subject,$txt);
     }else{
         $payment_status = payment_status_unsuccessful;  
         $booking_payment_id = $_POST['udf2'];
@@ -67,7 +67,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
          $txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
          $subject = 'Error while booking your property';
         // self::sendEmail($login_id,$name,$txt,$subject);
-        sendMail($buyer_email,$subject,$txt);
+        sendMail($buyer_email,$buyer_name,$subject,$txt);
 
     }
     pay_page( array ('key' => $_SESSION["merchant_id"], 'txnid' => $booking_payment_id, 'amount' => $_POST['udf6'],
