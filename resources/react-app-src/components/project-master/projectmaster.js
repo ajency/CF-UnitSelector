@@ -457,8 +457,7 @@ var ProjectMaster = React.createClass({
                         />*/}
 
                     </div>
-                  
-                    <PageContent/>
+
        
                 </div>
             );            

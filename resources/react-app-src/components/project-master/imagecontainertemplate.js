@@ -25,7 +25,7 @@ var panZoomSettings = {
   };    
 
 var spriteSpinSettings = {
-   source: frames,
+   source: [],
    width: 1920,
    sense: -1,
    height: 1080,
@@ -46,7 +46,10 @@ var ImageContainerTemplate = React.createClass({
         
         $imageContainerDom.panzoom(panZoomSettings);
 
-        $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
+        if(window.isMobile){
+          $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
+        }
+        
 
         var masterImagePrefix = "master-";
         var digitsInName = 2; 
@@ -60,6 +63,7 @@ var ImageContainerTemplate = React.createClass({
 
         spin = $(this.refs.spritespin);
         
+        spriteSpinSettings["source"] = frames;
         spin.spritespin(spriteSpinSettings);
 
         // get the api object. This is used to trigger animation to play up to a specific frame
@@ -164,13 +168,25 @@ var ImageContainerTemplate = React.createClass({
         }; 
 
 
+        var imageContainStyle = {
+          "height": windowHeight
+        }; 
+
+
         var shadowImageClasses = classNames({
           'img-responsive': true,
           'fit': true,
           'no-shadow': true,
           'hide-shadow': showShadow 
         }); 
-   
+
+
+        var  parentContainerStyle ={
+          "height" : windowHeight,
+          "minWidth" : windowHeight * 1.78
+        }; 
+
+        
         var buildings = this.props.buildings;
 
         if(window.isMobile){
@@ -198,7 +214,7 @@ var ImageContainerTemplate = React.createClass({
         else{
             domToDisplay = (
 
-              <div className="us-right-content">
+              <div className="us-right-content" style={parentContainerStyle}>
                   <div className="footer">
                       <h4 className="primary-txt"> Call 1800 180 180 180</h4>
                       <a href="#"> Commonfloor </a> | <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a>
@@ -209,13 +225,13 @@ var ImageContainerTemplate = React.createClass({
                       <i id="next" className="i-icon i-icon-rotate"></i> Press To Rotate
                   </div>
 
-                  <div className="image-contain">
-                      <div ref="imageContainer" className="image">
-                          <div className="svg-area"></div>
+                  <div ref="imageContain" className="image-contain" style={imageContainStyle}>
+                      <div ref="imageContainer" className="image" style={imageContainerStyle}>
+                          <SvgContainer ref="svgContainer" svgData={svgData} chosenBreakpoint={this.props.chosenBreakpoint} key={this.props.chosenBreakpoint} buildings={ buildings} buildingToHighlight={ this.props.buildingToHighlight} showTooltip={ this.props.showTooltip} />
 
-                          <div ref="spritespin" id='spritespin' className="no-shadow"></div>
+                          <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
 
-                          <img src="img/Project.jpg" className="img-responsive shadow fit" />
+                          <img key={this.props.chosenBreakpoint+1} src={shadowImgUrl} className="img-responsive shadow fit" />
 
                       </div>
                   </div>

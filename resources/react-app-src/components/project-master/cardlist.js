@@ -60,7 +60,7 @@ var CardList = React.createClass({
       
       var $sliderContainer = $(this.refs.sliderContainer);
 
-      if(!($sliderContainer.hasClass('slick-initialized'))){
+      if((!($sliderContainer.hasClass('slick-initialized'))) && (window.isMobile)){
         $sliderContainer.slick($sliderSettings);
       }
            
