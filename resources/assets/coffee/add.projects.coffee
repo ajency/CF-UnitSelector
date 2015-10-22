@@ -8,6 +8,7 @@ jQuery(document).ready ($)->
     $.notify.defaults globalPosition : 'bottom right'
 
 
+
     # cfCityFetchOptions =
     #     method:"GET"
     #     url: "/api/v1/get-cities"
@@ -24,12 +25,14 @@ jQuery(document).ready ($)->
     #           value: value.city_name
     #           text: value.city_name)
 
-     # $( document ).ajaxComplete (args...)->
-     #     xhr = args[1]
-     #     if xhr.status in [201,202,203]
-     #         $.notify xhr.responseJSON.message, 'success'
-     #     else if xhr.status in [200]
-     #         $.notify xhr.responseJSON.message, 'error'
+
+    #  $( document ).ajaxComplete (args...)->
+    #      xhr = args[1]
+    #      if xhr.status in [201,202,203]
+    #          $.notify xhr.responseJSON.message, 'success'
+    #      else if xhr.status in [200]
+    #          $.notify xhr.responseJSON.message, 'error'
+
 
                                 
                                 

@@ -84,6 +84,8 @@ class ProjectGateway implements ProjectGatewayInterface {
         $projectUnits = [];
         $projectbuildings = [];
         $buildingUnitdata = [];
+        $notLivePhases = [];
+        $notLivePhasesBuildings = [];
        
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
@@ -93,12 +95,31 @@ class ProjectGateway implements ProjectGatewayInterface {
         }
        
        $project = $this->projectRepository->getProjectById( $projectId );
-       
+      
         if($project->has_phase == 'yes')
+        {
             $phases = \CommonFloor\Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+            $notLivePhases = \CommonFloor\Phase::where(['project_id' => $projectId, 'status' => 'not_live'])->get()->toArray();
+
+        }
         else
+        {
            $phases = \CommonFloor\Phase::where(['project_id' => $projectId])->get()->toArray();
- 
+        }
+        
+        if(!empty($notLivePhases))
+        {
+            foreach ($notLivePhases as $notLivePhase) {
+                $phaseId = $notLivePhase['id'];
+                $phase = \CommonFloor\Phase::find($phaseId);
+                $buildings = $phase->projectBuildings()->get()->toArray();  
+           
+                $notLivePhasesBuildings = array_merge($buildings,$notLivePhasesBuildings); 
+
+            } 
+        }
+
+
        foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = \CommonFloor\Phase::find($phaseId);
@@ -194,6 +215,7 @@ class ProjectGateway implements ProjectGatewayInterface {
 
         $stepTwoData = [
             'buildings' => $projectbuildings,
+            'notlive_buildings' => $notLivePhasesBuildings,
             'bunglow_variants' => $bunglowVariants,
             'apartment_variants' => $appartmentVariants,
             'plot_variants' => $plotVariants,

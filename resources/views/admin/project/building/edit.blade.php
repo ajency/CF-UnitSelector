@@ -147,7 +147,7 @@
                         <tbody id="master-img">
                             @if(!empty($svgImages))
                              <?php 
-                                $positions = array_keys($svgImages) 
+                                $positions = array_keys($svgImages); 
                                 $breakpoints = (!empty($building->breakpoints)) ? unserialize($building->breakpoints) : [];
                                 ?>
                             @foreach($svgImages as $position=> $image)

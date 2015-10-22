@@ -1,4 +1,5 @@
 var React = require('react');
+var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
 
 var PageContent = React.createClass({
 

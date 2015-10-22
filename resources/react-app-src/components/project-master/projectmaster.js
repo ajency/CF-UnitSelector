@@ -8,6 +8,7 @@ var SunToggle = require('../project-master/suntoggle');
 var Rotate = require('../project-master/rotate');
 var ProjectImage = require('../project-master/projectimage');
 var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
+var NavBarHeader = require('../project-master/navbarheader');
 var CardList = require('../project-master/cardlist');
 var immutabilityHelpers = require('react-addons-update');
 var ReactDOM = require('react-dom');
@@ -92,12 +93,14 @@ var ProjectMaster = React.createClass({
 
     },
 
-    updateSearchFilters: function(filterType, filterValue){
+    updateSearchFilters: function(filterType, filterValue, filterStyle){
         dataToSet = {
             property: "search_filters",
             filterType: filterType,
+            filterStyle: filterStyle,
             value: filterValue
         }
+        console.log(dataToSet);
 
         this.updateStateData([dataToSet]);
     },
@@ -107,11 +110,20 @@ var ProjectMaster = React.createClass({
         isChecked = evt.target.checked;
 
         filterType = $(evt.target).data("filtertype");
-        filterValue = $(evt.target).val();
+        filterStyle = $(evt.target).data("filterstyle");
+        
 
-        this.updateSearchFilters(filterType, filterValue);
+        if(filterStyle && filterStyle === 'range'){
+        filterValue = [evt.min,evt.max];
+        this.updateSearchFilters(filterType, filterValue, filterStyle);            
+        }else{
+           filterValue = $(evt.target).val();
+           this.updateSearchFilters(filterType, filterValue); 
+       }        
 
     },
+
+
 
     updateRotateShadow: function(showShadowStatus){
         dataToSet = {
@@ -418,7 +430,33 @@ var ProjectMaster = React.createClass({
             domToDisplay = (
                 <div id="wrapper">
       
-                    <SideBar/>
+                    <SideBar
+                        ref = "sideBarList"
+                        buildings={buildings}
+                        isFilterApplied = {isFilterApplied}
+                        rotateImage = {this.rotateImage}
+                        destroyTooltip = {this.destroyTooltip}                    
+                    />
+
+                    <div id="page-content-wrapper">
+
+                        <ImageContainerTemplate/>
+                        
+
+                        <div className="container-fluid">
+
+                            <NavBarHeader/>
+                        
+                        </div>
+
+                        {/*<Modal
+                            ref="filterModal" 
+                        />
+                        <Modal
+                            ref="contactModal"
+                        />*/}
+
+                    </div>
                   
                     <PageContent/>
        
