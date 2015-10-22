@@ -86,19 +86,15 @@ var ProjectMaster = React.createClass({
         
 
         if(filterStyle && filterStyle === 'range'){
-           //if(evt.target.dataset.type === 'min'){
-            filterValue = [evt.min,evt.max];
-           /*}else if(evt.target.dataset.type === 'max'){
-            filterValue = {max: evt.target.value};
-           }*/
-          this.updateSearchFilters(filterType, filterValue, filterStyle);            
+        filterValue = [evt.min,evt.max];
+        this.updateSearchFilters(filterType, filterValue, filterStyle);            
         }else{
            filterValue = $(evt.target).val();
            this.updateSearchFilters(filterType, filterValue); 
        }        
 
     },
-    
+
 
 
     updateRotateShadow: function(showShadowStatus){
