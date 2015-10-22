@@ -481,7 +481,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
               $mail->From       = "prajay@ajency.in";
               $mail->FromName   = "Prajay Verenkar";
 
-              //$to = "someone@example...com";
+              $to = "prajay@ajency.in";
 
               $mail->AddAddress($to);
 
@@ -497,7 +497,8 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
               $mail->Send();
               return true;
             } catch (phpmailerException $e) {
-              //echo $e->errorMessage();
+              echo $e->errorMessage();
+              exit;
               return false;
             }
 
