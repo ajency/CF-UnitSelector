@@ -481,7 +481,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
               $mail->From       = "prajay@ajency.in";
               $mail->FromName   = "Prajay Verenkar";
 
-              $to = "prajay@ajency.in";
+              //$to = "prajay@ajency.in";
 
               $mail->AddAddress($to);
 
