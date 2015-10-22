@@ -467,12 +467,12 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
               //$body             = file_get_contents('contents.html');
               $body             = preg_replace('/\\\\/','', $body); //Strip backslashes
 
-              $mail->IsSMTP();                           // tell the class to use SMTP
-              $mail->SMTPAuth   = true;                  // enable SMTP authentication
-              $mail->Port       = 587;                    // set the SMTP server port
-              $mail->Host       = MAIL_HOST; // SMTP server
-              $mail->Username   = MAIL_USER;     // SMTP server username
-              $mail->Password   = MAIL_PASS;            // SMTP server password
+              // $mail->IsSMTP();                           // tell the class to use SMTP
+              // $mail->SMTPAuth   = true;                  // enable SMTP authentication
+              // $mail->Port       = 587;                    // set the SMTP server port
+              // $mail->Host       = MAIL_HOST;            // SMTP server
+              // $mail->Username   = MAIL_USER;             // SMTP server username
+              // $mail->Password   = MAIL_PASS;            // SMTP server password
 
               $mail->IsSendmail();  // tell the class to use Sendmail
 
