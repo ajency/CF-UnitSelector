@@ -36,7 +36,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
         updateBookingInfo($booking_id,$status); 
 
-        $txt = "Please login to check your booked property at commonfloor.com";
+        $txt = "Unit successfully boooked.";
         $subject = 'Thanks for booking your property';
       // self::sendEmail($login_id,$name,$txt,$subject);
 
