@@ -2,10 +2,9 @@
   position: fixed;
   z-index: 1;
   top: 20px;
-  right: 144px;
- 
-  width: 420px;
-  height: 360px;
+  right: 144px; 
+  width: 470px;
+  height: 380px;
   padding: 6px;
   text-align: left;
   background: #fff;  
@@ -60,8 +59,8 @@ width: 80px;
   text-transform: uppercase;
   float:left;
   margin-top:0;
-  -webkit-transition: all 0ms;
-  transition: all 0ms;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
 }
 .float-nav.closed .toggle:after
 {
@@ -118,6 +117,7 @@ width: 80px;
   h6
   {    
     margin:8px 0 0 0;
+    font-size:100%;
   }
 
   }
@@ -150,7 +150,7 @@ width: 80px;
       label
       {
         float: left;
-        font-size: 12px;
+        font-size: 100%;
         margin-top: 0px;
         text-transform: uppercase;
         margin-left: 5px;
@@ -176,14 +176,14 @@ width: 80px;
         background:none;
         border:2px solid @gray-lighter;
         text-align:center;
-        margin-top: 0px !important;
+        margin-top: 2px !important;
       }     
 
       input[type=checkbox]:checked + label:before 
       {
           content: "\2714";
           text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
-          font-size: 15px;
+          font-size: 100%;
           color: #f3f3f3;
           text-align: center;
           line-height: 15px;
@@ -196,8 +196,7 @@ width: 80px;
           display:block;           
           border:2px solid rgba(0,0,0,0);  
           margin:-2px 0 0 -2px;  
-          line-height: 0.8;
-          font-size: 12px;
+          line-height: 0.8;          
       }
   }
   &.budgetOuter
@@ -221,7 +220,7 @@ width: 80px;
         border: none;
         background: @gray-lightest;
         width: 100%;
-        font-size: 12px;
+        font-size: 100%;
         border-bottom: 1px solid @gray-light;
         padding: 5px;
         &:focus
@@ -239,7 +238,7 @@ width: 80px;
       color:@brand-primary;
       i
       {
-        font-size: 20px;
+        font-size:100%;
         line-height: 0;        
         height: 3px;
         vertical-align: middle;
