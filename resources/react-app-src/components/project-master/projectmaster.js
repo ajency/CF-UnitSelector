@@ -8,6 +8,7 @@ var SunToggle = require('../project-master/suntoggle');
 var Rotate = require('../project-master/rotate');
 var ProjectImage = require('../project-master/projectimage');
 var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
+var NavBarHeader = require('../project-master/navbarheader');
 var CardList = require('../project-master/cardlist');
 var immutabilityHelpers = require('react-addons-update');
 var ReactDOM = require('react-dom');
@@ -418,7 +419,33 @@ var ProjectMaster = React.createClass({
             domToDisplay = (
                 <div id="wrapper">
       
-                    <SideBar/>
+                    <SideBar
+                        ref = "sideBarList"
+                        buildings={buildings}
+                        isFilterApplied = {isFilterApplied}
+                        rotateImage = {this.rotateImage}
+                        destroyTooltip = {this.destroyTooltip}                    
+                    />
+
+                    <div id="page-content-wrapper">
+
+                        <ImageContainerTemplate/>
+                        
+
+                        <div className="container-fluid">
+
+                            <NavBarHeader/>
+                        
+                        </div>
+
+                        {/*<Modal
+                            ref="filterModal" 
+                        />
+                        <Modal
+                            ref="contactModal"
+                        />*/}
+
+                    </div>
                   
                     <PageContent/>
        
