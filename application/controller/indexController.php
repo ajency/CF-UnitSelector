@@ -312,6 +312,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
             //$var2 = "4675764";//"7893238"; // to be used in case of refund
             //$var3 = "10"; // to be used in case of refund
             $buyer_name=$_SESSION["buyer_name"];
+            $buyer_email=$_SESSION["buyer_email"];
             //return $buyer_name;
             $hash_str = $key  . '|' . $command . '|' . $var1 . '|' . $salt ;
             $hash = strtolower(hash('sha512', $hash_str));
@@ -363,6 +364,12 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
             $mihpayid=$_SESSION["mihpayid"];
             saveBookingHistory($booking_id,$old_status, $new_status, $comments,$buyer_name);
             savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid);
+            
+            $txt = "Booking successfully Cancelled.";
+            $subject = 'Booking successfully canceled';
+          // self::sendEmail($login_id,$name,$txt,$subject);
+
+            sendMail($buyer_email,$buyer_name,$subject,$txt);
             return $data->status;
     }
 
