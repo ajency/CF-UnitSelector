@@ -16,12 +16,23 @@ var SunToggle = React.createClass({
     		'sun-toggle': true,
     		'sun-highlight': showShadow 
     	}); 
-    	
-        return (
-            <div className={toggleSunClasses} onClick={this.props.toggelSunView}>
+
+        if(window.isMobile){
+            domToDisplay = (<div className={toggleSunClasses} onClick={this.props.toggelSunView}>
                 <i className="i-sun i-icon"></i>
-            </div>
-        );
+            </div>);            
+        }
+        else{
+            domToDisplay = ( <div className="col-sm-3">
+                    <a href="#" className="sun-toggle btn btn-default btn-sm">
+                        <i className="fa fa-sun-o"></i>
+                        <span className="sunText text-uppercase">Sun</span>
+                    </a>
+                  </div>
+                );
+        }
+    	
+        return domToDisplay;
     }
 });
 

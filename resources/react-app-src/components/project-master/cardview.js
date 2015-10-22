@@ -126,7 +126,7 @@ var CardView = React.createClass({
         }
         else{
 
-          mainDom = (     <li className="sidebar-brand">
+          mainDom = (   <li className="sidebar-brand">
                             <div className={cardClasses}>
                                 <div className="row">
                                     <div className="col-xs-12">
