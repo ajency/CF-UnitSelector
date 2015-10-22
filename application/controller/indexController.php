@@ -466,7 +466,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
               //$body             = file_get_contents('contents.html');
               //$body             = preg_replace('/\\\\/','', $body); //Strip backslashes
-              $body  = mailContent($name ,$subject, $message)
+              $body  = mailContent($name ,$subject, $message);
 
               $mail->IsSMTP();                           // tell the class to use SMTP
               $mail->SMTPAuth   = true;                  // enable SMTP authentication
