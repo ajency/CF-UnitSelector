@@ -38,10 +38,8 @@
           <h4 class="text-uppercase">Fl - 1301</h4>
           <span class="available text-uppercase">Available</span>          
         </div>
-        <div class="col-xs-6 text-right rightSide">
-          <span class="price text-uppercase">Price</span>
-          <span class="amount text-uppercase"><i class="fa fa-inr"></i> 60lacs</span>
-          <button class="btn btn-default btn-sm btn-primary text-uppercase">Book flat</button>
+        <div class="col-xs-6 text-right rightSide">          
+          <button class="btn btn-default btn-sm btn-primary text-uppercase">Book now <i class="fa fa-inr"></i> 60lacs</button>
           <button class="btn btn-default btn-sm btn-primary text-uppercase">
             <i class="fa fa-phone"></i>
             <span class="enquiryText">Contact Us</span>
@@ -54,7 +52,8 @@
         <span class="units">2 BHK</span><ul><li></li></ul> <span class="units">1024 SQFT </span><ul><li></li></ul> <span class="units">Floor 6 </span><ul><li></li></ul> <span class="units">Tower 1 </span><ul><li></li></ul> <span class="units">East facing from balcony SQFT. </span>
       </div>
     </div>
-    <div class="tabHeader">      
+    <div id="sticky-anchor"></div>
+    <div class="tabHeader" id="stickyHeader">      
       <!-- Nav tabs -->
       <ul class="list-unstyled text-uppercase">
         <li class="active"><a href="#" id="details" class="click">Details</a></li>
@@ -62,7 +61,15 @@
         <li><a href="#" id="liveTour" class="click">Live in tour</a></li>
         <li><a href="#" id="outsideView" class="click">Outside view</a></li>
         <li><a href="#" id="societyEmenities" class="click">Society amenities</a></li>
-      </ul>                     
+        <li class="pull-right stickyButtons">
+           <button class="btn btn-default btn-sm btn-primary text-uppercase">Book now <i class="fa fa-inr"></i> 60lacs</button>
+          <button class="btn btn-default btn-sm btn-primary text-uppercase">
+            <i class="fa fa-phone"></i>
+            <span class="enquiryText">Contact Us</span>
+          </button>   
+        </li>
+      </ul> 
+
     </div>
     <div class="contentOuter col-xs-12 pNone">
       <div class="col-xs-12 detailView pNone" id="details_div">
@@ -241,6 +248,42 @@
                 </div>
             </div>
           </div> 
+          <div class="col-xs-12 specificationOuter pNone">
+            <h4 class="text-uppercase col-xs-12 pNone">Specification</h4>
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Fittings</h5>
+              <div class="col-xs-12">Kitchen: Stainless Steel Sink with Drain Board</div>
+              <div class="col-xs-12">Toilets: Branded CP Fittings and Sanitary Ware</div>
+            </div>
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Doors</h5>
+              <div class="col-xs-12">Internal: Wooden Frame</div>
+              <div class="col-xs-12">Main: Decorative with Wooden Frame</div>
+            </div>
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Windows</h5>
+              <div class="col-xs-12">UPVC</div>  
+              <div class="col-xs-12">UPVC</div>             
+            </div>
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Flooring</h5>
+              <div class="col-xs-12">Master Bedroom: Laminated Wooden Flooring</div>
+              <div class="col-xs-12">Balcony: Anti Skid Tiles</div>
+              <div class="col-xs-12">Kitchen: Anti Skid Tiles</div>
+              <div class="col-xs-12">Other Bedroom: RAK/Laminated Wooden Flooring</div>
+              <div class="col-xs-12">Living/Dining: Marble Granite Tiles</div>
+              <div class="col-xs-12">Toilets: Anti Skid Tiles</div>
+            </div>
+            
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Walls</h5>
+              <div class="col-xs-12">Kitchen: Ceramic Tiles Dado up to 2 Feet Height Above Platform</div>
+              <div class="col-xs-12">Toilets: Ceramic Tiles Dado up to 7 Feet Height Above Platform</div>
+              <div class="col-xs-12">Interior: Plastic Emulsion Paint</div>
+              <div class="col-xs-12">Exterior: Texture Paint</div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="col-xs-12 floorPlans pNone" id="floorPlan_div">
@@ -318,7 +361,7 @@
               <span class="icon"><i class="fa fa-home"></i></span>
               <span class="text text-uppercase">Power backup</span>
             </div> 
-            <div class="col-xs-2"> 
+            <div class="col-xs-2 disabled"> 
               <span class="icon"><i class="fa fa-building-o"></i></span>
               <span class="text text-uppercase">Lift</span>
             </div> 
@@ -350,7 +393,7 @@
               <span class="icon"><i class="fa fa-lightbulb-o"></i></span>
               <span class="text text-uppercase">Power backup</span>
             </div> 
-            <div class="col-xs-2"> 
+            <div class="col-xs-2 disabled"> 
               <span class="icon"><i class="fa fa-home"></i></span>
               <span class="text text-uppercase">Power backup</span>
             </div> 
@@ -374,7 +417,7 @@
               <span class="icon"><i class="fa fa-lightbulb-o"></i></span>
               <span class="text text-uppercase">Power backup</span>
             </div> 
-            <div class="col-xs-2"> 
+            <div class="col-xs-2 disabled"> 
               <span class="icon"><i class="fa fa-home"></i></span>
               <span class="text text-uppercase">Power backup</span>
             </div>                                                                         
@@ -531,9 +574,24 @@
       $(document).on('click', '.click', function (e) {
         var theID = $(this).attr('id');
         $('html, body').animate({
-            scrollTop: $('#' + theID + '_div').offset().top
+            scrollTop: $('#' + theID + '_div').offset().top-60
         }, 1000);
         return false;
+      });
+
+      function sticky_relocate() {
+          var window_top = $(window).scrollTop();
+          var div_top = $('#sticky-anchor').offset().top;
+          if (window_top > div_top) {
+              $('#stickyHeader').addClass('stick');
+          } else {
+              $('#stickyHeader').removeClass('stick');
+          }
+      }
+
+      $(function () {
+          $(window).scroll(sticky_relocate);
+          sticky_relocate();
       });
     </script>   
   </body>

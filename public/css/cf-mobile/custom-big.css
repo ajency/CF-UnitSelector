@@ -1295,7 +1295,7 @@ body a {
   opacity: 1;
 }
 .step4Desk {
-  padding: 15px;
+  padding: 15px 0 !important;
 }
 .step4Desk .backOuter {
   padding: 0;
@@ -1316,7 +1316,7 @@ body a {
 .step4Desk h4 {
   float: left;
   font-size: 20px;
-  margin: 0;
+  margin: 10px 0 0 0;
 }
 .step4Desk .available {
   border: 1px solid #0eab08;
@@ -1324,22 +1324,15 @@ body a {
   font-size: 10px;
   padding: 2px 5px 1px;
   color: #0eab08;
-  margin-top: 0;
+  margin-top: 10px;
   float: left;
   margin-left: 10px;
 }
 .step4Desk .rightSide {
   padding-top: 25px;
 }
-.step4Desk .price {
-  color: #7d7c7a;
-  font-size: 12px;
-}
-.step4Desk .amount {
-  color: #fe943e;
-  font-size: 12px;
-  margin-left: 10px;
-  margin-right: 10px;
+.step4Desk .rightSide button i {
+  margin-left: 5px;
 }
 .step4Desk .flatDetails {
   margin-top: 5px;
@@ -1366,13 +1359,20 @@ body a {
   line-height: 1;
   width: 5px;
 }
+.step4Desk .tabHeader ul {
+  margin-bottom: 0;
+}
 .step4Desk .tabHeader ul li {
   display: inline-block;
-  padding: 10px 10px 0 10px;
+  padding: 20px 30px 0 30px;
+}
+.step4Desk .tabHeader ul li:first-child {
+  padding-left: 15px;
 }
 .step4Desk .tabHeader ul li a {
   color: #565654;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
+  float: left;
   border-bottom: 2px solid rgba(0, 0, 0, 0);
   text-decoration: none;
   outline: none;
@@ -1386,6 +1386,21 @@ body a {
 .step4Desk .tabHeader ul li.active a {
   color: #fe943e;
   border-bottom: 2px solid #fe943e;
+}
+.step4Desk .tabHeader ul li.stickyButtons {
+  display: none;
+  padding-top: 15px;
+}
+.step4Desk .tabHeader.stick {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+  background: #ffffff;
+  width: 100%;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.step4Desk .tabHeader.stick .stickyButtons {
+  display: block;
 }
 .step4Desk .contentHEader {
   background: #f6f6f6;
@@ -1403,6 +1418,9 @@ body a {
 }
 .step4Desk .detailView {
   margin-bottom: 50px;
+}
+.step4Desk .detailView .contentHEader {
+  margin-top: -5px;
 }
 .step4Desk .detailView .unit h5 {
   margin-top: 0;
@@ -1453,11 +1471,17 @@ body a {
 }
 .step4Desk .amenitiesDetails .text {
   float: left;
-  width: 60%;
+  width: 70%;
   padding-left: 10px;
   margin-top: 12px;
   font-size: 12px;
   font-weight: 600;
+}
+.step4Desk .amenitiesDetails .disabled .icon {
+  background: #d5d5d4;
+}
+.step4Desk .amenitiesDetails .disabled .text {
+  color: #bcbcba;
 }
 .step4Desk .similarFlat {
   margin-top: 40px;
@@ -1475,6 +1499,18 @@ body a {
 }
 .step4Desk .similarFlat .moreFlats .card-swipe ul {
   float: left;
+}
+.step4Desk .specificationOuter {
+  margin-top: 30px;
+}
+.step4Desk .specificationOuter h4 {
+  margin-bottom: 20px;
+}
+.step4Desk .specificationOuter .textInner {
+  margin-bottom: 30px;
+}
+.step4Desk .specificationOuter .textInner h5 {
+  margin-bottom: 10px;
 }
 .pNone {
   padding: 0 !important;

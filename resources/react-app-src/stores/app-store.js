@@ -58,6 +58,29 @@ function getUnitTypeIdFromUnitVariantId(propertyType,unitVariantId){
 
 }
 
+
+
+
+
+
+function getPropertyVariantsAttributes(propertyType,variantId,key){
+
+	var variants;
+
+	if(propertyType==="Apartments"){
+		variants = _projectData.apartment_variants;
+
+		propVariant = _.findWhere(variants, {id: variantId});
+
+	}
+
+	return propVariant.variant_attributes[key];
+}
+
+
+
+
+
 function getUnitCount(propertyType,filters){
 	var unitCount = {"total":[],"available":[], "filtered":[]};
 	var units = [];
@@ -84,6 +107,7 @@ function getUnitCount(propertyType,filters){
 		else{
 
 			_.each(appliedFilters, function(appliedFilter, key){
+
 				if(key==="unitTypes"){
 					unitTypesTocheck = appliedFilter; // array of unit type ids
 
@@ -104,8 +128,48 @@ function getUnitCount(propertyType,filters){
 						}
 					});
 
-
 				}
+
+
+
+				if(key==="Flooring"){
+					flooringTocheck = appliedFilter; 
+					if(flooringTocheck.length > 0){
+
+												
+						_.each(availableUnits, function(availableUnit){
+							variantId = availableUnit.unit_variant_id;
+
+							var propertyVariant = getPropertyVariantsAttributes(propertyType,variantId,key);
+
+							if(_.indexOf(flooringTocheck, propertyVariant.toString()) > -1){
+
+								if(filteredUnits.length === 0){
+									filteredUnits.push(availableUnit);
+								}else{
+									var variantExist = _.findWhere(filteredUnits, {id: availableUnit.id});
+									if(variantExist === undefined || variantExist === null){
+										console.log('only for flooring!');
+										_.each(filteredUnits, function(filUnit){
+											var innterPropertyVariant = getPropertyVariantsAttributes(propertyType,filUnit.unit_variant_id,key);
+											if(_.indexOf(flooringTocheck, innterPropertyVariant.toString()) <= 0){
+												filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+												console.log(filUnit.id + ' not available');
+											}
+										});
+									}
+								}
+
+							}
+
+						});
+
+					}
+				}
+
+
+
+
 			});
 
 		}
@@ -114,6 +178,8 @@ function getUnitCount(propertyType,filters){
 		unitCount["available"] = availableUnits ;
 		unitCount["filtered"] = filteredUnits ;
 	}
+
+	console.log(unitCount);
 
 	return unitCount;
 } 
@@ -252,6 +318,78 @@ function getApartmentUnitTypes(buildingId){
 	return apartmentUnitTypes;
 }
 
+
+
+
+
+
+function getPropertyVariants(propertyType,variant){
+
+	var variants = [];
+
+
+	switch(propertyType) {
+
+	    case "Apartment":
+	    	var propertyVariants = _projectData.apartment_variants;
+	    	var prop_type_id = _.findKey(_projectData.property_types, function(val) {
+	    		return val === 'Apartments';
+	    	});    	
+	    break;
+
+	    default:
+	    	var propertyVariants = _projectData.apartment_variants;
+	    	var prop_type_id = _.findKey(_projectData.property_types, function(val) {
+	    		return val === 'Apartments';
+	    	});
+
+	}
+
+	_.each(propertyVariants, function(p_variants){
+				var variantName = p_variants.variant_attributes[variant];
+	    		var var_attributes = {
+	    			id: variantName,
+	    			isSelected: false,
+	    			name: variantName[0].toUpperCase() + variantName.substr(1),
+	    			property_type_id: prop_type_id
+	    		};
+
+	    		if(checkVariationIsUnique(variants,variantName)){
+	    		variants.push(var_attributes);
+	    		}
+	    	});
+
+	return variants;
+}
+
+
+
+function checkVariationIsUnique(variants,variantName){
+	_.each(variants, function(a_variants){
+		if(a_variants.id === variantName){
+			return false;
+		}
+	});
+	return true;
+}
+
+
+
+function checkIfUnitExistsInFilter(filters,unit){
+	_.each(filters, function(filter){
+		if(filter.id === unit){
+			return true;
+		}
+	});
+	return false;
+}
+
+
+
+
+
+
+
 function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 	
 	var supportedUnitTypes = [];
@@ -290,7 +428,11 @@ function getApartmentFilterTypes(propertyType){
 
 	supportedFilterTypes = _projectData["filters"][propertyType];
 
-	_.each(supportedFilterTypes, function(supportedFilterType){
+	defaultFilterTypes = _projectData["filters"]["defaults"];
+
+	allFilterTypes = _.union(supportedFilterTypes, defaultFilterTypes);
+
+	_.each(allFilterTypes, function(supportedFilterType){
 
 		var filterType ={};
 
@@ -305,18 +447,73 @@ function getApartmentFilterTypes(propertyType){
 			filterType.filterValues = apartmentUnitTypes;
 
 			filterTypes.push(filterType);
+
+			}
+
+		if(supportedFilterType==="Flooring"){
+			filterType.type = "Flooring";
+			filterType.filterName = "Flooring";
+			filterType.filterDisplayType = "normalCheckbox";
+						
+			filterType.filterValues = getPropertyVariants(propertyType,'Flooring');
+
+			filterTypes.push(filterType);
 		}
+
+
+		if(supportedFilterType==="budget"){
+			filterType.type = "budget";
+			filterType.filterName = "Budget";
+			filterType.filterDisplayType = "range";
+			
+			filterType.filterValues = getfilterRangeValues('budget');
+
+			filterTypes.push(filterType);
+		}
+
 	});
 
-	// filterTypes = [{
- 	//          filterName: "Unit Type",
- 	//          filterDisplayType: "imageCheckbox",
- 	//          filterValues : [{id:1,name:"1BHK", isSelected: true},{id:2,name:"2BHK", isSelected: true},{id:3,name:"3BHK",isSelected: true},{id:4,name:"5BHK",isSelected: true}]
- 	//        }];
-
     return filterTypes;
-
 }
+
+
+
+
+
+
+
+function getfilterRangeValues( listName ){
+	var units = [];
+	var totalUnitsInBuilding = [];
+	var availableUnits = [];
+	units = _projectData.units;
+	totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
+	availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+
+	switch(listName) {
+
+	    case "budget":
+	    	var values = _.pluck(availableUnits, "selling_amount");
+	    	var rangeSet = [1000000,2000000,3000000,4000000,5000000,8000000,10000000,20000000,30000000];
+	    break;
+
+	} 
+
+	var minVal = _.min(values);
+	var maxVal = _.max(values);
+	rangeSet.unshift(minVal);
+	rangeSet.push(maxVal);
+	var range = _.filter(rangeSet, function(x) { return x >= minVal && x <= maxVal });
+
+	return range;	
+}
+
+
+
+
+
+
+
 
 // Method to load project data from API
 function _loadProjectData(data) {

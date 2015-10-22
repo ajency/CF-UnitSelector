@@ -992,12 +992,57 @@ body
 		}
 	}
 }
+@media screen and (min-width: 768px) and (max-width:991px)
+{
+	.successContent
+	{
+		.detailsOuter
+		{
+			padding: 0;
+		}
+		.bookedUser
+		{
+			padding: 0;
+		}
+		.detailsOuter > div
+		{
+			width: 25%;
+		}
+		.cancleText .text 
+		{
+			width: 93%;
+		}
+		.cancelBookingOuter a
+		{
+			margin-top: 10px;
+		}
+	}
+	.bookFlowContent
+	{
+		.panel .reviewDetails .detailsOuter > div
+		{
+			width: 25%;
+		}
+	}
+}
 @media screen and (max-width:767px)
 {	
 	.bookFlowContent
 	{
+		height:350px;
+		.absoluteLayout 
+		{
+				height: 350px;
+		}
 		.bookAptOuter
-		{			
+		{	
+			.row > div
+			{
+				&:last-child
+				{
+					text-align:center;
+				}
+			}		
 			> div
 			{
 				text-align:center !important;
@@ -1103,6 +1148,10 @@ body
 	{
 		padding:0;
 	}	
+	.buttonOuter
+	{
+		text-align:center;
+	}
 }
 @media screen and (max-width:320px)
 {
