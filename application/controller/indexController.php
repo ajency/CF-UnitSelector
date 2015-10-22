@@ -487,7 +487,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
               $mail->Subject  = $subject;
 
-              $mail->AltBody    = $message; // optional, comment out and test
+             // $mail->AltBody    = $message; // optional, comment out and test
               $mail->WordWrap   = 80; // set word wrap
 
               $mail->MsgHTML($body);
