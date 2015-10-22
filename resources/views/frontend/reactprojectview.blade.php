@@ -7,12 +7,13 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>CommonFloor - {{ $project_title }}</title>
 
-    <link href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
+    <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
     <link rel="stylesheet" href="{{ asset('css/cf-mobile/gh-fork-ribbon.min.css' )}}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/slick.css' )}}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/font-awesome.css' )}}"/>  
     <link href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}" rel="stylesheet">
+    <link href="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.css' )}}" rel="stylesheet">
 	<script src="{{ asset('lib/react.js' )}}"></script>
 </head>
 <body>
@@ -22,21 +23,39 @@
 		<!-- The App will be rendered here -->
 
 	</div>
+    
+
+    
+    <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
+    <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
+    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script> 
+    <script src="{{ asset('bower_components/mobile-detect/mobile-detect.js') }}"></script>
+    <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script>
+    <script src="{{ asset('bower_components/slick-carousel/slick/slick.js' )}}"></script>
+    <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
+    <script src="{{ asset('bower_components/spritespin/release/spritespin.min.js' )}}"></script>  
+    <script src="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.js' )}}"></script> 
 
 
 	<!--Global constants -->
 	<script type="text/javascript" language="JavaScript">
+        var md = new MobileDetect(window.navigator.userAgent);
+        var isMobile;
+
+        detectedMobile = md.mobile();
+
+        if(_.isNull(detectedMobile)){
+            isMobile = false;
+            $("#size-stylesheet").attr("href", "../css/cf-mobile/custom-big.css");
+            
+        }else{
+            isMobile = true;
+        }
+
+        window.isMobile = isMobile;
     	window.baseUrl = '{{url()}}';
     	window.projectId = '{{$id}}';
     </script>
-
-    <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
-    <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
-    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
-    <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script>
-    <script src="{{ asset('bower_components/slick-carousel/slick/slick.min.js' )}}"></script>
-    <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
-    <script src="{{ asset('bower_components/spritespin/release/spritespin.min.js' )}}"></script>  
 
 
     <script src="{{asset('react-app-dist/main.js')}}"></script>

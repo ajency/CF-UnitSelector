@@ -7,17 +7,21 @@ var CardView = React.createClass({
 
     render: function() {
         var buildingData = this.props.building;
+        var buildingId = buildingData.id;
         var isFilterApplied = this.props.isFilterApplied;
         var unitData = [];
         var noOfFloors = 0;
         var buildingName = "";
         var supportedUnitTypeString = " ";
         var buildingUrl = " ";
+        var minStartPrice = buildingData.minStartPrice;
         
         var unitCount = 0;
         var unitCountDisplayString = "available"; 
 
         var isZeroUnits = isZeroInSelection = false;
+
+        var mainDom;
 
         if (!_.isEmpty(buildingData)){
           
@@ -70,9 +74,7 @@ var CardView = React.createClass({
           'not-released': isZeroUnits
         }); 
 
-        
 
-        
         var arrowClasses = classNames({
           arrow: true,
           hide: isZeroUnits||(isZeroInSelection && isFilterApplied)
@@ -88,36 +90,68 @@ var CardView = React.createClass({
 
         if(isZeroUnits)
           domToDisplay = (<b>Units Not Available</b>);
-        
-        
-        return (
-                
-                    <div className={cardClasses}>
 
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <h4 className=" margin-none text-left"> {buildingName}</h4>
+
+
+        if(window.isMobile){
+          mainDom = ( <div className={cardClasses} data-unitid={buildingId}>
+                          <div className="row">
+                              <div className="col-xs-12">
+                                  <h4 className=" margin-none text-left"> {buildingName}</h4>
+                              </div>
+                              <div className="col-xs-12 text-muted price">
+                                    From <span className="price-tag"><i className="fa fa-inr"></i> {minStartPrice} </span>
+                              </div>
+                          </div>
+                          
+                          <div className=" swipe-unit-info row">
+                             <div className="col-xs-12 text-muted">
+                                <span> {noOfFloors} Floors</span><li></li> <span> {supportedUnitTypeString} </span>
+                             </div>  
+                          </div>
+
+                          <div className="row swipe-footer">
+                               <div className="col-xs-12 text-muted text-uppercase">
+                                  {domToDisplay}
+                                </div>  
+                          </div>
+                      </div>
+                    );
+
+        }
+        else{
+
+          mainDom = (     <li className="sidebar-brand">
+                            <div className="card-swipe highlight">
+                                <div className="row">
+                                    <div className="col-xs-12">
+                                        <h4 className=" margin-none text-left text-uppercase"> {buildingName}</h4>
+                                    </div>
+                                    <div className="col-xs-12 text-muted price">
+                                        From <span><i className="fa fa-inr"></i> {minStartPrice}</span>
+                                    </div>
+                                </div>
+                                <div className=" swipe-unit-info row">
+                                    <div className="col-xs-12 text-muted">
+                                        <span>{noOfFloors} Floors</span>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                        <span>{supportedUnitTypeString}</span>
+                                    </div>
+                                </div>
+                                <div className="swipe-footer">
+                                    <div className="col-xs-12">
+                                        {domToDisplay}
+                                    </div>
+                                </div>
                             </div>
-                            <div className="col-xs-12 text-muted price">
-                                  From <span className="price-tag"><i className="fa fa-inr"></i> 20 lacs</span>
-                            </div>
-                        </div>
-                        
-                        <div className=" swipe-unit-info row">
-                           <div className="col-xs-12 text-muted">
-                              <span> {noOfFloors} Floors</span><li></li> <span> {supportedUnitTypeString} </span>
-                           </div>  
-                        </div>
+                        </li>
+                  );          
+        }
 
-                        <div className="row swipe-footer">
-                             <div className="col-xs-12 text-muted text-uppercase">
-                                {domToDisplay}
-                              </div>  
-                        </div>
-                    </div>
-                
-
-        );
+        
+        return mainDom;
     }
 });
 

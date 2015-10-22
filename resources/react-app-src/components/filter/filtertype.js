@@ -68,6 +68,7 @@ var FilterType = React.createClass({
                         }.bind(this));            
         }
         else if(filterDisplayType==="normalCheckbox"){
+            that = this;
             filterValueNodes = filterValues.map(function(filterValue,i){
 
                 
@@ -75,7 +76,9 @@ var FilterType = React.createClass({
                                 <div key={i} className="checkboxnormal">
                                     <h5 className="col-xs-9 normal">{filterValue.name}</h5>
                                     <span className="col-xs-3 text-center">
+
                                             <input type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id} /><label></label>
+
                                     </span>
                                 </div>                              
                             ); 

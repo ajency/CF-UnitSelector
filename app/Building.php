@@ -22,6 +22,14 @@ class Building extends Model {
         $this->attributes['building_master'] = serialize( $value );
     }
 
+    public function getShadowImagesAttribute( $value ) {
+        return unserialize( $value );
+    }
+
+    public function setShadowImagesAttribute( $value ) {
+        $this->attributes['shadow_images'] = serialize( $value );
+    }
+
     public function getBuildingMasterAttribute( $value ) {
         return unserialize( $value );
     }

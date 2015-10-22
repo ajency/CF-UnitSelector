@@ -16,6 +16,7 @@ use \Excel;
 use Auth;
 use CommonFloor\AgentUnit; 
 use CommonFloor\Http\Controllers\Admin\ProjectBunglowUnitController;
+use CommonFloor\PropertyTypeGroup;
 
 class ProjectPlotUnitController extends Controller {
 
@@ -82,6 +83,7 @@ class ProjectPlotUnitController extends Controller {
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
+        $propertyTypeGroups = PropertyTypeGroup::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
         $unitTypeIdArr = [];
         foreach ($unitTypeArr as $unitType)
@@ -98,6 +100,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
                         ->with('projectPropertytypeId', $projectPropertytypeId)
+                        ->with('propertyTypeGroups', $propertyTypeGroups)
                         ->with('current', 'plots-unit');
     }
 
@@ -115,6 +118,7 @@ class ProjectPlotUnitController extends Controller {
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->phase_id = $request->input('phase');
+        $unit->property_type_group_id = $request->input('property_type_group');
         $unit->direction = $request->input('direction');
         $views = $request->input('views');
         $unitviews=[];
@@ -172,6 +176,7 @@ class ProjectPlotUnitController extends Controller {
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
+        $propertyTypeGroups = PropertyTypeGroup::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
         $unitTypeIdArr = [];
         foreach ($unitTypeArr as $unitType)
@@ -209,6 +214,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
                         ->with('projectPropertytypeId', $projectPropertytypeId)
+                        ->with('propertyTypeGroups', $propertyTypeGroups)
                         ->with('disabled', $disabled)
                         ->with('current', 'plots-unit');
     }
@@ -228,6 +234,7 @@ class ProjectPlotUnitController extends Controller {
             $unit->unit_variant_id = $request->input('unit_variant');
             $unit->phase_id = $request->input('phase');
             $unit->direction = $request->input('direction');
+            $unit->property_type_group_id = $request->input('property_type_group');
             $views = $request->input('views');
             $unitviews=[];
             if(!empty($views))

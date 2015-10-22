@@ -15,6 +15,7 @@ use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
 use CommonFloor\Unit;
 use CommonFloor\Building;
+use CommonFloor\PropertyTypeGroup;
 use CommonFloor\ProjectJson;
 use \Input;
 use CommonFloor\Http\Controllers\Admin\SvgController;
@@ -1202,6 +1203,32 @@ class ProjectController extends Controller {
                 $supported_types[] = "Amenity";                   
                 break;
 
+            case 'group_master':
+                $groupId  = $getVar['group'];
+                $svgImagePath = url() . "/projects/" . $id . "/group/" . $groupId."/". $imageName;
+
+                
+                
+                //Duplicate svgs
+                $propertyTypeGroup = PropertyTypeGroup::find($groupId);
+                $breakpoints = $propertyTypeGroup->getGroupSVGs($groupId);
+
+                // get property types supported by project
+               
+                $propertyTypeId = \CommonFloor\ProjectPropertyType::find( $propertyTypeGroup->project_property_type_id )->property_type_id;
+                foreach ($projectpropertyTypes as $projectpropertyType) {
+                    
+                    
+                    if ($projectpropertyType['property_type_id'] == $propertyTypeId) {
+                        $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
+                        $supported_types = array($propertyname);
+                    }
+                }
+                
+                // pass amenities as well
+                $supported_types[] = "Amenity";                   
+                break;
+
              /*case 'google_earth':
                 $is_project_marked = SvgController::isGoogleSvgMarked($image_id);
                 $svgImagePath = url() . "/projects/" . $id . "/google_earth/". $imageName;*/
@@ -1226,6 +1253,10 @@ class ProjectController extends Controller {
 
             case 'building_master':
                 $svg_type_display = "BUILDING MASTER";
+                break;
+
+            case 'group_master':
+                $svg_type_display = "Group MASTER";
                 break;
 
             /*case 'google_earth':

@@ -48,7 +48,7 @@
           </div>
           <div class="col-xs-12 unitDetails"><small class="text-uppercase unitsSelection"><small>60 units in your selection<span> (100 Available)</span></small>
           <small><span>Facing : East, West, South</span></small></small></div>
-<div id="content-1" class="content" style="height:170px;">
+<div id="content-1" class="content" style="height:270px;">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <div class="card-swipe highlight">
@@ -132,10 +132,7 @@
         <h6>Out Side View</h6>
         <img src="img/Project-noshadow.jpg"/>
         </div>
-          <div class="footer">
-               <h4 class="primary-txt"> Call 1800 180 180 180</h4>
-              <a href="#"> Commonfloor </a> |      <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a> <br> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
-            </div>   
+            
             
         </div>
         <!-- /#sidebar-wrapper -->
@@ -148,6 +145,10 @@
               <i class="i-icon i-icon-rotate"></i>
               Press To Rotate                        
            </div>
+           <div class="footer">
+               <h4 class="primary-txt"> Call 1800 180 180 180</h4>
+              <a href="#"> Commonfloor </a> |      <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a> <br> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
+            </div> 
 
            <div class="svg-area" >
      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -207,7 +208,7 @@
                                 </div>
                               
                               <div class="filterOuter">
-                                <nav class="float-nav closed">
+                                <nav class="float-nav closed" id="filters">
                                   <ul>
                                     <li class="filterLiTop">
                                     <h5 class="text-uppercase">Filters (<span class="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span class="filterHeader">Clear filters</span></h5>
@@ -487,6 +488,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.panzoom.js"></script>
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/jquery.qtip.min.js"></script>
     <script src="http://spritespin.ginie.eu/spritespin.js"></script>   
     
 
@@ -546,6 +548,10 @@
       $(window).load(function(){
         
         $("#content-1").mCustomScrollbar({
+          autoHideScrollbar:true,
+          theme:"rounded"
+        });
+        $("#filters ul").mCustomScrollbar({
           autoHideScrollbar:true,
           theme:"rounded"
         });
@@ -622,6 +628,17 @@
             
           });
            
+      </script>
+      <script type="text/javascript">
+        
+         $(document).ready(function() {
+            $('a.sun-toggle').qtip({
+              alert('hdjah');
+             content: 'This is an active list element',
+             show: 'mouseover',
+             hide: 'mouseout'
+          })
+        });
       </script>
 
   </body>

@@ -234,6 +234,12 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 			
 		})
 
+		// from all building units get start price
+		unitPrices = [];
+		unitPrices = _.pluck(buildingUnits, "selling_amount");
+		minStartPrice = _.min(unitPrices);
+		building.minStartPrice = minStartPrice;
+
 		
 		// get all unit data
 		building.unitData = buildingUnits;
@@ -620,15 +626,8 @@ function getFilteredProjectMasterData(){
 
 	// get primary breakpoint for the unit to be higlighted
 	breakpoints = newProjectData.breakpoints;
-
-	chosenBreakpointIndex = _.indexOf(breakpoints , newProjectData.chosenBreakpoint);
-
-	newChosenBreakpointIndex = chosenBreakpointIndex+1;
-
-	if(newChosenBreakpointIndex >= breakpoints.length)
-		newChosenBreakpointIndex = 0;
-
-	newProjectData.chosenBreakpoint = breakpoints[newChosenBreakpointIndex];
+	newChosenBreakpoint = buildingToHighlight.primary_breakpoint;
+	newProjectData.chosenBreakpoint = newChosenBreakpoint;
 
 	// since filters are applied set isFilterAPplied as true
 	if(_.isEmpty(appliedFilters)){

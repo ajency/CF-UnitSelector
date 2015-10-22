@@ -16,6 +16,7 @@ use \Session;
 use \Excel;
 use Auth;
 use CommonFloor\AgentUnit;    
+use CommonFloor\PropertyTypeGroup;
 
 class ProjectBunglowUnitController extends Controller {
 
@@ -83,6 +84,7 @@ class ProjectBunglowUnitController extends Controller {
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         
+        $propertyTypeGroups = PropertyTypeGroup::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
         $unitTypeIdArr = [];
         foreach($unitTypeArr as $unitType)
@@ -99,6 +101,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
                         ->with('projectPropertytypeId', $projectPropertytypeId)
+                        ->with('propertyTypeGroups', $propertyTypeGroups)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -116,6 +119,7 @@ class ProjectBunglowUnitController extends Controller {
         $unit->availability = $request->input('unit_status');
         $unit->phase_id = $request->input('phase');
         $unit->direction = $request->input('direction');
+        $unit->property_type_group_id = $request->input('property_type_group');
         $views = $request->input('views');
         $unitviews=[];
         if(!empty($views))
@@ -180,6 +184,7 @@ class ProjectBunglowUnitController extends Controller {
         foreach($unitTypeArr as $unitType)
             $unitTypeIdArr[] =$unitType['id'];
        
+       $propertyTypeGroups = PropertyTypeGroup::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
         $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
         
@@ -214,6 +219,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
                         ->with('projectPropertytypeId', $projectPropertytypeId)
+                        ->with('propertyTypeGroups', $propertyTypeGroups)
                         ->with('disabled', $disabled)
                         ->with('current', 'bunglow-unit');
     }
@@ -252,6 +258,7 @@ class ProjectBunglowUnitController extends Controller {
             }
         
         }
+        $unit->property_type_group_id = $request->input('property_type_group');
         $unit->booked_at = date('Y-m-d H:i:s');
         $unit->availability = $status;
         $unit->save();
@@ -505,7 +512,6 @@ class ProjectBunglowUnitController extends Controller {
         //$sender_url .= '?' . http_build_query($params);
  
         $c = curl_init();
-        //curl_setopt($c, CURLOPT_HTTPHEADER, array('Host: bookingcrm.cfunitselectortest.com'));
         curl_setopt($c, CURLOPT_URL, $sender_url);
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, $params);

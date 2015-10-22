@@ -1,11 +1,11 @@
 .float-nav {
   position: fixed;
   z-index: 1;
-  top: 23px;
+  top: 20px;
   right: 144px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  width: 370px; height: 340px;
+ 
+  width: 420px;
+  height: 360px;
   padding: 6px;
   text-align: left;
   background: #fff;  
@@ -15,11 +15,9 @@
   transition: all 300ms cubic-bezier(.6,-0.3,.3,1.3);
 }
 .float-nav.closed {
-  width: 60px;
-  height: 14px;
-  border: 5px solid #fff;
-  border-radius: 3px;
-  overflow: hidden;
+width: 80px;
+ height: 30px;
+  border-radius: 3px; 
 }
 
 .float-nav a {
@@ -54,18 +52,22 @@
 }
 .float-nav .toggle:after
 {
-  content:'Filter';
-  margin-left:30px;
-  line-height:2;
+  content:'';
+  margin-left:39px;
+  line-height:0;
   color:@gray-darker;
-  font-size: 18px;
-  text-transform: uppercase
+  font-size: 20px;
+  text-transform: uppercase;
+  float:left;
+  margin-top:0;
+  -webkit-transition: all 0ms;
+  transition: all 0ms;
 }
-.float-nav.closed:hover
+.float-nav.closed .toggle:after
 {
-  width:60px;
-  border-radius:3px;
+    content:'Filter';
 }
+
 .float-nav.closed:hover .float-nav.closed .toggle
 {
   width:90px;
@@ -78,15 +80,17 @@
 .float-nav.closed .toggle {
   transform: rotate(0);
   text-decoration:none;
-  width: 26px;
+  width: 131px;
   height: 30px;
   background: url(../../images/spriteNew.png) no-repeat;
-  background-position: -18px -78px;
+  background-position: -6px -73px;
   z-index: 9999;
-  top: -10px;
-  transform: scale(0.5);
-  -webkit-transform: scale(0.5);
-  left: -5px;
+  top: -9px;
+  transform: scale(0.6);
+  -webkit-transform: scale(0.6);
+  left: -25px;
+  padding: 24px 5px;
+  border-radius: 7px;
 }
 
 .float-nav ul {
@@ -100,6 +104,7 @@
     list-style:none;
     height:100%;
     margin-bottom:0;
+    margin-top:0;
 }
 .float-nav.closed ul { opacity: 0; }
 
@@ -111,8 +116,7 @@
   width:100%;
 
   h6
-  {
-    font-size:9px;
+  {    
     margin:8px 0 0 0;
   }
 
@@ -127,7 +131,7 @@
     h5
     {
       margin:0;
-      font-size:10px;
+      
       .filterHeader
       {
         color:@brand-primary;
@@ -146,8 +150,8 @@
       label
       {
         float: left;
-        font-size: 9px;
-        margin-top: 3px;
+        font-size: 12px;
+        margin-top: 0px;
         text-transform: uppercase;
         margin-left: 5px;
         font-weight:200;
@@ -217,7 +221,7 @@
         border: none;
         background: @gray-lightest;
         width: 100%;
-        font-size: 10px;
+        font-size: 12px;
         border-bottom: 1px solid @gray-light;
         padding: 5px;
         &:focus
@@ -262,7 +266,7 @@
        &.facingContent
        {
           background: #f2f2f2;
-          padding: 10px 20px;
+          padding: 10px 20px 0;          
        } 
       }
     }
@@ -318,7 +322,7 @@
     background-color:@brand-primary;
     color:@white;
     top: -4px;
-    right: 115px;
+    right: -4px;
     z-index: 1;
     border-radius: 50%;
     text-align: center;

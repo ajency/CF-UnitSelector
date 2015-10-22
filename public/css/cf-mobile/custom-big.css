@@ -94,6 +94,9 @@ section {
   vertical-align: baseline;
   background: transparent;
 }
+.clear {
+  clear: both;
+}
 .fit {
   /* set relative picture size */
   max-width: 100%;
@@ -150,6 +153,22 @@ div#spritespin {
   width: 100% !important;
   height: 100% !important;
 }
+.footer {
+  font-size: 14px;
+  color: #ffffff;
+  position: absolute;
+  bottom: 10px;
+  z-index: 1;
+  right: 25px;
+  text-align: right;
+}
+.footer .primary-txt {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+.footer a {
+  font-size: 14px;
+  color: #ffffff;
+}
 body {
   -webkit-text-size-adjust: none;
   font-family: sans-serif;
@@ -181,19 +200,30 @@ body a {
   font-size: 12px;
   color: #fe943e;
 }
+.btn-primary {
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+}
+.btn-primary:hover,
+.btn-primary.focus {
+  outline: none !important;
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+}
 .footer {
   font-size: 12px;
-  color: #373737;
+  color: white;
   position: absolute;
   bottom: 10px;
+  z-index: 9999;
 }
 .footer a {
   font-size: 12px;
-  color: #373737;
+  color: white;
 }
 .footer a:focus,
 .footer a:hover {
-  color: #373737;
+  color: #ccc;
 }
 .card-swipe {
   font-size: 12px;
@@ -205,8 +235,8 @@ body a {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: 5px;
+  margin-top: 0px;
   text-transform: uppercase;
   padding: 0 10px;
 }
@@ -253,13 +283,13 @@ body a {
   font-weight: 400;
   margin-bottom: 9px;
   text-transform: uppercase;
-  font-size: 9px;
-  margin-top: 5px;
+  font-size: 11px;
+  margin-top: 2px;
   color: #bcbcba;
 }
 .card-swipe .swipe-footer .units b {
   color: #565654;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
 }
 @media (max-width: 320px) {
@@ -343,18 +373,21 @@ body a {
 }
 .highlight h4 {
   font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .highlight .swipe-footer .arrow a {
   background: #fe943e;
 }
-.mCustomScrollbar {
-  margin-top: 20px;
-  float: left;
+#content-1 {
+  margin-top: 15%;
   width: 100%;
+  height: 80% !important;
+  clear: both;
 }
 .sidebar-nav li {
   border: 1px solid #d5d5d4;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .navbar-header {
   color: white;
@@ -436,9 +469,11 @@ body a {
   left: 0;
   right: 0;
   text-align: center;
-  bottom: 10px;
+  bottom: 0px;
   color: White;
   text-shadow: 1px 1px 1px #000;
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.75), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 }
 .rotate .i-icon-rotate {
   background: url(../../images/sprite.png) no-repeat;
@@ -450,24 +485,22 @@ body a {
   cursor: pointer;
 }
 .messageBoxDesk {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   color: #ffffff;
   width: auto;
-  /*float:right;   */
   margin: auto;
   display: inline-block;
   margin-top: 30px;
+  font-size: 12px;
 }
 .messageBoxDesk .tip {
   float: left;
   padding: 10px;
   background: rgba(0, 0, 0, 0.5);
-  font-size: 11px;
 }
 .messageBoxDesk .message {
   float: left;
   padding: 11px 9px 9px 9px;
-  font-size: 11px;
   text-transform: capitalize;
 }
 .messageBoxDesk a {
@@ -475,7 +508,6 @@ body a {
   margin: 0 0 0 30px;
   color: #ffffff;
   text-decoration: none;
-  font-size: 9px;
   outline: none;
 }
 .messageBoxDesk a:focus,
@@ -484,49 +516,8 @@ body a {
   text-decoration: none;
   outline: none;
 }
-.contactForm {
-  position: absolute;
+.navbar-header {
   z-index: 99;
-  right: 0px;
-  top: 3px;
-  float: left;
-}
-.contactForm .callUs {
-  font-size: 8px;
-  display: block;
-  margin-bottom: 10px;
-}
-.contactForm button {
-  background: #fe943e;
-  color: #ffffff;
-  border: none;
-  border-radius: 3px;
-  font-size: 8px;
-  padding: 0px 7px 0px 0px;
-  text-transform: uppercase;
-  height: 23px;
-}
-.contactForm button:focus {
-  outline: none;
-}
-.contactForm button i {
-  margin-right: 5px;
-}
-.contactForm button .phoneImg {
-  height: 31px;
-  width: 31px;
-  background: url(../../images/phoneIcon.png) no-repeat;
-  float: left;
-  -ms-transform: scale(0.6);
-      transform: scale(0.6);
-  -webkit-transform: scale(0.6);
-  margin-left: -1px;
-}
-.contactForm button .enquiryText {
-  float: left;
-  margin-top: 5px;
-  margin-left: -4px;
-  font-size: 10px;
 }
 .contactModal {
   left: 320px !important;
@@ -548,7 +539,7 @@ body a {
   padding: 0;
 }
 .contactModal p {
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 2px;
   color: #bcbcba;
 }
@@ -572,20 +563,11 @@ body a {
   margin-bottom: 15px;
   padding: 10px 0px 5px 0;
   border-bottom: 1px solid #d5d5d4;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
 }
 .contactModal .inputOuter input:focus {
   outline: none;
-}
-.contactModal .proceedBtn button {
-  background: #fe943e;
-  border: none;
-  color: #ffffff;
-  padding: 6px 30px 4px;
-  text-transform: uppercase;
-  font-size: 10px;
-  border-radius: 2px;
 }
 .contactModal .close {
   position: absolute;
@@ -623,14 +605,13 @@ body a {
 }
 .contactModal .help {
   text-transform: uppercase;
-  font-size: 9px;
+  font-size: 12px;
   margin-top: 15px;
   float: left;
   width: 100%;
 }
 .contactModal h5 {
   text-transform: uppercase;
-  font-size: 12px;
   margin-top: 3px;
   float: left;
   width: 100%;
@@ -638,12 +619,9 @@ body a {
 }
 .contactModal .developers {
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 12px;
   color: #bcbcba;
   margin-bottom: 20px;
-}
-.imageModal {
-  left: 320px !important;
 }
 .modal-backdrop.in {
   left: 320px;
@@ -653,7 +631,7 @@ body a {
   -webkit-transition: all 0.5s ease ;
           transition: all 0.5s ease ;
 }
-.image2 .no-shadow {
+.image-contain .no-shadow {
   position: absolute;
   top: 0;
 }
@@ -719,7 +697,7 @@ body a {
   margin-top: -15px;
 }
 .sideBarLogo {
-  background: url('../../images/logo.jpg') no-repeat;
+  /* background:url('../../images/logo.jpg') no-repeat;*/
   height: 65px;
   width: 100%;
   float: left;
@@ -733,8 +711,8 @@ body a {
   border-top: 1px solid #bcbcba;
 }
 .unitDetails small {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 400;
 }
 .unitDetails small.zoomEffect {
   animation: zoomEffect 2s;
@@ -811,20 +789,20 @@ body a {
   float: left;
   padding: 15px;
 }
+.sun-highlight {
+  background: yellow !important;
+}
 .zoomBtns {
   float: left;
   margin-top: 40px;
-  width: 20px;
-  margin-left: -13px;
+  width: 25px;
+  margin-left: 17px;
 }
 .zoomBtns button {
-  background: #ffffff;
-  color: #565654;
-  border: none;
-  margin-bottom: 5px;
-  width: 20px;
+  width: 25px;
   text-align: center;
-  border-radius: 3px;
+  padding: 2px 0px;
+  margin-bottom: 5px;
 }
 .zoomBtns button:focus {
   outline: none;
@@ -908,24 +886,53 @@ body a {
     -webkit-transform: scale(0) translate(50%, 0);
   }
 }
-.imageModal {
-  top: 15% !important;
-  bottom: 10%;
+.svg-light {
+  opacity: 0;
 }
-.imageModal .modal-content {
-  border-radius: 0;
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.7;
+  z-index: 1;
+}
+.imageModal {
+  margin-left: 0 !important;
   border: 2px solid #000000;
 }
-.imageModal .modal-body {
-  padding: 0;
-  /*background:url('../../images/bldg-3d.png') no-repeat -300px 0;
-		
-	    height: 400px;
-	    width: 100%;*/
-  overflow: hidden;
-  height: 400px;
+.imageModal#msg {
+  position: absolute;
+  height: 0;
+  left: 0;
+  background: wheat;
+  z-index: 2;
 }
-.imageModal .modal-body img {
+.imageModal#msg.closed {
+  overflow: hidden;
+}
+.imageModal.closed {
+  border: none;
+}
+.imageModal .modal-dialog {
+  height: 400px;
+  width: 500px;
+}
+.imageModal .modal-dialog .modal-content {
+  height: 100%;
+}
+.imageModal .modal-dialog .modal-body {
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+.imageModal .imgOuter {
+  overflow: hidden;
+  height: 100%;
+}
+.imageModal img {
   position: relative;
   /*height:100%;	*/
   margin-left: 50%;
@@ -955,7 +962,7 @@ body a {
     margin-left: 75%;
   }
 }
-.imageModal .modal-body .imageContent {
+.imageModal .imageContent {
   position: absolute;
   bottom: -1px;
   color: #ffffff;
@@ -997,12 +1004,10 @@ body a {
 .float-nav {
   position: fixed;
   z-index: 1;
-  top: 23px;
+  top: 20px;
   right: 144px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  width: 370px;
-  height: 340px;
+  width: 420px;
+  height: 360px;
   padding: 6px;
   text-align: left;
   background: #fff;
@@ -1011,11 +1016,9 @@ body a {
           transition: all 300ms cubic-bezier(0.6, -0.3, 0.3, 1.3);
 }
 .float-nav.closed {
-  width: 60px;
-  height: 14px;
-  border: 5px solid #fff;
+  width: 80px;
+  height: 30px;
   border-radius: 3px;
-  overflow: hidden;
 }
 .float-nav a {
   display: inline-block;
@@ -1055,16 +1058,19 @@ body a {
   color: #565654;
 }
 .float-nav .toggle:after {
-  content: 'Filter';
-  margin-left: 30px;
-  line-height: 2;
+  content: '';
+  margin-left: 39px;
+  line-height: 0;
   color: #565654;
-  font-size: 18px;
+  font-size: 20px;
   text-transform: uppercase;
+  float: left;
+  margin-top: 0;
+  -webkit-transition: all 0ms;
+  transition: all 0ms;
 }
-.float-nav.closed:hover {
-  width: 60px;
-  border-radius: 3px;
+.float-nav.closed .toggle:after {
+  content: 'Filter';
 }
 .float-nav.closed:hover .float-nav.closed .toggle {
   width: 90px;
@@ -1078,16 +1084,18 @@ body a {
       -ms-transform: rotate(0);
           transform: rotate(0);
   text-decoration: none;
-  width: 26px;
+  width: 131px;
   height: 30px;
   background: url(../../images/spriteNew.png) no-repeat;
-  background-position: -18px -78px;
+  background-position: -6px -73px;
   z-index: 9999;
-  top: -10px;
-  -ms-transform: scale(0.5);
-      transform: scale(0.5);
-  -webkit-transform: scale(0.5);
-  left: -5px;
+  top: -9px;
+  -ms-transform: scale(0.6);
+      transform: scale(0.6);
+  -webkit-transform: scale(0.6);
+  left: -25px;
+  padding: 24px 5px;
+  border-radius: 7px;
 }
 .float-nav ul {
   position: absolute;
@@ -1100,6 +1108,7 @@ body a {
   list-style: none;
   height: 100%;
   margin-bottom: 0;
+  margin-top: 0;
 }
 .float-nav.closed ul {
   opacity: 0;
@@ -1114,7 +1123,6 @@ body a {
   width: 100%;
 }
 .float-nav li h6 {
-  font-size: 9px;
   margin: 8px 0 0 0;
 }
 .float-nav.closed li {
@@ -1125,7 +1133,6 @@ body a {
 }
 .float-nav li.filterLiTop h5 {
   margin: 0;
-  font-size: 10px;
 }
 .float-nav li.filterLiTop h5 .filterHeader {
   color: #fe943e;
@@ -1140,8 +1147,8 @@ body a {
 }
 .float-nav li.filterCheckbox .row > div label {
   float: left;
-  font-size: 9px;
-  margin-top: 3px;
+  font-size: 12px;
+  margin-top: 0px;
   text-transform: uppercase;
   margin-left: 5px;
   font-weight: 200;
@@ -1200,7 +1207,7 @@ body a {
   border: none;
   background: #f6f6f6;
   width: 100%;
-  font-size: 10px;
+  font-size: 12px;
   border-bottom: 1px solid #bcbcba;
   padding: 5px;
 }
@@ -1234,7 +1241,7 @@ body a {
 }
 .float-nav li.moreFilters ul li.facingContent {
   background: #f2f2f2;
-  padding: 10px 20px;
+  padding: 10px 20px 0;
 }
 .filterOuter .sun-toggle {
   position: absolute;
@@ -1279,7 +1286,7 @@ body a {
   background-color: #fe943e;
   color: #ffffff;
   top: -4px;
-  right: 115px;
+  right: -4px;
   z-index: 1;
   border-radius: 50%;
   text-align: center;
@@ -1287,83 +1294,64 @@ body a {
   line-height: 1.5;
   opacity: 1;
 }
-.step4HeaderDesk {
-  padding: 15px;
+.step4Desk {
+  padding: 15px 0 !important;
 }
-.step4HeaderDesk .backOuter {
+.step4Desk .backOuter {
   padding: 0;
 }
-.step4HeaderDesk .backOuter i {
+.step4Desk .backOuter i {
   float: left;
   -ms-transform: scale(0.6);
       transform: scale(0.6);
   -webkit-transform: scale(0.6);
   margin-left: -5px;
 }
-.step4HeaderDesk .backOuter .back {
-  font-size: 10px;
+.step4Desk .backOuter .back {
+  font-size: 12px;
   float: left;
   margin-top: 5px;
   margin-left: 5px;
 }
-.step4HeaderDesk h4 {
+.step4Desk h4 {
   float: left;
   font-size: 20px;
-  margin: 0;
+  margin: 10px 0 0 0;
 }
-.step4HeaderDesk .available {
+.step4Desk .available {
   border: 1px solid #0eab08;
   border-radius: 3px;
-  font-size: 8px;
+  font-size: 10px;
   padding: 2px 5px 1px;
   color: #0eab08;
-  margin-top: 3px;
+  margin-top: 10px;
   float: left;
   margin-left: 10px;
 }
-.step4HeaderDesk .rightSide {
+.step4Desk .rightSide {
   padding-top: 25px;
 }
-.step4HeaderDesk .price {
-  color: #7d7c7a;
-  font-size: 10px;
+.step4Desk .rightSide button i {
+  margin-left: 5px;
 }
-.step4HeaderDesk .amount {
-  color: #fe943e;
-  font-size: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.step4HeaderDesk button {
-  background: #fe943e;
-  border: none;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 9px;
-  padding: 5px 10px 3px;
-  border-radius: 3px;
-}
-.step4HeaderDesk button:focus {
-  outline: none;
-}
-.step4HeaderDesk .flatDetails {
+.step4Desk .flatDetails {
   margin-top: 5px;
   padding-left: 25px;
   border-bottom: 1px solid #d5d5d4;
   padding-bottom: 10px;
 }
-.step4HeaderDesk .flatDetails .units {
+.step4Desk .flatDetails .units {
   float: left;
-  font-size: 10px;
+  font-size: 12px;
   color: #bcbcba;
   margin: 0 5px;
 }
-.step4HeaderDesk .flatDetails ul {
+.step4Desk .flatDetails ul {
   float: left;
   margin: 0;
   text-align: center;
 }
-.step4HeaderDesk .flatDetails ul li {
+.step4Desk .flatDetails ul li {
   float: left;
   color: #bcbcba;
   margin: 0 10px;
@@ -1371,29 +1359,160 @@ body a {
   line-height: 1;
   width: 5px;
 }
-.step4HeaderDesk .tabHeader .nav-tabs {
-  border: none;
+.step4Desk .tabHeader ul {
+  margin-bottom: 0;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li {
-  padding: 10px 10px 0 10px;
+.step4Desk .tabHeader ul li {
+  display: inline-block;
+  padding: 20px 30px 0 30px;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li a {
-  border: none ;
-  background: none ;
-  color: #7d7c7a;
-  text-transform: uppercase;
-  font-size: 10px;
-  padding: 0 0 5px 0;
+.step4Desk .tabHeader ul li:first-child {
+  padding-left: 15px;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li a:hover,
-.step4HeaderDesk .tabHeader .nav-tabs li a:focus {
-  background: none;
+.step4Desk .tabHeader ul li a {
+  color: #565654;
+  padding-bottom: 15px;
+  float: left;
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
+  text-decoration: none;
+  outline: none;
+}
+.step4Desk .tabHeader ul li a:hover,
+.step4Desk .tabHeader ul li a:focus {
+  text-decoration: none;
+  outline: none;
   color: #fe943e;
 }
-.step4HeaderDesk .tabHeader .nav-tabs li.active a {
-  border: none;
-  background: none;
+.step4Desk .tabHeader ul li.active a {
   color: #fe943e;
   border-bottom: 2px solid #fe943e;
+}
+.step4Desk .tabHeader ul li.stickyButtons {
+  display: none;
+  padding-top: 15px;
+}
+.step4Desk .tabHeader.stick {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+  background: #ffffff;
+  width: 100%;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.step4Desk .tabHeader.stick .stickyButtons {
+  display: block;
+}
+.step4Desk .contentHEader {
+  background: #f6f6f6;
+  padding: 15px 25px;
+}
+.step4Desk .contentHEader .contentTitle {
+  padding: 5px 20px 5px 0;
+  border-right: 1px solid #bcbcba;
+  color: #706f6d;
+  font-weight: 600;
+}
+.step4Desk .contentHEader .contentText {
+  padding: 0 20px;
+  color: #7d7c7a;
+}
+.step4Desk .detailView {
+  margin-bottom: 50px;
+}
+.step4Desk .detailView .contentHEader {
+  margin-top: -5px;
+}
+.step4Desk .detailView .unit h5 {
+  margin-top: 0;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.step4Desk .detailView .unit .roomDetails {
+  margin-top: 50px;
+  border-right: 1px solid #f6f6f6;
+}
+.step4Desk .detailView .unit .roomDetails .left,
+.step4Desk .detailView .unit .roomDetails .right {
+  color: #bcbcba;
+  font-size: 12px;
+  padding: 5px 15px;
+}
+.step4Desk .detailView .unit .roomDetails .right {
+  color: #565654;
+}
+.step4Desk .floorDetails {
+  padding: 30px 15px;
+  margin-bottom: 50px;
+}
+.step4Desk .floorDetails img {
+  width: 100%;
+  height: 400px;
+}
+.step4Desk .floorDetails .plan {
+  margin-top: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.step4Desk .outsideView .floorDetails .plan {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.step4Desk .amenitiesDetails .row > div {
+  margin: 20px 0;
+}
+.step4Desk .amenitiesDetails .icon {
+  float: left;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #7d7c7a;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2.8;
+}
+.step4Desk .amenitiesDetails .text {
+  float: left;
+  width: 70%;
+  padding-left: 10px;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.step4Desk .amenitiesDetails .disabled .icon {
+  background: #d5d5d4;
+}
+.step4Desk .amenitiesDetails .disabled .text {
+  color: #bcbcba;
+}
+.step4Desk .similarFlat {
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+.step4Desk .similarFlat .contentTitle {
+  border-right: none;
+}
+.step4Desk .similarFlat .moreFlats {
+  padding: 30px 15px;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe h5 {
+  padding: 5px 10px 15px;
+  font-weight: 600;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe ul {
+  float: left;
+}
+.step4Desk .specificationOuter {
+  margin-top: 30px;
+}
+.step4Desk .specificationOuter h4 {
+  margin-bottom: 20px;
+}
+.step4Desk .specificationOuter .textInner {
+  margin-bottom: 30px;
+}
+.step4Desk .specificationOuter .textInner h5 {
+  margin-bottom: 10px;
+}
+.pNone {
+  padding: 0 !important;
 }
 /*# sourceMappingURL=custom-big.css.map */

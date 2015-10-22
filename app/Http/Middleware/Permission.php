@@ -73,7 +73,10 @@ class Permission {
                      'admin.project.building.destroy'=>['configure_building'],
 
                      'admin.building.media.store'=>['configure_building','svg_auth_tool'], 
-                     'admin.building.media.destroy'=>['configure_building','svg_auth_tool'],   
+                     'admin.building.media.destroy'=>['configure_building','svg_auth_tool'], 
+
+                     'admin.group.media.store'=>['configure_project','svg_auth_tool'], 
+                     'admin.group.media.destroy'=>['configure_project','svg_auth_tool'],  
 
 
                      'admin.project.variant.media.store'=>['configure_project'],
@@ -141,6 +144,7 @@ class Permission {
                       'admin/project/{project}/roomtype/{id}/deletevariantrroom'=>['configure_project'],
                       'admin/project/{project}/media/updatebreakpoint'=>['configure_project','svg_auth_tool'],
                       'admin/building/{id}/media/updatebreakpoint'=>['configure_building','svg_auth_tool'],
+                      'admin/group/{id}/media/updatebreakpoint'=>['configure_project','svg_auth_tool'],
                       'admin/building/validatebuildingname'=>['configure_building'],
                       'admin/project/{project}/roomtype/{roomtype}'=>['configure_project'],
                       'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>['configure_project'],
@@ -174,13 +178,14 @@ class Permission {
                       'admin/agent/{id}/agentunitimport'=>['manage_users'],
                       'admin/project/{project}/downloadsamplefile/{filename}'=>['configure_unit'],
                       'admin/project/{project}/bunglow-unit/{id}/updatestatus'=>['unit_status_update'],
-
+                      'admin/project/{project}/plots/{projectpropertytypeid}/group/validategroupname'=>['configure_project'],
+                      'admin/project/{project}/bunglow/{projectpropertytypeid}/group/validategroupname'=>['configure_project'],
                               
                 ];
                
                 
                 $resourceName = $request->route()->getName();  
-                $uriPath =$request->route()->getPath(); 
+                $uriPath =$request->route()->getPath();  
 
                 
                 if($uriPath != 'admin')

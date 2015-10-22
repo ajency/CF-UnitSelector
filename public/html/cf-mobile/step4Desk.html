@@ -25,7 +25,7 @@
   <body>
    
 
- <div class="container-fluid step4HeaderDesk">
+ <div class="container-fluid step4Desk">
     <div class="row">
       <div class="col-xs-12">
         <div class="col-xs-6">
@@ -38,12 +38,10 @@
           <h4 class="text-uppercase">Fl - 1301</h4>
           <span class="available text-uppercase">Available</span>          
         </div>
-        <div class="col-xs-6 text-right rightSide">
-          <span class="price text-uppercase">Price</span>
-          <span class="amount text-uppercase"><i class="fa fa-inr"></i> 60lacs</span>
-          <button class="button">Book flat</button>
-          <button class="button">
-            <span class="phoneImg"></span>
+        <div class="col-xs-6 text-right rightSide">          
+          <button class="btn btn-default btn-sm btn-primary text-uppercase">Book now <i class="fa fa-inr"></i> 60lacs</button>
+          <button class="btn btn-default btn-sm btn-primary text-uppercase">
+            <i class="fa fa-phone"></i>
             <span class="enquiryText">Contact Us</span>
           </button>
         </div>
@@ -54,137 +52,509 @@
         <span class="units">2 BHK</span><ul><li></li></ul> <span class="units">1024 SQFT </span><ul><li></li></ul> <span class="units">Floor 6 </span><ul><li></li></ul> <span class="units">Tower 1 </span><ul><li></li></ul> <span class="units">East facing from balcony SQFT. </span>
       </div>
     </div>
-    <div class="tabHeader">      
+    <div id="sticky-anchor"></div>
+    <div class="tabHeader" id="stickyHeader">      
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Details</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Floor plan</a></li>
-        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Live in tour</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Outside view</a></li>
-      </ul>                     
+      <ul class="list-unstyled text-uppercase">
+        <li class="active"><a href="#" id="details" class="click">Details</a></li>
+        <li><a href="#" id="floorPlan" class="click">Floor plan</a></li>
+        <li><a href="#" id="liveTour" class="click">Live in tour</a></li>
+        <li><a href="#" id="outsideView" class="click">Outside view</a></li>
+        <li><a href="#" id="societyEmenities" class="click">Society amenities</a></li>
+        <li class="pull-right stickyButtons">
+           <button class="btn btn-default btn-sm btn-primary text-uppercase">Book now <i class="fa fa-inr"></i> 60lacs</button>
+          <button class="btn btn-default btn-sm btn-primary text-uppercase">
+            <i class="fa fa-phone"></i>
+            <span class="enquiryText">Contact Us</span>
+          </button>   
+        </li>
+      </ul> 
+
     </div>
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">
-            <div class="contentHEader">
-              <span class="contentTitle text-uppercase">
-                Details
-              </span>
-              <span class="contentText text-uppercase">
-                Simplicity of design and strong construction from the backbone of the Metro.
-              </span>
-            </div>
-            <div class="col-xs-12 details">
-                <div class="flatDetails">
-                    <h4 class="text-uppercase">FC-1101</h4>
-                    <span class="text-muted">East Facing</span>
-
-                    <div class="price text-muted">From <i class="fa fa-inr"></i> 50 Lacs
-                    <span class="availability">Available</span>
-                    </div>
+    <div class="contentOuter col-xs-12 pNone">
+      <div class="col-xs-12 detailView pNone" id="details_div">
+        <div class="row">
+          <div class="contentHEader">
+            <span class="contentTitle text-uppercase">
+              Details
+            </span>
+            <span class="contentText">
+              Simplicity of design and strong construction from the backbone of the Metro.
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 unit">
+          <div class="row">
+            <div class="col-md-3 roomDetails text-uppercase">
+              <h5 class="text-uppercase">Bedroom 1</h5>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Size-sq-ft.
+                  </div>
+                  <div class="col-xs-6 right">
+                      150
+                  </div>
                 </div>
-                <div class="projectDetails">
-                    <div class="row">
-                      <div class="col-xs-6 left">
-                          Project Type
-                      </div>
-                      <div class="col-xs-6 right">
-                          Apartment
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6 left">
-                          Floor
-                      </div>
-                      <div class="col-xs-6 right">
-                          8th floor
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6 left">
-                          Area
-                      </div>
-                      <div class="col-xs-6 right">
-                          1000 sqft.
-                      </div>
-                    </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Dimension
+                  </div>
+                  <div class="col-xs-6 right">
+                      12'11" X 10'11"
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Flooring
+                  </div>
+                  <div class="col-xs-6 right">
+                      Wooden
+                  </div>
                 </div>
             </div>
-
-            <div class="col-xs-12 details">
-                <div class="flatDetails">
-                    <h5 class="text-uppercase">Apartment Attributes </h5>
+            <div class="col-md-3 roomDetails text-uppercase">
+            <h5 class="text-uppercase">Bedroom 2</h5>
+               <div class="row">
+                  <div class="col-xs-6 left">
+                      Size-sq-ft.
+                  </div>
+                  <div class="col-xs-6 right">
+                      150
+                  </div>
                 </div>
-                <div class="projectDetails">
-                    <div class="col-xs-12 roomHeading">                  
-                        <span><i class="fa fa-2x fa-bed"></i></span>
-                        <h4 class="text-uppercase">Bedroom</h4>                    
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6 left">
-                          Size sqft.
-                      </div>
-                      <div class="col-xs-6 right">
-                          150
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6 left">
-                          Dimensions
-                      </div>
-                      <div class="col-xs-6 right">
-                          12' 10" * 10' 11"
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6 left">
-                          Flooring
-                      </div>
-                      <div class="col-xs-6 right">
-                          Wooden
-                      </div>
-                    </div>
-                    
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Dimension
+                  </div>
+                  <div class="col-xs-6 right">
+                      12'11" X 10'11"
+                  </div>
                 </div>
-            </div>          
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Flooring
+                  </div>
+                  <div class="col-xs-6 right">
+                      Wooden
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3 roomDetails text-uppercase">
+            <h5 class="text-uppercase">Kitchen</h5>
+               <div class="row">
+                  <div class="col-xs-6 left">
+                      Size-sq-ft.
+                  </div>
+                  <div class="col-xs-6 right">
+                      150
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Dimension
+                  </div>
+                  <div class="col-xs-6 right">
+                      12'11" X 10'11"
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Flooring
+                  </div>
+                  <div class="col-xs-6 right">
+                      Wooden
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3 roomDetails text-uppercase">
+            <h5 class="text-uppercase">Living room</h5>
+               <div class="row">
+                  <div class="col-xs-6 left">
+                      Size-sq-ft.
+                  </div>
+                  <div class="col-xs-6 right">
+                      150
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Dimension
+                  </div>
+                  <div class="col-xs-6 right">
+                      12'11" X 10'11"
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Flooring
+                  </div>
+                  <div class="col-xs-6 right">
+                      Wooden
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3 roomDetails text-uppercase">
+              <h5 class="text-uppercase">Toilet</h5>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Size-sq-ft.
+                  </div>
+                  <div class="col-xs-6 right">
+                      150
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Dimension
+                  </div>
+                  <div class="col-xs-6 right">
+                      12'11" X 10'11"
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Flooring
+                  </div>
+                  <div class="col-xs-6 right">
+                      Wooden
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3 roomDetails text-uppercase">
+              <h5 class="text-uppercase">Store room</h5>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Size-sq-ft.
+                  </div>
+                  <div class="col-xs-6 right">
+                      150
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Dimension
+                  </div>
+                  <div class="col-xs-6 right">
+                      12'11" X 10'11"
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 left">
+                      Flooring
+                  </div>
+                  <div class="col-xs-6 right">
+                      Wooden
+                  </div>
+                </div>
+            </div>
+          </div> 
+          <div class="col-xs-12 specificationOuter pNone">
+            <h4 class="text-uppercase col-xs-12 pNone">Specification</h4>
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Fittings</h5>
+              <div class="col-xs-12">Kitchen: Stainless Steel Sink with Drain Board</div>
+              <div class="col-xs-12">Toilets: Branded CP Fittings and Sanitary Ware</div>
+            </div>
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Doors</h5>
+              <div class="col-xs-12">Internal: Wooden Frame</div>
+              <div class="col-xs-12">Main: Decorative with Wooden Frame</div>
+            </div>
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Windows</h5>
+              <div class="col-xs-12">UPVC</div>  
+              <div class="col-xs-12">UPVC</div>             
+            </div>
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Flooring</h5>
+              <div class="col-xs-12">Master Bedroom: Laminated Wooden Flooring</div>
+              <div class="col-xs-12">Balcony: Anti Skid Tiles</div>
+              <div class="col-xs-12">Kitchen: Anti Skid Tiles</div>
+              <div class="col-xs-12">Other Bedroom: RAK/Laminated Wooden Flooring</div>
+              <div class="col-xs-12">Living/Dining: Marble Granite Tiles</div>
+              <div class="col-xs-12">Toilets: Anti Skid Tiles</div>
+            </div>
+            
+            <div class="textInner col-xs-4 pNone">
+              <h5 class="text-uppercase col-xs-12">Walls</h5>
+              <div class="col-xs-12">Kitchen: Ceramic Tiles Dado up to 2 Feet Height Above Platform</div>
+              <div class="col-xs-12">Toilets: Ceramic Tiles Dado up to 7 Feet Height Above Platform</div>
+              <div class="col-xs-12">Interior: Plastic Emulsion Paint</div>
+              <div class="col-xs-12">Exterior: Texture Paint</div>
+            </div>
+          </div>
 
         </div>
-        <div role="tabpanel" class="tab-pane" id="profile">
-            <div class="col-xs-12 details">
-                <div class="flatDetails">
-                    <h4 class="text-uppercase">2D Floor Plan</h4>
-                    <div class="dimensionalViewBtn">
-                      <a id="twoD" href="#">2D</a>
-                      <a id="threeD" href="#">3D</a>
-                    </div>
-                </div>
-                <div class="twodView">                                       
-                  <img src="img/Project-noshadow.jpg" class="img-responsive fit" id="imageid"/>
-                </div>
-            </div>            
-        </div>
-        <div role="tabpanel" class="tab-pane" id="messages">
-          <div class="col-xs-12 details">
-                <div class="flatDetails">
-                    <h4>Floor Plans</h4>
-                </div>
-                <div class="twodView">                                       
-                    <img src="img/bldg-3d.png"/> 
-                    <a href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>                                   
-                </div>
-            </div>
-             
-        </div>
-        <div role="tabpanel" class="tab-pane" id="settings">
-            <div class="col-xs-12 gallery details"> 
-                <h4 class="text-uppercase">Outside view</h4>                                                                     
-                <img class="myImg" src="img/bldg-3d.png"/> 
-                <a class="clickBtn" onclick="requestFullScreen()" href="#"><i class="fa fa-2x fa-arrows-alt"></i></a>
-            </div>             
-            <div id="Fullscreen">
-                <img src="" alt="" />
-            </div>
-        </div>        
       </div>
+      <div class="col-xs-12 floorPlans pNone" id="floorPlan_div">
+        <div class="row">
+          <div class="contentHEader">
+            <span class="contentTitle text-uppercase">
+              Floor plans
+            </span>
+            <span class="contentText">
+              Simplicity of design and strong construction from the backbone of the Metro.
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 floorDetails">
+          <div class="row">
+            <div class="col-xs-6">
+              <img src="img/bldg-3d.png"/>
+              <div class="plan col-xs-12 text-center text-uppercase">2D Floor plan</div>
+            </div>
+            <div class="col-xs-6">
+              <img src="img/bldg-3d.png"/>
+              <div class="plan col-xs-12 text-center text-uppercase">3D Floor plan</div>
+            </div>                                                                          
+          </div> 
+        </div>
+      </div>
+      <div class="col-xs-12 outsideView pNone" id="outsideView_div">
+        <div class="row">
+          <div class="contentHEader">
+            <span class="contentTitle text-uppercase">
+              Outside view
+            </span>
+            <span class="contentText">
+              Simplicity of design and strong construction from the backbone of the Metro.
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 floorDetails">
+          <div class="row">
+            <div class="col-xs-7">
+              <div class="plan col-xs-12 text-uppercase pNone">Tower overview</div>
+              <img src="img/bldg-3d.png"/>
+              
+            </div>
+            <div class="col-xs-5">
+              <div class="plan col-xs-12 text-uppercase pNone">Unit view</div>
+              <img src="img/bldg-3d.png"/>
+              
+            </div>                                                                          
+          </div> 
+        </div>
+      </div>
+       <div class="col-xs-12 amenitiesView pNone" id="societyEmenities_div">
+        <div class="row">
+          <div class="contentHEader">
+            <span class="contentTitle text-uppercase">
+              Social amenities
+            </span>
+            <span class="contentText">
+              Simplicity of design and strong construction from the backbone of the Metro.
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12 amenitiesDetails">
+          <div class="row">
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-building-o"></i></span>
+              <span class="text text-uppercase">Lift</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-lightbulb-o"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-home"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2 disabled"> 
+              <span class="icon"><i class="fa fa-building-o"></i></span>
+              <span class="text text-uppercase">Lift</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-lightbulb-o"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-home"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-building-o"></i></span>
+              <span class="text text-uppercase">Lift</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-lightbulb-o"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-home"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-building-o"></i></span>
+              <span class="text text-uppercase">Lift</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-lightbulb-o"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2 disabled"> 
+              <span class="icon"><i class="fa fa-home"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-building-o"></i></span>
+              <span class="text text-uppercase">Lift</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-lightbulb-o"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-home"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-building-o"></i></span>
+              <span class="text text-uppercase">Lift</span>
+            </div> 
+            <div class="col-xs-2"> 
+              <span class="icon"><i class="fa fa-lightbulb-o"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div> 
+            <div class="col-xs-2 disabled"> 
+              <span class="icon"><i class="fa fa-home"></i></span>
+              <span class="text text-uppercase">Power backup</span>
+            </div>                                                                         
+          </div> 
+        </div>
+        <div class="col-xs-12 pNone similarFlat">
+        <div class="row">
+          <div class="contentHEader">
+            <span class="contentTitle text-uppercase">
+              Similar flat based on your selection
+            </span>            
+          </div>
+        </div>
+        <div class="col-xs-12 moreFlats">
+          <div class="row">
+            <div class="col-xs-3">
+              <div class="card-swipe highlight">
+                <div class="row">
+                   <div class="col-xs-12">
+                      <h5 class=" margin-none text-left text-uppercase"> Fl - 1305</h5>
+                   </div>
+                   <div class="col-xs-12 text-muted price">
+                      From <span><i class="fa fa-inr"></i> 45 lacs</span>
+                   </div>
+                </div>
+                <div class=" swipe-unit-info row">
+                   <div class="col-xs-12 text-muted">
+                      <span>2 BHK </span>
+                      <ul>
+                         <li></li>
+                      </ul>
+                      <span>1300 SQFT. </span>
+                   </div>
+                </div>
+                <div class="swipe-footer">
+                   <div class="col-xs-12 matchingSelection">
+                       Matching your selection
+                       <div class="arrow">
+                         <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
+                      </div>
+                    </div>
+                </div>
+             </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="card-swipe highlight">
+                <div class="row">
+                   <div class="col-xs-12">
+                      <h5 class=" margin-none text-left text-uppercase"> Fl - 1306</h5>
+                   </div>
+                   <div class="col-xs-12 text-muted price">
+                      From <span><i class="fa fa-inr"></i> 45 lacs</span>
+                   </div>
+                </div>
+                <div class=" swipe-unit-info row">
+                   <div class="col-xs-12 text-muted">
+                      <span>2 BHK</span>
+                      <ul>
+                         <li></li>
+                      </ul>
+                      <span>1300 SQFT.</span>
+                   </div>
+                </div>
+                <div class="swipe-footer">
+                   <div class="col-xs-12 matchingSelection">
+                       Matching your selection
+                       <div class="arrow">
+                         <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
+                      </div>
+                    </div>
+                </div>
+             </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="card-swipe highlight">
+                <div class="row">
+                   <div class="col-xs-12">
+                      <h5 class=" margin-none text-left text-uppercase"> Fl - 1307</h5>
+                   </div>
+                   <div class="col-xs-12 text-muted price">
+                      From <span><i class="fa fa-inr"></i> 45 lacs</span>
+                   </div>
+                </div>
+                <div class=" swipe-unit-info row">
+                   <div class="col-xs-12 text-muted">
+                      <span>2 BHK</span>
+                      <ul>
+                         <li></li>
+                      </ul>
+                      <span>1300 SQFT.</span>
+                   </div>
+                </div>
+                <div class="swipe-footer">
+                   <div class="col-xs-12 matchingSelection">
+                       Matching your selection
+                       <div class="arrow">
+                         <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
+                      </div>
+                    </div>
+                </div>
+             </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="card-swipe highlight">
+                <div class="row">
+                   <div class="col-xs-12">
+                      <h5 class=" margin-none text-left text-uppercase">Fl - 1310</h5>
+                   </div>
+                   <div class="col-xs-12 text-muted price">
+                      From <span><i class="fa fa-inr"></i> 45 lacs</span>
+                   </div>
+                </div>
+                <div class=" swipe-unit-info row">
+                   <div class="col-xs-12 text-muted">
+                      <span>2 BHK</span>
+                      <ul>
+                         <li></li>
+                      </ul>
+                      <span>1300 SQFT.</span>
+                   </div>
+                </div>
+                <div class="swipe-footer">
+                   <div class="col-xs-12 matchingSelection">
+                       Matching your selection
+                       <div class="arrow">
+                         <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
+                      </div>
+                    </div>
+                </div>
+             </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+      </div>
+    </div>
  </div>
 
 
@@ -199,6 +569,30 @@
     <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.panzoom.js"></script>    
+    <script src="js/jquery.panzoom.js"></script> 
+    <script type="text/javascript">
+      $(document).on('click', '.click', function (e) {
+        var theID = $(this).attr('id');
+        $('html, body').animate({
+            scrollTop: $('#' + theID + '_div').offset().top-60
+        }, 1000);
+        return false;
+      });
+
+      function sticky_relocate() {
+          var window_top = $(window).scrollTop();
+          var div_top = $('#sticky-anchor').offset().top;
+          if (window_top > div_top) {
+              $('#stickyHeader').addClass('stick');
+          } else {
+              $('#stickyHeader').removeClass('stick');
+          }
+      }
+
+      $(function () {
+          $(window).scroll(sticky_relocate);
+          sticky_relocate();
+      });
+    </script>   
   </body>
 </html>

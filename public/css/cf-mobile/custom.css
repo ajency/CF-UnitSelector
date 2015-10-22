@@ -412,6 +412,10 @@ body .row {
     bottom: 47%;
   }
 }
+.svg-light {
+  opacity: 0.3;
+  fill: #ffffff;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -461,7 +465,7 @@ body .row {
   box-sizing: border-box;
 }
 .bottom-card {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100% !important;
 }
@@ -711,6 +715,9 @@ section {
   vertical-align: baseline;
   background: transparent;
 }
+.clear {
+  clear: both;
+}
 .fit {
   /* set relative picture size */
   max-width: 100%;
@@ -766,6 +773,22 @@ section {
 div#spritespin {
   width: 100% !important;
   height: 100% !important;
+}
+.footer {
+  font-size: 14px;
+  color: #ffffff;
+  position: absolute;
+  bottom: 10px;
+  z-index: 1;
+  right: 25px;
+  text-align: right;
+}
+.footer .primary-txt {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+.footer a {
+  font-size: 14px;
+  color: #ffffff;
 }
 .tabHeader {
   position: fixed;
@@ -1022,6 +1045,40 @@ div#spritespin {
   width: 100%;
   margin-bottom: 5px;
 }
+/* ToolTip */
+.qtip-light {
+  border: 0px !important;
+  background: none!important;
+  color: #fff!important;
+  font-size: 14px!important;
+}
+.qtip-light .qtip-content {
+  background: #000;
+  border: 0px;
+  border-radius: 3px;
+  padding: 10px;
+}
+.qtip-light:after,
+.qtip-light:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.qtip-light:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-top-color: #000;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.hasTooltip {
+  position: absolute;
+  z-index: 9999;
+}
 .p-0 {
   padding: 0 !important;
 }
@@ -1229,24 +1286,50 @@ div#spritespin {
   -webkit-filter: grayscale(0) !important;
           filter: grayscale(0) !important;
 }
-.imageModal {
-  top: 15% !important;
-  bottom: 10%;
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.7;
+  z-index: 1;
 }
-.imageModal .modal-content {
-  border-radius: 0;
+.imageModal {
+  margin-left: 0 !important;
   border: 2px solid #000000;
 }
-.imageModal .modal-body {
-  padding: 0;
-  /*background:url('../../images/bldg-3d.png') no-repeat -300px 0;
-		
-	    height: 400px;
-	    width: 100%;*/
-  overflow: hidden;
-  height: 400px;
+.imageModal#msg {
+  position: absolute;
+  height: 0;
+  left: 0;
+  background: wheat;
+  z-index: 2;
 }
-.imageModal .modal-body img {
+.imageModal#msg.closed {
+  overflow: hidden;
+}
+.imageModal.closed {
+  border: none;
+}
+.imageModal .modal-dialog {
+  height: 400px;
+  width: 500px;
+}
+.imageModal .modal-dialog .modal-content {
+  height: 100%;
+}
+.imageModal .modal-dialog .modal-body {
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+.imageModal .imgOuter {
+  overflow: hidden;
+  height: 100%;
+}
+.imageModal img {
   position: relative;
   /*height:100%;	*/
   margin-left: 50%;
@@ -1276,7 +1359,7 @@ div#spritespin {
     margin-left: 75%;
   }
 }
-.imageModal .modal-body .imageContent {
+.imageModal .imageContent {
   position: absolute;
   bottom: -1px;
   color: #ffffff;

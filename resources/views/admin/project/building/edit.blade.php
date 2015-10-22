@@ -134,6 +134,9 @@
                         <th style="width: 9%;" data-hide="phone,tablet" class="" role="columnheader" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Position</th>
 
                         <th style="width: 9%;" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Breakpoint</th>
+                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Shadow Image</th>
+
+                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Import SVG</th>
 
                         <th style="width: 9%;" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
 
@@ -143,7 +146,8 @@
                         </thead>
                         <tbody id="master-img">
                             @if(!empty($svgImages))
-                            <?php
+                             <?php 
+                                $positions = array_keys($svgImages) 
                                 $breakpoints = (!empty($building->breakpoints)) ? unserialize($building->breakpoints) : [];
                                 ?>
                             @foreach($svgImages as $position=> $image)
@@ -154,7 +158,7 @@
                             $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=building_master&position=".$position."&building=".$building->id;
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
-                                <td class="">{{ $image['NAME'] }}</td>
+                                <td class="">{{ $image['NAME'] }}<input type="hidden" name="master_image_id" value="{{$image['ID']}}"></td>
                                 <input type="hidden" name="image_id" value="{{$image['ID']}}">
                                 <td class=" "><span class="muted">{{ $position }}</span></td>
                                 <td class=" ">
@@ -163,6 +167,18 @@
                                                <label for="checkbox{{ $position }}"></label>
                                     </div>
                                 </td>
+                                <td class="td-shadow-{{ $position }}">
+                                    @if(isset($shadowImages[$position]) && $shadowImages[$position]['ID'] != '')
+                                    {{ $shadowImages[$position]['NAME'] }} 
+                                     
+                                    <a onclick="deleteSvg({{ $shadowImages[$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" ><i class="fa fa-close"></i></a>
+                                     @else
+                                     <div class=" {{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} shadow-{{ $position }} " id="pickfiles_{{ $position }}" >
+                                    Image
+                                    </div>
+                                     @endif
+                                </td>
+                                <td class=" "> <div id="uploadsvg_{{ $position }}" class="{{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} breakpointSvg-{{ $position }}">Import</div></td>
                                 <td class=" ">
                                     <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool</a>
                                 </td>
@@ -176,9 +192,9 @@
                            <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class=""></td>
                                 <td class=" "><span class="muted">{{ $position }}</span></td>
-                                <td class=" ">
-                                   
-                                </td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
                                 <td class=" ">
                                    
                                 </td>
@@ -219,5 +235,10 @@
                 </form>
 
             </div>
+<script>
+    var BASEURL = '{{ url() }}';
 
+    var BREAKPOINTS = ['<?php echo (isset($positions))? implode("','", $positions):"" ?>'];
+
+</script>
 @endsection

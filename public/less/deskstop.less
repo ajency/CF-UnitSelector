@@ -31,19 +31,30 @@ body {
       color:@brand-primary ;
     }
 }
-
+.btn-primary
+{
+  background:@brand-primary !important;
+  border:1px solid @brand-primary !important;
+  &:hover, &.focus
+  {
+    outline:none !important;
+    background:@brand-primary !important;
+    border:1px solid @brand-primary  !important;
+  }
+}
 
 .footer{
       font-size: 12px;
-       color:#373737;
+       color:white;
        position: absolute;
        bottom: 10px;
+       z-index:9999;
   a{
        font-size: 12px;       
-       color:#373737;
+       color:white;
        &:focus, &:hover
        {
-        color:#373737;
+        color:#ccc;
        }
   }
 }
@@ -58,8 +69,8 @@ body {
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;       
-        margin-bottom:15px;
-        margin-top:15px;
+        margin-bottom:5px;
+        margin-top:0px;
         text-transform:uppercase;
         padding:0 10px;
       }
@@ -107,13 +118,13 @@ body {
               font-weight: 400;
               margin-bottom: 9px;
               text-transform: uppercase;
-              font-size: 9px;
-              margin-top: 5px;              
+              font-size: 11px;
+              margin-top: 2px;              
               color:@gray-light;
               b
               {
                 color: @gray-darker;
-                font-size: 10px;
+                font-size: 12px;
                 font-weight:400;
                  @media(max-width: 320px){
                     font-size: 9px;
@@ -213,22 +224,25 @@ body {
   border: 1px solid @brand-primary !important;
     h4{
           font-size: 18px;
+          margin-top:15px;
+          margin-bottom:15px;
     }
     .swipe-footer .arrow a
     {
       background:@brand-primary;
     }
 }
-.mCustomScrollbar{
-  margin-top:20px;
-  float:left;
+#content-1{
+  margin-top:15%;
   width:100%;
+  height: 80% !important;
+  clear:both;
 }
 .sidebar-nav{
 
     li{
         border:1px solid   lighten(@gray-lighter, 0%);
-        margin-bottom:10px;
+        margin-bottom:20px;
     }
 }
 
@@ -330,9 +344,11 @@ body {
     left: 0;
     right: 0;
     text-align: center;
-    bottom: 10px;
+    bottom: 0px;
     color:White;
     text-shadow:1px 1px 1px #000;
+    background:-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.75), transparent);
+    background:linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 
   .i-icon-rotate{
          background: url(../../images/sprite.png) no-repeat;
@@ -347,26 +363,24 @@ body {
 }
 .messageBoxDesk
 { 
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.7);
   color: @white; 
-  width:auto;
-  /*float:right;   */
+  width:auto;  
   margin:auto;
   display:inline-block;
   margin-top:30px;
+  font-size:12px;
 
     .tip
     {
       float:left;
       padding:10px;
       background:rgba(0,0,0,0.5);
-      font-size: 11px;
     }
      .message
      {
         float:left;
         padding: 11px 9px 9px 9px;
-        font-size: 11px;
         text-transform:capitalize;
      }
     a
@@ -375,7 +389,6 @@ body {
       margin: 0 0 0 30px;
       color: @white;
       text-decoration:none;
-      font-size: 9px;
       outline:none;
     &:focus, &:hover
     {
@@ -385,59 +398,9 @@ body {
     } 
     }
 }
-.contactForm
-{
-    position: absolute;
-    z-index: 99;
-    right: 0px;
-    float: left;
-    top: 3px;
-    float: left;
-    
 
-    .callUs 
-    {
-      font-size: 8px;
-      display: block;
-      margin-bottom: 10px;
-    }
-    button
-    {          
-      background: @brand-primary;
-      color: @white;
-      border: none;
-      border-radius: 3px;
-      font-size: 8px;
-      padding: 0px 7px 0px 0px;
-      text-transform: uppercase;
-      height: 23px;     
-      &:focus
-      {
-        outline:none;
-      }
-      i
-      {
-        margin-right:5px;
-      }
-      .phoneImg
-      {
-        height:31px;
-        width:31px;
-        background: url(../../images/phoneIcon.png) no-repeat;            
-        //margin: auto;
-        float: left;
-        transform: scale(0.6);
-        -webkit-transform: scale(0.6);
-        margin-left: -1px;
-      }
-      .enquiryText
-      {
-        float: left;
-        margin-top: 5px;
-        margin-left: -4px;
-        font-size: 10px;
-      }
-    }
+.navbar-header{
+  z-index: 99;
 }
 .contactModal 
 {
@@ -464,7 +427,7 @@ body {
   }
   p
   {
-    font-size:11px;
+    font-size:14px;
     margin-top:2px;
     color:@gray-light;
   }
@@ -492,27 +455,14 @@ body {
       margin-bottom:15px;  
       padding: 10px 0px 5px 0;
       border-bottom: 1px solid @gray-lighter;
-      font-size:10px;
+      font-size:12px;
       text-transform:uppercase;
       &:focus
       {
         outline:none;
       } 
     }
-  }
-  .proceedBtn
-  {   
-    button
-    {
-      background:@brand-primary;
-      border:none;
-      color:@white;
-      padding: 6px 30px 4px;
-      text-transform: uppercase;
-      font-size: 10px;
-      border-radius: 2px;
-    }
-  }
+  }  
   .close
   {
     position: absolute;   
@@ -553,15 +503,14 @@ body {
   .help
   {
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 12px;
     margin-top: 15px;
     float: left;
     width: 100%;
   }
   h5
   {
-    text-transform: uppercase;
-    font-size: 12px;
+    text-transform: uppercase;    
     margin-top: 3px;
     float: left;
     width: 100%;
@@ -570,15 +519,12 @@ body {
   .developers
   {
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 12px;
     color: @gray-light;
     margin-bottom: 20px;
   }
 }
-.imageModal
-{
-    left:320px !important;
-}
+
 .modal-backdrop.in
 {
     left:320px;
@@ -587,13 +533,14 @@ body {
   opacity: 0;
   transition:all 0.5s ease ;
 }
-.image2
+.image-contain
 {
   .no-shadow
   {
     position:absolute;
     top:0;
   }  
+ 
 }
 .outSideView
 {
@@ -672,7 +619,7 @@ body {
 }
 .sideBarLogo
 {
-  background:url('../../images/logo.jpg') no-repeat;
+ /* background:url('../../images/logo.jpg') no-repeat;*/
   height:65px;
   width:100%;
   float:left;
@@ -686,8 +633,8 @@ body {
     border-top: 1px solid @gray-light;  
     small
     {
-      font-size:10px;       
-      font-weight: 700; 
+      font-size:12px;       
+      font-weight: 400; 
       &.zoomEffect
       {
         animation:zoomEffect 2s;
@@ -762,21 +709,21 @@ body {
     float: left;
     padding: 15px;
   }
+  .sun-highlight{
+    background: yellow !important;
+  }
   .zoomBtns
   {
     float: left;
     margin-top: 40px;
-    width: 20px;
-    margin-left: -13px;
+    width: 25px;
+    margin-left: 17px;
     button
     {
-      background: @white;
-      color: @gray-darker;
-      border: none;
-      margin-bottom: 5px;
-      width: 20px;
+      width: 25px;
       text-align: center;
-      border-radius: 3px;
+      padding: 2px 0px;
+      margin-bottom: 5px;
       &:focus
       {
         outline:none;
@@ -832,4 +779,8 @@ body {
 {
   0%{top:50%;left:50%;margin:-206px 0 0 -304px;opacity:1;-webkit-transform-origin:0 0;-webkit-transform:scale(1) translate(0%,0)}
   100%{opacity:0;-webkit-transform-origin:0 0;-webkit-transform:scale(0) translate(50%,0)}
+}
+
+.svg-light{
+  opacity: 0;
 }

@@ -56,6 +56,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::resource( 'project.media', 'Admin\ProjectMediaController' );
     Route::resource( 'variant.media', 'Admin\VariantMediaController' );
     Route::resource( 'building.media', 'Admin\BuildingMediaController' );
+    Route::resource( 'group.media', 'Admin\PropertyTypeGroupMediaController' );
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
     Route::resource( 'project.bunglow-variant', 'Admin\ProjectBunglowVariantController' );
     Route::resource( 'project.apartment-variant', 'Admin\ProjectApartmentVariantController' );
@@ -122,7 +123,9 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'agent/{id}/agentunitimport', 'Admin\AgentController@agentUnitImport' );
     Route::get( 'project/{project}/downloadsamplefile/{filename}', 'Admin\ProjectController@downloadSampleFile' );
     Route::post( 'project/{project}/bunglow-unit/{id}/updatestatus', 'Admin\ProjectBunglowUnitController@updateStatus' );
-    
+    Route::post( 'project/{project}/plots/{projectpropertytypeid}/group/validategroupname', 'Admin\PropertyTypeGroupController@validateGroupnName' );
+    Route::post( 'project/{project}/bunglow/{projectpropertytypeid}/group/validategroupname', 'Admin\PropertyTypeGroupController@validateGroupnName' );
+    Route::post( 'group/{id}/media/updatebreakpoint', 'Admin\PropertyTypeGroupMediaController@updateBreakPoint' );
 });
 
 

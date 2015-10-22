@@ -1032,7 +1032,7 @@ jQuery(document).ready(function($) {
     } else {
       window.loadForm(object_type);
     }
-    if ($(currentElem).data("primary-breakpoint")) {
+    if (!(_.isNull($(currentElem).data("primary-breakpoint"))) && !(_.isUndefined($(currentElem).data("primary-breakpoint")))) {
       $('[name="check_primary"]').prop('checked', true);
     }
     if (object_type === "amenity") {
