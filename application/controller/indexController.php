@@ -477,10 +477,10 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
               //$mail->IsSendmail();  // tell the class to use Sendmail
 
-              $mail->AddReplyTo("prajay@ajency.in","Prajay Verenkar");
+              $mail->AddReplyTo("online-booking@commonfloor.com","CommonFloor Unit Selector");
 
-              $mail->From       = "prajay@ajency.in";
-              $mail->FromName   = "Prajay Verenkar";
+              $mail->From       = "online-booking@commonfloor.com";
+              $mail->FromName   = "CommonFloor Unit Selector";
 
               //$to = "prajay@ajency.in";
 
