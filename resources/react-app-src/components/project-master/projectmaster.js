@@ -377,6 +377,7 @@ var ProjectMaster = React.createClass({
         var data = this.state.data;
         
         var projectTitle = data.projectTitle;
+        var projectLogo = data.projectLogo;
         var unitCount = data.totalCount;
         var buildings = data.buildings;
         var breakpoints = data.breakpoints;
@@ -401,6 +402,7 @@ var ProjectMaster = React.createClass({
                 <div>
                     <NavBar 
                         projectTitle = {projectTitle} 
+                        projectLogo = {projectLogo} 
                         unitCount = {unitCount}
                         showFilterModal = {this.showFilterModal}
                         buildings = {buildings}
@@ -447,6 +449,7 @@ var ProjectMaster = React.createClass({
       
                     <SideBar
                         projectTitle = {projectTitle} 
+                        projectLogo = {projectLogo}
                         unitCount = {unitCount}
                         showFilterModal = {this.showFilterModal}
                         buildings = {buildings}

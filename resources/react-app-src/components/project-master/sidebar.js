@@ -47,6 +47,7 @@ var SideBar = React.createClass({
 	         <div ref="sidebarWrapper" id="sidebar-wrapper">
 	            <NavBar 
                     projectTitle = {this.props.projectTitle} 
+                    projectLogo = {this.props.projectLogo} 
                     unitCount = {this.props.unitCount}
                     showFilterModal = {this.props.showFilterModal}
                     buildings = {this.props.buildings}
