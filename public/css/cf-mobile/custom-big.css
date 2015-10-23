@@ -774,9 +774,6 @@ body a {
   #content-1 {
     height: 700px !important;
   }
-  .float-nav li.filterCheckbox label {
-    font-size: 80%;
-  }
 }
 @media screen and (min-width: 1024px) {
   .filterOuter {
@@ -1300,6 +1297,19 @@ body a {
   font-size: 10px;
   line-height: 1.5;
   opacity: 1;
+}
+@media screen and (max-width: 1440px) {
+  .float-nav {
+    width: 395px;
+    height: 385px;
+  }
+  .float-nav li.filterCheckbox div label {
+    font-size: 81%;
+    margin-top: 2px;
+  }
+  .float-nav li.budgetOuter > div select {
+    font-size: 83%;
+  }
 }
 .step4Desk {
   padding: 15px 0 !important;
