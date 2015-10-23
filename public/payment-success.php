@@ -46,9 +46,9 @@ $bookingId = $_SESSION['booking_id'];
                 <span class="text-center col-md-12 col-sm-12 col-xs-12 mB20 spanText"></span>
                 <div class="bookAptOuter">                  
                     <div class="col-md-6 col-xs-12 text-center">
-                        <a href="#" class="priceSheet" onclick="getPriceSheet('<?php echo $bookingId ?>',true,'Title','s6yjsx','<?php echo GET_PAYMENT_PLAN_URL?>')"><i class="fa fa-list-alt"></i> Price sheet</a>
-                        <a href="#" class="priceSheet" onclick="getPaymentPlan('<?php echo $bookingId ?>',true,'Title','s6yjsx','<?php echo GET_PAYMENT_PLAN_URL?>')"><i class="fa fa-list-alt"></i> Payment Plan</a>               
-                        <a href="#" class="download"><i class="fa fa-download"></i> Download receipt</a>
+                        <a style="cursor:pointer" class="priceSheet" onclick="getPriceSheet('<?php echo $bookingId ?>',true,'Title','s6yjsx','<?php echo GET_PAYMENT_PLAN_URL?>')"><i class="fa fa-list-alt"></i> Price sheet</a>
+                        <a style="cursor:pointer" class="priceSheet" onclick="getPaymentPlan('<?php echo $bookingId ?>',true,'Title','s6yjsx','<?php echo GET_PAYMENT_PLAN_URL?>')"><i class="fa fa-list-alt"></i> Payment Plan</a>               
+                        <a target="_blank" href="invoice.php?bookingId=<?php echo $bookingId?>" class="download"><i class="fa fa-download"></i> Download receipt</a>
                     </div>                                      
                 </div>
 

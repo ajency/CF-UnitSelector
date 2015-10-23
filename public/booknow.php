@@ -242,11 +242,11 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                             </div>                                              
                             <div class="row detailsOuter">
                                 <div class="col-md-6 col-xs-12">
-                                    <a href="#"  onclick="getPriceSheet('<?php echo $unitId?>',false,'Title','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Price Sheet</a>
+                                    <a style="cursor:pointer" onclick="getPriceSheet('<?php echo $unitId?>',false,'Title','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Price Sheet</a>
                                 </div>
                                 
                                 <div class="col-md-6 col-xs-12">
-                                    <a href="#" onclick="getPaymentPlan('<?php echo $unitId?>',false,'Title','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Payment Plan</a>
+                                    <a style="cursor:pointer" onclick="getPaymentPlan('<?php echo $unitId?>',false,'Title','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Payment Plan</a>
                                 </div>
                             </div>                          
                         </div>
