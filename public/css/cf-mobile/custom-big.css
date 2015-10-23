@@ -1147,13 +1147,13 @@ body a {
 }
 .float-nav li.filterCheckbox {
   background: #f6f6f6;
-  padding: 10px 20px 0px;
+  padding: 10px 2px 0px;
 }
-.float-nav li.filterCheckbox .row > div {
+.float-nav li.filterCheckbox div {
   padding: 0 5px;
   margin-bottom: 10px;
 }
-.float-nav li.filterCheckbox .row > div label {
+.float-nav li.filterCheckbox div label {
   float: left;
   font-size: 100%;
   margin-top: 0px;
@@ -1248,7 +1248,7 @@ body a {
 }
 .float-nav li.moreFilters ul li.facingContent {
   background: #f2f2f2;
-  padding: 10px 20px 0;
+  padding: 10px 2px 0;
 }
 .filterOuter .sun-toggle {
   position: absolute;
