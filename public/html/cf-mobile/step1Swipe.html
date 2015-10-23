@@ -25,6 +25,19 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+ .swiper-container {
+        width: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 300px;
+        
+    }
+    </style>
   </head>
   <body >
 <div class="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
@@ -187,96 +200,9 @@
            
        </div> 
             </div>
-            <div class="swiper-slide">
-               <div>
-            
-            <div class="card-swipe">
-             
-                  <div class="row">
-                      <div class="col-xs-12">
-                          <h4 class=" margin-none text-left"> Tower 1</h4>
-                      </div>
-                      <div class="col-xs-12 text-muted price">
-                          From <span class="price-tag"><i class="fa fa-inr"></i> 20 lacs</span>
-                      </div>
-                  </div>
-                   <div class=" swipe-unit-info row">
-                    <div class="col-xs-12 text-muted">
-                        <span>17 Floors</span><li></li> <span>2, 3 BHK </span>
-                     </div>  
-                  </div>
-                   <div class="row swipe-footer">
-                       <div class="col-xs-12 text-muted text-uppercase">
-                           <sm>40</sm> <span class="units"><b>Available</b> <br> 60 total units</span>
-                          <div class="arrow">
-                           <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
-                        </div>
-                      </div>                      
-                  </div>
-           </div>
+         
            
-       </div> 
-            </div>
-            <div class="swiper-slide">
-               <div>
-            
-            <div class="card-swipe">
-             
-                  <div class="row">
-                      <div class="col-xs-12">
-                          <h4 class=" margin-none text-left"> Tower 1</h4>
-                      </div>
-                      <div class="col-xs-12 text-muted price">
-                          From <span class="price-tag"><i class="fa fa-inr"></i> 20 lacs</span>
-                      </div>
-                  </div>
-                   <div class=" swipe-unit-info row">
-                    <div class="col-xs-12 text-muted">
-                        <span>17 Floors</span><li></li> <span>2, 3 BHK </span>
-                     </div>  
-                  </div>
-                   <div class="row swipe-footer">
-                       <div class="col-xs-12 text-muted text-uppercase">
-                           <sm>40</sm> <span class="units"><b>Available</b> <br> 60 total units</span>
-                          <div class="arrow">
-                           <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
-                        </div>
-                      </div>                      
-                  </div>
-           </div>
-           
-       </div> 
-            </div>
-            <div class="swiper-slide">
-               <div>
-            
-            <div class="card-swipe">
-             
-                  <div class="row">
-                      <div class="col-xs-12">
-                          <h4 class=" margin-none text-left"> Tower 1</h4>
-                      </div>
-                      <div class="col-xs-12 text-muted price">
-                          From <span class="price-tag"><i class="fa fa-inr"></i> 20 lacs</span>
-                      </div>
-                  </div>
-                   <div class=" swipe-unit-info row">
-                    <div class="col-xs-12 text-muted">
-                        <span>17 Floors</span><li></li> <span>2, 3 BHK </span>
-                     </div>  
-                  </div>
-                   <div class="row swipe-footer">
-                       <div class="col-xs-12 text-muted text-uppercase">
-                           <sm>40</sm> <span class="units"><b>Available</b> <br> 60 total units</span>
-                          <div class="arrow">
-                           <a href="#"><h3 class="margin-none"><i class="fa fa-angle-right"></i></h3></a>
-                        </div>
-                      </div>                      
-                  </div>
-           </div>
-           
-       </div> 
-            </div>
+         
             <div class="swiper-slide">
                <div>
             
@@ -764,15 +690,24 @@ $('.hasTooltip').each(function() { // Notice the .each() loop, discussed below
         
 
       </script>
-      <script>
+
+        <script>
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
-        slidesPerView: 1,
-        paginationClickable: true,
-        spaceBetween: 0,
-        freeMode: true
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        coverflow: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows : true
+        }
     });
     </script>
+
     </div>
   </body>
 </html>
