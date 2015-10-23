@@ -1506,14 +1506,22 @@ body a {
 .step4Desk .specificationOuter {
   margin-top: 30px;
 }
+.step4Desk .specificationOuter .contentHEader {
+  margin-bottom: 20px;
+}
+.step4Desk .specificationOuter .contentTitle {
+  border-right: none;
+}
 .step4Desk .specificationOuter h4 {
   margin-bottom: 20px;
 }
 .step4Desk .specificationOuter .textInner {
   margin-bottom: 30px;
+  color: #7d7c7a;
 }
 .step4Desk .specificationOuter .textInner h5 {
   margin-bottom: 10px;
+  color: #565654;
 }
 .pNone {
   padding: 0 !important;
