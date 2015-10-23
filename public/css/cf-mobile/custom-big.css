@@ -1010,7 +1010,7 @@ body a {
   top: 20px;
   right: 144px;
   width: 470px;
-  height: 380px;
+  height: 400px;
   padding: 6px;
   text-align: left;
   background: #fff;
@@ -1136,10 +1136,14 @@ body a {
   border-bottom: 1px solid #bcbcba;
 }
 .float-nav li.filterLiTop h5 {
-  margin: 0;
+  margin: 10px 0 0 0;
+  float: left;
 }
 .float-nav li.filterLiTop h5 .filterHeader {
   color: #fe943e;
+}
+.float-nav li.filterLiTop button {
+  margin-right: 20px;
 }
 .float-nav li.filterCheckbox {
   background: #f6f6f6;
