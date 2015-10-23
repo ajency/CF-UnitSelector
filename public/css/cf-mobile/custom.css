@@ -218,11 +218,9 @@ body .row {
   overflow: auto;
 }
 .card-swipe {
-  bottom: -18px;
   position: fixed;
   font-size: 11px;
   padding-top: 15px;
-  padding-bottom: 11px;
 }
 .card-swipe h4 {
   white-space: nowrap;
@@ -478,7 +476,6 @@ body .row {
 .blue .card-swipe {
   background: #fff;
   color: #fe943e;
-  margin: 10px;
   position: relative;
 }
 .variable-width .slick-slide p {

@@ -474,11 +474,21 @@ body
 				margin-bottom: 20px;				
 				font-size:12px;
 				text-transform:uppercase;
+				width: 100%;
 				&:focus
 				{
 					outline:none;
 				}
-			}			
+			}	
+			.parsley-required
+			{
+				list-style: none;
+				font-size: 11px;
+				position: absolute;
+			    top: 22px;
+			    left: 15px;
+			    color: @real-red;
+			}		
 			
 		}
 		.btnOuter
@@ -499,18 +509,10 @@ body
 			{
 				float: right;
 			    color: @gray;
-			    font-size: 17px;
-			    border: 1px solid @gray;
-			    padding: 0;
-			    line-height: 0.9;
-			    border-radius: 3px;	
-			    height: 15px;
-    			width: 15px;
-    			text-align:center;
+			    font-size: 14px;			    
 			    &.minusIcon
 			    {
-			    	display:block;
-			    	line-height: 0.7;
+			    	display:block;			    	
 			    }	
 			    &.plusIcon
 			    {
@@ -534,7 +536,44 @@ body
 			}	
 		}
 		
-	}	
+	}		
+	.closeIcon
+	{
+		i
+		{
+			margin: 50px auto 20px;
+		    font-weight: lighter;
+		    height: 35px;
+		    width: 35px;
+		    padding: 2px;
+		    border: 2px solid #fff;
+		    border-radius: 50%;
+		    text-transform: uppercase;
+		    text-align: center;
+		    display: block;
+		    font-style: normal;
+		    font-size: 20px;
+		    color:@white;
+		}
+		h3
+		{
+			margin-top:0;
+			margin-bottom:30px;
+		}
+	}
+	.cancelDetail
+	{
+		.unitDetails
+		{
+			padding-top:0px !important;
+			font-size:14px;
+			padding-bottom: 30px !important;
+		}
+		.titleDetails
+		{
+			padding-top:35px !important;
+		}
+	}
 	.bottomSection
 	{
 		background: @gray-lightest;
@@ -779,6 +818,30 @@ body
 			width:20%;
 		}
 	}
+	&.cancelBooking
+	{
+		> div
+		{
+			background: @white;
+			.BoxShadow(0, -2px, 2px);
+			padding: 20px 0;
+		}
+		
+		.cancelBookingOuter
+		{
+			margin-top: 20px;			
+			padding: 23px 15px 0 15px;
+			.nontSpan
+			{
+				color: @brand-primary;
+			}
+		}
+		.bottomSection 
+		{
+			background: @gray-lightest;
+			box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+		}
+	}
 }
 .failureOuter
 {
@@ -940,6 +1003,7 @@ body
 	    {
 	    	margin-top:4px;
 	    	float:left;
+	    	color: @gray;
 	    }
 	    .text
 	    {
@@ -994,6 +1058,10 @@ body
 }
 @media screen and (min-width: 768px) and (max-width:991px)
 {
+	.reviewDetails
+	{
+		padding: 0 !important;
+	}
 	.successContent
 	{
 		.detailsOuter
@@ -1022,9 +1090,11 @@ body
 		.panel .reviewDetails .detailsOuter > div
 		{
 			width: 25%;
+			padding-right:0;
 		}
 	}
 }
+
 @media screen and (max-width:767px)
 {	
 	.bookFlowContent
@@ -1047,6 +1117,7 @@ body
 			{
 				text-align:center !important;
 				width:100%;
+				padding:0;
 			}				
 			.priceOuter 
 			{
@@ -1088,6 +1159,7 @@ body
 		> div
 		{
 			width:50% !important;
+			padding-right: 0;
 		}
 	}
 	.panel-body
@@ -1118,6 +1190,10 @@ body
 		{
 			float:left;
 			margin-bottom:10px;
+			.text
+			{
+				width:93%;
+			}
 		}		
 		.bookApmt, .flatNo 
 		{
@@ -1126,7 +1202,7 @@ body
 		.reviewDetails > div:first-child
 		{
 			margin-bottom:0;
-		}
+		}		
 		
 	}
 	.bookAptOuter

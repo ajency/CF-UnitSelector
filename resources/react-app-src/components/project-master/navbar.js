@@ -99,7 +99,7 @@ var NavBar = React.createClass({
       else{
         domTodisplay = (
             <div>
-              <div className="logoOuter"><i className="sideBarLogo"></i></div>
+              <div className="logoOuter"><i className="sideBarLogo"><img src={this.props.projectLogo}/></i></div>
               <div className="col-xs-12 unitDetails"><small className="text-uppercase"><b>{unitCount} {selectionText}</b></small></div>
               <div className="clear"></div>
             </div>

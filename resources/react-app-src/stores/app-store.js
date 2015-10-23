@@ -10,7 +10,7 @@ var CHANGE_EVENT = 'change';
 
 // Define initial data points
 var _projectData = {}, _selected = null ;
-var _globalStateData = {"data":{"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -100,33 +100,38 @@ function getUnitCount(propertyType,filters){
 		// from all the building units get only those units that are available
 		availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
 
-		// apply filters based on applied filters and return count of filtered units
-		if(_.isEmpty(appliedFilters)){
-			filteredUnits = [];
-		}
-		else{
-
+		
 			_.each(appliedFilters, function(appliedFilter, key){
 
 				if(key==="unitTypes"){
-					unitTypesTocheck = appliedFilter; // array of unit type ids
+					unitTypesTocheck = appliedFilter;
 
-					if(unitTypesTocheck.length === 0){
-						filteredUnits = availableUnits ;
-					}
-					else
+					if(unitTypesTocheck.length > 0){
 
-					// loop through each of the available units and get its unit variant id
-					_.each(availableUnits, function(availableUnit){
-						unitVariantId = availableUnit.unit_variant_id;
-						
-						// get unit type id from unit variant id
-						unitTypeId = getUnitTypeIdFromUnitVariantId(propertyType,unitVariantId);
+						if(filteredUnits.length === 0){
+							_.each(availableUnits, function(availableUnit){
+								unitVariantId = availableUnit.unit_variant_id;
+								unitTypeId = getUnitTypeIdFromUnitVariantId(propertyType,unitVariantId);
 
-						if(_.indexOf(unitTypesTocheck, unitTypeId.toString()) > -1){
-							filteredUnits.push(availableUnit);
+								if(_.indexOf(unitTypesTocheck, unitTypeId.toString()) > -1){
+									filteredUnits.push(availableUnit);
+								}
+							});
+
+						}else{
+							_.each(filteredUnits , function(filUnit){
+								unitVariantId = filUnit.unit_variant_id;
+								unitTypeId = getUnitTypeIdFromUnitVariantId(propertyType,unitVariantId);
+								
+								if(unitTypesTocheck.indexOf(unitTypeId.toString()) > -1){
+									console.log(unitTypeId+ ' is not available');
+								}else{
+									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+								}
+							});
 						}
-					});
+
+					}					
 
 				}
 
@@ -136,34 +141,58 @@ function getUnitCount(propertyType,filters){
 					flooringTocheck = appliedFilter; 
 					if(flooringTocheck.length > 0){
 
-												
-						_.each(availableUnits, function(availableUnit){
-							variantId = availableUnit.unit_variant_id;
+						if(filteredUnits.length === 0){
 
-							var propertyVariant = getPropertyVariantsAttributes(propertyType,variantId,key);
+							_.each(availableUnits, function(availableUnit){
+								variantId = availableUnit.unit_variant_id;
+								var propertyVariant = getPropertyVariantsAttributes(propertyType,variantId,key);
 
-							if(_.indexOf(flooringTocheck, propertyVariant.toString()) > -1){
-
-								if(filteredUnits.length === 0){
+								if(_.indexOf(flooringTocheck, propertyVariant.toString()) > -1){
 									filteredUnits.push(availableUnit);
-								}else{
-									var variantExist = _.findWhere(filteredUnits, {id: availableUnit.id});
-									if(variantExist === undefined || variantExist === null){
-										console.log('only for flooring!');
-										_.each(filteredUnits, function(filUnit){
-											var innterPropertyVariant = getPropertyVariantsAttributes(propertyType,filUnit.unit_variant_id,key);
-											if(_.indexOf(flooringTocheck, innterPropertyVariant.toString()) <= 0){
-												filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
-												console.log(filUnit.id + ' not available');
-											}
-										});
-									}
 								}
+							});
 
-							}
+						}else{
+							_.each(filteredUnits, function(filUnit){
+								var innterPropertyVariant = getPropertyVariantsAttributes(propertyType,filUnit.unit_variant_id,key);
+								
+								if(flooringTocheck.indexOf(innterPropertyVariant.toString()) > -1){
+									console.log(innterPropertyVariant+ ' is not available');
+								}else{
+									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+								}
+								
+							});
+						}						
 
-						});
+					}
+				}
 
+
+
+
+				if(key==="budget"){
+					budgetTocheck = appliedFilter; 
+					if(budgetTocheck.length > 0){
+						var minBudget = budgetTocheck[0];
+						var maxBudget = budgetTocheck[1];
+
+
+						if(filteredUnits.length === 0){
+							_.each(availableUnits , function(unit){
+								if(unit.selling_amount>=minBudget && unit.selling_amount<=maxBudget){
+									filteredUnits.push(unit);
+								}
+							});
+
+						}else{
+							_.each(filteredUnits , function(filUnit){
+								if(filUnit.selling_amount<minBudget || filUnit.selling_amount>maxBudget){
+									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+								}
+							});
+						}
+						
 					}
 				}
 
@@ -172,14 +201,14 @@ function getUnitCount(propertyType,filters){
 
 			});
 
-		}
-		
+				
 		unitCount["total"] = totalUnitsInBuilding ;
 		unitCount["available"] = availableUnits ;
 		unitCount["filtered"] = filteredUnits ;
 	}
 
 	console.log(unitCount);
+	console.log(appliedFilters);
 
 	return unitCount;
 } 
@@ -537,7 +566,7 @@ function _updateGlobalState(newStateData){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"","unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
+	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -546,6 +575,7 @@ function _getProjectMasterData(){
 		var buildingsWithUnits = [];
 
 		projectMasterData.projectTitle = projectData.project_title ; 
+		projectMasterData.projectLogo = projectData.logo ; 
 
 		breakpoints = projectData.breakpoints 
 		projectMasterData.breakpoints = breakpoints; 

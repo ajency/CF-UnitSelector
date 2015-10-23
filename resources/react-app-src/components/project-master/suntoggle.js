@@ -14,14 +14,28 @@ var SunToggle = React.createClass({
    	
     	var toggleSunClasses = classNames({
     		'sun-toggle': true,
-    		'sun-highlight': showShadow 
+    		'sun-highlight': showShadow,
+            'btn' : window.isMobile === false, 
+            'btn-default' : window.isMobile === false, 
+            'btn-sm' : window.isMobile === false
     	}); 
-    	
-        return (
-            <div className={toggleSunClasses} onClick={this.props.toggelSunView}>
+
+        if(window.isMobile){
+            domToDisplay = (<div className={toggleSunClasses} onClick={this.props.toggelSunView}>
                 <i className="i-sun i-icon"></i>
-            </div>
-        );
+            </div>);            
+        }
+        else{
+            domToDisplay = ( <div className="col-sm-3">
+                    <a href="#" className={toggleSunClasses} onClick={this.props.toggelSunView}>
+                        <i className="fa fa-sun-o"></i>
+                        <span className="sunText text-uppercase">Sun</span>
+                    </a>
+                  </div>
+                );
+        }
+    	
+        return domToDisplay;
     }
 });
 

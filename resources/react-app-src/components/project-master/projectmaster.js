@@ -9,6 +9,7 @@ var Rotate = require('../project-master/rotate');
 var ProjectImage = require('../project-master/projectimage');
 var ImageContainerTemplate = require('../project-master/imagecontainertemplate');
 var CardList = require('../project-master/cardlist');
+var FilterPopover = require('../filter/filterpopover');
 var immutabilityHelpers = require('react-addons-update');
 var ReactDOM = require('react-dom');
 var Modal = require('../modal/modal');
@@ -221,6 +222,8 @@ var ProjectMaster = React.createClass({
 
                 filterType = dataToSet.filterType;
 
+                filterStyle = dataToSet.filterStyle;
+
                 oldSearchFilters = oldState["data"]["search_filters"];
                 
                 oldSearchFilterKeys = _.keys(oldSearchFilters);
@@ -249,6 +252,19 @@ var ProjectMaster = React.createClass({
                 }else{
                     oldataTochange.push(valueToSet);
                 }
+
+                //For range filter, reset the filter with new min max value
+                if(filterStyle == 'range'){
+                    oldataTochange = [];
+                    _.each(valueToSet, function(rangeValue){
+                        oldataTochange.push(rangeValue);
+                    });
+                    
+                }
+
+
+
+
 
                 mutatedfilter =  {};
                 mutatedfilter[filterType] = {$set: oldataTochange};
@@ -361,6 +377,7 @@ var ProjectMaster = React.createClass({
         var data = this.state.data;
         
         var projectTitle = data.projectTitle;
+        var projectLogo = data.projectLogo;
         var unitCount = data.totalCount;
         var buildings = data.buildings;
         var breakpoints = data.breakpoints;
@@ -385,6 +402,7 @@ var ProjectMaster = React.createClass({
                 <div>
                     <NavBar 
                         projectTitle = {projectTitle} 
+                        projectLogo = {projectLogo} 
                         unitCount = {unitCount}
                         showFilterModal = {this.showFilterModal}
                         buildings = {buildings}
@@ -429,9 +447,80 @@ var ProjectMaster = React.createClass({
             domToDisplay = (
                 <div id="wrapper">
       
-                    <SideBar/>
-                  
-                    <PageContent/>
+                    <SideBar
+                        projectTitle = {projectTitle} 
+                        projectLogo = {projectLogo}
+                        unitCount = {unitCount}
+                        showFilterModal = {this.showFilterModal}
+                        buildings = {buildings}
+                        isFilterApplied = {isFilterApplied}
+                        applied_filters = {applied_filters}                    
+                        ref = "sideBarList"
+                        buildings={buildings}
+                        isFilterApplied = {isFilterApplied}
+                        rotateImage = {this.rotateImage}
+                        destroyTooltip = {this.destroyTooltip}                    
+                    />
+
+                    <div id="page-content-wrapper">
+
+                        <ImageContainerTemplate
+                            ref= "imageContainer"
+                            showShadow={data.showShadow}
+                            breakpoints = {data.breakpoints}
+                            chosenBreakpoint = {data.chosenBreakpoint}
+                            updateChosenBreakPoint = {this.updateChosenBreakPoint}
+                            updateRotateShadow = {this.updateRotateShadow}
+                            buildings =  {buildings}
+                            buildingToHighlight = {buildingToHighlight}
+                            destroyTooltip = {this.destroyTooltip}
+                            showTooltip = {this.showTooltip}                        
+                        />
+                        
+
+                        <div className="container-fluid">
+
+                            <div className="navbar-header">
+                                <div className="row">
+                                    
+                                    <SunToggle 
+                                        toggelSunView = {this.toggelSunView} 
+                                        showShadow={data.showShadow}
+                                    />                                    
+
+                                    <div className="col-sm-3 col-sm-offset-3">
+                                        <FilterPopover
+                                            filterTypes={filterTypes}
+                                            selectFilter={this.selectFilter}
+                                            search_filters={data.search_filters}
+                                            applyFilters = {this.applyFilters}
+                                            unapplyFilters = {this.unapplyFilters}                                        
+                                        />
+                                    </div>
+
+                                    <div className="col-sm-3">
+                                        <div className="pull-right text-center text-uppercase">
+                                            <button type="button" className="btn btn-default btn-sm btn-primary" data-toggle="modal" data-target="#contactModal">
+                                                <i className="fa fa-phone"></i>
+                                                <span className="enquiryText text-uppercase">Contact Us</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        
+                        </div>
+
+                        {/*<Modal
+                            ref="filterModal" 
+                        />
+                        <Modal
+                            ref="contactModal"
+                        />*/}
+
+                    </div>
+
        
                 </div>
             );            
