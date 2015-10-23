@@ -480,7 +480,13 @@ var ProjectMaster = React.createClass({
                                     />                                    
 
                                     <div className="col-sm-3 col-sm-offset-3">
-                                        <FilterPopover/>
+                                        <FilterPopover
+                                            filterTypes={filterTypes}
+                                            selectFilter={this.selectFilter}
+                                            search_filters={data.search_filters}
+                                            applyFilters = {this.applyFilters}
+                                            unapplyFilters = {this.unapplyFilters}                                        
+                                        />
                                     </div>
 
                                     <div className="col-sm-3">

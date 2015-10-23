@@ -9,7 +9,6 @@ var FilterContent = React.createClass({
 
         search_filters= this.props.search_filters
 
-
         filterTypeNodes = filterTypes.map(function(filterType,i){
                             
                             if(_.isEmpty(search_filters))
