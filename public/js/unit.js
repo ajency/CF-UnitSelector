@@ -250,9 +250,17 @@ function refundAmount(id,url){
     });
 }
 
-function goToNextStep(anchor)
+function goToNextStep(anchor ,divClass)
 {
-    $("#"+anchor).click();
+    var flag =true;
+    $('.'+divClass).find('input, select').each(function(index) {
+        if($(this).val()==''){
+           $('form').submit();
+           flag =false;
+        }
+    });
+    if(flag)
+        $("#"+anchor).click();
 }
 
 function validateForm()

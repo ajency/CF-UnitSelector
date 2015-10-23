@@ -113,7 +113,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                         <div class="col-md-12 col-sm-12 col-xs-12 mandatory mB25">
                             All fields are mandatory
                         </div>                  
-                        <div class="col-md-12 col-sm-12 col-xs-12 personalDetails">
+                        <div class="col-md-12 col-sm-12 col-xs-12 personalDetails buyerDetails">
                         
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                           
@@ -165,7 +165,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                             
                             <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button onclick="goToNextStep('acc-2')" type="button" class="btn btn-default btn-primary btn-sm">Continue to next step</button>
+                                <button onclick="goToNextStep('acc-2','buyerDetails')" type="button" class="btn btn-default btn-primary btn-sm">Continue to next step</button>
                             </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                         </div>
                        <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 btnOuter">
-                            <button onclick="goToNextStep('acc-3')" type="button" class="btn btn-default btn-primary btn-sm">Continue to next step</button></div>
+                            <button onclick="goToNextStep('acc-3','detailsOuter')" type="button" class="btn btn-default btn-primary btn-sm">Continue to next step</button></div>
                         </div>
                       </div>
                     </div>
@@ -276,7 +276,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                         <div class="col-md-12 col-sm-12 col-xs-12 mandatory mB25">
                             <input type="checkbox" name="copybasicinfo" onclick="copyBillingInfo(this);" > Same as basic information
                         </div>                  
-                        <div class="col-md-12 col-sm-12 col-xs-12 personalDetails">
+                        <div class="col-md-12 col-sm-12 col-xs-12 personalDetails billingDetails">
                         
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                           
@@ -328,7 +328,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                             
                             <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <button onclick="goToNextStep('acc-4')" type="button" class="btn btn-default btn-primary btn-sm">Continue to next step</button></div>
+                                <button onclick="goToNextStep('acc-4','billingDetails')" type="button" class="btn btn-default btn-primary btn-sm">Continue to next step</button></div>
                             </div>
                         </div>
                       </div>
