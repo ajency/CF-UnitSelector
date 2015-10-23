@@ -3,10 +3,24 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Link = require('react-router-component').Link
 var classNames = require('classnames');
 
+
+
 var CardView = React.createClass({
 
+    getInitialState: function(){
+      return {
+        isHighlighted:false
+      };
+    },
     selectCard: function(){
-      console.log("select card");
+      newState = {};
+      if(this.state.isHighlighted){
+        newState.isHighlighted = false;
+      }else{
+        newState.isHighlighted = true;  
+      }
+
+      this.setState(newState);
     },
 
     render: function() {
@@ -76,7 +90,7 @@ var CardView = React.createClass({
         var cardClasses = classNames({
           'card-swipe': true,
           'not-released': isZeroUnits,
-          'highlight': (window.isMobile === false) && (0)
+          'highlight': (window.isMobile === false) && (this.state.isHighlighted)
         }); 
 
 
@@ -99,7 +113,7 @@ var CardView = React.createClass({
 
 
         if(window.isMobile){
-          mainDom = ( <div className={cardClasses} data-unitid={buildingId} onClick={this.selectCard}>
+          mainDom = ( <div className={cardClasses} data-unitid={buildingId}>
                           <div className="row">
                               <div className="col-xs-12">
                                   <h4 className=" margin-none text-left"> {buildingName}</h4>
@@ -127,7 +141,7 @@ var CardView = React.createClass({
         else{
 
           mainDom = (   <li className="sidebar-brand">
-                            <div className={cardClasses}>
+                            <div className={cardClasses} onClick={this.selectCard}>
                                 <div className="row">
                                     <div className="col-xs-12">
                                         <h4 className=" margin-none text-left text-uppercase"> {buildingName}</h4>
