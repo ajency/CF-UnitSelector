@@ -23,8 +23,12 @@ class Kernel extends ConsoleKernel {
      * @return void
      */
     protected function schedule( Schedule $schedule ) {
-        $schedule->command( 'inspire' )
-                ->hourly();
+        // $schedule->command( 'inspire' )
+        //         ->hourly();
+        $schedule->call(function () {
+                    updateBlockedUnitsToAvailable();
+                    $myfile = fopen("/var/www/html/newtest.txt", "w") or die("Unable to open file!");
+                        })->cron('*/15 * * * *');
     }
 
 }
