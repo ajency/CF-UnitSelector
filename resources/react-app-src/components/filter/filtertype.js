@@ -100,10 +100,12 @@ var FilterType = React.createClass({
                                     }
                                     else{
                                         filterUiDom = (
-                                            <div key={i} className="col-xs-4">
-                                                <input type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
-                                                <label className="checkboxLabel"></label>
-                                                <label>{filterValue.name}</label>
+                                            <div>
+                                                <div key={i} className="col-xs-4">
+                                                    <input type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
+                                                    <label className="checkboxLabel"></label>
+                                                    <label>{filterValue.name}</label>
+                                                </div>
                                             </div>
                                         );
                                     }
