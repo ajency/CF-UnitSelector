@@ -224,6 +224,10 @@ function getPaymentPlan(id,is_booked,apartment_name,project_id,url){
 }
 
 function refundAmount(id,url){ 
+     if (confirm('Are you sure you want to cancel booking? ') === false) {
+        return;
+    }
+   
     $.ajax({
         url: url,
         method:'POST',
