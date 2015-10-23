@@ -18,6 +18,15 @@ var SideBar = React.createClass({
 		var buildings = this.props.buildings;
 		var buildingNodes; 
 		var isFilterApplied = this.props.isFilterApplied;
+		var windowHeight = window.innerHeight ;
+
+		var sideContentBarHeight = 350; //default side content bar height
+		var projectDetailsHeight = 100;
+		var outsideViewHeight = 0; //height of outside view as seen in step2
+
+		// calculate sideContentBarHeight
+		sideContentBarHeight = windowHeight-200;
+		sidebarHeightPx = sideContentBarHeight+"px";
 
 		buildingNodes = buildings.map(function(building,i){
 	            return(
@@ -32,10 +41,10 @@ var SideBar = React.createClass({
 	        });
 
 		var SideBarStyle = {
-		  height: "350px"
+		  height: sidebarHeightPx
 		};	
 		return (
-	         <div id="sidebar-wrapper">
+	         <div ref="sidebarWrapper" id="sidebar-wrapper">
 	            <NavBar />
 	            <div ref="sideContentBar" className="content" style={SideBarStyle}>
 	                <ul className="sidebar-nav">
