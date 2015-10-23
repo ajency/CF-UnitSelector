@@ -446,6 +446,12 @@ var ProjectMaster = React.createClass({
                 <div id="wrapper">
       
                     <SideBar
+                        projectTitle = {projectTitle} 
+                        unitCount = {unitCount}
+                        showFilterModal = {this.showFilterModal}
+                        buildings = {buildings}
+                        isFilterApplied = {isFilterApplied}
+                        applied_filters = {applied_filters}                    
                         ref = "sideBarList"
                         buildings={buildings}
                         isFilterApplied = {isFilterApplied}

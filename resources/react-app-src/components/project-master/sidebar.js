@@ -45,7 +45,14 @@ var SideBar = React.createClass({
 		};	
 		return (
 	         <div ref="sidebarWrapper" id="sidebar-wrapper">
-	            <NavBar />
+	            <NavBar 
+                    projectTitle = {this.props.projectTitle} 
+                    unitCount = {this.props.unitCount}
+                    showFilterModal = {this.props.showFilterModal}
+                    buildings = {this.props.buildings}
+                    isFilterApplied = {this.props.isFilterApplied}
+                    applied_filters = {this.props.applied_filters}	            
+	            />
 	            <div ref="sideContentBar" className="content" style={SideBarStyle}>
 	                <ul className="sidebar-nav">
 	                	{buildingNodes}
