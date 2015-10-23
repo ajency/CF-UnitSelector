@@ -137,6 +137,11 @@ class UnitController extends ApiGuardController {
                 else{
                     // if unit is present
                     $unit->availability = $request['status'];
+
+                    if($request['status']=='blocked' && isset($request['booking_id']))
+                        $unit->booking_id = $request['booking_id'];
+
+                    $unit->updated_at = date('Y-m-d H:i:s');
                     $updateUnit = $unit->save();
 
                     if ($updateUnit) {
