@@ -63,6 +63,7 @@ var FilterPopover = React.createClass({
 	                        <ul className="filterUl">
 	                            <li className="filterLiTop">
 	                                <h5 className="text-uppercase">Filters (<span className="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span className="filterHeader" >Clear filters</span></h5>
+	                                <button className="btn btn-sm btn-default btn-primary text-uppercase pull-right" onClick = {this.props.applyFilters}>apply</button>
 	                            </li>
 
 	                            {filterTypeNodes}
