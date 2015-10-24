@@ -7,9 +7,14 @@ var OutsideView = require('../tabs/outerview');
 
 var TabPanes = React.createClass({
   render: function () {
+  	unitData = this.props.unitData;
+
     return (
 		<div className="tab-content">		    
-		    <Details />
+		    <Details 
+		    	basicDetails = {unitData.basic}
+		    	rooms = {unitData.rooms}
+		    />
 		    <FloorPlan />
 		    <LiveTour />
 		    <OutsideView />	   

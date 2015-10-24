@@ -4,7 +4,7 @@ var OutsideView = React.createClass({
   render: function () {
     return (
 
-    	 <div role="tabpanel" className="tab-pane" id="settings">
+            <div role="tabpanel" className="tab-pane" id="settings">
                 <div className="col-xs-12 gallery details">
                     <div className="flatDetails">
                         <h4>Outside view</h4>
