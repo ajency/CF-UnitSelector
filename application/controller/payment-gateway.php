@@ -78,10 +78,22 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
 }else{  
     if(isset($_POST['contact_email']) && isset($_POST['contact_first_name']) && isset($_POST['contact_mobile'])) {  
         
+        $unit_id = $_POST['unit_id'];
+        $booking_id=$_POST['bookingId'];
+        $unitData = json_decode(getUnitInfo($unit_id),true);
+        $unitBookingId = $unitData['data']['unit']['booking_id'];
+ 
+         //verify booking id with booking id stored in units tables
+        if($booking_id!=$unitBookingId) 
+        {
+           header('location:'.SITE_URL.'public/timeout.php');
+           exit; 
+        }
+
         $buyer_id = uniqid();
         $_SESSION["buyer_id"] = $buyer_id;
         
-        $unit_id = $_POST['unit_id'];
+        
         $_SESSION["unitId"]=$unit_id;
 
         //BUYER INFO
@@ -120,7 +132,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $billingData['billing_country'] =$_POST['billing_country'];
 
 
-        $booking_id=$_POST['bookingId'];
+        
         $_SESSION["merchant_id"] = $_POST['merchant_id'];
         $_SESSION["salt"] =$_POST['salt'];
         
