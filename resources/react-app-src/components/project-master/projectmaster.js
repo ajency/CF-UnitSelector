@@ -456,10 +456,10 @@ var ProjectMaster = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}                    
                         ref = "sideBarList"
-                        buildings={buildings}
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
-                        destroyTooltip = {this.destroyTooltip}                    
+                        destroyTooltip = {this.destroyTooltip} 
+                        unitIndexToHighlight = {unitIndexToHighlight}                   
                     />
 
                     <div id="page-content-wrapper">
