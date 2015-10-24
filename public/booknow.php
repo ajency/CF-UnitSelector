@@ -128,7 +128,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number"/>
+                                    <input type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-length="[10, 12]"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
                                     <input type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-required/>
@@ -291,7 +291,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input type="text" id="mobile" name="billing_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number"/>
+                                    <input type="text" id="mobile" name="billing_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number"  data-parsley-length="[10, 12]"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
                                     <input type="text" id="pancard" name="billing_pancard" placeholder="Pan card" data-parsley-required/>

@@ -258,7 +258,7 @@ function goToNextStep(anchor ,divClass)
 {
     var flag =true;
     $('.'+divClass).find('input, select').each(function(index) {
-        if($(this).val()==''){
+        if($(this).val()=='' || $(this).hasClass("parsley-error")){
            $('form').submit();
            flag =false;
         }
