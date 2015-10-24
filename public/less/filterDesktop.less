@@ -146,8 +146,8 @@ width: 80px;
   &.filterCheckbox
   {
     background:@gray-lightest;
-    padding:10px 20px 0px;
-    .row > div
+    padding:10px 2px 0px;
+    div
     {
       padding:0 5px;
       margin-bottom:10px;
@@ -270,7 +270,7 @@ width: 80px;
        &.facingContent
        {
           background: #f2f2f2;
-          padding: 10px 20px 0;          
+          padding: 10px 2px 0;          
        } 
       }
     }
@@ -334,4 +334,21 @@ width: 80px;
     line-height: 1.5;
     opacity:1;
   }
+}
+@media screen and (max-width:1440px)
+{
+    .float-nav
+    {
+        width: 395px;
+        height: 385px;
+    }
+    .float-nav li.filterCheckbox div label
+    {
+      font-size: 81%;
+      margin-top: 2px;
+    }
+    .float-nav li.budgetOuter > div select
+    {
+      font-size: 83%;
+    }
 }

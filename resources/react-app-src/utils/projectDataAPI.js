@@ -17,7 +17,6 @@ var Api = {
   	 var url = BASE_URL+"/project-data.json";
 
 
-
     var data = request
 				.get(url)
 				.end(function(err, res){
