@@ -954,17 +954,10 @@ aderContent{
 
 
                 <!-- BODY -->
-                <table width="1px" cellpadding="10" cellspacing="0" style="margin-left:-10px ; border:1px solid #ccc;  ">
+                <table  cellpadding="0" cellspacing="0" style="border-top:2px solid #ccc;">
                   <tr>
-                    <td></td>
-                    <td width="700px" bgcolor="#FFFFFF" style="display:block;  clear:both;">
-
-                      <div style=" width:700px; margin:0 auto; display:block;">
-                      <table cellpadding="0" width="700px" cellspacing="0" style="padding-bottom:50px; border-bottom:1px solid #ccc;">
-                        <tr width="700px">
-                          <td style="font-weight: 400; text-align:right; font-size:18px; color:#444;">                   common<b>floor</b>.com
-                          </td>         
-                        </tr>
+                      <td>
+                           <table cellpadding="0"  cellspacing="5" >
                         <tr width="700px">
                           <td style="font-size:16px; padding:30px 0 10px 0;">    
                             '.$buyer_name.'
@@ -980,74 +973,92 @@ aderContent{
                              '.$buyer_phone.'
                           </td>
                         </tr>
-                        <tr width="700px">         
+                     </table>
+                      </td>
+                       <td><div style="float:right;text-align:right"> common<b>floor</b>.com</div></td>
+                  </tr>
+                  <tr>
+                      <table cellpadding="0"  cellspacing="5" >
+                             <tr >         
                           <td   style="color:#999; font-size:14px;  padding:0px 0 10px 0;">
-                            <p style="line-height:2;">'.$buyer_address.', <br>
-                             '.$buyer_city.'-'.$buyer_state.', <br>
+                       '.$buyer_address.', 
+                             '.$buyer_city.'-'.$buyer_state.',
                              '.$buyer_country.', <br>
-                             '.$buyer_pincode.', <br>
-                            </p>
+                             '.$buyer_pincode.', <br><br>
+                           
                           </td>
                         </tr>
-                        <tr width="700px">         
+                        <tr >         
                           <td  style="color:#333; font-weight:400; font-size:18px; text-transform:uppercase;">
-                            Booking id : <span style="color:#FE943E">( '.$bookingId.' )</span>
+                        Booking id : <span style="color:#FE943E">( '.$bookingId.' )</span>
                           </td>
                         </tr>
-                        
-                      </table>
-                      <table cellpadding="0" cellspacing="0" style="width:100%; padding-top:10px; border-bottom:1px solid #ccc; padding-bottom:60px;">
-                        <tr width="700px">
-                          <td width="60%" style="padding:20px 0; font-weight: 600; font-size:16px; color:#444;">
-                            Description
-                          </td>
-                          <td width="40%" style="font-weight: 600; font-size:16px; color:#444;">
-                            Total
-                          </td>
-                          
-                        </tr>
-                        <tr width="700px">
-                          <td width="60%" style="color:#999;">                      
-                            <p style="text-transform:uppercase; color:#333; font-weight:600; font-size:14px; margin: 0 0 10px 0;">'.$unitData['project_title'].' ('.$unitData['unit']['name'].')</p>
-                            <p style="margin: 0 0 10px 0; font-size:12px; text-transform:uppercase;">'.$unitData['project_type'].' : '. $unitData['unit']['unit_type'].' : '.$unitData['unit']['built_up_area'].' Sq ft  '.$buildingStr.'</p>
-                            <p style="margin: 0 0 10px 0; font-size:12px; text-transform:uppercase;">Price per sqft. : <span style="color:#333;">Rs. 2400</span></p>
-                          </td> 
-                          <td width="40%" style="font-weight: 600; text-transform:uppercase; font-size:14px; vertical-align:top; color:#444;">
-                            Rs '.$booking_amount.'
-                          </td>               
-                        </tr>      
+                        <tr>
+                        <br>
+                     
+                          <td   style="color:#999; font-size:14px;  ">
+                            <table cellpadding="0" cellspacing="5" style="border-top:1px solid #ccc;">
+                                <tr >
+                                  <td width="60%" style=" font-weight: 600; font-size:16px; color:#444;">
+                                   <b> Description </b>
+                                  </td>
+                                  <td width="40%" style="font-weight: 600; font-size:16px; color:#444;">
+                                    <b> Total </b>
+                                  </td>
+                                  
+                                </tr>
+                                <tr >
+                                  <td width="60%" style="color:#999;">  <br>   <br>                    
+                                    <span style="text-transform:uppercase; color:#333; font-weight:600; font-size:14px; margin: 0 0 10px 0;">'.$unitData['project_title'].' ('.$unitData['unit']['name'].')</span><br>
+                                    <span style="margin: 0 0 10px 0; font-size:12px; text-transform:uppercase;">'.$unitData['project_type'].' : '. $unitData['unit']['unit_type'].' : '.$unitData['unit']['built_up_area'].' Sq ft  '.$buildingStr.'</span><br>
+                                    <span style="margin: 0 0 10px 0; font-size:12px; text-transform:uppercase;">Price per sqft. : <span style="color:#333;">Rs. 2400</span></span>
+                                  </td> 
+                                  <td width="40%" style="font-weight: 600; text-transform:uppercase; font-size:14px; vertical-align:middle; color:#444;">
+                                  <br>  <br> Rs '.$booking_amount.'
+                                  </td>               
+                                </tr>      
 
-                      </table>      
-                      <table cellpadding="0" cellspacing="0" style="width:100%; padding-top:30px; border-bottom:1px solid #ccc;">
-                        <tr width="700px">         
-                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444;">
-                            Total Value
+                              </table> 
+                           
                           </td>
-                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444;">                        Sub total
-                          </td>
-                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444; ">                       Total amount
-                          </td>                   
                         </tr>
-                        <tr width="700px">         
-                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; padding:30px 0; color:#444;">
+                        <tr>
+                          <td>
+                          <br> <br>
+                           <table cellpadding="0" cellspacing="5" style=" border-top:1px solid #ccc; border-bottom:1px solid #ccc;">
+                       <br><br> <tr >         
+                          <td  style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444;">
+                            <b>Total Value</b>
+                          </td>
+                          <td style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444;">                       <b>  Sub total </b>
+                          </td>
+                          <td style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444; ">                      <b>  Total amount </b>
+                          </td>                   
+                        </tr><br>
+                        <tr >         
+                          <td  style="font-weight: 600; text-transform:uppercase; font-size:14px; padding:30px 0; color:#444;">
                             Rs '.$totalSaleValue.'
                           </td>
-                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; padding-top:0px; color:#444;">                       Rs '.$booking_amount.'
+                          <td  style="font-weight: 600; text-transform:uppercase; font-size:14px; padding-top:0px; color:#444;">                       Rs '.$booking_amount.'
                           </td>
-                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:34px; padding-top:20px; color:#444;">                        Rs '.$booking_amount.'
+                          <td  style="font-weight: 600; text-transform:uppercase; font-size:34px; padding-top:20px; color:#444;">                        Rs '.$booking_amount.'
                           </td>                   
-                        </tr>       
+                        </tr>  <br> <br>   
                       </table>
-                      
-                      <table cellpadding="0" cellspacing="0" width="700px" style=" padding:10px 0 100px 0;">
-                        <tr width="700px">         
-                          <td width="700px" style="color:#999; font-size:13px;">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table cellpadding="0" cellspacing="0"  style=" padding:10px 0 100px 0;">
+                        <tr >         
+                          <td style="color:#999; font-size:13px;">
                             * Booking can be cancelled within 7 days. Contact administrator for more details.
                           </td>                       
                         </tr>           
                       </table>
+                      <br><br><br><br>
                       <table cellpadding="0" cellspacing="0" width="700px">
-                        <tr width="700px">         
+                        <tr >         
                           <td width="200px" style="font-size:14px; color:#444;">
                             common<b>floor</b>.com
                           </td> 
@@ -1056,13 +1067,12 @@ aderContent{
                           </td>                     
                         </tr>           
                       </table>
+                          </td>
+                        </tr>
+                     
+                </table>
 
-                      </div><!-- /content -->
-                                  
-                    </td>
-                    <td></td>
-                  </tr>
-                </table><!-- /BODY -->
+               
 
 
                 </body>
