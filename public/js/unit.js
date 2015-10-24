@@ -255,7 +255,8 @@ function refundAmount(id,url){
 }
 
 function goToNextStep(anchor ,divClass)
-{
+{   
+    var divs = ['detailsOuter','billingDetails','termsConditions']
     var flag =true;
     $('.'+divClass).find('input, select').each(function(index) {
         if($(this).val()=='' || $(this).hasClass("parsley-error")){
@@ -263,6 +264,15 @@ function goToNextStep(anchor ,divClass)
            flag =false;
         }
     });
+
+    // $( divs ).each(function(index, value) {
+    //     if(value != divClass)
+    //     {
+    //         $("."+value).find( ".parsley-error" ).addClass('hidden');
+    //     }
+      
+    // });
+
     if(flag)
         $("#"+anchor).click();
 }
