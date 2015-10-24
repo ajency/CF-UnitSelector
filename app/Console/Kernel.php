@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel {
         //         ->hourly();
         $schedule->call(function () {
                     updateBlockedUnitsToAvailable();
-
-                        })->cron('*/15 * * * *');
+                    $myfile = fopen("/var/www/html/newtest.txt", "w") or die("Unable to open file!");
+                        })->cron('* * * * *');
     }
 
 }
