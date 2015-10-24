@@ -8,14 +8,29 @@ function getStateData(){
     return AppStore.getStateData();
 }
 
-var  UnitDetails = React.createClass({
+var UnitDetails = React.createClass({
 
 	getInitialState: function() {
+		
+		var unitId;
+		
+		unitId = this.props.unitId;
+
+
         return getStateData();
     },
 
+    componentWillMount:function(){
+        AppStore.addChangeListener(this._onChange)
+    },  
+     
+    _onChange:function(){
+      	this.setState(getStateData());
+    },     
+
 	
 	render: function() {
+
 		var domToDisplay ;
 
 		domToDisplay = (
