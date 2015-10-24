@@ -995,6 +995,7 @@
         "booking_amount": 20000,
         "selling_amount": 27500000,
         "unit_price": 27500000,
+        "property_type_id" : 3,
         "unit_price_component": {
           "l2zs3x": {
             "amount": 16500000,

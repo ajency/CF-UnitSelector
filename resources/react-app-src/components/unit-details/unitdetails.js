@@ -38,7 +38,8 @@ var UnitDetails = React.createClass({
 
 		domToDisplay = (
 			<div>
-				<TabHeader/>
+				<TabHeader
+				/>
 				<TabPanes/>
 				<TabFooter/>
 			</div>
