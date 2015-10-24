@@ -12,15 +12,22 @@ var CardView = React.createClass({
         isHighlighted:false
       };
     },
-    selectCard: function(){
-      newState = {};
-      if(this.state.isHighlighted){
-        newState.isHighlighted = false;
-      }else{
-        newState.isHighlighted = true;  
-      }
+    selectCard: function(event){
 
-      this.setState(newState);
+      this.props.destroyTooltip();
+
+      building = this.props.building;
+
+      this.props.rotateImage(building);
+
+      // newState = {};
+      // if(this.state.isHighlighted){
+      //   newState.isHighlighted = false;
+      // }else{
+      //   newState.isHighlighted = true;  
+      // }
+
+      // this.setState(newState);
     },
 
     render: function() {
@@ -140,8 +147,22 @@ var CardView = React.createClass({
         }
         else{
 
+          buildingToBeHighlighted = this.props.buildingToBeHighlighted;
+          buildingToBeHighlightedId = buildingToBeHighlighted.id;
+
+          if(buildingId === buildingToBeHighlightedId){
+            
+            // if no units in the tower are enabled then disable cardview
+            cardClasses = classNames({
+              'card-swipe': true,
+              'not-released': isZeroUnits,
+              'highlight': true
+            });             
+
+          }
+
           mainDom = (   <li className="sidebar-brand">
-                            <div className={cardClasses} onClick={this.selectCard}>
+                            <div className={cardClasses} onClick={this.selectCard} data-unitid={buildingId}>
                                 <div className="row">
                                     <div className="col-xs-12">
                                         <h4 className=" margin-none text-left text-uppercase"> {buildingName}</h4>
