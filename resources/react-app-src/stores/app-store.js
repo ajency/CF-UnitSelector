@@ -62,7 +62,7 @@ function getUnitTypeIdFromUnitVariantId(propertyType,unitVariantId){
 
 function getPropertyVariantsAttributes(propertyType,variantId,key){
 
-	var variants;
+	var variants , result, propVariant;
 
 	if(propertyType==="Apartments"){
 		variants = _projectData.apartment_variants;
@@ -71,7 +71,33 @@ function getPropertyVariantsAttributes(propertyType,variantId,key){
 
 	}
 
-	return propVariant.variant_attributes[key];
+	if(_.isUndefined(key)){
+		result = propVariant;
+	}
+	else{
+		result = propVariant.variant_attributes[key];
+
+	}
+
+	return result;
+}
+
+function getPropertyType(propertyId){
+	propertyId = parseInt(propertyId);
+	propertyTypes = _projectData.property_types;
+
+	return propertyTypes[propertyId];
+
+}
+
+function getBuilding(buildingId){
+	buildingId = parseInt(buildingId);
+	buildings = _projectData.buildings;
+
+	building = _.findWhere(buildings, {id: buildingId});
+
+	return building;
+
 }
 
 
@@ -653,6 +679,22 @@ function _getUnitDetails(unitId){
 	if(!_.isEmpty(projectData)){
 		allUnits = projectData.units;
 		unitData = _.findWhere(allUnits, {id: unitId});
+
+		unitVariantId = unitData.unit_variant_id;
+
+		unitVariantData = {};
+		propertyId = unitData.property_type_id ;
+		
+		propertyName = getPropertyType(propertyId);
+
+		unitVariantData = getPropertyVariantsAttributes(propertyName,unitVariantId);
+
+		buildingId = unitData.building_id;
+		buildingData = getBuilding(buildingId);
+
+		unitData.variantData = unitVariantData;
+		unitData.buildingData = buildingData;
+		unitData.propertyName = propertyName;
 	}
 	
 	return unitData;	
