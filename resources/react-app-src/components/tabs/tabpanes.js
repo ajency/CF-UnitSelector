@@ -1,5 +1,9 @@
 var React = require('react');
 
+var FloorPlan = require('../tabs/floorplan');
+var LiveTour = require('../tabs/tour');
+var OutsideView = require('../tabs/outerview');
+
 var TabPanes = React.createClass({
   render: function () {
     return (
@@ -152,45 +156,13 @@ var TabPanes = React.createClass({
 		        </div>
 
 		    </div>
-		    <div role="tabpanel" className="tab-pane" id="profile">
-		        <div className="col-xs-12 details">
-		            <div className="flatDetails">
-		                <h4 className="text-uppercase">2D Floor Plan</h4>
-		                <div className="dimensionalViewBtn">
-		                    <a id="twoD" href="#">2D</a>
-		                    <a id="threeD" href="#">3D</a>
-		                </div>
-		            </div>
-		            <div className="twodView">
-		                <img src="img/Pointe-Brodie-Creek_Harmony_2br_2ba0000.png" className="img-responsive fit" id="imageid" />
-		            </div>
-		        </div>
-		    </div>
-		    <div role="tabpanel" className="tab-pane" id="messages">
-		        <div className="col-xs-12 details">
-		            <div className="flatDetails">
-		                <h4>Floor Plans</h4>
-		            </div>
-		            <div className="twodView">
-		                <img src="img/bldg-3d.png" />
-		                <a href="#"><i className="fa fa-2x fa-arrows-alt"></i></a>
-		            </div>
-		        </div>
+		    
+		    <FloorPlan />
+		    <LiveTour />
+		    <OutsideView />
 
-		    </div>
-		    <div role="tabpanel" className="tab-pane" id="settings">
-		        <div className="col-xs-12 gallery details">
-		            <div className="flatDetails">
-		                <h4>Outside view</h4>
-		            </div>
-		            <br/>
-		            <img className="myImg" src="img/bldg-3d.png" />
-		            <a className="clickBtn" onclick="requestFullScreen()" href="#"><i className="fa fa-2x fa-arrows-alt"></i></a>
-		        </div>
-		        <div id="Fullscreen">
-		            <img src="" alt="" />
-		        </div>
-		    </div>
+		    
+		   
 		</div>
     )
   }
