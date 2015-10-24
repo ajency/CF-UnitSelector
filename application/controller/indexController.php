@@ -1,21 +1,21 @@
 <?php
   function bookNow($bookingId,$unitId){
     $_SESSION['startTime']= time();  
-    $buyer_id=uniqid();
-    $_SESSION['buyer_id']=$buyer_id;
+     
+    //$_SESSION['buyer_id']=$buyer_id;
 
     
     $unitData = json_decode(getUnitInfo($unitId),true);
     $status = $unitData['data']['unit']['status'];
     if($status=='available')
     {
-        saveBookingInfo($bookingId,$unitId,$buyer_id);
+        saveBookingInfo($bookingId,$unitId,'');
 
         $old_status=booking_history_status_booking_start;
         $new_status=booking_history_status_booking_initialized;
         $comments=booking_history_comment_buyer_option;
         saveBookingHistory($bookingId,$old_status, $new_status, $comments,'New Buyer');
-        updateUnitStatus($unitId ,'blocked');
+        updateUnitStatus($unitId ,'blocked',$bookingId);
 
     }
     else
@@ -183,6 +183,20 @@
               
       }
 
+      function updateBuyerToBooking($buyer_id,$booking_id){
+
+        $sql = 'UPDATE booking_engine_bookings set buyer_id = "'.$buyer_id. '" WHERE booking_id = "' . $booking_id . '"';    
+        $retval = mysql_query($sql);
+        if(! $retval )
+        {
+        die('Could not enter data: ' . mysql_error());
+        }
+        return true;
+              
+      }
+
+      
+
 
 function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
@@ -192,10 +206,10 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
     $billingData = serialize($billingData);
 
     //mysql_select_db('test', $conn);
-    $sql = "INSERT INTO booking_engine_buyers (buyer_id, buyer_name, email, phone, pan_card_number, buyer_type, address_line_1, address_line_2,city,state,country,pincode,biiling_info) VALUES ('
-                                                      ".$buyer_id."','".$buyerData["NAME"]."','".$buyerData["EMAIL"]."','".$buyerData["PHONE"]."','".$buyerData["PANCARD"]."','".$buyerData["BUYER_TYPE"]."','".$buyerData["ADDRESS"]."','','".$buyerData["CITY"]."','".$buyerData["STATE"]."','".$buyerData["COUNTRY"]."','".$buyerData["ZIPCODE"]."','".$billingData."')";
+    $sql = "INSERT INTO booking_engine_buyers (buyer_id, buyer_name, email, phone, pan_card_number, buyer_type, address_line_1, address_line_2,city,state,country,pincode,biiling_info) VALUES ('".$buyer_id."','".$buyerData["NAME"]."','".$buyerData["EMAIL"]."','".$buyerData["PHONE"]."','".$buyerData["PANCARD"]."','".$buyerData["BUYER_TYPE"]."','".$buyerData["ADDRESS"]."','','".$buyerData["CITY"]."','".$buyerData["STATE"]."','".$buyerData["COUNTRY"]."','".$buyerData["ZIPCODE"]."','".$billingData."')";
 
-    $retval = mysql_query($sql );
+    //echo $sql; exit;
+    $retval = mysql_query($sql);
      if(! $retval )
     {
       die('Could not enter data: ' . mysql_error());
@@ -353,7 +367,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
                 $status="deleted";
                 updateBookingInfo($booking_id,$old_status); 
-                updateUnitStatus($unit_id ,$unit_status);  
+                updateUnitStatus($unit_id ,$unit_status,$booking_id);  
             }else{
                 $new_status=booking_history_status_refund_Error;
                 $comments=booking_history_comment_refund_not_completed;
@@ -419,7 +433,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
     }
 
 
-    function updateUnitStatus($unit_id,$unit_status){
+    function updateUnitStatus($unit_id,$unit_status,$bookingId){
       
         $c = curl_init();
         
@@ -427,6 +441,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
         $authKey=unitSelectorAuthKey;
         $wsUrl=$unitURL . $unit_id; 
         $params['status'] = $unit_status;
+        $params['booking_id'] = $bookingId;
       
         $qs= http_build_query($params);
 
@@ -885,6 +900,176 @@ aderContent{
 </html>';
 
     return $html;
+
+    }
+
+    function invoiceHtml($bookingId)
+    {
+        $q= "SELECT * FROM `booking_engine_bookings` WHERE `booking_id`= '".$bookingId."'";
+        $r= mysql_query($q);
+        $row =mysql_fetch_assoc($r);
+
+        $unitId = $row['unit_id'];
+        $buyerId = $row['buyer_id'];
+
+        $buyer_query= "SELECT * FROM `booking_engine_buyers` WHERE `buyer_id`= '".$buyerId."'";
+        $buyer_res= mysql_query($buyer_query);
+        $buyer_row =mysql_fetch_assoc($buyer_res);
+
+        $buyer_name = $buyer_row['buyer_name'];
+        $buyer_email = $buyer_row['email'];
+        $buyer_phone = $buyer_row['phone'];
+        $buyer_address = $buyer_row['address_line_1'];
+        $buyer_city = $buyer_row['city'];
+        $buyer_state = $buyer_row['state']; 
+        $buyer_country = $buyer_row['country'];
+        $buyer_pincode = $buyer_row['pincode'];
+
+        $unitinfo = json_decode(getUnitInfo($unitId),true);
+        $unitData =$unitinfo['data'] ; 
+        $booking_amount=getBookingAmount($unitId,"booking_amount"); 
+        $totalSaleValue=getBookingAmount($unitId,"sale_value");
+
+        $buildingStr ='';
+        if(!empty($unitData['building']))
+        {
+          $buildingStr =':  '.$unitData['building']['name'].' :  '.$unitData['unit']['floor_number'].' floor';
+ 
+        }
+
+        $html ='<!DOCTYPE html>
+                <html>
+                <head>
+                <!-- If you delete this meta tag, Half Life 3 will never be released. -->
+                <meta name="viewport" content="width=device-width" />
+
+                <meta charset="UTF-8" />
+                <title>CF</title>
+
+                </head>
+                 
+                <body bgcolor="#FFFFFF" style="margin:0; font-family: \'Arail\', sans-serif;">
+
+
+
+
+                <!-- BODY -->
+                <table width="1px" cellpadding="10" cellspacing="0" style="margin-left:-10px ; border:1px solid #ccc;  ">
+                  <tr>
+                    <td></td>
+                    <td width="700px" bgcolor="#FFFFFF" style="display:block;  clear:both;">
+
+                      <div style=" width:700px; margin:0 auto; display:block;">
+                      <table cellpadding="0" width="700px" cellspacing="0" style="padding-bottom:50px; border-bottom:1px solid #ccc;">
+                        <tr width="700px">
+                          <td style="font-weight: 400; text-align:right; font-size:18px; color:#444;">                   common<b>floor</b>.com
+                          </td>         
+                        </tr>
+                        <tr width="700px">
+                          <td style="font-size:16px; padding:30px 0 10px 0;">    
+                            '.$buyer_name.'
+                          </td>         
+                        </tr>
+                        <tr width="700px">         
+                          <td  style="color:#999; font-size:14px;  padding:0px 0 10px 0;">
+                            '.$buyer_email.'
+                          </td>
+                        </tr>
+                        <tr width="700px">         
+                          <td style="color:#999; font-size:14px;  padding:0px 0 10px 0;">
+                             '.$buyer_phone.'
+                          </td>
+                        </tr>
+                        <tr width="700px">         
+                          <td   style="color:#999; font-size:14px;  padding:0px 0 10px 0;">
+                            <p style="line-height:2;">'.$buyer_address.', <br>
+                             '.$buyer_city.'-'.$buyer_state.', <br>
+                             '.$buyer_country.', <br>
+                             '.$buyer_pincode.', <br>
+                            </p>
+                          </td>
+                        </tr>
+                        <tr width="700px">         
+                          <td  style="color:#333; font-weight:400; font-size:18px; text-transform:uppercase;">
+                            Booking id : <span style="color:#FE943E">( '.$bookingId.' )</span>
+                          </td>
+                        </tr>
+                        
+                      </table>
+                      <table cellpadding="0" cellspacing="0" style="width:100%; padding-top:10px; border-bottom:1px solid #ccc; padding-bottom:60px;">
+                        <tr width="700px">
+                          <td width="60%" style="padding:20px 0; font-weight: 600; font-size:16px; color:#444;">
+                            Description
+                          </td>
+                          <td width="40%" style="font-weight: 600; font-size:16px; color:#444;">
+                            Total
+                          </td>
+                          
+                        </tr>
+                        <tr width="700px">
+                          <td width="60%" style="color:#999;">                      
+                            <p style="text-transform:uppercase; color:#333; font-weight:600; font-size:14px; margin: 0 0 10px 0;">'.$unitData['project_title'].' ('.$unitData['unit']['name'].')</p>
+                            <p style="margin: 0 0 10px 0; font-size:12px; text-transform:uppercase;">'.$unitData['project_type'].' : '. $unitData['unit']['unit_type'].' : '.$unitData['unit']['built_up_area'].' Sq ft  '.$buildingStr.'</p>
+                            <p style="margin: 0 0 10px 0; font-size:12px; text-transform:uppercase;">Price per sqft. : <span style="color:#333;">Rs. 2400</span></p>
+                          </td> 
+                          <td width="40%" style="font-weight: 600; text-transform:uppercase; font-size:14px; vertical-align:top; color:#444;">
+                            Rs '.$booking_amount.'
+                          </td>               
+                        </tr>      
+
+                      </table>      
+                      <table cellpadding="0" cellspacing="0" style="width:100%; padding-top:30px; border-bottom:1px solid #ccc;">
+                        <tr width="700px">         
+                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444;">
+                            Total Value
+                          </td>
+                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444;">                        Sub total
+                          </td>
+                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; color:#444; ">                       Total amount
+                          </td>                   
+                        </tr>
+                        <tr width="700px">         
+                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; padding:30px 0; color:#444;">
+                            Rs '.$totalSaleValue.'
+                          </td>
+                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:14px; padding-top:0px; color:#444;">                       Rs '.$booking_amount.'
+                          </td>
+                          <td width="30%" style="font-weight: 600; text-transform:uppercase; font-size:34px; padding-top:20px; color:#444;">                        Rs '.$booking_amount.'
+                          </td>                   
+                        </tr>       
+                      </table>
+                      
+                      <table cellpadding="0" cellspacing="0" width="700px" style=" padding:10px 0 100px 0;">
+                        <tr width="700px">         
+                          <td width="700px" style="color:#999; font-size:13px;">
+                            * Booking can be cancelled within 7 days. Contact administrator for more details.
+                          </td>                       
+                        </tr>           
+                      </table>
+                      <table cellpadding="0" cellspacing="0" width="700px">
+                        <tr width="700px">         
+                          <td width="200px" style="font-size:14px; color:#444;">
+                            common<b>floor</b>.com
+                          </td> 
+                          <td  style="text-transform:uppercase; font-size:11px; padding-left:20px; color:#444;">
+                            copyright &copy; 2007-15 commonfloor.com. all rights reserved.
+                          </td>                     
+                        </tr>           
+                      </table>
+
+                      </div><!-- /content -->
+                                  
+                    </td>
+                    <td></td>
+                  </tr>
+                </table><!-- /BODY -->
+
+
+                </body>
+                </html>';
+ 
+        
+        return $html;
 
     }
 

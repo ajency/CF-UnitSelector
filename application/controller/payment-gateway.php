@@ -18,7 +18,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $booking_id = $_POST['udf1'];
 
         $unit_status=availablity_sold;
-        updateUnitStatus($unitId ,$unit_status);
+        updateUnitStatus($unitId ,$unit_status,$booking_id);
         $status = booking_history_status_booking_booked;   
         $old_status = booking_history_status_booking_progress;  
         $new_status = booking_history_status_booking_booked;   
@@ -60,7 +60,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
 
         updateBookingInfo($booking_id,$status); 
         $unit_status = availablity_available;
-        updateUnitStatus($unitId ,$unit_status);
+        updateUnitStatus($unitId ,$unit_status ,$booking_id);
         saveBookingHistory($booking_id,$old_status, $new_status, $comments,$buyer_name);
         savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
         
@@ -78,7 +78,9 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
 }else{  
     if(isset($_POST['contact_email']) && isset($_POST['contact_first_name']) && isset($_POST['contact_mobile'])) {  
         
-        $buyer_id = $_SESSION["buyer_id"];
+        $buyer_id = uniqid();
+        $_SESSION["buyer_id"] = $buyer_id;
+        
         $unit_id = $_POST['unit_id'];
         $_SESSION["unitId"]=$unit_id;
 
@@ -150,6 +152,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $comments = booking_history_comment_payment_initialized;
         $mihpayid_Val = '';
         saveBuyerInfo($buyer_id,$buyerData ,$billingData);
+        updateBuyerToBooking($buyer_id,$booking_id);
         saveBookingHistory($booking_id,$old_status, $new_status, $comments, $buyer_name); 
         savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
 
@@ -158,7 +161,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
             $unit_status = availablity_available;
             unset($_SESSION);
             //$redirectionUrl = "/public/index.html";
-            updateUnitStatus($unitId ,$unit_status);
+            updateUnitStatus($unitId ,$unit_status,$booking_id);
             $txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
             $subject = 'Thanks for your interest in buying property';
             
