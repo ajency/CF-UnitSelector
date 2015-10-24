@@ -304,7 +304,7 @@ var ProjectMaster = React.createClass({
 
 
     componentWillMount:function(){
-        AppStore.addChangeListener(this._onChange)
+        AppStore.addChangeListener(this._onChange);
     },  
 
     _onChange:function(){

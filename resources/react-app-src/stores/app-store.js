@@ -10,6 +10,7 @@ var CHANGE_EVENT = 'change';
 
 // Define initial data points
 var _projectData = {}, _selected = null ;
+var _unitStateData = {data:{}};
 var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
 
@@ -59,10 +60,6 @@ function getUnitTypeIdFromUnitVariantId(propertyType,unitVariantId){
 }
 
 
-
-
-
-
 function getPropertyVariantsAttributes(propertyType,variantId,key){
 
 	var variants;
@@ -76,9 +73,6 @@ function getPropertyVariantsAttributes(propertyType,variantId,key){
 
 	return propVariant.variant_attributes[key];
 }
-
-
-
 
 
 function getUnitCount(propertyType,filters){
@@ -348,10 +342,6 @@ function getApartmentUnitTypes(buildingId){
 }
 
 
-
-
-
-
 function getPropertyVariants(propertyType,variant){
 
 	var variants = [];
@@ -391,8 +381,6 @@ function getPropertyVariants(propertyType,variant){
 	return variants;
 }
 
-
-
 function checkVariationIsUnique(variants,variantName){
 	_.each(variants, function(a_variants){
 		if(a_variants.id === variantName){
@@ -402,8 +390,6 @@ function checkVariationIsUnique(variants,variantName){
 	return true;
 }
 
-
-
 function checkIfUnitExistsInFilter(filters,unit){
 	_.each(filters, function(filter){
 		if(filter.id === unit){
@@ -412,11 +398,6 @@ function checkIfUnitExistsInFilter(filters,unit){
 	});
 	return false;
 }
-
-
-
-
-
 
 
 function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
@@ -506,11 +487,6 @@ function getApartmentFilterTypes(propertyType){
 }
 
 
-
-
-
-
-
 function getfilterRangeValues( listName ){
 	var units = [];
 	var totalUnitsInBuilding = [];
@@ -536,11 +512,6 @@ function getfilterRangeValues( listName ){
 
 	return range;	
 }
-
-
-
-
-
 
 
 
@@ -674,6 +645,19 @@ function getFilteredProjectMasterData(){
 
 }
 
+function _getUnitDetails(unitId){
+	unitId = parseInt(unitId);
+	var projectData = _projectData;
+	var unitData = {};
+	
+	if(!_.isEmpty(projectData)){
+		allUnits = projectData.units;
+		unitData = _.findWhere(allUnits, {id: unitId});
+	}
+	
+	return unitData;	
+}
+
 
 // AppStore object
 var AppStore = merge(EventEmitter.prototype, {
@@ -704,6 +688,11 @@ var AppStore = merge(EventEmitter.prototype, {
 
 	getStateData: function(){
 		return _globalStateData;
+	},
+
+	getUnitStateData: function(unitId){
+		_unitStateData = _getUnitDetails(unitId); 
+		return _unitStateData;
 	},
 
 	updateGlobalState: function(newState){

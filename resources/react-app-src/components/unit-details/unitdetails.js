@@ -4,28 +4,31 @@ var TabHeader = require('../tabs/tabheader');
 var TabPanes = require('../tabs/tabpanes');
 var TabFooter = require('../tabs/tabfooter');
 
-function getStateData(){
-    return AppStore.getStateData();
+function getUnitStateData(unitId){
+    return AppStore.getUnitStateData(unitId);
 }
+
+
 
 var UnitDetails = React.createClass({
 
 	getInitialState: function() {
 		
 		var unitId;
-		
 		unitId = this.props.unitId;
+		console.log(unitId);
 
-
-        return getStateData();
+        return getUnitStateData(unitId);
     },
 
     componentWillMount:function(){
-        AppStore.addChangeListener(this._onChange)
+        AppStore.addChangeListener(this._onChange);
     },  
      
     _onChange:function(){
-      	this.setState(getStateData());
+    	var unitId;
+		unitId = this.props.unitId;
+      	this.setState(getUnitStateData(unitId));
     },     
 
 	
