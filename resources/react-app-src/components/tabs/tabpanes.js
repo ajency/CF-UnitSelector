@@ -11,12 +11,16 @@ var TabPanes = React.createClass({
 
     return (
 		<div className="tab-content">		    
+		    
 		    <Details 
 		    	basicDetails = {unitData.basic}
-		    	rooms = {unitData.rooms}
+		    	roomData = {unitData.rooms}
 		    />
+
 		    <FloorPlan />
+
 		    <LiveTour />
+		    
 		    <OutsideView />	   
 		</div>
     )

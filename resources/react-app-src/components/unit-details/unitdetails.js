@@ -88,7 +88,7 @@ var UnitDetails = React.createClass({
 			unitData.basic.url2dlayout = groundfloorData.url2dlayout_image;
 			unitData.basic.url3dlayout = groundfloorData.url3dlayout_image;
 
-			unitData.rooms = groundfloorData.room_data;
+			unitData.rooms = groundfloorData.rooms_data;
 		}
 
 		return unitData;

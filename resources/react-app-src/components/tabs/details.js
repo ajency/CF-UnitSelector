@@ -2,15 +2,37 @@ var React = require('react');
 
 var Details = React.createClass({
   render: function () {
-    basicDetails = this.props.basicDetails;
-    roomData = this.props.roomData;
+    var basicDetails = this.props.basicDetails;
+    var roomData = this.props.roomData;
+
+  
+    roomCardNodes = roomData.map(function(room,i){
+                        return(
+                            <div key={i} className="col-xs-12 details">
+              
+                                <div className="flatDetails">
+                                    <h5 className="text-uppercase">Apartment Attributes </h5>
+                                </div>
+                                <div className="projectDetails">
+                                    <div className="col-xs-12 roomHeading">
+                                        <span><i className="fa fa-2x fa-bed"></i></span>
+                                        <h4 className="text-uppercase">{room.room_name}</h4>
+                                    </div>
+
+
+                                </div>
+               
+                            </div>
+                        ); 
+                             
+                    });    
     return (
 
             <div role="tabpanel" className="tab-pane active" id="home">
                 <div className="col-xs-12 details">
                     <div className="flatDetails">
                         <h4 className="text-uppercase">{basicDetails.name}</h4>
-                        <span className="text-muted">{basicDetails.direction} facing</span>
+                        <span className="text-muted">{basicDetails.direction}Facing</span>
 
                         <div className="price text-muted"> <i className="fa fa-inr"></i> {basicDetails.sellingAmount}
                             <span className="availability">{basicDetails.status}</span>
@@ -43,9 +65,7 @@ var Details = React.createClass({
                         </div>
                     </div>
                 </div>
-
-
-
+                {roomCardNodes}
             </div>
     )
   }
