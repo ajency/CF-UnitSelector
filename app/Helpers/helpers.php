@@ -267,7 +267,7 @@ function updateBlockedUnitsToAvailable()
 {
 
     $dateTime = date("Y-m-d H:i:s", strtotime("-15 minutes"));  
-    $units = \CommonFloor\Unit::where('availability','blocked')->where('booking_id','!=','')->where('updated_at','>=',$dateTime)->get()->lists('id');
+    $units = \CommonFloor\Unit::where('availability','blocked')->where('booking_id','!=','')->where('updated_at','<=',$dateTime)->get()->lists('id');
     $updateUnits = \CommonFloor\Unit::whereIn('id',  $units)->update(array('availability' => 'available')); 
     return true;
 }

@@ -282,6 +282,7 @@ class UnitController extends ApiGuardController {
                                         'position'=>$unit->position,
                                         'floor_number'=>$unit->floor,
                                         'status'=>$unit->availability,
+                                        'booking_id'=>$unit->booking_id,
                                      );
             // project id, project name, building id, building name, floor number, unit name, super built, built up, carpet, price per sq ft.
 
