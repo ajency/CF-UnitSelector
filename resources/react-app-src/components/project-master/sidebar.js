@@ -28,12 +28,20 @@ var SideBar = React.createClass({
 		sideContentBarHeight = windowHeight-200;
 		sidebarHeightPx = sideContentBarHeight+"px";
 
+		unitIndexToHighlight= this.props.unitIndexToHighlight;
+		buildingToBeHighlighted = buildings[unitIndexToHighlight];
+		destroyTooltip = this.props.destroyTooltip;
+		rotateImage = this.props.rotateImage;
+
 		buildingNodes = buildings.map(function(building,i){
 	            return(
 	                <div key={i}>
 	                <CardView  
 	                  building={building}
 	                  isFilterApplied={isFilterApplied}
+                      destroyTooltip = {destroyTooltip}
+                      rotateImage = {rotateImage}
+	                  buildingToBeHighlighted= {buildingToBeHighlighted}
 	                /> 
 	                </div>
 	            ); 
