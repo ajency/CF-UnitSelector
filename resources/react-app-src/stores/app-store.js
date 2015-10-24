@@ -15,6 +15,7 @@ var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "unitCoun
 
 
 function getUnitTypeDetails(unitTypeId){
+	unitTypeId = parseInt(unitTypeId);
 	var unitTypeDetails = {};
 	var unitTypes = [];
 	var search_filters = _globalStateData.data.search_filters;
@@ -685,16 +686,21 @@ function _getUnitDetails(unitId){
 		unitVariantData = {};
 		propertyId = unitData.property_type_id ;
 		
-		propertyName = getPropertyType(propertyId);
+		propertyTypeName = getPropertyType(propertyId);
 
-		unitVariantData = getPropertyVariantsAttributes(propertyName,unitVariantId);
+		unitVariantData = getPropertyVariantsAttributes(propertyTypeName,unitVariantId);
+		unitTypeId = unitVariantData.unit_type_id;
+
+		unitType = getUnitTypeDetails(unitTypeId);
+		unitVariantData.unitTypeName = unitType.name;
+
 
 		buildingId = unitData.building_id;
 		buildingData = getBuilding(buildingId);
 
 		unitData.variantData = unitVariantData;
 		unitData.buildingData = buildingData;
-		unitData.propertyName = propertyName;
+		unitData.propertyTypeName = propertyTypeName;
 	}
 	
 	return unitData;	

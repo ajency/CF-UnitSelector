@@ -34,11 +34,27 @@ var UnitDetails = React.createClass({
 	
 	render: function() {
 
-		var domToDisplay ;
+		var domToDisplay;
+
+		unit = this.state;
+		buildingName = "";
+		propertyTypeName = "";
+		unitTypeName = "";
+
+		if(!_.isEmpty(unit.buildingData)){
+			buildingName = unit.buildingData.building_name;
+			propertyTypeName = unit.propertyTypeName;
+			unitTypeName = unit.variantData.unitTypeName;
+		}
+
+
 
 		domToDisplay = (
 			<div>
 				<TabHeader
+					buildingName={buildingName}
+					unitTypeName={unitTypeName}
+					propertyTypeName={propertyTypeName}
 				/>
 				<TabPanes/>
 				<TabFooter/>

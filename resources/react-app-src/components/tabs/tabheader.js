@@ -6,7 +6,7 @@ var TabHeader = React.createClass({
 		<div className="tabHeader">
 		    <div className="title">
 		        <a href="#"><i className="fa fa-times"></i></a>
-		        <h3>Tower 1 : 2BHK : Apartment</h3>
+		        <h3>{this.props.buildingName} : {this.props.unitTypeName} : {this.props.propertyTypeName}</h3>
 		    </div>
 		    <ul className="nav nav-tabs" role="tablist">
 		        <li role="presentation" className="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Details</a></li>
