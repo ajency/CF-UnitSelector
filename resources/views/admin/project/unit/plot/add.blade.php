@@ -98,6 +98,7 @@
                         <label class="form-label">Status<span class="text-primary">*</span></label>
                         <select  class="select2 form-control m-b-5" name="unit_status" data-parsley-required>
                             <option value="available">Available</option>
+                            <option value="payment_in_progress">Payment In Progress</option>
                             <option value="sold">Sold</option>
                             <option value="not_released">Not Released</option>
                             <option value="blocked">Blocked</option>
