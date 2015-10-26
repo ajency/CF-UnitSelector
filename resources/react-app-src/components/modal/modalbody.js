@@ -26,6 +26,7 @@ var ModalBody = React.createClass({
         var filterType;    
         var search_filters; 
         var modalBodyDom; 
+        var projectData; 
 
         //get keys in modal data
         modalDataKeys = _.keys(modalData);
@@ -36,6 +37,10 @@ var ModalBody = React.createClass({
 
         if(_.contains(modalDataKeys,"search_filters")){
           search_filters = modalData.search_filters ;  
+        }  
+
+       if(_.contains(modalDataKeys,"projectData")){
+          projectData = modalData.projectData ;  
         }        
 
 
@@ -64,7 +69,7 @@ var ModalBody = React.createClass({
                                  <div className="col-xs-12 content">
                                     <div className="col-xs-6 text-center">
                                        <span className="modalLogo"></span>
-                                       <div className="developers">Mantri Energia developers</div>
+                                       <div className="developers">{projectData.title}</div>
                                        <span className="help">Need Help? Contact us</span>
                                        <h5>Toll free: 1800 121 0000</h5>
                                     </div>
