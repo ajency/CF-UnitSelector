@@ -7,8 +7,15 @@ var Modal = React.createClass({
   componentDidMount : function(){
     var $modal = $(this.refs.myModal);
 
+    var modalPurpose = this.props.modalPurpose;
+    var backdrop = false;
+
+    if(modalPurpose==="contactModal"){
+      backdrop= true;
+    }
+
     var modalSettings = {
-      backdrop: false,
+      backdrop: backdrop,
       show:false
     };
 
@@ -18,16 +25,17 @@ var Modal = React.createClass({
   render: function () {
     var modalData = this.props.modalData; 
     return (
-		<div className="modal fade modal-full-width" ref="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div className="modal fade contactModal" ref="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
     		<div className="modal-dialog" role="document">
         		<div className="modal-content">    	
             		<ModalHeader
+                  modalPurpose = {this.props.modalPurpose}
                   unapplyFilters = {this.props.unapplyFilters}
                 />
             		<ModalBody 
                   modalData = {modalData}
+                  modalPurpose = {this.props.modalPurpose}
                   selectFilter={this.props.selectFilter}
-                  search_filters={this.props.search_filters}
                   applyFilters = {this.props.applyFilters}
                 />
           		</div>

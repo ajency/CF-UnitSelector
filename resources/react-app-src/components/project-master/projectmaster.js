@@ -315,6 +315,10 @@ var ProjectMaster = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
     },
 
+    showContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
+    },    
+
     destroyTooltip: function(){
         var classname = ".show-qtooltip";
         var isqtipInitialised = false;
@@ -394,7 +398,10 @@ var ProjectMaster = React.createClass({
         var filteredUnitData = buildings.filteredUnitData;
 
         var domToDisplay;
+        var modalData = {};
 
+        modalData.filterTypes = filterTypes;
+        modalData.search_filters = data.search_filters;
 
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
@@ -411,9 +418,9 @@ var ProjectMaster = React.createClass({
                     />
                     <Modal 
                         ref="modal" 
-                        modalData={filterTypes}
+                        modalPurpose = "filterModal"
+                        modalData={modalData}
                         selectFilter={this.selectFilter}
-                        search_filters={data.search_filters}
                         applyFilters = {this.applyFilters}
                         unapplyFilters = {this.unapplyFilters}
                     />
@@ -451,7 +458,6 @@ var ProjectMaster = React.createClass({
                         projectTitle = {projectTitle} 
                         projectLogo = {projectLogo}
                         unitCount = {unitCount}
-                        showFilterModal = {this.showFilterModal}
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}                    
@@ -501,7 +507,11 @@ var ProjectMaster = React.createClass({
 
                                     <div className="col-sm-3">
                                         <div className="pull-right text-center text-uppercase">
-                                            <button type="button" className="btn btn-default btn-sm btn-primary" data-toggle="modal" data-target="#contactModal">
+                                            <button type="button" 
+                                                className="btn btn-default btn-sm btn-primary" 
+                                                data-toggle="modal" data-target="#contactModal" 
+                                                onClick={this.showContactModal} 
+                                            >
                                                 <i className="fa fa-phone"></i>
                                                 <span className="enquiryText text-uppercase">Contact Us</span>
                                             </button>
@@ -513,12 +523,10 @@ var ProjectMaster = React.createClass({
                         
                         </div>
 
-                        {/*<Modal
-                            ref="filterModal" 
-                        />
-                        <Modal
-                            ref="contactModal"
-                        />*/}
+                    <Modal 
+                        ref="contactModal" 
+                        modalPurpose = "contactModal"
+                    />
 
                     </div>
 
