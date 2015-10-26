@@ -82,8 +82,6 @@ class ProjectController extends Controller {
             }
             $projectJsonData['units']=$unitData;
         }
-
-        dd($projectJsonData);
         return response()->json( [
                             'data' => $projectJsonData
                         ], 200, [], JSON_NUMERIC_CHECK );
