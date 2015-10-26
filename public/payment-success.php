@@ -109,7 +109,7 @@ $bookingId = $_SESSION['booking_id'];
                                 {
                                 ?>
                                 <div class="col-md-2 col-xs-12">
-                                    <div class="col-xs-12 unitDetails"> <?php echo $unitData['unit']['floor_number']?> Floor</div>
+                                    <div class="col-xs-12 unitDetails"> <?php echo ordinalSuffix($unitData['unit']['floor_number'])?> Floor</div>
                                     <div class="col-xs-12 titleDetails">Floor Number</div>
                                 </div>
                         

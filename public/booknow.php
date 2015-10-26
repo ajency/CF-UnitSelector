@@ -205,7 +205,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                                     <div class="col-xs-12 titleDetails">Area</div>
                                 </div>
                                 <div class="col-md-2 col-xs-12">
-                                     <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo $unitData['unit']['per_sq_ft_price']?></div>
+                                     <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo moneyFormatIndia($unitData['unit']['per_sq_ft_price'])?></div>
                                      <div class="col-xs-12 titleDetails">Price per SQFT.</div>                                   
                                 </div>
                                 <?php 
@@ -213,7 +213,7 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                                 {
                                 ?>
                                 <div class="col-md-2 col-xs-12">
-                                    <div class="col-xs-12 unitDetails"><?php echo $unitData['unit']['floor_number']?> Floor</div>
+                                    <div class="col-xs-12 unitDetails"><?php echo ordinalSuffix($unitData['unit']['floor_number'])?> Floor</div>
                                     <div class="col-xs-12 titleDetails">Floor Number</div>
                                 </div>
                         

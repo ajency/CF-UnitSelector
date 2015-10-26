@@ -28,6 +28,54 @@
     return $unitData;
   }
 
+  function ordinalSuffix($number)
+  {
+      if($number == 1)
+      {
+         $number = $number .' st';
+      }
+      elseif($number == 2)
+      {
+         $number = $number .' nd';
+      }
+      elseif($number == 3)
+      {
+         $number = $number .' rd';
+      }
+      else
+      {
+         $number = $number .' th';
+      }
+      return $number;
+  }
+
+  function moneyFormatIndia($num){
+      $num = explode(".", $num);
+      $num = $num[0];
+      
+
+      $explrestunits = "" ;
+      if(strlen($num)>3){
+          $lastthree = substr($num, strlen($num)-3, strlen($num));
+          $restunits = substr($num, 0, strlen($num)-3); // extracts the last three digits
+          $restunits = (strlen($restunits)%2 == 1)?"0".$restunits:$restunits; // explodes the remaining digits in 2's formats, adds a zero in the beginning to maintain the 2's grouping.
+          $expunit = str_split($restunits, 2);
+          for($i=0; $i<sizeof($expunit); $i++){
+              // creates each of the 2's group and adds a comma to the end
+              if($i==0)
+              {
+                  $explrestunits .= (int)$expunit[$i].","; // if is first value , convert into integer
+              }else{
+                  $explrestunits .= $expunit[$i].",";
+              }
+          }
+          $thecash = $explrestunits.$lastthree;
+      } else {
+          $thecash = $num;
+      }
+      return $thecash; // writes the final format where $currency is the currency symbol.
+  }
+
   
   function saveBookingInfo($booking_id,$unitId,$buyer_id){
 
@@ -156,7 +204,7 @@
           curl_close($c);
           $str=substr($info, 0,1);
           if($str==2){
-              return ($o);
+              return moneyFormatIndia($o);
           }else{
               return "Error code";
           }
@@ -933,7 +981,7 @@ aderContent{
         $buildingStr ='';
         if(!empty($unitData['building']))
         {
-          $buildingStr =':  '.$unitData['building']['name'].' :  '.$unitData['unit']['floor_number'].' floor';
+          $buildingStr =':  '.$unitData['building']['name'].' :  '.ordinalSuffix($unitData['unit']['floor_number']).' floor';
  
         }
 
