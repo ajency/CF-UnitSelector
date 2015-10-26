@@ -11,7 +11,5 @@ methods/bower_components
 public/.htaccess
 tests/_output/*
 public/projects/
-public/react-app-dist/main.js
-public/project-data.json
 
 wsgi.py
