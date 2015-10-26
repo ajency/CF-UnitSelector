@@ -100,7 +100,7 @@ $startTime= time();
                <div class="panel-group col-md-12 col-sm-12 col-xs-12" id="accordion" role="tablist" aria-multiselectable="true">
                   <div class="panel-inner">
                   <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-heading active" role="tab" id="headingOne">
                       <h4 class="panel-title">
                         <a class="plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                           1. Basic Information
@@ -109,7 +109,7 @@ $startTime= time();
                         </a>
                       </h4>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree" aria-expanded="true">
                       <div class="panel-body">  
                         <div class="col-md-12 col-sm-12 col-xs-12 mandatory mB25">
                             All fields are mandatory
@@ -275,7 +275,7 @@ $startTime= time();
                         <div class="col-md-12 col-sm-12 col-xs-12 mandatory mB25">
                             All fields are mandatory
                         </div> 
-                        <div class="col-md-12 col-sm-12 col-xs-12 sameAsAbove  mB25">
+                        <div class="col-md-12 col-sm-12 col-xs-12 sameAsAbove mB25">
                             <input type="checkbox" name="copybasicinfo" onclick="copyBillingInfo(this);" > Same as basic information
                         </div>                  
                         <div class="col-md-12 col-sm-12 col-xs-12 personalDetails billingDetails">
