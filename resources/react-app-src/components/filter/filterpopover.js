@@ -33,6 +33,15 @@ var FilterPopover = React.createClass({
         this.props.applyFilters();
     },
 
+    unapplyFilters : function(){
+        // close popover
+        this.setState({closed:true});
+
+        // call parent apply filters function
+        this.props.unapplyFilters();
+    },
+    
+
 	render: function(){
 
 		var filterCloseClass , filterCountDisp, filterCountClasses;
@@ -92,7 +101,7 @@ var FilterPopover = React.createClass({
 	                    <nav className={filterClass} id="filters">
 	                        <ul className="filterUl">
 	                            <li className="filterLiTop">
-	                                <h5 className="text-uppercase">Filters {filterCountDisp} &nbsp; &nbsp; &nbsp;<span className="filterHeader" >Clear filters</span></h5>
+	                                <h5 className="text-uppercase">Filters {filterCountDisp} &nbsp; &nbsp; &nbsp;<span className="filterHeader" onClick={this.unapplyFilters}>Clear filters</span></h5>
 	                                <button className="btn btn-sm btn-default btn-primary text-uppercase pull-right" onClick = {this.applyFilters}>apply</button>
 	                            </li>
 
