@@ -53,6 +53,7 @@ define("booking_history_comment_payment_failure","Payment Failure");
 define("booking_history_comment_payment_initialized","Payment Initialized");
 define("payment_history_active","1");
 define("availablity_available","available");
+define("payment_in_progress","payment_in_progress");
 define("booking_history_status_refund_inititated","Refund Initiated");
 define("booking_history_status_refund_completed","Refunded");
 define("booking_history_comment_refund_completed","Refund back to customer in 7 days");

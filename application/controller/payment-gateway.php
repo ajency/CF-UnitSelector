@@ -180,7 +180,8 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
             header('location:'.SITE_URL.'public/timeout.php');
             exit;
         }else{
-
+            
+            updateUnitStatus($unit_id ,payment_in_progress ,$booking_id);
             pay_page( array ('key' => $_SESSION["merchant_id"], 'txnid' => $booking_payment_id, 'amount' => $booking_amount,
             'firstname' => $buyer_name, 'email' => $email, 'phone' => $phone,
             'productinfo' => $unit_id, 'surl' => PAYMENT_SUCCESS, 'furl' => PAYMENT_FAILURE, 'udf1'=>$booking_id,'udf2'=>$booking_payment_id, 'udf3'=>$buyer_name, 'udf4'=>$email, 'udf5'=>$phone,'udf6'=>$booking_amount), 

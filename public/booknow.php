@@ -117,10 +117,11 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                         
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                           
-                                    <input type="text" id="first_name" name="contact_first_name" placeholder="First Name" data-parsley-required/>
+                                    <input type="text" id="first_name" name="contact_first_name" placeholder="First Name" data-parsley-pattern="^[A-Za-z]*$" pattern="^[A-Za-z]*$" data-parsley-required/>
+ 
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input type="text" id="last_name" name="contact_last_name" placeholder="Last Name" data-parsley-required/>
+                                    <input type="text" id="last_name" name="contact_last_name" placeholder="Last Name" data-parsley-required data-parsley-pattern="^[A-Za-z]*$" pattern="^[A-Za-z]*$"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                               
                                     <input type="text"  id="email" name="contact_email" placeholder="Email ID" data-parsley-type="email" data-parsley-required/>
@@ -280,10 +281,10 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                         
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                           
-                                    <input type="text" name="billing_first_name" placeholder="First Name" data-parsley-required/>
+                                    <input type="text" name="billing_first_name" placeholder="First Name"  data-parsley-pattern="^[A-Za-z]*$" pattern="^[A-Za-z]*$" data-parsley-required/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input type="text" name="billing_last_name" placeholder="Last Name" data-parsley-required/>
+                                    <input type="text" name="billing_last_name" placeholder="Last Name"  data-parsley-pattern="^[A-Za-z]*$" pattern="^[A-Za-z]*$" data-parsley-required/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                               
                                     <input type="text" name="billing_email" placeholder="Email ID" data-parsley-required data-parsley-type="email"/>
