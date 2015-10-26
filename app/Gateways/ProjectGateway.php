@@ -182,8 +182,17 @@ class ProjectGateway implements ProjectGatewayInterface {
             $unit['unit_price_component'] = $unitPriceComponent['components'];
         }
         
+        
+
+        /*pass property type in units**/
+        $unitType = \CommonFloor\UnitVariant::find($unit['unit_variant_id'])->unitType()->first();
+        $unitTypeId = $unitType->id;
+        $propertType = \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->first();
+        $propertTypeId = $propertType->property_type_id;  
+        $unit['property_type_id']=$propertTypeId;
+
         $unitData[]=$unit;
-        $variantIds[] =$unit['unit_variant_id'];  
+        $variantIds[] =$unit['unit_variant_id'];
      }    
     
       $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];

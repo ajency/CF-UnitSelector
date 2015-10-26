@@ -61,10 +61,12 @@ var RangeComponent = React.createClass({
     }
     }.bind(this));
 
+    var rangeDom;
 
-    return (
-		  <div className="row p-0 budgetOuter">
-          <div className="col-xs-6">
+    if(window.isMobile){
+      rangeDom = (
+        <div className="row p-0 budgetOuter">
+           <div className="col-xs-6">
              <select data-filterstyle = 'range' data-filtertype = {listType} name = {'min-'+listType} onChange={this.change} value={this.state.value} data-type='min'>
                <option>MIN</option>
                {minFilters}
@@ -77,7 +79,29 @@ var RangeComponent = React.createClass({
              </select> 
           </div> 
         </div>
-      )
+        );
+
+    }else{
+      rangeDom = (        
+      <li className="budgetOuter">
+          <div className="col-xs-6">
+             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'min-'+listType} onChange={this.change} value={this.state.value} data-type='min'>
+               <option>MIN</option>
+               {minFilters}
+             </select>    
+          </div>  
+          <div className="col-xs-6">
+             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'max-'+listType} onChange={this.change} value={this.state.value} data-type='max'>
+               <option>MAX</option>
+               {maxFilters}
+             </select> 
+          </div> 
+        </li>
+        );
+    }
+
+
+    return rangeDom;
   }
 });
 

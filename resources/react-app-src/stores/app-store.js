@@ -88,7 +88,6 @@ function getPropertyType(propertyId){
 	propertyTypes = _projectData.property_types;
 
 	return propertyTypes[propertyId];
-
 }
 
 function getBuilding(buildingId){
@@ -100,6 +99,22 @@ function getBuilding(buildingId){
 	return building;
 
 }
+
+function getPropertyVariantsById(propertyType,variantId,key){
+
+	var variants;
+
+	if(propertyType==="Apartments"){
+		variants = _projectData.apartment_variants;
+
+		propVariant = _.findWhere(variants, {id: variantId});
+
+	}
+
+	return propVariant[key];
+}
+
+
 
 
 function getUnitCount(propertyType,filters){
@@ -158,7 +173,44 @@ function getUnitCount(propertyType,filters){
 
 
 
-				if(key==="Flooring"){
+
+
+
+				if(key==="unitVariantNames"){
+					variantTocheck = appliedFilter; 
+					if(variantTocheck.length > 0){
+						
+						if(filteredUnits.length === 0){
+
+							_.each(availableUnits, function(availableUnit){
+								variantId = availableUnit.unit_variant_id;
+								var propertyVariant = getPropertyVariantsById(propertyType,variantId,'unit_variant_name');
+
+								if(_.indexOf(variantTocheck, propertyVariant.toString()) > -1){
+									filteredUnits.push(availableUnit);
+								}
+							});
+
+						}else{
+							_.each(filteredUnits, function(filUnit){
+								var innterPropertyVariant = getPropertyVariantsById(propertyType,filUnit.unit_variant_id,'unit_variant_name');
+								
+								if(variantTocheck.indexOf(innterPropertyVariant.toString()) > -1){
+									console.log(innterPropertyVariant+ ' is not available');
+								}else{
+									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+								}
+								
+							});
+						}						
+
+					}		
+
+				}
+
+
+
+				if(key==="Flooring" || key==="Kitchen"){
 					flooringTocheck = appliedFilter; 
 					if(flooringTocheck.length > 0){
 
@@ -213,6 +265,117 @@ function getUnitCount(propertyType,filters){
 								}
 							});
 						}
+						
+					}
+				}
+
+
+
+
+				if(key==="area"){
+					areaTocheck = appliedFilter; 
+					if(areaTocheck.length > 0){
+						var minArea = areaTocheck[0];
+						var maxArea = areaTocheck[1];
+
+
+						if(filteredUnits.length === 0){
+							_.each(availableUnits , function(unit){
+
+								variantId = unit.unit_variant_id;
+								var builtUpArea = getPropertyVariantsById(propertyType,variantId,'super_built_up_area');
+
+								if(builtUpArea>=minArea && builtUpArea<=maxArea){
+									filteredUnits.push(unit);
+								}
+							});
+
+						}else{
+							_.each(filteredUnits , function(filUnit){
+
+								variantId = filUnit.unit_variant_id;
+								var builtUpArea = getPropertyVariantsById(propertyType,variantId,'super_built_up_area');
+
+								if(builtUpArea<minArea || builtUpArea>maxArea){
+									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+								}
+							});
+						}
+						
+					}
+				}
+
+
+
+
+
+				if(key==="floor" || key==="direction"){
+					unitKeyTocheck = appliedFilter; 
+					if(unitKeyTocheck.length > 0){
+
+						if(filteredUnits.length === 0){
+							_.each(availableUnits , function(unit){
+
+								if(_.indexOf(unitKeyTocheck, unit[key].toString()) > -1){
+									filteredUnits.push(unit);
+								}
+							});
+
+						}else{
+							_.each(filteredUnits, function(filUnit){
+								
+								if(unitKeyTocheck.indexOf(filUnit[key].toString()) > -1){
+									console.log(filUnit[key]+ ' is not available');
+								}else{
+									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+								}
+								
+							});
+						}			
+						
+					}
+				}
+
+
+
+
+				if(key==="views"){
+					viewsTocheck = appliedFilter; 
+					if(viewsTocheck.length > 0){
+
+						if(filteredUnits.length === 0){
+							_.each(availableUnits , function(unit){
+
+								if(unit.views.length>0){
+									_.each(unit.views , function(view){
+
+										if(_.indexOf(viewsTocheck, view.toString()) > -1){
+											filteredUnits.push(unit);
+										}
+
+									});
+								}								
+							});
+
+						}else{
+							_.each(filteredUnits, function(filUnit){
+
+								if(filUnit.views.length>0){
+									_.each(filUnit.views , function(view){
+
+										if(viewsTocheck.indexOf(view.toString()) > -1){
+											console.log(view+ ' is not available');
+										}else{
+											filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+										}
+
+									});
+								}else{
+									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+								}								
+								
+							});
+						}			
 						
 					}
 				}
@@ -400,13 +563,18 @@ function getPropertyVariants(propertyType,variant){
 	    			property_type_id: prop_type_id
 	    		};
 
-	    		if(checkVariationIsUnique(variants,variantName)){
-	    		variants.push(var_attributes);
+	    		check = _.some( variants, function( el ) {
+	    			return el.id === variantName;
+	    		} );
+
+	    		if(!check){
+	    			variants.push(var_attributes);
 	    		}
 	    	});
 
 	return variants;
 }
+
 
 function checkVariationIsUnique(variants,variantName){
 	_.each(variants, function(a_variants){
@@ -416,6 +584,52 @@ function checkVariationIsUnique(variants,variantName){
 	});
 	return true;
 }
+
+
+
+function getVariantsName(propertyType,variant){
+var variants = [];
+
+
+	switch(propertyType) {
+
+	    case "Apartment":
+	    	var propertyVariants = _projectData.apartment_variants;
+	    	var prop_type_id = _.findKey(_projectData.property_types, function(val) {
+	    		return val === 'Apartments';
+	    	});    	
+	    break;
+
+	    default:
+	    	var propertyVariants = _projectData.apartment_variants;
+	    	var prop_type_id = _.findKey(_projectData.property_types, function(val) {
+	    		return val === 'Apartments';
+	    	});
+
+	}
+
+	_.each(propertyVariants, function(p_variants){
+				var variantName = p_variants[variant];
+	    		var var_attributes = {
+	    			id: variantName,
+	    			isSelected: false,
+	    			name: variantName[0].toUpperCase() + variantName.substr(1),
+	    			property_type_id: prop_type_id
+	    		};
+
+	    		check = _.some( variants, function( el ) {
+	    			return el.id === variantName;
+	    		} );
+
+	    		if(!check){
+	    			variants.push(var_attributes);
+	    		}
+	    	});
+
+	return variants;
+}
+
+
 
 function checkIfUnitExistsInFilter(filters,unit){
 	_.each(filters, function(filter){
@@ -487,6 +701,18 @@ function getApartmentFilterTypes(propertyType){
 
 			}
 
+
+			if(supportedFilterType==="unitVariantNames"){
+				filterType.type = "unitVariantNames";
+				filterType.filterName = "Variant";
+				filterType.filterDisplayType = "normalCheckbox";
+
+				filterType.filterValues = getVariantsName(propertyType,'unit_variant_name');
+
+				filterTypes.push(filterType);
+			}
+
+
 		if(supportedFilterType==="Flooring"){
 			filterType.type = "Flooring";
 			filterType.filterName = "Flooring";
@@ -498,24 +724,91 @@ function getApartmentFilterTypes(propertyType){
 		}
 
 
+		if(supportedFilterType==="Kitchen"){
+			filterType.type = "Kitchen";
+			filterType.filterName = "Kitchen";
+			filterType.filterDisplayType = "normalCheckbox";
+						
+			filterType.filterValues = getPropertyVariants(propertyType,'Kitchen');
+
+			filterTypes.push(filterType);
+
+			console.log(supportedFilterType);
+		}
+
+
 		if(supportedFilterType==="budget"){
 			filterType.type = "budget";
 			filterType.filterName = "Budget";
 			filterType.filterDisplayType = "range";
 			
-			filterType.filterValues = getfilterRangeValues('budget');
+			filterType.filterValues = getfilterRangeValues('budget',propertyType);
+
+			filterTypes.push(filterType);
+		}
+
+
+		if(supportedFilterType==="area"){
+			filterType.type = "area";
+			filterType.filterName = "Area";
+			filterType.filterDisplayType = "range";
+			
+			filterType.filterValues = getfilterRangeValues('area',propertyType);
+
+			filterTypes.push(filterType);
+		}
+
+
+		if(supportedFilterType==="floor"){
+			filterType.type = "floor";
+			filterType.filterName = "Floor";
+			filterType.filterDisplayType = "normalCheckbox";
+			
+			filterType.filterValues = getAvailableUnitSelectOptions(propertyType,'floor');
+
+			filterTypes.push(filterType);
+		}
+
+
+		if(supportedFilterType==="direction"){
+			filterType.type = "direction";
+			filterType.filterName = "Direction";
+			filterType.filterDisplayType = "normalCheckbox";
+			
+			filterType.filterValues = getAvailableUnitSelectOptions(propertyType,'direction');
+
+			filterTypes.push(filterType);
+		}
+
+
+		if(supportedFilterType==="views"){
+			filterType.type = "views";
+			filterType.filterName = "Views";
+			filterType.filterDisplayType = "normalCheckbox";
+
+			filterType.filterValues = getAvailableUnitViewsOptions(propertyType);
 
 			filterTypes.push(filterType);
 		}
 
 	});
 
-    return filterTypes;
+	return filterTypes;   
 }
 
 
-function getfilterRangeValues( listName ){
+function getfilterRangeValues( listName, propertyType ){
+
 	var units = [];
+
+	switch(propertyType) {
+
+	    case "Apartment":
+	    	var propertyVariants = _projectData.apartment_variants;	    	   	
+	    break;
+	}
+
+
 	var totalUnitsInBuilding = [];
 	var availableUnits = [];
 	units = _projectData.units;
@@ -525,8 +818,13 @@ function getfilterRangeValues( listName ){
 	switch(listName) {
 
 	    case "budget":
-	    	var values = _.pluck(availableUnits, "selling_amount");
+	    	var values = _.uniq(_.pluck(availableUnits, "selling_amount"));
 	    	var rangeSet = [1000000,2000000,3000000,4000000,5000000,8000000,10000000,20000000,30000000];
+	    break;
+
+	    case "area":
+	    	var values = _.uniq(_.pluck(propertyVariants, "super_built_up_area"));
+	    	var rangeSet = [100,200,500,700,1000,1500,2000,3000,5000];
 	    break;
 
 	} 
@@ -538,6 +836,97 @@ function getfilterRangeValues( listName ){
 	var range = _.filter(rangeSet, function(x) { return x >= minVal && x <= maxVal });
 
 	return range;	
+}
+
+
+function getAvailableUnitSelectOptions(propertyType,key){
+	var units = [];
+	var totalUnitsInBuilding = [];
+	var availableUnits = [];
+	var options =[];
+	units = _projectData.units;
+
+	switch(propertyType) {
+
+	    case "Apartment":
+	    	var propertyVariants = _projectData.apartment_variants;
+	    	var prop_type_id = _.findKey(_projectData.property_types, function(val) {
+	    		return val === 'Apartments';
+	    	});    	
+	    break;
+	}
+
+	totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
+	availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+	
+	var values = _.uniq(_.pluck(availableUnits, key));
+	var filteredValues = _.sortBy(values, function(num) {
+		return num;
+	});
+
+	_.each(filteredValues, function(value){		
+		var unitOption = {
+			id: value,
+			isSelected: false,
+			name: value,
+			property_type_id: prop_type_id
+		};
+		options.push(unitOption);
+	});
+
+	return options;
+}
+
+
+
+
+
+function getAvailableUnitViewsOptions(propertyType){
+
+	var units = [];
+	var totalUnitsInBuilding = [];
+	var availableUnits = [];
+	var options =[];
+	units = _projectData.units;
+
+	switch(propertyType) {
+
+	    case "Apartment":
+	    	var propertyVariants = _projectData.apartment_variants;
+	    	var prop_type_id = _.findKey(_projectData.property_types, function(val) {
+	    		return val === 'Apartments';
+	    	});    	
+	    break;
+	}
+
+	totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
+	availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+
+	_.each(availableUnits, function(unit){
+
+		if(unit.views.length>0){
+			_.each(unit.views, function(view){
+
+				var unitView = {
+					id: view,
+					isSelected: false,
+					name: view,
+					property_type_id: prop_type_id
+				};
+
+				check = _.some( options, function( el ) {
+					return el.id === view;
+				} );
+
+				if(!check){
+					options.push(unitView);
+				}
+
+			});
+		}		
+	});
+
+	return options;
 }
 
 
