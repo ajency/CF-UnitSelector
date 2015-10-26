@@ -245,7 +245,7 @@ body a {
   text-transform: uppercase;
   padding: 0 25px;
 }
-.card-swipe .price span {
+.card-swipe .price .unitAmount {
   color: #fe943e;
   margin-left: 5px;
 }
@@ -527,9 +527,13 @@ body a {
   float: left;
   width: 100%;
   background: #ffffff;
+  padding-top: 0;
 }
 .contactModal .modal-body h4 {
   margin-top: 10px;
+}
+.contactModal .modal-header {
+  border: none !important;
 }
 .contactModal .content {
   margin-top: 10px;
@@ -542,6 +546,7 @@ body a {
   font-size: 14px;
   margin-top: 2px;
   color: #bcbcba;
+  margin-bottom: 20px;
 }
 .contactModal .modal-dialog {
   width: 500px;
@@ -593,12 +598,7 @@ body a {
   width: 100%;
 }
 .contactModal .modalLogo {
-  height: 59px;
-  width: 148px;
-  background: url(../../images/logo.jpg) no-repeat;
-  margin: auto;
   display: block;
-  margin-top: 10px;
   transform: scale(0.8);
   -webkit-transform: scale(0.8);
   -ms-transform: scale(0.8);
@@ -719,6 +719,9 @@ body a {
   -webkit-animation: zoomEffect 2s;
   -webkit-transition: -webkit-transform 0.3s ease-out;
           transition: transform 0.3s ease-out;
+}
+.unitDetails small.availableUnits {
+  font-weight: 700;
 }
 @keyframes zoomEffect {
   0% {
