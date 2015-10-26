@@ -36,15 +36,24 @@ var UnitDetails = React.createClass({
 
 		var domToDisplay ;
 
+
+		if(window.isMobile){
 		domToDisplay = (
 			<div>
-				<TabHeader
-				/>
+				<TabHeader/>
 				<TabPanes/>
 				<TabFooter/>
 			</div>
-
 		)
+		}else{
+		domToDisplay = (
+			<div className="container-fluid step4Desk">
+				<TabHeader/>
+				<TabPanes/>
+				<TabFooter/>
+			</div>
+		)
+		}
 		return domToDisplay;
 	}
 });

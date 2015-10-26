@@ -8,6 +8,7 @@
     <title>CommonFloor - {{ $project_title }}</title>
 
     <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
+    <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom-big.css' )}}" rel='stylesheet'/>
     <link rel="stylesheet" href="{{ asset('css/cf-mobile/gh-fork-ribbon.min.css' )}}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/slick.css' )}}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}"/>

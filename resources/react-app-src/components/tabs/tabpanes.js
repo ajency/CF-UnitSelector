@@ -7,14 +7,31 @@ var OutsideView = require('../tabs/outerview');
 
 var TabPanes = React.createClass({
   render: function () {
-    return (
-		<div className="tab-content">		    
-		    <Details />
-		    <FloorPlan />
-		    <LiveTour />
-		    <OutsideView />	   
-		</div>
-    )
+
+  	var domToDisplay ;
+
+
+		if(window.isMobile){
+		domToDisplay = (
+			<div className="tab-content">		    
+		    	<Details />
+		    	<FloorPlan />
+		    	<LiveTour />
+		    	<OutsideView />	   
+			</div>
+			);
+	}else{
+		domToDisplay = (
+			<div className="contentOuter col-xs-12 pNone">		    
+		    	<Details />
+		    	<FloorPlan />
+		    	<LiveTour />
+		    	<OutsideView />	   
+			</div>
+			);
+	}
+
+    return domToDisplay;
   }
 });
 
