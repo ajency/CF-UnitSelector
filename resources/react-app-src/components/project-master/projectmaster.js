@@ -402,6 +402,7 @@ var ProjectMaster = React.createClass({
 
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
+        modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
 
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
@@ -525,6 +526,7 @@ var ProjectMaster = React.createClass({
 
                     <Modal 
                         ref="contactModal" 
+                        modalData = {modalData}
                         modalPurpose = "contactModal"
                     />
 
