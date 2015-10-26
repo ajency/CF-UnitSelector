@@ -17,10 +17,13 @@ var TabPanes = React.createClass({
 		    	roomData = {unitData.rooms}
 		    />
 
-		    <FloorPlan />
+		    <FloorPlan 
+		    	url2dlayout = {unitData.basic.url2dlayout}
+		    	url3dlayout = {unitData.basic.url3dlayout}
+		    />
 
 		    <LiveTour />
-		    
+
 		    <OutsideView />	   
 		</div>
     )
