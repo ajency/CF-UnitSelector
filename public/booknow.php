@@ -64,8 +64,8 @@ $startTime= time();
         <div class="container-fluid bookFlowContent">
         <div class="absoluteLayout"></div>
             <div class="container">
-                <h3 class="text-center text-uppercase">4 Steps to buy your appartment</h3>
-                <span class="text-center col-md-12 col-sm-12 col-xs-12 spanText">Complete your booking securely through our payment gateway.</span>
+                <h3 class="text-center text-uppercase">4 Steps to buy your apartment</h3>
+                <span class="text-center col-md-12 col-sm-12 col-xs-12 spanText">Complete your booking securely through our payment gateway!</span>
                 <div class="text-center col-md-12 col-sm-12 col-xs-12 timerText">Current Session will restart in <span id="timeCounter"><?php echo EXPIREDURATION;echo ":00";?></span> minutes!</div>
                 
                 <div class="bookAptOuter">
@@ -102,7 +102,7 @@ $startTime= time();
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
                       <h4 class="panel-title">
-                        <a class="collapsed plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <a class="plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                           1. Basic Information
                           <span class="plusMinusIcon plusIcon">+</span>
                           <span class="plusMinusIcon minusIcon">-</span>
@@ -275,7 +275,7 @@ $startTime= time();
                         <div class="col-md-12 col-sm-12 col-xs-12 mandatory mB25">
                             All fields are mandatory
                         </div> 
-                        <div class="col-md-12 col-sm-12 col-xs-12 mandatory mB25">
+                        <div class="col-md-12 col-sm-12 col-xs-12 sameAsAbove  mB25">
                             <input type="checkbox" name="copybasicinfo" onclick="copyBillingInfo(this);" > Same as basic information
                         </div>                  
                         <div class="col-md-12 col-sm-12 col-xs-12 personalDetails billingDetails">
