@@ -1,4 +1,5 @@
 var React = require('react');
+var RoomAttributeList = require('../tabs/roomattributelist');
 
 var Details = React.createClass({
   render: function () {
@@ -19,7 +20,9 @@ var Details = React.createClass({
                                         <h4 className="text-uppercase">{room.room_name}</h4>
                                     </div>
 
-
+                                    <RoomAttributeList
+                                        attributes={room.atributes}
+                                    />
                                 </div>
                
                             </div>
@@ -35,7 +38,7 @@ var Details = React.createClass({
                         <span className="text-muted">{basicDetails.direction}Facing</span>
 
                         <div className="price text-muted"> <i className="fa fa-inr"></i> {basicDetails.sellingAmount}
-                            <span className="availability">{basicDetails.status}</span>
+                            <span className="availability">{s.humanize(basicDetails.status)}</span>
                         </div>
                     </div>
                     <div className="projectDetails">
