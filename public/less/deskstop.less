@@ -78,7 +78,7 @@ body {
             line-height: 20px;
             text-transform:uppercase;
             padding:0 25px;
-             span
+             .unitAmount
             {
               color:@brand-primary;
               margin-left: 5px;
@@ -411,10 +411,15 @@ body {
     float:left;
     width:100%;
     background:@white;
+    padding-top: 0;
     h4
     {
       margin-top:10px;
     }
+  }
+  .modal-header
+  {
+    border: none !important;
   }
   .content
   {
@@ -430,6 +435,7 @@ body {
     font-size:14px;
     margin-top:2px;
     color:@gray-light;
+    margin-bottom: 20px;
   }
   .modal-dialog
   {
@@ -490,13 +496,8 @@ body {
     }
   }
   .modalLogo
-  {
-    height:59px;
-    width:148px;
-    background: url(../../images/logo.jpg) no-repeat;        
-    margin: auto;
-    display: block;
-    margin-top:10px;
+  {    
+    display: block;   
     transform:scale(0.8);
     -webkit-transform:scale(0.8);
     -ms-transform: scale(0.8);
@@ -643,6 +644,10 @@ body {
         -webkit-animation:zoomEffect 2s;
         transition:transform .3s ease-out; 
       }    
+      &.availableUnits
+      {
+        font-weight: 700;
+      }
     }
     @keyframes zoomEffect {
         0% {transform:scale(1);}
