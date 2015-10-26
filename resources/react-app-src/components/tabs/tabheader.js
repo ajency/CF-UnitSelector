@@ -3,6 +3,16 @@ var React = require('react');
 var TabHeader = React.createClass({
   render: function () {
 
+  	var buildingName = this.props.buildingName;
+  	var unitTypeName = this.props.unitTypeName;
+  	var propertyTypeName = this.props.propertyTypeName;
+  	var unitName = unitData.basic.name;
+  	var unitDirection = unitData.basic.direction;
+  	var unitFloor = unitData.basic.floor;
+  	var builtupArea = unitData.basic.superBuiltUpArea;
+  	var unitStatus = s.humanize(unitData.basic.status);
+  	var sellingAmount = unitData.basic.sellingAmount;
+
 
   	var domToDisplay ;
 
@@ -34,11 +44,11 @@ var TabHeader = React.createClass({
                 back
               </span>
             </div>  
-          <h4 className="text-uppercase">Fl - 1301</h4>
-          <span className="available text-uppercase">Available</span>          
+          <h4 className="text-uppercase">{unitName}</h4>
+          <span className="available text-uppercase">{unitStatus}</span>          
         </div>
         <div className="col-xs-6 text-right rightSide">          
-          <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> 60lacs</button>
+          <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
           <button className="btn btn-default btn-sm btn-primary text-uppercase">
             <i className="fa fa-phone"></i>
             <span className="enquiryText">Contact Us</span>
@@ -48,7 +58,7 @@ var TabHeader = React.createClass({
     </div>
     <div className="row">
       <div className="flatDetails text-uppercase col-xs-12">
-        <span className="units">2 BHK</span><ul><li></li></ul> <span className="units">1024 SQFT </span><ul><li></li></ul> <span className="units">Floor 6 </span><ul><li></li></ul> <span className="units">Tower 1 </span><ul><li></li></ul> <span className="units">East facing from balcony SQFT. </span>
+        <span className="units">{unitTypeName}</span><ul><li></li></ul> <span className="units">{builtupArea} SQFT </span><ul><li></li></ul> <span className="units">{unitFloor} Floor </span><ul><li></li></ul> <span className="units">{buildingName} </span><ul><li></li></ul> <span className="units">{unitDirection} facing </span>
       </div>
     </div>
     <div id="sticky-anchor"></div>
@@ -60,7 +70,7 @@ var TabHeader = React.createClass({
         <li><a href="#" id="outsideView" className="click">Outside view</a></li>
         <li><a href="#" id="societyEmenities" className="click">Society amenities</a></li>
         <li className="pull-right stickyButtons">
-           <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> 60lacs</button>
+           <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
           <button className="btn btn-default btn-sm btn-primary text-uppercase">
             <i className="fa fa-phone"></i>
             <span className="enquiryText">Contact Us</span>

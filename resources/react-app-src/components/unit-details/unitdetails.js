@@ -3,6 +3,7 @@ var AppStore = require('../../stores/app-store.js');
 var TabHeader = require('../tabs/tabheader');
 var TabPanes = require('../tabs/tabpanes');
 var TabFooter = require('../tabs/tabfooter');
+var SimilarUnits = require('../tabs/similarunits');
 
 function getUnitStateData(unitId){
     return AppStore.getUnitStateData(unitId);
@@ -82,6 +83,8 @@ var UnitDetails = React.createClass({
 			unitData.basic.buildingName = unit.buildingData.building_name;
 			unitData.basic.unitTypeName = unit.variantData.unitTypeName;
 
+			unitData.basic.variantAttributes = unit.variantData.variant_attributes;
+
 			floorData = unit.variantData.floor
 			groundfloorData = floorData[0];
 
@@ -120,6 +123,21 @@ var UnitDetails = React.createClass({
 					unitData = {unitData}
 				/>
 				<TabFooter/>
+			</div>
+		)
+		}else{
+			domToDisplay = (
+			<div className="container-fluid step4Desk">
+				<TabHeader
+					buildingName={buildingName}
+					unitTypeName={unitTypeName}
+					propertyTypeName={propertyTypeName}					
+					unitData = {unitData}
+				/>
+				<TabPanes
+					unitData = {unitData}
+				/>
+				<SimilarUnits />
 			</div>
 		)
 		}
