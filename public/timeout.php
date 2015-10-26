@@ -46,11 +46,27 @@ unset($_SESSION);
                 </div>
                 
             </div>
-        </div>                 
+        </div>   
+        <script src="js/jquery.min.js"></script>
+           
 
         <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.panzoom.js"></script>       
+    <script src="js/jquery.panzoom.js"></script> 
+    <script type="text/javascript">
+            //$('.collapse').collapse()
+            $( document ).ready(function() {    
+               window.onbeforeunload = function() {
+                    window.setTimeout(function () { // escape function context
+                        window.location = 'http://unitselector-booking.local/public/unit.php';
+                    }, 0);
+                    window.onbeforeunload = null;   // necessary to prevent infinite loop
+                    return "This session is expired and the history altered.";
+                }
+
+            });
+
+        </script>          
     </body>
 </html>

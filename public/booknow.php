@@ -424,26 +424,32 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.panzoom.js"></script>
     <script src="js/parsleyjs/dist/parsley.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            //$('.collapse').collapse()
-            $( document ).ready(function() {                
-                $('#accordion .panel-heading').click(function () {
-                    if (!$(this).hasClass('active'))
-                    {
-                      // the element clicked was not active, but now is - 
-                      $('.panel-heading').removeClass('active');
-                      $(this).addClass('active'); 
-                      $('.panel-collapse').removeClass('in');
-                    }                   
-                });
-
-
-                /*function btnClick(){
-                    alert("hiiiii");
-                    $(this).parents('.panel-collapse').removeClass('in');
-                    $(this).parents('.panel-default').find('panel-heading').removeClass('active');                  
-                }   */                
+    <script type="text/javascript">
+        //$('.collapse').collapse()
+        $( document ).ready(function() {                
+            $('#accordion .panel-heading').click(function () {
+                if (!$(this).hasClass('active'))
+                {
+                  // the element clicked was not active, but now is - 
+                  $('.panel-heading').removeClass('active');
+                  $(this).addClass('active'); 
+                  $('.panel-collapse').removeClass('in');
+                }                   
             });
+
+
+            /*function btnClick(){
+                alert("hiiiii");
+                $(this).parents('.panel-collapse').removeClass('in');
+                $(this).parents('.panel-default').find('panel-heading').removeClass('active');                  
+            }   */  
+            
+          
+                
+        });
+
+       
+            
         </script>
         <script>
              jQuery(function($){
