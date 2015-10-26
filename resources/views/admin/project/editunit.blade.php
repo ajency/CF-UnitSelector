@@ -100,6 +100,7 @@
                         <label class="form-label">Status<span class="text-primary">*</span></label>
                         <select @if(isAgent() && $unit['availability']=='booked_by_agent'){{'disabled'}}@endif  class="select2 form-control m-b-5" name="unit_status" data-parsley-required>
                             <option @if($unit['availability']=='available'){{'selected'}}@endif value="available">Available</option>
+                            <option @if($unit['availability']=='payment_in_progress'){{'selected'}}@endif value="payment_in_progress">Payment In Progress</option>
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
                             <option @if($unit['availability']=='not_released'){{'selected'}}@endif value="not_released">Not Released</option>
                             <option @if($unit['availability']=='blocked'){{'selected'}}@endif value="blocked">Blocked</option>
