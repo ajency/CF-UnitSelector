@@ -494,7 +494,8 @@ var ProjectMaster = React.createClass({
                                             selectFilter={this.selectFilter}
                                             search_filters={data.search_filters}
                                             applyFilters = {this.applyFilters}
-                                            unapplyFilters = {this.unapplyFilters}                                        
+                                            unapplyFilters = {this.unapplyFilters}
+                                            applied_filters = {applied_filters}                                       
                                         />
                                     </div>
 

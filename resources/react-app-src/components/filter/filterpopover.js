@@ -25,9 +25,18 @@ var FilterPopover = React.createClass({
     	this.setState(newState);
     },
 
+    applyFilters : function(){
+        // close popover
+        this.setState({closed:true});
+
+        // call parent apply filters function
+        this.props.applyFilters();
+    },
+
 	render: function(){
 
-		var filterCloseClass;
+		var filterCloseClass , filterCountDisp, filterCountClasses;
+        var applied_filters = this.props.applied_filters;
 
 		filterClass = classNames({
 			"float-nav": true,
@@ -57,19 +66,41 @@ var FilterPopover = React.createClass({
                                  
                         }.bind(this));	
 
+      var appliedFilterCount = "";  
+      if(_.isEmpty(applied_filters)){
+        appliedFilterCount = "";
+        
+        filterCountClasses = classNames({
+          "filterNumber" : false
+        });
+
+        filterCountDisp = (<span className="filterHeader"> {appliedFilterCount} </span>);
+      }
+      else{
+        appliedFilterKeys = _.keys(applied_filters);
+        appliedFilterCount = appliedFilterKeys.length;
+
+        filterCountClasses = classNames({
+          "filterCountDesk" : true
+        });
+
+        filterCountDisp = (<span className="filterHeader">( {appliedFilterCount} )</span>);
+      }        
+
 
 		var dom = (  <div className="filterOuter">
 	                    <nav className={filterClass} id="filters">
 	                        <ul className="filterUl">
 	                            <li className="filterLiTop">
-	                                <h5 className="text-uppercase">Filters (<span className="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span className="filterHeader" >Clear filters</span></h5>
-	                                <button className="btn btn-sm btn-default btn-primary text-uppercase pull-right" onClick = {this.props.applyFilters}>apply</button>
+	                                <h5 className="text-uppercase">Filters {filterCountDisp} &nbsp; &nbsp; &nbsp;<span className="filterHeader" >Clear filters</span></h5>
+	                                <button className="btn btn-sm btn-default btn-primary text-uppercase pull-right" onClick = {this.applyFilters}>apply</button>
 	                            </li>
 
 	                            {filterTypeNodes}
  
 	                        </ul>
 	                        <a className="toggle" href="#" onClick = {this.closeFilterPopOver}></a>
+                            <span className={filterCountClasses}>{appliedFilterCount}</span>
 	                    </nav>
 	                </div>
 	            );
