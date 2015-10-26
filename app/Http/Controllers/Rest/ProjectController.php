@@ -84,7 +84,7 @@ class ProjectController extends Controller {
         }
         return response()->json( [
                             'data' => $projectJsonData
-                        ], 200, [], JSON_NUMERIC_CHECK );
+                        ], 200, [] ); //JSON_NUMERIC_CHECK
     }
     
     public function projectDetails( $projectId ) {
@@ -124,7 +124,7 @@ class ProjectController extends Controller {
  
         return response()->json( [
                             'data' => $projectData
-                        ], 200, [] );
+                        ], 200, [] ); //JSON_NUMERIC_CHECK
     }
 
 
