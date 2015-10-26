@@ -845,6 +845,17 @@ body {
   text-shadow: none;
   font-size: 28px;
 }
+.successContent.transactionFailed {
+  margin-top: 80px;
+}
+.successContent.transactionFailed > div {
+  margin: 0 0 30px 0;
+  font-size: 16px;
+}
+.successContent.transactionFailed h3 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .reviewDetails {
     padding: 0 !important;
