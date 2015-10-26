@@ -773,6 +773,40 @@ body a {
   float: left;
   width: 100%;
 }
+/* ToolTip */
+.qtip-light {
+  border: 0px !important;
+  background: none!important;
+  color: #fff!important;
+  font-size: 14px!important;
+}
+.qtip-light .qtip-content {
+  background: #000;
+  border: 0px;
+  border-radius: 3px;
+  padding: 10px;
+}
+.qtip-light:after,
+.qtip-light:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.qtip-light:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-top-color: #000;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.hasTooltip {
+  position: absolute;
+  z-index: 9999;
+}
 @media screen and (min-width: 1440px) {
   .cardOuter {
     height: 700px !important;
