@@ -599,9 +599,9 @@ body a {
   margin: auto;
   display: block;
   margin-top: 10px;
-  -ms-transform: scale(0.8);
-      transform: scale(0.8);
+  transform: scale(0.8);
   -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
 }
 .contactModal .help {
   text-transform: uppercase;
@@ -701,9 +701,9 @@ body a {
   height: 65px;
   width: 100%;
   float: left;
-  -ms-transform: scale(0.8);
-      transform: scale(0.8);
+  transform: scale(0.8);
   -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
   margin-left: -34px;
 }
 .unitDetails {
@@ -938,8 +938,8 @@ body a {
   margin-left: 50%;
   /* margin-top: 50%;*/
   -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
   -ms-transform: translateX(-50%);
-      transform: translateX(-50%);
   -webkit-animation: slide 22s linear;
   animation: slide 22s linear;
   -webkit-animation-fill-mode: forwards;
@@ -1042,9 +1042,9 @@ body a {
   line-height: 1.375em;
   font-weight: 300;
   text-align: center;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
   -webkit-transform-origin: 50%;
       -ms-transform-origin: 50%;
           transform-origin: 50%;
@@ -1090,9 +1090,9 @@ body a {
   background-position: -6px -73px;
   z-index: 9999;
   top: -9px;
-  -ms-transform: scale(0.6);
-      transform: scale(0.6);
+  transform: scale(0.6);
   -webkit-transform: scale(0.6);
+  -ms-transform: scale(0.6);
   left: -25px;
   padding: 24px 5px;
   border-radius: 7px;
@@ -1125,6 +1125,7 @@ body a {
 .float-nav li h6 {
   margin: 8px 0 0 0;
   font-size: 100%;
+  font-weight: 600;
 }
 .float-nav.closed li {
   margin-bottom: 1.375em;
@@ -1135,6 +1136,7 @@ body a {
 .float-nav li.filterLiTop h5 {
   margin: 10px 0 0 0;
   float: left;
+  font-weight: 600;
 }
 .float-nav li.filterLiTop h5 .filterHeader {
   color: #fe943e;
@@ -1268,9 +1270,9 @@ body a {
   position: absolute;
   left: -9px;
   top: -7px;
-  -ms-transform: scale(0.6);
-      transform: scale(0.6);
+  transform: scale(0.6);
   -webkit-transform: scale(0.6);
+  -ms-transform: scale(0.6);
 }
 .filterOuter .sun-toggle .sunText {
   float: left;
@@ -1301,7 +1303,7 @@ body a {
 @media screen and (max-width: 1440px) {
   .float-nav {
     width: 395px;
-    height: 385px;
+    height: 370px;
   }
   .float-nav li.filterCheckbox div label {
     font-size: 81%;
@@ -1310,6 +1312,14 @@ body a {
   .float-nav li.budgetOuter > div select {
     font-size: 83%;
   }
+  .float-nav li h6,
+  .float-nav li.filterLiTop h5 {
+    font-size: 85%;
+  }
+}
+.step4Body .modal-backdrop.in,
+.step4Body .contactModal {
+  left: 0 !important;
 }
 .step4Desk {
   padding: 15px 0 !important;
@@ -1319,9 +1329,9 @@ body a {
 }
 .step4Desk .backOuter i {
   float: left;
-  -ms-transform: scale(0.6);
-      transform: scale(0.6);
+  transform: scale(0.6);
   -webkit-transform: scale(0.6);
+  -ms-transform: scale(0.6);
   margin-left: -5px;
 }
 .step4Desk .backOuter .back {
@@ -1400,7 +1410,7 @@ body a {
   outline: none;
   color: #fe943e;
 }
-.step4Desk .tabHeader ul li.active a {
+.step4Desk .tabHeader ul li a.active {
   color: #fe943e;
   border-bottom: 2px solid #fe943e;
 }

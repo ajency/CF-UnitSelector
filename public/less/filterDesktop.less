@@ -39,6 +39,8 @@ width: 80px;
   font-size: 16px; line-height: 1.375em;
   font-weight: 300; text-align: center;
   transform: rotate(45deg);
+   -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
   transform-origin: 50%;
   transition: all 300ms;
   text-decoration:none;
@@ -87,6 +89,7 @@ width: 80px;
   top: -9px;
   transform: scale(0.6);
   -webkit-transform: scale(0.6);
+   -ms-transform: scale(0.6);
   left: -25px;
   padding: 24px 5px;
   border-radius: 7px;
@@ -118,6 +121,7 @@ width: 80px;
   {    
     margin:8px 0 0 0;
     font-size:100%;
+    font-weight:600;
   }
 
   }
@@ -132,6 +136,7 @@ width: 80px;
     {
       margin:10px 0 0 0;
       float:left;
+      font-weight:600;      
       
       .filterHeader
       {
@@ -303,6 +308,7 @@ width: 80px;
       top: -7px;
       transform: scale(0.6);
       -webkit-transform: scale(0.6);
+      -ms-transform: scale(0.6);
     }
     .sunText
     {
@@ -340,7 +346,7 @@ width: 80px;
     .float-nav
     {
         width: 395px;
-        height: 385px;
+        height: 370px;
     }
     .float-nav li.filterCheckbox div label
     {
@@ -350,5 +356,9 @@ width: 80px;
     .float-nav li.budgetOuter > div select
     {
       font-size: 83%;
+    }
+    .float-nav li h6, .float-nav li.filterLiTop h5
+    {
+      font-size: 85%;
     }
 }
