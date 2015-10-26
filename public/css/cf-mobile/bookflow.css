@@ -300,11 +300,13 @@ body {
 }
 .bookFlowContent .panel .termsConditions {
   font-size: 16px;
+  margin-top: 18px;
 }
 .bookFlowContent .panel .termsConditions label {
   font-weight: 400;
   font-size: 12px;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 0;
 }
 .bookFlowContent .panel .termsConditions label input[type=checkbox] {
   position: absolute;
