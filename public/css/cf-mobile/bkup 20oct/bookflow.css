@@ -11,11 +11,6 @@
 .btn:focus {
   outline: none;
 }
-.btn-gray {
-  background: #d5d5d4 !important;
-  border-radius: 3px !important;
-  border: 1px solid #d5d5d4 !important;
-}
 .btn-primary {
   background: #fe943e !important;
   border: 1px solid #fe943e !important;
@@ -200,9 +195,9 @@ body {
   height: 40px;
   width: 1px;
   margin-left: 20px;
-  transform: rotate(25deg);
-  -webkit-transform: rotate(25deg);
   -ms-transform: rotate(25deg);
+      transform: rotate(25deg);
+  -webkit-transform: rotate(25deg);
 }
 .bookFlowContent .bookAptOuter .bookApmt {
   color: #ffffff;
@@ -305,13 +300,11 @@ body {
 }
 .bookFlowContent .panel .termsConditions {
   font-size: 16px;
-  margin-top: 18px;
 }
 .bookFlowContent .panel .termsConditions label {
   font-weight: 400;
   font-size: 12px;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin-top: 10px;
 }
 .bookFlowContent .panel .termsConditions label input[type=checkbox] {
   position: absolute;
@@ -477,14 +470,6 @@ body {
 .bookFlowContent .bottomSection .rightContent p {
   font-size: 11px;
 }
-.bookFlowContent li.parsley-required {
-  list-style: none;
-  font-size: 11px;
-  position: absolute;
-  top: 50px;
-  left: 15px;
-  color: #ee1f3b;
-}
 .accordion {
   max-width: 100%;
 }
@@ -635,6 +620,24 @@ body {
 .successOuter .detailsOuter > div {
   width: 20%;
 }
+.successOuter.cancelBooking > div {
+  background: #ffffff;
+  box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+  padding: 20px 0;
+}
+.successOuter.cancelBooking .cancelBookingOuter {
+  margin-top: 20px;
+  padding: 23px 15px 0 15px;
+}
+.successOuter.cancelBooking .cancelBookingOuter .nontSpan {
+  color: #fe943e;
+}
+.successOuter.cancelBooking .bottomSection {
+  background: #f6f6f6;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
 .failureOuter {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   padding: 15px;
@@ -742,9 +745,6 @@ body {
   text-decoration: none;
   outline: none;
 }
-.bookingFooter.sessionExpireFooter {
-  margin-top: 90px;
-}
 .successContent {
   padding: 20px;
   background: #ffffff;
@@ -804,38 +804,6 @@ body {
   font-size: 14px;
   color: #333333;
   line-height: 1.5;
-}
-.successContent.cancelBooking .cancelBookingOuter {
-  padding: 10px 0 5px 0;
-}
-.successContent.cancelBooking .note {
-  margin-top: 8px;
-}
-.successContent.cancelBooking .querTextOuter {
-  margin-top: 5px;
-  border-top: 1px solid #bcbcba;
-  padding-top: 20px;
-}
-.successContent.sessionExpireContent {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  padding: 30px 20px !important;
-  margin-top: 120px;
-}
-.successContent.sessionExpireContent > div {
-  margin: 0 0 20px 0;
-  font-size: 20px;
-}
-.successContent.sessionExpireContent i {
-  color: #ee1f3b;
-}
-.successContent.sessionExpireContent h3 {
-  float: left;
-  width: 100%;
-  color: #7d7c7a;
-  text-shadow: none;
-  font-size: 28px;
 }
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .reviewDetails {
@@ -942,15 +910,6 @@ body {
   }
   .successContent .reviewDetails > div:first-child {
     margin-bottom: 0;
-  }
-  .successContent.sessionExpireContent i {
-    margin-top: 20px;
-  }
-  .successContent.sessionExpireContent button {
-    margin-bottom: 20px;
-  }
-  .successContent.sessionExpireContent h3 {
-    font-size: 22px;
   }
   .bookAptOuter .download {
     float: left ;
