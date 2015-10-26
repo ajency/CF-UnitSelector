@@ -58,24 +58,24 @@ var ModalBody = React.createClass({
         }
         else if(modalPurpose==="contactModal"){
           modalBodyDom = ( <div>
-                              <h4 class="margin-none text-center">Have us call you</h4>
-                              <p class="text-muted text-center">Please fill this short form to view contact details.</p>
-                              <div class="row">
-                                 <div class="col-xs-12 content">
-                                    <div class="col-xs-6 text-center">
-                                       <span class="modalLogo"></span>
-                                       <div class="developers">Mantri Energia developers</div>
-                                       <span class="help">Need Help? Contact us</span>
+                              <h4 className="margin-none text-center">Have us call you</h4>
+                              <p className="text-muted text-center">Please fill this short form to view contact details.</p>
+                              <div className="row">
+                                 <div className="col-xs-12 content">
+                                    <div className="col-xs-6 text-center">
+                                       <span className="modalLogo"></span>
+                                       <div className="developers">Mantri Energia developers</div>
+                                       <span className="help">Need Help? Contact us</span>
                                        <h5>Toll free: 1800 121 0000</h5>
                                     </div>
-                                    <div class="col-xs-6 rightSide">
-                                       <div class="p-0 col-lg-12 inputOuter">
+                                    <div className="col-xs-6 rightSide">
+                                       <div className="p-0 col-lg-12 inputOuter">
                                           <input type="text" placeholder="Name" />                   
                                           <input type="email" placeholder="Email ID" />                   
                                           <input type="text" placeholder="Mobile" />                      
                                        </div>
-                                       <div class="p-0 col-lg-12 proceedBtn text-center">
-                                          <button class="btn btn-primary btn-default text-uppercase">Submit</button>
+                                       <div className="p-0 col-lg-12 proceedBtn text-center">
+                                          <button className="btn btn-primary btn-default text-uppercase">Submit</button>
                                        </div>
                                     </div>
                                  </div>

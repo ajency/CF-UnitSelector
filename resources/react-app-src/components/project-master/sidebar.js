@@ -62,7 +62,7 @@ var SideBar = React.createClass({
                     isFilterApplied = {this.props.isFilterApplied}
                     applied_filters = {this.props.applied_filters}	            
 	            />
-	            <div ref="sideContentBar" className="content" style={SideBarStyle}>
+	            <div ref="sideContentBar" className="content cardOuter" style={SideBarStyle}>
 	                <ul className="sidebar-nav">
 	                	{buildingNodes}
 	                </ul>
