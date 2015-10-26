@@ -25,35 +25,35 @@ unset($_SESSION);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
+ </head>
 
-    <body class="bookingFlow">
-        <div class="container-fluid header mB25">
-            <div class="container">
-                <h3 class="text-center mT10 mB10">Apply for an Appartment</h3>
-            </div>
-        </div>
-        
-        <div class="container-fluid content">
+    <body class="bookingFlow">      
+        <div class="container-fluid bookFlowContent">
+        <div class="absoluteLayout"></div>
             <div class="container">
                 
-                <div class="timeoutOuter">
-                <i class="fa fa-2x fa-exclamation"></i>                                 
-                    <span class="failureMsg">Session has expired</span>
-                    <span class="transactionFailed mT20 col-xs-12"> Your Session has timed out because of inactivity.</span>                        
-                    <button class="tryAgain text-uppercase">Try Again</button>
-
+                <div class="successOuter">
+                    <div class="successContent col-xs-12 sessionExpireContent text-center">
+                          <i class="fa fa-5x fa-exclamation-circle col-xs-12"></i>
+                          <h3 class="text-center text-uppercase">Your session is expired</h3>
+                          <div class="col-xs-12">Sorry for the inconvinience.</div>
+                                                
+                          <button class="btn btn-sm btn-default btn-primary">Try again</button>
+                           <button class="btn btn-sm btn-default btn-gray">Back to home</button>
+                    </div>
+                    
                 </div>
-                
+                <div class="bookingFooter sessionExpireFooter">
+                    <a href="#">commonfloor.com</a>
+                    <div class="privacyOuter"><a href="#">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
+                </div>
             </div>
-        </div>   
-        <script src="js/jquery.min.js"></script>
-           
+        </div>                         
 
         <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.panzoom.js"></script> 
+    <script src="js/jquery.panzoom.js"></script>
     <script type="text/javascript">
             //$('.collapse').collapse()
             $( document ).ready(function() {    
@@ -67,6 +67,7 @@ unset($_SESSION);
 
             });
 
-        </script>          
+        </script>   
+
     </body>
 </html>

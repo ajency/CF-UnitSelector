@@ -26,30 +26,35 @@ unset($_SESSION);
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
-    <body class="bookingFlow">
-        <div class="container-fluid header mB25">
-            <div class="container">
-                <h3 class="text-center mT10 mB10">Apply for an Appartment</h3>
-            </div>
-        </div>
-        <div class="container-fluid content">
+<body class="bookingFlow">      
+        <div class="container-fluid bookFlowContent">
+        <div class="absoluteLayout"></div>
             <div class="container">
                 
-                <div class="failureOuter">                  
-                    <i class="fa fa-2x fa-times-circle"></i>
-                    <span class="failureMsg">Sorry! Transaction failed</span>
-                    <span class="transactionFailed mT20 col-xs-12"> Your transaction could not be processed. Please contact your bank or send an emil to commonfloor.support@int</span>
+                <div class="successOuter">
+                    <div class="successContent col-xs-12 sessionExpireContent transactionFailed text-center">
+                          <i class="fa fa-5x fa-exclamation-circle col-xs-12"></i>
+                          <h3 class="text-center text-uppercase"> Sorry! Transaction failed  </h3>
+                          <div class="col-xs-12">Sorry for the inconvinience.
+                            Your transaction could not be processed. Please contact your bank or send an email to<a href="mailto:support@commonfloor.com">support@commonfloor.com</a>.
+                                <br><br>
+                            Your transaction number is 1234567897454
+                                <br><br>
+                            Please note this number as it may be used for tracking your payment.
+                          </div>
 
-                    <div class="transactionNo col-xs-12">Your transaction number is 1234567897454</div>
-                    <div class="transactionNo col-xs-12 mB10">Please note this number as it may be used for tracking your payment.</div>                
-
-                    <button class="tryAgain text-uppercase">Try Again</button>
-
+                          <button class="btn btn-sm btn-default btn-primary">Try again</button>
+                           <button class="btn btn-sm btn-default btn-gray">Back to home</button>
+                    </div>
+                    
                 </div>
-                
+                <div class="bookingFooter sessionExpireFooter">
+                    <a href="#">commonfloor.com</a>
+                    <div class="privacyOuter"><a href="#">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
+                </div>
             </div>
-        </div>                 
+        </div>                         
+           
 
         <script src="../cf-mobile/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
