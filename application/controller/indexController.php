@@ -1,10 +1,6 @@
 <?php
   function bookNow($bookingId,$unitId){
-    $_SESSION['startTime']= time();  
-     
-    //$_SESSION['buyer_id']=$buyer_id;
 
-    
     $unitData = json_decode(getUnitInfo($unitId),true);
     $status = $unitData['data']['unit']['status'];
     if($status=='available')
@@ -52,7 +48,7 @@
   function moneyFormatIndia($num){
       $num = explode(".", $num);
       $num = $num[0];
-      
+
 
       $explrestunits = "" ;
       if(strlen($num)>3){

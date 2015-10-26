@@ -33,7 +33,7 @@ $merchantId =$unitData['merchant_id'] ;
 $salt =$unitData['salt'] ; 
 $booking_amount=getBookingAmount($unitId,"booking_amount"); 
 $totalSaleValue=getBookingAmount($unitId,"sale_value");
- 
+$startTime= time();  
 ?>
 <!doctype html>
 <html>
@@ -95,8 +95,9 @@ $totalSaleValue=getBookingAmount($unitId,"sale_value");
                  <input type="hidden" name="merchant_id" value="<?php echo $merchantId?>" >
                  <input type="hidden" name="salt" value="<?php echo $salt ?>" >
                  <input type="hidden" name="bookingId" value="<?php echo $bookingId ?>" >
+                 <input type="hidden" name="startTime" value="<?php echo $startTime ?>" >
 
-                <div class="panel-group col-md-12 col-sm-12 col-xs-12" id="accordion" role="tablist" aria-multiselectable="true">
+               <div class="panel-group col-md-12 col-sm-12 col-xs-12" id="accordion" role="tablist" aria-multiselectable="true">
                   <div class="panel-inner">
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">

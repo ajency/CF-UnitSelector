@@ -80,6 +80,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         
         $unit_id = $_POST['unit_id'];
         $booking_id=$_POST['bookingId'];
+        $startTime = $_POST['startTime'];
         $unitData = json_decode(getUnitInfo($unit_id),true);
         $unitBookingId = $unitData['data']['unit']['booking_id'];
  
@@ -168,12 +169,13 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         saveBookingHistory($booking_id,$old_status, $new_status, $comments, $buyer_name); 
         savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
 
-        $difference = time() - $_SESSION['startTime'];
-        if($duration < $difference){
+        $difference = time() - $startTime;
+
+        if($duration < $difference){ //echo $duration .' < '. $difference; exit;
             $unit_status = availablity_available;
             unset($_SESSION);
             //$redirectionUrl = "/public/index.html";
-            updateUnitStatus($unitId ,$unit_status,$booking_id);
+            updateUnitStatus($unit_id ,$unit_status,$booking_id);
             $txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
             $subject = 'Thanks for your interest in buying property';
             
