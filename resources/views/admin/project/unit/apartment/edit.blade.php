@@ -103,6 +103,7 @@
                         <label class="form-label">Unit Status</label>
                         <select @if(isAgent() && $unit['availability']=='booked_by_agent'){{'disabled'}}@endif  class="select2 form-control" name="unit_status">
                             <option @if($unit['availability']=='available'){{'selected'}}@endif value="available">Available</option>
+                            <option @if($unit['availability']=='payment_in_progress'){{'selected'}}@endif value="payment_in_progress">Payment In Progress</option>
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
                             <option @if($unit['availability']=='not_released'){{'selected'}}@endif value="not_released">Not Released</option>
                             <option @if($unit['availability']=='blocked'){{'selected'}}@endif value="blocked">Blocked</option>

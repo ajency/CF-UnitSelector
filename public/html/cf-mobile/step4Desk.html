@@ -22,7 +22,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body class="step4Body">
    
 
  <div class="container-fluid step4Desk">
@@ -40,9 +40,9 @@
         </div>
         <div class="col-xs-6 text-right rightSide">          
           <button class="btn btn-default btn-sm btn-primary text-uppercase">Book now <i class="fa fa-inr"></i> 60lacs</button>
-          <button class="btn btn-default btn-sm btn-primary text-uppercase">
-            <i class="fa fa-phone"></i>
-            <span class="enquiryText">Contact Us</span>
+          <button type="button" class="btn btn-default btn-sm btn-primary" data-toggle="modal" data-target="#contactModal">
+              <i class="fa fa-phone"></i>
+              <span class="enquiryText text-uppercase">Contact Us</span>
           </button>
         </div>
       </div>
@@ -55,24 +55,24 @@
     <div id="sticky-anchor"></div>
     <div class="tabHeader" id="stickyHeader">      
       <!-- Nav tabs -->
-      <ul class="list-unstyled text-uppercase">
-        <li class="active"><a href="#" id="details" class="click">Details</a></li>
-        <li><a href="#" id="floorPlan" class="click">Floor plan</a></li>
-        <li><a href="#" id="liveTour" class="click">Live in tour</a></li>
-        <li><a href="#" id="outsideView" class="click">Outside view</a></li>
-        <li><a href="#" id="societyEmenities" class="click">Society amenities</a></li>
+      <ul class="list-unstyled text-uppercase headerList">
+        <li class=""><a href="#details" id="" class=" active click">Details</a></li>
+        <li><a href="#floorPlan" id="" class="click">Floor plan</a></li>
+        <li><a href="#outsideView" id="" class="click">Live in tour</a></li>
+        <li><a href="#outsideView" id="" class="click">Outside view</a></li>
+        <li><a href="#societyEmenities" id="" class="click">Society amenities</a></li>
         <li class="pull-right stickyButtons">
            <button class="btn btn-default btn-sm btn-primary text-uppercase">Book now <i class="fa fa-inr"></i> 60lacs</button>
-          <button class="btn btn-default btn-sm btn-primary text-uppercase">
-            <i class="fa fa-phone"></i>
-            <span class="enquiryText">Contact Us</span>
-          </button>   
+          <button type="button" class="btn btn-default btn-sm btn-primary" data-toggle="modal" data-target="#contactModal">
+              <i class="fa fa-phone"></i>
+              <span class="enquiryText text-uppercase">Contact Us</span>
+          </button>  
         </li>
       </ul> 
 
     </div>
     <div class="contentOuter col-xs-12 pNone">
-      <div class="col-xs-12 detailView pNone" id="details_div">
+      <div class="col-xs-12 detailView pNone" id="details">
         <div class="row">
           <div class="contentHEader">
             <span class="contentTitle text-uppercase">
@@ -295,8 +295,8 @@
           </div>
 
         </div>
-      </div>
-      <div class="col-xs-12 floorPlans pNone" id="floorPlan_div">
+      </div>  
+      <div class="col-xs-12 floorPlans pNone" id="floorPlan">
         <div class="row">
           <div class="contentHEader">
             <span class="contentTitle text-uppercase">
@@ -320,7 +320,7 @@
           </div> 
         </div>
       </div>
-      <div class="col-xs-12 outsideView pNone" id="outsideView_div">
+      <div class="col-xs-12 outsideView pNone" id="outsideView">
         <div class="row">
           <div class="contentHEader">
             <span class="contentTitle text-uppercase">
@@ -346,7 +346,7 @@
           </div> 
         </div>
       </div>
-       <div class="col-xs-12 amenitiesView pNone" id="societyEmenities_div">
+       <div class="col-xs-12 amenitiesView pNone" id="societyEmenities">
         <div class="row">
           <div class="contentHEader">
             <span class="contentTitle text-uppercase">
@@ -566,7 +566,37 @@
       </div>
     </div>
  </div>
-
+<div class="modal fade contactModal" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+               <div class="modal-dialog" role="document">
+                  <div class="modal-content col-lg-12 p-0">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     <div class="modal-body">
+                        <h4 class="margin-none text-center">Have us call you</h4>
+                        <p class="text-muted text-center">Please fill this short form to view contact details.</p>
+                        <div class="row">
+                           <div class="col-xs-12 content">
+                              <div class="col-xs-6 text-center">
+                                 <span class="modalLogo"></span>
+                                 <div class="developers">Mantri Energia developers</div>
+                                 <span class="help">Need Help? Contact us</span>
+                                 <h5>Toll free: 1800 121 0000</h5>
+                              </div>
+                              <div class="col-xs-6 rightSide">
+                                 <div class="p-0 col-lg-12 inputOuter">
+                                    <input type="text" placeholder="Name" />                   
+                                    <input type="email" placeholder="Email ID" />                   
+                                    <input type="text" placeholder="Mobile" />                      
+                                 </div>
+                                 <div class="p-0 col-lg-12 proceedBtn text-center">
+                                    <button class="btn btn-primary btn-default text-uppercase">Submit</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
 
 
       
@@ -581,14 +611,40 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.panzoom.js"></script> 
     <script type="text/javascript">
-      $(document).on('click', '.click', function (e) {
-        var theID = $(this).attr('id');
-        $('html, body').animate({
-            scrollTop: $('#' + theID + '_div').offset().top-60
-        }, 1000);
-        return false;
-      });
 
+     $(document).ready(function () {
+        $(window).scroll(function () {
+
+            var y = $(this).scrollTop();
+
+            $('.click').each(function (event) {
+                if (y >= $($(this).attr('href')).offset().top - 64) {
+                    $('.click').not(this).removeClass('active');
+                    $(this).addClass('active');
+                }
+            });
+
+        });
+    });
+
+     $(function () {
+    $('a[href*=#]:not([href=#])').click(function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                $('html,body').animate({
+                    scrollTop: (target.offset().top - 64)
+                }, 850);
+                return false;
+            }
+        }
+    });
+});
+      
+    </script>   
+    <script type="text/javascript">
+    $(document).ready(function () {
       function sticky_relocate() {
           var window_top = $(window).scrollTop();
           var div_top = $('#sticky-anchor').offset().top;
@@ -603,6 +659,7 @@
           $(window).scroll(sticky_relocate);
           sticky_relocate();
       });
-    </script>   
+      });
+    </script>
   </body>
 </html>

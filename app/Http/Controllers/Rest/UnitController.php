@@ -108,7 +108,7 @@ class UnitController extends ApiGuardController {
         $status_code = 400;
 
         // possible unit status
-        $possible_status = array('available','sold','not_released','blocked','booked_by_agent','archived');
+        $possible_status = array('available','payment_in_progress','sold','not_released','blocked','booked_by_agent','archived');
         
         // if status data passed then update
         if (isset($request['status'])) {
