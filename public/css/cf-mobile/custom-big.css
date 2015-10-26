@@ -379,7 +379,7 @@ body a {
 .highlight .swipe-footer .arrow a {
   background: #fe943e;
 }
-#content-1 {
+.cardOuter {
   margin-top: 15%;
   width: 100%;
   height: 80% !important;
@@ -771,7 +771,7 @@ body a {
   width: 100%;
 }
 @media screen and (min-width: 1440px) {
-  #content-1 {
+  .cardOuter {
     height: 700px !important;
   }
 }
@@ -888,6 +888,10 @@ body a {
 }
 .svg-light {
   opacity: 0;
+}
+.sunText,
+.enquiryText {
+  margin-left: 5px;
 }
 #overlay {
   position: absolute;

@@ -1332,8 +1332,8 @@ div#spritespin {
   margin-left: 50%;
   /* margin-top: 50%;*/
   -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
   -ms-transform: translateX(-50%);
-      transform: translateX(-50%);
   -webkit-animation: slide 22s linear;
   animation: slide 22s linear;
   -webkit-animation-fill-mode: forwards;

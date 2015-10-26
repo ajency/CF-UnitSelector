@@ -189,7 +189,7 @@
         <div role="tabpanel" class="tab-pane" id="profile">
             <div class="col-xs-12 details">
                 <div class="flatDetails">
-                    <h4 class="text-uppercase">2D Floor Plan</h4>
+                    <h4 class="text-uppercase viewTitle">2D Floor Plan</h4>
                     <div class="dimensionalViewBtn">
                       <a id="twoD" href="#">2D</a>
                       <a id="threeD" href="#">3D</a>
@@ -268,11 +268,14 @@
                    $("#threeD").css('background', '#fff');
                   $(this).css('background', '#d5d5d4');
                    $('#imageid').attr('src','img/Pointe-Brodie-Creek_Harmony_2br_2ba0000.png');
+                   
+                   $(".viewTitle").html("2D FLOOR PLAN");
                 });
                 $( "#threeD" ).click(function() {
                   $("#twoD").css('background', '#fff');
                    $(this).css('background', '#d5d5d4');
                   $('#imageid').attr('src','img/Single-Floor-House-Plans-in-3D1.jpg');
+                   $(".viewTitle").html("3D FLOOR PLAN");
                 });                
             });
 

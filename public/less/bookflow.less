@@ -23,6 +23,12 @@
 		outline:none;
 	}
 }
+.btn-gray
+{
+	background: @gray-lighter !important;
+	border-radius: 3px !important;
+	border: 1px solid @gray-lighter !important;
+}
 .btn-primary
 {
 	background: @brand-primary !important;
@@ -605,6 +611,16 @@ body
 	    	}
 	    }
 	}
+	li.parsley-required
+	{
+		list-style: none;
+		font-size: 11px;
+		position: absolute;
+	    top: 50px;
+	    left: 15px;
+	    color: @real-red;
+	}
+	
 }
 .BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: rgba(0,0,0,0.3)) {
 	box-shadow: @arguments;
@@ -950,6 +966,10 @@ body
     		outline:none;
     	}
     }
+    &.sessionExpireFooter
+    {
+    	margin-top: 90px;
+    }
 }
 .successContent
 {
@@ -1052,6 +1072,29 @@ body
 			padding-top: 20px;
 		}
 	}
+	&.sessionExpireContent
+	{
+		.BoxShadow(0, 1px, 2px);	
+		padding: 30px 20px !important;
+		margin-top: 120px;
+		> div
+		{
+			margin:0 0 20px 0;
+			font-size: 20px;
+		}
+		i
+		{
+			color: @real-red;
+		}	
+		h3
+		{
+			float: left;
+			width: 100%;
+			color: @gray;
+			text-shadow:none;
+			font-size: 28px;
+		}
+	}
 }
 @media screen and (min-width: 768px) and (max-width:991px)
 {
@@ -1148,7 +1191,7 @@ body
 		{
 			padding: 10px 15px 30px;
 		}
-		
+
 	} 
 	.detailsOuter 
 	{
@@ -1199,7 +1242,23 @@ body
 		.reviewDetails > div:first-child
 		{
 			margin-bottom:0;
-		}		
+		}	
+		&.sessionExpireContent	
+		{
+			i
+			{
+				margin-top: 20px;
+			}
+			button
+			{
+				margin-bottom: 20px;
+			}
+			h3
+			{
+				font-size: 22px;
+			}
+
+		}
 		
 	}
 	.bookAptOuter
