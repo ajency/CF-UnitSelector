@@ -25,7 +25,7 @@ var SideBar = React.createClass({
 		var outsideViewHeight = 0; //height of outside view as seen in step2
 
 		// calculate sideContentBarHeight
-		sideContentBarHeight = windowHeight-80;
+		sideContentBarHeight = windowHeight-290;
 		sidebarHeightPx = sideContentBarHeight+"px";
 
 		unitIndexToHighlight= this.props.unitIndexToHighlight;

@@ -14,11 +14,21 @@ var TabPanes = React.createClass({
 		if(window.isMobile){
 		domToDisplay = (
 			<div className="tab-content">		    
-		    	<Details />
-		    	<FloorPlan />
-		    	<LiveTour />
-		    	<OutsideView />	   
-			</div>
+		    
+		    <Details 
+		    	basicDetails = {unitData.basic}
+		    	roomData = {unitData.rooms}
+		    />
+
+		    <FloorPlan 
+		    	url2dlayout = {unitData.basic.url2dlayout}
+		    	url3dlayout = {unitData.basic.url3dlayout}
+		    />
+
+		    <LiveTour />
+
+		    <OutsideView />	   
+		</div>
 			);
 	}else{
 		domToDisplay = (
@@ -32,6 +42,7 @@ var TabPanes = React.createClass({
 	}
 
     return domToDisplay;
+
   }
 });
 
