@@ -59,7 +59,7 @@ unset($_SESSION);
             $( document ).ready(function() {    
                window.onbeforeunload = function() {
                     window.setTimeout(function () { // escape function context
-                        window.location = 'http://unitselector-booking.local/public/unit.php';
+                        window.location = 'unit.php';
                     }, 0);
                     window.onbeforeunload = null;   // necessary to prevent infinite loop
                     return "This session is expired and the history altered.";
