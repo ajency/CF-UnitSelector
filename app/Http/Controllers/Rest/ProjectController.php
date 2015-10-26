@@ -83,14 +83,10 @@ class ProjectController extends Controller {
             $projectJsonData['units']=$unitData;
         }
 
-         $header = array (
-                'Content-Type' => 'application/json; charset=UTF-8',
-                'charset' => 'utf-8'
-            );
-         
+        dd($projectJsonData);
         return response()->json( [
                             'data' => $projectJsonData
-                        ], 200, $header, JSON_NUMERIC_CHECK );
+                        ], 200, [], JSON_NUMERIC_CHECK );
     }
     
     public function projectDetails( $projectId ) {
