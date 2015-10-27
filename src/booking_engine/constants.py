@@ -10,7 +10,7 @@ api_key = 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168'
 #UNITSELECTOR_AUTHKEY = '87cdb105eceea2db65ed3b4e4c18a6485e84aefd'
 UNITSELECTOR_AUTHKEY = '117ce294ece0684f69ad92ae450ba370b1259f69'
 #UNIT_SUMMARY_URL = 'http://stage.unitselector.commonfloor.com/api/v2/unit/'
-UNIT_SUMMARY_URL = 'http://unitselector.com/api/v2/unit/'
+UNIT_SUMMARY_URL = 'http://test.cfunitselectortest.com/api/v2/unit/'
 
 TOKENIZER_USER_ID = "19"
 #TOKENIZER_TOKEN = "43e-22a3c758e02ebdf0472b"
