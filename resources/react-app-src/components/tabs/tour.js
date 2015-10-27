@@ -12,7 +12,7 @@ if(window.isMobile){
         <div role="tabpanel" className="tab-pane" id="messages">
                 <div className="col-xs-12 details">
                     <div className="flatDetails">
-                        <h4>Floor Plans</h4>
+                        <h4>Live Tour</h4>
                     </div>
                     <div className="twodView">
                         <img src="img/bldg-3d.png" />
@@ -30,14 +30,14 @@ if(window.isMobile){
             <span className="contentTitle text-uppercase">
               Live Tour
             </span>
-            <span className="contentText">
-              Simplicity of design and strong construction from the backbone of the Metro.
-            </span>
+           
           </div>
         </div>
         <div className="col-xs-12 floorDetails">
           <div className="row">
-          Sample Tour content
+              <div className="col-xs-12 details">
+                    <img src="img/bldg-3d.png" />
+              </div>
           </div>
           </div>
         </div>

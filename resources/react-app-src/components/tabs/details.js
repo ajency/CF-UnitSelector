@@ -91,16 +91,17 @@ if(window.isMobile){
                              
                     });
 
-    /*specificationNodes = basicDetails.variantAttributes.map(function(attribute,i){
-        console.log(attribute);
-                        return(
-                            <div key={i} className="textInner col-xs-3 pNone">
-                                <h5 className="text-uppercase col-xs-12">Fittings</h5>
-                                <div className="col-xs-12">Kitchen: Stainless Steel Sink with Drain Board</div>
-                            </div>
-                        ); 
-                             
-                    });*/
+    
+   specificationNodes = _.map( basicDetails.variantAttributes , function(val, key){
+        return(
+          <div key={key} className="textInner col-xs-3 pNone">
+            <h5 className="text-uppercase col-xs-12">{key}</h5>
+            <div className="col-xs-12">{val}</div>
+        </div>
+        ); 
+    });
+
+
 
    domToDisplay = (
         <div className="col-xs-12 detailView pNone" id="details_div">
@@ -109,9 +110,7 @@ if(window.isMobile){
             <span className="contentTitle text-uppercase">
               Details
             </span>
-            <span className="contentText">
-              Simplicity of design and strong construction from the backbone of the Metro.
-            </span>
+            
           </div>
         </div>
         <div className="col-xs-12 unit">
@@ -129,39 +128,8 @@ if(window.isMobile){
             </div>
           </div>
 
-           <div className="row">
-            <div className="textInner col-xs-4 pNone">
-              <h5 className="text-uppercase col-xs-12">Fittings</h5>
-              <div className="col-xs-12">Kitchen: Stainless Steel Sink with Drain Board</div>
-              <div className="col-xs-12">Toilets: Branded CP Fittings and Sanitary Ware</div>
-            </div>
-            <div className="textInner col-xs-4 pNone">
-              <h5 className="text-uppercase col-xs-12">Doors</h5>
-              <div className="col-xs-12">Internal: Wooden Frame</div>
-              <div className="col-xs-12">Main: Decorative with Wooden Frame</div>
-            </div>
-            <div className="textInner col-xs-4 pNone">
-              <h5 className="text-uppercase col-xs-12">Windows</h5>
-              <div className="col-xs-12">UPVC</div>  
-              <div className="col-xs-12">UPVC</div>             
-            </div>
-            <div className="textInner col-xs-4 pNone">
-              <h5 className="text-uppercase col-xs-12">Flooring</h5>
-              <div className="col-xs-12">Master Bedroom: Laminated Wooden Flooring</div>
-              <div className="col-xs-12">Balcony: Anti Skid Tiles</div>
-              <div className="col-xs-12">Kitchen: Anti Skid Tiles</div>
-              <div className="col-xs-12">Other Bedroom: RAK/Laminated Wooden Flooring</div>
-              <div className="col-xs-12">Living/Dining: Marble Granite Tiles</div>
-              <div className="col-xs-12">Toilets: Anti Skid Tiles</div>
-            </div>
-            
-            <div className="textInner col-xs-4 pNone">
-              <h5 className="text-uppercase col-xs-12">Walls</h5>
-              <div className="col-xs-12">Kitchen: Ceramic Tiles Dado up to 2 Feet Height Above Platform</div>
-              <div className="col-xs-12">Toilets: Ceramic Tiles Dado up to 7 Feet Height Above Platform</div>
-              <div className="col-xs-12">Interior: Plastic Emulsion Paint</div>
-              <div className="col-xs-12">Exterior: Texture Paint</div>
-            </div>
+            <div className="row">
+                {specificationNodes}            
             </div>
 
           </div>

@@ -931,6 +931,43 @@ function getAvailableUnitViewsOptions(propertyType){
 
 
 
+
+
+
+
+
+
+
+function getAllAmenities(){
+
+	var totalUnitsInBuilding = [];
+	var options =[];
+	var units = _projectData.units;
+	
+	totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
+
+	_.each(totalUnitsInBuilding, function(unit){
+
+		if(unit.views.length>0){
+			_.each(unit.views, function(view){
+				
+					options.push(view);			
+			});
+		}		
+	});
+
+	return _.uniq(options);
+}
+
+
+
+
+
+
+
+
+
+
 // Method to load project data from API
 function _loadProjectData(data) {
 	
@@ -1090,6 +1127,8 @@ function _getUnitDetails(unitId){
 		unitData.variantData = unitVariantData;
 		unitData.buildingData = buildingData;
 		unitData.propertyTypeName = propertyTypeName;
+
+		unitData.allAmenities = getAllAmenities();
 	}
 	
 	return unitData;	

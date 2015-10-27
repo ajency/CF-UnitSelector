@@ -48,7 +48,11 @@ var TabPanes = React.createClass({
 		    <LiveTour />
 
 		    <OutsideView />
-		    <SocietyAmenities />			   
+		    <SocietyAmenities
+		    allAmenities = {unitData.basic.allAmenities}
+		    unitAmenities = {unitData.basic.views}
+		     />
+
 			</div>
 			);
 	}
