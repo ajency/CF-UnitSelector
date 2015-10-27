@@ -8,14 +8,13 @@
     <title>CommonFloor - {{ $project_title }}</title>
 
 
-    <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
-    <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom-big.css' )}}" rel='stylesheet'/>
     <link rel="stylesheet" href="{{ asset('css/cf-mobile/gh-fork-ribbon.min.css' )}}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/font-awesome.css' )}}"/> 
     <link href="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.css' )}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/Swiper/dist/css/swiper.min.css' )}}"/>
     <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
+    
 	<script src="{{ asset('lib/react.js' )}}"></script>
 
     <style type="text/css">
@@ -60,7 +59,7 @@
 
         if(_.isNull(detectedMobile)){
             isMobile = false;
-            $("#size-stylesheet").attr("href", "../css/cf-mobile/custom-big.css");
+            $("#size-stylesheet").attr("href", "{{ asset('css/cf-mobile/custom-big.css' )}}");
             
         }else{
             isMobile = true;
