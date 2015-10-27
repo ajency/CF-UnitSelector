@@ -100,7 +100,7 @@ var NavBar = React.createClass({
         domTodisplay = (
             <div>
               <div className="logoOuter"><i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i></div>
-              <div className="col-xs-12 unitDetails"><small className="text-uppercase"><b>{unitCount} {selectionText}</b></small></div>
+              <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits">{unitCount} {selectionText}</small></div>
               <div className="clear"></div>
             </div>
         ); 

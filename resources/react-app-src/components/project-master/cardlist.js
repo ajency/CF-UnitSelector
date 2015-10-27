@@ -3,40 +3,40 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var CardView = require('../project-master/cardview');
 var Slider = require('react-slick');
 
-var $sliderSettings = {
-   centerMode: true,
-   centerPadding: '60px',
-   arrows: false,
-   slidesToShow: 3,
-   responsive: [
-   {
-       breakpoint: 768,
-       settings: {
-           arrows: false,
-           centerMode: true,
-           centerPadding: '40px',
-           slidesToShow: 3
-       }
-   },
-   {
-       breakpoint: 480,
-        settings: {
-            arrows: false,
-            centerMode: true,
-           centerPadding: '40px',
-           slidesToShow: 1
-       }
-   }
-    ]
+var sliderSettings = {
+    pagination: false,
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    coverflow: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows : true
+    }
 };
 
 var CardList = React.createClass({
 
     mixins: [PureRenderMixin],
 
-    swipeCard: function(event, slick, direction){
+    swipeCard: function(swiper){
+
+      swiperContainer = swiper.container;
+      swiperContainerHtml = swiperContainer[0];
+      swiperSlides = swiper.slides;
+      
+      // current slide 
+      currentSlideIndex = swiper.activeIndex;
+
+      // current slide html
+      currentSlideHtml = swiperSlides[currentSlideIndex];
+
       this.props.destroyTooltip();
-      towerId = $(event.currentTarget).find(".slick-center").children( ".card-swipe" ).data("unitid");
+      towerId = $(currentSlideHtml).find(".card-swipe" ).data("unitid");
+
       towerId = parseInt(towerId);
 
       buildings = this.props.buildings;
@@ -48,36 +48,44 @@ var CardList = React.createClass({
     },
 
     componentWillUnmount: function(){
-        
+        var mySwiper;
         var $sliderContainer = $(this.refs.sliderContainer);
 
-        if($sliderContainer.hasClass('slick-initialized')){
-              $sliderContainer.slick('unslick');
+        if($sliderContainer.hasClass('swiper-container-horizontal')){
+              mySwiper = $('.swiper-container')[0].swiper;
+              mySwiper.destroy(true,true);
             }
         
     },
     componentDidMount: function() {
-      
+      var mySwiper;
       var $sliderContainer = $(this.refs.sliderContainer);
 
-      if((!($sliderContainer.hasClass('slick-initialized'))) && (window.isMobile)){
-        $sliderContainer.slick($sliderSettings);
+
+      if((!($sliderContainer.hasClass('swiper-container-horizontal'))) && (window.isMobile)){
+            mySwiper = new Swiper('.swiper-container', sliderSettings);
       }
            
        },    
 
     componentDidUpdate: function() {
-       
-       var $sliderContainer = $(this.refs.sliderContainer);
-       $sliderContainer.slick('unslick');
+        var mySwiper;
+        var $sliderContainer = $(this.refs.sliderContainer);
+
+        mySwiper = $('.swiper-container')[0].swiper;
+        mySwiper.destroy(true,true);
 
 
-        if(!($sliderContainer.hasClass('slick-initialized'))){
-          $sliderContainer.slick($sliderSettings);
+        if((!($sliderContainer.hasClass('swiper-container-horizontal'))) && (window.isMobile)){
+              mySwiper = new Swiper('.swiper-container', sliderSettings);
         }
 
-        // On swipe event
-        $sliderContainer.on('swipe', this.swipeCard);
+        // // On swipe event
+        // $sliderContainer.on('swipe', this.swipeCard);
+
+        mySwiper.on("TransitionEnd", this.swipeCard);
+       
+  
 
 
            
@@ -95,11 +103,13 @@ var CardList = React.createClass({
 
         buildingNodes = buildings.map(function(building,i){
                             return(
-                                <div key={i}>
-                                <CardView  
-                                  building={building}
-                                  isFilterApplied={isFilterApplied}
-                                /> 
+                                <div key={i} className="swiper-slide">
+                                  <div>
+                                    <CardView  
+                                      building={building}
+                                      isFilterApplied={isFilterApplied}
+                                    /> 
+                                  </div>
                                 </div>
                             ); 
                                  
@@ -110,8 +120,10 @@ var CardList = React.createClass({
             <div className="bottom-card">
                 <div className="blue">
                     
-                        <div ref="sliderContainer" className="slider center">
+                        <div ref="sliderContainer" className="swiper-container">
+                        <div className="swiper-wrapper">
                             {buildingNodes}
+                        </div>    
                         </div>
                    
                 </div>
