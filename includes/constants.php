@@ -7,7 +7,7 @@ define('PASSWORD','Ajency#123');
 define('DATABASE','booking_engine');
 
 define('SITE_URL','http://booking.cfunitselectortest.com/');
-define('UNITSELECTOR_URL','http://45.118.135.216/');
+define('UNITSELECTOR_URL','http://test.cfunitselectortest.com/');
 define('BOOKINGCRM_URL','http://bookingcrm.cfunitselectortest.com/');
 
 define('payuUrl','https://test.payu.in/merchant/postservice.php?form=2'); 
