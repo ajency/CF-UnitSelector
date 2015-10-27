@@ -38,8 +38,8 @@ unset($_SESSION);
                           <h3 class="text-center text-uppercase">Your session is expired</h3>
                           <div class="col-xs-12">Sorry for the inconvinience.</div>
                                                 
-                          <button class="btn btn-sm btn-default btn-primary">Try again</button>
-                           <button class="btn btn-sm btn-default btn-gray">Back to home</button>
+                          <a href="unit.php"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>
+                          <a href="http://www.commonfloor.com/"><button class="btn btn-sm btn-default btn-gray">Back to home</button></a>
                     </div>
                     
                 </div>
