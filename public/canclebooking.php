@@ -131,20 +131,16 @@ $bookingId = $_SESSION['booking_id'];
                                 </div>
                             </div>                                            
 
-                            <div class="col-xs-12 cancelBookingOuter">
+                           <div class="col-xs-12 cancelBookingOuter">
                                 <div class="row">
-                                    <div class="col-md-6 col-xs-12 note">
-                                        Note : The Refund can be made by cheque & nift.
-                                    </div>
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="#"  onclick="refundAmount('<?php echo $unitId?>','<?php echo REFUND_URL;?>')" class="brn btn-default btn-sm btn-primary">Cancel booking</a>
-                                        <span class="cancleText"><i class="fa">*</i> <span class="text">Booking can be canclLed within 7 days.
-                                        Contact administrator for more details. </span></span>                                      
-                                    </div>
+                                    <div class="col-md-8 col-sm-8 col-xs-12 note">
+                                        Note : The Refund can be made by cheque or NEFT.
+                                    </div>      
+                                    <div class="col-md-4 col-sm-4 col-xs-12 text-right">    
+                                        <button class="btn btn-sm btn-primary btn-default text-uppeercase">Back</button>
+                                    </div>                                                      
                                 </div>
                             </div>
-                                                                                    
-                        </div>
                     </div>
                     <div class="bottomSection hidden-xs">
                         <div class="col-xs-6">
