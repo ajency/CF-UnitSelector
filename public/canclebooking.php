@@ -137,7 +137,7 @@ $bookingId = $_SESSION['booking_id'];
                                         Note : The Refund can be made by cheque or NEFT.
                                     </div>      
                                     <div class="col-md-4 col-sm-4 col-xs-12 text-right">    
-                                        <button class="btn btn-sm btn-primary btn-default text-uppeercase">Back</button>
+                                        <a href="http://www.commonfloor.com/"><button class="btn btn-sm btn-primary btn-default text-uppeercase">Back</button></a>
                                     </div>                                                      
                                 </div>
                             </div>
