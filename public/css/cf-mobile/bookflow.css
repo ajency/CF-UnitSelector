@@ -814,7 +814,7 @@ body {
   line-height: 1.5;
 }
 .successContent.cancelBooking .cancelBookingOuter {
-  padding: 10px 0 5px 0;
+  padding: 20px 0 0px 0;
 }
 .successContent.cancelBooking .note {
   margin-top: 8px;

@@ -1583,6 +1583,7 @@ body a {
 .step4Desk .specificationOuter .textInner {
   margin-bottom: 30px;
   color: #7d7c7a;
+  border-right: 1px solid #f6f6f6;
 }
 .step4Desk .specificationOuter .textInner h5 {
   margin-bottom: 10px;
