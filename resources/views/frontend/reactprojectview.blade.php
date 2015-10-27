@@ -7,13 +7,14 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>CommonFloor - {{ $project_title }}</title>
 
-    
+
     <link rel="stylesheet" href="{{ asset('css/cf-mobile/gh-fork-ribbon.min.css' )}}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/font-awesome.css' )}}"/> 
     <link href="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.css' )}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/Swiper/dist/css/swiper.min.css' )}}"/>
     <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
+    
 	<script src="{{ asset('lib/react.js' )}}"></script>
 
     <style type="text/css">
@@ -58,7 +59,7 @@
 
         if(_.isNull(detectedMobile)){
             isMobile = false;
-            $("#size-stylesheet").attr("href", "../css/cf-mobile/custom-big.css");
+            $("#size-stylesheet").attr("href", "{{ asset('css/cf-mobile/custom-big.css' )}}");
             
         }else{
             isMobile = true;
@@ -99,5 +100,33 @@
         });   
 
       </script>
+
+      <script type="text/javascript">
+      if(!window.isMobile){
+        $(document).on('click', '.click', function (e) {
+        var theID = $(this).attr('id');
+        $('html, body').animate({
+            scrollTop: $('#' + theID + '_div').offset().top-60
+        }, 1000);
+        return false;
+      });
+
+      function sticky_relocate() {
+          var window_top = $(window).scrollTop();
+          var div_top = $('#sticky-anchor').offset().top;
+          if (window_top > div_top) {
+              $('#stickyHeader').addClass('stick');
+          } else {
+              $('#stickyHeader').removeClass('stick');
+          }
+      }
+
+      $(function () {
+          $(window).scroll(sticky_relocate);
+          sticky_relocate();
+      });
+      }
+      
+    </script>   
 </body>
 </html>
