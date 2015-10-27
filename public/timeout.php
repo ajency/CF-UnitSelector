@@ -55,19 +55,42 @@ unset($_SESSION);
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.panzoom.js"></script>
     <script type="text/javascript">
-            //$('.collapse').collapse()
-            $( document ).ready(function() {    
-               window.onbeforeunload = function() {
-                    window.setTimeout(function () { // escape function context
-                        window.location = 'unit.php';
-                    }, 0);
-                    window.onbeforeunload = null;   // necessary to prevent infinite loop
-                    return "This session is expired and the history altered.";
-                }
+            // //$('.collapse').collapse()
+            // $( document ).ready(function() {    
+            //    window.onbeforeunload = function() {
+             
+            //         var confirm = confirm("Would you like to stay on the page?");
+            //         return "This session is expired and the history altered.";
+            //     }
 
-            });
+            // });
 
         </script>   
+<script type="text/javascript">
+ 
+    jQuery(document).ready(function($) {
 
+      if (window.history && window.history.pushState) {
+
+        $(window).on('popstate', function() {
+          var hashLocation = location.hash;
+          var hashSplit = hashLocation.split("#!/");
+          var hashName = hashSplit[1];
+
+          if (hashName !== '') {
+            var hash = window.location.hash;
+            if (hash === '') {
+              alert('This session is expired and the history altered.');
+                window.location='unit.php';
+                return false;
+            }
+          }
+        });
+
+        window.history.pushState('timeout', null, './#timeout');
+      }
+
+    });
+</script>
     </body>
 </html>
