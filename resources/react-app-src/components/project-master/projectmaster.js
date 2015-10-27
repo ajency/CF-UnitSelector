@@ -56,8 +56,12 @@ var ProjectMaster = React.createClass({
         spinApi.playTo(chosenBreakPoint);
 
         slideToGotTo = this.state.data.unitIndexToHighlight;
-        mySwiper = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container")[0].swiper;
-        mySwiper.slideTo(slideToGotTo);
+
+        if(window.isMobile){
+            mySwiper = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container")[0].swiper;
+            mySwiper.slideTo(slideToGotTo);
+        }
+
 
         buildings = this.state.data.buildings;
         buildingToHighlight = buildings[slideToGotTo];
