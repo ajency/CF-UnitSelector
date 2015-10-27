@@ -89,13 +89,14 @@ $startTime= time();
                 </div>
                 
                 <div class="">
-                <form  method="post" action="/application/controller/payment-gateway.php" id="listingMainForm" data-parsley-validate>
+                <form onsubmit="return makeUnitPayment();"  method="post" action="/application/controller/payment-gateway.php" id="listingMainForm" data-parsley-validate>
                  <input type="hidden" name="unit_id" value="<?php echo $unitId?>" >
                  <input type="hidden" name="project_id" value="<?php echo $projectId?>" >
                  <input type="hidden" name="merchant_id" value="<?php echo $merchantId?>" >
                  <input type="hidden" name="salt" value="<?php echo $salt ?>" >
                  <input type="hidden" name="bookingId" value="<?php echo $bookingId ?>" >
                  <input type="hidden" name="startTime" value="<?php echo $startTime ?>" >
+                 <input type="hidden" name="makePayment" value="0" >
 
                <div class="panel-group col-md-12 col-sm-12 col-xs-12" id="accordion" role="tablist" aria-multiselectable="true">
                   <div class="panel-inner">
@@ -362,7 +363,7 @@ $startTime= time();
                         
                         <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <button  type="submit" class="btn btn-primary btn-default btn-small">Make payment</button></div>
+                            <button onclick="updateTextValue();" type="submit" class="btn btn-primary btn-default btn-small">Make payment</button></div>
                         </div>
                       </div>
                     </div>

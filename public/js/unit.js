@@ -36,6 +36,7 @@ function copyBillingInfo(obj){
         $("select[name='billing_buyer_type']").val($("select[name='buyer_type']").val());
         $("input[name='billing_state']").val($("input[name='contact_state']").val());
         $("input[name='billing_country']").val($("input[name='contact_country']").val());
+        $('form').submit();
     }
     else
     {
@@ -258,23 +259,27 @@ function goToNextStep(anchor ,divClass)
 {   
     var divs = ['detailsOuter','billingDetails','termsConditions']
     var flag =true;
+    $('form').submit();
     $('.'+divClass).find('input, select').each(function(index) {
         if($(this).val()=='' || $(this).hasClass("parsley-error")){
-           $('form').submit();
            flag =false;
         }
     });
-
-    // $( divs ).each(function(index, value) {
-    //     if(value != divClass)
-    //     {
-    //         $("."+value).find( ".parsley-error" ).addClass('hidden');
-    //     }
-      
-    // });
+    $("input[name='makePayment']").val('0');
 
     if(flag)
         $("#"+anchor).click();
+}
+
+function makeUnitPayment()
+{
+    if($("input[name='makePayment']").val()==0)
+        return false;
+}
+
+function updateTextValue()
+{
+    $("input[name='makePayment']").val('1');
 }
 
 function validateForm()
