@@ -1,6 +1,17 @@
 <?php
-session_start();
-unset($_SESSION);
+require_once '../includes/include.php';
+require_once '../application/controller/indexController.php'; 
+
+$buyer_name = $_SESSION['buyer_name'];
+$buyer_email = $_SESSION['buyer_email'];
+$buyer_phone = $_SESSION['buyer_phone'];
+$unitId = $_SESSION['unitId'];
+$unitinfo =  json_decode(getUnitInfo($unitId),true); 
+$unitData =$unitinfo['data'] ;
+$booking_amount=getBookingAmount($unitId,"booking_amount"); 
+$totalSaleValue=getBookingAmount($unitId,"sale_value");
+$bookingId = $_SESSION['booking_id'];
+//unset($_SESSION);
 ?>
 <!doctype html>
 <html>
@@ -28,26 +39,148 @@ unset($_SESSION);
   </head>
 
     <body class="bookingFlow">      
-        <div class="container-fluid header mB25">
+        <div class="container-fluid bookFlowContent">
+        <div class="absoluteLayout"></div>
             <div class="container">
-                <h3 class="text-center mT10 mB10">Apply for an Appartment</h3>
+                <div class="col-xs-12 closeIcon"><i class="">X</i>
+                <h3 class="text-center text-uppercase">Your Booking has been cancelled</h3>
+                </div>
+                <div class="successOuter">
+                    <div class="successContent col-xs-12 cancelBooking">
+                         <div class="col-md-12 col-sm-12 col-xs-12 reviewDetails">                          
+                            <div class="col-xs-12">  
+                                <div class="row">    
+                                <div class="row">  
+                                <div class="col-md-8 col-xs-12">
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <span class="text-uppercase bookApmt">Booking ID : </span>
+                                            <span class="flatNo">( <?php echo $bookingId?> ) </span>
+                                        </div>
+                                    </div>
+                                    <h5 class="text-uppercase"><?php echo $unitData['project_title']?> <span class="unitName orangeText">( <?php echo $unitData['unit']['name']?> )</span></h5>
+                                </div>
+                              
+                                <div class="col-md-4 col-xs-12 bookedUser">
+                                    <div class="col-xs-12">             
+                                      <span class="title">Name&nbsp; &nbsp; :</span>
+                                        <span class="detail"><?php echo $buyer_name;?></span>
+                                    </div>
+                                    <div class="col-xs-12">             
+                                      <span class="title">Email &nbsp; &nbsp; :</span>
+                                      <span class="detail"><?php echo $buyer_email;?></span>
+                                    </div>
+                                    <div class="col-xs-12">             
+                                      <span class="title">mobile &nbsp;  :</span>
+                                      <span class="detail"><?php echo $buyer_phone;?></span>
+                                    </div>
+                                </div>                                  
+                            
+                                </div>
+                                </div>
+                            </div>
+                       
+                            <div class="col-md-12 col-sm-12 col-xs-12 detailsOuter">
+                                <div class="col-md-2 col-xs-12">
+                                    <div class="col-xs-12 unitDetails"> <?php echo $unitData['unit']['unit_type']?></div>
+                                    <div class="col-xs-12 titleDetails">BHK Type</div>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <div class="col-xs-12 unitDetails"><?php echo $unitData['project_type']?></div>
+                                    <div class="col-xs-12 titleDetails">Property Type</div> 
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <div class="col-xs-12 unitDetails"><?php echo $unitData['unit']['built_up_area']?> Sq Ft</div>
+                                    <div class="col-xs-12 titleDetails">Area</div>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                     <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo $unitData['unit']['per_sq_ft_price']?></div>
+                                     <div class="col-xs-12 titleDetails">Price per SQFT.</div>                                   
+                                </div>
+                                <?php 
+                                if(!empty($unitData['building']))
+                                {
+                                ?>
+                                <div class="col-md-2 col-xs-12">
+                                    <div class="col-xs-12 unitDetails"> <?php echo ordinalSuffix($unitData['unit']['floor_number'])?> Floor</div>
+                                    <div class="col-xs-12 titleDetails">Floor Number</div>
+                                </div>
+                        
+                                <div class="col-md-2 col-xs-12">
+                                    <div class="col-xs-12 unitDetails"><?php echo $unitData['building']['name']?></div>
+                                    <div class="col-xs-12 titleDetails">Tower Name</div>
+                                </div>
+                                 <?php 
+                                }
+                                ?> 
+                                <div class="col-md-2 col-xs-12">
+                                    <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo $totalSaleValue;?></div>
+                                    <div class="col-xs-12 titleDetails">Total Price</div> 
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo $booking_amount;?></div>
+                                    <div class="col-xs-12 titleDetails">Booking Amount</div>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['builder_name']?></div>
+                                     <div class="col-xs-12 titleDetails">Builder</div>                                   
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <div class="col-xs-12 unitDetails"><?php echo $unitData['area_name']?></div>
+                                    <div class="col-xs-12 titleDetails">Locality</div>
+                                </div>
+                            </div>                                            
+
+                            <div class="col-xs-12 cancelBookingOuter">
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12 note">
+                                        Note : The Refund can be made by cheque & nift.
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <a href="#"  onclick="refundAmount('<?php echo $unitId?>','<?php echo REFUND_URL;?>')" class="brn btn-default btn-sm btn-primary">Cancel booking</a>
+                                        <span class="cancleText"><i class="fa">*</i> <span class="text">Booking can be canclLed within 7 days.
+                                        Contact administrator for more details. </span></span>                                      
+                                    </div>
+                                </div>
+                            </div>
+                                                                                    
+                        </div>
+                    </div>
+                    <div class="bottomSection hidden-xs">
+                        <div class="col-xs-6">
+                            <span class="icon">
+
+                            </span>
+                            <span class="rightContent">
+                                <h5 class="text-uppercase">Flexible payments</h5>
+                                <p>PayUbiz allows you to make easy payment through various payment methods/modes.</p>
+                            </span>
+                        </div>
+                        <div class="col-xs-6">
+                            <span class="icon">
+
+                            </span>
+                            <span class="rightContent">
+                                <h5 class="text-uppercase">Need some help?</h5>
+                                <p>For any queries <i class="fa fa-envelope-o"></i>  <a href="mailto:contactus@commonfloor.com">contactus@commonfloor.com</a>/ <a href="mailto:support@commonfloor.com">support@commonfloor.com</a> or feel free to <i class="fa fa-phone"></i>  our helpline number 1800 180 180 180 ON All 7 days of week from 7AM TO 11PM.</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bookingFooter">
+                    Call 1800 180 180 180
+                    <div class="privacyOuter"><a href="#">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
+                </div>
             </div>
         </div>
+        
+         
 
-        <div class="container-fluid content">
-            <div class="container">
-                
-                <div class="timeoutOuter">                  
-                    <span class="failureMsg">Booking cancled successfully</span>
-                    <span class="transactionFailed mT20 col-xs-12"> For Refund please contact <a href="#">commonfloor.support@int</a></span>
-                </div>
-                
-            </div>
-        </div>                 
-
-        <script src="js/jquery.min.js"></script>
+         <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.panzoom.js"></script>       
-    </body>
+ 
+
+    </body>                
+
 </html>

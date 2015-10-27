@@ -394,7 +394,7 @@ $startTime= time();
                 </div>
 
                 <div class="bookingFooter">
-                    <a href="#">commonfloor.com</a>
+                    Call 1800 180 180 180
                     <div class="privacyOuter"><a href="#">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
                 </div>
             </div>

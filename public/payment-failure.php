@@ -33,24 +33,19 @@ unset($_SESSION);
                 
                 <div class="successOuter">
                     <div class="successContent col-xs-12 sessionExpireContent transactionFailed text-center">
-                          <i class="fa fa-5x fa-exclamation-circle col-xs-12"></i>
-                          <h3 class="text-center text-uppercase"> Sorry! Transaction failed  </h3>
-                          <div class="col-xs-12">Sorry for the inconvinience.
-                            Your transaction could not be processed. Please contact your bank or send an email to<a href="mailto:support@commonfloor.com">support@commonfloor.com</a>.
-                                <br><br>
-                            Your transaction number is 1234567897454
-                                <br><br>
-                            Please note this number as it may be used for tracking your payment.
-                          </div>
+                        <i class="fa fa-5x fa-exclamation-circle col-xs-12"></i>
+                      <h3 class="text-center text-uppercase"> Sorry! Transaction failed  </h3>
+                      <div class="col-xs-12">We regret to inform you that your payment for Unit FC1  with Booking ID as 12sjkj23gg2 at Mantri Energia for Project " Legand Apartment " is unsuccessful. Sorry for the inconvenience. The Unit booking could not proceed and you can still book the unit  by visiting at <a href="www.commonfloor.com">www.commonfloor.com</a>.
+                      </div>
 
-                          <button class="btn btn-sm btn-default btn-primary">Try again</button>
-                           <button class="btn btn-sm btn-default btn-gray">Back to home</button>
+                      <a href="unit.php"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>
+                      <a href="http://www.commonfloor.com/"> <button class="btn btn-sm btn-default btn-gray">Back to home</button></a>
                     </div>
-                    
+                  
                 </div>
                 <div class="bookingFooter sessionExpireFooter">
-                    <a href="#">commonfloor.com</a>
-                    <div class="privacyOuter"><a href="#">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
+                  Call 1800 180 180 180
+                  <div class="privacyOuter"><a href="#">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
                 </div>
             </div>
         </div>                         
