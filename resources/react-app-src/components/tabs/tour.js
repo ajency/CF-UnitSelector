@@ -2,12 +2,17 @@ var React = require('react');
 
 var LiveTour = React.createClass({
   render: function () {
-    return (
 
-            <div role="tabpanel" className="tab-pane" id="messages">
+
+var domToDisplay ;
+
+
+if(window.isMobile){
+    domToDisplay = (
+        <div role="tabpanel" className="tab-pane" id="messages">
                 <div className="col-xs-12 details">
                     <div className="flatDetails">
-                        <h4>Floor Plans</h4>
+                        <h4>Live Tour</h4>
                     </div>
                     <div className="twodView">
                         <img src="img/bldg-3d.png" />
@@ -16,7 +21,31 @@ var LiveTour = React.createClass({
                 </div>
 
             </div>
-    )
+        );
+}else{
+   domToDisplay = (
+        <div className="col-xs-12 liveTour pNone" id="liveTour_div">
+        <div className="row">
+          <div className="contentHEader">
+            <span className="contentTitle text-uppercase">
+              Live Tour
+            </span>
+           
+          </div>
+        </div>
+        <div className="col-xs-12 floorDetails">
+          <div className="row">
+              <div className="col-xs-12 details">
+                    <img src="img/bldg-3d.png" />
+              </div>
+          </div>
+          </div>
+        </div>
+        ); 
+}
+
+
+    return domToDisplay;
   }
 });
 
