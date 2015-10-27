@@ -22,9 +22,21 @@ var CardList = React.createClass({
 
     mixins: [PureRenderMixin],
 
-    swipeCard: function(event, slick, direction){
+    swipeCard: function(swiper){
+
+      swiperContainer = swiper.container;
+      swiperContainerHtml = swiperContainer[0];
+      swiperSlides = swiper.slides;
+      
+      // current slide 
+      currentSlideIndex = swiper.activeIndex;
+
+      // current slide html
+      currentSlideHtml = swiperSlides[currentSlideIndex];
+
       this.props.destroyTooltip();
-      towerId = $(event.currentTarget).find(".slick-center").children( ".card-swipe" ).data("unitid");
+      towerId = $(currentSlideHtml).find(".card-swipe" ).data("unitid");
+
       towerId = parseInt(towerId);
 
       buildings = this.props.buildings;
@@ -49,6 +61,7 @@ var CardList = React.createClass({
       var mySwiper;
       var $sliderContainer = $(this.refs.sliderContainer);
 
+
       if((!($sliderContainer.hasClass('swiper-container-horizontal'))) && (window.isMobile)){
             mySwiper = new Swiper('.swiper-container', sliderSettings);
       }
@@ -69,6 +82,10 @@ var CardList = React.createClass({
 
         // // On swipe event
         // $sliderContainer.on('swipe', this.swipeCard);
+
+        mySwiper.on("TransitionEnd", this.swipeCard);
+       
+  
 
 
            

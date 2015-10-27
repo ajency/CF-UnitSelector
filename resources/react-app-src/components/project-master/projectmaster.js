@@ -56,8 +56,8 @@ var ProjectMaster = React.createClass({
         spinApi.playTo(chosenBreakPoint);
 
         slideToGotTo = this.state.data.unitIndexToHighlight;
-        slickDom = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".slider");
-        slickDom.slick('slickGoTo',slideToGotTo);
+        mySwiper = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container")[0].swiper;
+        mySwiper.slideTo(slideToGotTo);
 
         buildings = this.state.data.buildings;
         buildingToHighlight = buildings[slideToGotTo];
@@ -100,13 +100,11 @@ var ProjectMaster = React.createClass({
             filterStyle: filterStyle,
             value: filterValue
         }
-        console.log(dataToSet);
-
+       
         this.updateStateData([dataToSet]);
     },
 
     selectFilter: function(evt){
-        console.log("selectFilter");
         isChecked = evt.target.checked;
 
         filterType = $(evt.target).data("filtertype");
