@@ -1482,6 +1482,9 @@ body a {
   display: none;
   padding-top: 15px;
 }
+.step4Desk .tabHeader ul li.stickyButtons button:first-child {
+  margin-right: 5px;
+}
 .step4Desk .tabHeader.stick {
   position: fixed;
   top: 0;

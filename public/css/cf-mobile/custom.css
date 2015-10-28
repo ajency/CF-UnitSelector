@@ -1393,7 +1393,7 @@ div#spritespin {
   text-transform: uppercase;
   font-size: 14px;
   float: left;
-  width: 10%;
+  width: 100%;
 }
 .selected img {
   -webkit-filter: grayscale(0) !important;
