@@ -933,6 +933,12 @@ body a {
 .enquiryText {
   margin-left: 5px;
 }
+#page-content-wrapper {
+  overflow-x: hidden;
+}
+#wrapper {
+  overflow: hidden;
+}
 #overlay {
   position: absolute;
   top: 0;
@@ -1481,6 +1487,9 @@ body a {
 .step4Desk .tabHeader ul li.stickyButtons {
   display: none;
   padding-top: 15px;
+}
+.step4Desk .tabHeader ul li.stickyButtons button:first-child {
+  margin-right: 5px;
 }
 .step4Desk .tabHeader.stick {
   position: fixed;
