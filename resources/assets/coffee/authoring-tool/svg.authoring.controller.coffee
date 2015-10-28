@@ -99,7 +99,6 @@ jQuery(document).ready ($)->
         draw.attr('enable-background', "new 0 1920 1080")
         draw.attr('preserveAspectRatio', "xMinYMin slice")  
 
-
     #function to create left side panel
     window.createPanel =(data)->
         $.each data,(index,value)->
