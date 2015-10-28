@@ -30,6 +30,15 @@ var RangeComponent = React.createClass({
 
     var listItems = this.props.listItems;
     var listType = this.props.listType;
+    var searchedFilter = this.props.searchedFilter;
+
+    var selectedoption = this.state.value;
+
+    if(!_.isUndefined(searchedFilter)){
+      if(_.isEmpty(searchedFilter)){
+        selectedoption = false;
+      }
+    }
 
 
 
@@ -67,13 +76,13 @@ var RangeComponent = React.createClass({
       rangeDom = (
         <div className="row p-0 budgetOuter">
            <div className="col-xs-6">
-             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'min-'+listType} onChange={this.change} value={this.state.value} data-type='min'>
+             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'min-'+listType} onChange={this.change} value={selectedoption} data-type='min'>
                <option>MIN</option>
                {minFilters}
              </select>    
           </div>  
           <div className="col-xs-6">
-             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'max-'+listType} onChange={this.change} value={this.state.value} data-type='max'>
+             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'max-'+listType} onChange={this.change} value={selectedoption} data-type='max'>
                <option>MAX</option>
                {maxFilters}
              </select> 
@@ -85,13 +94,13 @@ var RangeComponent = React.createClass({
       rangeDom = (        
       <li className="budgetOuter">
           <div className="col-xs-6">
-             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'min-'+listType} onChange={this.change} value={this.state.value} data-type='min'>
+             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'min-'+listType} onChange={this.change} value={selectedoption} data-type='min'>
                <option>MIN</option>
                {minFilters}
              </select>    
           </div>  
           <div className="col-xs-6">
-             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'max-'+listType} onChange={this.change} value={this.state.value} data-type='max'>
+             <select data-filterstyle = 'range' data-filtertype = {listType} name = {'max-'+listType} onChange={this.change} value={selectedoption} data-type='max'>
                <option>MAX</option>
                {maxFilters}
              </select> 

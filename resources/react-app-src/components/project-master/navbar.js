@@ -36,8 +36,20 @@ var NavBar = React.createClass({
         });
       }
       else{
+
+
+var newAppliedFiltersCount = [];
+_.each(applied_filters, function(filter, key){
+  if(filter.length>0){
+    newAppliedFiltersCount.push(key);
+  }
+});
+
+
+
         appliedFilterKeys = _.keys(applied_filters);
-        appliedFilterCount = appliedFilterKeys.length;
+        //appliedFilterCount = appliedFilterKeys.length;
+        appliedFilterCount = newAppliedFiltersCount.length;
         filterClasses = classNames({
           "filterNumber" : true
         });

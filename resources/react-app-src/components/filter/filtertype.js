@@ -86,13 +86,31 @@ var FilterType = React.createClass({
                             
                                     var filterUiDom;
 
+
+                                    var searchedFilter = this.props.searchedFilter; 
+                                    var filterUiDom;
+                                    var filtervalueId = (filterValue.id); 
+
+                                    filtervalueId = filtervalueId.toString();
+
+
+                                    if (searchedFilter === undefined || searchedFilter === null) {
+                                        isSelected = false;
+                                    }else{
+                                        if(searchedFilter.length == 0)
+                                            isSelected = false;
+                                        else
+                                            isSelected = (_.indexOf(searchedFilter,filtervalueId) > -1);
+                                    }
+
+
                                     if(window.isMobile){
                                         filterUiDom = (
                                             <div key={i} className="checkboxnormal">
                                                 <h5 className="col-xs-9 normal">{filterValue.name}</h5>
                                                 <span className="col-xs-3 text-center">
 
-                                                        <input type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id} /><label></label>
+                                                        <input type="checkbox" checked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id} /><label></label>
 
                                                 </span>
                                             </div>                              
@@ -101,7 +119,7 @@ var FilterType = React.createClass({
                                     else{
                                         filterUiDom = (
                                                 <div key={i} className="col-xs-4">
-                                                    <input type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
+                                                    <input type="checkbox" checked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
                                                     <label className="checkboxLabel"></label>
                                                     <label>{filterValue.name}</label>
                                                 </div>
@@ -115,7 +133,7 @@ var FilterType = React.createClass({
         }
         else if(filterDisplayType==="range"){
             
-            filterValueNodes = ( <RangeComponent listItems={filterValues} listType={filterType.type} selectFilter={this.props.selectFilter} /> );
+            filterValueNodes = ( <RangeComponent listItems={filterValues} listType={filterType.type} selectFilter={this.props.selectFilter} searchedFilter={this.props.searchedFilter} /> );
         }
 
 
