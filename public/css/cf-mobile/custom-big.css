@@ -939,6 +939,13 @@ body a {
 #wrapper {
   overflow: hidden;
 }
+.us-right-content {
+  overflow: auto;
+}
+.us-right-content .image-contain {
+  width: 100%;
+  overflow: auto;
+}
 #overlay {
   position: absolute;
   top: 0;
