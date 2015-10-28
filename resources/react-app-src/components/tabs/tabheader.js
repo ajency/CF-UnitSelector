@@ -41,6 +41,15 @@ var TabHeader = React.createClass({
 		</div>
   		);
   }else{
+
+    if(unitData.basic.status === 'available'){
+      var bookNowButton = (
+        <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
+        );
+    }else{
+      var bookNowButton = "";
+    }
+
   	domToDisplay = (
   		<div>
 
@@ -57,7 +66,7 @@ var TabHeader = React.createClass({
           <span className={'unitStatus text-uppercase '+statusClass}>{unitStatus}</span>          
         </div>
         <div className="col-xs-6 text-right rightSide">          
-          <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
+          {bookNowButton}
           <button className="btn btn-default btn-sm btn-primary text-uppercase">
             <i className="fa fa-phone"></i>
             <span className="enquiryText">Contact Us</span>
@@ -79,7 +88,7 @@ var TabHeader = React.createClass({
         <li><a href="#" id="outsideView" className="click">Outside view</a></li>
         <li><a href="#" id="societyEmenities" className="click">Society amenities</a></li>
         <li className="pull-right stickyButtons">
-           <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
+           {bookNowButton}
           <button className="btn btn-default btn-sm btn-primary text-uppercase">
             <i className="fa fa-phone"></i>
             <span className="enquiryText">Contact Us</span>
