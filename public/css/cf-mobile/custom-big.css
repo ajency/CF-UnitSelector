@@ -846,10 +846,12 @@ body a {
 }
 .in-selection {
   fill: rgba(16, 165, 169, 0.34) !important;
+  opacity: .9 !important;
 }
 .not-in-selection,
 .not-availabel {
   fill: rgba(0, 0, 0, 0.46) !important;
+  opacity: .9 !important;
 }
 .pop-up-in {
   -webkit-animation: pop-in 1s both;
