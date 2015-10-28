@@ -95,10 +95,9 @@ jQuery(document).ready ($)->
                 console.log value
                 window.path.generatePathTag(value)
                    
-        draw.attr('viewBox', "0 0 1300 731.25")
-        draw.attr('enable-background', "new 0 1300 731.25")
+        draw.attr('viewBox', "0 0 1920 1080")
+        draw.attr('enable-background', "new 0 1920 1080")
         draw.attr('preserveAspectRatio', "xMinYMin slice")  
-
 
     #function to create left side panel
     window.createPanel =(data)->

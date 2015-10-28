@@ -125,7 +125,22 @@ var ProjectMaster = React.createClass({
 
     },
 
+    updateUnitIndexToHighlight: function(unitId){
+        unitId = parseInt(unitId);
+        data  = this.state.data;
+        buildings  = data.buildings;
+        buildingIds  = _.pluck(buildings, 'id');
 
+        indexTohighlight = _.indexOf(buildingIds,unitId);
+
+        dataToSet ={
+            property: "unitIndexToHighlight",
+            value: indexTohighlight
+        };
+
+        this.updateStateData([dataToSet]);    
+
+    },
 
     updateRotateShadow: function(showShadowStatus){
         dataToSet = {
@@ -452,6 +467,7 @@ var ProjectMaster = React.createClass({
                         buildingToHighlight = {buildingToHighlight}
                         destroyTooltip = {this.destroyTooltip}
                         showTooltip = {this.showTooltip}
+                        updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight}
                     />
                     <CardList 
                         ref = "cardList"
@@ -493,7 +509,8 @@ var ProjectMaster = React.createClass({
                             buildings =  {buildings}
                             buildingToHighlight = {buildingToHighlight}
                             destroyTooltip = {this.destroyTooltip}
-                            showTooltip = {this.showTooltip}                        
+                            showTooltip = {this.showTooltip}  
+                            updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight}                      
                         />
                         
 

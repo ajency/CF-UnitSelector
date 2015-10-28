@@ -214,9 +214,16 @@ class ProjectApartmentUnitController extends Controller {
      * @return Response
      */
     public function update($project_id, $id, Request $request) {
- 
+         
         $unit = Unit::find($id);
         $status =$request->input('unit_status');
+
+        if($status == 'blocked' || $status == 'payment_in_progress')
+        {
+          Session::flash('error_message','Error !!! Cannot update unit as it is used for booking');    
+          return redirect("/admin/project/" . $project_id . "/apartment-unit/" . $id . '/edit');
+        }
+
         if(!isAgent())      //NOT AGENT HE CAN UPDATE OTHER DETAILS
         {
             $unit->unit_name = ucfirst($request->get('unit_name'));

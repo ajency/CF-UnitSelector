@@ -233,6 +233,11 @@ class ProjectBunglowUnitController extends Controller {
     public function update($project_id, $id, Request $request) {
         $unit = Unit::find($id);
         $status =$request->input('unit_status');
+        if($status == 'blocked' || $status == 'payment_in_progress')
+        {
+          Session::flash('error_message','Error !!! Cannot update unit as it is used for booking');    
+          return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $id . '/edit');
+        }
         if(!isAgent())      //NOT AGENT HE CAN UPDATE OTHER DETAILS
         {
             $unit->unit_name = ucfirst($request->input('unit_name'));

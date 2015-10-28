@@ -103,17 +103,19 @@
 			font-weight:normal;
 			margin-top:20px;
 			text-transform: uppercase;
+			margin-bottom: 10px;
 		}
 		h5
 		{
 			margin-top:20px;
+			margin-bottom: 10px;
 		}
 		
 		.flatDetails
 		{
 			border-bottom:1px solid @gray-light;
 						
-			span
+			span.unitFacing
 			{
 				color:@gray-dark;
 				display:inline-block;
@@ -124,9 +126,10 @@
 			{
 				margin-bottom:15px;
 				font-size:14px;
-				span
+				span.amount
 				{
 					color:@gray-light;
+					margin-left: 0;
 				}
 				span.availability
 				{
@@ -445,11 +448,16 @@
 	    padding:5px;
 	    text-transform:uppercase;
 	    font-size:10px;
-
+	    width: 50%;
+	    float: left;
 	    &:first-child
 	    {
 	    	border-right:1px solid @white;
 	    }	
+	    &.booked
+	    {
+	    	backgroun:@gray;
+	    }
 
 	    div
 	    {
