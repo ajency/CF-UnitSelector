@@ -946,6 +946,9 @@ body a {
   width: 100%;
   overflow: auto;
 }
+.sideBarLogo img {
+  height: 100%;
+}
 #overlay {
   position: absolute;
   top: 0;
