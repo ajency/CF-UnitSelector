@@ -7,6 +7,7 @@
       <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <title>CF-MOBILE</title>
       <link href='../../css/cf-mobile/custom-big.css' rel='stylesheet'/>
+
       <link href='../../css/cf-mobile/font-awesome.css' rel='stylesheet'/>
       <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
       <link href="qtip/jquery.qtip.css" rel="stylesheet">
@@ -482,13 +483,17 @@
          $(window).bind('resize', set_body_height);
          set_body_height();
          
-         $(".image ").panzoom({
-            // startTransform: 'scale(1.1)',
-            contain: 'invert',
-            minScale: 1,
-            disablePan: false,
-            disableZoom: false,
-         });
+        $(".image ").panzoom({
+                 // startTransform: 'scale(1.1)',
+                 contain: 'invert',
+                 minScale: 1,
+                 disablePan: false,
+                 disableZoom: false,
+              });
+         
+              $('.image').panzoom("setMatrix", [1, 0, 0, 1.1, -371, 9]);
+         
+    
          
       
          
