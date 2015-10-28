@@ -414,6 +414,16 @@ body .row {
   opacity: 0.3;
   fill: #ffffff;
 }
+.svg-top-area svg {
+  position: absolute;
+  height: 200px;
+  left: 0%;
+  z-index: 9999;
+}
+.svg-top-area img {
+  height: 200px;
+  margin: 0px;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -875,14 +885,16 @@ div#spritespin {
   font-weight: normal;
   margin-top: 20px;
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
 .tab-content .details h5 {
   margin-top: 20px;
+  margin-bottom: 10px;
 }
 .tab-content .details .flatDetails {
   border-bottom: 1px solid #bcbcba;
 }
-.tab-content .details .flatDetails span {
+.tab-content .details .flatDetails span.unitFacing {
   color: #706f6d;
   display: inline-block;
   font-size: 14px;
@@ -892,8 +904,9 @@ div#spritespin {
   margin-bottom: 15px;
   font-size: 14px;
 }
-.tab-content .details .flatDetails .price span {
+.tab-content .details .flatDetails .price span.amount {
   color: #bcbcba;
+  margin-left: 0;
 }
 .tab-content .details .flatDetails .price span.availability {
   color: #12acac;
@@ -1139,9 +1152,14 @@ div#spritespin {
   padding: 5px;
   text-transform: uppercase;
   font-size: 10px;
+  width: 50%;
+  float: left;
 }
 .tabfooter button:first-child {
   border-right: 1px solid #ffffff;
+}
+.tabfooter button.booked {
+  backgroun: #7d7c7a;
 }
 .tabfooter button div {
   float: left;
@@ -1384,10 +1402,15 @@ div#spritespin {
   padding: 10px;
   text-transform: uppercase;
   font-size: 14px;
+  float: left;
+  width: 100%;
 }
 .selected img {
   -webkit-filter: grayscale(0) !important;
           filter: grayscale(0) !important;
+}
+.filter-type h5 {
+  margin-bottom: 12px;
 }
 #overlay {
   position: absolute;

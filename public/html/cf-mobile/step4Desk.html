@@ -72,7 +72,7 @@
 
     </div>
     <div class="contentOuter col-xs-12 pNone">
-      <div class="col-xs-12 detailView pNone" id="details">
+      <div class="col-xs-12 detailView outerDivs pNone" id="details">
         <div class="row">
           <div class="contentHEader">
             <span class="contentTitle text-uppercase">
@@ -289,7 +289,7 @@
 
         </div>
       </div>  
-      <div class="col-xs-12 floorPlans pNone" id="floorPlan">
+      <div class="col-xs-12 floorPlans outerDivs pNone" id="floorPlan">
         <div class="row">
           <div class="contentHEader">
             <span class="contentTitle text-uppercase">
@@ -313,7 +313,7 @@
           </div> 
         </div>
       </div>
-      <div class="col-xs-12 outsideView pNone" id="outsideView">
+      <div class="col-xs-12 outsideView outerDivs pNone" id="outsideView">
         <div class="row">
           <div class="contentHEader">
             <span class="contentTitle text-uppercase">
@@ -339,7 +339,7 @@
           </div> 
         </div>
       </div>
-       <div class="col-xs-12 amenitiesView pNone" id="societyEmenities">
+       <div class="col-xs-12 amenitiesView outerDivs pNone" id="societyEmenities">
         <div class="row">
           <div class="contentHEader">
             <span class="contentTitle text-uppercase">
@@ -636,6 +636,50 @@
 });
       
     </script>   
+    <script type="text/javascript">
+      $(document).ready(function () {
+      var sections = $('.outerDivs')
+          , nav = $('tabHeader')
+          , nav_height = nav.outerHeight();
+
+          $(window).on('scroll', function () {
+            var cur_pos = $(this).scrollTop();
+            
+            sections.each(function() {
+              var top = $(this).offset().top - nav_height,
+                  bottom = top + $(this).outerHeight();
+              
+              if (cur_pos >= top && cur_pos <= bottom) {
+                nav.find('a').removeClass('active');
+                sections.removeClass('active');
+                
+                $(this).addClass('active');
+                nav.find('a[href="#'+$(this).attr('id')+'"]').addClass('active');
+              }
+            });
+          });
+
+          nav.find('a').on('click', function () {
+            var $el = $(this)
+              , id = $el.attr('href');
+            
+            $('html, body').animate({
+              scrollTop: $(id).offset().top - nav_height
+            }, 500);
+            
+            return false;
+          });
+
+ });
+
+
+
+
+
+
+
+
+    </script>
     <script type="text/javascript">
     $(document).ready(function () {
       function sticky_relocate() {

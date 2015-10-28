@@ -306,6 +306,8 @@ body {
 .bookFlowContent .panel .termsConditions {
   font-size: 16px;
   margin-top: 18px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 .bookFlowContent .panel .termsConditions label {
   font-weight: 400;
@@ -317,7 +319,7 @@ body {
   position: absolute;
   opacity: 0;
   height: 15px;
-  width: 20px;
+  width: 100%;
   left: 0;
   margin-top: 0;
   float: left;
@@ -357,6 +359,17 @@ body {
 .bookFlowContent .panel .termsConditions label a {
   color: #fe943e;
   outline: none;
+  position: relative;
+  z-index: 9999;
+}
+.bookFlowContent .panel .termsConditions li.parsley-required {
+  list-style: none;
+  font-size: 11px;
+  position: absolute;
+  top: 58px;
+  left: 0;
+  width: 100%;
+  color: #ee1f3b;
 }
 .bookFlowContent .panel .mandatory {
   background: #fcf8e3;
@@ -381,6 +394,47 @@ body {
   margin: 0 0 20px;
   padding: 0;
 }
+.bookFlowContent .panel .sameAsAbove input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  height: 15px;
+  width: 100%;
+  left: 0;
+  margin-top: 0;
+  float: left;
+}
+.bookFlowContent .panel .sameAsAbove .accept {
+  float: left;
+}
+.bookFlowContent .panel .sameAsAbove label.checkboxLabel {
+  height: 15px;
+  width: 15px;
+  background: none;
+  border: 2px solid #d5d5d4;
+  text-align: center;
+  margin-top: 2px !important;
+  float: left;
+  margin-right: 5px;
+}
+.bookFlowContent .panel .sameAsAbove input[type=checkbox]:checked + label:before {
+  content: "\2714";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 15px;
+  background: #12acac;
+  border: none;
+  width: 15px;
+  height: 15px;
+  font-weight: 400;
+  padding-top: 2px;
+  display: block;
+  border: 2px solid rgba(0, 0, 0, 0);
+  margin: -2px 0 0 -2px;
+  line-height: 0.8;
+  font-size: 12px;
+}
 .bookFlowContent .panel .personalDetails {
   padding: 0;
 }
@@ -402,14 +456,6 @@ body {
 .bookFlowContent .panel .personalDetails input:focus,
 .bookFlowContent .panel .personalDetails select:focus {
   outline: none;
-}
-.bookFlowContent .panel .personalDetails .parsley-required {
-  list-style: none;
-  font-size: 11px;
-  position: absolute;
-  top: 22px;
-  left: 15px;
-  color: #ee1f3b;
 }
 .bookFlowContent .panel .btnOuter button {
   margin-top: 25px;
@@ -489,7 +535,7 @@ body {
   list-style: none;
   font-size: 11px;
   position: absolute;
-  top: 50px;
+  top: 22px;
   left: 15px;
   color: #ee1f3b;
 }
