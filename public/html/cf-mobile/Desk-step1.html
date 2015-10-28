@@ -695,8 +695,8 @@
          $('.image   ').height($(window).height());
          }
       
-          $('.us-right-content  ').css('height', windowHeight);
-         $('.us-right-content  ').css('min-width', windowHeight * 1.78);
+         //  $('.us-right-content  ').css('height', windowHeight);
+         // $('.us-right-content  ').css('min-width', windowHeight * 1.78);
          $('.svg-area   ').css('height', windowHeight);
          $('.svg-area   ').css('min-width', windowHeight * 1.78);
            function set_body_height() { // set body height = window height
@@ -720,7 +720,9 @@
             disableZoom: false,
          });
          
-      
+//       $(' path').on('mousedown touchstart', function(e) {
+//  return e.stopImmediatePropagation();
+// });
          
          });
          // $(".image img").panzoom({
