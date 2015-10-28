@@ -11,7 +11,7 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
-var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -1137,6 +1137,9 @@ function _getUnitDetails(unitId){
 }
 
 function _getBuildingMasterDetails(buildingId){
+	var projectData = _projectData;
+	var finalData = {};
+
 	buildingId = parseInt(buildingId);
 	var buildingData = {"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
 	var buildings = [];
