@@ -33,7 +33,7 @@
 		font-size:20px;
 		margin:10px 0 0 0;
 	}
-	.available 
+	.unitStatus
 	{
 		border:1px solid @real-green;
 		border-radius:3px;
@@ -43,13 +43,31 @@
 		margin-top: 10px;
 	    float: left;
 	    margin-left: 10px;
+	    &.available 
+	    {
+	    	border:1px solid @real-green;
+	    	color:@real-green;
+	    }
+	    &.sold
+	    {
+	    	border:1px solid @gray;
+	    	color:@gray;
+	    }	    
 	}
+
 	.rightSide
 	{
 		padding-top:25px;	
-		button i
+		button 
 		{
-			margin-left: 5px;
+			i
+			{
+				margin-left: 5px;
+			}
+			&:first-child
+			{
+				margin-right: 5px;
+			}
 		}
 	}	
 	.flatDetails 
@@ -144,8 +162,7 @@
     	padding: 15px 25px;
     	.contentTitle 
     	{
-    		padding: 5px 20px 5px 0;
-   			border-right: 1px solid @gray-light;
+    		padding: 5px 20px 5px 5px;   			
    			color:@gray-dark;
    			font-weight:600;
     	}
@@ -169,6 +186,7 @@
 				margin-top: 0;
 			    font-weight: 600;
 			    margin-bottom: 20px;
+			    font-size: 14px;
 			}
 			.roomDetails
 			{
