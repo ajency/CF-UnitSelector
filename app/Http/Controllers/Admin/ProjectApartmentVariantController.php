@@ -333,6 +333,14 @@ class ProjectApartmentVariantController extends Controller {
      */
     public function update($project_id, $id, Request $request) {
        
+        $isUnitBlocked = isUnitBlocked($id);
+
+        if($isUnitBlocked)
+        {
+           Session::flash('error_message','Error !!! Cannot update variant as its unit is used for booking');    
+           return redirect("/admin/project/" . $project_id . "/apartment-variant/" . $id . '/edit');
+        }
+
         $unitVariant = UnitVariant::find($id);
         $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');

@@ -77,6 +77,7 @@ var UnitDetails = React.createClass({
 		if(!_.isEmpty(unit)){
 
 			unitData.basic.name = unit.unit_name;
+			unitData.basic.cfProjectId = unit.cfProjectId;
 			unitData.basic.direction = unit.direction;
 			unitData.basic.sellingAmount= unit.selling_amount;
 			unitData.basic.propertyTypeName= unit.propertyTypeName;
@@ -110,7 +111,12 @@ var UnitDetails = React.createClass({
 
 		var domToDisplay;
 
+		var unitId = this.props.unitId;
+		var projectId ;
+
 		unitData = this.getFormattedUnitData(this.state);
+		projectId = unitData.basic.cfProjectId;
+		status = unitData.basic.status;
 
 		buildingName = unitData.basic.buildingName;
 		propertyTypeName = unitData.basic.propertyTypeName;
@@ -128,7 +134,11 @@ var UnitDetails = React.createClass({
 				<TabPanes
 					unitData = {unitData}
 				/>
-				<TabFooter/>
+				<TabFooter
+					unitId = {unitId}
+					projectId = {projectId}
+					unitStatus = {status}
+				/>
 			</div>
 		)
 		}else{
