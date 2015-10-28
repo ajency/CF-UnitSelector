@@ -80,6 +80,16 @@ var SvgContainer = React.createClass({
       // apply tooltip only for higlighted building svg
       this.props.showTooltip(highlightedBuildingName);
 
+      // on mouse hover of building apply tooltip
+      $(".building").mouseover(function(e){
+         var that = this;
+         id = parseInt(e.currentTarget.id);
+         $('.cardOuter').mCustomScrollbar("scrollTo",'#building'+id);
+         
+         // update building to highlight
+         that.props.updateUnitIndexToHighlight(id);
+      }.bind(this));
+
     },
 
     render: function(){

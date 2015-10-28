@@ -1011,6 +1011,112 @@ div#spritespin {
   display: block;
   margin: 0 auto;
 }
+.btn-primary {
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+}
+.btn-primary:hover,
+.btn-primary.focus {
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+  outline: none;
+}
+.contactModal {
+  top: 15% !important;
+}
+.contactModal .modal-body {
+  float: left;
+  width: 100%;
+  background: #ffffff;
+  padding-top: 0;
+}
+.contactModal .modal-body h4 {
+  margin-top: 30px;
+}
+.contactModal .modal-header {
+  border: none !important;
+}
+.contactModal .p-0 {
+  padding: 0;
+}
+.contactModal p {
+  font-size: 14px;
+  margin-top: 2px;
+  color: #bcbcba;
+  margin-bottom: 20px;
+}
+.contactModal .modal-dialog {
+  width: 100%;
+  border-radius: 0;
+}
+.contactModal .modal-content {
+  border-radius: 0;
+}
+.contactModal .inputOuter {
+  padding: 10px;
+}
+.contactModal .inputOuter input {
+  width: 100%;
+  background: none;
+  border: none;
+  margin-bottom: 15px;
+  padding: 10px 0px 5px 0;
+  border-bottom: 1px solid #d5d5d4;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.contactModal .inputOuter input:focus {
+  outline: none;
+}
+.contactModal .close {
+  position: absolute;
+  z-index: 999;
+  top: 10px;
+  right: 10px;
+  opacity: 1;
+  height: 25px;
+  width: 25px;
+  color: #d5d5d4;
+  border-radius: 50%;
+  font-weight: 300;
+}
+.contactModal .close:hover,
+.contactModal .close:focus {
+  color: #d5d5d4;
+  opacity: 1;
+  outline: none;
+}
+.contactModal .close span {
+  margin-top: 0;
+  float: left;
+  width: 100%;
+}
+.contactModal .modalLogo {
+  display: block;
+  transform: scale(0.8);
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+}
+.contactModal .help {
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-top: 15px;
+  float: left;
+  width: 100%;
+}
+.contactModal h5 {
+  text-transform: uppercase;
+  margin-top: 3px;
+  float: left;
+  width: 100%;
+  color: #fe943e;
+}
+.contactModal .developers {
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #bcbcba;
+  margin-bottom: 20px;
+}
 @media screen and (max-width: 320px) {
   .tab-content {
     margin-top: 75px;
