@@ -20,7 +20,6 @@ if(window.isMobile){
                                 </div>
                                 <div className="projectDetails">
                                     <div className="col-xs-12 roomHeading">
-                                        <span><i className="fa fa-2x fa-bed"></i></span>
                                         <h4 className="text-uppercase">{room.room_name}</h4>
                                     </div>
 
