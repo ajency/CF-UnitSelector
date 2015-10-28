@@ -6,7 +6,11 @@ var Details = React.createClass({
     var basicDetails = this.props.basicDetails;
     var roomData = this.props.roomData;
 
-  
+var domToDisplay ;
+
+
+if(window.isMobile){
+
     roomCardNodes = roomData.map(function(room,i){
                         return(
                             <div key={i} className="col-xs-12 details">
@@ -28,9 +32,10 @@ var Details = React.createClass({
                             </div>
                         ); 
                              
-                    });    
-    return (
+                    });
 
+
+    domToDisplay = (
             <div role="tabpanel" className="tab-pane active" id="home">
                 <div className="col-xs-12 details">
                     <div className="flatDetails">
@@ -70,7 +75,72 @@ var Details = React.createClass({
                 </div>
                 {roomCardNodes}
             </div>
-    )
+        );
+
+}else{
+
+    roomCardNodes = roomData.map(function(room,i){
+                        return(
+                            <div key={i} className="col-md-3 roomDetails text-uppercase">
+                                <h5 className="text-uppercase">{room.room_name}</h5>
+                                    <RoomAttributeList
+                                        attributes={room.atributes}
+                                    />
+                            </div>
+                        ); 
+                             
+                    });
+
+    
+   specificationNodes = _.map( basicDetails.variantAttributes , function(val, key){
+        return(
+          <div key={key} className="textInner col-xs-3 pNone">
+            <h5 className="text-uppercase col-xs-12">{key}</h5>
+            <div className="col-xs-12">{val}</div>
+        </div>
+        ); 
+    });
+
+
+
+   domToDisplay = (
+        <div className="col-xs-12 detailView pNone" id="details_div">
+        <div className="row">
+          <div className="contentHEader">
+            <span className="contentTitle text-uppercase">
+              Details
+            </span>
+            
+          </div>
+        </div>
+        <div className="col-xs-12 unit">
+          <div className="row">            
+            {roomCardNodes}
+          </div> 
+          <div className="col-xs-12 specificationOuter pNone">
+            <div className="row">
+            <div className="contentHEader">
+              <div className="row">
+              <span className="contentTitle text-uppercase">
+                Specification
+              </span>
+              </div>
+            </div>
+          </div>
+
+            <div className="row">
+                {specificationNodes}            
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+   ); 
+}
+
+
+    return domToDisplay;
   }
 });
 

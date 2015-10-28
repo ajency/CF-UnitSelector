@@ -3,6 +3,7 @@ var AppStore = require('../../stores/app-store.js');
 var TabHeader = require('../tabs/tabheader');
 var TabPanes = require('../tabs/tabpanes');
 var TabFooter = require('../tabs/tabfooter');
+var SimilarUnits = require('../tabs/similarunits');
 
 function getUnitStateData(unitId){
     return AppStore.getUnitStateData(unitId);
@@ -64,6 +65,10 @@ var UnitDetails = React.createClass({
 		basicData.url2dlayout="";
 		basicData.url3dlayout="";
 
+		basicData.variantAttributes = "";
+		basicData.views = "";
+		basicData.allAmenities = "";
+
 		unitData.basic = basicData;
 		unitData.rooms = roomData;
 
@@ -72,6 +77,7 @@ var UnitDetails = React.createClass({
 		if(!_.isEmpty(unit)){
 
 			unitData.basic.name = unit.unit_name;
+			unitData.basic.cfProjectId = unit.cfProjectId;
 			unitData.basic.direction = unit.direction;
 			unitData.basic.sellingAmount= unit.selling_amount;
 			unitData.basic.propertyTypeName= unit.propertyTypeName;
@@ -81,6 +87,10 @@ var UnitDetails = React.createClass({
 			unitData.basic.builtUpArea = unit.variantData.built_up_area;
 			unitData.basic.buildingName = unit.buildingData.building_name;
 			unitData.basic.unitTypeName = unit.variantData.unitTypeName;
+
+			unitData.basic.variantAttributes = unit.variantData.variant_attributes;
+			unitData.basic.views = unit.views;
+			unitData.basic.allAmenities = unit.allAmenities;
 
 			floorData = unit.variantData.floor
 			groundfloorData = floorData[0];
@@ -101,12 +111,19 @@ var UnitDetails = React.createClass({
 
 		var domToDisplay;
 
+		var unitId = this.props.unitId;
+		var projectId ;
+
 		unitData = this.getFormattedUnitData(this.state);
+		projectId = unitData.basic.cfProjectId;
+		status = unitData.basic.status;
 
 		buildingName = unitData.basic.buildingName;
 		propertyTypeName = unitData.basic.propertyTypeName;
 		unitTypeName = unitData.basic.unitTypeName;
 
+
+		if(window.isMobile){
 		domToDisplay = (
 			<div>
 				<TabHeader
@@ -117,10 +134,29 @@ var UnitDetails = React.createClass({
 				<TabPanes
 					unitData = {unitData}
 				/>
-				<TabFooter/>
+				<TabFooter
+					unitId = {unitId}
+					projectId = {projectId}
+					unitStatus = {status}
+				/>
 			</div>
-
 		)
+		}else{
+			domToDisplay = (
+			<div className="container-fluid step4Desk">
+				<TabHeader
+					buildingName={buildingName}
+					unitTypeName={unitTypeName}
+					propertyTypeName={propertyTypeName}					
+					unitData = {unitData}
+				/>
+				<TabPanes
+					unitData = {unitData}
+				/>
+				<SimilarUnits />
+			</div>
+		)
+		}
 		return domToDisplay;
 	}
 });
