@@ -161,8 +161,11 @@ var CardView = React.createClass({
 
           }
 
+          // give card an id to help in scrolling
+          cardId = "building"+buildingId;
+
           mainDom = (   <li className="sidebar-brand">
-                            <div className={cardClasses} onClick={this.selectCard} data-unitid={buildingId}>
+                            <div className={cardClasses} onClick={this.selectCard} data-unitid={buildingId} id={cardId}>
                                 <div className="row">
                                     <div className="col-xs-12">
                                         <h4 className=" margin-none text-left text-uppercase"> {buildingName}</h4>

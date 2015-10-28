@@ -196,7 +196,16 @@ var ImageContainerTemplate = React.createClass({
                   <div className="image-contain">
 
                       <div ref="imageContainer" className="image" style={imageContainerStyle}>
-                          <SvgContainer ref="svgContainer" svgData={svgData} chosenBreakpoint={this.props.chosenBreakpoint} key={this.props.chosenBreakpoint} buildings={ buildings} buildingToHighlight={ this.props.buildingToHighlight} showTooltip={ this.props.showTooltip} />
+                          <SvgContainer 
+                            ref="svgContainer" 
+                            svgData={svgData} 
+                            chosenBreakpoint={this.props.chosenBreakpoint} 
+                            key={this.props.chosenBreakpoint} 
+                            buildings={ buildings} 
+                            buildingToHighlight={ this.props.buildingToHighlight} 
+                            showTooltip={ this.props.showTooltip} 
+                            updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                          />
 
                           <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
                           <img key={this.props.chosenBreakpoint+1} src={shadowImgUrl} className="img-responsive shadow fit" />
@@ -227,7 +236,16 @@ var ImageContainerTemplate = React.createClass({
 
                   <div ref="imageContain" className="image-contain" style={imageContainStyle}>
                       <div ref="imageContainer" className="image" style={imageContainerStyle}>
-                          <SvgContainer ref="svgContainer" svgData={svgData} chosenBreakpoint={this.props.chosenBreakpoint} key={this.props.chosenBreakpoint} buildings={ buildings} buildingToHighlight={ this.props.buildingToHighlight} showTooltip={ this.props.showTooltip} />
+                          <SvgContainer 
+                            ref="svgContainer" 
+                            svgData={svgData} 
+                            chosenBreakpoint={this.props.chosenBreakpoint} 
+                            key={this.props.chosenBreakpoint} 
+                            buildings={ buildings} 
+                            buildingToHighlight={ this.props.buildingToHighlight} 
+                            showTooltip={ this.props.showTooltip} 
+                            updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                          />
 
                           <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
 
