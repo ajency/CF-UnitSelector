@@ -117,6 +117,20 @@ function getPropertyVariantsById(propertyType,variantId,key){
 
 
 
+
+function getAppliedFiltersCount(filters){
+var newfilters = [];
+_.each(filters, function(filter, key){
+	if(filter.length>0){
+		newfilters.push(key);
+	}
+});
+return newfilters.length;
+}
+
+
+
+
 function getUnitCount(propertyType,filters){
 	var unitCount = {"total":[],"available":[], "filtered":[]};
 	var units = [];
@@ -136,7 +150,7 @@ function getUnitCount(propertyType,filters){
 		// from all the building units get only those units that are available
 		availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
 
-		
+					
 			_.each(appliedFilters, function(appliedFilter, key){
 
 				if(key==="unitTypes"){
@@ -1173,6 +1187,11 @@ var AppStore = merge(EventEmitter.prototype, {
 
 	updateGlobalState: function(newState){
 		_updateGlobalState(newState);
+	},
+
+
+	getFilteredCount: function(filters){
+		return getAppliedFiltersCount(filters);
 	},
 
 

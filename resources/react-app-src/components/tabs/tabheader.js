@@ -45,7 +45,7 @@ var TabHeader = React.createClass({
               </span>
             </div>  
           <h4 className="text-uppercase">{unitName}</h4>
-          <span className="available text-uppercase">{unitStatus}</span>          
+          <span className="unitStatus available text-uppercase">{unitStatus}</span>          
         </div>
         <div className="col-xs-6 text-right rightSide">          
           <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
