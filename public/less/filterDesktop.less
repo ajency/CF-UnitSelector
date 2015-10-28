@@ -5,7 +5,7 @@
   right: 144px; 
   width: 470px;
   height: 400px;
-  padding: 6px;
+  padding: 0px;
   text-align: left;
   background: #fff;  
   box-shadow:
@@ -16,8 +16,8 @@
   .filterLiTop
   {
     border-bottom:1px solid @gray-light;
-    padding-bottom: 7px;
-    display:block;
+    padding:6px 10px;
+    display:block;  
     h5
     {
       margin:10px 0 0 0;
@@ -34,6 +34,10 @@
     {
       margin-right:20px;
     }
+  }
+  .filterUl 
+  {
+    padding: 0;
   }
 }
 .float-nav.closed {
@@ -123,9 +127,9 @@ width: 80px;
 }
 
 .float-nav ul {
-      position: absolute;
+     /* position: absolute;
     top: 40px;
-    left: 0;
+    left: 0;*/
     opacity: 1;    
     -webkit-transition: all 300ms;
     transition: all 300ms;
