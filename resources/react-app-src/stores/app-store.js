@@ -504,7 +504,9 @@ function getApartmentUnitTypes(buildingId){
 	if(!_.isEmpty(_projectData)){
 
 		// get all units in the project
-		allUnits = _projectData.units;
+		totalUnitsInBuilding = _projectData.units;
+
+		allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
 
 
 		// based on buildingId passed either return all or only specific building's units 
@@ -550,6 +552,10 @@ function getPropertyVariants(propertyType,variant){
 
 	var variants = [];
 
+	var totalUnitsInBuilding = _projectData.units;
+	var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+	var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
+
 
 	switch(propertyType) {
 
@@ -568,7 +574,15 @@ function getPropertyVariants(propertyType,variant){
 
 	}
 
-	_.each(propertyVariants, function(p_variants){
+
+	var filteredVariants = _.filter(propertyVariants , function(variant){
+		if(unitsIds.indexOf(variant.id) > -1){
+			return variant;
+		}
+	});
+	
+
+	_.each(filteredVariants, function(p_variants){
 				var variantName = p_variants.variant_attributes[variant];
 	    		var var_attributes = {
 	    			id: variantName,
@@ -604,6 +618,10 @@ function checkVariationIsUnique(variants,variantName){
 function getVariantsName(propertyType,variant){
 var variants = [];
 
+var totalUnitsInBuilding = _projectData.units;
+var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
+
 
 	switch(propertyType) {
 
@@ -622,7 +640,14 @@ var variants = [];
 
 	}
 
-	_.each(propertyVariants, function(p_variants){
+
+	var filteredVariants = _.filter(propertyVariants , function(variant){
+		if(unitsIds.indexOf(variant.id) > -1){
+			return variant;
+		}
+	});
+
+	_.each(filteredVariants, function(p_variants){
 				var variantName = p_variants[variant];
 	    		var var_attributes = {
 	    			id: variantName,

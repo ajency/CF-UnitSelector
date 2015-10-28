@@ -14,6 +14,15 @@ var TabHeader = React.createClass({
   	var sellingAmount = unitData.basic.sellingAmount;
 
 
+    
+    if(unitData.basic.status === 'sold'){
+      var statusClass = 'sold';
+    }else if(unitData.basic.status === 'available'){
+      var statusClass = 'available';
+    }else{
+      var statusClass = '';
+    }
+
   	var domToDisplay ;
 
   	if(window.isMobile){
@@ -45,7 +54,7 @@ var TabHeader = React.createClass({
               </span>
             </div>  
           <h4 className="text-uppercase">{unitName}</h4>
-          <span className="unitStatus available text-uppercase">{unitStatus}</span>          
+          <span className={'unitStatus text-uppercase '+statusClass}>{unitStatus}</span>          
         </div>
         <div className="col-xs-6 text-right rightSide">          
           <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
