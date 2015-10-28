@@ -12,11 +12,38 @@
     0 1px 2px rgba(0,0,0,0.2),
     0 4px 10px rgba(0,0,0,0.15);
   transition: all 300ms cubic-bezier(.6,-0.3,.3,1.3);
+
+  .filterLiTop
+  {
+    border-bottom:1px solid @gray-light;
+    padding-bottom: 7px;
+    display:block;
+    h5
+    {
+      margin:10px 0 0 0;
+      float:left;
+      font-weight:600;      
+      color:@gray-darker;
+      
+      .filterHeader
+      {
+        color:@brand-primary;
+      }
+    }
+    button
+    {
+      margin-right:20px;
+    }
+  }
 }
 .float-nav.closed {
 width: 80px;
  height: 30px;
   border-radius: 3px; 
+  .filterLiTop
+  {
+    display: none;
+  }
 }
 
 .float-nav a {
@@ -97,15 +124,15 @@ width: 80px;
 
 .float-nav ul {
       position: absolute;
-    top: 0;
+    top: 40px;
     left: 0;
     opacity: 1;    
     -webkit-transition: all 300ms;
     transition: all 300ms;
     width: 100%;
     list-style:none;
-    height:100%;
-    margin-bottom:0;
+    height:89%;
+    margin-bottom:40px;
     margin-top:0;
 }
 .float-nav.closed ul { opacity: 0; }
@@ -128,26 +155,7 @@ width: 80px;
 .float-nav.closed li { margin-bottom: 1.375em; }
 
 .float-nav li
-{
-  &.filterLiTop
-  {
-    border-bottom:1px solid @gray-light;
-    h5
-    {
-      margin:10px 0 0 0;
-      float:left;
-      font-weight:600;      
-      
-      .filterHeader
-      {
-        color:@brand-primary;
-      }
-    }
-    button
-    {
-      margin-right:20px;
-    }
-  }
+{  
   &.filterCheckbox
   {
     background:@gray-lightest;
