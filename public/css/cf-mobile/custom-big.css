@@ -930,6 +930,12 @@ body a {
 .enquiryText {
   margin-left: 5px;
 }
+#page-content-wrapper {
+  overflow-x: hidden;
+}
+#wrapper {
+  overflow: hidden;
+}
 #overlay {
   position: absolute;
   top: 0;
