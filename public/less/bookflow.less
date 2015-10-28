@@ -382,6 +382,8 @@ body
 		{
 			font-size:16px;
 			margin-top: 18px;
+			margin-bottom:15px;
+			text-align: center;
 			label
 			{
 				font-weight: 400;
@@ -394,7 +396,7 @@ body
 		        position:absolute;
 		        opacity:0;
 		        height:15px;
-		        width:20px;
+		        width:100%;
 		        left:0;     
 		        margin-top:0;
 		        float:left;
@@ -441,8 +443,21 @@ body
 				{
 					color: @brand-primary;
 					outline:none;
+					position: relative;
+					z-index: 9999;
 				}
 			}
+				li.parsley-required
+				{
+					list-style: none;
+					font-size: 11px;
+					position: absolute;
+				    top: 58px;
+				    left:0;
+				    width: 100%;
+				    color: @real-red;
+
+				}
 		}
 
 		.mandatory
@@ -470,6 +485,54 @@ body
 		{
 			margin: 0 0 20px;
     		padding: 0;
+    		input[type=checkbox] 
+		      {
+		        position:absolute;
+		        opacity:0;
+		        height:15px;
+		        width:100%;
+		        left:0;     
+		        margin-top:0;
+		        float:left;
+		        
+		      }
+		      .accept
+		      {
+		      	float:left;
+		      }
+		      label.checkboxLabel
+		      {
+		        height:15px;
+		        width:15px;
+		        background:none;
+		        border:2px solid @gray-lighter;
+		        text-align:center;
+		        margin-top: 2px !important;
+		        float:left;
+		        margin-right:5px;
+		      }     
+
+		      input[type=checkbox]:checked + label:before 
+		      {
+		          content: "\2714";
+		          text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+		          font-size: 15px;
+		          color: #f3f3f3;
+		          text-align: center;
+		          line-height: 15px;
+		          background:@teal;
+		          border: none;
+		          width: 15px;
+		          height:15px;
+		          font-weight: 400; 
+		          padding-top:2px;
+		          display:block;           
+		          border:2px solid rgba(0,0,0,0);  
+		          margin:-2px 0 0 -2px;  
+		          line-height: 0.8;
+		          font-size: 12px;
+		      }
+
 		}
 
 		.personalDetails
@@ -494,15 +557,7 @@ body
 					outline:none;
 				}
 			}	
-			.parsley-required
-			{
-				list-style: none;
-				font-size: 11px;
-				position: absolute;
-			    top: 22px;
-			    left: 15px;
-			    color: @real-red;
-			}		
+				
 			
 		}
 		.btnOuter
@@ -626,11 +681,10 @@ body
 		list-style: none;
 		font-size: 11px;
 		position: absolute;
-	    top: 50px;
+	    top: 22px;
 	    left: 15px;
 	    color: @real-red;
-	}
-	
+	}	
 }
 .BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: rgba(0,0,0,0.3)) {
 	box-shadow: @arguments;
@@ -1069,7 +1123,7 @@ body
 	{
 		.cancelBookingOuter 
 		{
-			padding: 10px 0 5px 0;
+			padding: 20px 0 0px 0;
 		}
 		.note
 		{

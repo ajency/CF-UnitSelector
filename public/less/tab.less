@@ -103,17 +103,19 @@
 			font-weight:normal;
 			margin-top:20px;
 			text-transform: uppercase;
+			margin-bottom: 10px;
 		}
 		h5
 		{
 			margin-top:20px;
+			margin-bottom: 10px;
 		}
 		
 		.flatDetails
 		{
 			border-bottom:1px solid @gray-light;
 						
-			span
+			span.unitFacing
 			{
 				color:@gray-dark;
 				display:inline-block;
@@ -124,9 +126,10 @@
 			{
 				margin-bottom:15px;
 				font-size:14px;
-				span
+				span.amount
 				{
 					color:@gray-light;
+					margin-left: 0;
 				}
 				span.availability
 				{
@@ -291,6 +294,134 @@
 	    margin: 0 auto;
 	}	
 }
+.btn-primary
+{
+	background: @brand-primary !important;
+	border: 1px solid @brand-primary !important;
+	&:hover, &.focus
+	{
+		background: @brand-primary !important;
+		border: 1px solid @brand-primary !important;
+		outline: none;
+	}
+}
+.contactModal 
+	{
+  
+  top:15% !important;
+  .modal-body
+  {
+    float:left;
+    width:100%;
+    background:@white;
+    padding-top: 0;
+    h4
+    {
+      margin-top:30px;
+    }
+  }
+  .modal-header
+  {
+    border: none !important;
+  }
+ 
+  .p-0
+  {
+    padding:0;
+  }
+  p
+  {
+    font-size:14px;
+    margin-top:2px;
+    color:@gray-light;
+    margin-bottom: 20px;
+  }
+  .modal-dialog
+  {
+    width: 100%;
+    border-radius: 0;
+  }
+  .modal-content
+  {
+  border-radius:0;
+  }
+ 
+  .inputOuter
+  {
+     padding:10px;
+    input
+    {
+      width:100%;
+      background:none;
+      border:none;
+      margin-bottom:15px;  
+      padding: 10px 0px 5px 0;
+      border-bottom: 1px solid @gray-lighter;
+      font-size:12px;
+      text-transform:uppercase;
+      &:focus
+      {
+        outline:none;
+      } 
+    }
+  }  
+  .close
+  {
+    position: absolute;   
+    z-index: 999;
+    top: 10px;
+    right: 10px;
+    opacity: 1;
+    height:25px;
+    width:25px;   
+    color:@gray-lighter;
+    border-radius:50%;
+    font-weight:300;
+
+    &:hover, &:focus
+    {
+      color:@gray-lighter;
+      opacity: 1;  
+      outline:none;    
+    } 
+    span
+    {
+      margin-top: 0;
+      float: left;
+      width: 100%;
+    }
+  }
+  .modalLogo
+  {    
+    display: block;   
+    transform:scale(0.8);
+    -webkit-transform:scale(0.8);
+    -ms-transform: scale(0.8);
+  }
+  .help
+  {
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 15px;
+    float: left;
+    width: 100%;
+  }
+  h5
+  {
+    text-transform: uppercase;    
+    margin-top: 3px;
+    float: left;
+    width: 100%;
+    color: @brand-primary;
+  }
+  .developers
+  {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: @gray-light;
+    margin-bottom: 20px;
+  }
+}
 @media screen and (max-width:320px)
 {
 	.tab-content
@@ -317,11 +448,16 @@
 	    padding:5px;
 	    text-transform:uppercase;
 	    font-size:10px;
-
+	    width: 50%;
+	    float: left;
 	    &:first-child
 	    {
 	    	border-right:1px solid @white;
 	    }	
+	    &.booked
+	    {
+	    	backgroun:@gray;
+	    }
 
 	    div
 	    {

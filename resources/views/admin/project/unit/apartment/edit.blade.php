@@ -101,7 +101,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Status</label>
-                        <select @if(isAgent() && $unit['availability']=='booked_by_agent'){{'disabled'}}@endif  class="select2 form-control" name="unit_status">
+                        <select @if(isAgent() && $unit['availability']=='booked_by_agent'){{'disabled'}}@endif @if($unit['availability']=='blocked' || $unit['availability']=='payment_in_progress'){{'disabled'}}@endif  class="select2 form-control" name="unit_status">
                             <option @if($unit['availability']=='available'){{'selected'}}@endif value="available">Available</option>
                             <option @if($unit['availability']=='payment_in_progress'){{'selected'}}@endif value="payment_in_progress">Payment In Progress</option>
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
@@ -110,6 +110,9 @@
                             <option @if($unit['availability']=='booked_by_agent'){{'selected'}}@endif value="booked_by_agent">Booked By Agent</option>
                             <option @if($unit['availability']=='archived'){{'selected'}}@endif value="archived">Archived</option>
                         </select>
+                        @if($unit['availability']=='blocked' || $unit['availability']=='payment_in_progress')
+                        <input type="hidden" name="unit_status" value="{{ $unit['availability'] }}">
+                        @endif
                     </div>
                 </div>
                 @if($unit['availability']=='booked_by_agent')     

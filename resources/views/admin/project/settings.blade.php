@@ -28,7 +28,7 @@
             <hr/>
             <div class="row">
                 <div class="m-l-5 no-border">
-                    <h3><i class="fa fa-angle-double-right text-primary"></i> PayU   <span class="semi-bold">Detials</span></h3>
+                    <h3><i class="fa fa-angle-double-right text-primary"></i> PayU   <span class="semi-bold">Details</span></h3>
                 </div>
                  <div class="col-md-5">
                     <div class="form-group ">
