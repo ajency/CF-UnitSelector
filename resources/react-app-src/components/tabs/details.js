@@ -39,7 +39,7 @@ if(window.isMobile){
                 <div className="col-xs-12 details">
                     <div className="flatDetails">
                         <h4 className="text-uppercase">{basicDetails.name}</h4>
-                        <span className="text-muted">{basicDetails.direction}Facing</span>
+                        <span className="text-muted unitFacing">{basicDetails.direction} Facing</span>
 
                         <div className="price text-muted"> <i className="fa fa-inr"></i> {basicDetails.sellingAmount}
                             <span className="availability">{s.humanize(basicDetails.status)}</span>

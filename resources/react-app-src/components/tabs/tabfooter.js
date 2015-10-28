@@ -31,13 +31,13 @@ var TabFooter = React.createClass({
   		buttonClasses = classNames({
   			"col-xs-6" : true,
   			"button": true,
-  			"disabled": notAvailable
+  			"booked": notAvailable
   		})
 
 	    return (
 			<div className="tabfooter">
 			    <div className="row">
-			        <button className={buttonClasses}>
+			        <button className="col-xs-6 button">
 			            <div>
 			                <span>
 			                    <i className="fa fa-envelope-o"></i>
@@ -45,7 +45,7 @@ var TabFooter = React.createClass({
 			            </div>
 			            Express interest
 			        </button>
-			        <button className="col-xs-6 button" onClick={this.redirectToBooking}>
+			        <button  className={buttonClasses} onClick={this.redirectToBooking}>
 			            <div>
 			                <span>
 			                    <i className="fa fa-check-square-o"></i>
