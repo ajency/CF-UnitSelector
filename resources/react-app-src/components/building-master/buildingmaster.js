@@ -27,7 +27,6 @@ var BuildingMaster = React.createClass({
     getInitialState: function() {
         var buildingId;
         buildingId = this.props.buildingId;
-        
 
         return getBuildingStateData(buildingId);
     },
@@ -71,84 +70,6 @@ var BuildingMaster = React.createClass({
         else{
             domToDisplay = (
                 <div id="wrapper">
-      
-                    <SideBar
-                        projectTitle = {projectTitle} 
-                        projectLogo = {projectLogo}
-                        unitCount = {unitCount}
-                        buildings = {buildings}
-                        isFilterApplied = {isFilterApplied}
-                        applied_filters = {applied_filters}                    
-                        ref = "sideBarList"
-                        isFilterApplied = {isFilterApplied}
-                        rotateImage = {this.rotateImage}
-                        destroyTooltip = {this.destroyTooltip} 
-                        unitIndexToHighlight = {unitIndexToHighlight}                   
-                    />
-
-                    <div id="page-content-wrapper">
-
-                        <ImageContainerTemplate
-                            ref= "imageContainer"
-                            showShadow={data.showShadow}
-                            breakpoints = {data.breakpoints}
-                            chosenBreakpoint = {data.chosenBreakpoint}
-                            updateChosenBreakPoint = {this.updateChosenBreakPoint}
-                            updateRotateShadow = {this.updateRotateShadow}
-                            buildings =  {buildings}
-                            buildingToHighlight = {buildingToHighlight}
-                            destroyTooltip = {this.destroyTooltip}
-                            showTooltip = {this.showTooltip}                        
-                        />
-                        
-
-                        <div className="container-fluid">
-
-                            <div className="navbar-header">
-                                <div className="row">
-                                    
-                                    <SunToggle 
-                                        toggelSunView = {this.toggelSunView} 
-                                        showShadow={data.showShadow}
-                                    />                                    
-
-                                    <div className="col-sm-3 col-sm-offset-3">
-                                        <FilterPopover
-                                            filterTypes={filterTypes}
-                                            selectFilter={this.selectFilter}
-                                            search_filters={data.search_filters}
-                                            applyFilters = {this.applyFilters}
-                                            unapplyFilters = {this.unapplyFilters}
-                                            applied_filters = {applied_filters}                                       
-                                        />
-                                    </div>
-
-                                    <div className="col-sm-3">
-                                        <div className="pull-right text-center text-uppercase">
-                                            <button type="button" 
-                                                className="btn btn-default btn-sm btn-primary" 
-                                                data-toggle="modal" data-target="#contactModal" 
-                                                onClick={this.showContactModal} 
-                                            >
-                                                <i className="fa fa-phone"></i>
-                                                <span className="enquiryText text-uppercase">Contact Us</span>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        
-                        </div>
-
-                    <Modal 
-                        ref="contactModal" 
-                        modalData = {modalData}
-                        modalPurpose = "contactModal"
-                    />
-
-                    </div>
-
        
                 </div>
             );            

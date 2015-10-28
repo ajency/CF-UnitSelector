@@ -121,29 +121,52 @@
         "Parking"
       ]
     },
-    "floor_groups" :[
+    "floor_groups": [
       {
-        "id" : 1,
+        "id": 1,
         "name": "Floor 1-7",
         "building_id": 5,
-        "floors": [1,2,3,4,5,6,7],
+        "floors": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
         "primary_breakpoint": 0
       },
       {
-        "id" : 2,
+        "id": 2,
         "name": "Floor 8-14",
         "building_id": 5,
-        "floors": [8,9,10,11,12,13,14],
+        "floors": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
         "primary_breakpoint": 0
       },
       {
-        "id" : 3,
+        "id": 3,
         "name": "Floor 15-21",
         "building_id": 5,
-        "floors": [15,16,17,18,19,20,21],
+        "floors": [
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
         "primary_breakpoint": 0
-      },      
-
+      }
     ],
     "buildings": [
       {
@@ -155,7 +178,12 @@
         "building_master": [],
         "created_at": "2015-10-10 11:44:47",
         "updated_at": "2015-10-26 14:54:06",
-        "breakpoints": [0,9,18,27],
+        "breakpoints": [
+          0,
+          9,
+          18,
+          27
+        ],
         "abbrevation": "",
         "has_master": "no",
         "floor_rise": 123456,
@@ -171,7 +199,12 @@
         "building_master": [],
         "created_at": "2015-10-10 11:45:17",
         "updated_at": "2015-10-27 05:25:18",
-        "breakpoints": [0,9,18,27],
+        "breakpoints": [
+          0,
+          9,
+          18,
+          27
+        ],
         "abbrevation": "",
         "has_master": "no",
         "floor_rise": 332244,

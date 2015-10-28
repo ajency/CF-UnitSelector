@@ -396,6 +396,8 @@ var ProjectMaster = React.createClass({
 
     render: function(){
         var data = this.state.data;
+
+        console.log(this.state);
         
         var projectTitle = data.projectTitle;
         var projectLogo = data.projectLogo;
@@ -433,7 +435,7 @@ var ProjectMaster = React.createClass({
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
-                    />
+                    />ƒ
                     <Modal 
                         ref="modal" 
                         modalPurpose = "filterModal"
