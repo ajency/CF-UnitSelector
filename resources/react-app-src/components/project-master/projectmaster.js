@@ -161,11 +161,21 @@ var ProjectMaster = React.createClass({
 
         this.destroyTooltip();
 
-        dataToSet = {
+        var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
+
+        if(totalFilterApplied === 0){
+            dataToSet ={
+                property: "reset_filters",
+                value: {}
+            };
+        }else{
+            dataToSet = {
             property: "applied_filters",
             value: this.state.data.search_filters
         };
+        }
 
+        
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
