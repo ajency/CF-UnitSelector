@@ -70,8 +70,8 @@ jQuery(document).ready(function($) {
         return window.path.generatePathTag(value);
       }
     });
-    draw.attr('viewBox', "0 0 1300 731.25");
-    draw.attr('enable-background', "new 0 1300 731.25");
+    draw.attr('viewBox', "0 0 1920 1080");
+    draw.attr('enable-background', "new 0 1920 1080");
     return draw.attr('preserveAspectRatio', "xMinYMin slice");
   };
   window.createPanel = function(data) {

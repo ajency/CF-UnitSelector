@@ -1129,6 +1129,8 @@ function _getUnitDetails(unitId){
 		unitData.propertyTypeName = propertyTypeName;
 
 		unitData.allAmenities = getAllAmenities();
+		
+		unitData.cfProjectId = projectData.cf_project_id;
 	}
 	
 	return unitData;	
