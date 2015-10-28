@@ -588,7 +588,7 @@ function checkVariationIsUnique(variants,variantName){
 
 
 function getVariantsName(propertyType,variant){
-var variants = [];
+	var variants = [];
 
 
 	switch(propertyType) {
@@ -1134,6 +1134,43 @@ function _getUnitDetails(unitId){
 	return unitData;	
 }
 
+function _getBuildingMasterDetails(buildingId){
+	buildingId = parseInt(buildingId);
+	var buildingData = {"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
+	var buildings = [];
+	var allUnits= [];
+	var unitTypes= [];
+
+	if(!_.isEmpty(projectData)){
+		var buildingsWithUnits = [];
+
+		projectMasterData.projectTitle = projectData.project_title ; 
+		projectMasterData.projectLogo = projectData.logo ; 
+
+		breakpoints = projectData.breakpoints 
+		projectMasterData.breakpoints = breakpoints; 
+		projectMasterData.chosenBreakpoint = breakpoints[0] ;  
+		
+		unitCount = getUnitCount('Apartments',{}) ;
+		projectMasterData.totalCount = unitCount.total.length;
+		projectMasterData.availableCount = unitCount.available.length;
+		projectMasterData.filteredCount = unitCount.filtered.length;
+		
+		buildings = projectData.buildings;
+		allUnits = projectData.units;
+
+		buildingsWithUnits = getBuildingUnits(buildings, allUnits, []);
+
+		projectMasterData.buildings = buildingsWithUnits;
+
+        projectMasterData.filterTypes = getFilterTypes("Apartment");
+	}
+
+	finalData = {"data": buildingData};
+
+	return finalData;
+}
+
 
 // AppStore object
 var AppStore = merge(EventEmitter.prototype, {
@@ -1170,6 +1207,11 @@ var AppStore = merge(EventEmitter.prototype, {
 		_unitStateData = _getUnitDetails(unitId); 
 		return _unitStateData;
 	},
+
+	getBuildingMasterStateData: function(buildingId){
+		_buildingMasterStateData = _getBuildingMasterDetails(buildingId); 
+		return _buildingStateData;
+	},	
 
 	updateGlobalState: function(newState){
 		_updateGlobalState(newState);

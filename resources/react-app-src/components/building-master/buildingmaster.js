@@ -37,7 +37,7 @@ var qtipSettings = { // Grab some elements to apply the tooltip to
 
 
 function getStateData(){
-    return AppStore.getStateData();
+    return AppStore.getBuildingMasterStateData(unitId);
 }
 
 
