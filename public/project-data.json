@@ -68,10 +68,9 @@
     ],
     "breakpoints": [
       0,
-      14,
-      29,
-      44,
-      59
+      9,
+      18,
+      27
     ],
     "shadow_images": [
       "http://unitselector.com/projects/1/shadow/shadow-00.jpg",
