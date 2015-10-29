@@ -112,7 +112,7 @@ _.each(applied_filters, function(filter, key){
         domTodisplay = (
             <div>
               <div className="logoOuter"><i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i></div>
-              <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits">{unitCount} {selectionText}</small></div>
+              <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}</small></div>
               <div className="clear"></div>
             </div>
         ); 

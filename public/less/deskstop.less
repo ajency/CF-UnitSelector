@@ -19,12 +19,7 @@ body {
     }
     small {
       display:block;
-      font-size:12px;      
-      margin-top: 1px;
-      span
-      {
-        opacity:0.6;
-      }
+      font-size:14px;      
     }
     a {
       font-size:12px;
@@ -343,6 +338,7 @@ body {
     position: absolute;
     left: 0;
     right: 0;
+    padding-bottom: 10px;
     text-align: center;
     bottom: 0px;
     color:White;
@@ -351,7 +347,7 @@ body {
     background:linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 
   .i-icon-rotate{
-         background: url(../../images/sprite.png) no-repeat;
+ /*        background: url(../../images/sprite.png) no-repeat;
         width: 50px;
         height: 60px;
         background-position: -99px -20px;
@@ -359,7 +355,15 @@ body {
         display: block;
          cursor:pointer;
   }
-
+*/
+    background: url(../../images/360-degree-icon.png) no-repeat;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    display: block;
+    cursor: pointer;
+    background-size: 100%;
+  }
 }
 .messageBoxDesk
 { 
@@ -632,7 +636,7 @@ body {
 }
 .unitDetails
 {
-    padding: 5px 0 0 0 !important;
+    padding: 10px 0 10px 0 !important;
     border-top: 1px solid @gray-light;  
     small
     {

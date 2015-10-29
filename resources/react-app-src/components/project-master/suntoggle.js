@@ -17,7 +17,7 @@ var SunToggle = React.createClass({
     		'sun-highlight': showShadow,
             'btn' : window.isMobile === false, 
             'btn-default' : window.isMobile === false, 
-            'btn-sm' : window.isMobile === false
+            'btn-default' : window.isMobile === false
     	}); 
 
         if(window.isMobile){
