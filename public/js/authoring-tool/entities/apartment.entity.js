@@ -8,17 +8,20 @@ AuthoringTool.ApartmentView = (function(superClass) {
     return ApartmentView.__super__.constructor.apply(this, arguments);
   }
 
-  ApartmentView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label class="unit-label" for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div> <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div> <form>');
+  ApartmentView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label class="unit-label" for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div> <div class="form-group"> <label class="floor-group-label" for="exampleInputPassword1">Group</label> <select class="form-control floor-group"> <option value="">Select</option> {{#floorgroupoptions}} <option value="{{id}}">{{name}}</option> {{/floorgroupoptions}} </select> </div> <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div> <form>');
 
   ApartmentView.prototype.ui = {
     units: '.units',
-    unitLabel: '.unit-label'
+    unitLabel: '.unit-label',
+    floorGroup: '.floor-group',
+    unitLabel: '.floor-group-label'
   };
 
   ApartmentView.prototype.serializeData = function() {
-    var data, options, units;
+    var data, floorGroup, floorgroupoptions, options, units;
     data = ApartmentView.__super__.serializeData.call(this);
     options = [];
+    floorgroupoptions = [];
     units = Marionette.getOption(this, 'units');
     $.each(units, function(ind, val) {
       return options.push({
@@ -27,6 +30,14 @@ AuthoringTool.ApartmentView = (function(superClass) {
       });
     });
     data.options = options;
+    floorGroup = Marionette.getOption(this, 'floorGroup');
+    $.each(floorGroup, function(ind, val) {
+      return floorgroupoptions.push({
+        'id': val['id'],
+        'name': val['name']
+      });
+    });
+    data.floorgroupoptions = floorgroupoptions;
     return data;
   };
 
@@ -66,8 +77,15 @@ AuthoringTool.ApartmentCtrl = (function(superClass) {
   }
 
   ApartmentCtrl.prototype.initialize = function() {
-    var newUnits, temp, units;
+    var attributes, building, buildings, floorGroup, floor_group, newUnits, temp, units;
     units = [];
+    floorGroup = [];
+    buildings = buildingCollection.toArray();
+    building = _.where(buildings, {
+      id: parseInt(building_id)
+    });
+    attributes = _.pluck(building, 'attributes');
+    floor_group = _.pluck(attributes, 'floor_group');
     $.merge(units, apartmentVariantCollection.getApartmentUnits());
     $.merge(units, apartmentVariantCollection.getPenthouseUnits());
     temp = new Backbone.Collection(units);
@@ -75,7 +93,8 @@ AuthoringTool.ApartmentCtrl = (function(superClass) {
       'building_id': parseInt(building_id)
     });
     return this.show(new AuthoringTool.ApartmentView({
-      units: newUnits
+      units: newUnits,
+      floorGroup: floor_group[0]
     }));
   };
 
