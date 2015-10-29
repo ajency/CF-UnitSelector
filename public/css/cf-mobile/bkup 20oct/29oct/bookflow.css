@@ -462,6 +462,7 @@ body {
   border-bottom: 1px solid #edeef0;
   margin-bottom: 20px;
   font-size: 12px;
+  text-transform: uppercase;
   width: 100%;
 }
 .bookFlowContent .panel .personalDetails input:focus,
@@ -524,10 +525,13 @@ body {
 .bookFlowContent .bottomSection {
   background: #f6f6f6;
   float: left;
-  padding: 15px 0 11px 0;
+  padding: 30px 0;
   width: 100%;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   color: #565654;
+}
+.bookFlowContent .bottomSection > div:last-child {
+  border-left: 1px solid #d5d5d4;
 }
 .bookFlowContent .bottomSection .rightContent h5 {
   font-weight: 700;
@@ -536,9 +540,6 @@ body {
 .bookFlowContent .bottomSection .rightContent p {
   margin-bottom: 0;
   font-size: 12px;
-}
-.bookFlowContent .bottomSection .rightContent p .safePaymentText {
-  margin-left: 50px;
 }
 .bookFlowContent .bottomSection .rightContent p i {
   margin: 0 0 0 4px;
@@ -1048,16 +1049,6 @@ body {
   }
   .buttonOuter {
     text-align: center;
-  }
-  .bottomSection .supportNoText {
-    width: 100%;
-    float: left;
-  }
-  .bottomSection .safePaymentText {
-    margin-left: 0px !important;
-    margin-top: 10px;
-    width: 100%;
-    float: left;
   }
 }
 @media screen and (max-width: 320px) {
