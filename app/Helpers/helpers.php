@@ -274,11 +274,11 @@ function updateBlockedUnitsToAvailable()
 
 function isUnitBlocked($variantId)
 {
-   $units = \CommonFloor\Unit::whereIn('availability',['blocked','payment_in_progress'])->where('unit_variant_id',$variantId)->get();
+   $units = \CommonFloor\Unit::whereIn('availability',['blocked','payment_in_progress'])->where('unit_variant_id',$variantId)->count();
  
-   $return = true;
-   if($units == null)
-       $return = false;
+   $return = false;
+   if($units)
+       $return = true;
 
    return $return;
 }
