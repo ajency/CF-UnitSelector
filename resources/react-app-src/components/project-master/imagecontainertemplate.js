@@ -236,7 +236,7 @@ var ImageContainerTemplate = React.createClass({
 
               <div className="us-right-content" style={parentContainerStyle}>
                   <div className="footer">
-                      <h4 className="primary-txt"> Call 1800 180 180 180</h4>
+                      <h2 className="primary-txt text-right m-b-5"> Call 1800 180 180 180</h2>
                       <a href="#"> Commonfloor </a> | <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a>
                       <br /> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                   </div>

@@ -43,7 +43,7 @@ render: function(){
                                             <nav className="float-nav closed" id="filters">
                                                 <ul className="filterUl">
                                                     <li className="filterLiTop">
-                                                        <h5 className="text-uppercase">Filters (<span className="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span className="filterHeader">Clear filters</span></h5>
+                                                        <h5 className="text-uppercase">Filters (<span className="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span className="filterHeader">Reset</span></h5>
                                                     </li>
                                                     <li>
                                                         <h6 className="text-uppercase">Unit type</h6>

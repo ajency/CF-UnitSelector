@@ -116,10 +116,11 @@ var FilterPopover = React.createClass({
 		var dom = (  <div className="filterOuter">
 	                    <nav className={filterClass} id="filters">
                             <div style={divStyle}>
-                                 <div className="filterLiTop">
-                                        <h5 className="text-uppercase">Filters {filterCountDisp} &nbsp; &nbsp; &nbsp;<span className="filterHeader" onClick={this.unapplyFilters}>Clear filters</span></h5>
+                                    <div className="filterLiTop">
+                                        <h5 className="text-uppercase">Filters {filterCountDisp}</h5>
                                         <button className="btn btn-sm btn-default btn-primary text-uppercase pull-right" onClick = {this.applyFilters}>apply</button>
-                                </div>
+                                        <span className="filterHeader btn-link link" onClick={this.unapplyFilters}>Reset</span>
+                                    </div>
                                 <div ref="filterUl" className="filterUl">
                                     <ul>
                                         {filterTypeNodes}

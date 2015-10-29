@@ -804,6 +804,15 @@ div#spritespin {
   font-size: 14px;
   color: #ffffff;
 }
+.link {
+  float: right;
+  padding: 4px;
+  margin-right: 10px;
+}
+.link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .tabHeader {
   position: fixed;
   top: 0;
