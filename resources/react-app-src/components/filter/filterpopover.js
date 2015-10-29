@@ -13,6 +13,15 @@ var FilterPopover = React.createClass({
         return filterState;
     },	
 
+    componentDidMount: function() {
+        var customScrollBarSettings = {
+         autoHideScrollbar:true,
+         theme:"rounded"
+       };
+        
+       $(this.refs.filterUl).mCustomScrollbar(customScrollBarSettings);
+    },
+
     closeFilterPopOver: function(evt){
     	oldState = this.state;
     	newState = {};
@@ -96,18 +105,29 @@ var FilterPopover = React.createClass({
         filterCountDisp = (<span className="filterHeader">( {appliedFilterCount} )</span>);
       }        
 
+        divStyle = {
+            overflow:"hidden",
+             height:"100%",
+             float:"left",
+            width:"100%"
+
+        };
 
 		var dom = (  <div className="filterOuter">
 	                    <nav className={filterClass} id="filters">
-	                        <ul className="filterUl">
-	                            <li className="filterLiTop">
-	                                <h5 className="text-uppercase">Filters {filterCountDisp} &nbsp; &nbsp; &nbsp;<span className="filterHeader" onClick={this.unapplyFilters}>Clear filters</span></h5>
-	                                <button className="btn btn-sm btn-default btn-primary text-uppercase pull-right" onClick = {this.applyFilters}>apply</button>
-	                            </li>
-
-	                            {filterTypeNodes}
- 
-	                        </ul>
+                            <div style={divStyle}>
+                                    <div className="filterLiTop">
+                                        <h5 className="text-uppercase">Filters {filterCountDisp}</h5>
+                                        <button className="btn btn-sm btn-default btn-primary text-uppercase pull-right" onClick = {this.applyFilters}>apply</button>
+                                        <span className="filterHeader btn-link link" onClick={this.unapplyFilters}>Reset</span>
+                                    </div>
+                                <div ref="filterUl" className="filterUl">
+                                    <ul>
+                                        {filterTypeNodes}
+                                    </ul>                                
+                                </div>
+                            </div>
+	                        
 	                        <a className="toggle" href="#" onClick = {this.closeFilterPopOver}></a>
                             <span className={filterCountClasses}>{appliedFilterCount}</span>
 	                    </nav>

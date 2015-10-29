@@ -7,8 +7,7 @@ var FilterContent = React.createClass({
 
         filterTypes = this.props.filterTypes;
 
-        console.log(filterTypes);
-
+        
         search_filters= this.props.search_filters
 
         filterTypeNodes = filterTypes.map(function(filterType,i){

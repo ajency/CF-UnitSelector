@@ -36,8 +36,20 @@ var NavBar = React.createClass({
         });
       }
       else{
+
+
+var newAppliedFiltersCount = [];
+_.each(applied_filters, function(filter, key){
+  if(filter.length>0){
+    newAppliedFiltersCount.push(key);
+  }
+});
+
+
+
         appliedFilterKeys = _.keys(applied_filters);
-        appliedFilterCount = appliedFilterKeys.length;
+        //appliedFilterCount = appliedFilterKeys.length;
+        appliedFilterCount = newAppliedFiltersCount.length;
         filterClasses = classNames({
           "filterNumber" : true
         });
@@ -100,7 +112,7 @@ var NavBar = React.createClass({
         domTodisplay = (
             <div>
               <div className="logoOuter"><i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i></div>
-              <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits">{unitCount} {selectionText}</small></div>
+              <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}</small></div>
               <div className="clear"></div>
             </div>
         ); 

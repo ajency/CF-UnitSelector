@@ -161,11 +161,21 @@ var ProjectMaster = React.createClass({
 
         this.destroyTooltip();
 
-        dataToSet = {
+        var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
+
+        if(totalFilterApplied === 0){
+            dataToSet ={
+                property: "reset_filters",
+                value: {}
+            };
+        }else{
+            dataToSet = {
             property: "applied_filters",
             value: this.state.data.search_filters
         };
+        }
 
+        
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
@@ -319,6 +329,27 @@ var ProjectMaster = React.createClass({
 
     },
 
+    componentDidMount: function() {
+        $(".animsition").animsition({
+         inClass: 'fade-in',
+         outClass: 'fade-out',
+         inDuration: 1500,
+         outDuration: 1200,
+         linkElement: '.animsition-link',
+         loading: true,
+         loadingParentElement: 'body', 
+         loadingClass: 'animsition-loading',
+         unSupportCss: ['animation-duration',
+             '-webkit-animation-duration',
+             '-o-animation-duration'
+         ],
+
+         overlay: false,
+
+         overlayClass: 'animsition-overlay-slide',
+         overlayParentElement: 'body'
+        });
+    },
 
     componentWillMount:function(){
         AppStore.addChangeListener(this._onChange);
@@ -426,7 +457,7 @@ var ProjectMaster = React.createClass({
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
             domToDisplay = (
-                <div>
+                <div className="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
                     <NavBar 
                         projectTitle = {projectTitle} 
                         projectLogo = {projectLogo} 
@@ -530,7 +561,7 @@ var ProjectMaster = React.createClass({
                                     <div className="col-sm-3">
                                         <div className="pull-right text-center text-uppercase">
                                             <button type="button" 
-                                                className="btn btn-default btn-sm btn-primary" 
+                                                className="btn btn-default  btn-primary" 
                                                 data-toggle="modal" data-target="#contactModal" 
                                                 onClick={this.showContactModal} 
                                             >

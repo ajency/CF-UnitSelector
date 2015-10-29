@@ -20,7 +20,6 @@ if(window.isMobile){
                                 </div>
                                 <div className="projectDetails">
                                     <div className="col-xs-12 roomHeading">
-                                        <span><i className="fa fa-2x fa-bed"></i></span>
                                         <h4 className="text-uppercase">{room.room_name}</h4>
                                     </div>
 
@@ -40,7 +39,7 @@ if(window.isMobile){
                 <div className="col-xs-12 details">
                     <div className="flatDetails">
                         <h4 className="text-uppercase">{basicDetails.name}</h4>
-                        <span className="text-muted">{basicDetails.direction}Facing</span>
+                        <span className="text-muted unitFacing">{basicDetails.direction} Facing</span>
 
                         <div className="price text-muted"> <i className="fa fa-inr"></i> {basicDetails.sellingAmount}
                             <span className="availability">{s.humanize(basicDetails.status)}</span>

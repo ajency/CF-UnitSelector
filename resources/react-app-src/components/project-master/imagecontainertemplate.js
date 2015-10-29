@@ -57,7 +57,7 @@ var ImageContainerTemplate = React.createClass({
         var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'{frame}.jpg'
 
         var frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
-         frame: [0, 59],
+         frame: [0, 35],
          digits: digitsInName
        });
 
@@ -70,16 +70,27 @@ var ImageContainerTemplate = React.createClass({
         api = spin.spritespin("api");
 
         spin.bind("onLoad", function() {
-         var data = api.data;
+            var data = api.data;
            data.stage.prepend($(".details .detail")); // add current details
            data.stage.find(".detail").hide(); // hide current details
          })
 
         spin.bind("onFrame", function() {
            var data = api.data;
+           
+           if (data.frame !== data.stopFrame){
+            svgData = {
+                  svgClasses: 
+                    {'svg-area': true,
+                      'hide': true
+                    }
+            }
+
+            this.setState(svgData);
+           }
            data.stage.find(".detail:visible").stop(false).fadeOut();
            data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
-         });    
+         }.bind(this));    
 
         spin.bind("onAnimationStop", function(){
           svgData = {
@@ -225,7 +236,7 @@ var ImageContainerTemplate = React.createClass({
 
               <div className="us-right-content" style={parentContainerStyle}>
                   <div className="footer">
-                      <h4 className="primary-txt"> Call 1800 180 180 180</h4>
+                      <h2 className="primary-txt text-right m-b-5"> Call 1800 180 180 180</h2>
                       <a href="#"> Commonfloor </a> | <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a>
                       <br /> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                   </div>

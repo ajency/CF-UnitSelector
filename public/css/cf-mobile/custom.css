@@ -424,6 +424,10 @@ body .row {
   height: 200px;
   margin: 0px;
 }
+.animsition,
+.animsition-overlay {
+  position: initial !important;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -725,6 +729,9 @@ section {
 .clear {
   clear: both;
 }
+.m-b-5 {
+  margin-bottom: 5px;
+}
 .fit {
   /* set relative picture size */
   max-width: 100%;
@@ -796,6 +803,15 @@ div#spritespin {
 .footer a {
   font-size: 14px;
   color: #ffffff;
+}
+.link {
+  float: right;
+  padding: 4px;
+  margin-right: 10px;
+}
+.link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 .tabHeader {
   position: fixed;
@@ -1159,7 +1175,7 @@ div#spritespin {
   border-right: 1px solid #ffffff;
 }
 .tabfooter button.booked {
-  backgroun: #7d7c7a;
+  background: #7d7c7a;
 }
 .tabfooter button div {
   float: left;
