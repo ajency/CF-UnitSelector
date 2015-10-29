@@ -18,6 +18,7 @@ var svgData = {
   };
 
 var panZoomSettings = {
+     startTransform: 'scale(1.0)',
      contain: 'invert',
      minScale: 1,
      disablePan: false,
