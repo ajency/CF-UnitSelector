@@ -63,7 +63,7 @@ var ModalBody = React.createClass({
         }
         else if(modalPurpose==="contactModal"){
           modalBodyDom = ( <div>
-                              <h4 className="margin-none text-center">Have us call you</h4>
+                              <h2 className="margin-none text-center">Have us call you</h2>
                               <p className="text-muted text-center">Please fill this short form to view contact details.</p>
                               <div className="row">
                                  <div className="col-xs-12 content">

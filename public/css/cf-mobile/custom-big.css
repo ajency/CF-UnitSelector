@@ -241,6 +241,8 @@ body a {
   padding-top: 11px;
 }
 .card-swipe h4 {
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
   font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
@@ -256,7 +258,7 @@ body a {
   text-transform: uppercase;
   padding: 0 25px;
 }
-.card-swipe .price .unitAmount {
+.card-swipe .price b {
   color: #fe943e;
   margin-left: 5px;
 }
@@ -1429,6 +1431,7 @@ body a {
 .sub-list li label {
   margin-bottom: -2px;
   font-weight: 400;
+  margin-left: 5px;
 }
 .step4Body .modal-backdrop.in,
 .step4Body .contactModal {
@@ -1677,5 +1680,15 @@ body a {
 }
 .pNone {
   padding: 0 !important;
+}
+.svg-top-area svg {
+  position: absolute;
+  left: 0%;
+  z-index: 9999;
+  top: 2%;
+}
+.svg-top-area img {
+  height: 200px;
+  margin: 0px;
 }
 /*# sourceMappingURL=custom-big.css.map */
