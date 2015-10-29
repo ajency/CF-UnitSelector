@@ -11,6 +11,7 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
+var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
 
@@ -1293,2177 +1294,857 @@ function _getUnitDetails(unitId){
 	return unitData;	
 }
 
+function getFakeBuildingMasterData(){
+	// building data
+	finalData = {
+	  "data": {
+	    "title": "Legend Apartments",
+	    "projectLogo": "http://www.commonfloor.com/public/images/builder/-logo.gif",
+	    "unitCount": 0,
+	    "building":{
+	        "id": 5,
+	        "building_name": "A4",
+	        "phase_id": 8,
+	        "no_of_floors": 6,
+	        "floors": [],
+	        "building_master": [],
+	        "created_at": "2015-10-10 11:46:12",
+	        "updated_at": "2015-10-27 06:14:09",
+	        "breakpoints": [],
+	        "abbrevation": "",
+	        "has_master": "no",
+	        "floor_rise": 65432,
+	        "shadow_images": [],
+	        "primary_breakpoint": 27,
+	        "floor_groups": [
+	          {
+	            "id": 1,
+	            "name": "Floor 1-7",
+	            "floors": [
+	              1,
+	              2,
+	              3,
+	              4,
+	              5,
+	              6,
+	              7
+	            ],
+	            "primary_breakpoint": 0
+	          },
+	          {
+	            "id": 2,
+	            "name": "Floor 8-14",
+	            "floors": [
+	              8,
+	              9,
+	              10,
+	              11,
+	              12,
+	              13,
+	              14
+	            ],
+	            "primary_breakpoint": 0
+	          },
+	          {
+	            "id": 3,
+	            "name": "Floor 15-21",
+	            "floors": [
+	              15,
+	              16,
+	              17,
+	              18,
+	              19,
+	              20,
+	              21
+	            ],
+	            "primary_breakpoint": 0
+	          }
+	        ],
+	        "minStartPrice": 0,
+	        "unitData": [
+	          {
+	            "id": 112,
+	            "unit_name": "FC1",
+	            "unit_variant_id": 2,
+	            "position": 4,
+	            "floor": 4,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 05:41:19",
+	            "updated_at": "2015-10-27 05:41:19",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "West",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          },
+	          {
+	            "id": 113,
+	            "unit_name": "FC2",
+	            "unit_variant_id": 4,
+	            "position": 4,
+	            "floor": 5,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 06:00:26",
+	            "updated_at": "2015-10-27 06:00:26",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "East",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          },
+	          {
+	            "id": 114,
+	            "unit_name": "FC3",
+	            "unit_variant_id": 2,
+	            "position": 5,
+	            "floor": 5,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 06:01:04",
+	            "updated_at": "2015-10-27 06:01:04",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "North-West",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          },
+	          {
+	            "id": 115,
+	            "unit_name": "FC 4",
+	            "unit_variant_id": 2,
+	            "position": 5,
+	            "floor": 4,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 06:12:31",
+	            "updated_at": "2015-10-27 06:12:31",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "North",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          },
+	          {
+	            "id": 116,
+	            "unit_name": "FC 4",
+	            "unit_variant_id": 2,
+	            "position": 5,
+	            "floor": 4,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 06:13:47",
+	            "updated_at": "2015-10-27 06:13:47",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "North",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          }
+	        ],
+	        "availableUnitData": [
+	          {
+	            "id": 112,
+	            "unit_name": "FC1",
+	            "unit_variant_id": 2,
+	            "position": 4,
+	            "floor": 4,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 05:41:19",
+	            "updated_at": "2015-10-27 05:41:19",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "West",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          },
+	          {
+	            "id": 113,
+	            "unit_name": "FC2",
+	            "unit_variant_id": 4,
+	            "position": 4,
+	            "floor": 5,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 06:00:26",
+	            "updated_at": "2015-10-27 06:00:26",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "East",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          },
+	          {
+	            "id": 114,
+	            "unit_name": "FC3",
+	            "unit_variant_id": 2,
+	            "position": 5,
+	            "floor": 5,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 06:01:04",
+	            "updated_at": "2015-10-27 06:01:04",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "North-West",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          },
+	          {
+	            "id": 115,
+	            "unit_name": "FC 4",
+	            "unit_variant_id": 2,
+	            "position": 5,
+	            "floor": 4,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 06:12:31",
+	            "updated_at": "2015-10-27 06:12:31",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "North",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          },
+	          {
+	            "id": 116,
+	            "unit_name": "FC 4",
+	            "unit_variant_id": 2,
+	            "position": 5,
+	            "floor": 4,
+	            "building_id": 5,
+	            "created_at": "2015-10-27 06:13:47",
+	            "updated_at": "2015-10-27 06:13:47",
+	            "phase_id": 0,
+	            "views": [],
+	            "direction": "North",
+	            "agent_id": 0,
+	            "booked_at": "0000-00-00 00:00:00",
+	            "property_type_group_id": 0,
+	            "booking_id": "",
+	            "breakpoint": "",
+	            "booking_amount": 20000,
+	            "selling_amount": 0,
+	            "unit_price": 0,
+	            "unit_price_component": {
+	              "l2zs3x": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "s9n1hl": {
+	                "amount": 30000,
+	                "component_price_sub_type": "Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 30000,
+	                "component_price_type": "Basic"
+	              },
+	              "h5py9d": {
+	                "amount": 12000,
+	                "component_price_sub_type": "Super Builtup Area",
+	                "cost_type": "Lumpsump",
+	                "entered_value": 12000,
+	                "component_price_type": "Basic"
+	              }
+	            },
+	            "property_type_id": 3,
+	            "availability": "available"
+	          }
+	        ],
+	        "filteredUnitData": [],
+	        "supportedUnitTypes": [
+	          "1BHK"
+	        ]
+	      },
+	    "showShadow": false,
+	    "chosenBreakpoint": 0,
+	    "filterTypes": [
+	      {
+	        "type": "unitTypes",
+	        "filterName": "Unit Type",
+	        "filterDisplayType": "imageCheckbox",
+	        "filterValues": [
+	          {
+	            "id": 4,
+	            "name": "1BHK",
+	            "property_type_id": 2,
+	            "isSelected": false
+	          },
+	          {
+	            "id": 3,
+	            "name": "3BHK",
+	            "property_type_id": 2,
+	            "isSelected": false
+	          },
+	          {
+	            "id": 2,
+	            "name": "2BHK",
+	            "property_type_id": 2,
+	            "isSelected": false
+	          }
+	        ]
+	      },
+	      {
+	        "type": "unitVariantNames",
+	        "filterName": "Variant",
+	        "filterDisplayType": "normalCheckbox",
+	        "filterValues": [
+	          {
+	            "id": "Apartment 2bhk",
+	            "isSelected": false,
+	            "name": "Apartment 2bhk",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "Apartment 2",
+	            "isSelected": false,
+	            "name": "Apartment 2",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "Apartment 3",
+	            "isSelected": false,
+	            "name": "Apartment 3",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "Apartment 6",
+	            "isSelected": false,
+	            "name": "Apartment 6",
+	            "property_type_id": "3"
+	          }
+	        ]
+	      },
+	      {
+	        "type": "Flooring",
+	        "filterName": "Flooring",
+	        "filterDisplayType": "normalCheckbox",
+	        "filterValues": [
+	          {
+	            "id": "werty",
+	            "isSelected": false,
+	            "name": "Werty",
+	            "property_type_id": "3"
+	          }
+	        ]
+	      },
+	      {
+	        "type": "Kitchen",
+	        "filterName": "Kitchen",
+	        "filterDisplayType": "normalCheckbox",
+	        "filterValues": [
+	          {
+	            "id": "Modular",
+	            "isSelected": false,
+	            "name": "Modular",
+	            "property_type_id": "3"
+	          }
+	        ]
+	      },
+	      {
+	        "type": "Parking",
+	        "filterName": "Parking",
+	        "filterDisplayType": "normalCheckbox",
+	        "filterValues": [
+	          {
+	            "id": "yes",
+	            "isSelected": false,
+	            "name": "Yes",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "no",
+	            "isSelected": false,
+	            "name": "No",
+	            "property_type_id": "3"
+	          }
+	        ]
+	      },
+	      {
+	        "type": "area",
+	        "filterName": "Area",
+	        "filterDisplayType": "range",
+	        "filterValues": [
+	          480,
+	          500,
+	          700,
+	          1000,
+	          1500,
+	          2000,
+	          3000,
+	          5000,
+	          12312
+	        ]
+	      },
+	      {
+	        "type": "budget",
+	        "filterName": "Budget",
+	        "filterDisplayType": "range",
+	        "filterValues": [
+	          0,
+	          0
+	        ]
+	      },
+	      {
+	        "type": "views",
+	        "filterName": "Views",
+	        "filterDisplayType": "normalCheckbox",
+	        "filterValues": [
+	          {
+	            "id": "Garden",
+	            "isSelected": false,
+	            "name": "Garden",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "Gym",
+	            "isSelected": false,
+	            "name": "Gym",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "Pool",
+	            "isSelected": false,
+	            "name": "Pool",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "Garden 1",
+	            "isSelected": false,
+	            "name": "Garden 1",
+	            "property_type_id": "3"
+	          }
+	        ]
+	      },
+	      {
+	        "type": "direction",
+	        "filterName": "Direction",
+	        "filterDisplayType": "normalCheckbox",
+	        "filterValues": [
+	          {
+	            "id": "East",
+	            "isSelected": false,
+	            "name": "East",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "North",
+	            "isSelected": false,
+	            "name": "North",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "North-West",
+	            "isSelected": false,
+	            "name": "North-West",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "Noth-East",
+	            "isSelected": false,
+	            "name": "Noth-East",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "Soth-East",
+	            "isSelected": false,
+	            "name": "Soth-East",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "South",
+	            "isSelected": false,
+	            "name": "South",
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": "West",
+	            "isSelected": false,
+	            "name": "West",
+	            "property_type_id": "3"
+	          }
+	        ]
+	      },
+	      {
+	        "type": "floor",
+	        "filterName": "Floor",
+	        "filterDisplayType": "normalCheckbox",
+	        "filterValues": [
+	          {
+	            "id": 1,
+	            "isSelected": false,
+	            "name": 1,
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": 2,
+	            "isSelected": false,
+	            "name": 2,
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": 3,
+	            "isSelected": false,
+	            "name": 3,
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": 4,
+	            "isSelected": false,
+	            "name": 4,
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": 5,
+	            "isSelected": false,
+	            "name": 5,
+	            "property_type_id": "3"
+	          },
+	          {
+	            "id": 6,
+	            "isSelected": false,
+	            "name": 6,
+	            "property_type_id": "3"
+	          }
+	        ]
+	      }
+	    ],
+	    "search_filters": {},
+	    "applied_filters": {},
+	    "isFilterApplied": false,
+	    "unitIndexToHighlight": 0, //floor group to highlight
+	    "totalCount": 23,
+	    "availableCount": 14,
+	    "filteredCount": 0
+	  }
+	};
+
+	return finalData;
+}
+
 function _getBuildingMasterDetails(buildingId){
-	var projectData = _projectData;
 	var finalData = {};
 
 	buildingId = parseInt(buildingId);
-	var buildingData = {"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
-	var buildings = [];
-	var allUnits= [];
-	var unitTypes= [];
 
-	if(!_.isEmpty(projectData)){
-		var buildingsWithUnits = [];
+	if(!_.isEmpty(_projectData)){
 
-		projectMasterData.projectTitle = projectData.project_title ; 
-		projectMasterData.projectLogo = projectData.logo ; 
-
-		breakpoints = projectData.breakpoints 
-		projectMasterData.breakpoints = breakpoints; 
-		projectMasterData.chosenBreakpoint = breakpoints[0] ;  
-		
-		unitCount = getUnitCount('Apartments',{}) ;
-		projectMasterData.totalCount = unitCount.total.length;
-		projectMasterData.availableCount = unitCount.available.length;
-		projectMasterData.filteredCount = unitCount.filtered.length;
-		
-		buildings = projectData.buildings;
-		allUnits = projectData.units;
-
-		buildingsWithUnits = getBuildingUnits(buildings, allUnits, []);
-
-		projectMasterData.buildings = buildingsWithUnits;
-
-        projectMasterData.filterTypes = getFilterTypes("Apartment");
+		if((!_.isEmpty(_globalStateData))){
+			_buildingMasterStateData = _globalStateData;
+		}
+		else{
+			_buildingMasterStateData = getFakeBuildingMasterData();
+		}
 	}
 
-	finalData = {"data": buildingData};
+	// var buildingData = {"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
+	// var buildings = [];
+	// var allUnits= [];
+	// var unitTypes= [];
 
-	finalData = {
-  "data": {
-    "projectTitle": "Legend Apartments",
-    "projectLogo": "http://www.commonfloor.com/public/images/builder/-logo.gif",
-    "unitCount": 0,
-    "buildings": [
-      {
-        "id": 2,
-        "building_name": "A1",
-        "phase_id": 3,
-        "no_of_floors": 6,
-        "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:44:47",
-        "updated_at": "2015-10-26 14:54:06",
-        "breakpoints": [
-          0,
-          9,
-          18,
-          27
-        ],
-        "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 123456,
-        "shadow_images": [],
-        "primary_breakpoint": 0,
-        "minStartPrice": 0,
-        "unitData": [
-          {
-            "id": 101,
-            "unit_name": "FC1",
-            "unit_variant_id": 2,
-            "position": 1,
-            "floor": 3,
-            "building_id": 2,
-            "created_at": "2015-10-26 14:57:53",
-            "updated_at": "2015-10-27 12:05:29",
-            "phase_id": 0,
-            "views": [
-              "Garden",
-              "Gym",
-              "Garden 1"
-            ],
-            "direction": "South",
-            "agent_id": 0,
-            "booked_at": "2015-10-27 11:09:08",
-            "property_type_group_id": 0,
-            "booking_id": "562f64f0c92a6",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 102,
-            "unit_name": "FC2",
-            "unit_variant_id": 2,
-            "position": 3,
-            "floor": 3,
-            "building_id": 2,
-            "created_at": "2015-10-26 14:58:15",
-            "updated_at": "2015-10-27 11:10:37",
-            "phase_id": 0,
-            "views": [],
-            "direction": "South",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "562f5b626ec03",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 103,
-            "unit_name": "FC10",
-            "unit_variant_id": 2,
-            "position": 3,
-            "floor": 4,
-            "building_id": 2,
-            "created_at": "2015-10-26 14:58:35",
-            "updated_at": "2015-10-26 14:59:25",
-            "phase_id": 0,
-            "views": [],
-            "direction": "West",
-            "agent_id": 0,
-            "booked_at": "2015-10-26 14:59:25",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "blocked"
-          },
-          {
-            "id": 104,
-            "unit_name": "FC11",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 5,
-            "building_id": 2,
-            "created_at": "2015-10-26 14:59:30",
-            "updated_at": "2015-10-26 14:59:30",
-            "phase_id": 0,
-            "views": [],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 122,
-            "unit_name": "UNIT 01",
-            "unit_variant_id": 2,
-            "position": 1,
-            "floor": 1,
-            "building_id": 2,
-            "created_at": "2015-10-27 10:50:30",
-            "updated_at": "2015-10-27 10:50:30",
-            "phase_id": 0,
-            "views": [],
-            "direction": "North-West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          }
-        ],
-        "availableUnitData": [
-          {
-            "id": 101,
-            "unit_name": "FC1",
-            "unit_variant_id": 2,
-            "position": 1,
-            "floor": 3,
-            "building_id": 2,
-            "created_at": "2015-10-26 14:57:53",
-            "updated_at": "2015-10-27 12:05:29",
-            "phase_id": 0,
-            "views": [
-              "Garden",
-              "Gym",
-              "Garden 1"
-            ],
-            "direction": "South",
-            "agent_id": 0,
-            "booked_at": "2015-10-27 11:09:08",
-            "property_type_group_id": 0,
-            "booking_id": "562f64f0c92a6",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 102,
-            "unit_name": "FC2",
-            "unit_variant_id": 2,
-            "position": 3,
-            "floor": 3,
-            "building_id": 2,
-            "created_at": "2015-10-26 14:58:15",
-            "updated_at": "2015-10-27 11:10:37",
-            "phase_id": 0,
-            "views": [],
-            "direction": "South",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "562f5b626ec03",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 104,
-            "unit_name": "FC11",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 5,
-            "building_id": 2,
-            "created_at": "2015-10-26 14:59:30",
-            "updated_at": "2015-10-26 14:59:30",
-            "phase_id": 0,
-            "views": [],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 122,
-            "unit_name": "UNIT 01",
-            "unit_variant_id": 2,
-            "position": 1,
-            "floor": 1,
-            "building_id": 2,
-            "created_at": "2015-10-27 10:50:30",
-            "updated_at": "2015-10-27 10:50:30",
-            "phase_id": 0,
-            "views": [],
-            "direction": "North-West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          }
-        ],
-        "filteredUnitData": [],
-        "supportedUnitTypes": [
-          "1BHK"
-        ]
-      },
-      {
-        "id": 3,
-        "building_name": "A2",
-        "phase_id": 8,
-        "no_of_floors": 8,
-        "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:45:17",
-        "updated_at": "2015-10-27 05:25:18",
-        "breakpoints": [
-          0,
-          9,
-          18,
-          27
-        ],
-        "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 332244,
-        "shadow_images": [],
-        "primary_breakpoint": 14,
-        "minStartPrice": 0,
-        "unitData": [
-          {
-            "id": 100,
-            "unit_name": "FC14_TEST",
-            "unit_variant_id": 2,
-            "position": 3,
-            "floor": 3,
-            "building_id": 3,
-            "created_at": "2015-10-26 14:53:03",
-            "updated_at": "2015-10-27 12:20:39",
-            "phase_id": 0,
-            "views": [
-              "Garden",
-              "Gym",
-              "Garden 1"
-            ],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "2015-10-27 12:20:39",
-            "property_type_group_id": 0,
-            "booking_id": "562f590999707",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 105,
-            "unit_name": "FC15",
-            "unit_variant_id": 3,
-            "position": 6,
-            "floor": 4,
-            "building_id": 3,
-            "created_at": "2015-10-27 05:15:28",
-            "updated_at": "2015-10-27 05:15:28",
-            "phase_id": 0,
-            "views": [],
-            "direction": "West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "sold"
-          },
-          {
-            "id": 106,
-            "unit_name": "FC16",
-            "unit_variant_id": 5,
-            "position": 4,
-            "floor": 3,
-            "building_id": 3,
-            "created_at": "2015-10-27 05:16:22",
-            "updated_at": "2015-10-27 05:16:22",
-            "phase_id": 0,
-            "views": [],
-            "direction": "Noth-East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "blocked"
-          },
-          {
-            "id": 107,
-            "unit_name": "FC 17",
-            "unit_variant_id": 3,
-            "position": 2,
-            "floor": 2,
-            "building_id": 3,
-            "created_at": "2015-10-27 05:16:52",
-            "updated_at": "2015-10-27 11:07:55",
-            "phase_id": 0,
-            "views": [],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "562f1cfd9f521",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          }
-        ],
-        "availableUnitData": [
-          {
-            "id": 100,
-            "unit_name": "FC14_TEST",
-            "unit_variant_id": 2,
-            "position": 3,
-            "floor": 3,
-            "building_id": 3,
-            "created_at": "2015-10-26 14:53:03",
-            "updated_at": "2015-10-27 12:20:39",
-            "phase_id": 0,
-            "views": [
-              "Garden",
-              "Gym",
-              "Garden 1"
-            ],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "2015-10-27 12:20:39",
-            "property_type_group_id": 0,
-            "booking_id": "562f590999707",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 107,
-            "unit_name": "FC 17",
-            "unit_variant_id": 3,
-            "position": 2,
-            "floor": 2,
-            "building_id": 3,
-            "created_at": "2015-10-27 05:16:52",
-            "updated_at": "2015-10-27 11:07:55",
-            "phase_id": 0,
-            "views": [],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "562f1cfd9f521",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          }
-        ],
-        "filteredUnitData": [],
-        "supportedUnitTypes": [
-          "1BHK",
-          "3BHK",
-          "2BHK"
-        ]
-      },
-      {
-        "id": 4,
-        "building_name": "A3",
-        "phase_id": 8,
-        "no_of_floors": 6,
-        "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:45:38",
-        "updated_at": "2015-10-27 05:42:09",
-        "breakpoints": [],
-        "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 432132,
-        "shadow_images": [],
-        "primary_breakpoint": 29,
-        "minStartPrice": 0,
-        "unitData": [
-          {
-            "id": 108,
-            "unit_name": "A1",
-            "unit_variant_id": 2,
-            "position": 2,
-            "floor": 3,
-            "building_id": 4,
-            "created_at": "2015-10-27 05:21:01",
-            "updated_at": "2015-10-27 05:21:01",
-            "phase_id": 0,
-            "views": [],
-            "direction": "West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "sold"
-          },
-          {
-            "id": 109,
-            "unit_name": "A2",
-            "unit_variant_id": 2,
-            "position": 3,
-            "floor": 4,
-            "building_id": 4,
-            "created_at": "2015-10-27 05:22:40",
-            "updated_at": "2015-10-27 05:22:40",
-            "phase_id": 0,
-            "views": [],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "sold"
-          },
-          {
-            "id": 110,
-            "unit_name": "A4",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 5,
-            "building_id": 4,
-            "created_at": "2015-10-27 05:23:19",
-            "updated_at": "2015-10-27 05:23:19",
-            "phase_id": 0,
-            "views": [],
-            "direction": "West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "sold"
-          },
-          {
-            "id": 111,
-            "unit_name": "A5",
-            "unit_variant_id": 4,
-            "position": 6,
-            "floor": 5,
-            "building_id": 4,
-            "created_at": "2015-10-27 05:24:16",
-            "updated_at": "2015-10-27 05:24:16",
-            "phase_id": 0,
-            "views": [],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "sold"
-          }
-        ],
-        "availableUnitData": [],
-        "filteredUnitData": [],
-        "supportedUnitTypes": [
-          "1BHK"
-        ]
-      },
-      {
-        "id": 5,
-        "building_name": "A4",
-        "phase_id": 8,
-        "no_of_floors": 6,
-        "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:46:12",
-        "updated_at": "2015-10-27 06:14:09",
-        "breakpoints": [],
-        "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 65432,
-        "shadow_images": [],
-        "primary_breakpoint": 44,
-        "minStartPrice": 0,
-        "unitData": [
-          {
-            "id": 112,
-            "unit_name": "FC1",
-            "unit_variant_id": 2,
-            "position": 4,
-            "floor": 4,
-            "building_id": 5,
-            "created_at": "2015-10-27 05:41:19",
-            "updated_at": "2015-10-27 05:41:19",
-            "phase_id": 0,
-            "views": [],
-            "direction": "West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 113,
-            "unit_name": "FC2",
-            "unit_variant_id": 4,
-            "position": 4,
-            "floor": 5,
-            "building_id": 5,
-            "created_at": "2015-10-27 06:00:26",
-            "updated_at": "2015-10-27 06:00:26",
-            "phase_id": 0,
-            "views": [],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 114,
-            "unit_name": "FC3",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 5,
-            "building_id": 5,
-            "created_at": "2015-10-27 06:01:04",
-            "updated_at": "2015-10-27 06:01:04",
-            "phase_id": 0,
-            "views": [],
-            "direction": "North-West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 115,
-            "unit_name": "FC 4",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 4,
-            "building_id": 5,
-            "created_at": "2015-10-27 06:12:31",
-            "updated_at": "2015-10-27 06:12:31",
-            "phase_id": 0,
-            "views": [],
-            "direction": "North",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 116,
-            "unit_name": "FC 4",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 4,
-            "building_id": 5,
-            "created_at": "2015-10-27 06:13:47",
-            "updated_at": "2015-10-27 06:13:47",
-            "phase_id": 0,
-            "views": [],
-            "direction": "North",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          }
-        ],
-        "availableUnitData": [
-          {
-            "id": 112,
-            "unit_name": "FC1",
-            "unit_variant_id": 2,
-            "position": 4,
-            "floor": 4,
-            "building_id": 5,
-            "created_at": "2015-10-27 05:41:19",
-            "updated_at": "2015-10-27 05:41:19",
-            "phase_id": 0,
-            "views": [],
-            "direction": "West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 113,
-            "unit_name": "FC2",
-            "unit_variant_id": 4,
-            "position": 4,
-            "floor": 5,
-            "building_id": 5,
-            "created_at": "2015-10-27 06:00:26",
-            "updated_at": "2015-10-27 06:00:26",
-            "phase_id": 0,
-            "views": [],
-            "direction": "East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 114,
-            "unit_name": "FC3",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 5,
-            "building_id": 5,
-            "created_at": "2015-10-27 06:01:04",
-            "updated_at": "2015-10-27 06:01:04",
-            "phase_id": 0,
-            "views": [],
-            "direction": "North-West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 115,
-            "unit_name": "FC 4",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 4,
-            "building_id": 5,
-            "created_at": "2015-10-27 06:12:31",
-            "updated_at": "2015-10-27 06:12:31",
-            "phase_id": 0,
-            "views": [],
-            "direction": "North",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 116,
-            "unit_name": "FC 4",
-            "unit_variant_id": 2,
-            "position": 5,
-            "floor": 4,
-            "building_id": 5,
-            "created_at": "2015-10-27 06:13:47",
-            "updated_at": "2015-10-27 06:13:47",
-            "phase_id": 0,
-            "views": [],
-            "direction": "North",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          }
-        ],
-        "filteredUnitData": [],
-        "supportedUnitTypes": [
-          "1BHK"
-        ]
-      },
-      {
-        "id": 6,
-        "building_name": "A5",
-        "phase_id": 8,
-        "no_of_floors": 9,
-        "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:49:26",
-        "updated_at": "2015-10-27 06:46:31",
-        "breakpoints": [],
-        "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 433443,
-        "shadow_images": [],
-        "primary_breakpoint": 59,
-        "minStartPrice": 0,
-        "unitData": [
-          {
-            "id": 117,
-            "unit_name": "FC23",
-            "unit_variant_id": 7,
-            "position": 5,
-            "floor": 6,
-            "building_id": 6,
-            "created_at": "2015-10-27 06:15:19",
-            "updated_at": "2015-10-27 06:15:19",
-            "phase_id": 0,
-            "views": [],
-            "direction": "Soth-East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 118,
-            "unit_name": "FC28",
-            "unit_variant_id": 7,
-            "position": 2,
-            "floor": 5,
-            "building_id": 6,
-            "created_at": "2015-10-27 06:47:24",
-            "updated_at": "2015-10-27 06:47:24",
-            "phase_id": 0,
-            "views": [],
-            "direction": "Soth-East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 119,
-            "unit_name": "FC2",
-            "unit_variant_id": 4,
-            "position": 4,
-            "floor": 4,
-            "building_id": 6,
-            "created_at": "2015-10-27 06:47:49",
-            "updated_at": "2015-10-27 06:49:11",
-            "phase_id": 0,
-            "views": [
-              "Garden",
-              "Gym",
-              "Pool"
-            ],
-            "direction": "Noth-East",
-            "agent_id": 0,
-            "booked_at": "2015-10-27 06:49:11",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 120,
-            "unit_name": "FC29",
-            "unit_variant_id": 4,
-            "position": 6,
-            "floor": 6,
-            "building_id": 6,
-            "created_at": "2015-10-27 06:48:25",
-            "updated_at": "2015-10-27 06:48:25",
-            "phase_id": 0,
-            "views": [],
-            "direction": "West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "booked_by_agent"
-          },
-          {
-            "id": 121,
-            "unit_name": "FC32",
-            "unit_variant_id": 6,
-            "position": 7,
-            "floor": 5,
-            "building_id": 6,
-            "created_at": "2015-10-27 06:48:49",
-            "updated_at": "2015-10-27 06:48:49",
-            "phase_id": 0,
-            "views": [],
-            "direction": "West",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "sold"
-          }
-        ],
-        "availableUnitData": [
-          {
-            "id": 117,
-            "unit_name": "FC23",
-            "unit_variant_id": 7,
-            "position": 5,
-            "floor": 6,
-            "building_id": 6,
-            "created_at": "2015-10-27 06:15:19",
-            "updated_at": "2015-10-27 06:15:19",
-            "phase_id": 0,
-            "views": [],
-            "direction": "Soth-East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 118,
-            "unit_name": "FC28",
-            "unit_variant_id": 7,
-            "position": 2,
-            "floor": 5,
-            "building_id": 6,
-            "created_at": "2015-10-27 06:47:24",
-            "updated_at": "2015-10-27 06:47:24",
-            "phase_id": 0,
-            "views": [],
-            "direction": "Soth-East",
-            "agent_id": 0,
-            "booked_at": "0000-00-00 00:00:00",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          },
-          {
-            "id": 119,
-            "unit_name": "FC2",
-            "unit_variant_id": 4,
-            "position": 4,
-            "floor": 4,
-            "building_id": 6,
-            "created_at": "2015-10-27 06:47:49",
-            "updated_at": "2015-10-27 06:49:11",
-            "phase_id": 0,
-            "views": [
-              "Garden",
-              "Gym",
-              "Pool"
-            ],
-            "direction": "Noth-East",
-            "agent_id": 0,
-            "booked_at": "2015-10-27 06:49:11",
-            "property_type_group_id": 0,
-            "booking_id": "",
-            "breakpoint": "",
-            "booking_amount": 20000,
-            "selling_amount": 0,
-            "unit_price": 0,
-            "unit_price_component": {
-              "l2zs3x": {
-                "amount": 30000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "s9n1hl": {
-                "amount": 30000,
-                "component_price_sub_type": "Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 30000,
-                "component_price_type": "Basic"
-              },
-              "h5py9d": {
-                "amount": 12000,
-                "component_price_sub_type": "Super Builtup Area",
-                "cost_type": "Lumpsump",
-                "entered_value": 12000,
-                "component_price_type": "Basic"
-              }
-            },
-            "property_type_id": 3,
-            "availability": "available"
-          }
-        ],
-        "filteredUnitData": [],
-        "supportedUnitTypes": [
-          "1BHK",
-          "2BHK"
-        ]
-      }
-    ],
-    "showShadow": false,
-    "breakpoints": [
-      0,
-      14,
-      29,
-      44,
-      59
-    ],
-    "chosenBreakpoint": 0,
-    "filterTypes": [
-      {
-        "type": "unitTypes",
-        "filterName": "Unit Type",
-        "filterDisplayType": "imageCheckbox",
-        "filterValues": [
-          {
-            "id": 4,
-            "name": "1BHK",
-            "property_type_id": 2,
-            "isSelected": false
-          },
-          {
-            "id": 3,
-            "name": "3BHK",
-            "property_type_id": 2,
-            "isSelected": false
-          },
-          {
-            "id": 2,
-            "name": "2BHK",
-            "property_type_id": 2,
-            "isSelected": false
-          }
-        ]
-      },
-      {
-        "type": "unitVariantNames",
-        "filterName": "Variant",
-        "filterDisplayType": "normalCheckbox",
-        "filterValues": [
-          {
-            "id": "Apartment 2bhk",
-            "isSelected": false,
-            "name": "Apartment 2bhk",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Apartment 2",
-            "isSelected": false,
-            "name": "Apartment 2",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Apartment 3",
-            "isSelected": false,
-            "name": "Apartment 3",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Apartment ",
-            "isSelected": false,
-            "name": "Apartment ",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Apartment 5",
-            "isSelected": false,
-            "name": "Apartment 5",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Apartment 6",
-            "isSelected": false,
-            "name": "Apartment 6",
-            "property_type_id": "3"
-          }
-        ]
-      },
-      {
-        "type": "Flooring",
-        "filterName": "Flooring",
-        "filterDisplayType": "normalCheckbox",
-        "filterValues": [
-          {
-            "id": "werty",
-            "isSelected": false,
-            "name": "Werty",
-            "property_type_id": "3"
-          }
-        ]
-      },
-      {
-        "type": "Kitchen",
-        "filterName": "Kitchen",
-        "filterDisplayType": "normalCheckbox",
-        "filterValues": [
-          {
-            "id": "Modular",
-            "isSelected": false,
-            "name": "Modular",
-            "property_type_id": "3"
-          }
-        ]
-      },
-      {
-        "type": "area",
-        "filterName": "Area",
-        "filterDisplayType": "range",
-        "filterValues": [
-          480,
-          500,
-          700,
-          1000,
-          1500,
-          2000,
-          3000,
-          5000,
-          12312
-        ]
-      },
-      {
-        "type": "budget",
-        "filterName": "Budget",
-        "filterDisplayType": "range",
-        "filterValues": [
-          0,
-          0
-        ]
-      },
-      {
-        "type": "views",
-        "filterName": "Views",
-        "filterDisplayType": "normalCheckbox",
-        "filterValues": [
-          {
-            "id": "Garden",
-            "isSelected": false,
-            "name": "Garden",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Gym",
-            "isSelected": false,
-            "name": "Gym",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Pool",
-            "isSelected": false,
-            "name": "Pool",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Garden 1",
-            "isSelected": false,
-            "name": "Garden 1",
-            "property_type_id": "3"
-          }
-        ]
-      },
-      {
-        "type": "direction",
-        "filterName": "Direction",
-        "filterDisplayType": "normalCheckbox",
-        "filterValues": [
-          {
-            "id": "East",
-            "isSelected": false,
-            "name": "East",
-            "property_type_id": "3"
-          },
-          {
-            "id": "North",
-            "isSelected": false,
-            "name": "North",
-            "property_type_id": "3"
-          },
-          {
-            "id": "North-West",
-            "isSelected": false,
-            "name": "North-West",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Noth-East",
-            "isSelected": false,
-            "name": "Noth-East",
-            "property_type_id": "3"
-          },
-          {
-            "id": "Soth-East",
-            "isSelected": false,
-            "name": "Soth-East",
-            "property_type_id": "3"
-          },
-          {
-            "id": "South",
-            "isSelected": false,
-            "name": "South",
-            "property_type_id": "3"
-          },
-          {
-            "id": "West",
-            "isSelected": false,
-            "name": "West",
-            "property_type_id": "3"
-          }
-        ]
-      },
-      {
-        "type": "floor",
-        "filterName": "Floor",
-        "filterDisplayType": "normalCheckbox",
-        "filterValues": [
-          {
-            "id": 1,
-            "isSelected": false,
-            "name": 1,
-            "property_type_id": "3"
-          },
-          {
-            "id": 2,
-            "isSelected": false,
-            "name": 2,
-            "property_type_id": "3"
-          },
-          {
-            "id": 3,
-            "isSelected": false,
-            "name": 3,
-            "property_type_id": "3"
-          },
-          {
-            "id": 4,
-            "isSelected": false,
-            "name": 4,
-            "property_type_id": "3"
-          },
-          {
-            "id": 5,
-            "isSelected": false,
-            "name": 5,
-            "property_type_id": "3"
-          },
-          {
-            "id": 6,
-            "isSelected": false,
-            "name": 6,
-            "property_type_id": "3"
-          }
-        ]
-      }
-    ],
-    "search_filters": {},
-    "applied_filters": {},
-    "isFilterApplied": false,
-    "unitIndexToHighlight": 0,
-    "totalCount": 23,
-    "availableCount": 14,
-    "filteredCount": 0
-  }
-};
+	// if(!_.isEmpty(projectData)){
+	// 	var buildingsWithUnits = [];
 
-	return finalData;
+	// 	projectMasterData.projectTitle = projectData.project_title ; 
+	// 	projectMasterData.projectLogo = projectData.logo ; 
+
+	// 	breakpoints = projectData.breakpoints 
+	// 	projectMasterData.breakpoints = breakpoints; 
+	// 	projectMasterData.chosenBreakpoint = breakpoints[0] ;  
+		
+	// 	unitCount = getUnitCount('Apartments',{}) ;
+	// 	projectMasterData.totalCount = unitCount.total.length;
+	// 	projectMasterData.availableCount = unitCount.available.length;
+	// 	projectMasterData.filteredCount = unitCount.filtered.length;
+		
+	// 	buildings = projectData.buildings;
+	// 	allUnits = projectData.units;
+
+	// 	buildingsWithUnits = getBuildingUnits(buildings, allUnits, []);
+
+	// 	projectMasterData.buildings = buildingsWithUnits;
+
+ //        projectMasterData.filterTypes = getFilterTypes("Apartment");
+	// }
+
+	// finalData = {"data": buildingData};
+
+	// finalData = getFakeBuildingMasterData();
+	return _buildingMasterStateData;
 }
 
 

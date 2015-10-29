@@ -31,6 +31,16 @@ var BuildingMaster = React.createClass({
         return getBuildingStateData(buildingId);
     },
 
+    componentWillMount:function(){
+        AppStore.addChangeListener(this._onChange);
+    },     
+
+    _onChange:function(){
+        var buildingId;
+        buildingId = this.props.buildingId;
+        this.setState(getBuildingStateData(buildingId));
+    },     
+
     render: function(){
         var data = this.state.data;
         
@@ -61,9 +71,16 @@ var BuildingMaster = React.createClass({
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
             domToDisplay = (
-                <div>
-                	<h5>This is step 2</h5>
- 
+                <div className="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
+                    <NavBar 
+                        projectTitle = {projectTitle} 
+                        projectLogo = {projectLogo} 
+                        unitCount = {unitCount}
+                        showFilterModal = {this.showFilterModal}
+                        buildings = {buildings}
+                        isFilterApplied = {isFilterApplied}
+                        applied_filters = {applied_filters}
+                    />
                 </div>
             );
         }
