@@ -39,34 +39,28 @@ var BuildingMaster = React.createClass({
         var buildingId;
         buildingId = this.props.buildingId;
         this.setState(getBuildingStateData(buildingId));
-    },     
+    },  
+
+    showFilterModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.modal)).modal();
+    },       
 
     render: function(){
-        var data = this.state.data;
-        
-        var projectTitle = data.projectTitle;
-        var projectLogo = data.projectLogo;
-        var unitCount = data.totalCount;
-        var buildings = data.buildings;
-        var breakpoints = data.breakpoints;
-        var applied_filters = data.applied_filters;
-        var isFilterApplied = data.isFilterApplied;
+        var projectTitle,projectLogo,unitCount,buildings,isFilterApplied,applied_filters,availableUnitCount;
+        stateData = this.state.data;
+        if(stateData.buildings.length!=0){
+            buildings = stateData.buildings;
+            selectedBuilding = buildings[0];
+            projectTitle = selectedBuilding.building_name;
+            availableUnitCount = selectedBuilding.availableUnitData.length;
+            filteredUnitCount = selectedBuilding.filteredUnitData.length;
 
-        var filterTypes = data.filterTypes;
 
-        var unitIndexToHighlight = data.unitIndexToHighlight;
+            projectLogo = stateData.projectLogo;
+            applied_filters = stateData.applied_filters;
+            isFilterApplied = stateData.isFilterApplied;
 
-        var buildingToHighlight = buildings[unitIndexToHighlight];
-
-        var availableUnitData = buildings.availableUnitData;
-        var filteredUnitData = buildings.filteredUnitData;
-
-        var domToDisplay;
-        var modalData = {};
-
-        modalData.filterTypes = filterTypes;
-        modalData.search_filters = data.search_filters;
-        modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
+        }
 
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
@@ -75,12 +69,12 @@ var BuildingMaster = React.createClass({
                     <NavBar 
                         projectTitle = {projectTitle} 
                         projectLogo = {projectLogo} 
-                        unitCount = {unitCount}
+                        unitCount = {availableUnitCount}
                         showFilterModal = {this.showFilterModal}
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
-                    />
+                    />                   
                 </div>
             );
         }

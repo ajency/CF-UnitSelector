@@ -466,7 +466,7 @@ var ProjectMaster = React.createClass({
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
-                    />ƒ
+                    />
                     <Modal 
                         ref="modal" 
                         modalPurpose = "filterModal"

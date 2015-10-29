@@ -1298,7 +1298,7 @@ function getFakeBuildingMasterData(){
 	// building data
 	finalData = {
 	  "data": {
-	    "title": "Legend Apartments",
+	    "title": "Legend Apartmentssss",
 	    "projectLogo": "http://www.commonfloor.com/public/images/builder/-logo.gif",
 	    "unitCount": 0,
 	    "building":{
@@ -2103,8 +2103,21 @@ function _getBuildingMasterDetails(buildingId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_globalStateData))){
-			_buildingMasterStateData = _globalStateData;
+		if((!_.isEmpty(_globalStateData.data.projectTitle))){
+			projectMasterStateData = _globalStateData;
+
+			allBuildings = projectMasterStateData.data.buildings;
+
+			selectedBuilding = _.findWhere(allBuildings,{id:buildingId});
+
+			// send only array of selected building
+
+
+			delete projectMasterStateData.data.buildings;
+
+			_buildingMasterStateData = projectMasterStateData;
+			_buildingMasterStateData.data.buildings = [selectedBuilding];
+			
 		}
 		else{
 			_buildingMasterStateData = getFakeBuildingMasterData();
