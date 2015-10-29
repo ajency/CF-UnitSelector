@@ -68,10 +68,9 @@
     ],
     "breakpoints": [
       0,
-      14,
-      29,
-      44,
-      59
+      9,
+      18,
+      27
     ],
     "shadow_images": [
       "http://unitselector.com/projects/1/shadow/shadow-00.jpg",
@@ -151,7 +150,7 @@
         "has_master": "no",
         "floor_rise": 332244,
         "shadow_images": [],
-        "primary_breakpoint": 14
+        "primary_breakpoint": 9
       },
       {
         "id": 4,
@@ -167,7 +166,7 @@
         "has_master": "no",
         "floor_rise": 432132,
         "shadow_images": [],
-        "primary_breakpoint": 29
+        "primary_breakpoint": 18
       },
       {
         "id": 5,
@@ -183,7 +182,7 @@
         "has_master": "no",
         "floor_rise": 65432,
         "shadow_images": [],
-        "primary_breakpoint": 44
+        "primary_breakpoint": 27
       },
       {
         "id": 6,
@@ -199,7 +198,7 @@
         "has_master": "no",
         "floor_rise": 433443,
         "shadow_images": [],
-        "primary_breakpoint": 59
+        "primary_breakpoint": 27
       }
     ],
     "notlive_buildings": [

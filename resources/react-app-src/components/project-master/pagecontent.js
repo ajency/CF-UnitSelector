@@ -9,7 +9,7 @@ render: function(){
                    <div id="page-content-wrapper">
                         <div className="us-right-content">
                             <div className="footer">
-                                <h4 className="primary-txt"> Call 1800 180 180 180</h4>
+                                <h2 className="primary-txt text-right m-b-5"> Call 1800 180 180 180</h2>
                                 <a href="#"> Commonfloor </a> | <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a>
                                 <br/> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                             </div>
@@ -43,7 +43,7 @@ render: function(){
                                             <nav className="float-nav closed" id="filters">
                                                 <ul className="filterUl">
                                                     <li className="filterLiTop">
-                                                        <h5 className="text-uppercase">Filters (<span className="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span className="filterHeader">Clear filters</span></h5>
+                                                        <h5 className="text-uppercase">Filters (<span className="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span className="filterHeader">Reset</span></h5>
                                                     </li>
                                                     <li>
                                                         <h6 className="text-uppercase">Unit type</h6>
