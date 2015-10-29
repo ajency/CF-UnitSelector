@@ -260,6 +260,7 @@ class ProjectPlotVariantController extends Controller {
      */
     public function update($project_id, $id, Request $request) {
         
+        $isUnitBlocked = isUnitBlocked($id);
         if($isUnitBlocked)
         {
            Session::flash('error_message','Error !!! Cannot update variant as its unit is used for booking');    
