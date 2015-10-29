@@ -100,6 +100,9 @@ section {
 .m-b-5 {
   margin-bottom: 5px;
 }
+.btn-link {
+  color: #fe943e;
+}
 .fit {
   /* set relative picture size */
   max-width: 100%;
@@ -280,7 +283,7 @@ body a {
 .card-swipe .swipe-footer sm {
   color: #565654;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 22px;
   margin-top: 2px;
   float: left;
 }
@@ -293,12 +296,12 @@ body a {
   text-transform: uppercase;
   font-size: 11px;
   margin-top: 2px;
-  color: #bcbcba;
+  color: black;
 }
 .card-swipe .swipe-footer .units b {
   color: #565654;
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 11px;
+  font-weight: 600;
 }
 @media (max-width: 320px) {
   .card-swipe .swipe-footer .units b {
@@ -327,6 +330,8 @@ body a {
 }
 .card-swipe .swipe-footer .arrow a h3 i {
   color: #ffffff;
+  font-size: 22px;
+  line-height: 20px;
 }
 .card-swipe .swipe-unit-info {
   padding: 0 10px 5px;
@@ -1413,6 +1418,17 @@ body a {
   .float-nav li.filterLiTop h5 {
     font-size: 85%;
   }
+}
+.sub-list {
+  padding: 0px 7px !important;
+}
+.sub-list li {
+  float: none !important;
+  width: auto;
+}
+.sub-list li label {
+  margin-bottom: -2px;
+  font-weight: 400;
 }
 .step4Body .modal-backdrop.in,
 .step4Body .contactModal {

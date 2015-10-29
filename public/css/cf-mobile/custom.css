@@ -732,6 +732,9 @@ section {
 .m-b-5 {
   margin-bottom: 5px;
 }
+.btn-link {
+  color: #fe943e;
+}
 .fit {
   /* set relative picture size */
   max-width: 100%;
