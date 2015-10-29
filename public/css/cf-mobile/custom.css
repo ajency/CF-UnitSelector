@@ -725,6 +725,9 @@ section {
 .clear {
   clear: both;
 }
+.m-b-5 {
+  margin-bottom: 5px;
+}
 .fit {
   /* set relative picture size */
   max-width: 100%;

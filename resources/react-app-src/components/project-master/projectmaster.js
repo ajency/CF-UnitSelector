@@ -538,7 +538,7 @@ var ProjectMaster = React.createClass({
                                     <div className="col-sm-3">
                                         <div className="pull-right text-center text-uppercase">
                                             <button type="button" 
-                                                className="btn btn-default btn-sm btn-primary" 
+                                                className="btn btn-default  btn-primary" 
                                                 data-toggle="modal" data-target="#contactModal" 
                                                 onClick={this.showContactModal} 
                                             >
