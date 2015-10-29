@@ -192,6 +192,10 @@ function saveProjectConfig()
         $('input[name="property_types[]"]').attr('disabled',false);
         $('form').submit();
     }
+    else
+    {
+        return false;
+    }
 
 }
     </script>
