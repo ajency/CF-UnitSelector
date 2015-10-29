@@ -140,6 +140,9 @@ function getUnitCount(propertyType,filters){
 
 	var appliedFilters = filters;
 
+	var attributeFilters = getAllttributeFilters(propertyType);
+
+	
 	if (!_.isEmpty(_projectData)){
 		units = _projectData.units;
 
@@ -224,7 +227,44 @@ function getUnitCount(propertyType,filters){
 
 
 
-				if(key==="Flooring" || key==="Kitchen"){
+				_.each(attributeFilters, function(attribute){
+					if(key===attribute){
+						flooringTocheck = appliedFilter; 
+						if(flooringTocheck.length > 0){
+
+							if(filteredUnits.length === 0){
+
+								_.each(availableUnits, function(availableUnit){
+									variantId = availableUnit.unit_variant_id;
+									var propertyVariant = getPropertyVariantsAttributes(propertyType,variantId,attribute);
+
+									if(_.indexOf(flooringTocheck, propertyVariant.toString()) > -1){
+										filteredUnits.push(availableUnit);
+									}
+								});
+
+							}else{
+								_.each(filteredUnits, function(filUnit){
+									var innterPropertyVariant = getPropertyVariantsAttributes(propertyType,filUnit.unit_variant_id,attribute);
+
+									if(flooringTocheck.indexOf(innterPropertyVariant.toString()) > -1){
+										console.log(innterPropertyVariant+ ' is not available');
+									}else{
+										filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+									}
+
+								});
+							}						
+
+						}
+					}
+				});
+
+
+
+
+
+				/*if(key==="Flooring" || key==="Kitchen"){
 					flooringTocheck = appliedFilter; 
 					if(flooringTocheck.length > 0){
 
@@ -253,7 +293,7 @@ function getUnitCount(propertyType,filters){
 						}						
 
 					}
-				}
+				}*/
 
 
 
@@ -364,7 +404,14 @@ function getUnitCount(propertyType,filters){
 									_.each(unit.views , function(view){
 
 										if(_.indexOf(viewsTocheck, view.toString()) > -1){
-											filteredUnits.push(unit);
+
+											check = _.some( filteredUnits, function( el ) {
+												return el.id === unit.id;
+											} );
+
+											if(!check){
+												filteredUnits.push(unit);
+											}
 										}
 
 									});
@@ -712,7 +759,62 @@ function getFilterTypes(propertyType){
 
 }
 
+
+
+
+
+
+function getAllttributeFilters(propertyType){
+
+	var totalUnitsInBuilding = _projectData.units;
+	var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+	var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
+
+	switch (propertyType) {
+
+		case "Apartment":
+	    	var propertyVariants = _projectData.apartment_variants;	    	    	
+	    break;
+
+	    case "Apartments":
+	    	var propertyVariants = _projectData.apartment_variants;	    	    	
+	    break;
+
+	}
+
+	var filteredVariants = _.filter(propertyVariants , function(variant){
+		if(unitsIds.indexOf(variant.id) > -1){
+			return variant;
+		}
+	});
+
+
+	var attributes = _.pluck(filteredVariants,'variant_attributes');
+
+	var filters = [];
+
+		_.each(attributes, function(attr,i){
+			_.each(attr, function(val,key){
+
+				if(filters.indexOf(key) > -1){
+					//filters.push(key);
+				}else{
+					filters.push(key);
+				}
+
+			});
+		});
+
+	return filters;
+}
+
+
+
+
+
 function getApartmentFilterTypes(propertyType){
+
+	var attributeFilters = getAllttributeFilters(propertyType);
 	
 	var filterTypes = [];
 
@@ -752,7 +854,23 @@ function getApartmentFilterTypes(propertyType){
 			}
 
 
-		if(supportedFilterType==="Flooring"){
+
+			_.each(attributeFilters, function(attribute){
+				if(supportedFilterType===attribute){
+					filterType.type = attribute;
+					filterType.filterName = attribute;
+					filterType.filterDisplayType = "normalCheckbox";
+
+					filterType.filterValues = getPropertyVariants(propertyType,attribute);
+
+					filterTypes.push(filterType);
+				}
+			});
+
+
+
+
+		/*if(supportedFilterType==="Flooring"){
 			filterType.type = "Flooring";
 			filterType.filterName = "Flooring";
 			filterType.filterDisplayType = "normalCheckbox";
@@ -773,7 +891,7 @@ function getApartmentFilterTypes(propertyType){
 			filterTypes.push(filterType);
 
 			console.log(supportedFilterType);
-		}
+		}*/
 
 
 		if(supportedFilterType==="budget"){
