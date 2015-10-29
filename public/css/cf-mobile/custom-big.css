@@ -1644,4 +1644,14 @@ body a {
 .pNone {
   padding: 0 !important;
 }
+.svg-top-area svg {
+  position: absolute;
+  left: 0%;
+  z-index: 9999;
+  top: 2%;
+}
+.svg-top-area img {
+  height: 200px;
+  margin: 0px;
+}
 /*# sourceMappingURL=custom-big.css.map */
