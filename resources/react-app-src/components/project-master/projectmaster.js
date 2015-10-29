@@ -329,6 +329,27 @@ var ProjectMaster = React.createClass({
 
     },
 
+    componentDidMount: function() {
+        $(".animsition").animsition({
+         inClass: 'fade-in',
+         outClass: 'fade-out',
+         inDuration: 1500,
+         outDuration: 1200,
+         linkElement: '.animsition-link',
+         loading: true,
+         loadingParentElement: 'body', 
+         loadingClass: 'animsition-loading',
+         unSupportCss: ['animation-duration',
+             '-webkit-animation-duration',
+             '-o-animation-duration'
+         ],
+
+         overlay: false,
+
+         overlayClass: 'animsition-overlay-slide',
+         overlayParentElement: 'body'
+        });
+    },
 
     componentWillMount:function(){
         AppStore.addChangeListener(this._onChange);
@@ -434,7 +455,7 @@ var ProjectMaster = React.createClass({
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
             domToDisplay = (
-                <div>
+                <div className="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
                     <NavBar 
                         projectTitle = {projectTitle} 
                         projectLogo = {projectLogo} 

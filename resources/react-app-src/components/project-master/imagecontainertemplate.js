@@ -70,16 +70,27 @@ var ImageContainerTemplate = React.createClass({
         api = spin.spritespin("api");
 
         spin.bind("onLoad", function() {
-         var data = api.data;
+            var data = api.data;
            data.stage.prepend($(".details .detail")); // add current details
            data.stage.find(".detail").hide(); // hide current details
          })
 
         spin.bind("onFrame", function() {
            var data = api.data;
+           
+           if (data.frame !== data.stopFrame){
+            svgData = {
+                  svgClasses: 
+                    {'svg-area': true,
+                      'hide': true
+                    }
+            }
+
+            this.setState(svgData);
+           }
            data.stage.find(".detail:visible").stop(false).fadeOut();
            data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
-         });    
+         }.bind(this));    
 
         spin.bind("onAnimationStop", function(){
           svgData = {

@@ -424,6 +424,10 @@ body .row {
   height: 200px;
   margin: 0px;
 }
+.animsition,
+.animsition-overlay {
+  position: initial !important;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;

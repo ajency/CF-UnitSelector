@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/cf-mobile/gh-fork-ribbon.min.css' )}}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/bootstrap.min.css' )}}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/font-awesome.css' )}}"/> 
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/cf-mobile/animsition.min.css' )}}"/>
     <link href="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.css' )}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/Swiper/dist/css/swiper.min.css' )}}"/>
     <link id="size-stylesheet" href="{{ asset('css/cf-mobile/custom.css' )}}" rel='stylesheet'/>
@@ -49,6 +50,7 @@
     <script src="{{ asset('bower_components/spritespin/release/spritespin.min.js' )}}"></script>  
     <script src="{{ asset('bower_components/qtip2/basic/jquery.qtip.min.js' )}}"></script> 
     <script src="{{ asset('bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' )}}"></script>
+     <script src="{{ asset('js/animsition.min.js' )}}"></script>
 
 	<!--Global constants -->
 	<script type="text/javascript" language="JavaScript">
