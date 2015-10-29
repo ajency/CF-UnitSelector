@@ -67,11 +67,11 @@ var FilterType = React.createClass({
                             }); 
 
                             filterUiDom = (
-                                <div key={i} className={imgCheckboxClass}>
+                                <li key={i} className={imgCheckboxClass}>
                                     <input ref="checkboxRef " type="checkbox" data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
                                     <img src={imgSrc} />
                                     <span className="text-uppercase col-xs-12 text-center">{filterValue.name}</span>
-                                </div>
+                                </li>
                             );
                           
 
@@ -106,23 +106,23 @@ var FilterType = React.createClass({
 
                                     if(window.isMobile){
                                         filterUiDom = (
-                                            <div key={i} className="checkboxnormal">
+                                            <li key={i} className="checkboxnormal">
                                                 <h5 className="col-xs-9 normal">{filterValue.name}</h5>
                                                 <span className="col-xs-3 text-center">
 
                                                         <input type="checkbox" checked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id} /><label></label>
 
                                                 </span>
-                                            </div>                              
+                                            </li>                              
                                         );
                                     }
                                     else{
                                         filterUiDom = (
-                                                <div key={i} className="col-xs-4">
+                                                <li key={i} className="col-xs-4">
                                                     <input type="checkbox" checked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
                                                     <label className="checkboxLabel"></label>
                                                     <label>{filterValue.name}</label>
-                                                </div>
+                                                </li>
                                         );
                                     }
 
@@ -146,7 +146,7 @@ var FilterType = React.createClass({
                         <h5 className=" text-center text-uppercase m-t-20">{filterType.filterName}</h5>
 
                         <div className={filterTypeClasses}>
-                            {filterValueNodes}
+                            <ul className="list-inline sub-list">{filterValueNodes}</ul>
                         </div>
 
                     </div>
@@ -160,7 +160,7 @@ var FilterType = React.createClass({
                         </li>
 
                         <li className="filterCheckbox">
-                            {filterValueNodes}
+                            <ul className="list-inline sub-list">{filterValueNodes}</ul>
                         </li>
                     </div>
             );
