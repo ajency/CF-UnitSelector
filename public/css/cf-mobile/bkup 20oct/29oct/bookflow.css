@@ -72,7 +72,7 @@ body {
 .bookFlowContent .absoluteLayout {
   height: 300px;
   width: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
@@ -117,7 +117,7 @@ body {
 }
 .bookFlowContent .bookAptOuter > div {
   float: right;
-  width: 470px;
+  width: 460px;
 }
 .bookFlowContent .bookAptOuter i {
   font-size: 16px;
@@ -132,14 +132,14 @@ body {
   margin-top: 0;
 }
 .bookFlowContent .bookAptOuter .totalPrice {
-  font-size: 11px;
+  font-size: 10px;
   color: #ffffff;
   float: left;
   width: 100%;
   padding-right: 27px;
 }
 .bookFlowContent .bookAptOuter .priceSheet {
-  font-size: 11px;
+  font-size: 10px;
   color: #ffffff;
   text-transform: uppercase;
   background: rgba(0, 0, 0, 0.5);
@@ -189,7 +189,7 @@ body {
   display: inline-block;
 }
 .bookFlowContent .bookAptOuter .priceOuter:last-child .amount {
-  margin-right: 28px;
+  margin-right: 22px;
 }
 .bookFlowContent .bookAptOuter .priceOuter:last-child .totalPrice {
   padding-right: 0px;
@@ -206,7 +206,6 @@ body {
 }
 .bookFlowContent .bookAptOuter .bookApmt {
   color: #ffffff;
-  font-size: 16px;
 }
 .bookFlowContent .bookAptOuter .flatNo {
   color: #ffffff;
@@ -246,28 +245,6 @@ body {
   margin: 25px 10px 20px;
   font-weight: 700;
 }
-.bookFlowContent .panel h4.apartmentName {
-  font-size: 14px;
-  font-weight: 600;
-  padding: 0;
-}
-.bookFlowContent .panel .pricepaymentButtons {
-  padding: 10px 0;
-  text-align: right;
-}
-.bookFlowContent .panel .pricepaymentButtons a {
-  font-weight: 600;
-  text-decoration: none;
-  color: #fe943e;
-  outline: none;
-}
-.bookFlowContent .panel .pricepaymentButtons a:focus {
-  text-decoration: none;
-  outline: none;
-}
-.bookFlowContent .panel .pricepaymentButtons > div {
-  padding-right: 0;
-}
 .bookFlowContent .panel .panel-heading {
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
@@ -285,8 +262,7 @@ body {
 }
 .bookFlowContent .panel .panel-heading a {
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 12px;
   padding: 20px 0 15px 0;
   display: block;
   text-transform: uppercase;
@@ -299,9 +275,6 @@ body {
   background: #f6f6f6;
   padding: 5px 15px;
   border-radius: 5px;
-}
-.bookFlowContent .panel .reviewDetails {
-  padding-left: 0;
 }
 .bookFlowContent .panel .reviewDetails h4 {
   border-bottom: 1px solid #bcbcba;
@@ -489,21 +462,18 @@ body {
   border-bottom: 1px solid #edeef0;
   margin-bottom: 20px;
   font-size: 12px;
+  text-transform: uppercase;
   width: 100%;
 }
 .bookFlowContent .panel .personalDetails input:focus,
 .bookFlowContent .panel .personalDetails select:focus {
   outline: none;
 }
-.bookFlowContent .panel .buttonOuter {
-  margin: 20px 0 10px 0;
-}
 .bookFlowContent .panel .btnOuter button {
-  margin-top: 10px;
+  margin-top: 25px;
 }
 .bookFlowContent .panel .panel-body {
   border-top: none !important;
-  padding: 15px 0;
 }
 .bookFlowContent .panel .plusMinusOuter {
   outline: none;
@@ -553,12 +523,15 @@ body {
   padding-top: 35px !important;
 }
 .bookFlowContent .bottomSection {
-  background: #ffffff;
+  background: #f6f6f6;
   float: left;
-  padding: 0 0 10px 10px;
+  padding: 30px 0;
   width: 100%;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   color: #565654;
+}
+.bookFlowContent .bottomSection > div:last-child {
+  border-left: 1px solid #d5d5d4;
 }
 .bookFlowContent .bottomSection .rightContent h5 {
   font-weight: 700;
@@ -568,16 +541,9 @@ body {
   margin-bottom: 0;
   font-size: 12px;
 }
-.bookFlowContent .bottomSection .rightContent p .safePaymentText {
-  margin-left: 50px;
-}
 .bookFlowContent .bottomSection .rightContent p i {
-  margin: 0 2px 0 4px;
+  margin: 0 0 0 4px;
   color: #7d7c7a;
-}
-.bookFlowContent .bottomSection .rightContent .supportNoText,
-.bookFlowContent .bottomSection .rightContent .safePaymentText {
-  font-size: 16px;
 }
 .bookFlowContent li.parsley-required {
   list-style: none;
@@ -725,7 +691,7 @@ body {
   margin-top: -2px;
 }
 .successOuter .cancelBookingOuter {
-  padding: 20px 0 10px 0 ;
+  padding: 20px 0 0 0 ;
   border-top: 1px solid #bcbcba;
   margin-top: 40px;
 }
@@ -877,7 +843,6 @@ body {
 }
 .successContent .note {
   margin-top: 10px;
-  padding-right: 0;
   font-size: 12px;
 }
 .successContent .cancleBooking {
@@ -970,23 +935,14 @@ body {
   .successContent .cancelBookingOuter a {
     margin-top: 10px;
   }
-  .bookFlowContent .panel .btnOuter {
-    padding-left: 0;
-  }
   .bookFlowContent .panel .reviewDetails .detailsOuter > div {
     width: 33%;
     padding-right: 0;
-  }
-  .bookFlowContent .bottomSection {
-    padding-left: 0;
   }
 }
 @media screen and (max-width: 767px) {
   .bookFlowContent {
     height: 350px;
-  }
-  .bookFlowContent .container {
-    padding: 0;
   }
   .bookFlowContent .absoluteLayout {
     height: 350px;
@@ -1027,10 +983,6 @@ body {
   .bookFlowContent .userInfo {
     padding-left: 0;
   }
-  .bookFlowContent .panel .pricepaymentButtons > div {
-    text-align: left;
-    padding-left: 0;
-  }
   .detailsOuter {
     padding: 0 !important;
   }
@@ -1045,9 +997,9 @@ body {
     padding: 20px 0;
   }
   .successContent {
-    box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
     padding: 0 !important;
   }
   .successContent .bookedUser {
@@ -1092,26 +1044,16 @@ body {
     display: inline-block;
     margin-left: 0;
   }
+  .bookFlowContent .container {
+    padding: 0;
+  }
   .buttonOuter {
     text-align: center;
   }
-  .bottomSection {
-    padding-left: 0 !important;
-  }
-  .bottomSection .supportNoText {
-    width: 100%;
-    float: left;
-  }
-  .bottomSection .safePaymentText {
-    margin-left: 0px !important;
-    margin-top: 10px;
-    width: 100%;
-    float: left;
-  }
 }
-@media screen and (max-width: 384px) {
+@media screen and (max-width: 320px) {
   .unitDetails {
-    font-size: 11px;
+    font-size: 10px;
   }
   .successOuter .cancelBookingOuter a {
     float: left;

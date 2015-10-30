@@ -22,7 +22,7 @@
         <h3 > <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
     </div>
     <div class="grid-body no-border">
-        <form action="{{ url('/admin/project/'. $project['id']) }}" method="POST" data-parsley-validate>
+        <form action="{{ url('/admin/project/'. $project['id']) }}" method="POST" data-parsley-validate onsubmit="return saveProjectConfig();">
             @include('admin.project.includes.details')
 
             <hr/>
@@ -191,6 +191,10 @@ function saveProjectConfig()
     {
         $('input[name="property_types[]"]').attr('disabled',false);
         $('form').submit();
+    }
+    else
+    {
+        return false;
     }
 
 }
