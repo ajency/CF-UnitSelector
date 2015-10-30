@@ -179,12 +179,21 @@ class ProjectApartmentUnitController extends Controller {
         
  
 
-        $projectPropertytypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
+        ///$projectPropertytypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
         
         $variantId = $unit['unit_variant_id'];
         $unitType = UnitVariant::find($variantId)->unitType()->first();
         $unitTypeId = $unitType->id;
-        $unitVariantArr = UnitVariant::where('unit_type_id',$unitTypeId)->get()->toArray();
+        $projectPropertyTypeId = $unitType->project_property_type_id;
+        $unitTypeArr = UnitType::where( 'project_property_type_id', $projectPropertyTypeId)->get()->toArray();
+         
+        foreach($unitTypeArr as $unitType)
+            $unitTypeIdArr[] =$unitType['id'];
+       
+        $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray(); 
+        
+
+        //$unitVariantArr = UnitVariant::where('unit_type_id',$unitTypeId)->get()->toArray();
         
         $disabled =(isAgent())?'disabled':'';  
         $unit['agent_name']='';

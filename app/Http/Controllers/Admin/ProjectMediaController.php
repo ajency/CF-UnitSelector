@@ -144,7 +144,11 @@ class ProjectMediaController extends Controller {
                     }
                     else*/
                     if ('shadow' === $type) {
-                        $position = Input::get( 'position' );  
+                        
+                        $file =  $fileData[0];
+                        $fileArr = explode('-', $file);
+                        $position = $fileArr[1];
+                          
                         $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
                         $unSerializedValue = unserialize( $projectMeta->meta_value );
                         $unSerializedValue[$position] = $mediaId;
@@ -302,17 +306,17 @@ class ProjectMediaController extends Controller {
             $projectMeta->meta_value = serialize($position);
             $projectMeta->save();
 
-            $shadowImages = ProjectMeta::where(['meta_key'=>'shadow','project_id'=>$projectId])->pluck('meta_value');
-            $shadowImages = unserialize($shadowImages);
+            // $shadowImages = ProjectMeta::where(['meta_key'=>'shadow','project_id'=>$projectId])->pluck('meta_value');
+            // $shadowImages = unserialize($shadowImages);
 
-            $newShadowImages = [];
-            foreach ($position as $key => $value) {
-                if(isset($shadowImages[$value]))
-                    $newShadowImages[$value] = $shadowImages[$value];
-            }
+            // $newShadowImages = [];
+            // foreach ($position as $key => $value) {
+            //     if(isset($shadowImages[$value]))
+            //         $newShadowImages[$value] = $shadowImages[$value];
+            // }
   
-            $shadowData =  ['meta_value'=>serialize($newShadowImages)]; 
-            ProjectMeta::where(['meta_key'=>'shadow','project_id'=>$projectId])->update( $shadowData ); 
+            // $shadowData =  ['meta_value'=>serialize($newShadowImages)]; 
+            // ProjectMeta::where(['meta_key'=>'shadow','project_id'=>$projectId])->update( $shadowData ); 
 
             $msg = 'Break Points Successfully Updated';
             $code = '201';
