@@ -173,6 +173,8 @@
     		padding: 5px 20px 5px 5px;   			
    			color:@gray-dark;
    			font-weight:600;
+   			border-right: 1px solid @gray-lighter;
+   			font-size: 14px;
     	}
     	.contentText
     	{
@@ -389,4 +391,24 @@
 	{
 		padding: 20px 29px 0 30px;
 	}	
+}
+@media screen and (max-width:768px)
+{
+	.step4Desk .detailView .unit .roomDetails
+	{
+		width: 240px;    
+		margin-left: 10px;
+	}
+	.step4Desk .detailView .unit .roomDetails:nth-child(4n+1)
+	{
+		margin-left: 10px;
+	}
+	.step4Desk .detailView .unit .roomDetails:first-child
+	{
+		margin-left: 0;
+	}
+	.step4Desk .tabHeader ul li
+	{
+		padding: 20px 0px 0 14px;
+	}
 }
