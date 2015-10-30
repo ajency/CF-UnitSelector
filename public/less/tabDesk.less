@@ -173,6 +173,8 @@
     		padding: 5px 20px 5px 5px;   			
    			color:@gray-dark;
    			font-weight:600;
+   			border-right: 1px solid @gray-lighter;
+   			font-size: 14px;
     	}
     	.contentText
     	{
@@ -199,7 +201,7 @@
 			.roomDetails
 			{
 				margin-top:50px;
-				border-right:1px solid @gray-lightest;
+				border-right:1px solid @gray-lighter;
 				width:270px;
 				margin-left:30px;
 
@@ -263,6 +265,7 @@
 				> div
 				{
 					margin:20px 0;
+					padding-right: 0;
 				}
 			}
 			.icon
@@ -283,6 +286,7 @@
 				margin-top: 12px;
 			    font-size: 12px;
 			    font-weight: 600;
+			    padding: 0;
 			}
 			.disabled
 			{
@@ -340,7 +344,7 @@
 			{
 				margin-bottom: 30px;
 				color: @gray;
-				border-right:1px solid @gray-lightest;
+				/*border-right:1px solid @gray-lightest;*/
 				h5
 				{
 					margin-bottom: 10px;
@@ -379,11 +383,34 @@
 	}
 	.step4Desk .detailView .unit .roomDetails:nth-child(3n+4)
 	{
-		border-right: 1px solid @gray-lightest;
+		border-right: 1px solid @gray-lighter;
 	}
 	.step4Desk .detailView .unit .roomDetails:nth-child(3n+3), .step4Desk .detailView .unit .roomDetails:last-child
 	{
 		border-right: none;
 	}
-	
+	.step4Desk .tabHeader ul li
+	{
+		padding: 20px 29px 0 30px;
+	}	
+}
+@media screen and (max-width:768px)
+{
+	.step4Desk .detailView .unit .roomDetails
+	{
+		width: 240px;    
+		margin-left: 10px;
+	}
+	.step4Desk .detailView .unit .roomDetails:nth-child(4n+1)
+	{
+		margin-left: 10px;
+	}
+	.step4Desk .detailView .unit .roomDetails:first-child
+	{
+		margin-left: 0;
+	}
+	.step4Desk .tabHeader ul li
+	{
+		padding: 20px 0px 0 14px;
+	}
 }
