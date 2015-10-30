@@ -1497,7 +1497,7 @@ body a {
   padding-top: 25px;
 }
 .step4Desk .rightSide button i {
-  margin-left: 5px;
+  margin-left: 7px;
 }
 .step4Desk .rightSide button:first-child {
   margin-right: 5px;
@@ -1558,6 +1558,9 @@ body a {
 .step4Desk .tabHeader ul li.stickyButtons {
   display: none;
   padding-top: 15px;
+}
+.step4Desk .tabHeader ul li.stickyButtons button i {
+  margin-left: 7px;
 }
 .step4Desk .tabHeader ul li.stickyButtons button:first-child {
   margin-right: 5px;
