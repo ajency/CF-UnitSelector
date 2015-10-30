@@ -62,6 +62,12 @@ var BuildingMaster = React.createClass({
 
         }
 
+        var modalData = {};
+
+        modalData.filterTypes = stateData.filterTypes;
+        modalData.search_filters = stateData.search_filters;
+        modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
+
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
             domToDisplay = (
@@ -74,7 +80,15 @@ var BuildingMaster = React.createClass({
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
-                    />                   
+                    />  
+                    <Modal 
+                        ref="modal" 
+                        modalPurpose = "filterModal"
+                        modalData={modalData}
+                        selectFilter={this.selectFilter}
+                        applyFilters = {this.applyFilters}
+                        unapplyFilters = {this.unapplyFilters}
+                    />                                     
                 </div>
             );
         }
