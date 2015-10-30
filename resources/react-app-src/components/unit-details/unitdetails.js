@@ -68,6 +68,7 @@ var UnitDetails = React.createClass({
 		basicData.variantAttributes = "";
 		basicData.views = "";
 		basicData.allAmenities = "";
+		unitData.similarUnits = "";
 
 		unitData.basic = basicData;
 		unitData.rooms = roomData;
@@ -91,6 +92,7 @@ var UnitDetails = React.createClass({
 			unitData.basic.variantAttributes = unit.variantData.variant_attributes;
 			unitData.basic.views = unit.views;
 			unitData.basic.allAmenities = unit.allAmenities;
+			unitData.similarUnits = unit.similarUnits;
 
 			floorData = unit.variantData.floor
 			groundfloorData = floorData[0];
