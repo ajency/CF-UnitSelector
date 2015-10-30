@@ -14,6 +14,25 @@ var immutabilityHelpers = require('react-addons-update');
 var ReactDOM = require('react-dom');
 var Modal = require('../modal/modal');
 
+var qtipSettings = { // Grab some elements to apply the tooltip to
+            content: "Dummy Text",
+            show: {
+                when: false, // Don't specify a show event
+                ready: true // Show the tooltip when ready
+            },
+            hide: false,
+            style: {
+                classes: 'qtip-light',
+                tip: {
+                    corner: 'bottom center',
+                    mimic: 'bottom left',
+                    border: 1,
+                    width: 88,
+                    height: 66
+                }
+            } // Don't specify a hide event
+        };
+
 
 
 function getBuildingStateData(buildingId){
@@ -143,7 +162,19 @@ var BuildingMaster = React.createClass({
         }
 
         // this.updateStateData([dataToSet]);
-    },       
+    },  
+
+    showTooltip: function(text){
+
+ 
+        // var classname = ".show-qtooltip";
+   
+        // // initialise qtip
+
+        // qtipSettings['content'] = text;
+
+        // $(classname).qtip(qtipSettings);
+    },         
 
     render: function(){
         var projectTitle,projectLogo,unitCount,buildings,isFilterApplied,applied_filters,availableUnitCount;
@@ -197,11 +228,13 @@ var BuildingMaster = React.createClass({
                     <ImageContainerTemplate 
                         ref= "imageContainer"
                         showShadow={data.showShadow}
+                        imageType="buildings"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
                         updateRotateShadow = {this.updateRotateShadow}
                         buildings =  {buildings}
+                        buildingId = {this.props.buildingId}
                         buildingToHighlight = {buildingToHighlight}
                         destroyTooltip = {this.destroyTooltip}
                         showTooltip = {this.showTooltip}

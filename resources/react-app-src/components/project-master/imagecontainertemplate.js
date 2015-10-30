@@ -44,7 +44,27 @@ var ImageContainerTemplate = React.createClass({
       };
     },
 
+    getMasterImagePath: function(imageType){
+        var imagePath="";
+        var masterImagePrefix = "master-";
+
+        if(imageType==="master"){
+          imagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/'+masterImagePrefix+'{frame}.jpg';
+        }
+        else{
+          buildingId = this.props.buildingId;
+
+          imagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/'+buildingId+'/'+masterImagePrefix+'{frame}.jpg';
+          
+        }
+
+        return imagePath;
+        
+    },
+
     componentDidMount: function(){
+
+        var frames=[];
 
         details = this.props.breakpoints;
         
@@ -56,24 +76,33 @@ var ImageContainerTemplate = React.createClass({
           $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
         }
         
+        var imageType = this.props.imageType;
 
-        var masterImagePrefix = "master-";
         var digitsInName = 2; 
 
-        var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'{frame}.jpg'
+        imagePath = this.getMasterImagePath(imageType);
 
-        var frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
-         frame: [0, 35],
-         digits: digitsInName
-       });
+        var projectMasterImgUrl = imagePath;
+
+        if(!_.isEmpty(imagePath)){
+            frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
+             frame: [0, 35],
+             digits: digitsInName
+            });
+        }
+
 
         spin = $(this.refs.spritespin);
         
         spriteSpinSettings["source"] = frames;
-        spin.spritespin(spriteSpinSettings);
 
-        // get the api object. This is used to trigger animation to play up to a specific frame
-        api = spin.spritespin("api");
+        // initialize spritespin only if frames array is not empty
+        if(frames.length>0){
+          spin.spritespin(spriteSpinSettings);
+          // get the api object. This is used to trigger animation to play up to a specific frame
+          api = spin.spritespin("api");
+        }
+
 
         spin.bind("onLoad", function() {
             var data = api.data;
@@ -116,6 +145,17 @@ var ImageContainerTemplate = React.createClass({
       details = this.props.breakpoints;
     },
 
+    componentWillUnmount: function(){
+      console.log("unmount image container");
+      spin = $(this.refs.spritespin);
+      
+      if(!_.isUndefined(spin.spritespin)){
+        api = spin.spritespin("api");
+        SpriteSpin.destroy(api.data) ;  
+      }
+         
+    },
+
     incrementIndex: function(){
       detailIndex = detailIndex+1;
     },
@@ -123,8 +163,6 @@ var ImageContainerTemplate = React.createClass({
     resetIndex: function(){
       detailIndex = 0;
     },
-
-
 
     setDetailIndex: function() {
         console.log("set detail index");

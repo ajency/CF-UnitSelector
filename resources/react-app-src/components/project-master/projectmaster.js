@@ -482,6 +482,7 @@ var ProjectMaster = React.createClass({
                     <ImageContainerTemplate 
                         ref= "imageContainer"
                         showShadow={data.showShadow}
+                        imageType="master"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
@@ -525,6 +526,7 @@ var ProjectMaster = React.createClass({
                         <ImageContainerTemplate
                             ref= "imageContainer"
                             showShadow={data.showShadow}
+                            imageType="master"
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
                             updateChosenBreakPoint = {this.updateChosenBreakPoint}
