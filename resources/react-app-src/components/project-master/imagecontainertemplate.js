@@ -38,6 +38,12 @@ var ImageContainerTemplate = React.createClass({
         return svgData;
     },
 
+    getDefaultProps: function() {
+      return {
+        buildings:[]
+      };
+    },
+
     componentDidMount: function(){
 
         details = this.props.breakpoints;
@@ -200,6 +206,16 @@ var ImageContainerTemplate = React.createClass({
         
         var buildings = this.props.buildings;
 
+        buildingToHighlight = this.props.buildingToHighlight;
+
+        if(_.isEmpty(buildingToHighlight)){
+          if(buildings.length>0)
+            buildingToHighlight = buildings[0];
+          else
+            buildingToHighlight = {}
+
+        }
+
         if(window.isMobile){
             domToDisplay = (
 
@@ -213,7 +229,7 @@ var ImageContainerTemplate = React.createClass({
                             chosenBreakpoint={this.props.chosenBreakpoint} 
                             key={this.props.chosenBreakpoint} 
                             buildings={ buildings} 
-                            buildingToHighlight={ this.props.buildingToHighlight} 
+                            buildingToHighlight={buildingToHighlight} 
                             showTooltip={ this.props.showTooltip} 
                             updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
                           />

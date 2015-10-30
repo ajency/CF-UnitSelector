@@ -90,7 +90,7 @@ var BuildingMaster = React.createClass({
        
         // this.updateStateData([dataToSet]);
     }, 
-       
+
     applyFilters: function(evt){
 
         console.log("Apply filters");
@@ -134,7 +134,16 @@ var BuildingMaster = React.createClass({
         // this.updateProjectMasterData();
 
 
-    },    
+    }, 
+
+    updateChosenBreakPoint: function(chosenBreakPoint){
+        dataToSet = {
+            property: "chosenBreakpoint",
+            value: chosenBreakPoint
+        }
+
+        // this.updateStateData([dataToSet]);
+    },       
 
     render: function(){
         var projectTitle,projectLogo,unitCount,buildings,isFilterApplied,applied_filters,availableUnitCount;
@@ -159,6 +168,7 @@ var BuildingMaster = React.createClass({
         modalData.search_filters = data.search_filters;
         modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
 
+        buildingToHighlight = {};
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
             domToDisplay = (
@@ -184,6 +194,19 @@ var BuildingMaster = React.createClass({
                         toggelSunView = {this.toggelSunView} 
                         showShadow={data.showShadow}
                     />
+                    <ImageContainerTemplate 
+                        ref= "imageContainer"
+                        showShadow={data.showShadow}
+                        breakpoints = {data.breakpoints}
+                        chosenBreakpoint = {data.chosenBreakpoint}
+                        updateChosenBreakPoint = {this.updateChosenBreakPoint}
+                        updateRotateShadow = {this.updateRotateShadow}
+                        buildings =  {buildings}
+                        buildingToHighlight = {buildingToHighlight}
+                        destroyTooltip = {this.destroyTooltip}
+                        showTooltip = {this.showTooltip}
+                        updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight}
+                    />                    
                 </div>
             );
         }
