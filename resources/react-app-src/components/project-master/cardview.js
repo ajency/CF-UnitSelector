@@ -176,7 +176,7 @@ var CardView = React.createClass({
                                 </div>
                                 <div className=" swipe-unit-info row">
                                     <div className="col-xs-12 text-muted">
-                                        <span>{noOfFloors} Floors</span>
+                                        <span>{noOfFloors} &nbsp; Floors</span>
                                         <ul>
                                             <li></li>
                                         </ul>
