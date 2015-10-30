@@ -238,7 +238,7 @@
 				width:auto;
 				max-width:100%;
 				height:auto;
-				max-height:400px;
+				max-height:400px;				
 			}
 			.plan
 			{
@@ -266,6 +266,12 @@
 				{
 					margin:20px 0;
 					padding-right: 0;
+					i
+					{
+						float: left;
+						margin-right: 5px;
+						margin-top: 12px;
+					}
 				}
 			}
 			.icon
@@ -293,6 +299,10 @@
 				.icon
 				{
 					background: @gray-lighter;
+				}
+				i
+				{
+					color: @gray-light;
 				}
 				.text
 				{
@@ -362,12 +372,14 @@
 .svg-top-area{
     svg{
       position: absolute;      
-      left: 0%;
+      left: -3%;
       z-index: 9999;
-      top:2%;
+      top:6%;
+      height: 400px !important;
+      width:100% !important;
     }
     img{
-      height: 200px;
+      height: 400px !important;
       margin:0px;
     }
 }

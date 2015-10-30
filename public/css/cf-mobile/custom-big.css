@@ -1628,6 +1628,11 @@ body a {
   margin: 20px 0;
   padding-right: 0;
 }
+.step4Desk .amenitiesDetails .row > div i {
+  float: left;
+  margin-right: 5px;
+  margin-top: 12px;
+}
 .step4Desk .amenitiesDetails .icon {
   float: left;
   width: 40px;
@@ -1648,6 +1653,9 @@ body a {
 }
 .step4Desk .amenitiesDetails .disabled .icon {
   background: #d5d5d4;
+}
+.step4Desk .amenitiesDetails .disabled i {
+  color: #bcbcba;
 }
 .step4Desk .amenitiesDetails .disabled .text {
   color: #bcbcba;
@@ -1695,12 +1703,14 @@ body a {
 }
 .svg-top-area svg {
   position: absolute;
-  left: 0%;
+  left: -3%;
   z-index: 9999;
-  top: 2%;
+  top: 6%;
+  height: 400px !important;
+  width: 100% !important;
 }
 .svg-top-area img {
-  height: 200px;
+  height: 400px !important;
   margin: 0px;
 }
 @media screen and (max-width: 1024px) {
