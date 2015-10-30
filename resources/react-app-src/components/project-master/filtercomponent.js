@@ -10,8 +10,8 @@ var FilterComponent = React.createClass({
               <div className="modal-content">
                 <div className="modal-header">
                   <div className="row">
-                      <div className="col-xs-2"> <i className="i-back i-icon " data-dismiss="modal" aria-label="Close"></i></div>
-                       <div className="col-xs-6"> <h4 className="modal-title normal" id="myModalLabel"> Filter By</h4></div>
+                      <div className="col-xs-1"> <i className="i-back i-icon " data-dismiss="modal" aria-label="Close"></i></div>
+                       <div className="col-xs-7"> <h4 className="modal-title normal" id="myModalLabel"> Filter By</h4></div>
                         <div className="col-xs-4 text-right"> <h5 className=" normal">RESET</h5></div>
                   </div>
                  
