@@ -1255,6 +1255,168 @@ function getFilteredProjectMasterData(){
 
 }
 
+
+
+
+
+
+
+
+function getSimilarUnits(unitId){
+	var unitId = parseInt(unitId);
+	var allUnits = _projectData.units;
+	var unitData = _.findWhere(allUnits, {id: unitId});
+
+	var unitVariantId = unitData.unit_variant_id;
+	var propertyId = unitData.property_type_id ;
+	var propertyTypeName = getPropertyType(propertyId);
+
+	var appliedFilters = _globalStateData.data.applied_filters;
+
+	var simUnits = [];
+	var remainingUnits = [];
+
+	//filters logic
+	if(appliedFilters.length>0){
+		simUnits = [];
+	}
+
+	//same variant logic
+	if(simUnits.length<4){
+		variantUnits = getAllVariantsUnits(allUnits,unitVariantId);
+		simUnits = combinedUnits(simUnits,variantUnits);
+	}
+
+	//exact same budget logic
+	if(simUnits.length<4){
+		budgetUnits = _.filter(allUnits , function(unit){
+			if(unit.availability === "available" && unit.selling_amount === unitData.selling_amount){
+				return unit;
+			} 
+		});
+		simUnits = combinedUnits(simUnits,budgetUnits);
+	}
+
+	//closest budget logic
+	if(simUnits.length<4){
+		var count = 4-simUnits.length;
+		simBudgetsUnits = getSimilarUnitsByBudget(allUnits,unitData.selling_amount,count);
+		simUnits = combinedUnits(simUnits,simBudgetsUnits);
+	}
+
+	if(simUnits.length>4){
+	simUnits.length = 4;
+	}
+	
+
+	var similarUnits = [];
+	_.each(simUnits, function(unit){
+
+		unitVariantId = unit.unit_variant_id;
+		upropertyId = unit.property_type_id ;		
+		upropertyTypeName = getPropertyType(propertyId);
+		unitVariantData = getPropertyVariantsAttributes(propertyTypeName,unitVariantId);
+
+		var similar = {
+			id: unit.id,
+			name: unit.unit_name,
+			sellingAmount: unit.selling_amount,
+			unitType: unitVariantData.unitTypeName,
+			builtUpArea: unitVariantData.super_built_up_area
+		};
+
+	similarUnits.push(similar);
+	});
+
+	return similarUnits;
+}
+
+
+
+
+function combinedUnits(preUnits,newUnits){
+	var combUnits = [preUnits,newUnits];
+	var simUnits = [];
+	_.each(combUnits, function(unit){
+		_.each(unit, function(inunit){
+			simUnits.push(inunit);
+		});
+	});
+	return _.uniq(simUnits);
+}
+
+
+
+function getAllVariantsUnits(allUnits,unitVariantId){
+	var variantUnits = _.filter(allUnits , function(unit){
+		if(unit.availability === "available" && unit.unit_variant_id === unitVariantId){
+			return unit;
+		} 
+	});
+	return variantUnits;
+}
+
+
+
+
+function getSimilarUnitsByBudget(allUnits,sellingAmount,count){
+	var availableUnits = _.filter(allUnits , function(unit){
+		if(unit.availability === "available" && unit.selling_amount != sellingAmount){
+			return unit;
+		} 
+	});
+	
+	allAmounts = _.uniq(_.pluck(availableUnits, "selling_amount"));
+	allAmounts = _.sortBy(allAmounts, function(num) {
+		return num;
+	});
+
+	var getClosests =  getClosestBudget(allAmounts, sellingAmount, count);
+	
+	console.log(allAmounts);
+
+	var simBudgetUnits = _.filter(allUnits , function(unit){		
+		if(_.indexOf(getClosests, unit.selling_amount) > -1){
+			return unit;
+		}
+	});
+
+	var uniqSimilarBudgets = _.uniq(simBudgetUnits);
+
+	if(uniqSimilarBudgets.length>count){
+	uniqSimilarBudgets.length = count;
+	}
+
+	return uniqSimilarBudgets;
+}
+
+
+
+
+function getClosestBudget(arr, target, count) {
+
+	var minBudget = _.min(arr);
+	var maxBudget = _.max(arr);
+
+	if(arr.length<=count){
+		return arr;
+
+	}else if(minBudget == target){
+		return arr;
+
+	}else if(maxBudget == target){
+		return arr;
+
+	}else{
+		narr = [];
+		return narr;
+	}
+	
+}
+
+
+
+
 function _getUnitDetails(unitId){
 	unitId = parseInt(unitId);
 	var projectData = _projectData;
@@ -1286,6 +1448,9 @@ function _getUnitDetails(unitId){
 		unitData.propertyTypeName = propertyTypeName;
 
 		unitData.allAmenities = getAllAmenities();
+
+		unitData.similarUnits = getSimilarUnits(unitId);
+		
 		
 		unitData.cfProjectId = projectData.cf_project_id;
 	}

@@ -92,32 +92,6 @@
 
       </script>
 
-      <script type="text/javascript">
-      if(!window.isMobile){
-        $(document).on('click', '.click', function (e) {
-        var theID = $(this).attr('id');
-        $('html, body').animate({
-            scrollTop: $('#' + theID + '_div').offset().top-60
-        }, 1000);
-        return false;
-      });
-
-      function sticky_relocate() {
-          var window_top = $(window).scrollTop();
-          var div_top = $('#sticky-anchor').offset().top;
-          if (window_top > div_top) {
-              $('#stickyHeader').addClass('stick');
-          } else {
-              $('#stickyHeader').removeClass('stick');
-          }
-      }
-
-      $(function () {
-          $(window).scroll(sticky_relocate);
-          sticky_relocate();
-      });
-      }
       
-    </script>   
 </body>
 </html>
