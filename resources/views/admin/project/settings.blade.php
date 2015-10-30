@@ -132,7 +132,7 @@
                     <input  type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button  onclick="saveProjectConfig();" type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>  Save</button>
+                    <button  type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>  Save</button>
                     
                     <a href="{{ url('/admin/project') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i>    Cancel</button></a>
                 </div>
@@ -190,10 +190,11 @@ function saveProjectConfig()
     if (flag)
     {
         $('input[name="property_types[]"]').attr('disabled',false);
-        $('form').submit();
+        //$('form').submit();
+        return true;
     }
     else
-    {
+    { alert(11)
         return false;
     }
 

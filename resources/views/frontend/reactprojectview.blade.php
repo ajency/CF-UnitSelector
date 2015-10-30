@@ -18,17 +18,6 @@
     
 	<script src="{{ asset('lib/react.js' )}}"></script>
 
-    <style type="text/css">
-        .swiper-container {
-            width: 100%;
-        }
-        .swiper-slide {
-            background-position: center;
-            background-size: cover;
-            width: 300px;
-            
-        }
-    </style>
 </head>
 <body>
 

@@ -497,6 +497,7 @@
         <script src="{{ asset('js/authoring-tool/entities/amenity.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/apartment.entity.js' )}}"></script>        
         <script src="{{ asset('js/authoring-tool/entities/building.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/floor.group.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>

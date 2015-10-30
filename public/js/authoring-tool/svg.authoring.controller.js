@@ -94,6 +94,8 @@ jQuery(document).ready(function($) {
       var items, marked, units;
       if (value === 'Apartment/Penthouse') {
         value = 'apartment';
+      } else if (value === 'Floor Group') {
+        value = 'floor_group';
       }
       items = collection.where({
         'object_type': value.toLowerCase()
@@ -166,6 +168,9 @@ jQuery(document).ready(function($) {
       if (value === "Apartment/Penthouse") {
         valueText = "apartment";
         valuetemp = 'apartment';
+      } else if (value === "Floor Group") {
+        valueText = "floor_group";
+        valuetemp = 'floor_group';
       }
       return $('<option />', {
         value: valuetemp.toLowerCase(),
@@ -189,7 +194,7 @@ jQuery(document).ready(function($) {
         return buildingCollection.remove(bldg);
       } else if (type === 'unassign') {
 
-      } else if (type !== 'project' && type !== 'unassign' && type !== 'building') {
+      } else if (type !== 'project' && type !== 'unassign' && type !== 'building' && type !== 'floor_group') {
         unitID = parseInt(value.id);
         if (unitID !== 0) {
           unit = unitMasterCollection.findWhere({
@@ -240,10 +245,14 @@ jQuery(document).ready(function($) {
     });
   };
   window.loadSVGData = function() {
+    var myObject;
+    myObject = {};
+    myObject['svg_type'] = svg_type;
     return $.ajax({
       type: 'GET',
       url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + IMAGEID,
       async: false,
+      data: $.param(myObject),
       success: function(response) {
         var types;
         window.svgData = {};
@@ -309,10 +318,14 @@ jQuery(document).ready(function($) {
     });
   };
   window.loadOjectData = function() {
+    var myObject;
+    myObject = {};
+    myObject['svg_type'] = svg_type;
     return $.ajax({
       type: 'GET',
       url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + IMAGEID,
       async: false,
+      data: $.param(myObject),
       success: function(response) {
         window.svgData = {};
         window.svgData['image'] = svgImg;
@@ -391,6 +404,9 @@ jQuery(document).ready(function($) {
       }
     } else {
       myObject['object_id'] = $('.units').val();
+    }
+    if (svg_type === 'building_master') {
+      myObject['floor_group'] = $('.floor-group').val();
     }
     if (myObject['object_type'] === "amenity") {
       details['title'] = $('#amenity-title').val();
@@ -504,6 +520,11 @@ jQuery(document).ready(function($) {
         'region': this.region
       });
     }
+    if (type === 'floor_group') {
+      new AuthoringTool.FloorGroupCtrl({
+        'region': this.region
+      });
+    }
     if (type === 'project') {
       new AuthoringTool.ProjectCtrl({
         'region': this.region,
@@ -515,7 +536,7 @@ jQuery(document).ready(function($) {
     }
   };
   window.showDetails = function(elem) {
-    var select, type, unit, unit_name;
+    var attributes, building, buildings, floorGrop, floorGrops, select, type, unit, unit_name;
     type = $(elem).attr('type');
     if (type !== 'unassign' && type !== 'undetect') {
       unit_name = "";
@@ -524,21 +545,57 @@ jQuery(document).ready(function($) {
           'id': parseInt(elem.id)
         });
         unit_name = unit.get('building_name');
+      }
+      if (type === 'floor_group') {
+        buildings = buildingCollection.toArray();
+        building = _.where(buildings, {
+          id: parseInt(building_id)
+        });
+        attributes = _.pluck(building, 'attributes');
+        floorGrops = _.pluck(attributes, 'floor_group');
+        unit = _.where(floorGrops[0], {
+          id: parseInt(elem.id)
+        });
+        unit_name = unit['name'];
       } else if (type !== 'building' && type !== 'project') {
         unit = unitMasterCollection.findWhere({
           'id': parseInt(elem.id)
         });
         unit_name = unit.get('unit_name');
+        if (svg_type === 'building_master') {
+          buildings = buildingCollection.toArray();
+          building = _.where(buildings, {
+            id: parseInt(building_id)
+          });
+          attributes = _.pluck(building, 'attributes');
+          floorGrops = _.pluck(attributes, 'floor_group');
+          floorGrop = _.where(floorGrops[0], {
+            id: parseInt(unit.get('floor_group_id'))
+          });
+          select = $('.floor-group');
+          $('<option />', {
+            value: floorGrop[0]['id'],
+            text: floorGrop[0]['name']
+          }).appendTo(select);
+          $('.floor-group').attr('disabled', true);
+          $('.floor-group').val(floorGrop[0]['id']);
+          $('.floor-group').show();
+        }
       }
       $('.property_type').val($(elem).attr('type'));
-      $('.property_type').attr('disabled', true);
+      if (elem.id !== '0') {
+        console.log(elem.id);
+        $('.property_type').attr('disabled', true);
+      }
       select = $('.units');
-      $('<option />', {
-        value: elem.id,
-        text: unit_name
-      }).appendTo(select);
-      $('.units').attr('disabled', true);
-      $('.units').val(elem.id);
+      if (elem.id !== '0') {
+        $('<option />', {
+          value: elem.id,
+          text: unit_name
+        }).appendTo(select);
+        $('.units').attr('disabled', true);
+        $('.units').val(elem.id);
+      }
       return $('.units').show();
     } else {
       $("form").trigger("reset");
@@ -597,6 +654,9 @@ jQuery(document).ready(function($) {
     myObject['object_type'] = objectType;
     myObject['canvas_type'] = window.canvas_type;
     myObject['breakpoint_position'] = window.breakpoint_position;
+    if (svg_type === 'building_master') {
+      myObject['floor_group'] = $('.floor-group').val();
+    }
     if (objectType === "amenity") {
       myObject['object_id'] = 0;
     } else if (objectType === "project") {
@@ -1056,6 +1116,11 @@ jQuery(document).ready(function($) {
       window.hideAlert();
       return false;
     }
+    if ((svg_type === 'building_master') && ($('.floor-group').val() === "")) {
+      $('.alert').text('Unit not assigned to group');
+      window.hideAlert();
+      return false;
+    }
     if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
       $('.alert').text('Coordinates not marked');
       window.hideAlert();
@@ -1088,6 +1153,11 @@ jQuery(document).ready(function($) {
     }
     if ($('.units').val() === "") {
       $('.alert').text('Unit not assigned');
+      window.hideAlert();
+      return false;
+    }
+    if ((svg_type === 'building_master') && ($('.floor-group').val() === "")) {
+      $('.alert').text('Unit not assigned to group');
       window.hideAlert();
       return false;
     }

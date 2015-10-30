@@ -1202,6 +1202,22 @@ class ProjectController extends Controller {
                 $supported_types[] = "Amenity";                   
                 break;
 
+            case 'building_master_step_two':
+                $buildingId  = $getVar['building'];
+                $svgImagePath = url() . "/projects/" . $id . "/buildings/" . $buildingId."/". $imageName;
+
+                // get property types supported by project
+ 
+                //Duplicate svgs
+                $building = Building::find($buildingId);
+                $breakpoints = $building->getBuildingSVGs($buildingId);
+                
+                $supported_types = array("Floor Group");
+
+                // pass amenities as well
+                $supported_types[] = "Amenity";                   
+                break;
+
             case 'group_master':
                 $groupId  = $getVar['group'];
                 $svgImagePath = url() . "/projects/" . $id . "/group/" . $groupId."/". $imageName;
@@ -1251,6 +1267,10 @@ class ProjectController extends Controller {
                 break;
 
             case 'building_master':
+                $svg_type_display = "BUILDING MASTER";
+                break;
+
+            case 'building_master_step_two':
                 $svg_type_display = "BUILDING MASTER";
                 break;
 

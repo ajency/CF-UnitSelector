@@ -445,6 +445,7 @@ function breakpointSvgUploader(position) {
         },
         multipart_params: {
             "type": "svgUploader",
+            "uploaderType": "step-3",
             "position" :position ,
             "masterImageId": masterImageId,
             "projectId": PROJECTID
@@ -489,13 +490,78 @@ function breakpointSvgUploader(position) {
     uploader.init();
 }
 
-function setUpShadowUploader() {
+function breakpointStep2SvgUploader(position) {
+
+    var selectBtnId = 'step2uploadsvg_' + position;  
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
+    var authtool_permission = $('div.object-master-images').attr('data-object-id');
+    var masterImageId = $('#position-' + position).find('td').find('input[name="master_image_id"]').val();
+
+    var uploader = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: selectBtnId, // you can pass in id...
+        url: '/admin/' + objectType + '/' + objectId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "type": "svgUploader",
+            "uploaderType": "step-2",
+            "position" :position ,
+            "masterImageId": masterImageId,
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                title: "Svg files",
+                extensions: "svg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /*document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
+            },
+            FilesAdded: function (up, files) {
+                 up.start();
+ 
+            },
+            UploadProgress: function (up, file) {
+                var fileName = file.name;
+                var fileData = fileName.split('.');
+                var fileData_1 = fileData[0].split('-');
+                var mastername = fileData_1[0];
+                var position = fileData_1[1];
+
+                $('.breakpointSvg-' + position).html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
+               
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);  
+                
+                $('.breakpointSvg-' + position).text('Import');
+                $.notify(fileResponse.message, 'success');
+
+            }
+        }
+    });
+    uploader.init();
+}
+
+function setUpBreakpointUploader() {
     if (BREAKPOINTS.length === 0)
         return false;
 
     $.each(BREAKPOINTS, function (index, value) {  
-        breakpointShadowImgUploader(value);
-        breakpointSvgUploader(value)
+        //breakpointShadowImgUploader(value);
+        breakpointSvgUploader(value);
+        breakpointStep2SvgUploader(value)
     });
 
 }
@@ -556,6 +622,258 @@ function setUpProjectMasterUploader() {
                         load_str += '</td>';
                         load_str += '<td class=" ">';
                         load_str += '</td>';
+                        if(objectType=='building')
+                        {
+                            load_str += '<td class=" ">';
+                            load_str += '</td>';
+                            load_str += '<td class=" ">';
+                            load_str += '</td>';
+                        }
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
+                        load_str += '<td class="text-right">';
+                        load_str += '<a class="text-primary" href="#"><i class="fa fa-close"></i></a>';
+                        load_str += '</td>';
+
+                        if ($('#position-' + position).length != 0) {
+                            $('#position-' + position).html(load_str);
+                        } else {
+                            load_newstr += '<tr class="" id="position-' + position + '">';
+                            load_newstr += load_str;
+                            load_newstr += '</tr>';
+                            $("#master-img").append(load_newstr);
+                        }
+                        //$('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
+                        // $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
+                    } else {
+
+                        master_uploader.removeFile(files[i]);
+                        failcount++;
+                    }
+
+                }
+
+                if (failcount) {
+
+                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + failcount + ' images failed to upload. Invalid File Name.</div>');
+                    $('.project-master-images').find(".alert-error").removeClass('hidden');
+                }
+
+                if (files.length)
+                    up.start();
+            },
+            UploadProgress: function (up, file) {
+                var fileName = file.name;
+                var fileData = fileName.split('.');
+                var fileData_1 = fileData[0].split('-');
+                var mastername = fileData_1[0];
+                var position = fileData_1[1];
+
+                $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
+
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+                fileStatus = JSON.parse(xhr.status);
+                if (fileStatus == 201) {
+                    
+                    var stepStr = '';
+                    if(objectType=='project')
+                    {
+                        var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=master&position="+fileResponse.data.position;
+                    }
+                    else if(objectType=='building')
+                    {
+                       var authoringToolstep2Url = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=building_master_step_two&position="+fileResponse.data.position+"&building="+objectId; 
+                       var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=building_master&position="+fileResponse.data.position+"&building="+objectId; 
+                       stepStr = 'Step-3';
+                    }
+                    else
+                    {
+                       var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=group_master&position="+fileResponse.data.position+"&group="+objectId; 
+                    }
+                    
+                    var str = newstr = '';
+                    str += '<td>' + fileResponse.data.filename + ' <input type="hidden" name="master_image_id" value="' + fileResponse.data.media_id + '"></td>';
+                    str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
+                    str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
+                    //str += '<td class="td-shadow-' + fileResponse.data.position + '"><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div></td>';
+                    str += '<td class="td-shadow-' + fileResponse.data.position + '"></td>';
+                    if(objectType=='building')
+                    {
+                        str += '<td><div class="hidden breakpointSvg-' + fileResponse.data.position + '" id="step2uploadsvg_' + fileResponse.data.position + '" >Import</div></td>';
+                    }
+                    str += '<td><div class="hidden breakpointSvg-' + fileResponse.data.position + '" id="uploadsvg_' + fileResponse.data.position + '" >Import</div></td>';
+                    
+                    if(objectType=='building')
+                    {
+                        str += '<td><a target="_blank" href="'+ authoringToolstep2Url +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool Step-2</a></td>';
+                    }
+                    str += '<td><a target="_blank" href="'+ authoringToolUrl +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool '+stepStr+'</a></td>';
+                    str += '<td class="text-right">';
+                    str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
+                    str += '</td>';
+                    $('#position-' + fileResponse.data.position).html(str);
+                    //breakpointShadowImgUploader(fileResponse.data.position);
+                    breakpointSvgUploader(fileResponse.data.position);
+                    breakpointStep2SvgUploader(fileResponse.data.position);
+                } else {
+
+                    var fileName = file.name;
+                    var fileData = fileName.split('.');
+                    var fileData_1 = fileData[0].split('-');
+                    var mastername = fileData_1[0];
+                    var position = fileData_1[1];
+
+                    $('#position-' + position).html('');
+                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> ' + JSON.parse(xhr.response).message + '</div>');
+                    $('.project-master-images').find(".alert-error").removeClass('hidden');
+                    
+
+                }
+
+
+            },
+            Error: function (up, err) {
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + err.message + '</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');
+
+            }
+        }
+    });
+    master_uploader.init();
+
+
+}
+
+function setupShadowImgUploader(position) {
+
+    var selectBtnId = 'shadow_pickfiles'; 
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
+    var authtool_permission = $('div.object-master-images').attr('data-object-id')
+
+    var uploader = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: selectBtnId, // you can pass in id...
+        url: '/admin/' + objectType + '/' + objectId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "type": "shadow",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '3mb',
+            mime_types: [{
+                title: "Image files",
+                extensions: "jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /*document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
+            },
+            FilesAdded: function (up, files) {
+                 up.start();
+                 var load_str = '<div class="progress progress-small " style="margin:0;">';
+                 load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
+                 $('.td-shadow-' + position).html(load_str);
+            },
+            UploadProgress: function (up, file) {
+                var fileName = file.name;
+                var fileData = fileName.split('.');
+                var fileData_1 = fileData[0].split('-');
+                var mastername = fileData_1[0];
+                var position = fileData_1[1];
+
+                $('.td-shadow-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
+           
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+
+                var delImg = '<a onclick=\'deleteSvg("'+ fileResponse.data.media_id +'", "shadow","'+ fileResponse.data.position +'");\' class="text-primary delete-shadow-'+fileResponse.data.position+'" ><i class="fa fa-close"></i></a>';
+                $('.td-shadow-' + fileResponse.data.position).html(file.name +' '+delImg);
+
+               //$('.delete-shadow-' + position).removeClass('hidden');
+               // $('.delete-shadow-' + position).attr("onclick","");
+
+            }
+        }
+    });
+    uploader.init();
+}
+
+function setUpProjectShadowUploader() {
+
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
+    var authtool_permission = $('div.object-master-images').attr('data-object-id');
+
+    var master_uploader = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: 'master_pickfiles', // you can pass in id...
+        url: '/admin/' + objectType + '/' + objectId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "type": "master",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '3mb',
+            mime_types: [{
+                title: "Image files",
+                extensions: "jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /* document.getElementById('master_uploadfiles').onclick = function () {
+                 master_uploader.start();
+                 return false;
+                 };*/
+            },
+            FilesAdded: function (up, files) {
+                var failcount = 0;
+                for (var i = 0; i < files.length; i++) {
+                    var fileName = files[i].name;
+                    var fileData = fileName.split('.');
+                    var fileData_1 = fileData[0].split('-');
+                    var mastername = fileData_1[0];
+                    var position = fileData_1[1];
+
+                    if ((fileData_1.length == 2) && (mastername == 'master' && !isNaN(position))) {
+                        var load_newstr = '';
+                        var load_str = '<td>';
+                        load_str += '<div class="progress progress-small " style="margin:0;">';
+                        load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
+                        load_str += '</div>';
+                        load_str += '</td>';
+                        load_str += '<td class=" "><span class="muted"></span></td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
+                        if(objectType=='building')
+                        {
+                            load_str += '<td class=" ">';
+                            load_str += '</td>';
+                            load_str += '<td class=" ">';
+                            load_str += '</td>';
+                        }
                         load_str += '<td class=" ">';
                         load_str += '</td>';
                         load_str += '<td class="text-right">';
@@ -610,6 +928,7 @@ function setUpProjectMasterUploader() {
                     }
                     else if(objectType=='building')
                     {
+                       var authoringToolstep2Url = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=building_master_step_two&position="+fileResponse.data.position+"&building="+objectId; 
                        var authoringToolUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" +  fileResponse.data.media_id + "/authoring-tool?&type=building_master&position="+fileResponse.data.position+"&building="+objectId; 
                     }
                     else
@@ -621,15 +940,25 @@ function setUpProjectMasterUploader() {
                     str += '<td>' + fileResponse.data.filename + ' <input type="hidden" name="master_image_id" value="' + fileResponse.data.media_id + '"></td>';
                     str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
                     str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
-                    str += '<td class="td-shadow-' + fileResponse.data.position + '"><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div></td>';
+                    //str += '<td class="td-shadow-' + fileResponse.data.position + '"><div class="hidden shadow-' + fileResponse.data.position + '" id="pickfiles_' + fileResponse.data.position + '" >Image</div></td>';
+                    str += '<td class="td-shadow-' + fileResponse.data.position + '"></td>';
+                    if(objectType=='building')
+                    {
+                        str += '<td><div class="hidden breakpointSvg-' + fileResponse.data.position + '" id="step2uploadsvg_' + fileResponse.data.position + '" >Import</div></td>';
+                    }
                     str += '<td><div class="hidden breakpointSvg-' + fileResponse.data.position + '" id="uploadsvg_' + fileResponse.data.position + '" >Import</div></td>';
+                    if(objectType=='building')
+                    {
+                        str += '<td><a target="_blank" href="'+ authoringToolstep2Url +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool</a></td>';
+                    }
                     str += '<td><a target="_blank" href="'+ authoringToolUrl +'" class="hidden auth-tool-' + fileResponse.data.position + '">Authoring Tool</a></td>';
                     str += '<td class="text-right">';
                     str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
                     str += '</td>';
                     $('#position-' + fileResponse.data.position).html(str);
-                    breakpointShadowImgUploader(fileResponse.data.position);
+                    //breakpointShadowImgUploader(fileResponse.data.position);
                     breakpointSvgUploader(fileResponse.data.position);
+                    breakpointStep2SvgUploader(fileResponse.data.position);
                 } else {
 
                     var fileName = file.name;
@@ -928,7 +1257,8 @@ function setUpFloorLayoutUploader() {
 $(document).ready(function () {
 
     setUpProjectMasterUploader()
-    setUpShadowUploader()
+    setupShadowImgUploader();
+    setUpBreakpointUploader()
     setUpFloorLevelUploader()
     setUpFloorLayoutUploader()
 
@@ -1257,16 +1587,16 @@ function saveBreakPoint() {
 
                 pos = $(this).val(); 
                 className = ".auth-tool-" + pos;
-                shadowclassName = ".shadow-" + pos;
+                //shadowclassName = ".shadow-" + pos;
                 svgUploadclassName = ".breakpointSvg-" + pos;
                 if ($(this).prop('checked')) {
                     $(className).removeClass('hidden');
-                    $(shadowclassName).removeClass('hidden');
+                    //$(shadowclassName).removeClass('hidden');
                     $(svgUploadclassName).removeClass('hidden');
                     
                 } else {
                     $(className).addClass('hidden');
-                    $(shadowclassName).addClass('hidden');
+                    //$(shadowclassName).addClass('hidden');
                     $(svgUploadclassName).addClass('hidden');
                 }
 

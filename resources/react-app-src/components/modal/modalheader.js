@@ -9,11 +9,11 @@ var ModalHeader = React.createClass({
 
     if(modalPurpose==="filterModal"){
       modalBodyDom = ( <div className="row">
-                            <div className="col-xs-2"> <i className="i-back i-icon " data-dismiss="modal" aria-label="Close"></i></div>
-                            <div className="col-xs-6">
+                            <div className="col-xs-1"> <i className="i-back i-icon " data-dismiss="modal" aria-label="Close"></i></div>
+                            <div className="col-xs-7">
                                 <h4 className="modal-title normal" id="myModalLabel"> Filter By</h4></div>
-                            <div className="col-xs-4 text-right" data-dismiss="modal" onClick={this.props.unapplyFilters}>
-                                <h5 className=" normal">RESET</h5></div>
+                            <div className="col-xs-3 text-right" data-dismiss="modal" onClick={this.props.unapplyFilters}>
+                                <h5 className=" normal btn-link">RESET</h5></div>
                         </div>
                      );
     }
