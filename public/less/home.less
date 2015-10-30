@@ -22,13 +22,13 @@ body {
       text-align:center;
       color:#212121;
     }
-    h2 {
+  /*  h2 {
       font-size:14px;
       font-weight:bold;
       color:#3c3c3c;
       margin:20px 10px 10px;
       text-align: center;
-    }
+    }*/
     small {
       display:block;
       font-size:12px;
@@ -154,19 +154,19 @@ body .row {
 
 /* Rotate*/
 .rotate{
-              width: 40px;
-              height: 40px;
-              background: url(../../images/sprite.png) #fe943e no-repeat;
-              background-position: -105px -30px;
+              width: 50px;
+              height: 50px;
+              background: url(../../images/360-degree-icon.png)  no-repeat;
               z-index: 9999;
               position: absolute;
+              background-size: 100%;
+              border-radius: 100%;
               right: 4%;
               bottom: 31%;
-              border-radius: 100%;
               box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
               padding: 5px 4px;
                @media(max-width: 320px){
-               bottom: 33%;
+               bottom: 27%;
          }
 }
 /* Swipe css*/
@@ -190,7 +190,8 @@ body .row {
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;
-        color:@gray-darker;
+        color:black;
+        font-size: 16px;
         margin-bottom:10px;
         text-transform:uppercase;
       }
@@ -210,16 +211,17 @@ body .row {
             font-weight: 200;
             line-height: 26px;
             color:@gray;
-            height: 45px;
+            height: 46px;
              @media(max-width: 320px){
-               height:40px;
+               height:46px;
               }
             sm{
-              color: @gray-darker;
+              color: black;
               font-weight: bold;
               font-size: 16px;
-              margin-top: 2px;
-              float:left;
+              margin-top: 6px;
+              float: left;
+              margin-left: -5px;
             }
             .units
             {
@@ -229,16 +231,17 @@ body .row {
               font-weight: 400;
               margin-bottom: 9px;
               text-transform: uppercase;
-              font-size: 9px;
+              font-size: 11px;
               margin-top: 5px;              
-              color:@gray-light;
+              color:@gray-darker;
               b
               {
-                color: @gray-darker;
-                font-size: 10px;
-                font-weight:400;
+                    color: #000000;
+                    font-size: 11px;
+                    font-weight: 500;
+                    line-height: 15PX;
                  @media(max-width: 320px){
-                    font-size: 9px;
+                    font-size: 11px;
                  }
               }
             }
@@ -263,8 +266,8 @@ body .row {
                 }
                 h3
                 {
-                      font-size: 16px;
-                      margin-top: 8px;
+                      font-size: 24px;
+                      margin-top: 5px;
                   i
                   {
                     color:@white;
@@ -366,7 +369,10 @@ body .row {
             color: white;
             padding: 10px 0PX;
             .modal-title{
-                  line-height: 1.7;
+                  line-height: 1.88;
+            }
+            .btn-link{
+                  line-height: 1.88;
             }
            
           }
@@ -419,4 +425,15 @@ body .row {
 
 .animsition, .animsition-overlay {
     position: initial !important;
-    }
+}
+       .swiper-container {
+            width: 100%;
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+                  @media(max-width: 320px){
+                      width: 260px;
+             }
+        }
