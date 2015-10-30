@@ -24,7 +24,35 @@ var UnitDetails = React.createClass({
 
     componentWillMount:function(){
         AppStore.addChangeListener(this._onChange);
-    },  
+    }, 
+
+
+    componentDidMount: function() {
+    if(!window.isMobile){
+        $(document).on('click', '.click', function (e) {
+        var theID = $(this).attr('id');
+        $('html, body').animate({
+            scrollTop: $('#' + theID + '_div').offset().top-60
+        }, 1000);
+        return false;
+      });
+
+      function sticky_relocate() {
+          var window_top = $(window).scrollTop();
+          var div_top = $('#sticky-anchor').offset().top;
+          if (window_top > div_top) {
+              $('#stickyHeader').addClass('stick');
+          } else {
+              $('#stickyHeader').removeClass('stick');
+          }
+      }
+
+      $(function () {
+          $(window).scroll(sticky_relocate);
+          sticky_relocate();
+      });
+      }
+  }, 
      
     _onChange:function(){
     	var unitId;
@@ -132,6 +160,9 @@ var UnitDetails = React.createClass({
 					buildingName={buildingName}
 					unitTypeName={unitTypeName}
 					propertyTypeName={propertyTypeName}
+					unitId = {unitId}
+					projectId = {projectId}
+					unitStatus = {status}
 				/>
 				<TabPanes
 					unitData = {unitData}
@@ -155,7 +186,7 @@ var UnitDetails = React.createClass({
 				<TabPanes
 					unitData = {unitData}
 				/>
-				<SimilarUnits />
+				<SimilarUnits similarUnits={unitData.similarUnits} />
 			</div>
 		)
 		}
