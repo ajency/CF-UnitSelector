@@ -113,12 +113,22 @@ class ProjectGateway implements ProjectGatewayInterface {
                 $phaseId = $notLivePhase['id'];
                 $phase = \CommonFloor\Phase::find($phaseId);
                 $buildings = $phase->projectBuildings()->get()->toArray();  
-           
-                $notLivePhasesBuildings = array_merge($buildings,$notLivePhasesBuildings); 
+                foreach($buildings as $building)
+                {
+
+                        $buildingData = \CommonFloor\Building :: find($building['id']);
+                        $primaryBreakpoint = \CommonFloor\SvgElement::where(['object_type'=>'building', 'object_id'=>$building['id']])->where( 'primary_breakpoint', '!=', 'null' )->pluck('primary_breakpoint');
+                        $building['primary_breakpoint'] = $primaryBreakpoint;
+                        $floorGroup = \CommonFloor\FloorGroup::where( 'building_id', $building['id'] )->get()->toArray();
+                        $building['floor_group'] = $floorGroup;
+
+                        $notLivePhasesBuildings[] = $building;
+                } 
+                //$notLivePhasesBuildings = array_merge($buildings,$notLivePhasesBuildings); 
+
 
             } 
         }
-
 
        foreach ($phases as $phase) {
             $phaseId = $phase['id'];
@@ -138,7 +148,9 @@ class ProjectGateway implements ProjectGatewayInterface {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
                 $primaryBreakpoint = \CommonFloor\SvgElement::where(['object_type'=>'building', 'object_id'=>$building['id']])->where( 'primary_breakpoint', '!=', 'null' )->pluck('primary_breakpoint');
                 $building['primary_breakpoint'] = $primaryBreakpoint;
-                 
+                $floorGroup = \CommonFloor\FloorGroup::where( 'building_id', $building['id'] )->get()->toArray();
+                $building['floor_group'] = $floorGroup;
+
                 if(!empty($unitIds))        //AGENT UNITS ASSIGNED
                 {
                    $buildingUnits = $buildingData->projectUnits()->whereIn('id',$unitIds)->get()->toArray();
@@ -153,6 +165,7 @@ class ProjectGateway implements ProjectGatewayInterface {
                 }
                 
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
+
             }
            $projectUnits = array_merge($units,$projectUnits); 
             
@@ -274,11 +287,18 @@ class ProjectGateway implements ProjectGatewayInterface {
             $phase = \CommonFloor\Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray();  
-            $projectbuildings = array_merge($buildings,$projectbuildings);
+            //$projectbuildings = array_merge($buildings,$projectbuildings);
             foreach($buildings as $building)
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+
+                
+                $floorGroup = \CommonFloor\FloorGroup::where( 'building_id', $building['id'] )->get()->toArray();
+                $building['floor_group'] = $floorGroup;
+
+                $projectbuildings[] = $building;
+
                 $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
             }
 

@@ -112,8 +112,8 @@
                                        "fa fa-angle-double-right text-primary"></i>
                                     Building <span class=
                                                    "semi-bold">Master</span></h3>&nbsp;&nbsp;
-                                    <a id="master_pickfiles" tabindex="0"  class="file-input-wrapper btn btn-default btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
-                                
+                                    <a id="master_pickfiles" tabindex="0"  class="file-input-wrapper btn btn-default btn btn-small"><i class="fa fa-image"></i> Select Master file (s)</a>
+                                    <a id="shadow_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select Shadow file (s)</a>
                                                    <div class="alert alert-info">
                 <strong><i class="fa fa-info"></i></strong> Upload 3D view of the building. To enable 360 degree rotation of the building, upload images in the sequence ( Front -> Right -> Back -> Left) and follow the naming convention. Image dimensions should be - 1600*800 or higher dimension but in the ratio 2:1 (4000*2000). Resolution - 100 DPI. Max size 3mb. Supported file formats jpg, jpeg, png. Naming convention - First image should be : master-00, 
                 second : master-01, third : master-02 and so on with no images missing in the sequence.
@@ -130,16 +130,17 @@
                   
                     <table class="table table-striped dataTable">
                         <thead>
-                        <th style="width: 16%;" data-hide="phone,tablet" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Image</th>
+                        <th style="width: 10%;" data-hide="phone,tablet" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Image</th>
                         <th style="width: 9%;" data-hide="phone,tablet" class="" role="columnheader" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Position</th>
 
                         <th style="width: 9%;" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Breakpoint</th>
                         <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Shadow Image</th>
 
-                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Import SVG</th>
+                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Step 2 Import SVG</th>
+                        <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Step 3 Import SVG</th>
 
                         <th style="width: 9%;" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
-
+                        <th style="width: 9%;" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
                         <th style="width:6%" class="text-right" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">
                             <button tabindex="0" type="button" onclick="saveBreakPoint()" class="btn btn-primary btn-small">Save Breakpoint</button>
                         </th>
@@ -155,6 +156,7 @@
                             @if(isset($image['IMAGE']))
                             <?php
                             
+                            $authoringToolStep2Url = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=building_master_step_two&position=".$position."&building=".$building->id;
                             $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=building_master&position=".$position."&building=".$building->id;
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
@@ -172,17 +174,16 @@
                                     {{ $shadowImages[$position]['NAME'] }} 
                                      
                                     <a onclick="deleteSvg({{ $shadowImages[$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" ><i class="fa fa-close"></i></a>
-                                     @else
-                                     <div class=" {{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} shadow-{{ $position }} " id="pickfiles_{{ $position }}" >
-                                    Image
-                                    </div>
-                                     @endif
+                                    @endif
                                 </td>
+                                <td class=" "> <div id="step2uploadsvg_{{ $position }}" class="{{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} breakpointSvg-{{ $position }}">Import</div></td>
                                 <td class=" "> <div id="uploadsvg_{{ $position }}" class="{{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} breakpointSvg-{{ $position }}">Import</div></td>
                                 <td class=" ">
-                                    <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool</a>
+                                    <a target="_blank" href=" {{$authoringToolStep2Url}} " class=" {{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool Step-2</a>
                                 </td>
-
+                                <td class=" ">
+                                    <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool Step-3</a>
+                                </td>
                                 <td class="text-right">
                                     <a  class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
                                 
@@ -195,10 +196,9 @@
                                 <td class=" "></td>
                                 <td class=" "></td>
                                 <td class=" "></td>
-                                <td class=" ">
-                                   
-                                </td>
-
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
                                 <td class="text-right">
                                    
                                 </td>

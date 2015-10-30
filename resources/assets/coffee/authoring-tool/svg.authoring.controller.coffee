@@ -121,6 +121,9 @@ jQuery(document).ready ($)->
         $.each supportedTypes ,(index,value)->
             if value is 'Apartment/Penthouse'
                 value = 'apartment'
+            else if value is 'Floor Group'
+                value = 'floor_group'
+
             items = collection.where
                         'object_type' : value.toLowerCase()
             units = window.actualUnits(value.toLowerCase())
@@ -185,6 +188,9 @@ jQuery(document).ready ($)->
             if value is "Apartment/Penthouse"
                 valueText = "apartment"
                 valuetemp = 'apartment'
+            else if value is "Floor Group"
+                valueText = "floor_group"
+                valuetemp = 'floor_group'    
             
             $('<option />', {value: valuetemp.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
         $('<option />', {value: 'unassign', text: ('Unassign').toUpperCase()}).appendTo(select)
@@ -201,7 +207,7 @@ jQuery(document).ready ($)->
 
             else if type is 'unassign'       
                 return      
-            else if type isnt 'project' && type isnt 'unassign'  && type isnt 'building'  
+            else if type isnt 'project' && type isnt 'unassign'  && type isnt 'building' && type isnt 'floor_group'  
                 unitID = parseInt value.id
                 if unitID isnt 0
                     unit = unitMasterCollection.findWhere
@@ -275,11 +281,14 @@ jQuery(document).ready ($)->
                 alert('Some problem occurred')
 
     window.loadSVGData = () ->
+        myObject  = {}
+        myObject['svg_type'] = svg_type
 
         $.ajax
             type : 'GET',
             url  : BASEURL+'/admin/project/'+   PROJECTID+'/image/'+IMAGEID
             async : false
+            data : $.param myObject 
             success :(response)->
 
                 window.svgData = {}
@@ -335,11 +344,14 @@ jQuery(document).ready ($)->
 
     #api required to load svg data based on image
     window.loadOjectData = ()->
+        myObject  = {}
+        myObject['svg_type'] = svg_type
 
         $.ajax
             type : 'GET',
             url  : BASEURL+'/admin/project/'+   PROJECTID+'/image/'+IMAGEID
             async : false
+            data : $.param myObject 
             success :(response)->
 
                 window.svgData = {}
@@ -423,6 +435,8 @@ jQuery(document).ready ($)->
         else
             myObject['object_id'] = $('.units').val()
 
+        if svg_type == 'building_master'
+            myObject['floor_group'] = $('.floor-group').val()
 
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
@@ -535,6 +549,10 @@ jQuery(document).ready ($)->
             new AuthoringTool.BuildingCtrl 
                 'region' : @region
 
+        if type is 'floor_group'
+            new AuthoringTool.FloorGroupCtrl 
+                'region' : @region
+
         if type is 'project'
             new AuthoringTool.ProjectCtrl 
                 'region' : @region
@@ -553,17 +571,46 @@ jQuery(document).ready ($)->
                 unit = buildingMasterCollection.findWhere
                     'id' : parseInt elem.id
                 unit_name = unit.get('building_name')
+            if type is 'floor_group'
+                buildings = buildingCollection.toArray()
+                building = _.where(buildings, {id: parseInt(building_id) })
+                attributes = _.pluck(building, 'attributes')
+                floorGrops = _.pluck(attributes, 'floor_group')
+
+                unit = _.where(floorGrops[0], {id: parseInt(elem.id) })
+                unit_name = unit['name']
             else if type isnt 'building' && type isnt 'project'
                 unit = unitMasterCollection.findWhere
                         'id' : parseInt elem.id
                 unit_name = unit.get('unit_name')
+
+                if svg_type == 'building_master'
+                    buildings = buildingCollection.toArray()
+                    building = _.where(buildings, {id: parseInt(building_id) })
+                    attributes = _.pluck(building, 'attributes')
+                    floorGrops = _.pluck(attributes, 'floor_group')
+                    floorGrop = _.where(floorGrops[0], {id: parseInt(unit.get('floor_group_id')) })
+                    
+                    select = $('.floor-group')
+                    $('<option />', {value: floorGrop[0]['id'], text: floorGrop[0]['name']}).appendTo(select)
+                    $('.floor-group').attr 'disabled' ,  true
+                    $('.floor-group').val floorGrop[0]['id']
+                    $('.floor-group').show()
+
             $('.property_type').val $(elem).attr 'type'
-            $('.property_type').attr 'disabled' ,  true
+            if(elem.id != '0')
+                console.log elem.id
+                $('.property_type').attr 'disabled' ,  true
+
             select = $('.units')
-            $('<option />', {value: elem.id, text: unit_name}).appendTo(select)
-            $('.units').attr 'disabled' ,  true
-            $('.units').val elem.id
+            if(elem.id != '0')
+                $('<option />', {value: elem.id, text: unit_name}).appendTo(select)
+                $('.units').attr 'disabled' ,  true
+                $('.units').val elem.id
+            
             $('.units').show()
+
+
 
         else
             $("form").trigger("reset")
@@ -616,6 +663,9 @@ jQuery(document).ready ($)->
         myObject['object_type'] =  objectType
         myObject['canvas_type'] =  window.canvas_type
         myObject['breakpoint_position'] =  window.breakpoint_position
+
+        if svg_type == 'building_master'
+            myObject['floor_group'] = $('.floor-group').val()
 
         # amenity v/s other unit types
         if objectType is "amenity"
@@ -1152,6 +1202,10 @@ jQuery(document).ready ($)->
             $('.alert').text 'Unit not assigned'
             window.hideAlert()
             return false
+        if  (svg_type == 'building_master')and ($('.floor-group').val() == "")
+            $('.alert').text 'Unit not assigned to group'
+            window.hideAlert()
+            return false
         if  ($('.area').val()  == "") and (window.canvas_type is "polygon")
             $('.alert').text 'Coordinates not marked'
             window.hideAlert()
@@ -1185,7 +1239,10 @@ jQuery(document).ready ($)->
             $('.alert').text 'Unit not assigned'
             window.hideAlert()
             return false
-
+        if  (svg_type == 'building_master')and ($('.floor-group').val() == "")
+            $('.alert').text 'Unit not assigned to group'
+            window.hideAlert()
+            return false
         if  ($('.area').val()  == "") and (window.canvas_type is "polygon")
             $('.alert').text 'Coordinates not marked'
             window.hideAlert()

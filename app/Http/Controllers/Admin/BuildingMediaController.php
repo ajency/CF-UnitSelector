@@ -41,6 +41,7 @@ class BuildingMediaController extends Controller {
     public function store($buildingId, Request $request) {
 
         $type = Input::get( 'type' ); 
+        $uploaderType = Input::get( 'uploaderType' ); 
         $building = Building::find($buildingId);
         $projectId = $request->get('projectId');
         $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId;
@@ -66,16 +67,17 @@ class BuildingMediaController extends Controller {
                     $xdoc = new DomDocument();
                     $xdoc->Load($svgPath);
                     $paths = $xdoc->getElementsByTagName('path');
+                    $objectType = ($uploaderType=='step-2')?'floor_group':'unassign';
                     if(!empty($paths))
                     {
                         foreach ($paths as $key => $path) {
                             $cordinated = $path->getAttributeNode('d');
                             $points = $cordinated->value;  
 
-                            $other_details['class']='layer unassign';
+                            $other_details['class']='layer '.$objectType;
                             $svgElement = new SvgElement();
                             $svgElement->svg_id = $svg->id;
-                            $svgElement->object_type = 'unassign';
+                            $svgElement->object_type = $objectType;
                             $svgElement->object_id = 0;
                             $svgElement->points =$points;
                             $svgElement->canvas_type = 'path';
@@ -233,7 +235,7 @@ class BuildingMediaController extends Controller {
             unset($breakpoints[$breakpointKey]);
             $breakpoints = serialize($breakpoints);
 
-            $shadowImages = (!empty($shadowImages))?unserialize($shadowImages):[];
+            //$shadowImages = (!empty($shadowImages))?unserialize($shadowImages):[];
             $shadowImagesKey = array_search ($refference, $shadowImages);
             unset($shadowImages[$shadowImagesKey]);
             $shadowImages = $shadowImages;
