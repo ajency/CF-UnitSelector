@@ -95,8 +95,22 @@ var FilterPopover = React.createClass({
         filterCountDisp = (<span className="filterHeader"> {appliedFilterCount} </span>);
       }
       else{
-        appliedFilterKeys = _.keys(applied_filters);
-        appliedFilterCount = appliedFilterKeys.length;
+        /*appliedFilterKeys = _.keys(applied_filters);
+        appliedFilterCount = appliedFilterKeys.length;*/
+
+
+
+        var newAppliedFiltersCount = [];
+        _.each(applied_filters, function(filter, key){
+          if(filter.length>0){
+            newAppliedFiltersCount.push(key);
+            }
+        });
+
+        appliedFilterCount = newAppliedFiltersCount.length;
+
+
+
 
         filterCountClasses = classNames({
           "filterCountDesk" : true
