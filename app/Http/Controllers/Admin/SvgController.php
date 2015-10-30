@@ -4,7 +4,8 @@ use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Svg;
 use CommonFloor\SvgElement;
-
+use \Input;
+use CommonFloor\Unit;
 use Illuminate\Http\Request;
 
 class SvgController extends Controller {
@@ -68,6 +69,14 @@ class SvgController extends Controller {
         }
         
         $svgElement->save();
+
+        if (isset($request['floor_group'])) {
+        	$unitId = $request['object_id'];
+        	$floorGroupId = $request['floor_group'];
+        	$unit = Unit::find($unitId);
+        	$unit->floor_group_id = $floorGroupId;
+        	$unit->save();
+        }
  
 		return response()->json( [
 			'code' => 'svg_element_added',
@@ -83,11 +92,23 @@ class SvgController extends Controller {
 	 * @return Response
 	 */
 	public function show($projectid, $imageid){
+		$svg_type = Input::get( 'svg_type' ); 
 
 		$svg = Svg::where( 'image_id', '=', $imageid )->first();
 		if (!empty($svg)) {
 			$svg_id = $svg->id;
-			$svgElements = $svg->svgElement()->get()->toArray();
+			if($svg_type == 'building_master_step_two')
+			{
+				$svgElements = $svg->svgElement()->where( 'object_type',  'floor_group' )->get()->toArray(); 
+			}
+			elseif($svg_type == 'building_master')
+			{
+				$svgElements = $svg->svgElement()->where( 'object_type', '!=', 'floor_group' )->get()->toArray(); 
+			}
+			else{
+				$svgElements = $svg->svgElement()->get()->toArray(); 
+			}
+			
 			// $svgElements = SvgElement::where( 'svg_id', '=', $svg_id )->get()->toArray();
 		}
 		else{
@@ -164,9 +185,9 @@ class SvgController extends Controller {
 	 * @return Response
 	 */
 	public function update($project_id, $id, Request $request)
-	{
+	{	
 		$svgElement = SvgElement::find($id);
-		
+		 
 		// if (isset($request['image_id'])) {
 		// 	$svgElement->image_id = $request['image_id'];
 		// }
@@ -204,6 +225,14 @@ class SvgController extends Controller {
         }
 
 		$svgElement->save();
+
+		if (isset($request['floor_group'])) { 
+        	$unitId = $request['object_id'];
+        	$floorGroupId = $request['floor_group']; 
+        	$unit = Unit::find($unitId);
+        	$unit->floor_group_id = $floorGroupId;
+        	$unit->save();
+        }
 
 		return response()->json( [
 			'code' => 'svg_element_updated',
@@ -243,10 +272,15 @@ class SvgController extends Controller {
 			$projSubFolder = "master";
 			$name = "master-".$breakpoint_position;
 		}
+		else if($svgType == "building_master_step_two"){
+			$buildingId = $_REQUEST['building'];
+			$projSubFolder = "buildings/".$buildingId;
+			$name = "step-two-".$breakpoint_position;
+		}
 		else if($svgType == "building_master"){
 			$buildingId = $_REQUEST['building'];
 			$projSubFolder = "buildings/".$buildingId;
-			$name = "master-".$breakpoint_position;
+			$name = "step-three-".$breakpoint_position;
 		}
 		else if($svgType == "google_earth"){
 			$projSubFolder = "google_earth";

@@ -6,7 +6,8 @@
                     <div class="col-md-8 ">
                         <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Project Master</span> Image</h3>&nbsp;&nbsp;    
                         
-                        <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                        <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select Master file (s)</a>
+                        <a id="shadow_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select Shadow file (s)</a>
                     <div class="project-master-images">    
                         <div class="alert alert-error hidden">
                             <button class="close" data-dismiss="alert"></button>
@@ -71,10 +72,7 @@
                                     {{ $svgImages['shadow'][$position]['NAME'] }} 
                                      
                                     <a onclick="deleteSvg({{ $svgImages['shadow'][$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" ><i class="fa fa-close"></i></a>
-                                     @else
-                                     <div class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} shadow-{{ $position }} " id="pickfiles_{{ $position }}" >
-                                    Image
-                                    </div>
+                     
                                      @endif
                                 </td>
                                 <td class=" "> <div id="uploadsvg_{{ $position }}" class="{{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} breakpointSvg-{{ $position }}">Import</div></td>
