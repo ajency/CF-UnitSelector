@@ -1617,4 +1617,38 @@ div#spritespin {
   color: #ffffff;
   text-decoration: none;
 }
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.7;
+  z-index: 1;
+}
+#msg {
+  position: absolute;
+  height: 0;
+  left: 0;
+  background: wheat;
+  z-index: 2;
+}
+#msg.closed {
+  overflow: hidden;
+}
+.dd {
+  height: 30px;
+  width: 100px;
+  margin: 30px;
+  padding-top: 25px;
+  border: 1px solid orange;
+}
+.clickable {
+  cursor: pointer;
+  position: absolute;
+  right: 40%;
+  top: 20%;
+  z-index: 9999;
+}
 /*# sourceMappingURL=custom.css.map */

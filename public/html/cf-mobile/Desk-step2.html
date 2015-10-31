@@ -130,9 +130,20 @@
          <!-- /#sidebar-wrapper -->
          <!-- Page Content -->
          <div id="page-content-wrapper">
+          <div id="d1" class="dd clickable">Div One</div>
+          <div id="msg" class="imageModal closed">
+           <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+            <div class="imgOuter"><img src="../cf-mobile/img/bldg-3d.png"/></div>
+             <div class="imageContent">
+               <h4 class="text-uppercase">Playground area</h4>
+               <p>
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+               </p>
+             </div>
+          </div>
             <div class="us-right-content">
                <div class="footer">
-                     <h4 class="primary-txt"> Call 1800 180 180 180</h4>
+                     <h4 class="primary-txt" > Call 1800 180 180 180</h4>
                      <a href="#"> Commonfloor </a> |      <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a> <br> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                   </div>
                    <div class="rotate" >
@@ -635,6 +646,43 @@
       // simple placement examples
       $('#red-ellipse1').powerTip({ smartPlacement: true });
        });
-      </script
+      </script>
+<!-- Overlay Popup -->
+      <script type="text/javascript">
+        $('#overlay').hide(); //if overlay displayed, js is broken - here to aid testing
+
+        var xx, yy, mPos = { x: -1, y: -1 }; //mouse position
+        $(document).mousemove(function(event) {
+            mPos.x = event.pageX;
+            mPos.y = event.pageY;
+        });
+
+        $('.dd').click(function(){
+            xx = mPos.x;
+            yy = mPos.y;
+            $('#msg').css({top:mPos.y+'px',left:mPos.x+'px'}).animate({
+                height: '400px',
+                width: '500px',
+                left: $(window).width() / 17,
+                top: $(window).height() / 6
+            },500,function(){
+                //use a callback to show overlay ONLY when animation finished
+                $('#overlay').show(); 
+            });
+            $('#msg').removeClass('closed');
+        });
+        $('.close').click(function(){
+            $('#overlay').hide();
+            $('#msg').animate({
+                height: '0px',
+                width: '0px',
+                left: xx+'px',
+                top: yy+'px'
+            },500);
+            $('#msg').addClass('closed');
+
+        });
+
+        </script>
    </body>
 </html>

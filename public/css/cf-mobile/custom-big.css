@@ -1592,6 +1592,7 @@ body a {
 .step4Desk .contentHEader .contentText {
   padding: 0 20px;
   color: #7d7c7a;
+  font-size: 12px;
 }
 .step4Desk .detailView {
   margin-bottom: 50px;
@@ -1768,5 +1769,39 @@ body a {
   .step4Desk .tabHeader ul li {
     padding: 20px 0px 0 14px;
   }
+}
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.7;
+  z-index: 1;
+}
+#msg {
+  position: absolute;
+  height: 0;
+  left: 0;
+  background: wheat;
+  z-index: 2;
+}
+#msg.closed {
+  overflow: hidden;
+}
+.dd {
+  height: 30px;
+  width: 100px;
+  margin: 30px;
+  padding-top: 25px;
+  border: 1px solid orange;
+}
+.clickable {
+  cursor: pointer;
+  position: absolute;
+  right: 40%;
+  top: 20%;
+  z-index: 9999;
 }
 /*# sourceMappingURL=custom-big.css.map */
