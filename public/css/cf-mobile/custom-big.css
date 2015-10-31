@@ -1474,11 +1474,12 @@ body a {
   float: left;
   font-size: 20px;
   margin: 10px 0 0 0;
+  font-weight: 600;
 }
 .step4Desk .unitStatus {
   border: 1px solid #0eab08;
   border-radius: 3px;
-  font-size: 10px;
+  font-size: 11px;
   padding: 2px 5px 1px;
   color: #0eab08;
   margin-top: 10px;
@@ -1511,7 +1512,7 @@ body a {
 .step4Desk .flatDetails .units {
   float: left;
   font-size: 12px;
-  color: #bcbcba;
+  color: #7d7c7a;
   margin: 0 5px;
 }
 .step4Desk .flatDetails ul {
