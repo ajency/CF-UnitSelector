@@ -52,9 +52,11 @@ var SvgContainer = React.createClass({
 
       svgDom = $(".svg-area");
 
+      svgSelector = "svg .building";
+
 
       // Loop through each building svg element in svg
-      $(svgDom).find("svg .building").each(function(ind, item) {
+      $(svgDom).find(svgSelector).each(function(ind, item) {
         var id = parseInt(item.id);
 
         svgElemClassName = 'svg-light building building'+id;
