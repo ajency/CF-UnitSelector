@@ -1,6 +1,21 @@
 var React = require('react');
 
 var TabHeader = React.createClass({
+
+  _redirect: function(url){
+    window.location.href = url;
+  },
+    
+  redirectToBooking: function(){
+    unitId = this.props.unitId;
+    projectId = this.props.projectId;
+    baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
+    redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
+
+    this._redirect(redirectUrl);
+    
+  },
+
   render: function () {
 
   	var buildingName = this.props.buildingName;
@@ -44,7 +59,7 @@ var TabHeader = React.createClass({
 
     if(unitData.basic.status === 'available'){
       var bookNowButton = (
-        <button className="btn btn-default btn-sm btn-primary text-uppercase">Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
+        <button className="btn btn-default btn-sm btn-primary text-uppercase" onClick={this.redirectToBooking}>Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
         );
     }else{
       var bookNowButton = "";

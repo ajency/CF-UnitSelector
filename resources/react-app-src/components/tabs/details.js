@@ -109,7 +109,9 @@ if(window.isMobile){
             <span className="contentTitle text-uppercase">
               Details
             </span>
-            
+            <span className="contentText">
+              Simplicity of design and strong construction from the backbone of the Metro.
+            </span>
           </div>
         </div>
         <div className="col-xs-12 unit">

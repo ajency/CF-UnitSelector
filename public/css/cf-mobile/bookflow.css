@@ -114,6 +114,7 @@ body {
 .bookFlowContent .bookAptOuter .row > div:last-child {
   text-align: right;
   padding: 0;
+  margin-top: 20px;
 }
 .bookFlowContent .bookAptOuter > div {
   float: right;
@@ -207,6 +208,10 @@ body {
 .bookFlowContent .bookAptOuter .bookApmt {
   color: #ffffff;
   font-size: 16px;
+}
+.bookFlowContent .bookAptOuter .projectName {
+  font-size: 14px;
+  color: #ffffff;
 }
 .bookFlowContent .bookAptOuter .flatNo {
   color: #ffffff;
@@ -983,13 +988,13 @@ body {
 }
 @media screen and (max-width: 767px) {
   .bookFlowContent {
-    height: 350px;
+    height: 380px;
   }
   .bookFlowContent .container {
     padding: 0;
   }
   .bookFlowContent .absoluteLayout {
-    height: 350px;
+    height: 380px;
   }
   .bookFlowContent .bookAptOuter .row > div:last-child {
     text-align: center;

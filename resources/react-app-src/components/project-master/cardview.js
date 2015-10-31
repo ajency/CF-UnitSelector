@@ -126,13 +126,13 @@ var CardView = React.createClass({
                                   <h4 className=" margin-none text-left"> {buildingName}</h4>
                               </div>
                               <div className="col-xs-12 text-muted price">
-                                    From <span className="price-tag"><i className="fa fa-inr"></i> {minStartPrice} </span>
+                                    From <b className="price-tag"><i className="fa fa-inr"></i> {minStartPrice} </b>
                               </div>
                           </div>
                           
                           <div className=" swipe-unit-info row">
                              <div className="col-xs-12 text-muted">
-                                <span> {noOfFloors} Floors</span><li></li> <span> {supportedUnitTypeString} </span>
+                                <span> {noOfFloors}  &nbsp;Floors</span><li></li> <span> {supportedUnitTypeString} </span>
                              </div>  
                           </div>
 
@@ -171,7 +171,7 @@ var CardView = React.createClass({
                                         <h4 className=" margin-none text-left text-uppercase"> {buildingName}</h4>
                                     </div>
                                     <div className="col-xs-12 text-muted price">
-                                        From <span><i className="fa fa-inr"></i> {minStartPrice}</span>
+                                        From <b><i className="fa fa-inr"></i> {minStartPrice}</b>
                                     </div>
                                 </div>
                                 <div className=" swipe-unit-info row">

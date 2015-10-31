@@ -241,6 +241,8 @@ body a {
   padding-top: 11px;
 }
 .card-swipe h4 {
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
   font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
@@ -256,7 +258,7 @@ body a {
   text-transform: uppercase;
   padding: 0 25px;
 }
-.card-swipe .price .unitAmount {
+.card-swipe .price b {
   color: #fe943e;
   margin-left: 5px;
 }
@@ -688,12 +690,26 @@ body a {
   outline: none !important;
   box-shadow: none;
 }
+.styled-select:before {
+  font-family: FontAwesome;
+  content: "\f13a";
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+  position: absolute;
+  right: 11px;
+  font-size: 20px;
+  line-height: 34px;
+  z-index: -1;
+  color: #fe943e;
+}
 .styled-select {
-  width: 100%;
-  height: 34px;
-  overflow: hidden;
-  background: url(../../images/arrowDown.png) no-repeat right;
-  border: none;
+  /*   width: 100%;
+   height: 34px;
+   overflow: hidden;
+   background: url(../../images/arrowDown.png) no-repeat right;
+   border: none;   
+*/
 }
 .styled-select select {
   background: transparent;
@@ -1429,6 +1445,7 @@ body a {
 .sub-list li label {
   margin-bottom: -2px;
   font-weight: 400;
+  margin-left: 10px;
 }
 .step4Body .modal-backdrop.in,
 .step4Body .contactModal {
@@ -1457,11 +1474,12 @@ body a {
   float: left;
   font-size: 20px;
   margin: 10px 0 0 0;
+  font-weight: 600;
 }
 .step4Desk .unitStatus {
   border: 1px solid #0eab08;
   border-radius: 3px;
-  font-size: 10px;
+  font-size: 11px;
   padding: 2px 5px 1px;
   color: #0eab08;
   margin-top: 10px;
@@ -1480,7 +1498,7 @@ body a {
   padding-top: 25px;
 }
 .step4Desk .rightSide button i {
-  margin-left: 5px;
+  margin-left: 7px;
 }
 .step4Desk .rightSide button:first-child {
   margin-right: 5px;
@@ -1494,7 +1512,7 @@ body a {
 .step4Desk .flatDetails .units {
   float: left;
   font-size: 12px;
-  color: #bcbcba;
+  color: #7d7c7a;
   margin: 0 5px;
 }
 .step4Desk .flatDetails ul {
@@ -1542,6 +1560,9 @@ body a {
   display: none;
   padding-top: 15px;
 }
+.step4Desk .tabHeader ul li.stickyButtons button i {
+  margin-left: 7px;
+}
 .step4Desk .tabHeader ul li.stickyButtons button:first-child {
   margin-right: 5px;
 }
@@ -1564,6 +1585,8 @@ body a {
   padding: 5px 20px 5px 5px;
   color: #706f6d;
   font-weight: 600;
+  border-right: 1px solid #d5d5d4;
+  font-size: 14px;
 }
 .step4Desk .contentHEader .contentText {
   padding: 0 20px;
@@ -1586,6 +1609,7 @@ body a {
   border-right: 1px solid #d5d5d4;
   width: 270px;
   margin-left: 30px;
+  height: 300px;
 }
 .step4Desk .detailView .unit .roomDetails:nth-child(4n+1) {
   margin-left: 0;
@@ -1602,6 +1626,19 @@ body a {
 }
 .step4Desk .detailView .unit .roomDetails .right {
   color: #565654;
+}
+.step4Desk .detailView .unit .roomDetails .moreLessLink {
+  color: #fe943e;
+  font-size: 12px;
+  text-decoration: none;
+  outline: none;
+}
+.step4Desk .detailView .unit .roomDetails .moreLessLink:focus {
+  text-decoration: none;
+  outline: none;
+}
+.step4Desk .detailView .unit .hiddenContent {
+  display: none;
 }
 .step4Desk .floorDetails {
   padding: 30px 15px;
@@ -1624,6 +1661,12 @@ body a {
 }
 .step4Desk .amenitiesDetails .row > div {
   margin: 20px 0;
+  padding-right: 0;
+}
+.step4Desk .amenitiesDetails .row > div i {
+  float: left;
+  margin-right: 5px;
+  margin-top: 12px;
 }
 .step4Desk .amenitiesDetails .icon {
   float: left;
@@ -1641,9 +1684,13 @@ body a {
   margin-top: 12px;
   font-size: 12px;
   font-weight: 600;
+  padding: 0;
 }
 .step4Desk .amenitiesDetails .disabled .icon {
   background: #d5d5d4;
+}
+.step4Desk .amenitiesDetails .disabled i {
+  color: #bcbcba;
 }
 .step4Desk .amenitiesDetails .disabled .text {
   color: #bcbcba;
@@ -1686,17 +1733,24 @@ body a {
   margin-bottom: 10px;
   color: #565654;
 }
+.step4Desk .specificationOuter .textInner > div {
+  color: #565654;
+  font-size: 12px;
+  text-transform: uppercase;
+}
 .pNone {
   padding: 0 !important;
 }
 .svg-top-area svg {
   position: absolute;
-  left: 0%;
+  left: -3%;
   z-index: 9999;
-  top: 2%;
+  top: 6%;
+  height: 400px !important;
+  width: 100% !important;
 }
 .svg-top-area img {
-  height: 200px;
+  height: 400px !important;
   margin: 0px;
 }
 @media screen and (max-width: 1024px) {
@@ -1716,6 +1770,21 @@ body a {
   }
   .step4Desk .tabHeader ul li {
     padding: 20px 29px 0 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .step4Desk .detailView .unit .roomDetails {
+    width: 240px;
+    margin-left: 10px;
+  }
+  .step4Desk .detailView .unit .roomDetails:nth-child(4n+1) {
+    margin-left: 10px;
+  }
+  .step4Desk .detailView .unit .roomDetails:first-child {
+    margin-left: 0;
+  }
+  .step4Desk .tabHeader ul li {
+    padding: 20px 0px 0 14px;
   }
 }
 /*# sourceMappingURL=custom-big.css.map */
