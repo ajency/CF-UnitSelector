@@ -315,7 +315,7 @@ var BuildingMaster = React.createClass({
 
 
     updateProjectMasterData: function(){
-        oldState = getStateData();
+        oldState = this.state;
 
         newProjectData = AppStore.getFilteredProjectMasterData();
 
@@ -329,7 +329,7 @@ var BuildingMaster = React.createClass({
     },
 
     updateStateData: function(data){
-        oldState = this.getBuildingState();
+        oldState = this.state;
         
         newState = oldState;
 
@@ -438,7 +438,7 @@ var BuildingMaster = React.createClass({
 
 
         this.setState(newState, this.projectDataUpdateCallBack);
-        AppStore.updateGlobalState(newState);
+        AppStore.updateGlobalState(newState,"buildingFloorGroups");
 
     },
 

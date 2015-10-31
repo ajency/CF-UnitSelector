@@ -1141,8 +1141,19 @@ function _updateProjectData(dataToUpdate){
 	_globalStateData = newProjectData;
 }
 
-function _updateGlobalState(newStateData){
-	_globalStateData = newStateData;
+function _updateGlobalState(newStateData,type){
+
+	switch(type) {
+	  case "projectMaster":
+	      _globalStateData = newStateData;
+	      break;
+	  case "buildingFloorGroups":
+	      _buildingMasterStateData = newStateData;
+	      break;
+	  default:
+	      _globalStateData = newStateData;
+	}	
+	
 }
 
 function _getProjectMasterData(){
@@ -2285,7 +2296,7 @@ function _getBuildingMasterDetails(buildingId){
 			
 		}
 		else{
-			_buildingMasterStateData = getFakeBuildingMasterData();
+			// _buildingMasterStateData = getFakeBuildingMasterData();
 		}
 	}
 

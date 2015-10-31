@@ -202,7 +202,7 @@ var ProjectMaster = React.createClass({
 
 
     updateProjectMasterData: function(){
-        oldState = getStateData();
+        oldState = this.state;
 
         newProjectData = AppStore.getFilteredProjectMasterData();
 
@@ -325,7 +325,7 @@ var ProjectMaster = React.createClass({
 
 
         this.setState(newState, this.projectDataUpdateCallBack);
-        AppStore.updateGlobalState(newState);
+        AppStore.updateGlobalState(newState,"projectMaster");
 
     },
 
