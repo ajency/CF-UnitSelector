@@ -3,7 +3,7 @@ var classNames = require('classnames');
 
 var TabFooter = React.createClass({
 
-	_redirect(url){
+	_redirect: function(url){
 		window.location.href = url;
 	},
 
