@@ -209,6 +209,7 @@
 				border-right:1px solid @gray-lighter;
 				width:270px;
 				margin-left:30px;
+				height: 300px;
 
 				&:nth-child(4n+1)
 				{
@@ -228,7 +229,23 @@
 				{
 					color: @gray-darker;
 				}
+				.moreLessLink
+				{
+					color: @brand-primary;
+					font-size: 12px;
+					text-decoration: none;
+					outline: none;
+					&:focus
+					{
+						text-decoration:none;
+						outline: none;
+					}
+				}
 
+			}
+			.hiddenContent
+			{
+				display:none;
 			}
 		}
 	}
@@ -364,6 +381,12 @@
 				{
 					margin-bottom: 10px;
 					color: @gray-darker;
+				}
+				> div
+				{
+					color: @gray-darker;
+				    font-size: 12px;
+				    text-transform: uppercase;
 				}
 			}
 		}

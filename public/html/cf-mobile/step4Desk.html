@@ -104,11 +104,42 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-xs-6 left">
-                      Flooring
+                    <div class="col-xs-6 left">
+                        Flooring
+                    </div>
+                    <div class="col-xs-6 right">
+                        Wooden
+                    </div>
                   </div>
-                  <div class="col-xs-6 right">
-                      Wooden
+                <div class="hiddenContent">
+                  <div class="row">
+                    <div class="col-xs-6 left">
+                        Flooring
+                    </div>
+                    <div class="col-xs-6 right">
+                        Wooden
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6 left">
+                        Flooring
+                    </div>
+                    <div class="col-xs-6 right">
+                        Wooden
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6 left">
+                        Flooring
+                    </div>
+                    <div class="col-xs-6 right">
+                        Wooden
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <a href="javacript:void(0);" class="moreLessLink" id="showMoreContent">More</a>                 
                   </div>
                 </div>
             </div>
@@ -697,6 +728,12 @@
           $(window).scroll(sticky_relocate);
           sticky_relocate();
       });
+
+      $('#showMoreContent').click(function(){
+          $('.hiddenContent').slideToggle();
+          $('#showMoreContent').html($('#showMoreContent').text() == 'Less' ? 'More' : 'Less');
+      });
+
       });
     </script>
   </body>
