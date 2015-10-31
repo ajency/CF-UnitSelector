@@ -354,8 +354,13 @@ class UnitController extends ApiGuardController {
             $response_data['salt'] = $project->salt;
 
             // PROJECT META DATA - builder name
-            $projectBuilderName = ProjectMeta::where( 'project_id', '=', $project_id )->where( 'meta_key', '=', 'builder_name' )->first();
-            $response_data['builder_name'] = $projectBuilderName->meta_value;
+            $projectBuilderData = $project->projectMeta()->whereIn('meta_key', ['builder_name','builder_link','project_image'])->get()->toArray(); //'google_earth', 'skyview',
+             
+
+            foreach ($projectBuilderData as $meta) {
+                $response_data[$meta['meta_key']] = $meta['meta_value'];
+            }
+                   
 
             // append phase data to unit if it has phase
             if ($response_data['has_phase'] === 'yes') {
