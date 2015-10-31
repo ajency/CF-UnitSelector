@@ -130,6 +130,7 @@
          <!-- /#sidebar-wrapper -->
          <!-- Page Content -->
          <div id="page-content-wrapper">
+           <div id="overlay"></div>
           <div id="d1" class="dd clickable">Div One</div>
           <div id="msg" class="imageModal closed">
            <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
@@ -651,7 +652,7 @@
       <script type="text/javascript">
         $('#overlay').hide(); //if overlay displayed, js is broken - here to aid testing
 
-        var xx, yy, mPos = { x: -1, y: -1 }; //mouse position
+        var xx, yy, mPos = { x: 0, y: 0 }; //mouse position
         $(document).mousemove(function(event) {
             mPos.x = event.pageX;
             mPos.y = event.pageY;
@@ -663,8 +664,8 @@
             $('#msg').css({top:mPos.y+'px',left:mPos.x+'px'}).animate({
                 height: '400px',
                 width: '500px',
-                left: $(window).width() / 17,
-                top: $(window).height() / 6
+                left: $(window).width() / 20,
+                top: $(window).height() / 20
             },500,function(){
                 //use a callback to show overlay ONLY when animation finished
                 $('#overlay').show(); 
