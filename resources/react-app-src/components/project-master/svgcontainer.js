@@ -100,7 +100,9 @@ var SvgContainer = React.createClass({
 
       var svgClasses = classNames(this.props.svgData.svgClasses);
 
-    	var svgUrl= window.baseUrl+'/projects/'+(window.projectId)+'/master/'+svgNamePrefix+''+chosenBreakpoint+'.svg'; //will come based on breakpoint
+      var svgBaseUrl = this.props.svgBaseUrl;
+
+    	var svgUrl= svgBaseUrl+svgNamePrefix+''+chosenBreakpoint+'.svg'; //will come based on breakpoint
 
       // need current highlighted building
       var buildingToHighlight = this.props.buildingToHighlight;

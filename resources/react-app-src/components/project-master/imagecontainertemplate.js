@@ -46,19 +46,23 @@ var ImageContainerTemplate = React.createClass({
 
     getMasterImagePath: function(imageType){
         var imagePath="";
+        var baseImagePath="";
         var masterImagePrefix = "master-";
 
         if(imageType==="master"){
-          imagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/'+masterImagePrefix+'{frame}.jpg';
+          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/';
+          imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
         }
         else{
           buildingId = this.props.buildingId;
 
-          imagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/'+buildingId+'/'+masterImagePrefix+'{frame}.jpg';
+          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/'+buildingId+'/';
+
+          imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
           
         }
 
-        return imagePath;
+        return {"imagePath":imagePath,"baseImagePath":baseImagePath};
         
     },
 
@@ -80,7 +84,8 @@ var ImageContainerTemplate = React.createClass({
 
         var digitsInName = 2; 
 
-        imagePath = this.getMasterImagePath(imageType);
+        path = this.getMasterImagePath(imageType);
+        imagePath = path["imagePath"];
 
         var projectMasterImgUrl = imagePath;
 
@@ -254,6 +259,9 @@ var ImageContainerTemplate = React.createClass({
 
         }
 
+        path = this.getMasterImagePath(this.props.imageType);
+        svgBaseUrl = path["baseImagePath"];
+
         if(window.isMobile){
             domToDisplay = (
 
@@ -270,6 +278,7 @@ var ImageContainerTemplate = React.createClass({
                             buildingToHighlight={buildingToHighlight} 
                             showTooltip={ this.props.showTooltip} 
                             updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                            svgBaseUrl = {svgBaseUrl}
                           />
 
                           <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
@@ -310,6 +319,7 @@ var ImageContainerTemplate = React.createClass({
                             buildingToHighlight={ this.props.buildingToHighlight} 
                             showTooltip={ this.props.showTooltip} 
                             updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                            svgBaseUrl = {svgBaseUrl}
                           />
 
                           <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
