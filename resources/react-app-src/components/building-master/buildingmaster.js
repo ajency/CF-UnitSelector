@@ -329,7 +329,7 @@ var BuildingMaster = React.createClass({
     },
 
     updateStateData: function(data){
-        oldState = getStateData();
+        oldState = this.getBuildingState();
         
         newState = oldState;
 
@@ -559,6 +559,8 @@ var BuildingMaster = React.createClass({
         modalData.search_filters = data.search_filters;
         modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
 
+        buildingId = this.props.buildingId;
+
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
             domToDisplay = (
@@ -587,12 +589,13 @@ var BuildingMaster = React.createClass({
                     <ImageContainerTemplate 
                         ref= "imageContainer"
                         showShadow={data.showShadow}
-                        imageType="master"
+                        imageType="buildings"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
                         updateRotateShadow = {this.updateRotateShadow}
                         buildings =  {buildings}
+                        buildingId = {buildingId}
                         buildingToHighlight = {buildingToHighlight}
                         destroyTooltip = {this.destroyTooltip}
                         showTooltip = {this.showTooltip}
@@ -631,12 +634,13 @@ var BuildingMaster = React.createClass({
                         <ImageContainerTemplate
                             ref= "imageContainer"
                             showShadow={data.showShadow}
-                            imageType="master"
+                            imageType="buildings"
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
                             updateChosenBreakPoint = {this.updateChosenBreakPoint}
                             updateRotateShadow = {this.updateRotateShadow}
                             buildings =  {buildings}
+                            buildingId = {buildingId}
                             buildingToHighlight = {buildingToHighlight}
                             destroyTooltip = {this.destroyTooltip}
                             showTooltip = {this.showTooltip}  
