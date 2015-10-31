@@ -4,257 +4,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Email</title>
         <link href='../../css/cf-mobile/font-awesome.css' rel='stylesheet'/>
-        <style type="text/css">
-			/* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
-			#outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
-			.ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
-			.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
-			body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
-			table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
-			img{-ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
-
-			/* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
-			body{margin:0; padding:0;}
-			img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
-			table{border-collapse:collapse !important;}
-			body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
-
-			#bodyCell{padding:20px;}
-			#templateContainer{width:600px;}
-
-			body, #bodyTable{
-				/*@editable*/ background-color:#DEE0E2;
-			}
-
-			#bodyCell{
-				/*@editable*/ border-top:4px solid #BBBBBB;
-			}
-
-			#templateContainer{
-				/*@editable*/ border:1px solid #BBBBBB;
-			}
-
-			#templatePreheader{
-				/*@editable*/ background-color:#F4F4F4;
-				/*@editable*/ border-bottom:1px solid #CCCCCC;
-			}
-
-			#templateHeader{
-				/*@editable*/ background-color:#F4F4F4;
-				/*@editable*/ border-top:1px solid #FFFFFF;
-				/*@editable*/ border-bottom:1px solid #CCCCCC;
-			}
-			#templateHeader td
-			{
-				padding-left: 20px;
-			}
-
-			.headerContent{
-				/*@editable*/ color:#505050;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:14px;			
-				/*@editable*/ line-height:1.5;
-				padding: 10px 20px 10px;		
-				/*@editable*/ vertical-align:middle;
-			}
-			.headerContent i
-			{
-				margin-left: 6px;
-			}
-			a{
-				color:#9E9D9D !important;
-				font-size: 13px;
-			}
-			a:hover{
-				color:#f68121!important;
-			}
-	
-			.headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#EB4102;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
-
-			#headerImage{
-				height:auto;
-				max-width:600px;
-			}
-
-			.templateBody{
-				/*@editable*/ background-color:#ffffff;				
-			}
-
-			.bodyContent, .thanksText{
-				/*@editable*/ color:#505050;
-				/*@editable*/font-family:Arial;
-				/*@editable*/ font-size:14px;
-				/*@editable*/ line-height:150%;
-				padding-top:15px;
-				padding-right:20px;
-				padding-bottom:0px;
-				padding-left:20px;
-				/*@editable*/ text-align:left;
-				background: #ffffff;
-			}
-			.thanksText
-			{
-				padding-top:0px;
-				padding-right:20px;
-				padding-bottom:20px;
-				padding-left:20px;
-			}
-			.queryText
-			{
-				color:#505050;
-				font-family:Arial;
-				background: #ffffff;
-				padding: 0 20px 10px 20px;
-				font-size: 14px;
-				line-height: 1.5;				
-			}
-			.queryText i
-			{
-				margin-left: 5px;
-				margin-right: 5px;
-			}
-			.queryText a
-			{
-				color: #f68121 !important;
-			}
-
-			.bodyContent a:link, .bodyContent a:visited, /* Yahoo! Mail Override */ .bodyContent a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#EB4102;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
-
-			.bodyContent img{
-				display:inline;
-				height:auto;
-				max-width:560px;
-			}
-
-			#templateFooter{
-				/*@editable*/ background-color:#F4F4F4;
-				/*@editable*/ border-top:1px solid #FFFFFF;
-			}
-
-			.footerContent{
-				/*@editable*/ color:#ffffff;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:10px;
-				/*@editable*/ line-height:150%;
-				padding: 0;
-				/*@editable*/ text-align:left;
-				background: #f68121;
-			}
-			.footerContent td
-			{
-				background: #f68121;
-				text-align: center;
-			    font-size: 12px;
-			    padding: 10px 0 9px 0;
-			}
-
-			.footerContent a:link, .footerContent a:visited, /* Yahoo! Mail Override */ .footerContent a .yshortcuts, .footerContent a span /* Yahoo! Mail Override */{
-				/*@editable*/ color:#606060;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
-			.header
-			{
-				background: #ffffff;
-			}
-			.username
-			{
-				font-family:Arial;
-				font-size: 14px;
-				padding: 40px 20px 10px;
-			}
-			.bookingId
-			{
-				/*@editable*/ color:#505050;
-				/*@editable*/font-family:Arial;
-				/*@editable*/ font-size:14px;		
-				padding:10px 0 0px 20px;			
-		
-			}
-			.bodyContent td
-			{
-				padding: 5px;
-				line-height: 2;
-				border-bottom:1px solid #ccc;
-				border-top:1px solid #ccc;
-				text-transform: uppercase;
-			}
-			.bodyContent td span
-			{
-				font-weight: 600;
-				font-size: 14px;
-    			text-transform: uppercase;
-			}
-			.bodyContent .leftContent td
-			{
-				border: none;
-				padding: 0;
-			}
-			.bodyContent .rightContent, .bodyContent .rightContent span
-			{
-				font-size: 20px;
-				padding: 20px;
-    			text-align: center;
-			}
-	
-
-            @media only screen and (max-width: 480px){
-			
-				body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none !important;}
-                body{width:100% !important; min-width:100% !important;} 
-				#bodyCell{padding:10px !important;}
-
-				#templateContainer{
-					max-width:600px !important;
-					/*@editable*/ width:100% !important;
-				}
-				a{
-					width: 230px;
-					display: block;
-					word-wrap: break-word;
-				}
-
-
-
-				#templatePreheader{display:none !important;} 
-
-				.headerContent{
-					/*@editable*/ font-size:20px !important;
-					/*@editable*/ line-height:125% !important;
-				}
-
-				.bodyContent{
-					/*@editable*/ font-size:14px !important;
-					/*@editable*/ line-height:125% !important;
-					text-align:center;
-				}
-
-				.footerContent{
-					/*@editable*/ font-size:14px !important;
-					/*@editable*/ line-height:115% !important;
-				}
-
-				.footerContent a{display:block !important;} 
-					 
-				
-			}
-		</style>
     </head>
-    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" >
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="height:100%; margin:0; padding:0; width:100%; background-color:#DEE0E2;" >
     	<center>
-        	<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" >
+        	<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style=" margin:0; padding:0; background-color:#DEE0E2;" >
             	<tr >
-                	<td align="center" valign="top" id="bodyCell">
+                	<td align="center" valign="top" style="height:100%; margin:0; padding:0; width:100%; padding:20px; border-top:4px solid #BBBBBB;">
                     	<!-- BEGIN TEMPLATE // -->
-                    	<table border="0" cellpadding="0" cellspacing="0" id="templateContainer">
+                    	<table border="0" cellpadding="0" cellspacing="0" style="width:600px; border:1px solid #BBBBBB;">
                         	<tr>
                             	<td align="center" valign="top">
                                 	<!-- BEGIN PREHEADER // -->
@@ -265,9 +22,9 @@
                         	<tr>
                             	<td valign="top">
                                 	<!-- BEGIN HEADER // -->
-                                    <table border="0" cellpadding="10px" cellspacing="0" width="100%" id="templateHeader">
+                                    <table border="0" cellpadding="10px" cellspacing="0" width="100%" style="background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;">
                                         <tr>
-                                            <td valign="top" class="">
+                                            <td valign="top" style="padding-left: 20px;">
                                             	<img src="../../images/inner-header-logo.png"/>
                                             </td>
 
@@ -279,15 +36,15 @@
                             <tr>
                             	<td align="center" valign="top">
                                 	<!-- BEGIN HEADER // -->
-                                    <table border="0" cellpadding="10px" cellspacing="0" width="100%" id="" class="header">
+                                    <table border="0" cellpadding="10px" cellspacing="0" width="100%" style="background: #ffffff;">
                                        <tr>
-                                       	<td class="username">
+                                       	<td style="font-family:Arial; font-size: 14px; padding: 40px 20px 10px;">
                                        		Hello ABC,
                                        	</td>                                       	 
                                        </tr>
                                         <tr>
-                                            <td valign="top" class="headerContent">
-                                            	Thank you for booking Unit <b>FC1</b> with Booking ID as <b>12sjkj23gg2</b> for Project " Mantri Energia". We have received your booking amount of <i class="fa fa-inr orangeText"></i> <b>20,000/-</b>.
+                                            <td valign="top" style="color:#505050; font-family:Arial; font-size:14px;	line-height:1.5; padding: 10px 20px 10px; vertical-align:middle;">
+                                            	Thank you for booking Unit <b>FC1</b> with Booking ID as <b>12sjkj23gg2</b> for Project " Mantri Energia". We have received your booking amount of <i class="fa fa-inr orangeText" style="margin-left: 6px;"></i> <b>20,000/-</b>.
                                             	<br><br>
 												Use your booking ID number for further processing.
                                             </td>                                            
@@ -299,9 +56,9 @@
                         	<tr>
                             	<td align="center" valign="top">
                                 	<!-- BEGIN BODY // -->
-                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateBody">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style=" background-color:#ffffff;">
                                         <tr>
-                                        <td valign="top" class="bookingId">
+                                        <td valign="top" style="color:#505050; font-family:Arial; font-size:14px; padding:10px 0 0px 20px;">
                                         	<table>
                                         		<tr>
                                         			<td>
@@ -312,56 +69,56 @@
                                         </td>
                                         </tr>
                                         <tr>
-                                         <td  class="bodyContent">
-                                        	<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateBody"> 
+                                         <td style="color:#505050; font-family:Arial; font-size:14px; line-height:150%; padding-top:15px; padding-right:20px; padding-bottom:0px; padding-left:20px; text-align:left; background: #ffffff;">
+                                        	<table border="0" cellpadding="0" cellspacing="0" width="100%" style=" background-color:#ffffff;"> 
                                         		<tr>  
-                                        			<td>
-                                        				<table border="0" cellpadding="0" cellspacing="0" width="100%" class="leftContent">
+                                        			<td style="padding: 5px; line-height: 2; border-bottom:1px solid #ccc; border-top:1px solid #ccc; text-transform: uppercase;">
+                                        				<table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         					<tr>
                                         						<td>
-                                        							Tower Name : <span>Tower 1</span>
+                                        							Tower Name : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;">Tower 1</span>
                                         						</td>
                                         					</tr>
                                         					<tr>
                                         						<td>
-                                        							Floor Number : <span> 1ST Floor </span>
+                                        							Floor Number : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"> 1ST Floor </span>
                                         						</td>
                                         					</tr> 
                                         					<tr>
                                         						<td>
-                                        							 Price per SQFT : <span><i class="fa fa-inr orangeText"></i> 2400/- </span>
+                                        							 Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i> 2400/- </span>
                                         						</td>
                                         					</tr> 
                                         					 <tr>
                                         						<td>
-                                        							Booking Date : <span> 27 Oct 2015 </span>
+                                        							Booking Date : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"> 27 Oct 2015 </span>
                                         						</td>
                                         					</tr>                                       					
                                         					                                       					
                                         				</table>                                        				
                                         			</td>                                     			
                                              		
-                                             		<td class="">
-                                             			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="leftContent">                                        					
+                                             		<td style="padding: 5px; line-height: 2; border-bottom:1px solid #ccc; border-top:1px solid #ccc; text-transform: uppercase;">
+                                             			<table border="0" cellpadding="0" cellspacing="0" width="100%">                                        					
                                         					<tr>
                                         						<td>
-                                        							BHK type : <span>2 BHK</span>
+                                        							BHK type : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;">2 BHK</span>
                                         						</td>
                                         					</tr>
                                         					<tr>
                                         						<td>
-                                        							Area : <span>2500 SQ FT</span>
+                                        							Area : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;">2500 SQ FT</span>
                                         						</td>
                                         					</tr>
                                         					<tr>
                                         						<td>
-                                        							Total Price : <span><i class="fa fa-inr orangeText"></i> 10414141/-</span>
+                                        							Total Price : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i> 10414141/-</span>
                                         						</td>
                                         					</tr>
                                         					<tr>
                                         						<td>
 			                                             			Booking Amount : 
-			                                             			<span><i class="fa fa-inr orangeText"></i> 20000/-</span>
+			                                             			<span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i> 20000/-</span>
 			                                             		</td>
                                         					</tr>
                                         				</table>  
@@ -374,19 +131,19 @@
                                         	</td>
                                         </tr>
                                         <tr>
-			                            	<td class="queryText">
-			                            		<table border="0" cellpadding="0" cellspacing="0" width="100%" id="">
+			                            	<td style="color:#505050; font-family:Arial; background: #ffffff; padding: 0 20px 10px 20px; font-size: 14px; line-height: 1.5;">
+			                            		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			                            			<tr>
 			                            				<td>
-			                            					<p>For any queries please <i class="fa fa-envelope-o"></i> at <a href="mailto:contactus@commonfloor.com">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com">support@commonfloor.com</a> or feel free to <i class="fa fa-phone"></i> at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
+			                            					<p>For any queries please <i class="fa fa-envelope-o" style="margin-left: 5px; margin-right: 5px;"></i> at <a href="mailto:contactus@commonfloor.com" style="color: #f68121;">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com"style="color: #f68121;">support@commonfloor.com</a> or feel free to <i class="fa fa-phone" style="margin-left: 5px; margin-right: 5px;"></i> at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
 			                            				</td>
 			                            			</tr>
 			                            		</table>
 			                            	</td>
 			                            </tr>
                                         <tr>
-                                        	<td class="thanksText">
-                                        	<table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateBody"> 
+                                        	<td style="color:#505050; font-family:Arial; font-size:14px; line-height:150%; padding:0 20px 20px 20px; text-align:left; background: #ffffff;">
+                                        	<table border="0" cellpadding="0" cellspacing="0" width="100%" style=" background-color:#ffffff;"> 
                                         			<tr>
                                         				<td>
                                         					Thanks,
@@ -407,10 +164,10 @@
                             
 
                             <tr>
-                            	<td class="footerContent">
-                            		<table border="0" cellpadding="10px" cellspacing="0" width="100%" id="">
+                            	<td style="color:#ffffff; font-family:Arial; font-size:10px; line-height:150%; padding: 0; text-align:left; background: #f68121">
+                            		<table border="0" cellpadding="10px" cellspacing="0" width="100%">
                             			<tr>
-                            				<td>
+                            				<td style="background: #f68121; text-align: center; font-size: 12px; padding: 10px 0 9px 0;">
                             					Visit us at www.commonfloor.com
                             				</td>
                             			</tr>

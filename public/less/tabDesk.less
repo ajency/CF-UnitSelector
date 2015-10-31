@@ -30,7 +30,7 @@
 	h4
 	{
 		float:left;
-		font-size:20px;
+		font-size:30px;
 		margin:10px 0 0 0;
 		font-weight: 600;
 	}
@@ -38,10 +38,10 @@
 	{
 		border:1px solid @real-green;
 		border-radius:3px;
-		font-size:11px;
+		font-size:12px;
 		padding:2px 5px 1px;
 		color:@real-green;
-		margin-top: 10px;
+		margin-top: 15px;
 	    float: left;
 	    margin-left: 10px;
 	    &.available 
@@ -132,9 +132,28 @@
 						color:@brand-primary;
 						border-bottom:2px solid @brand-primary;
 					}
+					.rotateIcon
+					{
+						background: url('../../images/sprite-step4.png') no-repeat;
+						background-position:5px -13px;
+						height: 24px;
+						width: 50px;
+						float: left;
+					}
 				}
 				
-					
+				&.liveInTourLi
+				{
+					a
+					{
+						padding-bottom: 10px;
+						.liveInTourText
+						{
+							float: left;
+							margin-top: 4px;
+						}
+					}
+				}		
 				
 				&.stickyButtons
 				{
@@ -185,6 +204,7 @@
     	{
     		padding:0 20px;
     		color:@gray;
+    		font-size: 12px;
     	}
 	}
 	.detailView
@@ -287,13 +307,7 @@
 				> div
 				{
 					margin:20px 0;
-					padding-right: 0;
-					i
-					{
-						float: left;
-						margin-right: 5px;
-						margin-top: 12px;
-					}
+					padding-right: 0;				
 				}
 			}
 			.icon
@@ -313,14 +327,14 @@
 				padding-left:10px;
 				margin-top: 12px;
 			    font-size: 12px;
-			    font-weight: 600;
-			    padding: 0;
+			    font-weight: 600;			    
 			}
 			.disabled
 			{
 				.icon
 				{
-					background: @gray-lighter;
+					background: @gray-lightest;
+					border: 1px solid @gray-light;
 				}
 				i
 				{
