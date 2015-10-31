@@ -589,7 +589,7 @@ var BuildingMaster = React.createClass({
                     <ImageContainerTemplate 
                         ref= "imageContainer"
                         showShadow={data.showShadow}
-                        imageType="buildings"
+                        imageType="buildingFloorGrps"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
@@ -634,7 +634,7 @@ var BuildingMaster = React.createClass({
                         <ImageContainerTemplate
                             ref= "imageContainer"
                             showShadow={data.showShadow}
-                            imageType="buildings"
+                            imageType="buildingFloorGrps"
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
                             updateChosenBreakPoint = {this.updateChosenBreakPoint}

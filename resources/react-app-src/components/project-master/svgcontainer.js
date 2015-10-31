@@ -92,11 +92,33 @@ var SvgContainer = React.createClass({
 
     },
 
+    getSvgFilePrefix: function(imageType){
+      var svgNamePrefix = "master-";
+
+      switch(imageType) {
+          case "master":
+              svgNamePrefix = "master-";
+              break;
+          case "buildingFloorGrps":
+              svgNamePrefix = "step-two-";
+              break;
+          case "buildingUnits":
+              svgNamePrefix = "step-three-";
+              break;
+          default:
+              svgNamePrefix = "master-";
+      }
+
+      return svgNamePrefix;
+    },
+
     render: function(){
 
       var chosenBreakpoint = this.props.chosenBreakpoint;
+      var imageType = this.props.imageType;
 
-      var svgNamePrefix = "master-";
+
+      var svgNamePrefix = this.getSvgFilePrefix(imageType);
 
       var svgClasses = classNames(this.props.svgData.svgClasses);
 

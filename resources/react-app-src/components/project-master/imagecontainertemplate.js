@@ -56,7 +56,7 @@ var ImageContainerTemplate = React.createClass({
         else{
           buildingId = this.props.buildingId;
 
-          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/'+buildingId+'/';
+          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/buildings/'+buildingId+'/';
 
           imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
           
@@ -278,6 +278,7 @@ var ImageContainerTemplate = React.createClass({
                             buildingToHighlight={buildingToHighlight} 
                             showTooltip={ this.props.showTooltip} 
                             updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                            imageType = {this.props.imageType}
                             svgBaseUrl = {svgBaseUrl}
                           />
 
@@ -319,6 +320,7 @@ var ImageContainerTemplate = React.createClass({
                             buildingToHighlight={ this.props.buildingToHighlight} 
                             showTooltip={ this.props.showTooltip} 
                             updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                            imageType = {this.props.imageType}
                             svgBaseUrl = {svgBaseUrl}
                           />
 
