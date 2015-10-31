@@ -54,22 +54,91 @@ var BuildingMaster = React.createClass({
     },
 
     formatStateData: function(stateDataToformat){
-        var newStateData = stateDataToformat;
+        var newState = stateDataToformat;
 
         buildings = stateDataToformat.data.buildings;
         
         if(buildings.length>0){
+            newStateData = newState.data;
+
+            floorGroups = [];
 
             building = buildings[0];
+
+            // building specific data for units
+            unitData = building.unitData;
+            availableUnitData = building.availableUnitData;
+            filteredUnitData = building.filteredUnitData;
+            supportedUnitTypes = building.supportedUnitTypes;
+
 
             // building floor groups
             floor_groups = building.floor_groups;
 
-            newStateData.data.projectTitle = building.building_name;
-            newStateData.data.breakpoints = building.breakpoints;
+            _.each(floor_groups, function(floor_group){
+                floorGrpId = floor_group.id;
+                floorGroup = {};
+
+                floorGroup.id = floor_group.id;
+                floorGroup.building_name = floor_group.name;
+                floorGroup.no_of_floors = floor_group.floors.length;
+                floorGroup.primary_breakpoint = floor_group.primary_breakpoint;
+
+                floorGroupUnitData =[];
+                floorGroupAvailableUnitData =[];
+                floorGroupFilteredUnitData =[];
+
+                // pick only those units from unit data which have the current floor id
+                _.each(unitData, function(unit){ 
+                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+
+                    if(floorGrpId===unitFloorGrpId){
+                        floorGroupUnitData.push(unit) ;
+                    } 
+
+                });
+
+                // pick only those units from unit data which have the current floor id
+                _.each(availableUnitData, function(unit){ 
+                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+
+                    if(floorGrpId===unitFloorGrpId){
+                        floorGroupAvailableUnitData.push(unit) ;
+                    } 
+
+                });  
+                
+                // pick only those units from unit data which have the current floor id
+                _.each(filteredUnitData, function(unit){ 
+                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+
+                    if(floorGrpId===unitFloorGrpId){
+                        floorGroupFilteredUnitData.push(unit);
+                    } 
+
+                }); 
+
+                floorGroup.unitData = floorGroupUnitData;
+                floorGroup.availableUnitData = floorGroupAvailableUnitData;
+                floorGroup.filteredUnitData = floorGroupFilteredUnitData;
+                floorGroup.unitData = floorGroupUnitData;
+
+                floorGroups.push(floorGroup) ;                             
+
+            });
+
+            
+            // modify new state data as per building selected
+            newStateData.projectTitle = building.building_name;
+            newStateData.breakpoints = building.breakpoints;
+            newStateData.buildings = floorGroups;
+
+            newState.data = newStateData;
+
+
         }
 
-        return newStateData;
+        return newState;
     },
 
     getBuildingState: function(){
