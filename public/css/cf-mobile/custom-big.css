@@ -1472,17 +1472,17 @@ body a {
 }
 .step4Desk h4 {
   float: left;
-  font-size: 20px;
+  font-size: 30px;
   margin: 10px 0 0 0;
   font-weight: 600;
 }
 .step4Desk .unitStatus {
   border: 1px solid #0eab08;
   border-radius: 3px;
-  font-size: 11px;
+  font-size: 12px;
   padding: 2px 5px 1px;
   color: #0eab08;
-  margin-top: 10px;
+  margin-top: 15px;
   float: left;
   margin-left: 10px;
 }
@@ -1556,6 +1556,20 @@ body a {
   color: #fe943e;
   border-bottom: 2px solid #fe943e;
 }
+.step4Desk .tabHeader ul li a .rotateIcon {
+  background: url('../../images/sprite-step4.png') no-repeat;
+  background-position: 5px -13px;
+  height: 24px;
+  width: 50px;
+  float: left;
+}
+.step4Desk .tabHeader ul li.liveInTourLi a {
+  padding-bottom: 10px;
+}
+.step4Desk .tabHeader ul li.liveInTourLi a .liveInTourText {
+  float: left;
+  margin-top: 4px;
+}
 .step4Desk .tabHeader ul li.stickyButtons {
   display: none;
   padding-top: 15px;
@@ -1591,6 +1605,7 @@ body a {
 .step4Desk .contentHEader .contentText {
   padding: 0 20px;
   color: #7d7c7a;
+  font-size: 12px;
 }
 .step4Desk .detailView {
   margin-bottom: 50px;
@@ -1663,11 +1678,6 @@ body a {
   margin: 20px 0;
   padding-right: 0;
 }
-.step4Desk .amenitiesDetails .row > div i {
-  float: left;
-  margin-right: 5px;
-  margin-top: 12px;
-}
 .step4Desk .amenitiesDetails .icon {
   float: left;
   width: 40px;
@@ -1684,10 +1694,10 @@ body a {
   margin-top: 12px;
   font-size: 12px;
   font-weight: 600;
-  padding: 0;
 }
 .step4Desk .amenitiesDetails .disabled .icon {
-  background: #d5d5d4;
+  background: #f6f6f6;
+  border: 1px solid #bcbcba;
 }
 .step4Desk .amenitiesDetails .disabled i {
   color: #bcbcba;
