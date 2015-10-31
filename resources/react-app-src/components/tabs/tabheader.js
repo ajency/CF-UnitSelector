@@ -2,6 +2,10 @@ var React = require('react');
 
 var TabHeader = React.createClass({
 
+  _redirect: function(url){
+    window.location.href = url;
+  },
+    
   redirectToBooking: function(){
     unitId = this.props.unitId;
     projectId = this.props.projectId;
