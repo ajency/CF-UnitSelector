@@ -7,10 +7,17 @@ GET_PROPERTIES_BY_AREA_API_URL = 'http://www.commonfloor.com/api/project-v2/get-
 
 #api key
 api_key = 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168'
+
+# UNITSELECTOR_AUTHKEY = '117ce294ece0684f69ad92ae450ba370b1259f69'
+# UNIT_SUMMARY_URL = 'http://test.cfunitselectortest.com/api/v2/unit/'
+
+UNITSELECTOR_AUTHKEY = '4c94a5d1170249b18ce6b4b5ed522fa6fff91dbf'
+UNIT_SUMMARY_URL = 'http://production.cfunitselectortest.com/api/v2/unit/'
+
+
 #UNITSELECTOR_AUTHKEY = '87cdb105eceea2db65ed3b4e4c18a6485e84aefd'
-UNITSELECTOR_AUTHKEY = '117ce294ece0684f69ad92ae450ba370b1259f69'
 #UNIT_SUMMARY_URL = 'http://stage.unitselector.commonfloor.com/api/v2/unit/'
-UNIT_SUMMARY_URL = 'http://test.cfunitselectortest.com/api/v2/unit/'
+
 
 TOKENIZER_USER_ID = "19"
 #TOKENIZER_TOKEN = "43e-22a3c758e02ebdf0472b"
