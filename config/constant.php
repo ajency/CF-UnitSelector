@@ -16,7 +16,7 @@ return [
     
     'cf_dns_list' => array('commonfloor.local',
                            'stage.bookingcrm.commonfloor.com',
-                           'bookingcrm.commonfloor.com',
+                           'bookingcrm.cfunitselectortest.com',
                            'dev.commonfloor.com',
                            'stage23.commonfloor.com',
                            'commonfloor.com',
