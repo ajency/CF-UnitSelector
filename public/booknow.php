@@ -102,14 +102,14 @@ $startTime= time();
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
                       <h4 class="panel-title">
-                        <a class="collapsed plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <a class=" plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                           1. Basic Information
                           <span class="plusMinusIcon plusIcon"><i class="fa fa-plus-square-o"></i></span>
                           <span class="plusMinusIcon minusIcon"><i class="fa fa-minus-square-o"></i></span>
                         </a>
                       </h4>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree" aria-expanded="true">
                       <div class="panel-body">  
                         <div class="col-md-12 col-sm-12 col-xs-12 mandatory mB25">
                             All fields are mandatory
@@ -184,7 +184,7 @@ $startTime= time();
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingTwo">
                       <h4 class="panel-title">
-                        <a id="acc-2" class="collapsed plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <a id="acc-2" class="collapsed plusMinusOuter" role="button"   href="#collapseTwo" data-parent="#accordion" data-toggle="collapse" aria-expanded="false" aria-controls="collapseTwo">
                           2. Review
                           <span class="plusMinusIcon plusIcon"><i class="fa fa-plus-square-o"></i></span>
                           <span class="plusMinusIcon minusIcon"><i class="fa fa-minus-square-o"></i></span>
@@ -198,7 +198,7 @@ $startTime= time();
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-12 reviewDetails">                     
                         <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 detailsOuter">
+                            <div class="col-md-12 col-sm-12 col-xs-12 detailsOuter unitDetails">
                                 <div class="col-md-2 col-xs-12">
                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['unit']['unit_type']?></div>
                                     <div class="col-xs-12 titleDetails">BHK Type</div>
@@ -264,7 +264,7 @@ $startTime= time();
                         </div>
                        <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 btnOuter buttonOuter">
-                            <button onclick="goToNextStep('acc-3','detailsOuter')" type="button" class="btn btn-default btn-primary btn-sm">Continue to next step</button></div>
+                            <button onclick="goToNextStep('acc-3','unitDetails')" type="button" class="btn btn-default btn-primary btn-sm">Continue to next step</button></div>
                         </div>
                       </div>
                     </div>
@@ -374,7 +374,7 @@ $startTime= time();
                             <div class="row">
                                 <div>Complete your booking safely with us.</div>
                                 <label>
-                                    <input type="checkbox" name="acceptterm"  id="acceptterm" data-parsley-required />
+                                    <input type="checkbox" name="acceptterm"  id="acceptterm"  />
                                     <label class="checkboxLabel"></label>
                                     <span class="accept">I accept the <a href="#">Terms and Conditions</a></span>
                                 </label>

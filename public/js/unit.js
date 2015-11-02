@@ -273,7 +273,7 @@ function refundAmount(id,url){
 
 function goToNextStep(anchor ,divClass)
 {   
-    var divs = ['detailsOuter','billingDetails','termsConditions']
+
     var flag =true;
     $('form').submit();
     $('.'+divClass).find('input, select').each(function(index) {
@@ -281,8 +281,14 @@ function goToNextStep(anchor ,divClass)
            flag =false;
         }
     });
-    $("input[name='makePayment']").val('0');
+   
 
+    if(divClass == 'unitDetails' && flag)
+    {
+         $('#acceptterm').attr('data-parsley-required', 'true');
+    }
+
+    $("input[name='makePayment']").val('0');
     if(flag)
         $("#"+anchor).click();
 }
