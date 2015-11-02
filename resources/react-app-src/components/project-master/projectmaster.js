@@ -476,6 +476,7 @@ var ProjectMaster = React.createClass({
                         unapplyFilters = {this.unapplyFilters}
                     />
                     <SunToggle 
+                        shadowImages={data.shadowImages}
                         toggelSunView = {this.toggelSunView} 
                         showShadow={data.showShadow}
                     />
@@ -547,6 +548,7 @@ var ProjectMaster = React.createClass({
                                 <div className="row">
                                     
                                     <SunToggle 
+                                        shadowImages={data.shadowImages}
                                         toggelSunView = {this.toggelSunView} 
                                         showShadow={data.showShadow}
                                     />                                    

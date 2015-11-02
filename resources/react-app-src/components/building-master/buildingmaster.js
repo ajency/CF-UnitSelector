@@ -604,6 +604,7 @@ var BuildingMaster = React.createClass({
                     <SunToggle 
                         toggelSunView = {this.toggelSunView} 
                         showShadow={data.showShadow}
+                        shadowImages={data.shadowImages}
                     />
                     <ImageContainerTemplate 
                         ref= "imageContainer"
@@ -675,6 +676,7 @@ var BuildingMaster = React.createClass({
                                 <div className="row">
                                     
                                     <SunToggle 
+                                        shadowImages={data.shadowImages}
                                         toggelSunView = {this.toggelSunView} 
                                         showShadow={data.showShadow}
                                     />                                    

@@ -11,13 +11,14 @@ var SunToggle = React.createClass({
     render: function(){
 
         var showShadow = this.props.showShadow;
+        var shadowImages = this.props.shadowImages;
    	
     	var toggleSunClasses = classNames({
     		'sun-toggle': true,
     		'sun-highlight': showShadow,
             'btn' : window.isMobile === false, 
             'btn-default' : window.isMobile === false, 
-            'btn-default' : window.isMobile === false
+            'hide' : shadowImages.length === 0
     	}); 
 
         if(window.isMobile){
