@@ -240,7 +240,7 @@ var ImageContainerTemplate = React.createClass({
         var shadowImgUrl = "#";
 
         if(shadowImages.length>0){
-            shadowImages[shadowIndex];
+            shadowImgUrl = shadowImages[shadowIndex];
         }
         
 
