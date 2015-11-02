@@ -103,7 +103,7 @@ if(window.isMobile){
 
 
    domToDisplay = (
-        <div className="col-xs-12 detailView pNone" id="details_div">
+        <div className="col-xs-12 detailView outerDivs pNone" id="details_div">
         <div className="row">
           <div className="contentHEader">
             <span className="contentTitle text-uppercase">

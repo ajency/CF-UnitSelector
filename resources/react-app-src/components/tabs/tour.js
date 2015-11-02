@@ -24,7 +24,7 @@ if(window.isMobile){
         );
 }else{
    domToDisplay = (
-        <div className="col-xs-12 liveTour pNone" id="liveTour_div">
+        <div className="col-xs-12 liveTour outerDivs pNone" id="liveTour_div">
         <div className="row">
           <div className="contentHEader">
             <span className="contentTitle text-uppercase">
