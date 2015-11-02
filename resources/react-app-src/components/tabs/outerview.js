@@ -25,7 +25,7 @@ if(window.isMobile){
         );
 }else{
     domToDisplay = (
-    <div className="col-xs-12 outsideView pNone" id="outsideView_div">
+    <div className="col-xs-12 outsideView outerDivs pNone" id="outsideView_div">
         <div className="row">
           <div className="contentHEader">
             <span className="contentTitle text-uppercase">

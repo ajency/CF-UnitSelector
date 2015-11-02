@@ -18,7 +18,7 @@ var SocietyAmenities = React.createClass({
     }
                         return(
                             <div key={key} className={'col-xs-2 '+classStatus}> 
-                              
+                              <span className="icon"><i className="fa fa-star-o"></i></span>
                               <span className="text text-uppercase">{val}</span>
                             </div>  
                         ); 
@@ -29,7 +29,7 @@ var SocietyAmenities = React.createClass({
 
 
     return (
-      <div className="col-xs-12 amenitiesView pNone" id="societyEmenities_div">
+      <div className="col-xs-12 amenitiesView outerDivs pNone" id="societyEmenities_div">
         <div className="row">
           <div className="contentHEader">
             <span className="contentTitle text-uppercase">

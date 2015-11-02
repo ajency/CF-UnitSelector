@@ -67,7 +67,7 @@ if(window.isMobile){
     );
 }else{
     domToDisplay = (
-      <div className="col-xs-12 floorPlans pNone" id="floorPlan_div">
+      <div className="col-xs-12 floorPlans outerDivs pNone" id="floorPlan_div">
         <div className="row">
           <div className="contentHEader">
             <span className="contentTitle text-uppercase">
