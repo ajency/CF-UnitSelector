@@ -55,7 +55,7 @@ class Project extends Model {
 
     public function getProjectMasterBreakPoints() {
         $meta = $this->projectMeta()->where( 'meta_key', 'breakpoints' )->get()->first();
-        $breakpoints = unserialize( $meta->meta_value );
+        $breakpoints = unserialize( $meta->meta_value);
         return $breakpoints;
     }
 
@@ -75,8 +75,8 @@ class Project extends Model {
             ksort($masterImages);
             foreach ($masterImages as $key => $images) {
                 if($images!=''){
-                $imageName = Media::find($images)->image_name;
-                $Images[] = url() . "/projects/" .  $this->id . "/master/" . $imageName;
+                    $imageName = Media::find($images)->image_name;
+                    $Images[intval($key)] = url() . "/projects/" .  $this->id . "/master/" . $imageName;
                 }
             }
         }
@@ -92,8 +92,8 @@ class Project extends Model {
             ksort($masterImages);
             foreach ($masterImages as $key => $images) {
                 if($images!=''){
-                $imageName = Media::find($images)->image_name;
-                $Images[] = url() . "/projects/" .  $this->id . "/shadow/" . $imageName;
+                    $imageName = Media::find($images)->image_name;
+                    $Images[intval($key)] = url() . "/projects/" .  $this->id . "/shadow/" . $imageName;
                 }
             }
         }

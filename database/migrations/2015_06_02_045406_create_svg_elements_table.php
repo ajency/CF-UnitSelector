@@ -19,7 +19,7 @@ class CreateSvgElementsTable extends Migration {
 			$table->string('object_type');
 			$table->integer('object_id');
 			$table->string('canvas_type');
-			$table->text('points')->nullable();
+			$table->longText('points')->nullable();
 			$table->text('other_details')->nullable();
 			$table->string('primary_breakpoint')->nullable();
 		});
