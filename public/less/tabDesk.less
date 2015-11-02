@@ -121,6 +121,8 @@
 					border-bottom:2px solid rgba(0,0,0,0);
 					text-decoration:none;
 					outline:none;
+					font-size:14px;
+					font-weight:600;
 					&:hover, &:focus
 					{
 						text-decoration:none;
@@ -150,7 +152,7 @@
 						.liveInTourText
 						{
 							float: left;
-							margin-top: 4px;
+							margin-top: 2px;
 						}
 					}
 				}		
@@ -229,7 +231,8 @@
 				border-right:1px solid @gray-lighter;
 				width:270px;
 				margin-left:30px;
-				height: 300px;
+				min-height: 180px;
+				max-height: 300px;
 
 				&:nth-child(4n+1)
 				{
@@ -391,6 +394,8 @@
 				margin-bottom: 30px;
 				color: @gray;
 				/*border-right:1px solid @gray-lightest;*/
+
+
 				h5
 				{
 					margin-bottom: 10px;
@@ -402,9 +407,16 @@
 				    font-size: 12px;
 				    text-transform: uppercase;
 				}
+				&:first-child
+				{
+					margin-top:10px;
+				}
 			}
 		}
-
+.amenitiesView
+{
+	min-height: 90vH;
+}
 		
 }
 .pNone
@@ -445,7 +457,7 @@
 	}
 	.step4Desk .tabHeader ul li
 	{
-		padding: 20px 20px 0 20px;
+		padding: 20px 12px 0 12px;
 	}	
 }
 @media screen and (max-width:768px)
