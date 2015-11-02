@@ -760,7 +760,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                     <table border="0" cellpadding="10px" cellspacing="0" width="100%" style="background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;">
                                         <tr>
                                             <td valign="top" style="padding-left: 20px;">
-                                              <img src="'.$unitData['project_image'].'"/>
+                                              <img style="width:100px" src="'.$unitData['project_image'].'"/>
                                             </td>
 
                                         </tr>
@@ -943,7 +943,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                     <table border="0" cellpadding="10px" cellspacing="0" width="100%" style="background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;">
                                         <tr>
                                             <td valign="top" style="padding-left: 20px;">
-                                              <img src="'.$unitData['project_image'].'"/>
+                                              <img style="width:100px" src="'.$unitData['project_image'].'"/>
                                             </td>
 
                                         </tr>
@@ -1095,7 +1095,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                     <table border="0" cellpadding="10px" cellspacing="0" width="100%" style=" background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;">
                                         <tr>
                                             <td valign="top" style="padding-left: 20px;">
-                                              <img src="'.$unitData['project_image'].'"/>
+                                              <img style="width:100px" src="'.$unitData['project_image'].'"/>
                                             </td>
 
                                         </tr>
@@ -1299,7 +1299,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table cellspacing="5" cellpadding="0" style="border-bottom:1px solid #ccc;">
                       <tr>
-                        <td width="300px" style="color:#7d7d7d; font-size:16px;"><img src="'.$unitData['project_image'].'"/><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : + 91-80-4130 0000<br>
+                        <td width="300px" style="color:#7d7d7d; font-size:16px;"><img src="'.$unitData['project_image'].'" style="width:100px"/><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : + 91-80-4130 0000<br>
                         </td>
                         <td align="right" width="300px" valign="middle"> <img src="'.SITE_URL.'public/image/inner-header-logo.png"/></td>
                       </tr>
