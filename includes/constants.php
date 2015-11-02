@@ -6,12 +6,14 @@ define('DBUSER','root');
 define('PASSWORD','Ajency#123');
 define('DATABASE','booking_engine');
 
+define('SITE_PATH','/var/www/booking.cfunitselectortest.com/');
 define('SITE_URL','http://booking.cfunitselectortest.com/');
-define('UNITSELECTOR_URL','http://test.cfunitselectortest.com/');
+define('UNITSELECTOR_URL','http://production.cfunitselectortest.com/');
 define('BOOKINGCRM_URL','http://bookingcrm.cfunitselectortest.com/');
 
 define('payuUrl','https://test.payu.in/merchant/postservice.php?form=2'); 
-define('unitSelectorAuthKey','117ce294ece0684f69ad92ae450ba370b1259f69'); 
+//define('unitSelectorAuthKey','117ce294ece0684f69ad92ae450ba370b1259f69'); 
+define('unitSelectorAuthKey','4c94a5d1170249b18ce6b4b5ed522fa6fff91dbf'); 
 define('bookingCrmAuthKey','43e-22a3c758e02ebdf0472b'); 
 define('USER','19');
 
@@ -21,6 +23,7 @@ define('USER','19');
 // define('PASSWORD','');
 // define('DATABASE','booking_engine');
 
+// define('SITE_PATH','D:/myprojects/unit-selector-booking/');
 // define('SITE_URL','http://unitselector-booking.local/');
 // define('UNITSELECTOR_URL','http://commonfloor.local/');
 // define('BOOKINGCRM_URL','http://127.0.0.1:8000/');

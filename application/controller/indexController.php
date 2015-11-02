@@ -647,7 +647,13 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
               $mail->IsHTML(true); // send as HTML
 
-              $mail->Send(); 
+              $mail->Send();
+
+              if($type=='success')
+              {
+                 unlink($invoicePath);
+              }
+
               return true;
             } catch (phpmailerException $e) {
               echo $e->errorMessage();
@@ -1341,7 +1347,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                               </td>
                             </tr>
                             <tr>
-                              <td style="color: #7d7d7d; font-size: 16px; line-height:1.5;">'.$buyer_address.','.$buyer_city.'-'.$buyer_state.','.$buyer_country.', <br>'.$buyer_pincode.', <br>
+                              <td style="color: #7d7d7d; font-size: 16px; line-height:1.5;">'.$buyer_address.','.$buyer_city.' '.$buyer_pincode.'<br>'.$buyer_state.','.$buyer_country.' <br>
                               </td>
                             </tr>
                           </table>
