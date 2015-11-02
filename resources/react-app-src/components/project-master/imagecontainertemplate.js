@@ -237,7 +237,12 @@ var ImageContainerTemplate = React.createClass({
         var shadowImages=this.props.shadowImages;
         shadowIndex = this.props.chosenBreakpoint;
 
-        var shadowImgUrl = shadowImages[shadowIndex];
+        var shadowImgUrl = "#";
+
+        if(shadowImages.length>0){
+            shadowImages[shadowIndex];
+        }
+        
 
         var imageContainerStyle = {
           "height": windowHeight,
