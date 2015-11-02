@@ -721,6 +721,7 @@ body a {
   border-radius: 0;
   height: 34px;
   -webkit-appearance: none;
+  -moz-appearance: none;
   cursor: pointer;
   text-transform: uppercase;
 }
@@ -729,6 +730,9 @@ body a {
 }
 .styled-select select option {
   font-size: 12px;
+}
+select::-ms-expand {
+  display: none;
 }
 .logoOuter {
   float: left;
