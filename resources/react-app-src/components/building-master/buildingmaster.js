@@ -53,6 +53,19 @@ var BuildingMaster = React.createClass({
         return stateData;
     },
 
+    getMinUnitPrice: function(floorGrpUnits){
+        unitPrices = [];
+        unitPrices = _.pluck(floorGrpUnits, "selling_amount");
+        if(unitPrices.length>0)
+            minStartPrice = _.min(unitPrices);
+        else{
+            minStartPrice = "N/A";
+        }
+
+
+        return minStartPrice;
+    },
+
     formatStateData: function(stateDataToformat){
         var newState = stateDataToformat;
 
@@ -123,9 +136,14 @@ var BuildingMaster = React.createClass({
                 floorGroup.filteredUnitData = floorGroupFilteredUnitData;
                 floorGroup.unitData = floorGroupUnitData;
 
+                minPrice = 0;
+
+                minStartPrice = this.getMinUnitPrice(floorGroupUnitData);
+                floorGroup.minStartPrice = minStartPrice;
+
                 floorGroups.push(floorGroup) ;                             
 
-            });
+            }.bind(this));
 
             
             // modify new state data as per building selected
