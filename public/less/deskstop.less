@@ -620,6 +620,7 @@ body {
    border-radius: 0;
    height: 34px;
    -webkit-appearance: none;
+   -moz-appearance: none;
    cursor:pointer;
    text-transform:uppercase;
    &:focus
@@ -633,6 +634,9 @@ body {
 
    }
 }
+select::-ms-expand {
+    display: none;
+}  
 .logoOuter 
 {
   float:left;
