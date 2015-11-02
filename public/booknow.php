@@ -254,7 +254,7 @@ $startTime= time();
                                 </div>
                                 
                                 <div class="col-md-6 col-xs-12">
-                                    <a  style="cursor:pointer" onclick="getPaymentPlan('<?php echo $unitId?>',false,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>'','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Payment Plan</a>
+                                    <a  style="cursor:pointer" onclick="getPaymentPlan('<?php echo $unitId?>',false,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Payment Plan</a>
                                 </div>
                             </div>                          
                         </div>

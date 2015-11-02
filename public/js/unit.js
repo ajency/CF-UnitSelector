@@ -108,7 +108,7 @@ function getPriceSheet(id,is_booked,apartment_name,project_id,url){
                         component_entry += "<tr>";
                         component_entry +=  "<td>"+result_json.components[component_no].component_price_type+"</td>"; 
                         component_entry +=  "<td>"+ result_json.components[component_no].component_price_sub_type +"</td>"; 
-                        component_entry +=  "<td class='icon-rupee-icn'> "+result_json.components[component_no].amount+"</td>";  
+                        component_entry +=  "<td class='icon-rupee-icn'> "+convertToINR(result_json.components[component_no].amount)+"</td>";  
                         component_entry += "</tr>";         
                     };
                     var html ='<button type="button" class="close" data-dismiss="modal" aria-label="Close">\
@@ -133,7 +133,7 @@ function getPriceSheet(id,is_booked,apartment_name,project_id,url){
                                         <tr>\
                                             <th> </th>\
                                             <th>Total Sale Value</th>\
-                                            <th class="icon-rupee-icn" style="font-weight:900;"> '+ result_json.total_sale_value +'</th>\
+                                            <th class="icon-rupee-icn" style="font-weight:900;"> '+ convertToINR(result_json.total_sale_value) +'</th>\
                                         </tr>\
                                     </tfoot>\
                                 </table>\
@@ -190,7 +190,7 @@ function getPaymentPlan(id,is_booked,apartment_name,project_id,url){
                         milestone_entry +=  "<td>"+payData[i][0]+"</td>"; 
                         milestone_entry +=  "<td>"+ result_json.milestones[payData[i][1]].milestone +"</td>"; 
                         
-                        milestone_entry +=  "<td class='icon-rupee-icn'> "+result_json.milestones[payData[i][1]].amount+"</td>";  
+                        milestone_entry +=  "<td class='icon-rupee-icn'> "+ convertToINR(result_json.milestones[payData[i][1]].amount)+"</td>";  
                         milestone_entry += "</tr>"; 
                     }
 
@@ -225,7 +225,7 @@ function getPaymentPlan(id,is_booked,apartment_name,project_id,url){
                                         <tr>\
                                             <th> </th>\
                                             <th>Total Sale Value</th>\
-                                            <th class="icon-rupee-icn" style="font-weight:900;"> '+ result_json.total_sale_value +'</th>\
+                                            <th class="icon-rupee-icn" style="font-weight:900;"> '+ convertToINR(result_json.total_sale_value) +'</th>\
                                         </tr>\
                                     </tfoot>\
                                 </table>\
@@ -340,5 +340,22 @@ function validateForm()
         $('form').submit();
     }
 
+}
+
+function convertToINR(val)
+{
+    var x=val.toString();
+    var afterPoint = '';
+    if(x.indexOf('.') > 0)
+       afterPoint = x.substring(x.indexOf('.'),x.length);
+    x = Math.floor(x);
+    x=x.toString();
+    var lastThree = x.substring(x.length-3);
+    var otherNumbers = x.substring(0,x.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+
+    return res;
 }
 
