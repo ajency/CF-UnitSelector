@@ -73,7 +73,7 @@ var BuildingMaster = React.createClass({
 
 
             // building floor groups
-            floor_groups = building.floor_groups;
+            floor_groups = building.floor_group;
 
             _.each(floor_groups, function(floor_group){
                 floorGrpId = floor_group.id;
