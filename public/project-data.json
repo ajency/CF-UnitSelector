@@ -48,7 +48,6 @@
       28
     ],
     "shadow_images": [
-      "http://test.cfunitselectortest.com/projects/6/shadow/shadow-0.jpg",
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-00.jpg",
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-01.jpg",
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-02.jpg",
@@ -58,7 +57,6 @@
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-06.jpg",
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-07.jpg",
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-08.jpg",
-      "http://test.cfunitselectortest.com/projects/6/shadow/shadow-09.jpg",
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-9.jpg",
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-10.jpg",
       "http://test.cfunitselectortest.com/projects/6/shadow/shadow-11.jpg",
@@ -103,12 +101,12 @@
           "2.5BHK",
           "3BHK"
         ],
-        "starting_area": 16244,
+        "starting_area": 125,
         "availability": {
-          "sold": 8,
-          "blocked": 4
+          "sold": 4,
+          "blocked": 5
         },
-        "starting_price": 832264
+        "starting_price": 23
       }
     },
     "filters": {
@@ -191,7 +189,8 @@
               3
             ],
             "created_at": "-0001-11-30 00:00:00",
-            "updated_at": "-0001-11-30 00:00:00"
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
           },
           {
             "id": 8,
@@ -203,7 +202,8 @@
               6
             ],
             "created_at": "-0001-11-30 00:00:00",
-            "updated_at": "-0001-11-30 00:00:00"
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
           },
           {
             "id": 9,
@@ -215,7 +215,8 @@
               9
             ],
             "created_at": "-0001-11-30 00:00:00",
-            "updated_at": "-0001-11-30 00:00:00"
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
           }
         ]
       },
@@ -301,7 +302,8 @@
               3
             ],
             "created_at": "-0001-11-30 00:00:00",
-            "updated_at": "-0001-11-30 00:00:00"
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
           },
           {
             "id": 5,
@@ -313,7 +315,8 @@
               6
             ],
             "created_at": "-0001-11-30 00:00:00",
-            "updated_at": "-0001-11-30 00:00:00"
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": null
           },
           {
             "id": 6,
@@ -325,7 +328,8 @@
               9
             ],
             "created_at": "-0001-11-30 00:00:00",
-            "updated_at": "-0001-11-30 00:00:00"
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": null
           }
         ]
       }
@@ -526,6 +530,7 @@
         "selling_amount": 0,
         "unit_price": 0,
         "unit_price_component": [],
+        "primary_breakpoint": null,
         "property_type_id": 3,
         "availability": "sold"
       },
@@ -554,6 +559,7 @@
         "selling_amount": 0,
         "unit_price": 0,
         "unit_price_component": [],
+        "primary_breakpoint": null,
         "property_type_id": 3,
         "availability": "sold"
       },
@@ -582,6 +588,7 @@
         "selling_amount": 0,
         "unit_price": 0,
         "unit_price_component": [],
+        "primary_breakpoint": null,
         "property_type_id": 3,
         "availability": "sold"
       },
@@ -607,6 +614,7 @@
         "selling_amount": 0,
         "unit_price": 0,
         "unit_price_component": [],
+        "primary_breakpoint": null,
         "property_type_id": 3,
         "availability": "sold"
       },
@@ -632,6 +640,7 @@
         "selling_amount": 0,
         "unit_price": 0,
         "unit_price_component": [],
+        "primary_breakpoint": null,
         "property_type_id": 3,
         "availability": "not_released"
       },
@@ -659,6 +668,7 @@
         "selling_amount": 0,
         "unit_price": 0,
         "unit_price_component": [],
+        "primary_breakpoint": null,
         "property_type_id": 3,
         "availability": "sold"
       },
@@ -699,6 +709,7 @@
             "component_price_type": "Parking"
           }
         },
+        "primary_breakpoint": null,
         "property_type_id": 3,
         "availability": "available"
       },
@@ -742,6 +753,7 @@
             "component_price_type": "Parking"
           }
         },
+        "primary_breakpoint": 0,
         "property_type_id": 3,
         "availability": "available"
       },
@@ -785,6 +797,7 @@
             "component_price_type": "Parking"
           }
         },
+        "primary_breakpoint": 0,
         "property_type_id": 3,
         "availability": "available"
       }

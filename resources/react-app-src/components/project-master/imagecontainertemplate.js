@@ -284,6 +284,13 @@ var ImageContainerTemplate = React.createClass({
         path = this.getMasterImagePath(this.props.imageType);
         svgBaseUrl = path["baseImagePath"];
 
+        breakpoints = this.props.breakpoints;
+
+        var rotateClasses = classNames({
+          'rotate': true,
+          'hide': breakpoints.length === 1
+        }); 
+
         if(window.isMobile){
             domToDisplay = (
 
@@ -310,7 +317,7 @@ var ImageContainerTemplate = React.createClass({
                       </div>
                   </div>
 
-                  <div ref="next" className="rotate" onClick={this.setDetailIndex}>
+                  <div ref="next" className={rotateClasses} onClick={this.setDetailIndex}>
 
                   </div>
               </div>         
@@ -327,7 +334,7 @@ var ImageContainerTemplate = React.createClass({
                       <br /> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                   </div>
 
-                  <div className="rotate" onClick={this.setDetailIndex}>
+                  <div className={rotateClasses} onClick={this.setDetailIndex}>
                       <i id="next" className="i-icon i-icon-rotate"></i> Press To Rotate
                   </div>
 
