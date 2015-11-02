@@ -49,7 +49,7 @@
 }
 .float-nav.closed {
     width: 85px;
-    height: 35px;
+    height: 34px;
     border-radius: 3px;
   .filterLiTop, .filterUl
   {
@@ -94,6 +94,9 @@
 .float-nav .toggle:after
 {
   content:'';
+   transform: scale(0);
+  -webkit-transform: scale(0);
+   -ms-transform: scale(0);
   margin-left:39px;
   line-height:0;
   color:@gray-darker;
@@ -107,6 +110,11 @@
 .float-nav.closed .toggle:after
 {
     content:'Filter';
+    transform: scale(1);
+  -webkit-transform: scale(1);
+   -ms-transform: scale(1);
+   -webkit-transition: all 500ms;
+  transition: all 500ms;
 }
 
 .float-nav.closed:hover .float-nav.closed .toggle
