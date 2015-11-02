@@ -97,9 +97,9 @@ var TabHeader = React.createClass({
     <div id="sticky-anchor"></div>
     <div className="tabHeader" id="stickyHeader">      
       <ul className="list-unstyled text-uppercase">
-        <li className="active"><a href="#" id="details" className="click">Details</a></li>
+        <li className="active"><a href="#" id="details" className="click active">Details</a></li>
         <li><a href="#" id="floorPlan" className="click">Floor plan</a></li>
-        <li><a href="#" id="liveTour" className="click">Live in tour</a></li>
+        <li className="liveInTourLi"><a href="#" id="liveTour" className="click"><span className="rotateIcon"></span><span className="liveInTourText">Live in tour</span></a></li>
         <li><a href="#" id="outsideView" className="click">Outside view</a></li>
         <li><a href="#" id="societyEmenities" className="click">Society amenities</a></li>
         <li className="pull-right stickyButtons">
