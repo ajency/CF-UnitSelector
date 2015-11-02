@@ -20,6 +20,8 @@ var SvgContainer = React.createClass({
       var highlightedBuildingId = 0 ;
       var highlightedBuildingName = "Loading.." ;
 
+      var imageType = this.props.imageType;
+
       if(!_.isUndefined(buildingToHighlight)){
         highlightedBuildingId = buildingToHighlight.id;
         highlightedBuildingName = buildingToHighlight.building_name;
@@ -52,17 +54,36 @@ var SvgContainer = React.createClass({
 
       svgDom = $(".svg-area");
 
-      svgSelector = "svg .building";
+      
+
+      var svgSelector= "";
+
+      if(imageType === "master"){
+        svgSelector = "svg .building";
+      }else{
+        svgSelector = "svg .floor_group";
+      }      
 
 
       // Loop through each building svg element in svg
       $(svgDom).find(svgSelector).each(function(ind, item) {
         var id = parseInt(item.id);
 
-        svgElemClassName = 'svg-light building building'+id;
+        var exisitngClasses = "";
+        var selector= "";
+
+        if(imageType === "master"){
+          selector = '.building'+id;
+        }else{
+          selector = '.floor_group'+id;  
+        }
+
+        existingClasses = $(selector).attr("class"); 
+
+        svgElemClassName = existingClasses+' svg-light';
 
         if(id == highlightedBuildingId)
-          svgElemClassName = 'svg-light show-qtooltip building building'+id;
+          svgElemClassName = existingClasses+' svg-light show-qtooltip';
         
         // apply filter inselection class 
         if(_.contains(filteredBuildingIds, id)){
@@ -73,7 +94,7 @@ var SvgContainer = React.createClass({
           svgElemClassName+=" not-in-selection";
         }
 
-        $('.building'+id).attr("class", svgElemClassName);
+        $(selector).attr("class", svgElemClassName);
       });
 
 
