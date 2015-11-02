@@ -3,6 +3,7 @@ require_once '../../includes/include.php';
 require 'class.phpmailer.php';
 require_once 'indexController.php'; 
 require_once 'payu.php';
+require_once '../../tcpdf/tcpdf.php';
 
 if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid'] ) ) {
     $buyer_name=$_POST['udf3'];
@@ -36,11 +37,11 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
         updateBookingInfo($booking_id,$status); 
 
-        $txt = "Unit successfully boooked.";
+        //$txt = "Unit successfully boooked.";
         $subject = 'Thanks for booking your property';
       // self::sendEmail($login_id,$name,$txt,$subject);
 
-        sendMail($_POST['udf4'],$_POST['udf3'],$subject,$txt);
+        sendMail($_POST['udf4'],$_POST['udf3'],$subject,$booking_id,'success');
     }else{
         $payment_status = payment_status_unsuccessful;  
         $booking_payment_id = $_POST['udf2'];
@@ -64,10 +65,11 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         saveBookingHistory($booking_id,$old_status, $new_status, $comments,$buyer_name);
         savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
         
-         $txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
+        // $txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
          $subject = 'Error while booking your property';
         // self::sendEmail($login_id,$name,$txt,$subject);
-        sendMail($buyer_email,$buyer_name,$subject,$txt);
+        sendMail($buyer_email,$buyer_name,$subject,$booking_id,'failure');
+      
 
     }
     pay_page( array ('key' => $_SESSION["merchant_id"], 'txnid' => $booking_payment_id, 'amount' => $_POST['udf6'],
