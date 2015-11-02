@@ -11,8 +11,8 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
-var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
-var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
+var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -1159,7 +1159,7 @@ function _updateGlobalState(newStateData,type){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
+	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "unitCount":0, "shadowImages":[],"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -1169,6 +1169,7 @@ function _getProjectMasterData(){
 
 		projectMasterData.projectTitle = projectData.project_title ; 
 		projectMasterData.projectLogo = projectData.logo ; 
+		projectMasterData.shadowImages = projectData.shadow_images ; 
 
 		breakpoints = projectData.breakpoints 
 		projectMasterData.breakpoints = breakpoints; 

@@ -132,6 +132,7 @@ var BuildingMaster = React.createClass({
             newStateData.projectTitle = building.building_name;
             newStateData.breakpoints = building.breakpoints;
             newStateData.buildings = floorGroups;
+            newStateData.shadowImages = building.shadow_images;
 
             newState.data = newStateData;
 
@@ -589,6 +590,7 @@ var BuildingMaster = React.createClass({
                     <ImageContainerTemplate 
                         ref= "imageContainer"
                         showShadow={data.showShadow}
+                        shadowImages={data.shadowImages}
                         imageType="buildingFloorGrps"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
@@ -634,6 +636,7 @@ var BuildingMaster = React.createClass({
                         <ImageContainerTemplate
                             ref= "imageContainer"
                             showShadow={data.showShadow}
+                            shadowImages={data.shadowImages}
                             imageType="buildingFloorGrps"
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
