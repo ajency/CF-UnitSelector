@@ -153,7 +153,18 @@ $bookingId = $_SESSION['booking_id'];
                                                                                     
                         </div>
                     </div>
-                    <div class="bottomSection hidden-xs">
+                    <div class="bottomSection">
+                        <div class="col-xs-12">                         
+                            <span class="rightContent">                                                         
+                                <p class="text-capitalize">
+                                    <span class="supportNoText"><i class="fa fa-phone"></i> Support : 1800 180 180 180 </span>
+                                    <span class="safePaymentText"><i class="fa fa-lock"></i> Safe & secure payment</span>
+                                </p>
+                            </span>
+                        </div>
+                        
+                    </div>
+                    <!-- <div class="bottomSection hidden-xs">
                         <div class="col-md-6 col-xs-12">
                             <span class="icon">
 
@@ -172,7 +183,7 @@ $bookingId = $_SESSION['booking_id'];
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt.</p>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="bookingFooter">
                      Call 1800 180 180 180

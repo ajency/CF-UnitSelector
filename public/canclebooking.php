@@ -142,7 +142,7 @@ $bookingId = $_SESSION['booking_id'];
                                 </div>
                             </div>
                     </div>
-                    <div class="bottomSection hidden-xs">
+                    <!-- <div class="bottomSection hidden-xs">
                         <div class="col-xs-6">
                             <span class="icon">
 
@@ -161,6 +161,17 @@ $bookingId = $_SESSION['booking_id'];
                                 <p>For any queries <i class="fa fa-envelope-o"></i>  <a href="mailto:contactus@commonfloor.com">contactus@commonfloor.com</a>/ <a href="mailto:support@commonfloor.com">support@commonfloor.com</a> or feel free to <i class="fa fa-phone"></i>  our helpline number 1800 180 180 180 ON All 7 days of week from 7AM TO 11PM.</p>
                             </span>
                         </div>
+                    </div> -->
+                    <div class="bottomSection">
+                        <div class="col-xs-12">                         
+                            <span class="rightContent">                                                         
+                                <p class="text-capitalize">
+                                    <span class="supportNoText"><i class="fa fa-phone"></i> Support : 1800 180 180 180 </span>
+                                    <span class="safePaymentText"><i class="fa fa-lock"></i> Safe & secure payment</span>
+                                </p>
+                            </span>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="bookingFooter">
