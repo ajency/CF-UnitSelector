@@ -66,7 +66,6 @@ jQuery(document).ready(function($) {
         window.marker.generateMarkerTag(value);
       }
       if (value.canvas_type === 'path') {
-        console.log(value);
         return window.path.generatePathTag(value);
       }
     });
@@ -184,7 +183,7 @@ jQuery(document).ready(function($) {
   };
   window.resetCollection = function() {
     return $('.polygon-type,.marker-grp, .path-type').each(function(index, value) {
-      var bldg, bldgId, type, unit, unitID;
+      var bldg, bldgId, buildingFloorGroup, buildingFloorGroups, floorGroupId, type, unit, unitID;
       type = $(value).attr('type');
       if (type === 'building') {
         bldgId = parseInt(value.id);
@@ -192,6 +191,19 @@ jQuery(document).ready(function($) {
           'id': bldgId
         });
         return buildingCollection.remove(bldg);
+      } else if (type === 'floor_group') {
+        floorGroupId = parseInt(value.id);
+        bldg = buildingCollection.findWhere({
+          'id': parseInt(building_id)
+        });
+        buildingFloorGroups = bldg['attributes']['floor_group'];
+        buildingFloorGroup = _.where(buildingFloorGroups, {
+          id: floorGroupId
+        });
+        buildingFloorGroups = _.without(buildingFloorGroups, _.findWhere(buildingFloorGroups, {
+          id: floorGroupId
+        }));
+        return bldg['attributes']['floor_group'] = buildingFloorGroups;
       } else if (type === 'unassign') {
 
       } else if (type !== 'project' && type !== 'unassign' && type !== 'building' && type !== 'floor_group') {
@@ -556,7 +568,7 @@ jQuery(document).ready(function($) {
         unit = _.where(floorGrops[0], {
           id: parseInt(elem.id)
         });
-        unit_name = unit['name'];
+        unit_name = unit[0]['name'];
       } else if (type !== 'building' && type !== 'project') {
         unit = unitMasterCollection.findWhere({
           'id': parseInt(elem.id)
@@ -584,7 +596,6 @@ jQuery(document).ready(function($) {
       }
       $('.property_type').val($(elem).attr('type'));
       if (elem.id !== '0') {
-        console.log(elem.id);
         $('.property_type').attr('disabled', true);
       }
       select = $('.units');

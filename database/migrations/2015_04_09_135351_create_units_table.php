@@ -18,7 +18,7 @@ class CreateUnitsTable extends Migration {
             $table->integer( 'position' )->unsigned()->nullable()->default( 0 );
             $table->integer( 'floor' )->unsigned()->nullable()->default( 0 );
             $table->integer( 'building_id' )->unsigned()->nullable()->default( 0 );
-            $table->enum( 'availability', ['available', 'sold', 'not_released', 'blocked', 'archived', 'booked_by_agent'] )->default( 'available' );
+            $table->enum( 'availability', ['available', 'sold', 'not_released', 'blocked', 'archived', 'payment_in_progress','booked_by_agent'] )->default( 'available' );
             $table->timestamps();
             
             //reference  a foreign key

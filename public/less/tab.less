@@ -33,6 +33,14 @@
 			margin:8px 10px 0 20px;
 			font-size:20px;
 			float:left;
+			i
+			{
+				transform: scale(0.8);
+				&.i-dark-arrow
+				{
+					background-position: -219px -16px;
+				}
+			}
 
 			@media screen and (max-width:320px)
 			{
@@ -68,6 +76,7 @@
 				font-size:11px;
 				text-transform:uppercase;
 				padding:5px;
+				font-weight:600;
 
 				@media screen and (max-width:320px)
 				{
@@ -103,7 +112,7 @@
 		{
 			display:inline-block;
 			color:@gray-darker;
-			font-weight:normal;
+			font-weight:bold;
 			margin-top:20px;
 			text-transform: uppercase;
 			margin-bottom: 10px;
@@ -119,7 +128,7 @@
 		
 		.flatDetails
 		{
-			border-bottom:1px solid @gray-light;
+			border-bottom:1px solid lighten((@gray-lighter) ,5%);
 						
 			span.unitFacing
 			{

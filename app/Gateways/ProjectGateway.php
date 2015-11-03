@@ -120,8 +120,14 @@ class ProjectGateway implements ProjectGatewayInterface {
                         $primaryBreakpoint = \CommonFloor\SvgElement::where(['object_type'=>'building', 'object_id'=>$building['id']])->where( 'primary_breakpoint', '!=', 'null' )->pluck('primary_breakpoint');
                         $building['primary_breakpoint'] = $primaryBreakpoint;
                         $floorGroup = \CommonFloor\FloorGroup::where( 'building_id', $building['id'] )->get()->toArray();
-                        $building['floor_group'] = $floorGroup;
+                        
 
+                        foreach ($floorGroup as  $key => $group) {
+                            $primaryBreakpoint = \CommonFloor\SvgElement::where(['object_type'=>'floor_group', 'object_id'=>$group['id']])->where( 'primary_breakpoint', '!=', 'null' )->pluck('primary_breakpoint');
+                            $group['primary_breakpoint'] = $primaryBreakpoint;
+                            $floorGroup[$key] = $group;
+                        }
+                        $building['floor_group'] = $floorGroup;
                         $notLivePhasesBuildings[] = $building;
                 } 
                 //$notLivePhasesBuildings = array_merge($buildings,$notLivePhasesBuildings); 
@@ -149,6 +155,13 @@ class ProjectGateway implements ProjectGatewayInterface {
                 $primaryBreakpoint = \CommonFloor\SvgElement::where(['object_type'=>'building', 'object_id'=>$building['id']])->where( 'primary_breakpoint', '!=', 'null' )->pluck('primary_breakpoint');
                 $building['primary_breakpoint'] = $primaryBreakpoint;
                 $floorGroup = \CommonFloor\FloorGroup::where( 'building_id', $building['id'] )->get()->toArray();
+                
+                foreach ($floorGroup as  $key => $group) {
+                    $primaryBreakpoint = \CommonFloor\SvgElement::where(['object_type'=>'floor_group', 'object_id'=>$group['id']])->where( 'primary_breakpoint', '!=', 'null' )->pluck('primary_breakpoint');
+                    $group['primary_breakpoint'] = $primaryBreakpoint;
+                    $floorGroup[$key] = $group;
+                }
+                $building['floor_group'] = $floorGroup;
                 $building['floor_group'] = $floorGroup;
 
                 if(!empty($unitIds))        //AGENT UNITS ASSIGNED
@@ -195,14 +208,15 @@ class ProjectGateway implements ProjectGatewayInterface {
             $unit['unit_price_component'] = $unitPriceComponent['components'];
         }
         
-        
-
         /*pass property type in units**/
         $unitType = \CommonFloor\UnitVariant::find($unit['unit_variant_id'])->unitType()->first();
         $unitTypeId = $unitType->id;
         $propertType = \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->first();
         $propertTypeId = $propertType->property_type_id;  
         $unit['property_type_id']=$propertTypeId;
+
+        $primaryBreakpoint = \CommonFloor\SvgElement::whereIn('object_type',['villa','plot','apartment'])->where('object_id',$unit['id'])->where( 'primary_breakpoint', '!=', 'null' )->pluck('primary_breakpoint');
+        $unit['primary_breakpoint'] = $primaryBreakpoint;
 
         $unitData[]=$unit;
         $variantIds[] =$unit['unit_variant_id'];

@@ -8,7 +8,7 @@ AuthoringTool.ApartmentView = (function(superClass) {
     return ApartmentView.__super__.constructor.apply(this, arguments);
   }
 
-  ApartmentView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label class="unit-label" for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div> <div class="form-group"> <label class="floor-group-label" for="exampleInputPassword1">Group</label> <select class="form-control floor-group"> <option value="">Select</option> {{#floorgroupoptions}} <option value="{{id}}">{{name}}</option> {{/floorgroupoptions}} </select> </div> <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div> <form>');
+  ApartmentView.prototype.template = Handlebars.compile('<form id="add-form"> <div class="form-group"> <label class="floor-group-label" for="exampleInputPassword1">Group</label> <select class="form-control floor-group"> <option value="">Select</option> {{#floorgroupoptions}} <option value="{{id}}">{{name}}</option> {{/floorgroupoptions}} </select> </div> <div class="form-group"> <label class="unit-label" for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div> <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div> <form>');
 
   ApartmentView.prototype.ui = {
     units: '.units',
@@ -18,18 +18,9 @@ AuthoringTool.ApartmentView = (function(superClass) {
   };
 
   ApartmentView.prototype.serializeData = function() {
-    var data, floorGroup, floorgroupoptions, options, units;
+    var data, floorGroup, floorgroupoptions;
     data = ApartmentView.__super__.serializeData.call(this);
-    options = [];
     floorgroupoptions = [];
-    units = Marionette.getOption(this, 'units');
-    $.each(units, function(ind, val) {
-      return options.push({
-        'id': val.get('id'),
-        'name': val.get('unit_name')
-      });
-    });
-    data.options = options;
     floorGroup = Marionette.getOption(this, 'floorGroup');
     $.each(floorGroup, function(ind, val) {
       return floorgroupoptions.push({
@@ -49,6 +40,22 @@ AuthoringTool.ApartmentView = (function(superClass) {
           $('.alert').text('Already assigned');
           window.coord = 1;
           window.hideAlert();
+        }
+      });
+    },
+    'change @ui.floorGroup': function(e) {
+      var floorGroup, floorGroupId, floorGroups, floors, options, units;
+      floorGroupId = $('.floor-group').val();
+      floorGroups = Marionette.getOption(this, 'floorGroup');
+      floorGroup = _.where(floorGroups, {
+        id: parseInt(floorGroupId)
+      });
+      floors = floorGroup[0]['floors'];
+      options = [];
+      units = Marionette.getOption(this, 'units');
+      return $.each(units, function(ind, val) {
+        if (_.contains(floors, parseInt(val.get('floor')))) {
+          return $('.units').append($('<option></option>').val(val.get('id')).html(val.get('unit_name')));
         }
       });
     }

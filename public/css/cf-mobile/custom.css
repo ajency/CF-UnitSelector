@@ -866,6 +866,14 @@ div#spritespin {
   font-size: 20px;
   float: left;
 }
+.tabHeader .title a i {
+  -webkit-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+          transform: scale(0.8);
+}
+.tabHeader .title a i.i-dark-arrow {
+  background-position: -219px -16px;
+}
 @media screen and (max-width: 320px) {
   .tabHeader .title a {
     margin-top: 5px;
@@ -895,6 +903,7 @@ div#spritespin {
   font-size: 11px;
   text-transform: uppercase;
   padding: 5px;
+  font-weight: 600;
 }
 @media screen and (max-width: 320px) {
   .tabHeader .nav-tabs li a {
@@ -923,7 +932,7 @@ div#spritespin {
 .tab-content .details h4 {
   display: inline-block;
   color: #565654;
-  font-weight: normal;
+  font-weight: bold;
   margin-top: 20px;
   text-transform: uppercase;
   margin-bottom: 10px;
@@ -936,7 +945,7 @@ div#spritespin {
   color: #706f6d;
 }
 .tab-content .details .flatDetails {
-  border-bottom: 1px solid #bcbcba;
+  border-bottom: 1px solid #e2e2e1;
 }
 .tab-content .details .flatDetails span.unitFacing {
   color: #706f6d;
