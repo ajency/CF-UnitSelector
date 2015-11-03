@@ -31,8 +31,14 @@ AuthoringTool.FloorGroupView = (function(superClass) {
   };
 
   FloorGroupView.prototype.onShow = function() {
-    var units;
-    units = buildingCollection;
+    var attributes, building, buildings, floorGroups, units;
+    buildings = buildingCollection.toArray();
+    building = _.where(buildings, {
+      id: parseInt(building_id)
+    });
+    attributes = _.pluck(building, 'attributes');
+    floorGroups = _.pluck(attributes, 'floor_group');
+    units = floorGroups[0];
     if (units.length === 0 && EDITMODE === false) {
       this.ui.units.hide();
       this.ui.unitLabel.hide();
