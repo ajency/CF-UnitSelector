@@ -92,7 +92,6 @@ jQuery(document).ready ($)->
                 window.marker.generateMarkerTag(value)
 
             if value.canvas_type is 'path'
-                console.log value
                 window.path.generatePathTag(value)
                    
         draw.attr('viewBox', "0 0 1920 1080")
@@ -204,7 +203,16 @@ jQuery(document).ready ($)->
                         'id' : bldgId
 
                 buildingCollection.remove bldg   
-
+            else if type is 'floor_group'
+                floorGroupId = parseInt value.id
+                bldg = buildingCollection.findWhere
+                        'id' : parseInt building_id
+                
+                buildingFloorGroups = bldg['attributes']['floor_group']
+                buildingFloorGroup = _.where(buildingFloorGroups, {id: floorGroupId })
+                buildingFloorGroups = _.without(buildingFloorGroups, _.findWhere(buildingFloorGroups, {id: floorGroupId}))
+                bldg['attributes']['floor_group'] = buildingFloorGroups
+                
             else if type is 'unassign'       
                 return      
             else if type isnt 'project' && type isnt 'unassign'  && type isnt 'building' && type isnt 'floor_group'  
@@ -565,6 +573,7 @@ jQuery(document).ready ($)->
 
     window.showDetails = (elem)->
         type = $(elem).attr 'type'
+
         if type != 'unassign' && type != 'undetect'
             unit_name = ""
             if type is 'building'
@@ -574,11 +583,14 @@ jQuery(document).ready ($)->
             if type is 'floor_group'
                 buildings = buildingCollection.toArray()
                 building = _.where(buildings, {id: parseInt(building_id) })
+
                 attributes = _.pluck(building, 'attributes')
                 floorGrops = _.pluck(attributes, 'floor_group')
+                
 
                 unit = _.where(floorGrops[0], {id: parseInt(elem.id) })
-                unit_name = unit['name']
+                unit_name = unit[0]['name']
+                 
             else if type isnt 'building' && type isnt 'project'
                 unit = unitMasterCollection.findWhere
                         'id' : parseInt elem.id
@@ -599,7 +611,6 @@ jQuery(document).ready ($)->
 
             $('.property_type').val $(elem).attr 'type'
             if(elem.id != '0')
-                console.log elem.id
                 $('.property_type').attr 'disabled' ,  true
 
             select = $('.units')

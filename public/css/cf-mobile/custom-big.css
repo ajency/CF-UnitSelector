@@ -1467,7 +1467,11 @@ select::-ms-expand {
   left: 0 !important;
 }
 .step4Desk {
-  padding: 15px 0 !important;
+  padding: 15px 0 !important
+  /*.amenitiesView
+{
+	min-height: 90vH;
+}*/
 }
 .step4Desk .backOuter {
   padding: 0;
@@ -1589,7 +1593,7 @@ select::-ms-expand {
 }
 .step4Desk .tabHeader ul li.stickyButtons {
   display: none;
-  padding-top: 15px;
+  padding-top: 12px;
 }
 .step4Desk .tabHeader ul li.stickyButtons button i {
   margin-left: 7px;
@@ -1604,6 +1608,9 @@ select::-ms-expand {
   background: #ffffff;
   width: 100%;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.step4Desk .tabHeader.stick ul li {
+  margin-bottom: -6px;
 }
 .step4Desk .tabHeader.stick .stickyButtons {
   display: block;
@@ -1733,12 +1740,22 @@ select::-ms-expand {
 .step4Desk .similarFlat .moreFlats {
   padding: 30px 15px;
 }
+.step4Desk .similarFlat .moreFlats .card-swipe {
+  border: 1px solid #bcbcba;
+}
 .step4Desk .similarFlat .moreFlats .card-swipe h5 {
   padding: 5px 10px 15px;
   font-weight: 600;
 }
 .step4Desk .similarFlat .moreFlats .card-swipe ul {
   float: left;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe .amount {
+  color: #fe943e;
+  margin-left: 5px;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe .matchingSelection {
+  color: #333 !important;
 }
 .step4Desk .specificationOuter {
   margin-top: 30px;
@@ -1768,9 +1785,6 @@ select::-ms-expand {
 }
 .step4Desk .specificationOuter .textInner:first-child {
   margin-top: 10px;
-}
-.step4Desk .amenitiesView {
-  min-height: 90vH;
 }
 .pNone {
   padding: 0 !important;

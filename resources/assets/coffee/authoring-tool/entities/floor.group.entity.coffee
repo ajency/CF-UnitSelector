@@ -33,7 +33,12 @@ class AuthoringTool.FloorGroupView extends Marionette.ItemView
 		data
 
 	onShow:->
-		units = buildingCollection
+		buildings = buildingCollection.toArray()
+		building = _.where(buildings, {id: parseInt(building_id) })
+		attributes = _.pluck(building, 'attributes')
+		floorGroups = _.pluck(attributes, 'floor_group')
+		units = floorGroups[0]
+
 		if units.length == 0 && EDITMODE is false
 			@ui.units.hide()
 			@ui.unitLabel.hide()

@@ -6,16 +6,7 @@
 
 class AuthoringTool.ApartmentView extends Marionette.ItemView
 
-	template :  Handlebars.compile('<form id="add-form"><div class="form-group">
-					<label class="unit-label" for="exampleInputPassword1">Units</label>
-					<select class="form-control units">
-						<option value="">Select</option>
-						{{#options}}
-						 <option value="{{id}}">{{name}}</option>
-						{{/options}}
-					  
-					 </select>
-				   </div>
+	template :  Handlebars.compile('<form id="add-form">
 				   <div class="form-group">
 					<label class="floor-group-label" for="exampleInputPassword1">Group</label>
 					<select class="form-control floor-group">
@@ -23,6 +14,16 @@ class AuthoringTool.ApartmentView extends Marionette.ItemView
 						{{#floorgroupoptions}}
 						 <option value="{{id}}">{{name}}</option>
 						{{/floorgroupoptions}}
+					  
+					 </select>
+				   </div>
+				   <div class="form-group">
+					<label class="unit-label" for="exampleInputPassword1">Units</label>
+					<select class="form-control units">
+						<option value="">Select</option>
+						{{#options}}
+						 <option value="{{id}}">{{name}}</option>
+						{{/options}}
 					  
 					 </select>
 				   </div>
@@ -39,14 +40,8 @@ class AuthoringTool.ApartmentView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		options = []
+		
 		floorgroupoptions = []
-		units = Marionette.getOption(@,'units')
-		$.each units, (ind,val)->
-			options.push 
-				'id' : val.get 'id'
-				'name' : val.get 'unit_name'
-		data.options = options
 
 		floorGroup = Marionette.getOption(@,'floorGroup')
 		$.each floorGroup, (ind,val)->
@@ -67,6 +62,20 @@ class AuthoringTool.ApartmentView extends Marionette.ItemView
 					window.coord = 1
 					window.hideAlert()
 					return 
+
+		'change @ui.floorGroup':(e)->
+			floorGroupId = $('.floor-group').val()
+			floorGroups = Marionette.getOption(@,'floorGroup')
+			floorGroup = _.where(floorGroups, {id: parseInt(floorGroupId) })
+			floors = floorGroup[0]['floors']
+
+			options = []
+			units = Marionette.getOption(@,'units')
+			$.each units, (ind,val)->
+				if _.contains(floors, parseInt val.get 'floor')
+					$('.units').append($('<option></option>').val(val.get 'id').html(val.get 'unit_name')) 
+				
+
 
 	onShow:->
 		units = Marionette.getOption(@,'units')
