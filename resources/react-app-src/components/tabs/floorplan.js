@@ -80,11 +80,11 @@ if(window.isMobile){
         </div>
         <div className="col-xs-12 floorDetails">
           <div className="row">
-            <div className="col-xs-6">
+            <div className="col-xs-6 text-center">
               <img src={twoDImgSrc}/>
               <div className="plan col-xs-12 text-center text-uppercase">2D Floor plan</div>
             </div>
-            <div className="col-xs-6">
+            <div className="col-xs-6 text-center">
               <img src={threeDImgSrc}/>
               <div className="plan col-xs-12 text-center text-uppercase">3D Floor plan</div>
             </div>                                                                          
