@@ -1390,6 +1390,19 @@ jQuery(document).ready ($)->
                                     'id' : obj_id_deleted
                         buildingCollection.bldg
 
+                    else if obj_type is "floor_group"
+                        floorGroupId = parseInt obj_id_deleted
+                        bldg = buildingMasterCollection.findWhere
+                            'id' : parseInt building_id
+                        
+                        buildingFloorGroups = bldg['attributes']['floor_group']
+                        buildingFloorGroup = _.where(buildingFloorGroups, {id: floorGroupId })
+
+                        bldg = buildingCollection.findWhere
+                            'id' : parseInt building_id
+
+                        buildingFloorGroups = bldg['attributes']['floor_group']
+                        bldg['attributes']['floor_group'].push buildingFloorGroup[0]
                     else if obj_type is "project"
                         window.is_project_marked = false 
                     else 
