@@ -11,8 +11,8 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
-var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
-var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
+var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -120,13 +120,13 @@ function getPropertyVariantsById(propertyType,variantId,key){
 
 
 function getAppliedFiltersCount(filters){
-var newfilters = [];
-_.each(filters, function(filter, key){
-	if(filter.length>0){
-		newfilters.push(key);
-	}
-});
-return newfilters.length;
+	var newfilters = [];
+	_.each(filters, function(filter, key){
+		if(filter.length>0){
+			newfilters.push(key);
+		}
+	});
+	return newfilters.length;
 }
 
 
@@ -550,11 +550,11 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 	return buildingsWithUnits;
 }
 
-function getApartmentUnitTypes(buildingId){
+function getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType){
 
 	var apartmentVariants = [];
 	var apartmentUnitTypes = [];
-	var buildingUnits = [];
+	var collectivePropertyUnits = [];
 
 
 	if(!_.isEmpty(_projectData)){
@@ -567,16 +567,24 @@ function getApartmentUnitTypes(buildingId){
 
 		// based on buildingId passed either return all or only specific building's units 
 
-		if (buildingId==="all") {
-			buildingUnits = _.filter(allUnits , function(unit){ return unit; });
+
+		if (collectivePropertyTypeId==="all") {
+			collectivePropertyUnits = _.filter(allUnits , function(unit){ return unit; });
 		}
 		else{
-			buildingUnits = _.filter(allUnits , function(unit){ if(unit.building_id == buildingId){return unit;} });
+			// if collectivePropertyType is "buildings" check for building_id else if it is "floorgroups" check for floor_group_id
+			if(collectivePropertyType==="floorgroups"){
+				collectivePropertyUnits = _.filter(allUnits , function(unit){ if(unit.floor_group_id == collectivePropertyTypeId){return unit;} });
+			}
+			else if(collectivePropertyType==="buildings"){
+				collectivePropertyUnits = _.filter(allUnits , function(unit){ if(unit.building_id == collectivePropertyTypeId){return unit;} });
+			}
+			
 		}
 		
 
 		// get unique unit variant id for the above building units
-		buildingUnitVariantIds = _.uniq(_.pluck(buildingUnits, 'unit_variant_id')); 
+		buildingUnitVariantIds = _.uniq(_.pluck(collectivePropertyUnits, 'unit_variant_id')); 
 
 		
 		unitTypes = [];
@@ -682,9 +690,8 @@ function checkVariationIsUnique(variants,variantName){
 function getVariantsName(propertyType,variant,buildingId){
 	var variants = [];
 
+
 var totalUnitsInBuilding = _projectData.units;
-
-
 
 
 if (buildingId==="all") {
@@ -695,6 +702,7 @@ else{
 }
 
 var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
+
 
 
 	switch(propertyType) {
@@ -761,7 +769,7 @@ function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 	switch(propertyType) {
 
 	    case "Apartments":
-	    	unitTypes = getApartmentUnitTypes(collectivePropertyTypeId);
+	    	unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, "buildings");
 	    	supportedUnitTypes = _.pluck(unitTypes, 'name');
 	    break;
 
@@ -870,7 +878,9 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			filterType.filterDisplayType = "imageCheckbox";
 
 			// get filter values ie the unit types for the apartment
+
 			apartmentUnitTypes = getApartmentUnitTypes(building);
+
 			
 			filterType.filterValues = apartmentUnitTypes;
 
@@ -1121,14 +1131,6 @@ function getAvailableUnitViewsOptions(propertyType){
 }
 
 
-
-
-
-
-
-
-
-
 function getAllAmenities(){
 
 	var totalUnitsInBuilding = [];
@@ -1149,13 +1151,6 @@ function getAllAmenities(){
 
 	return _.uniq(options);
 }
-
-
-
-
-
-
-
 
 
 
@@ -1192,7 +1187,7 @@ function _updateGlobalState(newStateData,type){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
+	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "unitCount":0, "shadowImages":[],"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -1202,6 +1197,7 @@ function _getProjectMasterData(){
 
 		projectMasterData.projectTitle = projectData.project_title ; 
 		projectMasterData.projectLogo = projectData.logo ; 
+		projectMasterData.shadowImages = projectData.shadow_images ; 
 
 		breakpoints = projectData.breakpoints 
 		projectMasterData.breakpoints = breakpoints; 
@@ -2435,6 +2431,16 @@ var AppStore = merge(EventEmitter.prototype, {
 
 		return newProjectData;
 	},
+
+	getApartmentUnitTypes: function(collectivePropertyTypeId, collectivePropertyType){
+		var unitTypes =[];
+
+		unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType);
+
+		return unitTypes;
+	},
+
+	
 
   	// Register callback with AppDispatcher
 	dispatcherIndex: AppDispatcher.register(function(payload) {

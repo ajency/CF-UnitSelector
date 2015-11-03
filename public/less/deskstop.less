@@ -231,7 +231,7 @@ body {
     }
 }
 .cardOuter{
-  margin-top:15%;
+  margin-top:5%;
   width:100%;
   height: 80% !important;
   clear:both;
@@ -620,6 +620,7 @@ body {
    border-radius: 0;
    height: 34px;
    -webkit-appearance: none;
+   -moz-appearance: none;
    cursor:pointer;
    text-transform:uppercase;
    &:focus
@@ -633,6 +634,9 @@ body {
 
    }
 }
+select::-ms-expand {
+    display: none;
+}  
 .logoOuter 
 {
   float:left;
@@ -870,5 +874,6 @@ body {
 .sideBarLogo{
   img{
     height: 100%;
+    padding-left:8px;
   }
 }

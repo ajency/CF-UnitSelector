@@ -69,6 +69,8 @@ var ImageContainerTemplate = React.createClass({
 
     componentDidMount: function(){
 
+        console.log("component did mount of image container");
+
         var frames=[];
 
         details = this.props.breakpoints;
@@ -104,9 +106,13 @@ var ImageContainerTemplate = React.createClass({
 
         // initialize spritespin only if frames array is not empty
         if(frames.length>0){
-          spin.spritespin(spriteSpinSettings);
-          // get the api object. This is used to trigger animation to play up to a specific frame
-          api = spin.spritespin("api");
+          api = spin.spritespin(spriteSpinSettings).spritespin("api");
+          
+        // get the api object. This is used to trigger animation to play up to a specific frame
+        // if(!_.isUndefined(spin.spritespin)){
+        //     api = spin.spritespin("api");
+        // }
+          
         }
 
 
@@ -114,7 +120,7 @@ var ImageContainerTemplate = React.createClass({
             var data = api.data;
            data.stage.prepend($(".details .detail")); // add current details
            data.stage.find(".detail").hide(); // hide current details
-         })
+         });
 
         spin.bind("onFrame", function() {
            var data = api.data;
@@ -126,8 +132,10 @@ var ImageContainerTemplate = React.createClass({
                       'hide': true
                     }
             }
-
-            this.setState(svgData);
+            if(this.isMounted()){
+              this.setState(svgData);
+            }
+            
            }
            data.stage.find(".detail:visible").stop(false).fadeOut();
            data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
@@ -140,13 +148,16 @@ var ImageContainerTemplate = React.createClass({
                   }
         }
 
-        this.setState(svgData);
+        if(this.isMounted()){
+          this.setState(svgData);
+        }
           
 
          }.bind(this))  ;       
     },
 
     componentDidUpdate: function(){
+      console.log("did update img container")
 
       details = this.props.breakpoints;
     },
@@ -156,8 +167,10 @@ var ImageContainerTemplate = React.createClass({
       spin = $(this.refs.spritespin);
       
       if(!_.isUndefined(spin.spritespin)){
+        console.log(spin.spritespin("api"));
         api = spin.spritespin("api");
         SpriteSpin.destroy(api.data) ;  
+        
       }
          
     },
@@ -221,7 +234,15 @@ var ImageContainerTemplate = React.createClass({
         
         var shadowImagePrefix = "shadow-";
 
-        var shadowImgUrl = BASEURL+'/projects/'+PROJECTID+'/shadow/'+shadowImagePrefix+''+this.props.chosenBreakpoint+'.jpg';
+        var shadowImages=this.props.shadowImages;
+        shadowIndex = this.props.chosenBreakpoint;
+
+        var shadowImgUrl = "#";
+
+        if(shadowImages.length>0){
+            shadowImgUrl = shadowImages[shadowIndex];
+        }
+        
 
         var imageContainerStyle = {
           "height": windowHeight,
@@ -263,6 +284,13 @@ var ImageContainerTemplate = React.createClass({
         path = this.getMasterImagePath(this.props.imageType);
         svgBaseUrl = path["baseImagePath"];
 
+        breakpoints = this.props.breakpoints;
+
+        var rotateClasses = classNames({
+          'rotate': true,
+          'hide': breakpoints.length === 1
+        }); 
+
         if(window.isMobile){
             domToDisplay = (
 
@@ -289,7 +317,7 @@ var ImageContainerTemplate = React.createClass({
                       </div>
                   </div>
 
-                  <div ref="next" className="rotate" onClick={this.setDetailIndex}>
+                  <div ref="next" className={rotateClasses} onClick={this.setDetailIndex}>
 
                   </div>
               </div>         
@@ -306,7 +334,7 @@ var ImageContainerTemplate = React.createClass({
                       <br /> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                   </div>
 
-                  <div className="rotate" onClick={this.setDetailIndex}>
+                  <div className={rotateClasses} onClick={this.setDetailIndex}>
                       <i id="next" className="i-icon i-icon-rotate"></i> Press To Rotate
                   </div>
 

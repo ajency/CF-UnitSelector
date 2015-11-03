@@ -59,7 +59,7 @@ var TabHeader = React.createClass({
 
     if(unitData.basic.status === 'available'){
       var bookNowButton = (
-        <button className="btn btn-default btn-sm btn-primary text-uppercase" onClick={this.redirectToBooking}>Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
+        <button className="btn btn-default btn-primary text-uppercase" onClick={this.redirectToBooking}>Book now <i className="fa fa-inr"></i> {sellingAmount}</button>
         );
     }else{
       var bookNowButton = "";
@@ -82,7 +82,7 @@ var TabHeader = React.createClass({
         </div>
         <div className="col-xs-6 text-right rightSide">          
           {bookNowButton}
-          <button className="btn btn-default btn-sm btn-primary text-uppercase">
+          <button className="btn btn-default btn-primary text-uppercase">
             <i className="fa fa-phone"></i>
             <span className="enquiryText">Contact Us</span>
           </button>
@@ -104,7 +104,7 @@ var TabHeader = React.createClass({
         <li><a href="#" id="societyEmenities" className="click">Society amenities</a></li>
         <li className="pull-right stickyButtons">
            {bookNowButton}
-          <button className="btn btn-default btn-sm btn-primary text-uppercase">
+          <button className="btn btn-default btn-primary text-uppercase">
             <i className="fa fa-phone"></i>
             <span className="enquiryText">Contact Us</span>
           </button>   

@@ -53,6 +53,19 @@ var BuildingMaster = React.createClass({
         return stateData;
     },
 
+    getMinUnitPrice: function(floorGrpUnits){
+        unitPrices = [];
+        unitPrices = _.pluck(floorGrpUnits, "selling_amount");
+        if(unitPrices.length>0)
+            minStartPrice = _.min(unitPrices);
+        else{
+            minStartPrice = "N/A";
+        }
+
+
+        return minStartPrice;
+    },
+
     formatStateData: function(stateDataToformat){
         var newState = stateDataToformat;
 
@@ -75,9 +88,10 @@ var BuildingMaster = React.createClass({
 
 
             // building floor groups
-            floor_groups = building.floor_groups;
+            floor_groups = building.floor_group;
 
             _.each(floor_groups, function(floor_group){
+                supportedUnitTypes = [];
                 floorGrpId = floor_group.id;
                 floorGroup = {};
 
@@ -125,15 +139,25 @@ var BuildingMaster = React.createClass({
                 floorGroup.filteredUnitData = floorGroupFilteredUnitData;
                 floorGroup.unitData = floorGroupUnitData;
 
+                minPrice = 0;
+
+                minStartPrice = this.getMinUnitPrice(floorGroupUnitData);
+                floorGroup.minStartPrice = minStartPrice;
+
+                supportedUnitTypesArr = AppStore.getApartmentUnitTypes(floorGrpId, "floorgroups");
+                supportedUnitTypes = _.pluck(supportedUnitTypesArr,"name");
+                floorGroup.supportedUnitTypes = supportedUnitTypes;
+
                 floorGroups.push(floorGroup) ;                             
 
-            });
+            }.bind(this));
 
             
             // modify new state data as per building selected
             newStateData.projectTitle = building.building_name;
             newStateData.breakpoints = building.breakpoints;
             newStateData.buildings = floorGroups;
+            newStateData.shadowImages = building.shadow_images;
 
             newState.data = newStateData;
 
@@ -594,10 +618,12 @@ var BuildingMaster = React.createClass({
                     <SunToggle 
                         toggelSunView = {this.toggelSunView} 
                         showShadow={data.showShadow}
+                        shadowImages={data.shadowImages}
                     />
                     <ImageContainerTemplate 
                         ref= "imageContainer"
                         showShadow={data.showShadow}
+                        shadowImages={data.shadowImages}
                         imageType="buildingFloorGrps"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
@@ -643,6 +669,7 @@ var BuildingMaster = React.createClass({
                         <ImageContainerTemplate
                             ref= "imageContainer"
                             showShadow={data.showShadow}
+                            shadowImages={data.shadowImages}
                             imageType="buildingFloorGrps"
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
@@ -663,6 +690,7 @@ var BuildingMaster = React.createClass({
                                 <div className="row">
                                     
                                     <SunToggle 
+                                        shadowImages={data.shadowImages}
                                         toggelSunView = {this.toggelSunView} 
                                         showShadow={data.showShadow}
                                     />                                    

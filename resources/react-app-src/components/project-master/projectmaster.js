@@ -476,12 +476,14 @@ var ProjectMaster = React.createClass({
                         unapplyFilters = {this.unapplyFilters}
                     />
                     <SunToggle 
+                        shadowImages={data.shadowImages}
                         toggelSunView = {this.toggelSunView} 
                         showShadow={data.showShadow}
                     />
                     <ImageContainerTemplate 
                         ref= "imageContainer"
                         showShadow={data.showShadow}
+                        shadowImages={data.shadowImages}
                         imageType="master"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
@@ -526,6 +528,7 @@ var ProjectMaster = React.createClass({
                         <ImageContainerTemplate
                             ref= "imageContainer"
                             showShadow={data.showShadow}
+                            shadowImages={data.shadowImages}
                             imageType="master"
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
@@ -545,6 +548,7 @@ var ProjectMaster = React.createClass({
                                 <div className="row">
                                     
                                     <SunToggle 
+                                        shadowImages={data.shadowImages}
                                         toggelSunView = {this.toggelSunView} 
                                         showShadow={data.showShadow}
                                     />                                    
