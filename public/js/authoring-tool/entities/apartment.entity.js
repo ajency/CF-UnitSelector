@@ -53,6 +53,8 @@ AuthoringTool.ApartmentView = (function(superClass) {
       floors = floorGroup[0]['floors'];
       options = [];
       units = Marionette.getOption(this, 'units');
+      $('.units').find('option').remove();
+      $('.units').append($('<option></option>').val('').html('Select'));
       return $.each(units, function(ind, val) {
         if (_.contains(floors, parseInt(val.get('floor')))) {
           return $('.units').append($('<option></option>').val(val.get('id')).html(val.get('unit_name')));

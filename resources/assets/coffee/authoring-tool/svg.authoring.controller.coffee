@@ -581,12 +581,10 @@ jQuery(document).ready ($)->
                     'id' : parseInt elem.id
                 unit_name = unit.get('building_name')
             if type is 'floor_group'
-                buildings = buildingCollection.toArray()
+                buildings = buildingMasterCollection.toArray()
                 building = _.where(buildings, {id: parseInt(building_id) })
-
                 attributes = _.pluck(building, 'attributes')
                 floorGrops = _.pluck(attributes, 'floor_group')
-                
 
                 unit = _.where(floorGrops[0], {id: parseInt(elem.id) })
                 unit_name = unit[0]['name']

@@ -559,7 +559,7 @@ jQuery(document).ready(function($) {
         unit_name = unit.get('building_name');
       }
       if (type === 'floor_group') {
-        buildings = buildingCollection.toArray();
+        buildings = buildingMasterCollection.toArray();
         building = _.where(buildings, {
           id: parseInt(building_id)
         });

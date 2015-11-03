@@ -41,7 +41,7 @@ var UnitDetails = React.createClass({
 
 
         /*var sections = $('.outerDivs')
-          , nav = $('.tabHeader')
+          , nav = $('tabHeader')
           , nav_height = nav.outerHeight();
 
           $(window).on('scroll', function () {
@@ -59,7 +59,20 @@ var UnitDetails = React.createClass({
                 nav.find('a[href="#'+$(this).attr('id')+'"]').addClass('active');
               }
             });
+          });
+
+          nav.find('a').on('click', function () {
+            var $el = $(this)
+              , id = $el.attr('href');
+            
+            $('html, body').animate({
+              scrollTop: $(id).offset().top - nav_height
+            }, 500);
+            
+            return false;
           });*/
+
+
 
 
 
@@ -202,6 +215,7 @@ var UnitDetails = React.createClass({
 		)
 		}else{
 			domToDisplay = (
+				<div>
 			<div className="container-fluid step4Desk">
 				<TabHeader
 					buildingName={buildingName}
@@ -212,8 +226,15 @@ var UnitDetails = React.createClass({
 				<TabPanes
 					unitData = {unitData}
 				/>
-				<SimilarUnits similarUnits={unitData.similarUnits} />
+				<SimilarUnits similarUnits={unitData.similarUnits} />				
 			</div>
+
+			<TabFooter
+					unitId = {unitId}
+					projectId = {projectId}
+					unitStatus = {status}
+				/>
+				</div>
 		)
 		}
 		return domToDisplay;

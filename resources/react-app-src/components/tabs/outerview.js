@@ -38,12 +38,12 @@ if(window.isMobile){
         </div>
         <div className="col-xs-12 floorDetails">
           <div className="row">
-            <div className="col-xs-7">
+            <div className="col-xs-7 text-center">
               <div className="plan col-xs-12 text-uppercase pNone">Tower overview</div>
               <img src="img/bldg-3d.png"/>
               
             </div>
-            <div className="col-xs-5">
+            <div className="col-xs-5 text-center">
               <div className="plan col-xs-12 text-uppercase pNone">Unit view</div>
               <img src="img/bldg-3d.png"/>
               
