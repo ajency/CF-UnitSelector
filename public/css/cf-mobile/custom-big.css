@@ -1740,12 +1740,22 @@ select::-ms-expand {
 .step4Desk .similarFlat .moreFlats {
   padding: 30px 15px;
 }
+.step4Desk .similarFlat .moreFlats .card-swipe {
+  border: 1px solid #bcbcba;
+}
 .step4Desk .similarFlat .moreFlats .card-swipe h5 {
   padding: 5px 10px 15px;
   font-weight: 600;
 }
 .step4Desk .similarFlat .moreFlats .card-swipe ul {
   float: left;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe .amount {
+  color: #fe943e;
+  margin-left: 5px;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe .matchingSelection {
+  color: #333 !important;
 }
 .step4Desk .specificationOuter {
   margin-top: 30px;
