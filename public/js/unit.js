@@ -276,72 +276,55 @@ function goToNextStep(anchor ,divClass)
 
     var flag =true;
     $('form').submit();
-    $('.'+divClass).find('input, select').each(function(index) {
-        if($(this).val()=='' || $(this).hasClass("parsley-error")){
-           flag =false;
-        }
-    });
    
-
-    if(divClass == 'unitDetails' && flag)
+   if(divClass!='buyerDetails' &&  $( ".buyerDetails li.parsley-required").length){
+    
+       $("#acc-1").click();
+    }
+    else
     {
-         $('#acceptterm').attr('data-parsley-required', 'true');
+       $('.'+divClass).find('input, select').each(function(index) {
+            if($(this).val()=='' || $(this).hasClass("parsley-error")){
+               flag =false;
+            }
+        });
+
+       if(divClass == 'unitDetails' && flag)
+        {
+             $('#acceptterm').attr('data-parsley-required', 'true');
+        }
+
+        $("input[name='makePayment']").val('0');
+        if(flag)
+            $("#"+anchor).click(); 
     }
 
-    $("input[name='makePayment']").val('0');
-    if(flag)
-        $("#"+anchor).click();
+    
+}
+
+function addValidation(anchor ,divClass)
+{   
+    $('#acceptterm').attr('data-parsley-required', 'true');
 }
 
 function makeUnitPayment()
-{
-    if($("input[name='makePayment']").val()==0)
+{ 
+    if($('#acc-1').attr('aria-expanded')=='false' &&  $( ".buyerDetails li.parsley-required").length){
+       $("#acc-1").click();
+    }
+
+     if($("input[name='makePayment']").val()==0)
         return false;
 }
 
 function updateTextValue()
 {
-    $("input[name='makePayment']").val('1');
+    if(!$( ".buyerDetails li.parsley-required").length){
+     $("input[name='makePayment']").val('1');
+    }
 }
 
-function validateForm()
-{
-    var name = $("input[name='contact_name']").val();
-    var email = $("input[name='contact_email']").val();
-    var mobile = $("input[name='contact_mobile']").val();
-    var err = 0;
-    if(name=='')
-    {
-        alert('Enter Your Name');
-        $("#acc-1").click();
-        err++;
-    }
-    else if(email=='')
-    {
-        alert('Enter Your Email');
-        $("#acc-1").click();
-        err++;
-    }
-    else if(mobile=='')
-    {
-        alert('Enter Your Phone');
-        $("#acc-1").click();
-        err++;
-    }
-    else if(!$("input[name='acceptterm']").is(':checked'))
-    {
-        alert('Accept terms and condition to proceeed ');
-        err++;
-    }
  
-
-    if(err==0)
-    {
-        $('form').submit();
-    }
-
-}
-
 function convertToINR(val)
 {
     var x=val.toString();

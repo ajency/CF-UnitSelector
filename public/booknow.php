@@ -97,12 +97,13 @@ $startTime= time();
                  <input type="hidden" name="bookingId" value="<?php echo $bookingId ?>" >
                  <input type="hidden" name="startTime" value="<?php echo $startTime ?>" >
                  <input type="hidden" name="makePayment" value="0" >
+                 
                 <div class="panel-group col-md-12 col-sm-12 col-xs-12" id="accordion" role="tablist" aria-multiselectable="true">
                   <div class="panel-inner">
                   <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
+                    <div class="panel-heading active" role="tab" id="headingOne">
                       <h4 class="panel-title">
-                        <a class=" plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <a id="acc-1" class=" plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                           1. Basic Information
                           <span class="plusMinusIcon plusIcon"><i class="fa fa-plus-square-o"></i></span>
                           <span class="plusMinusIcon minusIcon"><i class="fa fa-minus-square-o"></i></span>
@@ -361,7 +362,7 @@ $startTime= time();
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingThree">
                       <h4 class="panel-title">
-                        <a id="acc-3" class="collapsed plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <a onclick="addValidation()" id="acc-3" class="collapsed plusMinusOuter" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                           3. Payment
                           <span class="plusMinusIcon plusIcon"><i class="fa fa-plus-square-o"></i></span>
                           <span class="plusMinusIcon minusIcon"><i class="fa fa-minus-square-o"></i></span>
