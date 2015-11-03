@@ -55,6 +55,7 @@ AuthoringTool.BuildingCtrl = (function(superClass) {
   BuildingCtrl.prototype.initialize = function() {
     var units;
     units = buildingCollection.toArray();
+    console.log(units);
     return this.show(new AuthoringTool.BuildingView({
       units: units
     }));
