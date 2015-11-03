@@ -863,7 +863,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>For any queries please <i class="fa fa-envelope-o" style="margin-left: 5px; margin-right: 5px;"></i> at <a href="mailto:contactus@commonfloor.com" style="color: #f68121;">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com"style="color: #f68121;">support@commonfloor.com</a> or feel free to <i class="fa fa-phone" style="margin-left: 5px; margin-right: 5px;"></i> at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>For any queries please mail at <a href="mailto:contactus@commonfloor.com" style="color: #f68121;">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com"style="color: #f68121;">support@commonfloor.com</a> or feel free to call at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -962,7 +962,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                        </tr>
                                         <tr>
                                             <td valign="top" style="color:#505050; font-family:Arial; font-size:14px; line-height:1.5; padding: 10px 20px 10px 20px; vertical-align:middle;">
-                                              We regret to inform you that your payment for Unit <b>'.$unitData['unit']['name'].'</b>  with Booking ID as <b>'.$bookingId.'</b> for Project " '.$unitData['project_title'].'" is unsuccessful. The Unit is available and can be booked by visiting at <a href="#" style="color:#f68121;"> '.UNITSELECTOR_URL.'project/1</a>.
+                                              We regret to inform you that your payment for <b>'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> for " '.$unitData['project_title'].'" was unsuccessful. Sorry for the inconvenience. The Unit is available and can be booked by visiting '.UNITSELECTOR_URL.'project/1</a>.
                                             </td>                                            
                                         </tr>
                                     </table>
@@ -992,7 +992,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>For any queries please <i class="fa fa-envelope-o" style="margin-left: 5px; margin-right: 5px;"></i> at <a href="mailto:contactus@commonfloor.com" style="color: #f68121;">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com" style="color: #f68121;">support@commonfloor.com</a> or feel free to <i class="fa fa-phone" style="margin-left: 5px; margin-right: 5px;"></i> at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>For any queries please mail at <a href="mailto:contactus@commonfloor.com" style="color: #f68121;">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com" style="color: #f68121;">support@commonfloor.com</a> or feel free to call at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -1196,7 +1196,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>Your booking amount of Rs.  '.$booking_amount.' will be refunded in 7 days by NEFT or Cheque. For further details mail us at <i style="margin-left: 5px; margin-right: 5px;" class="fa fa-envelope-o"></i> at <a href="mailto:contactus@commonfloor.com" style="color: #f68121">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com" style="color: #f68121">support@commonfloor.com</a> or feel free to <i style="margin-left: 5px; margin-right: 5px;" class="fa fa-phone"></i> at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>Your booking amount of Rs.  '.$booking_amount.' will be refunded in 7 days by NEFT or Cheque. For further details mail us at <a href="mailto:contactus@commonfloor.com" style="color: #f68121">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com" style="color: #f68121">support@commonfloor.com</a> or feel free to call at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
                                           </td>
                                         </tr>
                                       </table>
