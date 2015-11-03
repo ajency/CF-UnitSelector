@@ -1467,7 +1467,11 @@ select::-ms-expand {
   left: 0 !important;
 }
 .step4Desk {
-  padding: 15px 0 !important;
+  padding: 15px 0 !important
+  /*.amenitiesView
+{
+	min-height: 90vH;
+}*/
 }
 .step4Desk .backOuter {
   padding: 0;
@@ -1771,9 +1775,6 @@ select::-ms-expand {
 }
 .step4Desk .specificationOuter .textInner:first-child {
   margin-top: 10px;
-}
-.step4Desk .amenitiesView {
-  min-height: 90vH;
 }
 .pNone {
   padding: 0 !important;
