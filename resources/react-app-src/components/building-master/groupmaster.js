@@ -36,9 +36,10 @@ var qtipSettings = { // Grab some elements to apply the tooltip to
 
 
 
-// function getGroupStateData(floorGroupId){
-//     return AppStore.getFloorGroupStateData(floorGroupId);
-// }
+function getGroupStateData(groupId){
+    return AppStore.getGroupStateData(groupId);
+}
+
 
 
 var GroupMaster = React.createClass({
@@ -48,14 +49,112 @@ var GroupMaster = React.createClass({
         var groupId;
         groupId = this.props.groupId;
 
-        stateData =  {
-            groupId:groupId
-        }
+        stateData =  this.getGroupState();
 
         return stateData;
     },
 
-   
+    getGroupState: function() {
+        var groupId;
+        groupId = this.props.groupId;
+
+        stateData =  getGroupStateData(groupId);
+
+        return this.formatStateData(stateData);
+    },
+
+    formatStateData: function(stateDataToformat){
+        var newState = stateDataToformat;
+
+        floorGroups = stateDataToformat.data.buildings;
+        apartments = [];
+        
+        if(floorGroups.length>0){
+            newStateData = newState.data;
+
+            // floor group
+            floorGroup = floorGroups[0];
+
+            // floorGroup specific data for units
+            unitData = floorGroup.unitData;
+            availableUnitData = floorGroup.availableUnitData;
+            filteredUnitData = floorGroup.filteredUnitData;
+            supportedUnitTypes = floorGroup.supportedUnitTypes;
+
+
+            // all units in the floor group
+            allUnits = building.unitData;
+
+            _.each(allUnits, function(singleUnit){
+                supportedUnitTypes = [];
+                
+                unitId = singleUnit.id;
+                
+                unit = {};
+
+                unit.id = singleUnit.id;
+                unit.building_name = singleUnit.unit_name;
+                unit.primary_breakpoint = singleUnit.primary_breakpoint;
+                unit.minStartPrice = singleUnit.selling_amount;
+
+                apartmentUnitData =[];
+                apartmentAvailableUnitData =[];
+                apartmentFilteredUnitData =[];
+
+                // will be the same unit
+                apartmentUnitData = [singleUnit]; 
+
+                // insert in apartmentAvailableUnitData if this unit's status is available 
+                if(singleUnit.availability==="available"){
+                    apartmentAvailableUnitData.push(singleUnit);
+                }
+ 
+                
+                // if current unit is present in filteredUnitData then push in array
+                if(_.contains(filteredUnitData,singleUnit)){
+                    apartmentFilteredUnitData.push(singleUnit);
+                } 
+
+                unit.unitData = apartmentUnitData;
+                unit.availableUnitData = apartmentAvailableUnitData;
+                unit.filteredUnitData = apartmentFilteredUnitData;
+
+                minStartPrice = singleUnit.selling_amount;
+                unit.minStartPrice = minStartPrice;
+
+                // supportedUnitTypesArr = AppStore.getApartmentUnitTypes(floorGrpId, "floorgroups");
+                // supportedUnitTypes = _.pluck(supportedUnitTypesArr,"name");
+                // floorGroup.supportedUnitTypes = supportedUnitTypes;
+
+                apartments.push(unit) ;                             
+
+            }.bind(this));
+
+            
+            // modify new state data as per building selected
+            newStateData.projectTitle = floorGroup.building_name;
+            newStateData.breakpoints = stateDataToformat.data.breakpoints;
+            newStateData.buildings = apartments;
+            newStateData.shadowImages = stateDataToformat.data.shadow_images;
+
+            newState.data = newStateData;
+
+
+        }
+
+        return newState;
+    },
+
+    componentWillMount:function(){
+        AppStore.addChangeListener(this._onChange);
+    },     
+
+    _onChange:function(){
+        var groupId;
+        groupId = this.props.groupId;
+        newState = this.getGroupState();
+        this.setState(newState);
+    },     
 
     render: function(){
         

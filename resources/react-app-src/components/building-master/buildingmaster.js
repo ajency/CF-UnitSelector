@@ -53,19 +53,6 @@ var BuildingMaster = React.createClass({
         return stateData;
     },
 
-    getMinUnitPrice: function(floorGrpUnits){
-        unitPrices = [];
-        unitPrices = _.pluck(floorGrpUnits, "selling_amount");
-        if(unitPrices.length>0)
-            minStartPrice = _.min(unitPrices);
-        else{
-            minStartPrice = "N/A";
-        }
-
-
-        return minStartPrice;
-    },
-
     formatStateData: function(stateDataToformat){
         var newState = stateDataToformat;
 
@@ -183,7 +170,20 @@ var BuildingMaster = React.createClass({
         buildingId = this.props.buildingId;
         newState = this.getBuildingState();
         this.setState(newState);
-    },  
+    }, 
+
+    getMinUnitPrice: function(floorGrpUnits){
+        unitPrices = [];
+        unitPrices = _.pluck(floorGrpUnits, "selling_amount");
+        if(unitPrices.length>0)
+            minStartPrice = _.min(unitPrices);
+        else{
+            minStartPrice = "N/A";
+        }
+
+
+        return minStartPrice;
+    },     
 
     projectDataUpdateCallBack: function(){
         spinDom = $(ReactDOM.findDOMNode(this.refs.imageContainer)).find("#spritespin");

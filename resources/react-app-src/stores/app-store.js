@@ -11,6 +11,7 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
+var _groupStateData = {};
 var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
 
@@ -2294,40 +2295,36 @@ function _getBuildingMasterDetails(buildingId){
 		}
 	}
 
-	// var buildingData = {"projectTitle":"", "projectLogo": "#", "unitCount":0,"buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
-	// var buildings = [];
-	// var allUnits= [];
-	// var unitTypes= [];
-
-	// if(!_.isEmpty(projectData)){
-	// 	var buildingsWithUnits = [];
-
-	// 	projectMasterData.projectTitle = projectData.project_title ; 
-	// 	projectMasterData.projectLogo = projectData.logo ; 
-
-	// 	breakpoints = projectData.breakpoints 
-	// 	projectMasterData.breakpoints = breakpoints; 
-	// 	projectMasterData.chosenBreakpoint = breakpoints[0] ;  
-		
-	// 	unitCount = getUnitCount('Apartments',{}) ;
-	// 	projectMasterData.totalCount = unitCount.total.length;
-	// 	projectMasterData.availableCount = unitCount.available.length;
-	// 	projectMasterData.filteredCount = unitCount.filtered.length;
-		
-	// 	buildings = projectData.buildings;
-	// 	allUnits = projectData.units;
-
-	// 	buildingsWithUnits = getBuildingUnits(buildings, allUnits, []);
-
-	// 	projectMasterData.buildings = buildingsWithUnits;
-
- //        projectMasterData.filterTypes = getFilterTypes("Apartment");
-	// }
-
-	// finalData = {"data": buildingData};
-
-	// finalData = getFakeBuildingMasterData();
 	return _buildingMasterStateData;
+}
+
+function _getGroupMasterDetails(groupId){
+	groupId = parseInt(groupId);
+
+	if(!_.isEmpty(_projectData)){
+
+		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
+			buildingMasterStateData = _buildingMasterStateData;
+
+			// buildings here would refer to floor groups
+			allGroups = buildingMasterStateData.data.buildings;
+
+			// selected floor group
+			selectedGroup = _.findWhere(allGroups,{id:groupId});  
+
+			// send only array of selected floor group
+			delete buildingMasterStateData.data.buildings;
+
+			_groupStateData = buildingMasterStateData;
+			_groupStateData.data.buildings = [selectedGroup];
+			
+		}
+		else{
+			// _buildingMasterStateData = getFakeBuildingMasterData();
+		}
+	}
+	
+	return _groupStateData;
 }
 
 
@@ -2370,6 +2367,10 @@ var AppStore = merge(EventEmitter.prototype, {
 	getBuildingMasterStateData: function(buildingId){
 		_buildingMasterStateData = _getBuildingMasterDetails(buildingId); 
 		return _buildingMasterStateData;
+	},	
+	getGroupStateData: function(groupId){
+		_groupStateData = _getGroupMasterDetails(groupId);
+		return _groupStateData;
 	},	
 
 	updateGlobalState: function(newState){
