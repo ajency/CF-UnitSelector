@@ -10,13 +10,13 @@ var SimilarUnits = React.createClass({
       var similarNodes =  _.map( similarUnits , function(unit, key){
                         return(
                             <div className="col-xs-3" key={key}>
-              <div className="card-swipe highlight">
+              <div className="card-swipe">
                 <div className="row">
                    <div className="col-xs-12">
                       <h5 className=" margin-none text-left text-uppercase"> {unit.name}</h5>
                    </div>
                    <div className="col-xs-12 text-muted price">
-                      From <span><i className="fa fa-inr"></i> {unit.sellingAmount}</span>
+                      From <span className="amount"><i className="fa fa-inr"></i> {unit.sellingAmount}</span>
                    </div>
                 </div>
                 <div className=" swipe-unit-info row">

@@ -866,6 +866,14 @@ div#spritespin {
   font-size: 20px;
   float: left;
 }
+.tabHeader .title a i {
+  -webkit-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+          transform: scale(0.8);
+}
+.tabHeader .title a i.i-dark-arrow {
+  background-position: -219px -16px;
+}
 @media screen and (max-width: 320px) {
   .tabHeader .title a {
     margin-top: 5px;
