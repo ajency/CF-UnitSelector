@@ -56,6 +56,8 @@ var BuildingMaster = React.createClass({
     formatStateData: function(stateDataToformat){
         var newState = stateDataToformat;
 
+        console.log(newState);
+
         buildings = stateDataToformat.data.buildings;
         
         if(buildings.length>0){
@@ -137,6 +139,8 @@ var BuildingMaster = React.createClass({
 
 
         }
+
+
 
         return newState;
     },
@@ -317,7 +321,7 @@ var BuildingMaster = React.createClass({
     updateProjectMasterData: function(){
         oldState = this.state;
 
-        newProjectData = AppStore.getFilteredProjectMasterData();
+        newProjectData = AppStore.getFilteredProjectMasterData(this.props.buildingId);
 
         dataToSet = {
             property: "data",
@@ -533,8 +537,9 @@ var BuildingMaster = React.createClass({
     render: function(){
         var data = this.state.data;
 
-        console.log(this.state);
-        
+
+
+                
         var projectTitle = data.projectTitle;
         var projectLogo = data.projectLogo;
         var unitCount = data.totalCount;
@@ -545,6 +550,8 @@ var BuildingMaster = React.createClass({
 
         var filterTypes = data.filterTypes;
 
+
+
         var unitIndexToHighlight = data.unitIndexToHighlight;
 
         var buildingToHighlight = buildings[unitIndexToHighlight];
@@ -554,6 +561,7 @@ var BuildingMaster = React.createClass({
 
         var domToDisplay;
         var modalData = {};
+
 
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
@@ -576,6 +584,7 @@ var BuildingMaster = React.createClass({
                     />
                     <Modal 
                         ref="modal" 
+                        buildingId = {buildingId}
                         modalPurpose = "filterModal"
                         modalData={modalData}
                         selectFilter={this.selectFilter}
