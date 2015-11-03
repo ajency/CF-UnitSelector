@@ -1714,6 +1714,10 @@ select::-ms-expand {
   text-align: center;
   line-height: 2.8;
 }
+.step4Desk .amenitiesDetails .icon i {
+  display: block;
+  margin-top: 12px;
+}
 .step4Desk .amenitiesDetails .text {
   float: left;
   width: 70%;
@@ -1758,14 +1762,18 @@ select::-ms-expand {
 .step4Desk .similarFlat .moreFlats .card-swipe .matchingSelection {
   color: #333 !important;
 }
+.step4Desk .similarFlat .moreFlats .card-swipe:hover {
+  border: 1px solid #fe943e;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe:hover .swipe-footer .arrow a {
+  background: #fe943e;
+  color: #ffffff;
+}
 .step4Desk .specificationOuter {
   margin-top: 30px;
 }
 .step4Desk .specificationOuter .contentHEader {
   margin-bottom: 20px;
-}
-.step4Desk .specificationOuter .contentTitle {
-  border-right: none;
 }
 .step4Desk .specificationOuter h4 {
   margin-bottom: 20px;
@@ -1838,6 +1846,10 @@ select::-ms-expand {
 @media screen and (max-width: 768px) {
   .step4Desk .detailView .unit .roomDetails {
     width: 32%;
+  }
+  .step4Desk .detailView .unit .roomDetails:nth-child(3n+3),
+  .step4Desk .detailView .unit .roomDetails:last-child {
+    border-right: none;
   }
   .step4Desk .tabHeader.stick .stickyButtons {
     display: none;

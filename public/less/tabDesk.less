@@ -328,7 +328,12 @@
 				border:1px solid @gray;
 				border-radius:50%;	
 				text-align:center;
-				line-height:2.8;			
+				line-height:2.8;	
+				i
+				{
+					display: block;
+					margin-top: 12px;
+				}		
 			}
 			.text
 			{
@@ -387,6 +392,15 @@
 					{
 						color:#333 !important;
 					}
+					&:hover
+					{
+						border:1px solid @brand-primary;
+						.swipe-footer .arrow a
+						{
+							background: @brand-primary;
+							color: @white;
+						}
+					}
 				}
 			}
 		}
@@ -396,10 +410,7 @@
 			{
 				margin-bottom: 20px;
 			}
-			.contentTitle
-			{
-				border-right:none;
-			}
+			
 			margin-top: 30px;
 			h4
 			{
@@ -501,6 +512,10 @@
 	.step4Desk .detailView .unit .roomDetails
 	{
 		width: 32%;
+	}
+	.step4Desk .detailView .unit .roomDetails:nth-child(3n+3), .step4Desk .detailView .unit .roomDetails:last-child
+	{
+		border-right: none;
 	}	
 	.step4Desk .tabHeader.stick .stickyButtons
 	{
