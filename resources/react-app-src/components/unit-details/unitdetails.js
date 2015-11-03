@@ -215,6 +215,7 @@ var UnitDetails = React.createClass({
 		)
 		}else{
 			domToDisplay = (
+				<div>
 			<div className="container-fluid step4Desk">
 				<TabHeader
 					buildingName={buildingName}
@@ -225,8 +226,15 @@ var UnitDetails = React.createClass({
 				<TabPanes
 					unitData = {unitData}
 				/>
-				<SimilarUnits similarUnits={unitData.similarUnits} />
+				<SimilarUnits similarUnits={unitData.similarUnits} />				
 			</div>
+
+			<TabFooter
+					unitId = {unitId}
+					projectId = {projectId}
+					unitStatus = {status}
+				/>
+				</div>
 		)
 		}
 		return domToDisplay;
