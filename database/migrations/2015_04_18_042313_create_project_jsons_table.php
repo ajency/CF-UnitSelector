@@ -14,7 +14,7 @@ class CreateProjectJsonsTable extends Migration {
         Schema::create( 'project_jsons', function(Blueprint $table) {
             $table->increments( 'id' );
             $table->integer( 'project_id' )->unsigned();
-            $table->text( 'project_json' );
+            $table->longText( 'project_json' );
             $table->timestamps();
         } );
     }

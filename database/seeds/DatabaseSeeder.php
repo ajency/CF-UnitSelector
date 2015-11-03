@@ -155,9 +155,9 @@ class DirectionSeeder extends Seeder {
         Defaults::create( ['type' => 'direction','label'=>"South",'serialize_data'=>  serialize([])]);
         Defaults::create(['type' => 'direction','label'=>"East",'serialize_data'=> serialize([])]);
         Defaults::create( ['type' => 'direction','label'=>"West",'serialize_data'=>  serialize([])]);  
-        Defaults::create( ['type' => 'direction','label'=>"Noth-East",'serialize_data'=>  serialize([])]);
+        Defaults::create( ['type' => 'direction','label'=>"North-East",'serialize_data'=>  serialize([])]);
         Defaults::create( ['type' => 'direction','label'=>"North-West",'serialize_data'=>  serialize([])]);
-        Defaults::create(['type' => 'direction','label'=>"Soth-East",'serialize_data'=> serialize([])]);
+        Defaults::create(['type' => 'direction','label'=>"South-East",'serialize_data'=> serialize([])]);
         Defaults::create( ['type' => 'direction','label'=>"South-West",'serialize_data'=>  serialize([])]);   
         
     }
