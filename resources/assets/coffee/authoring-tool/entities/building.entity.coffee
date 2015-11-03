@@ -44,6 +44,5 @@ class AuthoringTool.BuildingCtrl extends Marionette.RegionController
 
 	initialize :->
 		units = buildingCollection.toArray()
-		console.log units
 		@show new AuthoringTool.BuildingView
 				units : units
