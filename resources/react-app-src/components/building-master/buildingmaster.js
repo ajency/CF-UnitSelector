@@ -89,6 +89,7 @@ var BuildingMaster = React.createClass({
             floor_groups = building.floor_group;
 
             _.each(floor_groups, function(floor_group){
+                supportedUnitTypes = [];
                 floorGrpId = floor_group.id;
                 floorGroup = {};
 
@@ -140,6 +141,10 @@ var BuildingMaster = React.createClass({
 
                 minStartPrice = this.getMinUnitPrice(floorGroupUnitData);
                 floorGroup.minStartPrice = minStartPrice;
+
+                supportedUnitTypesArr = AppStore.getApartmentUnitTypes(floorGrpId, "floorgroups");
+                supportedUnitTypes = _.pluck(supportedUnitTypesArr,"name");
+                floorGroup.supportedUnitTypes = supportedUnitTypes;
 
                 floorGroups.push(floorGroup) ;                             
 

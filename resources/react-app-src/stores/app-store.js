@@ -120,13 +120,13 @@ function getPropertyVariantsById(propertyType,variantId,key){
 
 
 function getAppliedFiltersCount(filters){
-var newfilters = [];
-_.each(filters, function(filter, key){
-	if(filter.length>0){
-		newfilters.push(key);
-	}
-});
-return newfilters.length;
+	var newfilters = [];
+	_.each(filters, function(filter, key){
+		if(filter.length>0){
+			newfilters.push(key);
+		}
+	});
+	return newfilters.length;
 }
 
 
@@ -542,11 +542,11 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 	return buildingsWithUnits;
 }
 
-function getApartmentUnitTypes(buildingId){
+function getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType){
 
 	var apartmentVariants = [];
 	var apartmentUnitTypes = [];
-	var buildingUnits = [];
+	var collectivePropertyUnits = [];
 
 
 	if(!_.isEmpty(_projectData)){
@@ -559,16 +559,24 @@ function getApartmentUnitTypes(buildingId){
 
 		// based on buildingId passed either return all or only specific building's units 
 
-		if (buildingId==="all") {
-			buildingUnits = _.filter(allUnits , function(unit){ return unit; });
+
+		if (collectivePropertyTypeId==="all") {
+			collectivePropertyUnits = _.filter(allUnits , function(unit){ return unit; });
 		}
 		else{
-			buildingUnits = _.filter(allUnits , function(unit){ if(unit.building_id == buildingId){return unit;} });
+			// if collectivePropertyType is "buildings" check for building_id else if it is "floorgroups" check for floor_group_id
+			if(collectivePropertyType==="floorgroups"){
+				collectivePropertyUnits = _.filter(allUnits , function(unit){ if(unit.floor_group_id == collectivePropertyTypeId){return unit;} });
+			}
+			else if(collectivePropertyType==="buildings"){
+				collectivePropertyUnits = _.filter(allUnits , function(unit){ if(unit.building_id == collectivePropertyTypeId){return unit;} });
+			}
+			
 		}
 		
 
 		// get unique unit variant id for the above building units
-		buildingUnitVariantIds = _.uniq(_.pluck(buildingUnits, 'unit_variant_id')); 
+		buildingUnitVariantIds = _.uniq(_.pluck(collectivePropertyUnits, 'unit_variant_id')); 
 
 		
 		unitTypes = [];
@@ -666,9 +674,9 @@ function checkVariationIsUnique(variants,variantName){
 function getVariantsName(propertyType,variant){
 	var variants = [];
 
-var totalUnitsInBuilding = _projectData.units;
-var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
-var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
+	var totalUnitsInBuilding = _projectData.units;
+	var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+	var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
 
 
 	switch(propertyType) {
@@ -735,7 +743,7 @@ function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 	switch(propertyType) {
 
 	    case "Apartments":
-	    	unitTypes = getApartmentUnitTypes(collectivePropertyTypeId);
+	    	unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, "buildings");
 	    	supportedUnitTypes = _.pluck(unitTypes, 'name');
 	    break;
 
@@ -835,7 +843,7 @@ function getApartmentFilterTypes(propertyType){
 			filterType.filterDisplayType = "imageCheckbox";
 
 			// get filter values ie the unit types for the apartment
-			apartmentUnitTypes = getApartmentUnitTypes("all");
+			apartmentUnitTypes = getApartmentUnitTypes("all","buildings");
 			
 			filterType.filterValues = apartmentUnitTypes;
 
@@ -1088,14 +1096,6 @@ function getAvailableUnitViewsOptions(propertyType){
 }
 
 
-
-
-
-
-
-
-
-
 function getAllAmenities(){
 
 	var totalUnitsInBuilding = [];
@@ -1116,13 +1116,6 @@ function getAllAmenities(){
 
 	return _.uniq(options);
 }
-
-
-
-
-
-
-
 
 
 
@@ -2394,6 +2387,16 @@ var AppStore = merge(EventEmitter.prototype, {
 
 		return newProjectData;
 	},
+
+	getApartmentUnitTypes: function(collectivePropertyTypeId, collectivePropertyType){
+		var unitTypes =[];
+
+		unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType);
+
+		return unitTypes;
+	},
+
+	
 
   	// Register callback with AppDispatcher
 	dispatcherIndex: AppDispatcher.register(function(payload) {
