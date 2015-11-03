@@ -1604,7 +1604,7 @@ select::-ms-expand {
 .step4Desk .tabHeader.stick {
   position: fixed;
   top: 0;
-  z-index: 10000;
+  z-index: 9;
   background: #ffffff;
   width: 100%;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -1632,7 +1632,7 @@ select::-ms-expand {
   font-size: 12px;
 }
 .step4Desk .detailView {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 .step4Desk .detailView .contentHEader {
   margin-top: -5px;
@@ -1644,25 +1644,17 @@ select::-ms-expand {
   font-size: 14px;
 }
 .step4Desk .detailView .unit .roomDetails {
-  margin-top: 50px;
+  margin-top: 30px;
   border-right: 1px solid #d5d5d4;
-  width: 270px;
-  margin-left: 30px;
-  min-height: 180px;
-  max-height: 300px;
-}
-.step4Desk .detailView .unit .roomDetails:nth-child(4n+1) {
-  margin-left: 0;
-}
-.step4Desk .detailView .unit .roomDetails:nth-child(3n+4),
-.step4Desk .detailView .unit .roomDetails:last-child {
-  border-right: none;
+  width: 24%;
+  padding: 0 15px 0 30px;
+  display: inline-block;
 }
 .step4Desk .detailView .unit .roomDetails .left,
 .step4Desk .detailView .unit .roomDetails .right {
   color: #bcbcba;
   font-size: 12px;
-  padding: 8px 15px;
+  padding: 5px 15px;
 }
 .step4Desk .detailView .unit .roomDetails .right {
   color: #565654;
@@ -1677,12 +1669,19 @@ select::-ms-expand {
   text-decoration: none;
   outline: none;
 }
+.step4Desk .detailView .unit .roomDetails:nth-child(3n+4),
+.step4Desk .detailView .unit .roomDetails:last-child {
+  border-right: none;
+}
 .step4Desk .detailView .unit .hiddenContent {
   display: none;
 }
+.step4Desk .detailView .unit .hiddenContent.moreLess {
+  display: block;
+}
 .step4Desk .floorDetails {
   padding: 30px 15px;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 }
 .step4Desk .floorDetails img {
   width: auto;
@@ -1692,15 +1691,18 @@ select::-ms-expand {
 }
 .step4Desk .floorDetails .plan {
   margin-top: 20px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 .step4Desk .outsideView .floorDetails .plan {
   margin-top: 0;
   margin-bottom: 10px;
 }
+.step4Desk .amenitiesDetails {
+  padding: 20px 15px;
+}
 .step4Desk .amenitiesDetails .row > div {
-  margin: 20px 0;
+  margin: 10px 0;
   padding-right: 0;
 }
 .step4Desk .amenitiesDetails .icon {
@@ -1731,14 +1733,13 @@ select::-ms-expand {
   color: #bcbcba;
 }
 .step4Desk .similarFlat {
-  margin-top: 40px;
-  margin-bottom: 50px;
+  margin-bottom: 15px;
 }
 .step4Desk .similarFlat .contentTitle {
   border-right: none;
 }
 .step4Desk .similarFlat .moreFlats {
-  padding: 30px 15px;
+  padding: 30px 15px 0;
 }
 .step4Desk .similarFlat .moreFlats .card-swipe {
   border: 1px solid #bcbcba;
@@ -1770,12 +1771,12 @@ select::-ms-expand {
   margin-bottom: 20px;
 }
 .step4Desk .specificationOuter .textInner {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   color: #7d7c7a
   /*border-right:1px solid @gray-lightest;*/
 }
 .step4Desk .specificationOuter .textInner h5 {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   color: #565654;
 }
 .step4Desk .specificationOuter .textInner > div {
@@ -1786,13 +1787,16 @@ select::-ms-expand {
 .step4Desk .specificationOuter .textInner:first-child {
   margin-top: 10px;
 }
+.step4Desk .specificationOuter .textInner:last-child {
+  margin-bottom: 0px;
+}
 .pNone {
   padding: 0 !important;
 }
 .svg-top-area svg {
   position: absolute;
   left: -3%;
-  z-index: 9999;
+  z-index: 5;
   top: 6%;
   height: 400px !important;
   width: 100% !important;
@@ -1801,18 +1805,29 @@ select::-ms-expand {
   height: 400px !important;
   margin: 0px;
 }
+.floatingButtons {
+  display: none;
+}
+.footerDesk {
+  background: #fe943e;
+  color: #ffffff;
+  padding: 10px;
+}
+.footerDesk a {
+  color: #ffffff;
+  text-decoration: none;
+  outline: none;
+}
+.footerDesk a:hover,
+.footerDesk a:focus {
+  color: #ffffff;
+  outline: none;
+}
 @media screen and (max-width: 1024px) {
-  .step4Desk .detailView .unit .roomDetails:nth-child(4n+1) {
-    margin-left: 30px;
-  }
-  .step4Desk .detailView .unit .roomDetails:nth-child(3n+1),
-  .step4Desk .detailView .unit .roomDetails:first-child {
-    margin-left: 0;
-  }
   .step4Desk .detailView .unit .roomDetails:nth-child(3n+4) {
     border-right: 1px solid #d5d5d4;
   }
-  .step4Desk .detailView .unit .roomDetails:nth-child(3n+3),
+  .step4Desk .detailView .unit .roomDetails:nth-child(3n+4),
   .step4Desk .detailView .unit .roomDetails:last-child {
     border-right: none;
   }
@@ -1822,17 +1837,50 @@ select::-ms-expand {
 }
 @media screen and (max-width: 768px) {
   .step4Desk .detailView .unit .roomDetails {
-    width: 240px;
-    margin-left: 10px;
+    width: 32%;
   }
-  .step4Desk .detailView .unit .roomDetails:nth-child(4n+1) {
-    margin-left: 10px;
-  }
-  .step4Desk .detailView .unit .roomDetails:first-child {
-    margin-left: 0;
+  .step4Desk .tabHeader.stick .stickyButtons {
+    display: none;
   }
   .step4Desk .tabHeader ul li {
     padding: 20px 0px 0 14px;
+  }
+  .overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    display: none;
+  }
+  .floatingButtons {
+    position: fixed;
+    width: 200px;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    display: block;
+  }
+  .floatingButtons .floatingBtnsInner {
+    display: none;
+    text-align: right;
+    margin-right: 10px;
+  }
+  .floatingButtons .floatingBtnsInner button {
+    margin: 5px 0;
+  }
+  .floatingButtons .floatingPlusIcon {
+    height: 50px;
+    width: 50px;
+    background: #fe943e;
+    color: #ffffff;
+    border-radius: 50%;
+    text-align: center;
+    margin: 5px 10px 10px 0;
+    float: right;
+  }
+  .floatingButtons .floatingPlusIcon i {
+    margin-top: 19px;
   }
 }
 /*# sourceMappingURL=custom-big.css.map */

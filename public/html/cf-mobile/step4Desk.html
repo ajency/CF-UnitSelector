@@ -23,7 +23,7 @@
     <![endif]-->
   </head>
   <body class="step4Body">
-   
+   <div class="overlay"></div>
 
  <div class="container-fluid step4Desk">
     <div class="row">
@@ -69,17 +69,7 @@
               <span class="enquiryText text-uppercase">Contact Us</span>
           </button>  
         </li>
-      </ul> 
-      <div class="moreButtons">
-          <i class="fa fa-plus"></i>
-           <div style="display:none;">
-              <button class="btn btn-default btn-primary text-uppercase">Book now <i class="fa fa-inr"></i> 60lacs</button>
-              <button type="button" class="btn btn-default btn-primary" data-toggle="modal" data-target="#contactModal">
-                  <i class="fa fa-phone"></i>
-                  <span class="enquiryText text-uppercase">Contact Us</span>
-              </button>  
-          </div>
-      </div>
+      </ul>       
 
     </div>
     <div class="contentOuter col-xs-12 pNone">
@@ -96,7 +86,7 @@
         </div>
         <div class="col-xs-12 unit">
           <div class="row">
-            <div class="col-md-3 col-sm-3 roomDetails text-uppercase">
+            <div class="roomDetails text-uppercase">
               <h5 class="text-uppercase">Bedroom 1</h5>
                 <div class="row">
                   <div class="col-xs-6 left">
@@ -154,7 +144,7 @@
                   </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3 roomDetails text-uppercase">
+            <div class="roomDetails text-uppercase">
             <h5 class="text-uppercase">Bedroom 2</h5>
                <div class="row">
                   <div class="col-xs-6 left">
@@ -181,7 +171,7 @@
                   </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3 roomDetails text-uppercase">
+            <div class="roomDetails text-uppercase">
             <h5 class="text-uppercase">Kitchen</h5>
                <div class="row">
                   <div class="col-xs-6 left">
@@ -208,7 +198,7 @@
                   </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3 roomDetails text-uppercase">
+            <div class="roomDetails text-uppercase">
             <h5 class="text-uppercase">Living room</h5>
                <div class="row">
                   <div class="col-xs-6 left">
@@ -235,7 +225,7 @@
                   </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3 roomDetails text-uppercase">
+            <div class="roomDetails text-uppercase">
               <h5 class="text-uppercase">Toilet</h5>
                 <div class="row">
                   <div class="col-xs-6 left">
@@ -262,7 +252,7 @@
                   </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3 roomDetails text-uppercase">
+            <div class="roomDetails text-uppercase">
               <h5 class="text-uppercase">Store room</h5>
                 <div class="row">
                   <div class="col-xs-6 left">
@@ -601,7 +591,24 @@
 
       </div>
     </div>
+    <div class="floatingButtons">          
+           <div class="floatingBtnsInner">
+              <button class="btn btn-default btn-primary text-uppercase">Book now <i class="fa fa-inr"></i> 60lacs</button>
+              <button type="button" class="btn btn-default btn-primary" data-toggle="modal" data-target="#contactModal">
+                  <i class="fa fa-phone"></i>
+                  <span class="enquiryText text-uppercase">Contact Us</span>
+              </button>  
+          </div>
+          <div class="floatingPlusIcon" id="floatingPlusIcon">
+            <i class="fa fa-plus"></i>
+          </div>
+      </div>
  </div>
+
+<div class="footerDesk container-fluid text-center">
+    Call 1800 180 180 180
+    <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
+</div>
 <div class="modal fade contactModal" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                <div class="modal-dialog" role="document">
                   <div class="modal-content col-lg-12 p-0">
@@ -741,8 +748,14 @@
       });
 
       $('#showMoreContent').click(function(){
-          $('.hiddenContent').slideToggle();
+          $('.hiddenContent').toggleClass('moreLess');
           $('#showMoreContent').html($('#showMoreContent').text() == 'Less' ? 'More' : 'Less');
+      });
+      
+
+      $('#floatingPlusIcon').click(function(){
+          $('.floatingBtnsInner').slideToggle();
+          $('.overlay').toggle();
       });
 
       });
