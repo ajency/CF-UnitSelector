@@ -612,6 +612,8 @@ function getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType)
 }
 
 
+
+
 function getPropertyVariants(propertyType,variant,buildingId){
 
 	var variants = [];
@@ -879,12 +881,16 @@ function getApartmentFilterTypes(propertyType,buildingId){
 
 			// get filter values ie the unit types for the apartment
 
-			apartmentUnitTypes = getApartmentUnitTypes(building);
+			apartmentUnitTypes = getApartmentUnitTypes(building,'buildings');
+
 
 			
 			filterType.filterValues = apartmentUnitTypes;
 
-			filterTypes.push(filterType);
+			if(filterType.filterValues.length>0){
+				filterTypes.push(filterType);
+			}
+			
 
 			}
 
@@ -909,7 +915,9 @@ function getApartmentFilterTypes(propertyType,buildingId){
 
 					filterType.filterValues = getPropertyVariants(propertyType,attribute,building);
 
-					filterTypes.push(filterType);
+					if(filterType.filterValues.length>0){
+						filterTypes.push(filterType);
+					}
 				}
 			});
 
@@ -922,7 +930,9 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			
 			filterType.filterValues = getfilterRangeValues('budget',propertyType,building);
 
-			filterTypes.push(filterType);
+			if(filterType.filterValues.length>0){
+				filterTypes.push(filterType);
+			}
 		}
 
 
@@ -933,7 +943,9 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			
 			filterType.filterValues = getfilterRangeValues('area',propertyType,building);
 
-			filterTypes.push(filterType);
+			if(filterType.filterValues.length>0){
+				filterTypes.push(filterType);
+			}
 		}
 
 
@@ -944,7 +956,9 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			
 			filterType.filterValues = getAvailableUnitSelectOptions(propertyType,'floor',building);
 
-			filterTypes.push(filterType);
+			if(filterType.filterValues.length>0){
+				filterTypes.push(filterType);
+			}
 		}
 
 
@@ -955,7 +969,9 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			
 			filterType.filterValues = getAvailableUnitSelectOptions(propertyType,'direction',building);
 
-			filterTypes.push(filterType);
+			if(filterType.filterValues.length>0){
+				filterTypes.push(filterType);
+			}
 		}
 
 
@@ -966,7 +982,9 @@ function getApartmentFilterTypes(propertyType,buildingId){
 
 			filterType.filterValues = getAvailableUnitViewsOptions(propertyType);
 
-			filterTypes.push(filterType);
+			if(filterType.filterValues.length>0){
+				filterTypes.push(filterType);
+			}
 		}
 
 	});
