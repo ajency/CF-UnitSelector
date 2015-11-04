@@ -101,6 +101,8 @@ var GroupMaster = React.createClass({
                 unit.building_name = singleUnit.unit_name;
                 unit.primary_breakpoint = singleUnit.primary_breakpoint;
                 unit.minStartPrice = singleUnit.selling_amount;
+                unit.unitType = singleUnit.unitType;
+                unit.superBuiltUpArea = singleUnit.super_built_up_area;
 
                 apartmentUnitData =[];
                 apartmentAvailableUnitData =[];

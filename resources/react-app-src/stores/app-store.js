@@ -488,6 +488,17 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 		
 
 		_.each(allUnits, function(unit){
+			unitPropertyType = getPropertyType(unit.property_type_id);
+			
+			unitSba = getPropertyVariantsById(unitPropertyType,unit.unit_variant_id,"super_built_up_area");
+			unit.super_built_up_area = unitSba;
+
+			unitTypeId = getPropertyVariantsById(unitPropertyType,unit.unit_variant_id,"unit_type_id");
+			unitTypeDetails = getUnitTypeDetails(unitTypeId);
+
+			unit.unitType = unitTypeDetails["name"];
+
+			
 			
 			if(unit.building_id === buildingId){
 				
@@ -694,17 +705,17 @@ function getVariantsName(propertyType,variant,buildingId){
 	var variants = [];
 
 
-var totalUnitsInBuilding = _projectData.units;
+	var totalUnitsInBuilding = _projectData.units;
 
 
-if (buildingId==="all") {
-	var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });			
-}
-else{
-	var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available" && unit.building_id == buildingId){return unit;} });
-}
+	if (buildingId==="all") {
+		var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });			
+	}
+	else{
+		var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available" && unit.building_id == buildingId){return unit;} });
+	}
 
-var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
+	var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
 
 
 

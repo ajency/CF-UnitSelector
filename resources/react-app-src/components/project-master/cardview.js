@@ -120,6 +120,13 @@ var CardView = React.createClass({
 
 
         if(window.isMobile){
+
+          unitTypeDom = (<div className="col-xs-12 text-muted"><span> {noOfFloors}  &nbsp;Floors</span><li></li> <span> {supportedUnitTypeString} </span></div>  );
+
+          if((!_.isUndefined(buildingData.unitType))&&(!_.isUndefined(buildingData.superBuiltUpArea))){
+            unitTypeDom = (<div className="col-xs-12 text-muted"><span> {buildingData.unitType}</span><li></li> <span> {buildingData.superBuiltUpArea} &nbsp;sqFt </span></div> );
+          }
+
           mainDom = ( <div className={cardClasses} data-unitid={buildingId}>
                           <div className="row">
                               <div className="col-xs-12">
@@ -131,9 +138,9 @@ var CardView = React.createClass({
                           </div>
                           
                           <div className=" swipe-unit-info row">
-                             <div className="col-xs-12 text-muted">
-                                <span> {noOfFloors}  &nbsp;Floors</span><li></li> <span> {supportedUnitTypeString} </span>
-                             </div>  
+                             
+                                {unitTypeDom}
+                             
                           </div>
 
                           <div className="row swipe-footer">
@@ -164,6 +171,12 @@ var CardView = React.createClass({
           // give card an id to help in scrolling
           cardId = "building"+buildingId;
 
+          unitTypeDom = ( <div className="col-xs-12 text-muted"> <span>{noOfFloors} Floors</span> <ul> <li></li> </ul> <span>{supportedUnitTypeString}</span> </div>);
+
+          if((!_.isUndefined(buildingData.unitType))&&(!_.isUndefined(buildingData.superBuiltUpArea))){
+            unitTypeDom = (<div className="col-xs-12 text-muted"><span> {buildingData.unitType}</span><ul><li></li> </ul> <span> {buildingData.superBuiltUpArea} &nbsp;sqFt </span></div> );
+          }          
+
           mainDom = (   <li className="sidebar-brand">
                             <div className={cardClasses} onClick={this.selectCard} data-unitid={buildingId} id={cardId}>
                                 <div className="row">
@@ -175,13 +188,7 @@ var CardView = React.createClass({
                                     </div>
                                 </div>
                                 <div className=" swipe-unit-info row">
-                                    <div className="col-xs-12 text-muted">
-                                        <span>{noOfFloors} Floors</span>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
-                                        <span>{supportedUnitTypeString}</span>
-                                    </div>
+                                  {unitTypeDom}
                                 </div>
                                 <div className="swipe-footer">
                                     <div className="col-xs-12">
