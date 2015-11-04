@@ -507,6 +507,11 @@ function breakpointSvgUploader(position) {
                 $('.breakpointSvg-' + position).text('Import');
                 $.notify(fileResponse.message, 'success');
 
+            },
+              Error: function (up, err) {
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + err.message + '</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');
+
             }
         }
     });
@@ -593,6 +598,11 @@ function breakpointStep2SvgUploader(position) {
                 
                 $('.breakpointSvg-step2-' + position).text('Import');
                 $.notify(fileResponse.message, 'success');
+
+            },
+            Error: function (up, err) {
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + err.message + '</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');
 
             }
         }
@@ -877,6 +887,11 @@ function setupShadowImgUploader(position) {
 
                //$('.delete-shadow-' + position).removeClass('hidden');
                // $('.delete-shadow-' + position).attr("onclick","");
+
+            },
+            Error: function (up, err) {
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + err.message + '</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');
 
             }
         }
