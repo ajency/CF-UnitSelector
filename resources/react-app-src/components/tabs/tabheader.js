@@ -44,7 +44,7 @@ var TabHeader = React.createClass({
   	domToDisplay = (
   		<div className="tabHeader">
 		    <div className="title">
-		        <a href="#"><i className="fa fa-times"></i></a>
+		        <a href="#"><i className="i-icon i-dark-arrow"></i></a>
 		        <h3>{this.props.buildingName} : {this.props.unitTypeName} : {this.props.propertyTypeName}</h3>
 		    </div>
 		    <ul className="nav nav-tabs" role="tablist">
