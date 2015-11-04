@@ -36,8 +36,8 @@ var qtipSettings = { // Grab some elements to apply the tooltip to
 
 
 
-function getGroupStateData(groupId){
-    return AppStore.getGroupStateData(groupId);
+function getGroupStateData(buildingId,groupId){
+    return AppStore.getGroupStateData(buildingId,groupId);
 }
 
 
@@ -57,17 +57,22 @@ var GroupMaster = React.createClass({
     getGroupState: function() {
         var groupId;
         groupId = this.props.groupId;
+        buildingId = this.props.buildingId;
 
-        stateData =  getGroupStateData(groupId);
+        stateData =  getGroupStateData(buildingId,groupId);
 
         return this.formatStateData(stateData);
     },
 
     formatStateData: function(stateDataToformat){
         var newState = stateDataToformat;
+        var apartments = [];
+        var floorGroups = [];
 
-        floorGroups = stateDataToformat.data.buildings;
-        apartments = [];
+        if(!_.isEmpty(stateDataToformat)){
+            floorGroups = stateDataToformat.data.buildings;
+        
+        }
         
         if(floorGroups.length>0){
             newStateData = newState.data;
@@ -526,38 +531,48 @@ var GroupMaster = React.createClass({
     },
 
     render: function(){
-        var data = this.state.data;
+        var stateData = this.state;
+        var data;
 
-        console.log(this.state);
-        
-        var projectTitle = data.projectTitle;
-        var projectLogo = data.projectLogo;
-        var unitCount = data.totalCount;
-        var buildings = data.buildings;
-        var breakpoints = data.breakpoints;
-        var applied_filters = data.applied_filters;
-        var isFilterApplied = data.isFilterApplied;
+        if(!_.isEmpty(stateData)){
+            data = this.state.data;        
+            var projectTitle = data.projectTitle;
+            var projectLogo = data.projectLogo;
+            var unitCount = data.totalCount;
+            var buildings = data.buildings;
+            var breakpoints = data.breakpoints;
+            var applied_filters = data.applied_filters;
+            var isFilterApplied = data.isFilterApplied;
 
-        var filterTypes = data.filterTypes;
+            var filterTypes = data.filterTypes;
 
-        var unitIndexToHighlight = data.unitIndexToHighlight;
+            var unitIndexToHighlight = data.unitIndexToHighlight;
 
-        var buildingToHighlight = buildings[unitIndexToHighlight];
+            var buildingToHighlight = buildings[unitIndexToHighlight];
 
-        var availableUnitData = buildings.availableUnitData;
-        var filteredUnitData = buildings.filteredUnitData;
+            var availableUnitData = buildings.availableUnitData;
+            var filteredUnitData = buildings.filteredUnitData;
 
-        var domToDisplay;
-        var modalData = {};
+            var domToDisplay;
+            var modalData = {};
 
-        modalData.filterTypes = filterTypes;
-        modalData.search_filters = data.search_filters;
-        modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
+            modalData.filterTypes = filterTypes;
+            modalData.search_filters = data.search_filters;
+            modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
 
-        buildingId = this.props.buildingId;
+            buildingId = this.props.buildingId;            
+        }
+
 
         // display dom based on whether it is a mobile or a desktop view
-        if(window.isMobile){
+        if(_.isEmpty(stateData)){
+            domToDisplay = (
+                <div>
+                    <h5>No data found</h5>
+                </div>
+            );
+        }
+        else if(window.isMobile){
             domToDisplay = (
                 <div className="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
                     <NavBar 
