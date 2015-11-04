@@ -567,8 +567,8 @@ var GroupMaster = React.createClass({
         // display dom based on whether it is a mobile or a desktop view
         if(_.isEmpty(stateData)){
             domToDisplay = (
-                <div>
-                    <h5>No data found</h5>
+                <div className="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
+                    
                 </div>
             );
         }
@@ -601,7 +601,7 @@ var GroupMaster = React.createClass({
                         ref= "imageContainer"
                         showShadow={data.showShadow}
                         shadowImages={data.shadowImages}
-                        imageType="buildingFloorGrps"
+                        imageType="singleFloorGroup"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}

@@ -1566,6 +1566,19 @@ function getGroupMasterFromProjectData(buildingId,groupId){
 
 }
 
+function getMinUnitPrice (units){
+    unitPrices = [];
+    unitPrices = _.pluck(units, "selling_amount");
+    if(unitPrices.length>0)
+        minStartPrice = _.min(unitPrices);
+    else{
+        minStartPrice = "N/A";
+    }
+
+
+    return minStartPrice;
+}
+
 function _getGroupMasterDetails(buildingId,groupId){
 	buildingId = parseInt(buildingId);
 	groupId = parseInt(groupId);
@@ -1673,8 +1686,7 @@ function formatBuildingStateData(stateDataToformat){
 
             minPrice = 0;
 
-            minStartPrice = minPrice;
-            // minStartPrice = this.getMinUnitPrice(floorGroupUnitData);
+            minStartPrice = getMinUnitPrice(floorGroupUnitData);
             floorGroup.minStartPrice = minStartPrice;
 
             supportedUnitTypesArr = AppStore.getApartmentUnitTypes(floorGrpId, "floorgroups");

@@ -74,8 +74,10 @@ var SvgContainer = React.createClass({
 
         if(imageType === "master"){
           selector = '.building'+id;
-        }else{
+        }else if(imageType === "buildingFloorGrps"){
           selector = '.floor_group'+id;  
+        }else{
+          selector = '.apartment'+id;
         }
 
         existingClasses = $(selector).attr("class"); 
@@ -125,7 +127,7 @@ var SvgContainer = React.createClass({
           case "buildingFloorGrps":
               svgNamePrefix = "step-two-";
               break;
-          case "buildingUnits":
+          case "singleFloorGroup":
               svgNamePrefix = "step-three-";
               break;
           default:
