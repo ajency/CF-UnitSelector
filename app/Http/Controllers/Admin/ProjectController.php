@@ -1267,11 +1267,11 @@ class ProjectController extends Controller {
                 break;
 
             case 'building_master':
-                $svg_type_display = "BUILDING MASTER";
+                $svg_type_display = "BUILDING MASTER (UNITS)";
                 break;
 
             case 'building_master_step_two':
-                $svg_type_display = "BUILDING MASTER";
+                $svg_type_display = "BUILDING MASTER (FLOOR GROUP)";
                 break;
 
             case 'group_master':

@@ -559,7 +559,7 @@ jQuery(document).ready(function($) {
         unit_name = unit.get('building_name');
       }
       if (type === 'floor_group') {
-        buildings = buildingCollection.toArray();
+        buildings = buildingMasterCollection.toArray();
         building = _.where(buildings, {
           id: parseInt(building_id)
         });
@@ -1278,7 +1278,7 @@ jQuery(document).ready(function($) {
       async: false,
       data: $.param(myObject),
       success: function(response) {
-        var bldg, indexToSplice, obj_id_deleted, obj_type, types, unit;
+        var bldg, buildingFloorGroup, buildingFloorGroups, floorGroupId, indexToSplice, obj_id_deleted, obj_type, types, unit;
         indexToSplice = -1;
         obj_id_deleted = 0;
         obj_type = "";
@@ -1297,6 +1297,20 @@ jQuery(document).ready(function($) {
               'id': obj_id_deleted
             });
             buildingCollection.bldg;
+          } else if (obj_type === "floor_group") {
+            floorGroupId = parseInt(obj_id_deleted);
+            bldg = buildingMasterCollection.findWhere({
+              'id': parseInt(building_id)
+            });
+            buildingFloorGroups = bldg['attributes']['floor_group'];
+            buildingFloorGroup = _.where(buildingFloorGroups, {
+              id: floorGroupId
+            });
+            bldg = buildingCollection.findWhere({
+              'id': parseInt(building_id)
+            });
+            buildingFloorGroups = bldg['attributes']['floor_group'];
+            bldg['attributes']['floor_group'].push(buildingFloorGroup[0]);
           } else if (obj_type === "project") {
             window.is_project_marked = false;
           } else {

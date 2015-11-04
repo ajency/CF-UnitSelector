@@ -581,12 +581,10 @@ jQuery(document).ready ($)->
                     'id' : parseInt elem.id
                 unit_name = unit.get('building_name')
             if type is 'floor_group'
-                buildings = buildingCollection.toArray()
+                buildings = buildingMasterCollection.toArray()
                 building = _.where(buildings, {id: parseInt(building_id) })
-
                 attributes = _.pluck(building, 'attributes')
                 floorGrops = _.pluck(attributes, 'floor_group')
-                
 
                 unit = _.where(floorGrops[0], {id: parseInt(elem.id) })
                 unit_name = unit[0]['name']
@@ -1392,6 +1390,19 @@ jQuery(document).ready ($)->
                                     'id' : obj_id_deleted
                         buildingCollection.bldg
 
+                    else if obj_type is "floor_group"
+                        floorGroupId = parseInt obj_id_deleted
+                        bldg = buildingMasterCollection.findWhere
+                            'id' : parseInt building_id
+                        
+                        buildingFloorGroups = bldg['attributes']['floor_group']
+                        buildingFloorGroup = _.where(buildingFloorGroups, {id: floorGroupId })
+
+                        bldg = buildingCollection.findWhere
+                            'id' : parseInt building_id
+
+                        buildingFloorGroups = bldg['attributes']['floor_group']
+                        bldg['attributes']['floor_group'].push buildingFloorGroup[0]
                     else if obj_type is "project"
                         window.is_project_marked = false 
                     else 

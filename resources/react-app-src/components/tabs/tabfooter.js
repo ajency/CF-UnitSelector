@@ -34,8 +34,12 @@ var TabFooter = React.createClass({
   			"booked": notAvailable
   		})
 
-	    return (
-			<div className="tabfooter">
+
+  		var domToDisplay;
+
+  		if(window.isMobile){
+		domToDisplay = (
+				<div className="tabfooter">
 			    <div className="row">
 			        <button className="col-xs-6 button">
 			            <div>
@@ -55,7 +59,17 @@ var TabFooter = React.createClass({
 			        </button>
 			    </div>
 			</div>
-	    )
+			);
+	    }else{
+	    	domToDisplay = (
+	    		<div className="footerDesk container-fluid text-center">
+	    		Call 1800 180 180 180
+	    		<div className="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
+	    		</div>
+	    	);
+	    }
+
+	    return domToDisplay;
 	  }
 });
 

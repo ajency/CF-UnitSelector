@@ -80,7 +80,7 @@ if(window.isMobile){
 
     roomCardNodes = roomData.map(function(room,i){
                         return(
-                            <div key={i} className="col-md-3 roomDetails text-uppercase">
+                            <div key={i} className="roomDetails text-uppercase">
                                 <h5 className="text-uppercase">{room.room_name}</h5>
                                     <RoomAttributeList
                                         attributes={room.atributes}

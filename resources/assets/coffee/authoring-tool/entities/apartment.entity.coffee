@@ -71,6 +71,8 @@ class AuthoringTool.ApartmentView extends Marionette.ItemView
 
 			options = []
 			units = Marionette.getOption(@,'units')
+			$('.units').find('option').remove()
+			$('.units').append($('<option></option>').val('').html('Select')) 
 			$.each units, (ind,val)->
 				if _.contains(floors, parseInt val.get 'floor')
 					$('.units').append($('<option></option>').val(val.get 'id').html(val.get 'unit_name')) 
