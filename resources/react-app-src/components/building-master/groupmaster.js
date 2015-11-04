@@ -88,7 +88,7 @@ var GroupMaster = React.createClass({
 
 
             // all units in the floor group
-            allUnits = building.unitData;
+            allUnits = floorGroup.unitData;
 
             _.each(allUnits, function(singleUnit){
                 supportedUnitTypes = [];
