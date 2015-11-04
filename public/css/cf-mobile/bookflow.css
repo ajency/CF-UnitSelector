@@ -408,7 +408,8 @@ body {
   position: relative;
   z-index: 9999;
 }
-.bookFlowContent .panel .termsConditions li.parsley-required {
+.bookFlowContent .panel .termsConditions li.parsley-required,
+.bookFlowContent .panel .termsConditions li.parsley-pattern {
   list-style: none;
   font-size: 11px;
   position: absolute;
@@ -586,7 +587,8 @@ body {
 .bookFlowContent .bottomSection .rightContent .safePaymentText {
   font-size: 16px;
 }
-.bookFlowContent li.parsley-required {
+.bookFlowContent li.parsley-required,
+.bookFlowContent li.parsley-pattern {
   list-style: none;
   font-size: 11px;
   position: absolute;
