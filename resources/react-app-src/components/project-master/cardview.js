@@ -30,6 +30,30 @@ var CardView = React.createClass({
       // this.setState(newState);
     },
 
+    getNextStepUrl: function(navigationType, navigationId){
+
+      var url = "";
+
+      switch(navigationType){
+        case "project":
+          url = "/buildings/";
+          break;
+        case "building":
+          url = "/buildings/"+navigationId+"/group/";
+          break;
+        case "group":
+          url = "/units/";
+          break;          
+        default:
+          url = "/buildings/";
+      }
+
+      return url;
+
+
+    },
+
+
     render: function() {
         var buildingData = this.props.building;
         var buildingId = buildingData.id;
@@ -38,13 +62,17 @@ var CardView = React.createClass({
         var noOfFloors = 0;
         var buildingName = "";
         var supportedUnitTypeString = " ";
-        var buildingUrl = " ";
+        var baseUrl = "";
+        var buildingUrl = "";
         var minStartPrice = buildingData.minStartPrice;
         
         var unitCount = 0;
         var unitCountDisplayString = "available"; 
 
         var isZeroUnits = isZeroInSelection = false;
+
+        var cardListFor = this.props.cardListFor;
+        var cardListForId = this.props.cardListForId;
 
         var mainDom;
 
@@ -56,8 +84,8 @@ var CardView = React.createClass({
           noOfFloors = buildingData.no_of_floors;
           buildingName = buildingData.building_name;
           
-
-          buildingUrl = "/buildings/"+buildingData.id;
+          baseUrl = this.getNextStepUrl(cardListFor,cardListForId);
+          buildingUrl =  baseUrl+buildingData.id;
 
           _.each(buildingData.supportedUnitTypes, function(supportedUnitType , i){
                 

@@ -586,12 +586,17 @@ var BuildingMaster = React.createClass({
         var domToDisplay;
         var modalData = {};
 
+        buildingId = this.props.buildingId;
+
+        var cardListFor = "building";
+        var cardListForId = buildingId;
+
 
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
-        modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
+        modalData.projectData = "";
 
-        buildingId = this.props.buildingId;
+        
 
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){
@@ -642,6 +647,8 @@ var BuildingMaster = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip}
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId}
                     />
                 </div>
             );
@@ -661,7 +668,9 @@ var BuildingMaster = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip} 
-                        unitIndexToHighlight = {unitIndexToHighlight}                   
+                        unitIndexToHighlight = {unitIndexToHighlight}
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId}
                     />
 
                     <div id="page-content-wrapper">

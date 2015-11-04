@@ -562,7 +562,11 @@ var GroupMaster = React.createClass({
             modalData.search_filters = data.search_filters;
             modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
 
-            buildingId = this.props.buildingId;            
+            buildingId = this.props.buildingId;
+            groupId = this.props.groupId;
+
+            var cardListFor = "group";
+            var cardListForId = groupId;       
         }
 
 
@@ -621,6 +625,8 @@ var GroupMaster = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip}
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId}
                     />
                 </div>
             );
@@ -640,7 +646,9 @@ var GroupMaster = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip} 
-                        unitIndexToHighlight = {unitIndexToHighlight}                   
+                        unitIndexToHighlight = {unitIndexToHighlight}
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId} 
                     />
 
                     <div id="page-content-wrapper">

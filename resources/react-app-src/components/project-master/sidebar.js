@@ -24,6 +24,10 @@ var SideBar = React.createClass({
 		var projectDetailsHeight = 100;
 		var outsideViewHeight = 0; //height of outside view as seen in step2
 
+		
+		var cardListFor = this.props.cardListFor ;
+        var cardListForId = this.props.cardListForId ;
+
 		// calculate sideContentBarHeight
 		sideContentBarHeight = windowHeight-290;
 		sidebarHeightPx = sideContentBarHeight+"px";
@@ -42,6 +46,8 @@ var SideBar = React.createClass({
                       destroyTooltip = {destroyTooltip}
                       rotateImage = {rotateImage}
 	                  buildingToBeHighlighted= {buildingToBeHighlighted}
+                      cardListFor = {cardListFor}
+                      cardListForId = {cardListForId}
 	                /> 
 	                </div>
 	            ); 
@@ -51,6 +57,8 @@ var SideBar = React.createClass({
 		var SideBarStyle = {
 		  height: sidebarHeightPx
 		};	
+
+
 		return (
 	         <div ref="sidebarWrapper" id="sidebar-wrapper">
 	            <NavBar 
