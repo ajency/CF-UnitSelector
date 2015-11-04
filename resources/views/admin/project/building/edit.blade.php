@@ -176,7 +176,7 @@
                                     <a onclick="deleteSvg({{ $shadowImages[$position]['ID'] }}, 'shadow','{{ $position }}');" class="text-primary delete-shadow-{{ $position }}" ><i class="fa fa-close"></i></a>
                                     @endif
                                 </td>
-                                <td class=" "> <div id="step2uploadsvg_{{ $position }}" class="{{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} breakpointSvg-{{ $position }}">Import</div></td>
+                                <td class=" "> <div id="step2uploadsvg_{{ $position }}" class="{{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} breakpointSvg-step2-{{ $position }}">Import</div></td>
                                 <td class=" "> <div id="uploadsvg_{{ $position }}" class="{{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} breakpointSvg-{{ $position }}">Import</div></td>
                                 <td class=" ">
                                     <a target="_blank" href=" {{$authoringToolStep2Url}} " class=" {{ (isset($breakpoints) && in_array($position,$breakpoints)) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool Step-2</a>
