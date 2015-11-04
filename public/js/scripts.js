@@ -465,18 +465,41 @@ function breakpointSvgUploader(position) {
                  };*/
             },
             FilesAdded: function (up, files) {
-                 up.start();
+                var failcount = 0;
+                for (var i = 0; i < files.length; i++) {
+                    var fileName = files[i].name;
+                    var fileData = fileName.split('.');
+
+
+                    if (fileData[1]=='svg') {
+                        var load_str = '<div class="progress progress-small " style="margin:0;">';
+                         load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
+                         $('.breakpointSvg-' + position).html(load_str);
+
+                    } else {
+
+                        uploader.removeFile(files[i]);
+                        failcount++;
+                    }
+
+                     
+                }
+
+                if (failcount) {
+
+                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + failcount + ' svg failed to upload. Invalid File.</div>');
+                    $('.project-master-images').find(".alert-error").removeClass('hidden');
+                }
+
+                if (files.length)
+                    up.start();
+               
  
             },
             UploadProgress: function (up, file) {
-                var fileName = file.name;
-                var fileData = fileName.split('.');
-                var fileData_1 = fileData[0].split('-');
-                var mastername = fileData_1[0];
-                var position = fileData_1[1];
+ 
+                $('.breakpointSvg-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
 
-                $('.breakpointSvg-' + position).html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
-               
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);  
@@ -529,23 +552,46 @@ function breakpointStep2SvgUploader(position) {
                  };*/
             },
             FilesAdded: function (up, files) {
-                 up.start();
+                var failcount = 0;
+                for (var i = 0; i < files.length; i++) {
+                    var fileName = files[i].name;
+                    var fileData = fileName.split('.');
+
+
+                    if (fileData[1]=='svg') {
+                        var load_str = '<div class="progress progress-small " style="margin:0;">';
+                         load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
+                         $('.breakpointSvg-step2-' + position).html(load_str);
+
+                    } else {
+
+                        uploader.removeFile(files[i]);
+                        failcount++;
+                    }
+
+                     
+                }
+
+                if (failcount) {
+
+                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + failcount + ' svg failed to upload. Invalid File.</div>');
+                    $('.project-master-images').find(".alert-error").removeClass('hidden');
+                }
+
+                if (files.length)
+                    up.start();
+               
  
             },
             UploadProgress: function (up, file) {
-                var fileName = file.name;
-                var fileData = fileName.split('.');
-                var fileData_1 = fileData[0].split('-');
-                var mastername = fileData_1[0];
-                var position = fileData_1[1];
+ 
+                $('.breakpointSvg-step2-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
 
-                $('.breakpointSvg-' + position).html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="' + file.percent + '%" style="width: ' + file.percent + '%;margin:0;"></div>');
-               
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);  
                 
-                $('.breakpointSvg-' + position).text('Import');
+                $('.breakpointSvg-step2-' + position).text('Import');
                 $.notify(fileResponse.message, 'success');
 
             }
@@ -781,10 +827,37 @@ function setupShadowImgUploader(position) {
                  };*/
             },
             FilesAdded: function (up, files) {
-                 up.start();
-                 var load_str = '<div class="progress progress-small " style="margin:0;">';
-                 load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
-                 $('.td-shadow-' + position).html(load_str);
+                var failcount = 0;
+                for (var i = 0; i < files.length; i++) {
+                    var fileName = files[i].name;
+                    var fileData = fileName.split('.');
+                    var fileData_1 = fileData[0].split('-');
+                    var mastername = fileData_1[0];
+                    var position = fileData_1[1];
+
+                    if ((fileData_1.length == 2) && (mastername == 'shadow' && !isNaN(position))) {
+                        var load_str = '<div class="progress progress-small " style="margin:0;">';
+                         load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
+                         $('.td-shadow-' + position).html(load_str);
+
+                    } else {
+
+                        uploader.removeFile(files[i]);
+                        failcount++;
+                    }
+
+                }
+
+                if (failcount) {
+
+                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> ' + failcount + ' images failed to upload. Invalid File Name.</div>');
+                    $('.project-master-images').find(".alert-error").removeClass('hidden');
+                }
+
+                if (files.length)
+                    up.start();
+                 
+                 
             },
             UploadProgress: function (up, file) {
                 var fileName = file.name;
