@@ -984,9 +984,6 @@ body {
     width: 32%;
     padding-right: 0;
   }
-  .bookFlowContent .bottomSection {
-    padding-left: 0;
-  }
 }
 @media screen and (max-width: 767px) {
   .bookFlowContent {
