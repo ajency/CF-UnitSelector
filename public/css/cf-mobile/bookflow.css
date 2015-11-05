@@ -996,9 +996,6 @@ body {
   .successContent .cancelBookingOuter a {
     margin-top: 10px;
   }
-  .bookFlowContent .panel .btnOuter {
-    padding-left: 0;
-  }
   .bookFlowContent .panel .reviewDetails .detailsOuter > div {
     width: 32%;
     padding-right: 0;
