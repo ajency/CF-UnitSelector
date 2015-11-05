@@ -302,7 +302,19 @@ def unit_project_price_sheet(request):
 			component['cost_type'] = price_sheet_component.cost_type
 			component['entered_value'] = str(price_sheet_component.amount)
 			if 'Lumpsump' in price_sheet_component.cost_type:
-				component['amount'] = price_sheet_component.amount
+				if 'PLC-Floorrise' in price_sheet_component.price_type:
+					calculated_sqft = int(unit_extra_info['data']['unit']['built_up_area'])
+					floor_number = unit_extra_info['data']['unit']['floor_number']
+					if 'Fix Increasing Cost' in price_sheet_component.price_sub_type:
+						component['amount'] = int(price_sheet_component.amount)*int(floor_number)
+					elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
+						component['amount'] = -(int(price_sheet_component.amount)*int(floor_number))
+					elif int(price_sheet_component.price_sub_type)==int(floor_number):
+						component['amount'] = int(price_sheet_component.amount)
+					else:
+						component['amount'] = 0
+				else:
+					component['amount'] = price_sheet_component.amount
 			elif 'Per sqft' in price_sheet_component.cost_type:
 				calculated_sqft = 0
 				if 'Basic' in price_sheet_component.price_type:
@@ -419,7 +431,19 @@ def unit_price_sheet(request):
 			component['cost_type'] = price_sheet_component.cost_type
 			component['entered_value'] = str(price_sheet_component.amount)
 			if 'Lumpsump' in price_sheet_component.cost_type:
-				component['amount'] = price_sheet_component.amount
+				if 'PLC-Floorrise' in price_sheet_component.price_type:
+					calculated_sqft = int(unit_extra_info['data']['unit']['built_up_area'])
+					floor_number = unit_extra_info['data']['unit']['floor_number']
+					if 'Fix Increasing Cost' in price_sheet_component.price_sub_type:
+						component['amount'] = int(price_sheet_component.amount)*int(floor_number)
+					elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
+						component['amount'] = -(int(price_sheet_component.amount)*int(floor_number))
+					elif int(price_sheet_component.price_sub_type)==int(floor_number):
+						component['amount'] = int(price_sheet_component.amount)
+					else:
+						component['amount'] = 0
+				else:
+					component['amount'] = price_sheet_component.amount
 			elif 'Per sqft' in price_sheet_component.cost_type:
 				calculated_sqft = 0
 				if 'Basic' in price_sheet_component.price_type:
@@ -551,7 +575,18 @@ def calc_total_sale_value(id, is_booked, price_sheet_id=None):
 				if(price_sheet_components):
 					for price_sheet_component in price_sheet_components:
 						if 'Lumpsump' in price_sheet_component.cost_type:
-							total_sale_value_lumpsump += float(price_sheet_component.amount)
+							if 'PLC-Floorrise' in price_sheet_component.price_type:
+								calculated_sqft = int(unit_extra_info['data']['unit']['built_up_area'])
+								floor_number = unit_extra_info['data']['unit']['floor_number']
+								print floor_number, " --> ", price_sheet_component.price_sub_type
+								if 'Fix Increasing Cost' in price_sheet_component.price_sub_type:
+									total_sale_value_lumpsump += int(price_sheet_component.amount)*int(floor_number)
+								elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
+									total_sale_value_lumpsump -= (int(price_sheet_component.amount)*int(floor_number))
+								elif int(price_sheet_component.price_sub_type)==int(floor_number):
+									total_sale_value_lumpsump += int(price_sheet_component.amount)
+							else:
+								total_sale_value_lumpsump += float(price_sheet_component.amount)
 						elif 'Per sqft' in price_sheet_component.cost_type:
 							calculated_sqft = 0
 							if 'Basic' in price_sheet_component.price_type:
@@ -869,8 +904,20 @@ def book_payment_structure(request):
 				book_pricesheet_component.booking_id = booking_id
 
 				if 'Lumpsump' in price_sheet_component.cost_type:
-					book_pricesheet_component.entered_value = 'Rs. '+str(price_sheet_component.amount)
-					book_pricesheet_component.total_amount = price_sheet_component.amount
+					if 'PLC-Floorrise' in price_sheet_component.price_type:
+						calculated_sqft = int(unit_extra_info['data']['unit']['built_up_area'])
+						floor_number = unit_extra_info['data']['unit']['floor_number']
+						if 'Fix Increasing Cost' in price_sheet_component.price_sub_type:
+							book_pricesheet_component.total_amount += int(price_sheet_component.amount)*int(floor_number)
+						elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
+							book_pricesheet_component.total_amount -= (int(price_sheet_component.amount)*int(floor_number))
+						elif int(price_sheet_component.price_sub_type)==int(floor_number):
+							book_pricesheet_component.total_amount = int(price_sheet_component.amount)
+						else:
+							book_pricesheet_component.total_amount = 0
+					else
+						book_pricesheet_component.entered_value = 'Rs. '+str(price_sheet_component.amount)
+						book_pricesheet_component.total_amount = price_sheet_component.amount
 				elif 'Percentage' in price_sheet_component.cost_type:
 					book_pricesheet_component.entered_value = str(price_sheet_component.amount) + '% of the Total Sale Value'
 					book_pricesheet_component.total_amount = int(total_sale_value)*int(price_sheet_component.amount)/100
