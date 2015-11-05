@@ -67,7 +67,7 @@ $startTime= time();
             <div class="container">
                 <h3 class="text-center text-uppercase">3 Steps for booking your apartment</h3>
                 <span class="text-center col-md-12 col-sm-12 col-xs-12 spanText">Complete your booking securely through our payment gateway</span>
-                <span class="text-center col-md-12 col-sm-12 col-xs-12 timerText">Current session will restart in <b><span id="timeCounter"><?php echo EXPIREDURATION;echo ":00";?></b> minutes</span>
+                <span class="text-center col-md-12 col-sm-12 col-xs-12 timerText">Current session will restart in <b><span id="timeCounter" class="orangeText "><?php echo EXPIREDURATION;echo ":00";?></b> minutes</span>
                 <div class="bookAptOuter">
                     <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
