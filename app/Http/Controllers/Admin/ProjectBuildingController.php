@@ -11,6 +11,7 @@ use CommonFloor\Phase;
 use CommonFloor\FloorLayout;
 use CommonFloor\Project;
 use CommonFloor\Media;
+use CommonFloor\FloorGroup;
 use \Session;
 
 class ProjectBuildingController extends Controller {
@@ -76,6 +77,25 @@ class ProjectBuildingController extends Controller {
         $building->shadow_images = [];
 
         $building->save();
+
+        $floorGroupNames =  $formData['floor_group_name'];
+        $floorGroupIds =  $formData['floor_group_id'];
+        $groupFloors =  $formData['group_floors'];
+
+        foreach ($floorGroupNames as $key => $floorGroupName) {
+            $floorGroupId = $floorGroupIds[$key];
+            $groupFloor = explode(",",$groupFloors[$key]);
+
+            if($floorGroupName =='')
+                continue;
+
+                $floorGroup = new FloorGroup();
+                $floorGroup->building_id = $building->id;
+                $floorGroup->name = ucfirst($floorGroupName);
+                $floorGroup->floors = $groupFloor;
+                $floorGroup->save();
+
+        }
         
         Session::flash('success_message','Building Successfully Created');
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
@@ -143,6 +163,8 @@ class ProjectBuildingController extends Controller {
             }
 
         }
+
+        $floorGroups = $building->floorGroups()->get()->toArray(); 
         
         if(empty($isBuildingPhaseInPhases))
             $phases[]= $project->projectPhase()->where('id',$building->phase_id)->first()->toArray();
@@ -156,6 +178,7 @@ class ProjectBuildingController extends Controller {
                         ->with( 'floorLayouts', $floorLayouts )
                          ->with('disabled', $disabled)
                         ->with( 'svgImages', $svgImages )
+                        ->with( 'floorGroups', $floorGroups )
                         ->with( 'shadowImages', $shadowImages );
     }
 
@@ -178,6 +201,37 @@ class ProjectBuildingController extends Controller {
         $building->floor_rise = $formData['floor_rise'];    
         $building->has_master = $formData['has_master'];
         $building->save();
+
+        $floorGroupNames =  $formData['floor_group_name'];
+        $floorGroupIds =  $formData['floor_group_id'];
+        $groupFloors =  $formData['group_floors'];
+
+        foreach ($floorGroupNames as $key => $floorGroupName) {
+            $floorGroupId = $floorGroupIds[$key];
+            $groupFloor = explode(",",$groupFloors[$key]);
+
+            if($floorGroupName =='')
+                continue;
+
+            if($floorGroupId==''){
+                $floorGroup = new FloorGroup();
+                $floorGroup->building_id = $buildingId;
+                $floorGroup->name = ucfirst($floorGroupName);
+                $floorGroup->floors = $groupFloor;
+                $floorGroup->save();
+            }
+            else
+            {
+                $floorGroup = FloorGroup::find($floorGroupId);
+                $floorGroup->building_id = $buildingId;
+                $floorGroup->name = ucfirst($floorGroupName);
+                $floorGroup->floors = $groupFloor;
+                $floorGroup->save();
+            }
+            
+
+        }
+
         Session::flash('success_message','Building Successfully Updated');
         
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
@@ -261,6 +315,18 @@ class ProjectBuildingController extends Controller {
             'message' => '',
             'data' => $position
         ], 201 );
+    }
+
+    public function deleteFloorGroup( $buildingId, $id ) { 
+        $floorGroup = FloorGroup::find($id);
+        $floorGroup->delete();
+
+        //Session::flash('success_message','Building Floor Group successfully deleted');
+        return response()->json( [
+                    'code' => 'floor_group_deleted',
+                    'message' => "Building Floor Group successfully deleted",
+         
+                        ], '204' );
     }
 
 }

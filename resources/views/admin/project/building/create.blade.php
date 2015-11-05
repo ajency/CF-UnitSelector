@@ -101,6 +101,29 @@
                                         </div>
                                     </div>
                                 </div>
+
+                             <hr/>
+            <div class="row">
+                <div class="m-l-5 no-border">
+                    <h3><i class="fa fa-angle-double-right text-primary"></i> Floor   <span class="semi-bold">Group</span></h3>
+                </div>
+                 
+
+                 <div class="col-md-5">
+                   <div class="add-unit floor_group_block">
+                        <div class="row p-t-10 p-r-15 p-l-15">
+                            <div class="col-md-12">
+                            <input type="text" name="floor_group_name[]" value="" class="form-control">
+                            <input type="hidden" name="floor_group_id[]" value="" class="form-control">
+                            &nbsp;
+                           <input type="text" name="group_floors[]" value="" class="form-control">
+                        <div class="text-right">
+                            <a tabindex="0" class="add-floor-group-btn btn btn-link"><i class="fa fa-"></i> Add Floor Group</a>
+                        </div> </div>
+                        </div>
+                        </div>
+                    </div> 
+                </div>
                      
                     <div class="row">
                         <div class="col-md-12">

@@ -441,6 +441,30 @@ $('.add-project-attributes-btn').click(function() {
   return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('').focus();
 });
 
+$('.add-floor-group-btn').click(function() {
+  var compile, data, floorGroupName, groupFloors, str;
+  floorGroupName = $(this).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val();
+  groupFloors = $(this).closest('.floor_group_block').find('input[name="group_floors[]"]').val();
+  if (floorGroupName === '') {
+    alert('Enter Group Name');
+    return;
+  }
+  if (groupFloors === '') {
+    alert('Enter Floors');
+    return;
+  }
+  str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="text" name="floor_group_name[]" value="{{groupName}}" class="form-control"> <input type="hidden" name="floor_group_id[]" value="" class="form-control"> &nbsp; <input type="text" name="group_floors[]" value="{{floors}}" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteFloorGroup({{ building_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div>';
+  compile = Handlebars.compile(str);
+  data = {
+    groupName: floorGroupName,
+    floors: groupFloors,
+    project_id: PROJECTID
+  };
+  $(".floor_group_block").before(compile(data));
+  $(this).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val('').focus();
+  return $(this).closest('.floor_group_block').find('input[name="group_floors[]"]').val('');
+});
+
 $('.room_attributes_block').on('click', '.remove-room-attribute', function() {
   var level, successFn, variantRoomId, variantRooms;
   level = $(this).closest('.row').find('input[name="levels[]"]').val();

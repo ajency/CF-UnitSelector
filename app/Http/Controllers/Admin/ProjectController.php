@@ -141,7 +141,7 @@ class ProjectController extends Controller {
     public function edit($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'shadow',  'breakpoints', 'cf'])->get()->toArray(); //'google_earth', 'skyview',
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'shadow',  'breakpoints', 'cf', 'builder_phone', 'builder_email'])->get()->toArray(); //'google_earth', 'skyview',
         $propertyTypes = get_all_property_type();
         $defaultunitTypes = get_all_unit_type();
         $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = $propertyTypehasVariants= [];
@@ -885,10 +885,19 @@ class ProjectController extends Controller {
                     $buildingunitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
 
                 }
-                
+
+
                 $unitSvgExits =[]; 
                 if($building['has_master'] == 'yes')
                 { 
+                     ///Floor group 
+                    $buildingfloorGroup=[];
+                    $buildingfloorGroup = $buildingData->floorGroups()->get()->toArray();
+         
+                    if(empty($buildingfloorGroup))
+                            $errors['buildingfloorgroup-'. $building['id']] = 'No Floor Group Created For Building :'.$building['building_name']; 
+                
+
                     if(!empty($buildingMediaIdArr))
                        $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
                     else
@@ -941,6 +950,9 @@ class ProjectController extends Controller {
                      $unitIds['unit'][] = $unit['id'];
                      $unitNames['unit'][$unit['id']]=$unit['unit_name'];
                 }
+
+                if($buildingId && !$unit['floor_group_id'])
+                     $errors['units'] = $unit['unit_name'] . " is not assigned to any group";
  
                 $unitTypeName = $unitType->unittype_name;
                 $propertType = UnitType::find($unitTypeId)->projectPropertyType()->first();

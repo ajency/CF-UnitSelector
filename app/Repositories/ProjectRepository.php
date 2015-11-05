@@ -69,6 +69,10 @@ class ProjectRepository implements ProjectRepositoryInterface {
             new ProjectMeta(['meta_key' => 'membership_fees']),
             new ProjectMeta(['meta_key' => 'builder_name',
                 'meta_value' => $projectData['builder_name']]),
+            new ProjectMeta(['meta_key' => 'builder_phone',
+                'meta_value' => '']),
+            new ProjectMeta(['meta_key' => 'builder_email',
+                'meta_value' => '']),
             new ProjectMeta(['meta_key' => 'builder_link',
                 'meta_value' => $projectData['builder_link']]),
             new ProjectMeta(['meta_key' => 'project_image',
@@ -169,7 +173,11 @@ class ProjectRepository implements ProjectRepositoryInterface {
                 $project->save();
             }
         }
- 
+        
+
+        ProjectMeta::where('project_id', $projectId)->where('meta_key', 'builder_phone')->update(['meta_value' =>$projectData['builder_phone'] ]);
+        ProjectMeta::where('project_id', $projectId)->where('meta_key', 'builder_email')->update(['meta_value' =>$projectData['builder_email'] ]);
+
 
         //Get Project Property Type
         $existingpropertyTypeArr = [];
