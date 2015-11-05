@@ -863,7 +863,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>For any queries please mail at <a href="mailto:contactus@commonfloor.com" style="color: #f68121;">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com"style="color: #f68121;">support@commonfloor.com</a> or feel free to call at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>For any queries please mail at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' on all 7 days of week from 7AM TO 11PM.</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -992,7 +992,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>For any queries please mail at <a href="mailto:contactus@commonfloor.com" style="color: #f68121;">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com" style="color: #f68121;">support@commonfloor.com</a> or feel free to call at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>For any queries please mail at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' on all 7 days of week from 7AM TO 11PM.</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -1196,7 +1196,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>Your booking amount of Rs.  '.$booking_amount.' will be refunded in 7 days by NEFT or Cheque. For further details mail us at <a href="mailto:contactus@commonfloor.com" style="color: #f68121">contactus@commonfloor.com</a> / <a href="mailto:support@commonfloor.com" style="color: #f68121">support@commonfloor.com</a> or feel free to call at our helpline number 1800 180 180 180 on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>Your booking amount of Rs.  '.$booking_amount.' will be refunded in 7 days by NEFT or Cheque. For further details mail us at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' on all 7 days of week from 7AM TO 11PM.</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -1299,9 +1299,9 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table cellspacing="5" cellpadding="0" style="border-bottom:1px solid #ccc;">
                       <tr>
-                        <td width="300px" style="color:#7d7d7d; font-size:16px;"><img src="'.$unitData['project_image'].'" style="width:100px"/><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : + 91-80-4130 0000<br>
+                        <td width="300px" style="color:#7d7d7d; font-size:16px;"><img src="'.$unitData['project_image'].'" style="width:100px"/><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
                         </td>
-                        <td align="right" width="300px" valign="middle"> <img src="'.SITE_URL.'public/image/inner-header-logo.png"/></td>
+                        <td align="right" width="320px" valign="middle"> <img src="'.SITE_URL.'public/image/inner-header-logo.png"/></td>
                       </tr>
                     </table>
                   </td>
@@ -1310,10 +1310,18 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table width="600px" cellpadding="5" cellspacing="0">
                       <tr>
-                        <td style="color: #7d7d7d; font-size: 16px; text-transform: capitalize;">Date : '.$date.'</td>
+                        <td style="color: #333; font-weight:bold; font-size: 16px; text-transform: capitalize;">Booking details                          
+                        </td>
                       </tr>
                       <tr>
-                        <td style="font-size: 22px; font-weight: 500; color: #333; text-transform: uppercase;">BOOKING ID : <span style="color:#FE943E">'.$bookingId.'</span>
+                        <td style="color: #7d7d7d; font-size: 16px; text-transform: capitalize;">Booking Date : '.$date.'</td>
+                      </tr>
+                      <tr>
+                        <td style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">BOOKING ID : <span style="color:#FE943E">'.$bookingId.'</span>
+                        </td>
+                      </tr>
+                      <tr>                        
+                        <td style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">BOOKING Amount : <span style="color:#FE943E">Rs '.$booking_amount.'</span>
                         </td>
                       </tr>
                     </table>
@@ -1326,7 +1334,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                         <td>
                           <table width="200px" cellspacing="0" cellpadding="0">
                             <tr>
-                              <td style="font-size: 16px; color: #333; font-weight:bold; text-transform: capitalize; line-height:1.5;">'.$buyer_name.'
+                              <td style="font-size: 16px; color: #333; text-transform: capitalize; line-height:1.5;">'.$buyer_name.'
                               </td>
                             </tr>
                             <tr>
@@ -1341,9 +1349,9 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                           </table>
                         </td> 
                         <td>
-                          <table width="400px" cellspacing="0" cellpadding="0">
+                          <table width="320px" cellspacing="0" cellpadding="0">
                             <tr>
-                              <td style="font-size: 16px; font-weight:bold; color: #333; text-transform: capitalize; line-height:1.5;">Billing Address
+                              <td style="font-size: 16px; color: #333; text-transform: capitalize; line-height:1.5;">Address
                               </td>
                             </tr>
                             <tr>
@@ -1359,49 +1367,53 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                 <tr>
                   <td>
                     <table  width="600px" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #ccc;">
+                     <tr>
+                      <td  cellpadding="10" style="font-size: 16px; color: #333; font-weight:bold;"> Unit Details                       
+                      </td>
+                    </tr>
                       <tr>      
-                        <td width="400">
-                          <table width="400" cellpadding="0" cellspacing="0" style="border-right:1px solid #ccc;">
+                        <td width="300">
+                          <table width="300" cellpadding="10" cellspacing="0" style="border-right:1px solid #ccc;">
+                          
                             <tr>
-                              <td style="font-size: 16px; color: #333; font-weight:bold;">Description 
-                                <br>                               
-                              </td>
+                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Unit No</td>
+                              <td style="font-size: 14px; width:150px; color: #FE943E; text-transform: capitalize; line-height:1;">'.$unitData['unit']['name'].'</td>
+                              
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:100px; color: #999; text-transform: capitalize; line-height:1.5;">Unit No</td>
-                              <td style="font-size: 14px; width:100px; color: #FE943E; text-transform: capitalize; line-height:1.5;">'.$unitData['unit']['name'].'</td>
-                              <td style="font-size: 14px; width:100px; color: #999; text-transform: capitalize; line-height:1.5;">Built-Up Area</td>
-                              <td style="font-size: 14px; width:100px; color: #333; text-transform: capitalize; line-height:1.5;">'.$unitData['unit']['built_up_area'].' sqft</td>
+                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Tower</td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['building']['name'].'</td>
+                              
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:100px; color: #999; text-transform: capitalize; line-height:1.5;">Tower</td>
-                              <td style="font-size: 14px; width:100px; color: #333; text-transform: capitalize; line-height:1.5;">'.$unitData['building']['name'].'</td>
-                              <td style="font-size: 14px; width:100px; color: #999; text-transform: capitalize; line-height:1.5;">Super Built Up</td>
-                              <td style="font-size: 14px; width:100px; color: #333; text-transform: capitalize; line-height:1.5;">'.$unitData['unit']['super_built_up_area'].'  sqft</td>
+                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Unit Type</td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['unit']['unit_type'].'</td>
+                              
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:100px; color: #999; text-transform: capitalize; line-height:1.5;">Unit Type</td>
-                              <td style="font-size: 14px; width:100px; color: #333; text-transform: capitalize; line-height:1.5;">'.$unitData['unit']['unit_type'].'</td>
-                              <td style="font-size: 14px; width:100px; color: #999; text-transform: capitalize; line-height:1.5;">Price Per Sqft</td>
-                              <td style="font-size: 14px; width:100px; color: #333; text-transform: capitalize; line-height:1.5;">Rs '.moneyFormatIndia($unitData['unit']['per_sq_ft_price']).'</td>
-                            </tr>
-                            <tr>
-                              <td style="font-size: 14px; width:100px; color: #999; text-transform: capitalize; line-height:1.5;">Floor <br><br></td>
-                              <td style="font-size: 14px; width:100px; color: #333; text-transform: capitalize; line-height:1.5;">'.ordinalSuffix($unitData['unit']['floor_number']).' Floor <br><br></td>
-                              <td style="font-size: 14px; width:100px; color: #999; text-transform: capitalize; line-height:1.5;">Total Value <br><br></td>
-                              <td style="font-size: 14px; width:100px; color: #333; text-transform: capitalize; line-height:1.5;">Rs '.$totalSaleValue.'<br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Floor <br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.ordinalSuffix($unitData['unit']['floor_number']).' Floor <br><br></td>
+                              
                             </tr>
                           </table>
                         </td>
-                        <td width="200">
-                          <table width="200" cellspacing="5" cellpadding="0">
+                        <td width="300">
+                          <table width="300" cellspacing="10" cellpadding="0">                            
                             <tr>
-                              <td style="font-size: 16px; width:200px; font-weight:bold; color: #333; text-transform: capitalize;">Total Amount
-                              </td>
+                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Built-Up Area</td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['unit']['built_up_area'].' sqft</td>
                             </tr>
                             <tr>
-                              <td style="font-size: 32px; font-weight:bold; color: #333; text-transform: capitalize;">Rs '.$booking_amount.'
-                              </td>
+                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Super Built Up</td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['unit']['super_built_up_area'].'  sqft</td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Price Per Sqft</td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.moneyFormatIndia($unitData['unit']['per_sq_ft_price']).'</td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Total Value <br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.$totalSaleValue.'<br><br></td>
                             </tr>
                           </table>
                         </td>
