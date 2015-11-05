@@ -298,7 +298,7 @@ var BuildingMaster = React.createClass({
 
     applyFilters: function(evt){
 
-        console.log("Apply filters");
+        console.log("Applying filters in building master component");
 
         this.destroyTooltip();
 
@@ -347,6 +347,8 @@ var BuildingMaster = React.createClass({
 
         newProjectData = AppStore.getFilteredProjectMasterData(this.props.buildingId);
 
+        console.log(newProjectData);
+
         dataToSet = {
             property: "data",
             value: newProjectData
@@ -360,6 +362,8 @@ var BuildingMaster = React.createClass({
         oldState = this.state;
         
         newState = oldState;
+
+        console.log(data);
 
         _.each(data, function(dataToSet){
 
@@ -444,6 +448,8 @@ var BuildingMaster = React.createClass({
             } 
             if(dataToSet.property === "applied_filters"){
 
+
+
                 valueToSet = dataToSet.value;
 
                 newState = immutabilityHelpers( oldState, { data: 
@@ -451,23 +457,31 @@ var BuildingMaster = React.createClass({
                                                                 {$set: valueToSet}
                                                             }
                                                           });
+                console.log(newState);
+
             } 
             if(dataToSet.property === "unitIndexToHighlight"){
                 newState = immutabilityHelpers( oldState, { data: 
                                                             {unitIndexToHighlight: {$set: dataToSet.value} 
                                                             }
                                                           });                
-            }  
+            } 
+
+            if(dataToSet.property === "data"){
+             newState = immutabilityHelpers( oldState, { data: {$set: dataToSet.value}
+            });                
+            }     
 
             oldState = newState;               
 
         })
     
-
+     console.log(newState);
 
         this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState,"buildingFloorGroups");
 
+       
     },
 
     componentDidMount: function() {

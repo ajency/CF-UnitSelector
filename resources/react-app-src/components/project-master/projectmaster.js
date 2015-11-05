@@ -206,6 +206,8 @@ var ProjectMaster = React.createClass({
 
         newProjectData = AppStore.getFilteredProjectMasterData('');
 
+        console.log(newProjectData);
+
         dataToSet = {
             property: "data",
             value: newProjectData
@@ -326,6 +328,8 @@ var ProjectMaster = React.createClass({
 
         this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState,"projectMaster");
+
+        console.log(newState);
 
     },
 
