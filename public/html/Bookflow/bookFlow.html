@@ -197,11 +197,11 @@
 				        			<div class="col-xs-12 titleDetails">Booking Amount</div>
 				        		</div>
 				        		<div>
-				        			 <div class="col-xs-12 unitDetails">Prestige Group</div>
+				        			 <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Prestige Group Prestige Group </div>
 				        			 <div class="col-xs-12 titleDetails">Builder</div>				        			 
 				        		</div>
 				        		<div>
-				        			<div class="col-xs-12 unitDetails">Whitefield</div>
+				        			<div class="col-xs-12 unitDetails localityName" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Whitefield</div>
 				        			<div class="col-xs-12 titleDetails">Locality</div>
 				        		</div>
 				        	</div>				      				        				        					        
@@ -551,9 +551,7 @@
     <script src="../cf-mobile/js/jquery.panzoom.js"></script>
 		<script type="text/javascript">
 			//$('.collapse').collapse()
-			$( document ).ready(function() {
-				
-
+			$( document ).ready(function() {			
 			    $('#accordion .panel-heading').click(function () {
 				    if (!$(this).hasClass('active'))
 				    {
@@ -565,8 +563,13 @@
 				    }				    
 				});
 				$('.closeMandartory').click(function() {				
-		           $('.mandatory').css('display','none');           		                   
-		        });				  
+		           $('.mandatory').fadeOut();           		                   
+		        });		
+
+		        $(function () {
+				  $('[data-toggle="tooltip"]').tooltip()
+
+				})		  
 			});
 		</script>
 

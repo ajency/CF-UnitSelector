@@ -302,6 +302,25 @@ function deleteAttribute(project_id, attributeId, obj) {
     }
 }
 
+function deleteFloorGroup(building_id,attributeId, obj) {
+
+    if (confirm('Are you sure you want to delete this Floor Group?') === false) {
+        return;
+    }
+    if (attributeId) {
+        $.ajax({
+            url: "/admin/building/" + building_id + "/deletefloorgroup/"+attributeId,
+            type: "DELETE",
+            success: function (response, status, xhr) { 
+                if(xhr.status ==204)
+                    $(obj).closest('.row').remove();
+            }
+        });
+    } else {
+        $(obj).closest('.row').remove();
+    }
+}
+
 function getRoomTypeAttributes(obj, level) {
     var roomId = $(obj).closest('.add-unit').find('select').val();
     var flag = true;

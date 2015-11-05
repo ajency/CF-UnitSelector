@@ -146,6 +146,7 @@ class Permission {
                       'admin/building/{id}/media/updatebreakpoint'=>['configure_building','svg_auth_tool'],
                       'admin/group/{id}/media/updatebreakpoint'=>['configure_project','svg_auth_tool'],
                       'admin/building/validatebuildingname'=>['configure_building'],
+                      'admin/building/{id}/deletefloorgroup/{groupid}'=>['configure_building'],
                       'admin/project/{project}/roomtype/{roomtype}'=>['configure_project'],
                       'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>['configure_project'],
                       'admin/project/{project}/apartment-variant/getpropertytypedata'=>['configure_project'],

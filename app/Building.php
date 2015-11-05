@@ -50,6 +50,10 @@ class Building extends Model {
         return $this->hasMany( 'CommonFloor\Unit' );
     }
 
+    public function floorGroups() {
+        return $this->hasMany( 'CommonFloor\FloorGroup' );
+    }
+
     public function toArray() {
         $data = parent::toArray();
         $data['breakpoints'] = (!empty($data['breakpoints']))?unserialize($data['breakpoints']):[];

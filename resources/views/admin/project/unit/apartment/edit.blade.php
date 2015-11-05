@@ -36,7 +36,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Building</label>
-                        <select {{ $disabled }} name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required>
+                        <select {{ $disabled }} name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required  >
                             <option value="">Select building</option>
                            @foreach($buildings as $building)
                             <option  @if($unit['building_id']==$building['id']){{'selected'}} @endif  data-no-of-floors="{{ $building['no_of_floors'] }}" value="{{ $building['id'] }}">{{ $building['building_name'] }}</option>
@@ -50,12 +50,16 @@
                 <div class="col-md-4">
                     <div class="form-group select-floor @if(!$unit['building_id']){{'hidden'}}@endif" >
                         <label class="form-label">Floor</label>
-                        <select {{ $disabled }} id="floor" name="floor" onchange="getPositions(this);"   class="select2 form-control apartment-unit-floor-no m-b-5">
-                            <<option value="">Select Floor</option>
+                        <select {{ $disabled }} id="floor" name="floor" onchange="getPositions(this);" {{ ($unit['floor_group_id']) ? 'disabled' : '' }}  class="select2 form-control apartment-unit-floor-no m-b-5" >
+                            <option value="">Select Floor</option>
                             @for($i=1; $i<= $floors ; $i++)
                             <option  @if($unit['floor']==$i){{'selected'}} @endif value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
+                        @if($unit['floor_group_id'])
+                        <input type="hidden" name="floor" value="{{ $unit['floor'] }}">
+                        @endif
+
                                 </div> 
                 </div>
                  
