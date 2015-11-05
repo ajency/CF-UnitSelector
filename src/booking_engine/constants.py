@@ -17,7 +17,6 @@ UNIT_SUMMARY_URL = 'http://test.cfunitselectortest.com/api/v2/unit/'
 #UNITSELECTOR_AUTHKEY = '87cdb105eceea2db65ed3b4e4c18a6485e84aefd'
 #UNIT_SUMMARY_URL = 'http://stage.unitselector.commonfloor.com/api/v2/unit/'
 
-
 TOKENIZER_USER_ID = "19"
 #TOKENIZER_TOKEN = "43e-22a3c758e02ebdf0472b"
 TOKENIZER_TOKEN = "43s-4a83d4254581037e8f14"

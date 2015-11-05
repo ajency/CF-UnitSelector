@@ -309,7 +309,7 @@ def unit_project_price_sheet(request):
 						component['amount'] = calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
 					elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
 						component['amount'] = -(calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-					elif price_sheet_component.price_sub_type==floor_number:
+					elif int(price_sheet_component.price_sub_type)==int(floor_number):
 						component['amount'] = calculated_sqft*int(price_sheet_component.amount)
 					else:
 						component['amount'] = 0
@@ -426,7 +426,7 @@ def unit_price_sheet(request):
 						component['amount'] = calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
 					elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
 						component['amount'] = -(calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-					elif price_sheet_component.price_sub_type==floor_number:
+					elif int(price_sheet_component.price_sub_type)==int(floor_number):
 						component['amount'] = calculated_sqft*int(price_sheet_component.amount)
 					else:
 						component['amount'] = 0
@@ -451,7 +451,7 @@ def unit_price_sheet(request):
 						component['amount'] = calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
 					elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
 						component['amount'] = -(calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-					elif price_sheet_component.price_sub_type==floor_number:
+					elif int(price_sheet_component.price_sub_type)==int(floor_number):
 						component['amount'] = calculated_sqft*int(price_sheet_component.amount)
 					else:
 						component['amount'] = 0
@@ -560,7 +560,7 @@ def calc_total_sale_value(id, is_booked, price_sheet_id=None):
 									total_sale_value_lumpsump += calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
 								elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
 									total_sale_value_lumpsump -= (calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-								elif price_sheet_component.price_sub_type==floor_number:
+								elif int(price_sheet_component.price_sub_type)==int(floor_number):
 									total_sale_value_lumpsump += calculated_sqft*int(price_sheet_component.amount)
 							else:
 								total_sale_value_lumpsump += float(price_sheet_component.amount)
@@ -584,7 +584,7 @@ def calc_total_sale_value(id, is_booked, price_sheet_id=None):
 									total_sale_value_lumpsump += calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
 								elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
 									total_sale_value_lumpsump -= (calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-								elif price_sheet_component.price_sub_type==floor_number:
+								elif int(price_sheet_component.price_sub_type)==int(floor_number):
 									total_sale_value_lumpsump += calculated_sqft*int(price_sheet_component.amount)
 								# else:
 								# 	print "in else"
@@ -878,7 +878,7 @@ def book_payment_structure(request):
 							book_pricesheet_component.total_amount += calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
 						elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
 							book_pricesheet_component.total_amount -= (calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-						elif price_sheet_component.price_sub_type==floor_number:
+						elif int(price_sheet_component.price_sub_type)==int(floor_number):
 							book_pricesheet_component.total_amount = calculated_sqft*int(price_sheet_component.amount)
 						else:
 							book_pricesheet_component.total_amount = 0
@@ -907,7 +907,7 @@ def book_payment_structure(request):
 							book_pricesheet_component.total_amount += calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
 						elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
 							book_pricesheet_component.total_amount -= (calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-						elif price_sheet_component.price_sub_type==floor_number:
+						elif int(price_sheet_component.price_sub_type)==int(floor_number):
 							book_pricesheet_component.total_amount = calculated_sqft*int(price_sheet_component.amount)
 						else:
 							book_pricesheet_component.total_amount = 0
