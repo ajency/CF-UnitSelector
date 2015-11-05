@@ -189,6 +189,9 @@ body {
   width: 140px;
   display: inline-block;
 }
+.bookFlowContent .bookAptOuter .priceOuter:first-child {
+  text-align: left;
+}
 .bookFlowContent .bookAptOuter .priceOuter:last-child .amount {
   margin-right: 28px;
 }
@@ -200,7 +203,7 @@ body {
   background: #bcbcba;
   height: 40px;
   width: 1px;
-  margin-left: 20px;
+  margin: 0 5px;
   transform: rotate(25deg);
   -webkit-transform: rotate(25deg);
   -ms-transform: rotate(25deg);
@@ -408,7 +411,8 @@ body {
   position: relative;
   z-index: 9999;
 }
-.bookFlowContent .panel .termsConditions li.parsley-required {
+.bookFlowContent .panel .termsConditions li.parsley-required,
+.bookFlowContent .panel .termsConditions li.parsley-pattern {
   list-style: none;
   font-size: 11px;
   position: absolute;
@@ -586,7 +590,8 @@ body {
 .bookFlowContent .bottomSection .rightContent .safePaymentText {
   font-size: 16px;
 }
-.bookFlowContent li.parsley-required {
+.bookFlowContent li.parsley-required,
+.bookFlowContent li.parsley-pattern {
   list-style: none;
   font-size: 11px;
   position: absolute;

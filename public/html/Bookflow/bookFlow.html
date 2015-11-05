@@ -551,9 +551,7 @@
     <script src="../cf-mobile/js/jquery.panzoom.js"></script>
 		<script type="text/javascript">
 			//$('.collapse').collapse()
-			$( document ).ready(function() {
-				
-
+			$( document ).ready(function() {			
 			    $('#accordion .panel-heading').click(function () {
 				    if (!$(this).hasClass('active'))
 				    {
@@ -565,7 +563,7 @@
 				    }				    
 				});
 				$('.closeMandartory').click(function() {				
-		           $('.mandatory').css('display','none');           		                   
+		           $('.mandatory').fadeOut();           		                   
 		        });				  
 			});
 		</script>
