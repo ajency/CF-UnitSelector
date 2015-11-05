@@ -125,14 +125,17 @@
 
                     </div>
                 @endforeach   
-                 <div class="col-md-5">
+                 <div class="col-md-12">
                    <div class="add-unit floor_group_block">
                         <div class="row p-t-10 p-r-15 p-l-15">
                             <div class="col-md-12">
-                            <input type="text" name="floor_group_name[]" value="" class="form-control" placeholder="Enter Floor Group Name">
+                            <div class="col-md-6">
+                                <input type="text" name="floor_group_name[]" value="" class="form-control" placeholder="Enter Floor Group Name">
+                            </div>
                             <input type="hidden" name="floor_group_id[]" value="" class="form-control">
-                            &nbsp;
-                           <input type="text" name="group_floors[]" value="" class="form-control" placeholder="Enter Floors">
+                            <div class="col-md-6">
+                                <input type="text" name="group_floors[]" value="" class="form-control" placeholder="Enter Floors">
+                            </div>
                         <div class="text-right">
                             <a tabindex="0" class="add-floor-group-btn btn btn-link"><i class="fa fa-"></i> Add Floor Group</a>
                         </div> </div>
