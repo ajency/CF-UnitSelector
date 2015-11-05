@@ -12,6 +12,7 @@ use CommonFloor\FloorLayout;
 use CommonFloor\Project;
 use CommonFloor\Media;
 use CommonFloor\FloorGroup;
+use CommonFloor\SvgElement;
 use \Session;
 
 class ProjectBuildingController extends Controller {
@@ -318,15 +319,29 @@ class ProjectBuildingController extends Controller {
     }
 
     public function deleteFloorGroup( $buildingId, $id ) { 
-        $floorGroup = FloorGroup::find($id);
-        $floorGroup->delete();
+        $svgElements = SvgElement::where(['object_type'=>'floor_group','object_id'=>$id])->get()->toArray();
+      
+        if(empty($svgElements))
+        {
+            $floorGroup = FloorGroup::find($id);
+            $floorGroup->delete();
+            $msg = "Building Floor Group successfully deleted";
+            $code ="204";
+
+        }
+        else
+        {
+            $msg = "Building Floor Group cannot be deleted as it marked in step 2";
+            $code ="200";    
+        }
+        
 
         //Session::flash('success_message','Building Floor Group successfully deleted');
         return response()->json( [
                     'code' => 'floor_group_deleted',
-                    'message' => "Building Floor Group successfully deleted",
+                    'message' => $msg,
          
-                        ], '204' );
+                        ], $code );
     }
 
 }

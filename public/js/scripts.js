@@ -311,8 +311,9 @@ function deleteFloorGroup(building_id,attributeId, obj) {
         $.ajax({
             url: "/admin/building/" + building_id + "/deletefloorgroup/"+attributeId,
             type: "DELETE",
-            success: function (response) {
-                $(obj).closest('.row').remove();
+            success: function (response, status, xhr) { 
+                if(xhr.status ==204)
+                    $(obj).closest('.row').remove();
             }
         });
     } else {

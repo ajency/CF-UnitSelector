@@ -252,7 +252,16 @@ class SvgController extends Controller {
 	public function destroy($id,$element_id)
 	{
 		$svg = SvgElement::find($element_id);
+		$objectId = $svg->object_id;
+		$objectType = $svg->object_type;
 		$svg->delete();
+
+		if($objectType=='apartment')
+		{
+			$unit = Unit::find($objectId);
+        	$unit->floor_group_id = '';
+        	$unit->save();
+		}
 
 		return response()->json( [
 			'code' => 'svg_element_deleted',
