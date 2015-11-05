@@ -51,7 +51,7 @@ unset($_SESSION);
                       </div>
 
                       <a href="unit.php"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>
-                      <a href="http://www.commonfloor.com/"> <button class="btn btn-sm btn-default btn-gray">Back to home</button></a>
+                      <a href="http://www.commonfloor.com/"> <button class="btn btn-sm btn-default btn-primary">Back to home</button></a>
                     </div>
                   
                 </div>

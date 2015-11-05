@@ -147,7 +147,7 @@ $bookingId = $_SESSION['booking_id'];
                                     </div>
                                     <div class="col-md-6 col-xs-12">
                                         <a href="#"  onclick="refundAmount('<?php echo $unitId?>','<?php echo REFUND_URL;?>')" class="brn btn-default btn-sm btn-primary">Cancel booking</a>
-                                        <span class="cancleText"><i class="fa">*</i> <span class="text">Booking can be canclLed within 7 days.
+                                        <span class="cancleText"><i class="fa">*</i> <span class="text">Booking can be cancelled within 7 days.
                                         Contact administrator for more details. </span></span>                                      
                                     </div>
                                 </div>

@@ -386,7 +386,7 @@ $startTime= time();
                         
                         <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 buttonOuter">
-                            <button onclick="updateTextValue();" type="submit"  class="btn btn-primary btn-default btn-small">Make payment</button></div>
+                            <button onclick="updateTextValue();" type="submit"  class="btn btn-primary btn-default btn-sm">Make payment</button></div>
                         </div>
                       </div>
                     </div>

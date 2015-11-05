@@ -1289,7 +1289,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                     <table cellspacing="0" cellpadding="0" width="630">
                       <tr>
                         <td style="text-transform: uppercase; font-size: 35px; font-weight: bold; color: #333; text-align: center;">
-                          <br>Invoice     
+                          <br>INVOICE     
                         </td>
                       </tr>
                     </table>

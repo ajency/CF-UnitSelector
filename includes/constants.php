@@ -8,12 +8,12 @@ define('DATABASE','booking_engine');
 
 define('SITE_PATH','/var/www/booking.cfunitselectortest.com/');
 define('SITE_URL','http://booking.cfunitselectortest.com/');
-define('UNITSELECTOR_URL','http://production.cfunitselectortest.com/');
+define('UNITSELECTOR_URL','http://test.cfunitselectortest.com/');
 define('BOOKINGCRM_URL','http://bookingcrm.cfunitselectortest.com/');
 
 define('payuUrl','https://test.payu.in/merchant/postservice.php?form=2'); 
-//define('unitSelectorAuthKey','117ce294ece0684f69ad92ae450ba370b1259f69');      //test
-define('unitSelectorAuthKey','4c94a5d1170249b18ce6b4b5ed522fa6fff91dbf');  //production
+define('unitSelectorAuthKey','117ce294ece0684f69ad92ae450ba370b1259f69');      //test
+//define('unitSelectorAuthKey','4c94a5d1170249b18ce6b4b5ed522fa6fff91dbf');  //production
 define('bookingCrmAuthKey','43e-22a3c758e02ebdf0472b'); 
 define('USER','19');
 
