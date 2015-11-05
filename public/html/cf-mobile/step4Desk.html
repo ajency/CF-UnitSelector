@@ -882,11 +882,6 @@
 
 
 
-
-
-
-
-
     </script>
     <script type="text/javascript">
     $(document).ready(function () {
@@ -900,6 +895,7 @@
           }
       }
 
+
       $(function () {
           $(window).scroll(sticky_relocate);
           sticky_relocate();
@@ -912,9 +908,15 @@
       });
 
       $('#floatingPlusIcon').click(function(){
-          $('.floatingBtnsInner').slideToggle();
-          $('.overlay').toggle();
+          $('.floatingBtnsInner').fadeToggle();
+          $('.overlay').toggle();          
       });
+
+      $('.overlay').click(function(){
+          $('.floatingBtnsInner').fadeOut("fast");
+          $('.overlay').fadeOut("slow");          
+      });
+
 
       });
     </script>

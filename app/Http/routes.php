@@ -126,6 +126,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/{project}/plots/{projectpropertytypeid}/group/validategroupname', 'Admin\PropertyTypeGroupController@validateGroupnName' );
     Route::post( 'project/{project}/bunglow/{projectpropertytypeid}/group/validategroupname', 'Admin\PropertyTypeGroupController@validateGroupnName' );
     Route::post( 'group/{id}/media/updatebreakpoint', 'Admin\PropertyTypeGroupMediaController@updateBreakPoint' );
+    Route::delete( 'building/{id}/deletefloorgroup/{groupid}', 'Admin\ProjectBuildingController@deleteFloorGroup' );
 });
 
 

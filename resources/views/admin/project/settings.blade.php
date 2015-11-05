@@ -28,18 +28,30 @@
             <hr/>
             <div class="row">
                 <div class="m-l-5 no-border">
-                    <h3><i class="fa fa-angle-double-right text-primary"></i> PayU   <span class="semi-bold">Details</span></h3>
+                    <h3><i class="fa fa-angle-double-right text-primary"></i> Builder   <span class="semi-bold">Details</span></h3>
                 </div>
                  <div class="col-md-5">
                     <div class="form-group ">
+                        <label class="form-label">Phone Number</label>
+                        <input data-parsley-type="number" data-parsley-length="[10, 12]" type="text" name="builder_phone" class="form-control" placeholder="Phone Number" 
+                               value="{{ array_get($project, 'builder_phone') }}" data-parsley-required>
+                    </div>
+                    <div class="form-group ">
+                        <label class="form-label">Email</label>
+                        <input data-parsley-type="email" type="text" name="builder_email" class="form-control" placeholder="Email" 
+                               value="{{ array_get($project, 'builder_email') }}" data-parsley-required>
+                    </div>
+                     
+ 
+                    <div class="form-group ">
                         <label class="form-label">Merchant Id</label>
                         <input type="text" name="merchant_id" class="form-control" placeholder="Merchant Id" 
-                               value="{{ $project['merchant_id'] }}" >
+                               value="{{ $project['merchant_id'] }}" data-parsley-required>
                     </div>
                     <div class="form-group ">
                         <label class="form-label">Salt</label>
                         <input type="text" name="salt" class="form-control" placeholder="Salt" 
-                               value="{{ $project['salt'] }}" >
+                               value="{{ $project['salt'] }}" data-parsley-required>
                     </div>
                      
                 </div>

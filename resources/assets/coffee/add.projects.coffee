@@ -577,7 +577,41 @@ $('.add-project-attributes-btn').click ->
       project_id : PROJECTID  
     $(".project_attribute_block").before compile data
     $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('').focus()  
+ 
+
+ $('.add-floor-group-btn').click ->
+    floorGroupName = $(@).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val()
+    groupFloors = $(@).closest('.floor_group_block').find('input[name="group_floors[]"]').val()
+    if floorGroupName is ''
+        alert('Enter Group Name')
+        return
+
+    if groupFloors is ''
+        alert('Enter Floors')
+        return
     
+    str = '<div class="row m-b-10 ">
+                      <div class="col-md-10">
+                          <input type="text" name="floor_group_name[]" value="{{groupName}}" class="form-control" placeholder="Enter Floor Group Name">
+                            <input type="hidden" name="floor_group_id[]" value="" class="form-control">
+                            &nbsp;
+                            <input type="text" name="group_floors[]" value="{{floors}}" class="form-control" placeholder="Enter Floors">
+                      </div>
+                      <div class="col-md-2 text-center">
+                          <a class="text-primary" onclick="deleteFloorGroup({{ building_id }},0, this);" data-object-type="view"><i class="
+                                        fa fa-close" ></i></a>
+                      </div>
+                  </div>'
+    compile = Handlebars.compile str
+    data = 
+      groupName : floorGroupName
+      floors : groupFloors
+      project_id : PROJECTID  
+    $(".floor_group_block").before compile data
+
+    $(@).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val('').focus() 
+    $(@).closest('.floor_group_block').find('input[name="group_floors[]"]').val('') 
+
     
 $('.room_attributes_block').on 'click', '.remove-room-attribute', ->
     level = $(@).closest('.row').find('input[name="levels[]"]').val()

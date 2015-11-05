@@ -354,7 +354,7 @@ class UnitController extends ApiGuardController {
             $response_data['salt'] = $project->salt;
 
             // PROJECT META DATA - builder name
-            $projectBuilderData = $project->projectMeta()->whereIn('meta_key', ['builder_name','builder_link','project_image'])->get()->toArray(); //'google_earth', 'skyview',
+            $projectBuilderData = $project->projectMeta()->whereIn('meta_key', ['builder_name','builder_phone','builder_email','builder_link','project_image'])->get()->toArray(); //'google_earth', 'skyview',
              
 
             foreach ($projectBuilderData as $meta) {
