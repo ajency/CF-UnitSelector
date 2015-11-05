@@ -302,19 +302,7 @@ def unit_project_price_sheet(request):
 			component['cost_type'] = price_sheet_component.cost_type
 			component['entered_value'] = str(price_sheet_component.amount)
 			if 'Lumpsump' in price_sheet_component.cost_type:
-				if 'PLC-Floorrise' in price_sheet_component.price_type:
-					calculated_sqft = int(unit_extra_info['data']['unit']['built_up_area'])
-					floor_number = unit_extra_info['data']['unit']['floor_number']
-					if 'Fix Increasing Cost' in price_sheet_component.price_sub_type:
-						component['amount'] = calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
-					elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
-						component['amount'] = -(calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-					elif price_sheet_component.price_sub_type==floor_number:
-						component['amount'] = calculated_sqft*int(price_sheet_component.amount)
-					else:
-						component['amount'] = 0
-				else:
-					component['amount'] = price_sheet_component.amount
+				component['amount'] = price_sheet_component.amount
 			elif 'Per sqft' in price_sheet_component.cost_type:
 				calculated_sqft = 0
 				if 'Basic' in price_sheet_component.price_type:
@@ -334,7 +322,7 @@ def unit_project_price_sheet(request):
 						component['amount'] = calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
 					elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
 						component['amount'] = -(calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-					elif int(price_sheet_component.price_sub_type)==int(floor_number):
+					elif price_sheet_component.price_sub_type==floor_number:
 						component['amount'] = calculated_sqft*int(price_sheet_component.amount)
 					else:
 						component['amount'] = 0
@@ -419,19 +407,7 @@ def unit_price_sheet(request):
 			component['cost_type'] = price_sheet_component.cost_type
 			component['entered_value'] = str(price_sheet_component.amount)
 			if 'Lumpsump' in price_sheet_component.cost_type:
-				if 'PLC-Floorrise' in price_sheet_component.price_type:
-					calculated_sqft = int(unit_extra_info['data']['unit']['built_up_area'])
-					floor_number = unit_extra_info['data']['unit']['floor_number']
-					if 'Fix Increasing Cost' in price_sheet_component.price_sub_type:
-						component['amount'] = calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
-					elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
-						component['amount'] = -(calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-					elif price_sheet_component.price_sub_type==floor_number:
-						component['amount'] = calculated_sqft*int(price_sheet_component.amount)
-					else:
-						component['amount'] = 0
-				else:
-					component['amount'] = price_sheet_component.amount
+				component['amount'] = price_sheet_component.amount
 			elif 'Per sqft' in price_sheet_component.cost_type:
 				calculated_sqft = 0
 				if 'Basic' in price_sheet_component.price_type:
@@ -552,18 +528,7 @@ def calc_total_sale_value(id, is_booked, price_sheet_id=None):
 				if(price_sheet_components):
 					for price_sheet_component in price_sheet_components:
 						if 'Lumpsump' in price_sheet_component.cost_type:
-							if 'PLC-Floorrise' in price_sheet_component.price_type:
-								calculated_sqft = int(unit_extra_info['data']['unit']['built_up_area'])
-								floor_number = unit_extra_info['data']['unit']['floor_number']
-								print floor_number, " --> ", price_sheet_component.price_sub_type
-								if 'Fix Increasing Cost' in price_sheet_component.price_sub_type:
-									total_sale_value_lumpsump += calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
-								elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
-									total_sale_value_lumpsump -= (calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-								elif price_sheet_component.price_sub_type==floor_number:
-									total_sale_value_lumpsump += calculated_sqft*int(price_sheet_component.amount)
-							else:
-								total_sale_value_lumpsump += float(price_sheet_component.amount)
+							total_sale_value_lumpsump += float(price_sheet_component.amount)
 						elif 'Per sqft' in price_sheet_component.cost_type:
 							calculated_sqft = 0
 							if 'Basic' in price_sheet_component.price_type:
@@ -812,11 +777,11 @@ def book_payment_structure(request):
 				elif 'Remaining Percentage' in payment_plan_milestone.cost_type:
 					book_payment_plan_milestone.entered_value = str(payment_plan_milestone.amount) + '% of the Total Sale Value'
 					book_payment_plan_milestone.total_amount = float(int(total_sale_value)*int(payment_plan_milestone.amount)/100) - current_total_value
-					current_total_value = current_total_value + book_payment_plan_milestone.total_amount
+					current_total_value = current_total_value + float(book_payment_plan_milestone.total_amount)
 				elif 'Percentage' in payment_plan_milestone.cost_type:
 					book_payment_plan_milestone.entered_value = str(payment_plan_milestone.amount) + '% of the Total Sale Value'
 					book_payment_plan_milestone.total_amount = int(total_sale_value)*int(payment_plan_milestone.amount)/100
-					current_total_value = current_total_value + book_payment_plan_milestone.total_amount
+					current_total_value = current_total_value + float(book_payment_plan_milestone.total_amount)
 				else:
 					book_payment_plan_milestone.entered_value = str(payment_plan_milestone.amount)
 					book_payment_plan_milestone.total_amount = payment_plan_milestone.amount
@@ -871,20 +836,8 @@ def book_payment_structure(request):
 				book_pricesheet_component.booking_id = booking_id
 
 				if 'Lumpsump' in price_sheet_component.cost_type:
-					if 'PLC-Floorrise' in price_sheet_component.price_type:
-						calculated_sqft = int(unit_extra_info['data']['unit']['built_up_area'])
-						floor_number = unit_extra_info['data']['unit']['floor_number']
-						if 'Fix Increasing Cost' in price_sheet_component.price_sub_type:
-							book_pricesheet_component.total_amount += calculated_sqft*int(price_sheet_component.amount)*int(floor_number)
-						elif 'Fix Decreasing Cost' in price_sheet_component.price_sub_type:
-							book_pricesheet_component.total_amount -= (calculated_sqft*int(price_sheet_component.amount)*int(floor_number))
-						elif price_sheet_component.price_sub_type==floor_number:
-							book_pricesheet_component.total_amount = calculated_sqft*int(price_sheet_component.amount)
-						else:
-							book_pricesheet_component.total_amount = 0
-					else:
-						book_pricesheet_component.entered_value = 'Rs. '+str(price_sheet_component.amount)
-						book_pricesheet_component.total_amount = price_sheet_component.amount
+					book_pricesheet_component.entered_value = 'Rs. '+str(price_sheet_component.amount)
+					book_pricesheet_component.total_amount = price_sheet_component.amount
 				elif 'Percentage' in price_sheet_component.cost_type:
 					book_pricesheet_component.entered_value = str(price_sheet_component.amount) + '% of the Total Sale Value'
 					book_pricesheet_component.total_amount = int(total_sale_value)*int(price_sheet_component.amount)/100
@@ -1923,6 +1876,7 @@ def bookings(request):
 									locals(), 
 									context_instance = RequestContext(request))
 
+
 @login_required
 def buyer_list(request):
 	if 'user_role' not in request.session:
@@ -1989,7 +1943,7 @@ def getPropertyDetail(request):
 def getUnitData(unit_id):
 	get_unit_info = api_call.getUnitInfo(unit_id)
 	if 'error' in get_unit_info:
-		print getUnitInfo['error_message']
+		print get_unit_info['error_message']
 		return None
 	return get_unit_info
 
@@ -2238,3 +2192,66 @@ def get_project_plan_units(request):
 			return HttpResponse(json.dumps(project_units_price_sheets))
 	except Exception as e:
 		return None
+
+@token_required
+def makeBooking(request):
+	try:
+		if request.method == 'POST':
+
+			#Add buyer
+			buyer = booking_engine_buyers()
+			buyer.buyer_name = request.POST['buyer_name']
+			buyer.email = request.POST['buyer_email']
+			buyer.phone = request.POST['buyer_mobile']
+			buyer.pan_card_number = request.POST['buyer_pancard']
+			buyer.buyer_type = request.POST['buyer_type']
+			buyer.address_line_1 = request.POST['buyer_address1']
+			buyer.address_line_2 = request.POST['buyer_address2']
+			buyer.city = request.POST['buyer_city']
+			buyer.state = request.POST['buyer_state']
+			buyer.country = request.POST['buyer_country']
+			buyer.pincode = request.POST['buyer_pincode']
+			buyer.save()
+			buyerId = buyer.id
+
+			#Add booking
+			booking = booking_engine_bookings()
+			booking.buyer_id = buyerId
+			booking.unit_id = request.POST['unitId']
+			booking.status = request.POST['booking_status']
+			booking.booking_date = datetime.now()
+			booking.payment_plan_id = ''
+			booking.price_sheet_id = ''
+ 			booking.save()
+			bookingId = booking.id
+
+			#Add booking history
+			bookingHistory = booking_engine_booking_history()
+			bookingHistory.booking_id = bookingId
+			bookingHistory.old_status = request.POST['old_status']
+			bookingHistory.new_status = request.POST['new_status']
+			bookingHistory.comments = request.POST['comments']
+			bookingHistory.updated_on = datetime.now()
+			bookingHistory.updated_by = request.POST['buyer_name']
+ 			bookingHistory.save()
+
+			result = {}
+			result['buyer_id'] = buyerId
+			result['buyer_name'] = buyer.buyer_name
+			result['buyer_email'] = buyer.email
+			result['buyer_mobile'] = buyer.phone
+			result['booking_id'] = bookingId
+			result['message'] = "SUCCESS"
+
+			data = json.dumps(result)
+			return HttpResponse(data)
+		else:
+			result['message'] = "FAILURE"
+			data = json.dumps(result)
+			return HttpResponse(data)
+
+	except Exception as e:
+		print '%s %s (%s)' % ('makeBooking Error',e.message, type(e))
+		return HttpResponse(e.message)
+
+
