@@ -112,10 +112,10 @@
                 @foreach($floorGroups as $floorGroup)
                 <div class="row m-b-10 ">
                         <div class="col-md-10"> 
-                            <input type="text" name="floor_group_name[]" value="{{ $floorGroup['name'] }}" class="form-control"> 
+                            <input type="text" name="floor_group_name[]" value="{{ $floorGroup['name'] }}" class="form-control" placeholder="Enter Floor Group Name"> 
                             <input type="hidden" name="floor_group_id[]" value="{{ $floorGroup['id'] }}" class="form-control">
                             &nbsp;
-                            <input type="text" name="group_floors[]" value="{{ (!empty($floorGroup['floors'])) ?implode(',',$floorGroup['floors']) :'' }}" class="form-control">
+                            <input type="text" name="group_floors[]" value="{{ (!empty($floorGroup['floors'])) ?implode(',',$floorGroup['floors']) :'' }}" class="form-control" placeholder="Enter Floors">
                       
                         </div>
                         <div class="col-md-2 text-center">
@@ -129,10 +129,10 @@
                    <div class="add-unit floor_group_block">
                         <div class="row p-t-10 p-r-15 p-l-15">
                             <div class="col-md-12">
-                            <input type="text" name="floor_group_name[]" value="" class="form-control">
+                            <input type="text" name="floor_group_name[]" value="" class="form-control" placeholder="Enter Floor Group Name">
                             <input type="hidden" name="floor_group_id[]" value="" class="form-control">
                             &nbsp;
-                           <input type="text" name="group_floors[]" value="" class="form-control">
+                           <input type="text" name="group_floors[]" value="" class="form-control" placeholder="Enter Floors">
                         <div class="text-right">
                             <a tabindex="0" class="add-floor-group-btn btn btn-link"><i class="fa fa-"></i> Add Floor Group</a>
                         </div> </div>
