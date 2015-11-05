@@ -232,6 +232,10 @@ body
 		{
 			width: 140px;
     		display:inline-block;
+    		&:first-child
+    		{
+    			text-align:left;
+    		}
     		&:last-child
     		{
     			.amount
@@ -250,7 +254,7 @@ body
 		    background:@gray-light;
 		    height: 40px;
 		    width:1px;		    
-		    margin-left: 20px;
+		    margin:0 5px;
 		    transform: rotate(25deg);
 		    -webkit-transform: rotate(25deg);
 		    -ms-transform: rotate(25deg);

@@ -189,6 +189,9 @@ body {
   width: 140px;
   display: inline-block;
 }
+.bookFlowContent .bookAptOuter .priceOuter:first-child {
+  text-align: left;
+}
 .bookFlowContent .bookAptOuter .priceOuter:last-child .amount {
   margin-right: 28px;
 }
@@ -200,7 +203,7 @@ body {
   background: #bcbcba;
   height: 40px;
   width: 1px;
-  margin-left: 20px;
+  margin: 0 5px;
   transform: rotate(25deg);
   -webkit-transform: rotate(25deg);
   -ms-transform: rotate(25deg);
