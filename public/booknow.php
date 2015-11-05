@@ -72,6 +72,7 @@ $startTime= time();
                     <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <span class="text-uppercase bookApmt">Book your apartment</span>
+                        <br>
                         <span class="text-uppercase flatNo">( <?php echo $unitData['project_title']?> - <?php echo $unitData['unit']['name']?> ) </span>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">                       
@@ -120,43 +121,43 @@ $startTime= time();
                         
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                           
-                                    <input class="basic_info" type="text" id="first_name" name="contact_first_name" placeholder="First Name" data-parsley-pattern="^[A-Za-z]*$" pattern="^[A-Za-z]*$" data-parsley-required/>
+                                    <input class="basic_info form-control" type="text" id="first_name" name="contact_first_name" placeholder="First Name" data-parsley-pattern="^[A-Za-z]*$" pattern="^[A-Za-z]*$" data-parsley-required/>
  
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input class="basic_info" type="text" id="last_name" name="contact_last_name" placeholder="Last Name" data-parsley-required data-parsley-pattern="^[A-Za-z]*$" pattern="^[A-Za-z]*$"/>
+                                    <input class="basic_info form-control" type="text" id="last_name" name="contact_last_name" placeholder="Last Name" data-parsley-required data-parsley-pattern="^[A-Za-z]*$" pattern="^[A-Za-z]*$"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                               
-                                    <input class="basic_info" type="text"  id="email" name="contact_email" placeholder="Email ID" data-parsley-type="email" data-parsley-required/>
+                                    <input class="basic_info form-control" type="text"  id="email" name="contact_email" placeholder="Email ID" data-parsley-type="email" data-parsley-required/>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input class="basic_info" type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-length="[10, 12]"/>
+                                    <input class="basic_info form-control" type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-length="[10, 12]"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                   <input class="basic_info" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-required/>
+                                   <input class="basic_info form-control" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-required/>
                                 </div>
                             </div>
                                                             
                             <h4 class="text-uppercase addressHeading">Address information</h4>
                             <div class="row">
                                 <div class="col-md-8 col-sm-8 col-xs-12">                                   
-                                    <input class="basic_info" type="text" id="city" name="contact_address" placeholder="Address" data-parsley-required/>
+                                    <input class="basic_info form-control" type="text" id="city" name="contact_address" placeholder="Address" data-parsley-required/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input class="basic_info" type="text" id="city" name="contact_city" placeholder="City" data-parsley-required/>
+                                    <input class="basic_info form-control" type="text" id="city" name="contact_city" placeholder="City" data-parsley-required/>
                                 </div>                                                                                          
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input class="basic_info" type="text" id="state" name="contact_state" placeholder="Enter State" data-parsley-required/>
+                                    <input class="basic_info form-control" type="text" id="state" name="contact_state" placeholder="Enter State" data-parsley-required/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                     <input class="basic_info" type="text" id="zipcode" name="contact_zipcode" placeholder="Enter Zipcode" data-parsley-required/>
+                                     <input class="basic_info form-control" type="text" id="zipcode" name="contact_zipcode" placeholder="Enter Zipcode" data-parsley-required/>
                                 </div>  
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <select class="basic_info" name="buyer_type" class="form-control" data-parsley-required>
+                                    <select class="basic_info form-control" name="buyer_type" class="form-control" data-parsley-required>
                                         <option value="">Buyer Type</option>
                                         <option value="Indian">Indian</option>
                                         <option value="POI/OCI">POI/OCI</option>
@@ -168,7 +169,7 @@ $startTime= time();
                             <div class="row">
                                 
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                     <input class="basic_info" type="text" id="country" name="contact_country" placeholder="Enter Country" data-parsley-required/>
+                                     <input class="basic_info form-control" type="text" id="country" name="contact_country" placeholder="Enter Country" data-parsley-required/>
                                 </div>                              
                             </div>
                             
@@ -194,25 +195,35 @@ $startTime= time();
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                       <div class="panel-body">
-                      <div class="row">
-                        <h4 class="orangeText"><?php echo $unitData['project_title']?> <span class="unitName">(<?php echo $unitData['unit']['name']?>)</span></h4>
+                     
+                        <h4 class="orangeText apartmentName col-md-6 col-sm-6 col-xs-12"><?php echo $unitData['project_title']?> <span class="unitName">(<?php echo $unitData['unit']['name']?>)</span></h4>
+                        <div class="col-md-6 col-sm-6 col-xs-12 pricepaymentButtons">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <a style="cursor:pointer" onclick="getPriceSheet('<?php echo $unitId?>',false,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Price Sheet</a>
+                            </div>
+                            
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <a  style="cursor:pointer" onclick="getPaymentPlan('<?php echo $unitId?>',false,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Payment Plan</a>
+                            </div>
                         </div>
+
+
                         <div class="col-md-8 col-sm-8 col-xs-12 reviewDetails">                     
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12 detailsOuter unitDetails">
-                                <div class="col-md-2 col-xs-12">
+                        
+                            <div class="col-md-12 col-sm-12 col-xs-12 detailsOuter">
+                                <div>
                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['unit']['unit_type']?></div>
                                     <div class="col-xs-12 titleDetails">BHK Type</div>
                                 </div>
-                                <div class="col-md-2 col-xs-12">
+                                <div>
                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['project_type']?></div>
                                     <div class="col-xs-12 titleDetails">Property Type</div> 
                                 </div>
-                                <div class="col-md-2 col-xs-12">
+                                <div>
                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['unit']['built_up_area']?> Sq Ft</div>
                                     <div class="col-xs-12 titleDetails">Area</div>
                                 </div>
-                                <div class="col-md-2 col-xs-12">
+                                <div>
                                      <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo moneyFormatIndia($unitData['unit']['per_sq_ft_price'])?></div>
                                      <div class="col-xs-12 titleDetails">Price per SQFT.</div>                                   
                                 </div>
@@ -220,45 +231,36 @@ $startTime= time();
                                 if(!empty($unitData['building']))
                                 {
                                 ?>
-                                <div class="col-md-2 col-xs-12">
+                                <div>
                                     <div class="col-xs-12 unitDetails"><?php echo ordinalSuffix($unitData['unit']['floor_number'])?> Floor</div>
                                     <div class="col-xs-12 titleDetails">Floor Number</div>
                                 </div>
                         
-                                <div class="col-md-2 col-xs-12">
+                                <div>
                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['building']['name']?></div>
                                     <div class="col-xs-12 titleDetails">Tower Name</div>
                                 </div>
                                 <?php 
                                 }
                                 ?>
-                                <div class="col-md-2 col-xs-12">
+                                <div>
                                     <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo $totalSaleValue;?></div>
                                     <div class="col-xs-12 titleDetails">Total Price</div> 
                                 </div>
-                                <div class="col-md-2 col-xs-12">
+                                <div>
                                     <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo $booking_amount;?></div>
                                     <div class="col-xs-12 titleDetails">Booking Amount</div>
                                 </div>
-                                <div class="col-md-2 col-xs-12">
-                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['builder_name']?></div>
+                                <div>
+                                     <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><?php echo $unitData['builder_name']?></div>                                     
                                      <div class="col-xs-12 titleDetails">Builder</div>                                   
                                 </div>
-                                <div class="col-md-2 col-xs-12">
+                                <div>
                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['area_name']?></div>
                                     <div class="col-xs-12 titleDetails">Locality</div>
                                 </div>
                             </div>                                              
-                            <div class="row detailsOuter">
-                                <div class="col-md-6 col-xs-12">
-                                    <a style="cursor:pointer" onclick="getPriceSheet('<?php echo $unitId?>',false,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Price Sheet</a>
-                                </div>
-                                
-                                <div class="col-md-6 col-xs-12">
-                                    <a  style="cursor:pointer" onclick="getPaymentPlan('<?php echo $unitId?>',false,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Payment Plan</a>
-                                </div>
-                            </div>                          
-                        </div>
+                      
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 userInfo">
                                                                       
@@ -439,29 +441,25 @@ $startTime= time();
     <script src="js/parsleyjs/dist/parsley.js" type="text/javascript"></script>
     <script type="text/javascript">
         //$('.collapse').collapse()
-        $( document ).ready(function() {                
-            $('#accordion .panel-heading').click(function () {
-                if (!$(this).hasClass('active'))
-                {
-                  // the element clicked was not active, but now is - 
-                  $('.panel-heading').removeClass('active');
-                  $(this).addClass('active'); 
-                  $('.panel-collapse').removeClass('in');
-                }                   
+        $( document ).ready(function() {            
+                $('#accordion .panel-heading').click(function () {
+                    if (!$(this).hasClass('active'))
+                    {
+                      // the element clicked was not active, but now is - 
+                      $('.panel-heading').removeClass('active');
+                      $(this).addClass('active'); 
+                      $('.panel-collapse').removeClass('in');
+                      $('.plusMinusOuter').addClass('collapsed');
+                    }                   
+                });
+                $('.closeMandartory').click(function() {                
+                   $('.mandatory').fadeOut();                                      
+                });     
+
+                $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+                })        
             });
-
-
-            /*function btnClick(){
-                alert("hiiiii");
-                $(this).parents('.panel-collapse').removeClass('in');
-                $(this).parents('.panel-default').find('panel-heading').removeClass('active');                  
-            }   */  
-            
-          
-                
-        });
-
-       
             
         </script>
         <script>

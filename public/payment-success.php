@@ -64,7 +64,7 @@ $bookingId = $_SESSION['booking_id'];
                                     <div class="col-xs-12">
                                         <div class="row">
                                             <span class="text-uppercase bookApmt">Booking ID : </span>
-                                            <span class="flatNo">( <?php echo $bookingId?> ) </span>
+                                            <span class="flatNo"> <?php echo $bookingId?> </span>
                                         </div>
                                     </div>
                                     <h5 class="text-uppercase"><?php echo $unitData['project_title']?> <span class="unitName orangeText">( <?php echo $unitData['unit']['name']?> )</span></h5>
@@ -131,7 +131,7 @@ $bookingId = $_SESSION['booking_id'];
                                     <div class="col-xs-12 titleDetails">Booking Amount</div>
                                 </div>
                                 <div class="col-md-2 col-xs-12">
-                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['builder_name']?></div>
+                                     <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><?php echo $unitData['builder_name']?></div>
                                      <div class="col-xs-12 titleDetails">Builder</div>                                   
                                 </div>
                                 <div class="col-md-2 col-xs-12">
@@ -231,6 +231,9 @@ $bookingId = $_SESSION['booking_id'];
                 });
 
 
+                $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+                })  
                 /*function btnClick(){
                     alert("hiiiii");
                     $(this).parents('.panel-collapse').removeClass('in');

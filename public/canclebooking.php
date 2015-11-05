@@ -55,7 +55,7 @@ $bookingId = $_SESSION['booking_id'];
                                     <div class="col-xs-12">
                                         <div class="row">
                                             <span class="text-uppercase bookApmt">Booking ID : </span>
-                                            <span class="flatNo">( <?php echo $bookingId?> ) </span>
+                                            <span class="flatNo"><?php echo $bookingId?></span>
                                         </div>
                                     </div>
                                     <h5 class="text-uppercase"><?php echo $unitData['project_title']?> <span class="unitName orangeText">( <?php echo $unitData['unit']['name']?> )</span></h5>
@@ -122,7 +122,7 @@ $bookingId = $_SESSION['booking_id'];
                                     <div class="col-xs-12 titleDetails">Booking Amount</div>
                                 </div>
                                 <div class="col-md-2 col-xs-12">
-                                     <div class="col-xs-12 unitDetails"><?php echo $unitData['builder_name']?></div>
+                                     <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><?php echo $unitData['builder_name']?></div>
                                      <div class="col-xs-12 titleDetails">Builder</div>                                   
                                 </div>
                                 <div class="col-md-2 col-xs-12">
@@ -142,6 +142,7 @@ $bookingId = $_SESSION['booking_id'];
                                 </div>
                             </div>
                     </div>
+
                     <!-- <div class="bottomSection hidden-xs">
                         <div class="col-xs-6">
                             <span class="icon">
@@ -162,7 +163,9 @@ $bookingId = $_SESSION['booking_id'];
                             </span>
                         </div>
                     </div> -->
-                    <div class="bottomSection">
+                    
+                </div>
+                <div class="bottomSection">
                         <div class="col-xs-12">                         
                             <span class="rightContent">                                                         
                                 <p class="text-capitalize">
@@ -173,7 +176,6 @@ $bookingId = $_SESSION['booking_id'];
                         </div>
                         
                     </div>
-                </div>
                 <div class="bookingFooter">
                     Call 1800 180 180 180
                      <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commnfloor inc. </a>| <a href="https://www.commonfloor.com/privacy-policy">Privacy Policy</a></div>
@@ -187,6 +189,15 @@ $bookingId = $_SESSION['booking_id'];
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
  
+ <script type="text/javascript">
+        //$('.collapse').collapse()
+        $( document ).ready(function() {                          
+                $(function () {
+                  $('[data-toggle="tooltip"]').tooltip()
+                })        
+            });
+            
+        </script>
 
     </body>                
 
