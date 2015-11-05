@@ -764,6 +764,9 @@ body {
   color: #ffffff;
   float: right;
 }
+.successOuter .cancelBookingOuter .backToHomeBtn {
+  text-align: right;
+}
 .successOuter .detailsOuter > div {
   width: 20%;
   position: relative;
@@ -1085,8 +1088,12 @@ body {
   .successContent .cancelBookingOuter {
     margin-top: 20px;
   }
+  .successContent .cancelBookingOuter .backToHomeBtn {
+    text-align: left;
+  }
   .successContent .note {
     margin-bottom: 20px;
+    padding-right: 15px;
   }
   .successContent .cancleText {
     float: left;
