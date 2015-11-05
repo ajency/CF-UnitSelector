@@ -166,6 +166,7 @@ body
     		display: inline-block;
 		    margin-bottom: 0;
 		    margin-top: 0;
+		    font-weight: 600;
 		}
 		.totalPrice
 		{
@@ -262,7 +263,8 @@ body
 		.bookApmt
 		{				    
 		    color:@white;	
-		    font-size: 16px;	    
+		    font-size: 16px;
+		    font-weight: 600;	    
 		}
 		.projectName
 		{
@@ -287,7 +289,7 @@ body
 	{
 		
 		margin: auto;
-		padding:10px 30px 30px;
+		padding:10px 30px 15px;
 	}	
 
 	.panel
@@ -439,6 +441,13 @@ body
 			margin-top: 18px;
 			margin-bottom:15px;
 			text-align: center;
+			.row
+			{
+				> div
+				{
+					font-size: 14px;
+				}
+			}
 			label
 			{
 				font-weight: 400;
@@ -605,7 +614,7 @@ body
 				border:none;
 				border-bottom: 1px solid @lightBg;
 				margin-bottom: 20px;				
-				font-size:12px;				
+				font-size:14px;				
 				width: 100%;
 				&:focus
 				{
@@ -735,7 +744,7 @@ body
 	    	}
 	    	.supportNoText, .safePaymentText
 	    	{
-	    		font-size: 16px;
+	    		font-size: 14px;
 	    	}
 	    }
 	}
@@ -745,7 +754,7 @@ body
 		list-style: none;
 		font-size: 11px;
 		position: absolute;
-	    top: 22px;
+	    top: 34px;
 	    left: 15px;
 	    color: @real-red;
 	}	
@@ -788,7 +797,7 @@ body
 	color:@textColor;
 	padding:0 !important;
 	padding-top:25px !important;
-	font-size:12px;
+	font-size:13px;
 	text-transform:uppercase;
 	margin-left:-15px;
 	&.builderName, &.localityName
@@ -807,7 +816,7 @@ body
 .titleDetails
 {
 	padding:0 !important;
-	font-size:11px;
+	font-size:12px;
 	text-transform:uppercase;
 	margin-left:-15px;	
 	margin-top:5px;	
@@ -971,6 +980,10 @@ body
 	    	color:@white;
 	    	float:right;
 	    }  
+	    .backToHomeBtn
+	    {
+	    	text-align: right;
+	    }
 	}
 	.detailsOuter
 	{
@@ -1107,6 +1120,7 @@ body
     		margin:0 5px;
     		text-decoration:none;
     		outline:none;
+    		font-size: 14px;
     	}
     }
     &.sessionExpireFooter
@@ -1141,7 +1155,7 @@ body
 	.cancleText
 	{
 		float: right;
-	    font-size: 12px;	    
+	    font-size: 14px;	    
 	    width: 61%;
 	    i
 	    {
@@ -1159,7 +1173,7 @@ body
 	{
 		margin-top: 10px;
 	    padding-right: 0;
-	    font-size: 12px;
+	    font-size: 14px;
 	}
 	.cancleBooking
 	{
@@ -1259,6 +1273,10 @@ body
 	.reviewDetails
 	{
 		padding: 0 !important;
+	}
+	.unitDetails
+	{
+		font-size: 12px;	
 	}
 	.successContent
 	{
@@ -1394,10 +1412,15 @@ body
 		.cancelBookingOuter
 		{
 			margin-top:20px;
+			.backToHomeBtn
+		    {
+		    	text-align: left;
+		    }
 		}
 		.note 
 		{
 			margin-bottom:20px;
+			padding-right: 15px;
 		}
 		.cancleText
 		{
@@ -1473,9 +1496,9 @@ body
 }
 @media screen and (max-width:384px)
 {
-	.unitDetails 
+	.unitDetails , .titleDetails
 	{
-		font-size:11px;
+		font-size:11px !important;
 	}
 	.successOuter 
 	{

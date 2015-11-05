@@ -131,6 +131,7 @@ body {
   display: inline-block;
   margin-bottom: 0;
   margin-top: 0;
+  font-weight: 600;
 }
 .bookFlowContent .bookAptOuter .totalPrice {
   font-size: 11px;
@@ -211,6 +212,7 @@ body {
 .bookFlowContent .bookAptOuter .bookApmt {
   color: #ffffff;
   font-size: 16px;
+  font-weight: 600;
 }
 .bookFlowContent .bookAptOuter .projectName {
   font-size: 14px;
@@ -230,7 +232,7 @@ body {
 }
 .bookFlowContent .panel-inner {
   margin: auto;
-  padding: 10px 30px 30px;
+  padding: 10px 30px 15px;
 }
 .bookFlowContent .panel {
   margin-top: 0 !important;
@@ -358,6 +360,9 @@ body {
   margin-top: 18px;
   margin-bottom: 15px;
   text-align: center;
+}
+.bookFlowContent .panel .termsConditions .row > div {
+  font-size: 14px;
 }
 .bookFlowContent .panel .termsConditions label {
   font-weight: 400;
@@ -500,7 +505,7 @@ body {
   border: none;
   border-bottom: 1px solid #edeef0;
   margin-bottom: 20px;
-  font-size: 12px;
+  font-size: 14px;
   width: 100%;
 }
 .bookFlowContent .panel .personalDetails input:focus,
@@ -589,14 +594,14 @@ body {
 }
 .bookFlowContent .bottomSection .rightContent .supportNoText,
 .bookFlowContent .bottomSection .rightContent .safePaymentText {
-  font-size: 16px;
+  font-size: 14px;
 }
 .bookFlowContent li.parsley-required,
 .bookFlowContent li.parsley-pattern {
   list-style: none;
   font-size: 11px;
   position: absolute;
-  top: 22px;
+  top: 34px;
   left: 15px;
   color: #ee1f3b;
 }
@@ -615,7 +620,7 @@ body {
   color: #333333;
   padding: 0 !important;
   padding-top: 25px !important;
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   margin-left: -15px;
 }
@@ -632,7 +637,7 @@ body {
 }
 .titleDetails {
   padding: 0 !important;
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
   margin-left: -15px;
   margin-top: 5px;
@@ -759,6 +764,9 @@ body {
   color: #ffffff;
   float: right;
 }
+.successOuter .cancelBookingOuter .backToHomeBtn {
+  text-align: right;
+}
 .successOuter .detailsOuter > div {
   width: 20%;
   position: relative;
@@ -869,6 +877,7 @@ body {
   margin: 0 5px;
   text-decoration: none;
   outline: none;
+  font-size: 14px;
 }
 .bookingFooter.sessionExpireFooter {
   margin-top: 90px;
@@ -889,7 +898,7 @@ body {
 }
 .successContent .cancleText {
   float: right;
-  font-size: 12px;
+  font-size: 14px;
   width: 61%;
 }
 .successContent .cancleText i {
@@ -904,7 +913,7 @@ body {
 .successContent .note {
   margin-top: 10px;
   padding-right: 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 .successContent .cancleBooking {
   float: right;
@@ -980,6 +989,9 @@ body {
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .reviewDetails {
     padding: 0 !important;
+  }
+  .unitDetails {
+    font-size: 12px;
   }
   .successContent .detailsOuter {
     padding: 0;
@@ -1076,8 +1088,12 @@ body {
   .successContent .cancelBookingOuter {
     margin-top: 20px;
   }
+  .successContent .cancelBookingOuter .backToHomeBtn {
+    text-align: left;
+  }
   .successContent .note {
     margin-bottom: 20px;
+    padding-right: 15px;
   }
   .successContent .cancleText {
     float: left;
@@ -1130,8 +1146,9 @@ body {
   }
 }
 @media screen and (max-width: 384px) {
-  .unitDetails {
-    font-size: 11px;
+  .unitDetails,
+  .titleDetails {
+    font-size: 11px !important;
   }
   .successOuter .cancelBookingOuter a {
     float: left;

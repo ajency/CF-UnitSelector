@@ -155,7 +155,7 @@ section {
   top: 0px;
   width: 100%;
 }
-div#spritespin {
+div.spritespin-div {
   width: 100% !important;
   height: 100% !important;
 }
