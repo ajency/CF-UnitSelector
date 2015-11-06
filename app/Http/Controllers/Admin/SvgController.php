@@ -480,7 +480,7 @@ class SvgController extends Controller {
     			 
 				// get svg element having given $unitType and unitId and svgId
     			if ($unitType=="building") {
-    				dd($unitIds);
+
     				foreach ($unitIds as $unitId) {
     					$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->first();
  						// if svg element not there then add unitid to $unmarkedUnits
@@ -493,7 +493,7 @@ class SvgController extends Controller {
     				
 
     			}
-    			if ($unitType=="floor_group") {
+    			else if ($unitType=="floor_group") {
 
     				foreach ($unitIds as $unitId) {
     					$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->first();
@@ -503,8 +503,6 @@ class SvgController extends Controller {
     						$unmarkedunitArray[$unitType][$unitId] = $svgElement->id;
     					}
     				}
-
-    				
 
     			}
     			else if ($unitType=="unit") {
@@ -538,10 +536,10 @@ class SvgController extends Controller {
     		$unmarkedUnits['building'][] = $building_unmarked;
     	}
 
-    	$floor_group_unmarked = array_diff($floorGroupArr,$floor_group_marked);
+    	$floor_groups_unmarked = array_diff($floorGroupArr,$floor_group_marked);
 
-    	foreach ($buildings_unmarked as $building_unmarked) {
-    		$unmarkedUnits['building'][] = $building_unmarked;
+    	foreach ($floor_groups_unmarked as $floor_group_unmarked) {
+    		$unmarkedUnits['floor_group'][] = $floor_group_unmarked;
     	}
     	
     	// var_dump($unitArr);

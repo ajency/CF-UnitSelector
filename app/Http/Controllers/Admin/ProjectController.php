@@ -887,7 +887,8 @@ class ProjectController extends Controller {
                 }
 
 
-                $unitSvgExits =[]; 
+                $unitSvgExits =[];
+                $floorGroupSvgExits =[]; 
                 if($building['has_master'] == 'yes')
                 { 
                      ///Floor group
@@ -895,18 +896,17 @@ class ProjectController extends Controller {
                     $buildingfloorGroupNames = [];
                     $buildingfloorGroups = $buildingData->floorGroups()->get()->toArray(); 
                     foreach ($buildingfloorGroups as $buildingfloorGroup) {
-                        $buildingfloorGroupIds[]=$buildingfloorGroup['id'];
+                        $buildingfloorGroupIds['floor_group'][]=$buildingfloorGroup['id'];
                         $buildingfloorGroupNames['floor_group'][$buildingfloorGroup['id']]=$buildingfloorGroup['name'];
                     }
          
                     if(empty($buildingfloorGroupIds))
                             $errors['buildingfloorgroup-'. $building['id']] = 'No Floor Group Created For Building :'.$building['building_name']; 
                 
-                    $buildingfloorGroupIds['floor_group']=$buildingfloorGroupIds;
+                  
                     if(!empty($buildingMediaIdArr))
                     {
                        $floorGroupSvgExits = SvgController :: getUnmarkedSvgUnits($buildingfloorGroupIds,$buildingMediaIdArr);
-                       dd($buildingunitIds);
                        $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
                     }
                     else
@@ -932,10 +932,10 @@ class ProjectController extends Controller {
 
                         if(isset($floorGroupSvgExits['floor_group']))
                         {
-                            $errors['buildingfloorGroupauthtool-'. $building['id']] = ' Building ('. $building['building_name'].') Svg Unmarked for Units : ';
-                            foreach($unitSvgExits['floor_group'] as $unitId)
+                            $errors['buildingfloorGroupauthtool-'. $building['id']] = ' Building ('. $building['building_name'].') Svg Unmarked for Floor Group  : ';
+                            foreach($floorGroupSvgExits['floor_group'] as $unitId)
                             {
-                                $errors['buildingfloorGroupauthtool-'. $building['id']] .= $buildingfloorGroupNames['unit'][$unitId].' ,';
+                                $errors['buildingfloorGroupauthtool-'. $building['id']] .= $buildingfloorGroupNames['floor_group'][$unitId].' ,';
                             }
 
                         }
