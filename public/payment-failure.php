@@ -47,7 +47,7 @@ unset($_SESSION);
                     <div class="successContent col-xs-12 sessionExpireContent transactionFailed text-center">
                         <i class="fa fa-5x fa-exclamation-circle col-xs-12"></i>
                       <h3 class="text-center text-uppercase"> Sorry! Transaction failed  </h3>
-                      <div class="col-xs-12">We regret to inform you that your payment for <?php echo $unitData['unit']['name']?>  with Booking ID as <?php echo $bookingId;?> at <?php echo $unitData['project_title']?> for Project  is unsuccessful. Sorry for the inconvenience. The Unit booking could not proceed and you can still book the unit  by visiting at <a href="www.commonfloor.com">www.commonfloor.com</a>.
+                      <div class="col-xs-12">We regret to inform you that your payment for <b><?php echo $unitData['unit']['name']?></b>  with Booking ID as <b><?php echo $bookingId;?></b> at <?php echo $unitData['project_title']?> for Project  is unsuccessful. Sorry for the inconvenience. The Unit booking could not proceed and you can still book the unit  by visiting at <a href="www.commonfloor.com">www.commonfloor.com</a>.
                       </div>
 
                       <a href="unit.php"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>

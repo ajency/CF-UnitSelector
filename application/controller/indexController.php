@@ -779,7 +779,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                        </tr>
                                         <tr>
                                             <td valign="top" style="color:#505050; font-family:Arial; font-size:14px; line-height:1.5; padding: 10px 20px 10px; vertical-align:middle;">
-                                               Thank you for booking Unit <b>'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> for Project " '.$unitData['project_title'].'". We have received your booking amount of <i class="fa fa-inr orangeText"></i> <b>'.$booking_amount.'/-</b>.
+                                               Thank you for booking Unit <b style="color: #f68121;">'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> for Project " '.$unitData['project_title'].'". We have received your booking amount of <i class="fa fa-inr orangeText"></i> <b>'.$booking_amount.'/-</b>.
                                                 <br><br>
                           Use your booking ID number for further processing.
                                             </td>                                            
@@ -818,7 +818,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                                   </tr> 
                                                   <tr>
                                                     <td>
-                                                       Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i> '. $unitData['unit']['per_sq_ft_price'].'/- </span>
+                                                       Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i> RS'. $unitData['unit']['per_sq_ft_price'].'/- </span>
                                                     </td>
                                                   </tr> 
                                                    <tr>
@@ -863,7 +863,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>For any queries please mail at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>For any queries please mail at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' .</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -962,7 +962,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                        </tr>
                                         <tr>
                                             <td valign="top" style="color:#505050; font-family:Arial; font-size:14px; line-height:1.5; padding: 10px 20px 10px 20px; vertical-align:middle;">
-                                              We regret to inform you that your payment for <b>'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> for " '.$unitData['project_title'].'" was unsuccessful. Sorry for the inconvenience. The Unit is available and can be booked by visiting '.UNITSELECTOR_URL.'project/1</a>.
+                                              We regret to inform you that your payment for <b style="color: #f68121;">'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> for " '.$unitData['project_title'].'" was unsuccessful. Sorry for the inconvenience. The Unit is available and can be booked by visiting '.UNITSELECTOR_URL.'project/1</a>.
                                             </td>                                            
                                         </tr>
                                     </table>
@@ -992,7 +992,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>For any queries please mail at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>For any queries please mail at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' .</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -1114,7 +1114,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                        </tr>
                                         <tr>
                                             <td valign="top" style="color:#505050; font-family:Arial; font-size:14px; line-height:1.5; padding: 10px 20px 10px; vertical-align:middle;">
-                                              This is to inform you that your booking for Unit <b>'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> has been cancelled successfully.
+                                              This is to inform you that your booking for Unit <b style="color: #f68121;">'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> has been cancelled successfully.
                                             </td>                                            
                                         </tr>
                                     </table>
@@ -1151,7 +1151,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                                   </tr> 
                                                   <tr>
                                                     <td>
-                                                       Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i> '. $unitData['unit']['per_sq_ft_price'].'/- </span>
+                                                       Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>RS '. $unitData['unit']['per_sq_ft_price'].'/- </span>
                                                     </td>
                                                   </tr> 
                                                    <tr>
@@ -1196,7 +1196,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>Your booking amount of Rs.  '.$booking_amount.' will be refunded in 7 days by NEFT or Cheque. For further details mail us at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' on all 7 days of week from 7AM TO 11PM.</p>
+                                            <p>Your booking amount of Rs.  '.$booking_amount.' will be refunded in 7 days by NEFT or Cheque. For further details mail us at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' .</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -1299,9 +1299,8 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table cellspacing="5" cellpadding="0" style="border-bottom:1px solid #ccc;">
                       <tr>
-                        <td width="315" style="color:#7d7d7d; font-size:16px;"><img src="'.$unitData['project_image'].'" style="width:100px"/><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
-                        </td>
-                        <td align="right" width="300" valign="middle"> <img src="'.SITE_URL.'public/image/inner-header-logo.png"/></td>
+                        <td width="600" style="color:#7d7d7d; font-size:16px;"><img src="'.$unitData['project_image'].'" style="width:100px"/><br><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
+                        </td>                        
                       </tr>
                     </table>
                   </td>
@@ -1310,20 +1309,16 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td width="630">
                     <table width="630" cellpadding="5" cellspacing="0">
                       <tr>
-                        <td style="color: #333; font-weight:bold; font-size: 16px; text-transform: capitalize;">Booking details                          
+                        <td style="color: #333; font-weight:bold; font-size: 16px; text-transform: capitalize;">BOOKING DETAILS                          
                         </td>
                       </tr>
                       <tr>
                         <td style="color: #7d7d7d; font-size: 16px; text-transform: capitalize;">Booking Date : '.$date.'</td>
                       </tr>
                       <tr>
-                        <td style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">BOOKING ID : <span style="color:#FE943E">'.$bookingId.'</span>
+                        <td style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking ID : <span style="color:#FE943E">'.$bookingId.'</span>
                         </td>
-                      </tr>
-                      <tr>                        
-                        <td style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">BOOKING Amount : <span style="color:#FE943E">Rs '.$booking_amount.'</span>
-                        </td>
-                      </tr>
+                      </tr>                      
                     </table>
                   </td>
                 </tr>
@@ -1334,7 +1329,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                         <td width="215">
                           <table width="215" cellspacing="0" cellpadding="0">
                             <tr>
-                              <td style="font-size: 16px; color: #333; text-transform: capitalize; line-height:1.5;">'.$buyer_name.'
+                              <td style="font-size: 16px; color: #444; text-transform: capitalize; line-height:1.5;">'.$buyer_name.'
                               </td>
                             </tr>
                             <tr>
@@ -1351,7 +1346,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                         <td width="415">
                           <table width="415" cellspacing="0" cellpadding="0">
                             <tr>
-                              <td style="font-size: 16px; color: #333; text-transform: capitalize; line-height:1.5;">Address
+                              <td style="font-size: 16px; color: #444; text-transform: capitalize; line-height:1.5;">Address
                               </td>
                             </tr>
                             <tr>
@@ -1366,9 +1361,9 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                 </tr>
                 <tr>
                   <td  width="630">
-                    <table width="630" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #ccc;">
+                    <table width="630" cellpadding="0" cellspacing="0">
                      <tr>
-                      <td  cellpadding="10" style="font-size: 16px; color: #333; font-weight:bold;"> Unit Details                       
+                      <td  cellpadding="10" style="font-size: 16px; color: #333; font-weight:bold;"> UNIT DETAILS                      
                       </td>
                     </tr>
                       <tr>      
@@ -1376,22 +1371,22 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                           <table width="315" cellpadding="10" cellspacing="0" style="border-right:1px solid #ccc;">
                           
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Unit No</td>
-                              <td style="font-size: 14px; width:150px; color: #FE943E; text-transform: capitalize; line-height:1;">'.$unitData['unit']['name'].'</td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Unit No</td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['unit']['name'].'</td>
                               
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Tower</td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Tower</td>
                               <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['building']['name'].'</td>
                               
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Unit Type</td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Unit Type</td>
                               <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['unit']['unit_type'].'</td>
                               
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Floor <br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Floor <br><br></td>
                               <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.ordinalSuffix($unitData['unit']['floor_number']).' Floor <br><br></td>
                               
                             </tr>
@@ -1400,20 +1395,20 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                         <td width="315">
                           <table width="315" cellspacing="0" cellpadding="10">                            
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Built-Up Area</td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Built-Up Area</td>
                               <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['unit']['built_up_area'].' sqft</td>
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Super Built Up</td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Super Built Up</td>
                               <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.$unitData['unit']['super_built_up_area'].'  sqft</td>
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Price Per Sqft</td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Price Per Sqft</td>
                               <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.moneyFormatIndia($unitData['unit']['per_sq_ft_price']).'</td>
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #999; text-transform: capitalize; line-height:1;">Total Value <br><br></td>
-                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.$totalSaleValue.'<br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Total Value <br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.$totalSaleValue.' /-<br><br></td>
                             </tr>
                           </table>
                         </td>
@@ -1422,31 +1417,32 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   </td>
 
                 </tr>
+
+
                 <tr>
                   <td>
-                    <table width="630" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="color: #999; font-size: 14px;">
-                          * Booking can be cancelled within 7 days, Please contact administrator for more details.
+                    <table width="630" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #ccc;">
+                      <tr>                        
+                        <td align="right" style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking Amount : <span style="color:#FE943E">Rs '.$booking_amount.'<br></span>
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
+
+
                 <tr>
                   <td>
-                    <table cellpadding="15" cellspacing="0" width="630">
+                    <table width="630" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td width="115" style="border-right:1px solid #ccc;">
-                          <img src="'.SITE_URL.'public/image/inner-header-logo.png"/>
-                        </td>
-                        <td width="515" style="text-transform: uppercase; line-height:3; font-size: 12px; color: #999;">
-                          Copyright &copy; 2007-15 commonfloor.com. All rights reserved.
+                        <td style="color: #999; font-size: 14px;">
+                          * Booking can be cancelled within 7 days, for any queries please mail at '.$unitData['builder_email'].' or feel free to call on '.$unitData['builder_phone'].'.
                         </td>
                       </tr>
-                    </table>  
+                    </table>
                   </td>
                 </tr>
+                
               </table><!-- /BODY -->
 
 

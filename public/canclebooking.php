@@ -134,7 +134,7 @@ $bookingId = $_SESSION['booking_id'];
                            <div class="col-xs-12 cancelBookingOuter">
                                 <div class="row">
                                     <div class="col-md-8 col-sm-8 col-xs-12 note">
-                                        Note : The Refund can be made by cheque or NEFT.
+                                        Note : The refund can be made by cheque or NEFT.
                                     </div>      
                                     <div class="col-md-4 col-sm-4 col-xs-12 backToHomeBtn">    
                                         <a href="http://www.commonfloor.com/"><button class="btn btn-sm btn-primary btn-default text-uppeercase">Back to home</button></a>

@@ -194,8 +194,8 @@ $bookingId = $_SESSION['booking_id'];
             </div>
         </div>
         
-            <div class="modal fade" id="myModalViewFullPaymentPlan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="width: 800px; margin-top:100px;">
+            <div class="modal fade col-md-12 col-sm-12 col-xs-12" id="myModalViewFullPaymentPlan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="margin-top:100px;">
                 <div class="modal-content">
                     <div class="modal-body">
                     </div>
@@ -203,8 +203,8 @@ $bookingId = $_SESSION['booking_id'];
             </div>
         </div>
 
-        <div class="modal fade" id="myModalFullPriceSheet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="width: 800px; margin-top:100px;">
+        <div class="modal fade col-md-12 col-sm-12 col-xs-12" id="myModalFullPriceSheet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="margin-top:100px;">
                 <div class="modal-content">
                     <div class="modal-body">
                     </div>

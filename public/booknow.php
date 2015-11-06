@@ -196,7 +196,7 @@ $startTime= time();
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                       <div class="panel-body">
                      
-                        <h4 class="orangeText apartmentName col-md-6 col-sm-6 col-xs-12"><?php echo $unitData['project_title']?> <span class="unitName">(<?php echo $unitData['unit']['name']?>)</span></h4>
+                        <h4 class="apartmentName col-md-6 col-sm-6 col-xs-12"><?php echo $unitData['project_title']?> <span class="unitName">(<?php echo $unitData['unit']['name']?>)</span></h4>
                         <div class="col-md-6 col-sm-6 col-xs-12 pricepaymentButtons">
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <a style="cursor:pointer" onclick="getPriceSheet('<?php echo $unitId?>',false,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>','<?php echo $projectId?>','<?php echo GET_PAYMENT_PLAN_URL?>')">Price Sheet</a>
@@ -414,8 +414,8 @@ $startTime= time();
         </div>
         
         
-<div class="modal fade" id="myModalViewFullPaymentPlan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width: 850px; margin-top:100px;">
+<div class="modal fade col-md-12 col-sm-12 col-xs-12" id="myModalViewFullPaymentPlan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top:100px;">
             <div class="modal-content">
                 <div class="modal-body">
                 </div>
@@ -423,8 +423,8 @@ $startTime= time();
         </div>
     </div>
 
-    <div class="modal fade" id="myModalFullPriceSheet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width: 850px; margin-top:100px;">
+    <div class="modal fade col-md-12 col-sm-12 col-xs-12" id="myModalFullPriceSheet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top:100px;">
             <div class="modal-content">
                 <div class="modal-body">
                 </div>
