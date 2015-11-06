@@ -458,7 +458,7 @@ $('.add-floor-group-btn').click(function() {
   data = {
     groupName: floorGroupName,
     floors: groupFloors,
-    project_id: PROJECTID
+    building_id: BUILDING_ID
   };
   $(".floor_group_block").before(compile(data));
   $(this).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val('').focus();

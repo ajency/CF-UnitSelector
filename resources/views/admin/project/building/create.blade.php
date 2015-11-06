@@ -141,5 +141,10 @@
                 </form>
 
             </div>
+ <script>
+    var BASEURL = '{{ url() }}';
+    var BUILDING_ID = '{{ $building->id }}';
  
+
+</script>
 @endsection

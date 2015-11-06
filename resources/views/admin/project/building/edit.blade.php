@@ -279,7 +279,7 @@
             </div>
 <script>
     var BASEURL = '{{ url() }}';
-
+    var BUILDING_ID = '{{ $building->id }}';
     var BREAKPOINTS = ['<?php echo (isset($positions))? implode("','", $positions):"" ?>'];
 
 </script>

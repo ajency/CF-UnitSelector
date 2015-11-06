@@ -606,7 +606,7 @@ $('.add-project-attributes-btn').click ->
     data = 
       groupName : floorGroupName
       floors : groupFloors
-      project_id : PROJECTID  
+      building_id : BUILDING_ID  
     $(".floor_group_block").before compile data
 
     $(@).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val('').focus() 
