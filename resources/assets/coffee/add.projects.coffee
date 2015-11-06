@@ -590,14 +590,29 @@ $('.add-project-attributes-btn').click ->
         alert('Enter Floors')
         return
     
+    floors = groupFloors.split(',')
+
+    allgroupFloors = []
+    allFloors = []
+    $(@).closest('.floor-groups').find('.floors').find('input[name="group_floors[]"]').each ->
+        floorStr = $(@).val()
+        allFloor = floorStr.split(',')
+        allgroupFloors = allgroupFloors.concat(allFloor);
+ 
+
+    floorDiff = _.intersection(allgroupFloors, floors)
+ 
+    if(floorDiff.length)
+        alert('Floors : '+floorDiff + ' already used in floor group')
+        return
+
     str = '<div class="col-md-12 m-b-20 ">
                         <div class="row">
                         <div class="col-md-10"> 
                             <div class="row">
                                 <div class="col-md-6"><input type="text" name="floor_group_name[]" value="{{groupName}}" class="form-control" placeholder="Enter Floor Group Name"> </div>
                                 <input type="hidden" name="floor_group_id[]" value="" class="form-control">
-                            
-                                <div class="col-md-6"><input type="text" name="group_floors[]" value="{{floors}}" class="form-control" placeholder="Enter Floors"></div>
+                                <div class="col-md-6 floors"><input type="text" name="group_floors[]" value="{{floors}}" class="form-control" placeholder="Enter Floors"></div>
                             </div>
                         </div>
                         <div class="col-md-2 text-center">

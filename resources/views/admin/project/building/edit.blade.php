@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                     <hr/>
-            <div class="row">
+            <div class="row floor-groups">
                 <div class="m-l-5 no-border col-md-4">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Floor   <span class="semi-bold">Group</span></h3>
                 </div>
@@ -117,7 +117,7 @@
                                 <div class="col-md-6"><input type="text" name="floor_group_name[]" value="{{ $floorGroup['name'] }}" class="form-control" placeholder="Enter Floor Group Name"> </div>
                                 <input type="hidden" name="floor_group_id[]" value="{{ $floorGroup['id'] }}" class="form-control">
                             
-                                <div class="col-md-6"><input type="text" name="group_floors[]" value="{{ (!empty($floorGroup['floors'])) ?implode(',',$floorGroup['floors']) :'' }}" class="form-control" placeholder="Enter Floors"></div>
+                                <div class="col-md-6 floors"><input type="text" name="group_floors[]" value="{{ (!empty($floorGroup['floors'])) ?implode(',',$floorGroup['floors']) :'' }}" class="form-control" placeholder="Enter Floors"></div>
                             </div>
                         </div>
                         <div class="col-md-2 text-center">
