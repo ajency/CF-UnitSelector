@@ -113,11 +113,12 @@
                 <div class="col-md-12 m-b-20 ">
                         <div class="row">
                         <div class="col-md-10"> 
-                            <input type="text" name="floor_group_name[]" value="{{ $floorGroup['name'] }}" class="form-control" placeholder="Enter Floor Group Name"> 
-                            <input type="hidden" name="floor_group_id[]" value="{{ $floorGroup['id'] }}" class="form-control">
-                            &nbsp;
-                            <input type="text" name="group_floors[]" value="{{ (!empty($floorGroup['floors'])) ?implode(',',$floorGroup['floors']) :'' }}" class="form-control" placeholder="Enter Floors">
-                      
+                            <div class="row">
+                                <div class="col-md-6"><input type="text" name="floor_group_name[]" value="{{ $floorGroup['name'] }}" class="form-control" placeholder="Enter Floor Group Name"> </div>
+                                <input type="hidden" name="floor_group_id[]" value="{{ $floorGroup['id'] }}" class="form-control">
+                            
+                                <div class="col-md-6"><input type="text" name="group_floors[]" value="{{ (!empty($floorGroup['floors'])) ?implode(',',$floorGroup['floors']) :'' }}" class="form-control" placeholder="Enter Floors"></div>
+                            </div>
                         </div>
                         <div class="col-md-2 text-center">
                             <a class="text-primary" onclick="deleteFloorGroup({{$building->id}},{{$floorGroup['id']}}, this);" data-object-type="view"><i class="
