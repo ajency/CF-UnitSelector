@@ -16,7 +16,7 @@
 <!-- BEGIN PAGE TITLE -->
   <div class="page-title">
                         
-                    <h2>Building <span class="semi-bold">Edit</span></h2>
+                    <h2> <span class="semi-bold">Building</span> Edit</h2>
                     </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->

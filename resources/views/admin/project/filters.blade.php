@@ -11,7 +11,7 @@
 @endsection
 @section('content')
 <div class="page-title">
-    <h2>Project<span class="semi-bold"> Filters</span></h2>
+    <h2><span class="semi-bold">Project</span> Filters</h2>
 </div>
 <div class="grid simple">
 @include('admin.project.flashmessage')
