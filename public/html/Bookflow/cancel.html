@@ -100,11 +100,11 @@
 				        			<div class="col-xs-12 titleDetails">Booking Amount</div>
 				        		</div>
 				        		<div class="col-md-2 col-xs-12">
-				        			 <div class="col-xs-12 unitDetails">Prestige Group</div>
+				        			 <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="Prestige Group Prestige Group">Prestige Group Prestige Group</div>
 				        			 <div class="col-xs-12 titleDetails">Builder</div>				        			 
 				        		</div>
 				        		<div class="col-md-2 col-xs-12">
-				        			<div class="col-xs-12 unitDetails">Whitefield</div>
+				        			<div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="Whitefield Whitefield Whitefield">Whitefield Whitefield Whitefield</div>
 				        			<div class="col-xs-12 titleDetails">Locality</div>
 				        		</div>
 				        	</div>					       				      
@@ -341,7 +341,10 @@
 				    }				    
 				});
 
-
+			     $(function () {
+				  $('[data-toggle="tooltip"]').tooltip()
+				  
+				})	
 				/*function btnClick(){
 					alert("hiiiii");
 					$(this).parents('.panel-collapse').removeClass('in');
@@ -349,6 +352,8 @@
 				}	*/				  
 			});
 		</script>
+
+		
 
 	</body>
 </html>
