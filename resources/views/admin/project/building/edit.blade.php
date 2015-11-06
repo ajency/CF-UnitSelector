@@ -127,8 +127,8 @@
                         </div>
                     </div>
                 @endforeach   
-                 <div class="col-md-12">
-                   <div class="add-unit floor_group_block">
+                 <div class="col-md-12 floor_group_block">
+                   <div class="add-unit ">
                         <div class="row p-t-10 p-r-15 p-l-15">
                             <div class="col-md-12">
                             <div class="col-md-6">
