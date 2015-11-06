@@ -4,7 +4,7 @@
             <div class="grid-title no-border"> 
                 <div class="row object-master-images" data-object-id="{{ $project['id'] }}" data-object-type="project">
                     <div class="col-md-8 ">
-                        <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Project Master</span> Image</h3>&nbsp;&nbsp;    
+                        <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> Project Master<span class="semi-bold"> Image </span></h3>&nbsp;&nbsp;    
                         
                         <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select Master file (s)</a>
                         <a id="shadow_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select Shadow file (s)</a>

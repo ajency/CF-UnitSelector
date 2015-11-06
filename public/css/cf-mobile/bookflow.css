@@ -132,6 +132,7 @@ body {
   margin-bottom: 0;
   margin-top: 0;
   font-weight: 600;
+  font-size: 17px;
 }
 .bookFlowContent .bookAptOuter .totalPrice {
   font-size: 11px;
@@ -211,7 +212,7 @@ body {
 }
 .bookFlowContent .bookAptOuter .bookApmt {
   color: #ffffff;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
 }
 .bookFlowContent .bookAptOuter .projectName {

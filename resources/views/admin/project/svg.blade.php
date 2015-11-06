@@ -11,7 +11,7 @@
 @endsection
 @section('content')
 <div class="page-title">
-    <h2>Project<span class="semi-bold"> SVGs</span></h2>
+    <h2><span class="semi-bold">Project</span> SVGs</h2>
 </div>
 
 <input type="hidden" value="{{ csrf_token()}}" name="_token"/> 

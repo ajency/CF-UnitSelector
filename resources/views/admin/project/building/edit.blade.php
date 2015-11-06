@@ -16,7 +16,7 @@
 <!-- BEGIN PAGE TITLE -->
   <div class="page-title">
                         
-                    <h2><span class="semi-bold">Building </span> Edit</h2>
+                    <h2>Building <span class="semi-bold">Edit</span></h2>
                     </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -30,8 +30,8 @@
                             <div class="col-md-4">
                                 <h3><i class=
                                        "fa fa-angle-double-right text-primary"></i>
-                                    <span class="semi-bold">Building</span>
-                                    Details</h3>
+                                    Building
+                                   <span class="semi-bold"> Details</span></h3>
                             </div>
  
                         </div>
@@ -105,12 +105,13 @@
                                 </div>
                     <hr/>
             <div class="row">
-                <div class="m-l-5 no-border">
+                <div class="m-l-5 no-border col-md-4">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Floor   <span class="semi-bold">Group</span></h3>
                 </div>
                  
                 @foreach($floorGroups as $floorGroup)
-                <div class="row m-b-10 ">
+                <div class="col-md-12 m-b-20 ">
+                        <div class="row">
                         <div class="col-md-10"> 
                             <input type="text" name="floor_group_name[]" value="{{ $floorGroup['name'] }}" class="form-control" placeholder="Enter Floor Group Name"> 
                             <input type="hidden" name="floor_group_id[]" value="{{ $floorGroup['id'] }}" class="form-control">
@@ -122,7 +123,7 @@
                             <a class="text-primary" onclick="deleteFloorGroup({{$building->id}},{{$floorGroup['id']}}, this);" data-object-type="view"><i class="
                                         fa fa-close"></i></a>
                         </div>
-
+                        </div>
                     </div>
                 @endforeach   
                  <div class="col-md-12">
@@ -170,18 +171,18 @@
                   
                     <table class="table table-striped dataTable">
                         <thead>
-                        <th data-hide="phone,tablet" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Image</th>
-                        <th data-hide="phone,tablet" class="" role="columnheader" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Position</th>
+                        <th width="11%" data-hide="phone,tablet" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Image</th>
+                        <th width="7%" data-hide="phone,tablet" class="" role="columnheader" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Position</th>
 
-                        <th class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Breakpoint</th>
-                        <th class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Shadow Image</th>
+                        <th width="9%" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Breakpoint</th>
+                        <th width="12%" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Shadow Image</th>
 
-                        <th class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Step 2 Import SVG</th>
-                        <th class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Step 3 Import SVG</th>
+                        <th width="11%" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Step 2 Import SVG</th>
+                        <th width="11%" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Step 3 Import SVG</th>
 
-                        <th class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
-                        <th class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
-                        <th class="text-right" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">
+                        <th width="13.5%" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
+                        <th width="13.5%" class="" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending"></th>
+                        <th width="12%" class="text-right" role="columnheader"  aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">
                             <button tabindex="0" type="button" onclick="saveBreakPoint()" class="btn btn-primary btn-small">Save Breakpoint</button>
                         </th>
                         </thead>
