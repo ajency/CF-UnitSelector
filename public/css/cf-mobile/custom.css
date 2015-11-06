@@ -806,7 +806,7 @@ section {
   top: 0px;
   width: 100%;
 }
-div#spritespin {
+div.spritespin-div {
   width: 100% !important;
   height: 100% !important;
 }
@@ -834,6 +834,16 @@ div#spritespin {
 .link:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+.step2-svg {
+  -webkit-transition: 1s ease-in-out;
+  stroke: #333;
+  stroke-opacity: 1;
+  stroke-width: 2;
+  stroke-dasharray: "5,5";
+}
+.step2-svg:hover {
+  opacity: .2 !important;
 }
 .tabHeader {
   position: fixed;
