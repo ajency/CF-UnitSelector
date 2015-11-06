@@ -7,12 +7,12 @@ var SvgContainer = React.createClass({
 
     componentDidMount: function(){
 
-      $(document).ready(function(){
+      
       svgDom = $(".svg-area");
 
-      $(svgDom).find("svg .building").attr("class", "in-selection");
+       $(svgDom).find("svg .floor_group").attr("class", "in-selection");
 
-      });
+    
      
     },
 
