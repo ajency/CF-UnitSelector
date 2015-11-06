@@ -184,6 +184,16 @@ div.spritespin-div {
   text-decoration: underline;
   cursor: pointer;
 }
+.step2-svg {
+  -webkit-transition: 1s ease-in-out;
+  stroke: #333;
+  stroke-opacity: 1;
+  stroke-width: 2;
+  stroke-dasharray: "5,5";
+}
+.step2-svg:hover {
+  opacity: .2 !important;
+}
 body {
   -webkit-text-size-adjust: none;
   font-family: sans-serif;
