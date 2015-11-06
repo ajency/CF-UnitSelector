@@ -167,8 +167,9 @@ var BuildingMaster = React.createClass({
 
     componentWillMount:function(){
         AppStore.addChangeListener(this._onChange);
-    },     
+    },
 
+    
     _onChange:function(){
         var buildingId;
         buildingId = this.props.buildingId;

@@ -743,23 +743,28 @@ function getVariantsName(propertyType,variant,buildingId){
 		}
 	});
 
-	_.each(filteredVariants, function(p_variants){
-				var variantName = p_variants[variant];
-	    		var var_attributes = {
-	    			id: variantName,
-	    			isSelected: false,
-	    			name: variantName[0].toUpperCase() + variantName.substr(1),
-	    			property_type_id: prop_type_id
-	    		};
+	_.each(filteredVariants, function(p_variants,key){
+		var variantName = p_variants[variant];
 
-	    		check = _.some( variants, function( el ) {
-	    			return el.id === variantName;
-	    		} );
+		var formatCheck = variantName.toString();
+		
+		var formatedName = formatCheck[0].toUpperCase() + formatCheck.substr(1);
 
-	    		if(!check){
-	    			variants.push(var_attributes);
-	    		}
-	    	});
+		var var_attributes = {
+			id: key,
+			isSelected: false,
+			name: formatedName,
+			property_type_id: prop_type_id
+		};
+
+		var check = _.some( variants, function( el ) {
+			return el.id === variantName;
+		} );
+
+		if(!check){
+			variants.push(var_attributes);
+		}
+	});
 
 	return variants;
 }
@@ -913,7 +918,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 				filterType.filterDisplayType = "normalCheckbox";
 
 				filterType.filterValues = getVariantsName(propertyType,'unit_variant_name',building);
-
+				
 				filterTypes.push(filterType);
 			}
 
