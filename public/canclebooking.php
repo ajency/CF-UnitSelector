@@ -122,7 +122,7 @@ $bookingId = $_SESSION['booking_id'];
                                     <div class="col-xs-12 titleDetails">Booking Amount</div>
                                 </div>
                                 <div class="col-md-2 col-xs-12">
-                                     <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><?php echo $unitData['builder_name']?></div>
+                                     <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo $unitData['builder_name']?>"><?php echo $unitData['builder_name']?></div>
                                      <div class="col-xs-12 titleDetails">Builder</div>                                   
                                 </div>
                                 <div class="col-md-2 col-xs-12">
