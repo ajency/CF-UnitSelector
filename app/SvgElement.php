@@ -34,15 +34,19 @@ class SvgElement extends Model {
         $objectId = $data['object_id'];
         $objectType = $data['object_type'];
         $object_types = array('villa','apartment','plot','building');
-
-        if($objectType=='building')
-            $objectName = Building::find( $objectId )->building_name;
-        elseif($objectType=='floor_group')
-            $objectName = Building::find( $objectId )->name;
-        elseif(in_array($objectType, $object_types))
-            $objectName = Unit::find($objectId)->unit_name;
-        else
-            $objectName='';
+        $objectName ='';
+        if($objectId)
+        {
+            if($objectType=='building')
+                $objectName = Building::find( $objectId )->building_name;
+            elseif($objectType=='floor_group')
+                $objectName = FloorGroup::find( $objectId )->name;
+            elseif(in_array($objectType, $object_types))
+                $objectName = Unit::find($objectId)->unit_name;
+            else
+                $objectName='';
+        }
+        
 
         $data['object_name'] = $objectName;
 
