@@ -49,13 +49,15 @@
                                     <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Number of Floors<span class="text-primary">*</span></label>
-                                        <select id="phase" name="no_of_floors" class="select2 form-control m-b-5" data-parsley-required {{ $disabled }}>
+                                        <select id="phase" name="no_of_floors" class="select2 form-control m-b-5" data-parsley-required {{ $disabled }} {{ (count($floorGroups)) ? 'disabled' :''}}>
                                                 <option value="">Select Floors</option>
                                                 @for($i=1 ;  $i<=100; $i++)
                                                 <option {{ $building->no_of_floors == $i ? 'selected' : '' }}  value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
-                                             
+                                            @if(count($floorGroups))
+                                              <input type="hidden" name="no_of_floors"  value="{{ $building->no_of_floors }}">   
+                                            @endif
                                         </div>
                                     </div>
                     <div class="col-md-4">
