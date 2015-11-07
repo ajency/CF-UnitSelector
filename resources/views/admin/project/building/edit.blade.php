@@ -22,7 +22,7 @@
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
  <div class="grid simple">
      @include('admin.project.flashmessage')
-<form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">
+<form onsubmit="return validateBuildingFloors(this);" data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">
     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
                 <div class="grid-body grid-padding no-border">
                     <div class=" m-t-15 m-b-15 no-border">
@@ -284,5 +284,6 @@
     var BUILDING_ID = '{{ $building->id }}';
     var BREAKPOINTS = ['<?php echo (isset($positions))? implode("','", $positions):"" ?>'];
 
+    
 </script>
 @endsection

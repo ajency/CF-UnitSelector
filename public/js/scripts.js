@@ -2175,3 +2175,48 @@ $('form').on('keypress', 'a,input[type="checkbox"],input[type="radio"]', functio
     }
  
   });*/
+
+function validateBuildingFloors(form)
+{
+      var validateFloor = 0;
+      var allFloors =[]
+      $('.floor-groups').find('input[name="group_floors[]"]').each(function() {
+            floorStr = $(this).val();
+            floors = floorStr.split(',');
+            _.map(floors, function(num) { 
+          
+            if (num % 1 != 0) {
+              return validateFloor = validateFloor + 1;
+            }
+
+            allFloors.push(num)
+                           
+
+          });
+      });
+
+       var sorted_arr = allFloors.sort();  
+                        
+        var duplicateFloor = [];
+        for (var i = 0; i < allFloors.length - 1; i++) {
+            if (sorted_arr[i + 1] == sorted_arr[i]) {
+                duplicateFloor.push(sorted_arr[i]);
+            }
+        }
+
+  
+      
+     
+      
+      //alert(validateFloor);
+      if (validateFloor > 0) {
+        alert('Enter Valid Floors Number');
+        return false;
+      }
+
+      if (duplicateFloor!='') {
+        alert('Floor Number '+duplicateFloor+' used in more then 1 floor group');
+        return false;
+      }
+
+}

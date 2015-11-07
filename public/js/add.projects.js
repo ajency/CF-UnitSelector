@@ -442,7 +442,7 @@ $('.add-project-attributes-btn').click(function() {
 });
 
 $('.add-floor-group-btn').click(function() {
-  var allFloors, allgroupFloors, compile, data, floorDiff, floorGroupName, floors, groupFloors, str;
+  var allFloors, allgroupFloors, compile, data, floorDiff, floorGroupName, floors, groupFloors, str, validateFloor;
   floorGroupName = $(this).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val();
   groupFloors = $(this).closest('.floor_group_block').find('input[name="group_floors[]"]').val();
   if (floorGroupName === '') {
@@ -454,6 +454,16 @@ $('.add-floor-group-btn').click(function() {
     return;
   }
   floors = groupFloors.split(',');
+  validateFloor = 0;
+  _.map(floors, function(num) {
+    if (num % 1 !== 0) {
+      return validateFloor = validateFloor + 1;
+    }
+  });
+  if (validateFloor > 0) {
+    alert('Enter Valid Floors Number');
+    return;
+  }
   allgroupFloors = [];
   allFloors = [];
   $(this).closest('.floor-groups').find('.floors').find('input[name="group_floors[]"]').each(function() {
