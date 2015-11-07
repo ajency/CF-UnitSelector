@@ -22,6 +22,7 @@ Path = (function(superClass) {
     path.attr({
       'class': item.other_details["class"],
       'id': item.object_id,
+      'title': item.object_name,
       'type': item.object_type,
       svgid: item.id
     });
