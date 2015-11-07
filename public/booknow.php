@@ -262,7 +262,7 @@ $startTime= time();
                             </div>                                              
                       
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 userInfo">
+                        <div class="col-md-4 col-sm-4 col-xs-12 userInfo hidden">
                                                                       
                         </div>
                        <div class="row">

@@ -36,6 +36,7 @@ $( ".basic_info" ).change(function() {
     str += $("input[name='contact_state']").val()+' '+$("input[name='contact_country']").val();
     str += ($("input[name='contact_zipcode']").val()!='') ? ' - '+ $("input[name='contact_zipcode']").val()+'<br> ' :'';
     $(".userInfo").html(str);
+    $(".userInfo").removeClass('hidden');
 });
 
 function copyBillingInfo(obj){
