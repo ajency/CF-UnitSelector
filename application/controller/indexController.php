@@ -1268,8 +1268,17 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
         $booking_amount=getBookingAmount($unitId,"booking_amount"); 
         $totalSaleValue=getBookingAmount($unitId,"sale_value");
         
+        $imageUrl=getimagesize($unitData['project_image']);
 
-        
+        if(is_array($imageUrl))
+        {
+             $builderLogo = '<img src="'.$unitData['project_image'].'" style="width:100px"/>';
+        }
+        else
+        {
+             $builderLogo = '<span style="color: #333; font-weight:bold; font-size: 18px; text-transform: capitalize;">'.$unitData['project_title'].'</span>';
+        }
+   
       $html ='<!DOCTYPE html>
               <html>
               <head>
@@ -1299,7 +1308,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table cellspacing="5" cellpadding="0" style="border-bottom:1px solid #ccc;">
                       <tr>
-                        <td width="600" style="color:#7d7d7d; font-size:16px;"><img src="'.$unitData['project_image'].'" style="width:100px"/><br><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
+                        <td width="600" style="color:#7d7d7d; font-size:16px;">'.$builderLogo.'<br><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
                         </td>                        
                       </tr>
                     </table>
