@@ -93,7 +93,7 @@ if(window.isMobile){
     
    specificationNodes = _.map( basicDetails.variantAttributes , function(val, key){
         return(          
-        <div className="textInner col-xs-12 pNone">
+        <div key={key} className="textInner col-xs-12 pNone">
               <h5 className="text-uppercase col-xs-2">{key}:</h5>
               <div className="col-xs-10">{val}</div>          
             </div>
