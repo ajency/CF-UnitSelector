@@ -67,6 +67,9 @@ var ImageContainerTemplate = React.createClass({
         
     },
 
+
+
+
     componentDidMount: function(){
 
         console.log("component did mount of image container");
@@ -155,6 +158,11 @@ var ImageContainerTemplate = React.createClass({
 
          }.bind(this))  ;       
     },
+
+
+
+
+
 
     componentDidUpdate: function(){
       console.log("did update img container")

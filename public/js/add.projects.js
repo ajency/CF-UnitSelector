@@ -442,7 +442,7 @@ $('.add-project-attributes-btn').click(function() {
 });
 
 $('.add-floor-group-btn').click(function() {
-  var compile, data, floorGroupName, groupFloors, str;
+  var allFloors, allgroupFloors, compile, data, floorDiff, floorGroupName, floors, groupFloors, str, validateFloor;
   floorGroupName = $(this).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val();
   groupFloors = $(this).closest('.floor_group_block').find('input[name="group_floors[]"]').val();
   if (floorGroupName === '') {
@@ -453,7 +453,31 @@ $('.add-floor-group-btn').click(function() {
     alert('Enter Floors');
     return;
   }
-  str = '<div class="col-md-12 m-b-20 "> <div class="row"> <div class="col-md-10"> <div class="row"> <div class="col-md-6"><input type="text" name="floor_group_name[]" value="{{groupName}}" class="form-control" placeholder="Enter Floor Group Name"> </div> <input type="hidden" name="floor_group_id[]" value="" class="form-control"> <div class="col-md-6"><input type="text" name="group_floors[]" value="{{floors}}" class="form-control" placeholder="Enter Floors"></div> </div> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteFloorGroup({{ building_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div> </div>';
+  floors = groupFloors.split(',');
+  validateFloor = 0;
+  _.map(floors, function(num) {
+    if (num % 1 !== 0) {
+      return validateFloor = validateFloor + 1;
+    }
+  });
+  if (validateFloor > 0) {
+    alert('Enter Valid Floors Number');
+    return;
+  }
+  allgroupFloors = [];
+  allFloors = [];
+  $(this).closest('.floor-groups').find('.floors').find('input[name="group_floors[]"]').each(function() {
+    var allFloor, floorStr;
+    floorStr = $(this).val();
+    allFloor = floorStr.split(',');
+    return allgroupFloors = allgroupFloors.concat(allFloor);
+  });
+  floorDiff = _.intersection(allgroupFloors, floors);
+  if (floorDiff.length) {
+    alert('Floors : ' + floorDiff + ' already used in floor group');
+    return;
+  }
+  str = '<div class="col-md-12 m-b-20 "> <div class="row"> <div class="col-md-10"> <div class="row"> <div class="col-md-6"><input type="text" name="floor_group_name[]" value="{{groupName}}" class="form-control" placeholder="Enter Floor Group Name"> </div> <input type="hidden" name="floor_group_id[]" value="" class="form-control"> <div class="col-md-6 floors"><input type="text" name="group_floors[]" value="{{floors}}" class="form-control" placeholder="Enter Floors"></div> </div> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteFloorGroup({{ building_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div> </div>';
   compile = Handlebars.compile(str);
   data = {
     groupName: floorGroupName,
