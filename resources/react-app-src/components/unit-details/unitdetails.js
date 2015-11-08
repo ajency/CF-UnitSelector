@@ -97,7 +97,6 @@ var UnitDetails = React.createClass({
 
 
     showContactModal: function(){
-    	console.log("show modal");
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },	
 
