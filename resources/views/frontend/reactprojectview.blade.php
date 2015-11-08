@@ -37,14 +37,8 @@
     <script src="{{ asset('bower_components/Swiper/dist/js/swiper.min.js') }}"></script>
     <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
     <script src="{{ asset('bower_components/spritespin/release/spritespin.min.js' )}}"></script>  
-    <script src="{{ asset('bower_components/qtip2/basic/jquery.qtip.js' )}}"></script> 
+    <script src="{{ asset('js/qtip2/basic/jquery.qtip.js' )}}"></script> 
     <script src="{{ asset('bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' )}}"></script>
-    <script type="text/javascript" src="{{ asset('js/powertip/core.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/powertip/csscoordinates.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/powertip/displaycontroller.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/powertip/placementcalculator.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/powertip/tooltipcontroller.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/powertip/utility.js')}}"></script>
      <script src="{{ asset('js/animsition.min.js' )}}"></script>
 
 	<!--Global constants -->
