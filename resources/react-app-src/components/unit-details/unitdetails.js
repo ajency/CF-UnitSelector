@@ -99,7 +99,7 @@ var UnitDetails = React.createClass({
     showContactModal: function(){
     	console.log("show modal");
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
-    }, 	
+    },	
 
      
     _onChange:function(){
@@ -215,58 +215,70 @@ var UnitDetails = React.createClass({
 
 
 		if(window.isMobile){
-		domToDisplay = (
-			<div>
-				<TabHeader
-					buildingName={buildingName}
-					unitTypeName={unitTypeName}
-					propertyTypeName={propertyTypeName}
-					unitId = {unitId}
-					projectId = {projectId}
-					unitStatus = {status}
-				/>
-				<TabPanes
-					unitData = {unitData}
-				/>
-				<TabFooter
-					unitId = {unitId}
-					projectId = {projectId}
-					unitStatus = {status}
-				/>
-			</div>
-		)
-		}else{
+
 			var modalData = {};
         	modalData.projectData = "";
 
 			domToDisplay = (
-			<div>
-				<div className="container-fluid step4Desk">
+				<div>
 					<TabHeader
 						buildingName={buildingName}
 						unitTypeName={unitTypeName}
-						propertyTypeName={propertyTypeName}					
-						unitData = {unitData}
-						showContactModal = {this.showContactModal}
+						propertyTypeName={propertyTypeName}
+						unitId = {unitId}
+						projectId = {projectId}
+						unitStatus = {status}
 					/>
 					<TabPanes
 						unitData = {unitData}
 					/>
-					<SimilarUnits similarUnits={unitData.similarUnits} />				
-				</div>
-
-				<TabFooter
+					<TabFooter
 						unitId = {unitId}
 						projectId = {projectId}
 						unitStatus = {status}
+						showContactModal = {this.showContactModal}
+					/>
 
-				/>
-                <Modal 
-                    ref="contactModal" 
-                    modalData = {modalData}
-                    modalPurpose = "contactModal"
-                />					
-			</div>
+	                <Modal 
+	                    ref="contactModal" 
+	                    modalData = {modalData}
+	                    modalPurpose = "mobileContactModal"
+	                />					
+				</div>
+			)
+		}
+		else{
+			var modalData = {};
+        	modalData.projectData = "";
+
+			domToDisplay = (
+				<div>
+					<div className="container-fluid step4Desk">
+						<TabHeader
+							buildingName={buildingName}
+							unitTypeName={unitTypeName}
+							propertyTypeName={propertyTypeName}					
+							unitData = {unitData}
+							showContactModal = {this.showContactModal}
+						/>
+						<TabPanes
+							unitData = {unitData}
+						/>
+						<SimilarUnits similarUnits={unitData.similarUnits} />				
+					</div>
+
+					<TabFooter
+							unitId = {unitId}
+							projectId = {projectId}
+							unitStatus = {status}
+
+					/>
+	                <Modal 
+	                    ref="contactModal" 
+	                    modalData = {modalData}
+	                    modalPurpose = "contactModal"
+	                />					
+				</div>
 		)
 		}
 		return domToDisplay;

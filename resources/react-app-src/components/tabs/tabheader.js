@@ -89,7 +89,11 @@ var TabHeader = React.createClass({
 
                         <div className="col-xs-6 text-right rightSide">
                             {bookNowButton}
-                            <button className="btn btn-default btn-primary text-uppercase" data-toggle="modal" data-target="#contactModal" onClick={this.props.showContactModal}>
+                            <button 
+                                className="btn btn-default btn-primary text-uppercase" 
+                                data-toggle="modal" data-target="#contactModal" 
+                                onClick={this.props.showContactModal}
+                            >
                                 <i className="fa fa-phone"></i>
                                 <span className="enquiryText">Contact Us</span>
                             </button>

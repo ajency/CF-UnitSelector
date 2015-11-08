@@ -17,7 +17,7 @@ var ModalHeader = React.createClass({
                         </div>
                      );
     }
-    else if(modalPurpose==="contactModal"){
+    else if((modalPurpose==="contactModal")||(modalPurpose==="mobileContactModal")){
       modalBodyDom = (  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>);
     } 
     

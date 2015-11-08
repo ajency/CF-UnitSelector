@@ -41,7 +41,11 @@ var TabFooter = React.createClass({
 		domToDisplay = (
 				<div className="tabfooter">
 			    <div className="row">
-			        <button className="col-xs-6 button">
+			        <button 
+			        	className="col-xs-6 button" 
+                        data-toggle="modal" 
+                        onClick={this.props.showContactModal}
+			        >
 			            <div>
 			                <span>
 			                    <i className="fa fa-envelope-o"></i>
