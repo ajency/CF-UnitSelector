@@ -393,10 +393,48 @@ var ProjectMaster = React.createClass({
         var classname = ".show-qtooltip";
    
         // initialise qtip
+         $(classname).each(function(ind, item) { // Notice the .each() loop, discussed below
+                $(item).qtip({ // Grab some elements to apply the tooltip to
+                    content: text,
+                    show: qtipSettings['show'],
+                    hide: qtipSettings['hide'],
+                    position:{
+                               my: 'center',  // Position my top left...
+                               at: 'center', // at the bottom right of...
+                               viewport: $(window), 
+                               target: $(item) // my target
+                           },
+                    style:qtipSettings['style']
+                });
+            }); 
 
-        qtipSettings['content'] = text;
+        // if('object' === typeof $(classname).data('qtip'))
+        //     isqtipInitialised = true;
 
-        $(classname).qtip(qtipSettings);
+        // if(isqtipInitialised){
+        //     qtipApi = $(classname).qtip('api');
+        //     qtipId = qtipApi._id;
+
+        //     // change left of qtip generated so it is in the center
+        //     var svgElem   = $(classname); // or other selector like querySelector()
+        //     var svgel   = svgElem[0]; // or other selector like querySelector()
+        //     var svgRect = svgel.getBoundingClientRect(); // get the bounding rectangle 
+
+        //     svgElemwidth =  svgRect.width;
+
+        //     $(document).delegate('#'+qtipId, 'load',function() {
+        //         // runs your code when any "qtip" is loaded
+        //         oldQtipLeft = parseInt($('#'+qtipId).css('left').replace("px", ""));    
+        //         newQtipLeft = oldQtipLeft + (svgElemwidth/2); 
+
+        //         newLeft = newQtipLeft+"px";                
+        //             $('#'+qtipId).css('left', newLeft);   
+        //         });
+          
+        // }
+
+
+
     },  
 
     rotateImage: function(unitData){
