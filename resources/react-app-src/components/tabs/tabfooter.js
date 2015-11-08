@@ -63,8 +63,13 @@ var TabFooter = React.createClass({
 	    }else{
 	    	domToDisplay = (
 	    		<div className="footerDesk container-fluid text-center">
-	    		Call 1800 180 180 180
-	    		<div className="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
+		    		Call 1800 180 180 180
+		    		<div className="privacyOuter">
+		    			<a href="https://www.commonfloor.com/">Commonfloor</a> | 
+		    			<a href="#">FAQ</a> | 
+		    			<a href="#">Mobile Apps © commnfloor inc. </a>| 
+		    			<a href="#">Privacy Policy</a>
+		    		</div>
 	    		</div>
 	    	);
 	    }
