@@ -14,9 +14,11 @@ if(window.isMobile){
                     <div className="flatDetails">
                         <h4>Outside view</h4>
                     </div>
+                    <br/>    
+                    <div className="svg-top-area">           
+                        <img className="myImg" src="img/svg/master-00.jpg"/>  
+                    </div>
                     <br/>
-                    <img className="myImg" src="img/bldg-3d.png" />
-                    <a className="clickBtn" onclick="requestFullScreen()" href="#"><i className="fa fa-2x fa-arrows-alt"></i></a>
                 </div>
                 <div id="Fullscreen">
                     <img src="" alt="" />
@@ -39,13 +41,17 @@ if(window.isMobile){
         <div className="col-xs-12 floorDetails">
           <div className="row">
             <div className="col-xs-7 text-center">
-              <div className="plan col-xs-12 text-uppercase pNone">Tower overview</div>
-              <img src="img/bldg-3d.png"/>
+                <div className="plan col-xs-12 text-uppercase pNone">Tower view</div>
+                <div className="svg-top-area">
+                    <img className="myImg" src="img/svg/master-00.jpg" />
+                </div>
               
             </div>
             <div className="col-xs-5 text-center">
-              <div className="plan col-xs-12 text-uppercase pNone">Unit view</div>
-              <img src="img/bldg-3d.png"/>
+                <div className="plan col-xs-12 text-uppercase pNone">Unit view</div>
+                <div className="svg-top-area">
+                    <img className="myImg" src="img/svg/master-00.jpg" />
+                </div>
               
             </div>                                                                          
           </div> 
