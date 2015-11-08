@@ -5,6 +5,13 @@ var classNames = require('classnames');
 var SvgView = React.createClass({
     svgLoaded: function(buildingToHighlight){
         console.log("svg loaded for outside view");
+        svgElementToSelect = this.props.svgElementToSelect;
+        svgElementId = this.props.svgElementId;
+
+        selector = "."+svgElementToSelect+svgElementId;
+        existingClasses = $(selector).attr("class"); 
+        svgElemClassName = existingClasses+' in-selection';
+        $(selector).attr("class", svgElemClassName);        
     },
 
     render: function () {

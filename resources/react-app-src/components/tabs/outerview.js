@@ -33,6 +33,8 @@ var OutsideView = React.createClass({
                                 key={svgKey1}
                                 svgUrl={step1SvgUrl}
                                 imgUrl={step1ImgUrl}
+                                svgElementToSelect = "building"
+                                svgElementId = {this.props.buildingId}
                             /> 
                             <br/>
                         </div>
@@ -62,6 +64,8 @@ var OutsideView = React.createClass({
                             key={svgKey1}
                             svgUrl={step1SvgUrl}
                             imgUrl={step1ImgUrl}
+                            svgElementToSelect = "building"
+                            svgElementId = {this.props.buildingId}
                         />
                     </div>
                     <div className="col-xs-5 text-center">
@@ -70,6 +74,10 @@ var OutsideView = React.createClass({
                             key={svgKey2}
                             svgUrl={step3SvgUrl}
                             imgUrl={step3ImgUrl}
+                            buildingId = {this.props.buildingId}
+                            unitId = {this.props.unitId}
+                            svgElementToSelect = "apartment"
+                            svgElementId = {this.props.unitId}
                         />
                     </div>                                                                          
                   </div> 

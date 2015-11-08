@@ -51,6 +51,8 @@ var TabPanes = React.createClass({
 		    	step1SvgUrl = {step1SvgUrl}
 		    	step3ImgUrl = {step3ImgUrl}
 		    	step3SvgUrl = {step3SvgUrl}
+		    	buildingId = {unitData.basic.buildingId}
+		    	unitId = {unitData.basic.id}
 		    />	   
 		</div>
 			);
@@ -75,6 +77,8 @@ var TabPanes = React.createClass({
 		    	step1SvgUrl = {step1SvgUrl}
 		    	step3ImgUrl = {step3ImgUrl}
 		    	step3SvgUrl = {step3SvgUrl}
+		    	buildingId = {unitData.basic.buildingId}
+		    	unitId = {unitData.basic.id}
 		    />
 		    <SocietyAmenities
 		    allAmenities = {unitData.basic.allAmenities}
