@@ -49,11 +49,19 @@ var FloorPlan = React.createClass({
 
 
 if(window.isMobile){
+    var floorPlanTitle;
+    if(this.state.is2d){
+        floorPlanTitle = "2D Floor plan";
+    }
+    else{
+        floorPlanTitle = "3D Floor plan";
+    }
+
     domToDisplay = (
       <div role="tabpanel" className="tab-pane" id="profile">
             <div className="col-xs-12 details">
                 <div className="flatDetails">
-                    <h4 className="text-uppercase">2D Floor Plan</h4>
+                    <h4 className="text-uppercase">{floorPlanTitle}</h4>
                     <div className="dimensionalViewBtn">
                         <a id="twoD"  onClick={this.setTwoD.bind(this,true)} style={anchor2dStyle}>2D</a>
                         <a id="threeD" onClick={this.setTwoD.bind(this,false)} style={anchor3dStyle}>3D</a>
@@ -65,7 +73,9 @@ if(window.isMobile){
             </div>
         </div>
     );
-}else{
+}
+
+else{
     domToDisplay = (
       <div className="col-xs-12 floorPlans outerDivs pNone" id="floorPlan_div">
         <div className="row">

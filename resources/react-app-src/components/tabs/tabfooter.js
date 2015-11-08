@@ -7,13 +7,28 @@ var TabFooter = React.createClass({
 		window.location.href = url;
 	},
 
-	redirectToBooking: function(){
-		unitId = this.props.unitId;
-		projectId = this.props.projectId;
-		baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
-		redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
+	redirectToBooking: function(evt){
 
-		this._redirect(redirectUrl);
+  		var status = this.props.unitStatus;
+  		var notAvailable= true;
+
+  		if(status === "available"){
+  			notAvailable = false;
+  		}
+
+  		if(notAvailable){
+  			currentTarget = evt.currentTarget;
+  			$(currentTarget).prop('disabled', true);
+  		}
+  		else{
+			unitId = this.props.unitId;
+			projectId = this.props.projectId;
+			baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
+			redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
+
+			this._redirect(redirectUrl);  			
+  		}		
+
 		
 	},
 
