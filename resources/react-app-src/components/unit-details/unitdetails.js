@@ -120,8 +120,10 @@ var UnitDetails = React.createClass({
 		var roomData = [];
 
 		// initialise data
+		basicData.id="";
 		basicData.name="";
 		basicData.direction="";
+		basicData.primaryBreakPoint=0;
 		basicData.sellingAmount="";
 		basicData.propertyTypeName="";
 		basicData.status="";
@@ -131,6 +133,10 @@ var UnitDetails = React.createClass({
 		basicData.buildingName="";
 		basicData.url2dlayout="";
 		basicData.url3dlayout="";
+		basicData.buildingId="";
+		basicData.buildingPrimaryBreakPoint=0;
+		basicData.buildingMasterImgs=[];
+		basicData.projectMasterImgs=[];  
 
 		basicData.variantAttributes = "";
 		basicData.views = "";
@@ -144,17 +150,24 @@ var UnitDetails = React.createClass({
 
 		if(!_.isEmpty(unit)){
 
+			unitData.basic.id = unit.id;
 			unitData.basic.name = unit.unit_name;
 			unitData.basic.cfProjectId = unit.cfProjectId;
 			unitData.basic.direction = unit.direction;
 			unitData.basic.sellingAmount= unit.selling_amount;
 			unitData.basic.propertyTypeName= unit.propertyTypeName;
+			unitData.basic.primaryBreakPoint= unit.primary_breakpoint;
 			unitData.basic.status = unit.availability;
 			unitData.basic.floor= this.ordinalSuffixof(unit.floor);
 			unitData.basic.superBuiltUpArea= unit.variantData.super_built_up_area;
 			unitData.basic.builtUpArea = unit.variantData.built_up_area;
+			unitData.basic.buildingId = unit.buildingData.id;
 			unitData.basic.buildingName = unit.buildingData.building_name;
+			unitData.basic.buildingPrimaryBreakPoint = unit.buildingData.primary_breakpoint;
+			unitData.basic.buildingMasterImgs = unit.buildingData.building_master;
 			unitData.basic.unitTypeName = unit.variantData.unitTypeName;
+			
+			unitData.basic.projectMasterImgs = unit.projectMasterImgs;
 
 			unitData.basic.variantAttributes = unit.variantData.variant_attributes;
 			unitData.basic.views = unit.views;

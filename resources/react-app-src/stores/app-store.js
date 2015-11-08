@@ -1523,6 +1523,9 @@ function _getUnitDetails(unitId){
 		buildingId = unitData.building_id;
 		buildingData = getBuilding(buildingId);
 
+		
+		unitData.projectMasterImgs = projectData.project_master;
+
 		unitData.variantData = unitVariantData;
 		unitData.buildingData = buildingData;
 		unitData.propertyTypeName = propertyTypeName;
