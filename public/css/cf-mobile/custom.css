@@ -1087,6 +1087,14 @@ div.spritespin-div {
   display: block;
   margin: 0 auto;
 }
+.tab-content .nopreview {
+  text-align: center;
+  margin: 20px 0;
+  color: #706f6d;
+}
+.tab-content .nopreview h5 {
+  margin-bottom: 20px;
+}
 .btn-primary {
   background: #fe943e !important;
   border: 1px solid #fe943e !important;
@@ -1099,6 +1107,7 @@ div.spritespin-div {
 }
 .contactModal {
   top: 15% !important;
+  bottom: 50px !important;
 }
 .contactModal .modal-body {
   float: left;
@@ -1108,6 +1117,10 @@ div.spritespin-div {
 }
 .contactModal .modal-body h4 {
   margin-top: 30px;
+}
+.contactModal .content {
+  padding: 10px;
+  width: auto;
 }
 .contactModal .modal-header {
   border: none !important;
@@ -1122,7 +1135,6 @@ div.spritespin-div {
   margin-bottom: 20px;
 }
 .contactModal .modal-dialog {
-  width: 100%;
   border-radius: 0;
 }
 .contactModal .modal-content {
@@ -1190,7 +1202,8 @@ div.spritespin-div {
 .contactModal .developers {
   text-transform: uppercase;
   font-size: 12px;
-  color: #bcbcba;
+  text-align: center;
+  color: #706f6d;
   margin-bottom: 20px;
 }
 @media screen and (max-width: 320px) {
