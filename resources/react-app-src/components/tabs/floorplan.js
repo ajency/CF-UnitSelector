@@ -48,7 +48,10 @@ var FloorPlan = React.createClass({
         previewDom = (<img src={imgSrc} className="img-responsive fit" id="imageid" />);
     }
     else{
-        previewDom = (<div className="nopreview"><h5>No preview available</h5></div>) ;   
+        previewDom = (<div className="nopreview">
+                        <i class="fa fa-2x fa-picture-o"></i>
+                        <h5>No preview available</h5>
+                      </div>) ;   
     }
 
 
