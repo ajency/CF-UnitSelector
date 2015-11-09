@@ -2,11 +2,11 @@ var React = require('react');
 
 var FloorPlan = React.createClass({
 
-  getInitialState: function() {
-    return {
-      is2d: true
-    };
-  },
+      getInitialState: function() {
+        return {
+          is2d: true
+        };
+      },
   
   setTwoD: function(setTwoDBool){
     this.setState({is2d:setTwoDBool});
@@ -14,10 +14,12 @@ var FloorPlan = React.createClass({
 
   render: function () {
 
-    var imgSrc, anchor2dStyle, anchor3dStyle;
+    var imgSrc, anchor2dStyle, anchor3dStyle, previewDom;
 
     twoDImgSrc = this.props.url2dlayout;
     threeDImgSrc = this.props.url3dlayout;
+
+
 
     if (this.state.is2d) {
       imgSrc = twoDImgSrc;
@@ -40,6 +42,13 @@ var FloorPlan = React.createClass({
       anchor3dStyle = {
         background: "rgb(213, 213, 212)"
       };      
+    } 
+    imgSrc="";
+    if(!_.isEmpty(imgSrc)){
+        previewDom = (<img src={imgSrc} className="img-responsive fit" id="imageid" />);
+    }
+    else{
+        previewDom = (<div><h5>No preview available</h5></div>) ;   
     }
 
 
@@ -68,7 +77,7 @@ if(window.isMobile){
                     </div>
                 </div>
                 <div className="twodView">
-                    <img src={imgSrc} className="img-responsive fit" id="imageid" />
+                    {previewDom}
                 </div>
             </div>
         </div>
@@ -91,11 +100,11 @@ else{
         <div className="col-xs-12 floorDetails">
           <div className="row">
             <div className="col-xs-6 text-center">
-              <img src={twoDImgSrc}/>
+              {previewDom}
               <div className="plan col-xs-12 text-center text-uppercase">2D Floor plan</div>
             </div>
             <div className="col-xs-6 text-center">
-              <img src={threeDImgSrc}/>
+              {previewDom}
               <div className="plan col-xs-12 text-center text-uppercase">3D Floor plan</div>
             </div>                                                                          
           </div> 
