@@ -77,7 +77,8 @@ var SvgContainer = React.createClass({
 
             existingClasses = $(selector).attr("class"); 
 
-            svgElemClassName = existingClasses+' svg-light';
+            svgElemClassName = existingClasses+' svg-light step2-svg';
+
 
             if(id == highlightedBuildingId){
               highlightedBuildingSelector = selector;  
@@ -102,8 +103,20 @@ var SvgContainer = React.createClass({
         // apply tooltip only for higlighted building svg
         this.props.showTooltip(highlightedBuildingName,highlightedBuildingSelector);
 
+        var classNameToSelect = ".building";
+
+        if(imageType === "master"){
+            classNameToSelect = ".building";
+        }
+        else if(imageType === "buildingFloorGrps"){
+            classNameToSelect = '.floor_group';  
+        }
+        else{
+            classNameToSelect = '.apartment';
+        }
+
         // on mouse hover of building apply tooltip
-        $(".building").mouseover(function(e){
+        $(classNameToSelect).mouseover(function(e){
             var that = this;
             id = parseInt(e.currentTarget.id);
             $('.cardOuter').mCustomScrollbar("scrollTo",'#building'+id);

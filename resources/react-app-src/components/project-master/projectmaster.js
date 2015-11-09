@@ -382,10 +382,7 @@ var ProjectMaster = React.createClass({
     },    
 
     showTooltip: function(text, selector){
-
  
-        var classname = ".show-qtooltip";
-   
         // initialise qtip
          $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
                 $(item).qtip({ // Grab some elements to apply the tooltip to
@@ -401,34 +398,6 @@ var ProjectMaster = React.createClass({
                     style:qtipSettings['style']
                 });
             }); 
-
-        // if('object' === typeof $(classname).data('qtip'))
-        //     isqtipInitialised = true;
-
-        // if(isqtipInitialised){
-        //     qtipApi = $(classname).qtip('api');
-        //     qtipId = qtipApi._id;
-
-        //     // change left of qtip generated so it is in the center
-        //     var svgElem   = $(classname); // or other selector like querySelector()
-        //     var svgel   = svgElem[0]; // or other selector like querySelector()
-        //     var svgRect = svgel.getBoundingClientRect(); // get the bounding rectangle 
-
-        //     svgElemwidth =  svgRect.width;
-
-        //     $(document).delegate('#'+qtipId, 'load',function() {
-        //         // runs your code when any "qtip" is loaded
-        //         oldQtipLeft = parseInt($('#'+qtipId).css('left').replace("px", ""));    
-        //         newQtipLeft = oldQtipLeft + (svgElemwidth/2); 
-
-        //         newLeft = newQtipLeft+"px";                
-        //             $('#'+qtipId).css('left', newLeft);   
-        //         });
-          
-        // }
-
-
-
     },  
 
     rotateImage: function(unitData){
