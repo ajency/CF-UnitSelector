@@ -1087,6 +1087,14 @@ div.spritespin-div {
   display: block;
   margin: 0 auto;
 }
+.tab-content .nopreview {
+  text-align: center;
+  margin: 20px 0;
+  color: #706f6d;
+}
+.tab-content .nopreview h5 {
+  margin-bottom: 20px;
+}
 .btn-primary {
   background: #fe943e !important;
   border: 1px solid #fe943e !important;
