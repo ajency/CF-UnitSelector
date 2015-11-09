@@ -1536,6 +1536,7 @@ function _getUnitDetails(unitId){
 		
 		
 		unitData.cfProjectId = projectData.cf_project_id;
+		unitData.projectName = projectData.project_title;
 	}
 	
 	return unitData;	

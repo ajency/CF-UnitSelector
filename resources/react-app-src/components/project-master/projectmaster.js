@@ -352,7 +352,7 @@ var ProjectMaster = React.createClass({
 
          overlayClass: 'animsition-overlay-slide',
          overlayParentElement: 'body'
-        });
+        }); 
     },
 
     componentWillMount:function(){
@@ -497,7 +497,7 @@ var ProjectMaster = React.createClass({
 
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
-        modalData.projectData = "";
+        modalData.projectData = {title:data.projectTitle};
 
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){

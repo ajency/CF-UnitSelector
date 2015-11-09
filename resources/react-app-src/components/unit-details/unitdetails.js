@@ -145,6 +145,7 @@ var UnitDetails = React.createClass({
 		basicData.buildingPrimaryBreakPoint=0;
 		basicData.buildingMasterImgs=[];
 		basicData.projectMasterImgs=[];  
+		basicData.projectName="";  
 
 		basicData.variantAttributes = "";
 		basicData.views = "";
@@ -176,6 +177,7 @@ var UnitDetails = React.createClass({
 			unitData.basic.unitTypeName = unit.variantData.unitTypeName;
 			
 			unitData.basic.projectMasterImgs = unit.projectMasterImgs;
+			unitData.basic.projectName = unit.projectName;
 
 			unitData.basic.variantAttributes = unit.variantData.variant_attributes;
 			unitData.basic.views = unit.views;
@@ -212,11 +214,10 @@ var UnitDetails = React.createClass({
 		propertyTypeName = unitData.basic.propertyTypeName;
 		unitTypeName = unitData.basic.unitTypeName;
 
+		var modalData = {};
+    	modalData.projectData = {title:unitData.basic.projectName};
 
 		if(window.isMobile){
-
-			var modalData = {};
-        	modalData.projectData = "";
 
 			domToDisplay = (
 				<div>
@@ -247,8 +248,6 @@ var UnitDetails = React.createClass({
 			)
 		}
 		else{
-			var modalData = {};
-        	modalData.projectData = "";
 
 			domToDisplay = (
 				<div>

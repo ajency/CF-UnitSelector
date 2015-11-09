@@ -96,6 +96,7 @@ var ModalBody = React.createClass({
                                 <div className="row">
                                    <div className="col-xs-12 content">                             
                                       <div className="col-xs-12 rightSide">
+                                        <div className="developers">{projectData.title}</div>
                                          <div className="p-0 col-lg-12 inputOuter">
                                             <input type="text" placeholder="Name" />                   
                                             <input type="email" placeholder="Email ID" />                   
