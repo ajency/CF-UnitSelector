@@ -72,10 +72,7 @@ var UnitDetails = React.createClass({
             return false;
           });*/
 
-
-
-
-
+	
       function sticky_relocate() {
           var window_top = $(window).scrollTop();
           var div_top = $('#sticky-anchor').offset().top;
