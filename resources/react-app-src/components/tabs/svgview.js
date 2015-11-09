@@ -10,7 +10,7 @@ var SvgView = React.createClass({
 
         selector = "."+svgElementToSelect+svgElementId;
         existingClasses = $(selector).attr("class"); 
-        svgElemClassName = existingClasses+' in-selection';
+        svgElemClassName = existingClasses+' in-selection .step2-svg';
         $(selector).attr("class", svgElemClassName);        
     },
 
