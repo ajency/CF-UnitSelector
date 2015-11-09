@@ -1,6 +1,7 @@
 var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var classNames = require('classnames');
+var UnitDropdown = require('../project-master/unitdropdown');
 
 
 var NavBar = React.createClass({
@@ -109,11 +110,28 @@ _.each(applied_filters, function(filter, key){
         );        
       }
       else{
+        var dropdownDom;
+
+        if(this.props.cardListFor==="project"){
+            dropdownDom = ""
+        }
+        else{
+            dropdownDom =( <UnitDropdown
+                                buildings = {this.props.buildings}
+                                projectTitle = {this.props.projectTitle}
+                            />
+                        );
+        }
+
+
         domTodisplay = (
             <div>
-              <div className="logoOuter"><i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i></div>
-              <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}</small></div>
-              <div className="clear"></div>
+                <div className="logoOuter titleOuter">
+                    <i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>
+                    {dropdownDom}
+                </div>
+                <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}</small></div>
+                <div className="clear"></div>
             </div>
         ); 
 
