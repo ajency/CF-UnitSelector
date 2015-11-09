@@ -74,10 +74,7 @@ var UnitDetails = React.createClass({
             return false;
           });*/
 
-
-
-
-
+	
       function sticky_relocate() {
           var window_top = $(window).scrollTop();
           var div_top = $('#sticky-anchor').offset().top;
@@ -182,6 +179,7 @@ var UnitDetails = React.createClass({
 			unitData.basic.variantAttributes = unit.variantData.variant_attributes;
 			unitData.basic.views = unit.views;
 			unitData.basic.allAmenities = unit.allAmenities;
+			unitData.basic.unitId = unit.id;
 			unitData.similarUnits = unit.similarUnits;
 
 			floorData = unit.variantData.floor
@@ -205,8 +203,8 @@ var UnitDetails = React.createClass({
 
 		var unitId = this.props.unitId;
 		var projectId ;
-
-		unitData = this.getFormattedUnitData(this.state);
+		unitStatetData = getUnitStateData(unitId);
+		unitData = this.getFormattedUnitData(unitStatetData);
 		projectId = unitData.basic.cfProjectId;
 		status = unitData.basic.status;
 
@@ -275,7 +273,7 @@ var UnitDetails = React.createClass({
 	                    ref="contactModal" 
 	                    modalData = {modalData}
 	                    modalPurpose = "contactModal"
-	                />					
+	                />
 				</div>
 		)
 		}

@@ -2,6 +2,27 @@ var React = require('react');
 var RoomAttributeList = require('../tabs/roomattributelist');
 
 var Details = React.createClass({
+
+
+    handleClick: function (event) {
+        var status = $("#main").find('#'+event.target.id).text();
+
+        if(status === 'More'){
+            $("#main").find('#'+event.target.id).text('Less');
+            $("#main").find('#'+event.target.id).parents('.roomDetails').find('.hiddenContent').css({
+            'display': 'block'
+            });
+        }
+
+        if(status === 'Less'){
+            $("#main").find('#'+event.target.id).text('More');
+            $("#main").find('#'+event.target.id).parents('.roomDetails').find('.hiddenContent').css({
+            'display': 'none'
+            });
+        }
+    },
+
+
   render: function () {
     var basicDetails = this.props.basicDetails;
     var roomData = this.props.roomData;
@@ -78,22 +99,54 @@ if(window.isMobile){
 
 }else{
 
-    roomCardNodes = roomData.map(function(room,i){
-                        return(
+    var roomDataNode;
+    
+
+    roomDataNode = roomData.map(function(room,i){
+
+                if(room.atributes.length<=3){
+                    return(
                             <div key={i} className="roomDetails text-uppercase">
                                 <h5 className="text-uppercase">{room.room_name}</h5>
                                     <RoomAttributeList
                                         attributes={room.atributes}
+                                        listcount = 'less'
                                     />
                             </div>
                         ); 
+                }else if(room.atributes.length>3){
+                    return(
+                            <div key={i} className="roomDetails text-uppercase">
+                                <h5 className="text-uppercase">{room.room_name}</h5>
+                                    <RoomAttributeList
+                                        attributes={room.atributes}
+                                        listcount = 'less'
+                                    />
+
+                                    <div className="hiddenContent">                                
+                                         <RoomAttributeList
+                                            attributes={room.atributes}
+                                            listcount = 'less'
+                                        />                                
+                                    </div>
+
+                                <div className="row">
+                                    <div className="col-xs-12">
+                                        <span className="moreLessLink" id={'moreless'+i} onClick={this.handleClick}>More</span>                 
+                                    </div>
+                                </div>
+                            </div>                            
+                        ); 
+                }
+                        
                              
-                    });
+                    }.bind(this));
+
 
     
    specificationNodes = _.map( basicDetails.variantAttributes , function(val, key){
         return(          
-        <div className="textInner col-xs-12 pNone">
+        <div key={key} className="textInner col-xs-12 pNone">
               <h5 className="text-uppercase col-xs-2">{key}:</h5>
               <div className="col-xs-10">{val}</div>          
             </div>
@@ -116,7 +169,7 @@ if(window.isMobile){
         </div>
         <div className="col-xs-12 unit">
           <div className="row">            
-            {roomCardNodes}
+            {roomDataNode}
           </div> 
           <div className="col-xs-12 specificationOuter pNone">
             <div className="row">
