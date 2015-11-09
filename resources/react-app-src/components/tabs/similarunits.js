@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router-component').Link
 
 var SimilarUnits = React.createClass({
 
@@ -7,7 +8,11 @@ var SimilarUnits = React.createClass({
 
     var similarUnits = this.props.similarUnits;
 
+    
+    console.log(window.location.pathname);
+
       var similarNodes =  _.map( similarUnits , function(unit, key){
+        var unitUrl = "/units/"+unit.id;
                         return(
                             <div className="col-xs-3" key={key}>
               <div className="card-swipe">
@@ -32,7 +37,7 @@ var SimilarUnits = React.createClass({
                    <div className="col-xs-12 matchingSelection">
                        Matching your selection
                        <div className="arrow">
-                         <a href="#"><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></a>
+                         <Link href={unitUrl}><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></Link>
                       </div>
                     </div>
                 </div>
