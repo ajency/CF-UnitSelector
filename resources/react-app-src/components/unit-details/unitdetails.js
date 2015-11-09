@@ -30,6 +30,8 @@ var UnitDetails = React.createClass({
 
 
     componentDidMount: function() {
+    $(window).scrollTop(0);
+
     if(!window.isMobile){
         $(document).on('click', '.click', function (e) {
         var theID = $(this).attr('id');
@@ -40,6 +42,10 @@ var UnitDetails = React.createClass({
         }, 1000);
         return false;
       });
+
+        //scroll top 
+        //$("body").animate({ scrollTop: 0 }, 600);
+        //$(window).scrollTop(0);
 
 
         /*var sections = $('.outerDivs')
