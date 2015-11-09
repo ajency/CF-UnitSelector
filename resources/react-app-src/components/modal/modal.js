@@ -12,7 +12,7 @@ var Modal = React.createClass({
     var backdrop = false;
     var isFilterModal = true;
 
-    if(modalPurpose==="contactModal"){
+    if((modalPurpose==="contactModal")||(modalPurpose==="mobileContactModal")){
       backdrop= true;
       isFilterModal = false;
     }
@@ -31,7 +31,7 @@ var Modal = React.createClass({
     var modalPurpose = this.props.modalPurpose;
     var isFilterModal = true;
 
-    if(modalPurpose==="contactModal"){
+    if((modalPurpose==="contactModal")||(modalPurpose==="mobileContactModal")){
       backdrop= true;
       isFilterModal = false;
     }
@@ -41,12 +41,25 @@ var Modal = React.createClass({
       'fade': true,
       'modal-full-width': isFilterModal,
       'contactModal': !isFilterModal 
-    });  
+    }); 
+
+    var modalContent = classNames({
+      'modal-content': true
+    }); 
+
+    if(modalPurpose==="mobileContactModal"){
+        
+        modalContent = classNames({
+            'modal-content': true,
+            'col-lg-12':true,
+            'p-0':true
+        });        
+    }
        
     return (
 		<div className={modalClasses} ref="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
     		<div className="modal-dialog" role="document">
-        		<div className="modal-content">    	
+        		<div className={modalContent}>    	
             		<ModalHeader
                   modalPurpose = {this.props.modalPurpose}
                   unapplyFilters = {this.props.unapplyFilters}

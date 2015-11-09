@@ -579,7 +579,7 @@ $('.add-project-attributes-btn').click ->
     $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('').focus()  
  
 
- $('.add-floor-group-btn').click ->
+$('.add-floor-group-btn').click ->
     floorGroupName = $(@).closest('.floor_group_block').find('input[name="floor_group_name[]"]').val()
     groupFloors = $(@).closest('.floor_group_block').find('input[name="group_floors[]"]').val()
     if floorGroupName is ''
@@ -591,6 +591,14 @@ $('.add-project-attributes-btn').click ->
         return
     
     floors = groupFloors.split(',')
+    validateFloor = 0
+    _.map floors, (num) ->
+        if num % 1 != 0
+            validateFloor =validateFloor+1
+
+    if validateFloor >0
+        alert('Enter Valid Floors Number')
+        return
 
     allgroupFloors = []
     allFloors = []

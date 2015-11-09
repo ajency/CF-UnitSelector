@@ -304,6 +304,11 @@ body
 		{
 			border-bottom:none;
 		}
+		.tooltip
+		{
+			top: -5px !important;
+			left: 0px !important;
+		}
 
 		h4
 		{
@@ -512,7 +517,7 @@ body
 					z-index: 9999;
 				}
 			}
-				li.parsley-required, li.parsley-pattern
+				li.parsley-required, li.parsley-pattern, li.parsley-type
 				{
 					list-style: none;
 					font-size: 11px;
@@ -750,7 +755,7 @@ body
 	    }
 	}
 				
-	li.parsley-required, li.parsley-pattern
+	li.parsley-required, li.parsley-pattern, li.parsley-type
 	{
 		list-style: none;
 		font-size: 11px;
@@ -764,7 +769,7 @@ body
 	{
 		top: -5px !important;
 		left: 0px !important;
-	}
+	}	
 }
 .BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: rgba(0,0,0,0.3)) {
 	box-shadow: @arguments;
@@ -783,7 +788,6 @@ body
 	-moz-border-radius:    @radius;
 	border-radius:         @radius;
 }
-
 .accordion 
 {
 	max-width:100%;
@@ -926,7 +930,7 @@ body
 	    color: @white;
 	    padding: 4px 10px 3px;
 	    border: none;
-	    float: right;
+	    float: right;                                                                                                                                                                                                              
 	    font-size:9px;
 	    text-transform:uppercase;
     }
@@ -1269,6 +1273,8 @@ body
 		}
 	}
 }
+
+
 @media screen and (min-width: 768px) and (max-width:991px)
 {
 	.reviewDetails
@@ -1320,10 +1326,29 @@ body
 	.bookFlowContent
 	{
 		height:380px;
+
+		.tooltip
+		{
+			top: -25px !important;
+			left: 0px !important;
+		}
+		.panel .tooltip
+		{
+			top: -5px !important;
+			left: 0px !important;
+		}
 		.container
 		{
 			padding:0;
-		}		
+		}
+		.spanText 
+		{
+			margin-bottom: 20px;
+		}	
+		.timerText 
+		{
+			margin-bottom: 5px;
+		}	
 		.absoluteLayout 
 		{
 				height: 380px;

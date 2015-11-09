@@ -676,6 +676,7 @@ body a {
 .outSideView img {
   width: 100%;
   padding-right: 10px;
+  height: 110px;
 }
 .towerDropdown button,
 .towerDropdown.open button {

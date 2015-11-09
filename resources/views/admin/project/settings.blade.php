@@ -206,7 +206,7 @@ function saveProjectConfig()
         return true;
     }
     else
-    { alert(11)
+    {  
         return false;
     }
 

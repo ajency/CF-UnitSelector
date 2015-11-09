@@ -247,6 +247,10 @@ body {
 .bookFlowContent .panel:last-child {
   border-bottom: none;
 }
+.bookFlowContent .panel .tooltip {
+  top: -5px !important;
+  left: 0px !important;
+}
 .bookFlowContent .panel h4 {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
@@ -419,7 +423,8 @@ body {
   z-index: 9999;
 }
 .bookFlowContent .panel .termsConditions li.parsley-required,
-.bookFlowContent .panel .termsConditions li.parsley-pattern {
+.bookFlowContent .panel .termsConditions li.parsley-pattern,
+.bookFlowContent .panel .termsConditions li.parsley-type {
   list-style: none;
   font-size: 11px;
   position: absolute;
@@ -598,7 +603,8 @@ body {
   font-size: 14px;
 }
 .bookFlowContent li.parsley-required,
-.bookFlowContent li.parsley-pattern {
+.bookFlowContent li.parsley-pattern,
+.bookFlowContent li.parsley-type {
   list-style: none;
   font-size: 11px;
   position: absolute;
@@ -1018,8 +1024,22 @@ body {
   .bookFlowContent {
     height: 380px;
   }
+  .bookFlowContent .tooltip {
+    top: -25px !important;
+    left: 0px !important;
+  }
+  .bookFlowContent .panel .tooltip {
+    top: -5px !important;
+    left: 0px !important;
+  }
   .bookFlowContent .container {
     padding: 0;
+  }
+  .bookFlowContent .spanText {
+    margin-bottom: 20px;
+  }
+  .bookFlowContent .timerText {
+    margin-bottom: 5px;
   }
   .bookFlowContent .absoluteLayout {
     height: 380px;

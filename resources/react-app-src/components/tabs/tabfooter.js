@@ -7,13 +7,28 @@ var TabFooter = React.createClass({
 		window.location.href = url;
 	},
 
-	redirectToBooking: function(){
-		unitId = this.props.unitId;
-		projectId = this.props.projectId;
-		baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
-		redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
+	redirectToBooking: function(evt){
 
-		this._redirect(redirectUrl);
+  		var status = this.props.unitStatus;
+  		var notAvailable= true;
+
+  		if(status === "available"){
+  			notAvailable = false;
+  		}
+
+  		if(notAvailable){
+  			currentTarget = evt.currentTarget;
+  			$(currentTarget).prop('disabled', true);
+  		}
+  		else{
+			unitId = this.props.unitId;
+			projectId = this.props.projectId;
+			baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
+			redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
+
+			this._redirect(redirectUrl);  			
+  		}		
+
 		
 	},
 
@@ -41,7 +56,11 @@ var TabFooter = React.createClass({
 		domToDisplay = (
 				<div className="tabfooter">
 			    <div className="row">
-			        <button className="col-xs-6 button">
+			        <button 
+			        	className="col-xs-6 button" 
+                        data-toggle="modal" 
+                        onClick={this.props.showContactModal}
+			        >
 			            <div>
 			                <span>
 			                    <i className="fa fa-envelope-o"></i>
@@ -63,8 +82,13 @@ var TabFooter = React.createClass({
 	    }else{
 	    	domToDisplay = (
 	    		<div className="footerDesk container-fluid text-center">
-	    		Call 1800 180 180 180
-	    		<div className="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="#">Mobile Apps © commnfloor inc. </a>| <a href="#">Privacy Policy</a></div>
+		    		Call 1800 180 180 180
+		    		<div className="privacyOuter">
+		    			<a href="https://www.commonfloor.com/">Commonfloor</a> | 
+		    			<a href="#">FAQ</a> | 
+		    			<a href="#">Mobile Apps © commnfloor inc. </a>| 
+		    			<a href="#">Privacy Policy</a>
+		    		</div>
 	    		</div>
 	    	);
 	    }
