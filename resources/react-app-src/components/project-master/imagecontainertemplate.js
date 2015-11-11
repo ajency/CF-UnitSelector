@@ -177,8 +177,7 @@ var ImageContainerTemplate = React.createClass({
       if(!_.isUndefined(spin.spritespin)){
         console.log(spin.spritespin("api"));
         api = spin.spritespin("api");
-        SpriteSpin.destroy(api.data) ;  
-        
+        SpriteSpin.destroy(api.data);
       }
          
     },

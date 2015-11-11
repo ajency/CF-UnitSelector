@@ -62,11 +62,13 @@ var ProjectMaster = React.createClass({
             mySwiper.slideTo(slideToGotTo);
         }
 
+        this.destroyTooltip();
 
         buildings = this.state.data.buildings;
         buildingToHighlight = buildings[slideToGotTo];
         buildingName = buildingToHighlight.building_name;
-        this.showTooltip(buildingName);
+
+        this.showTooltip(buildingName,".building"+buildingToHighlight.id);
     },
 
     updateChosenBreakPoint: function(chosenBreakPoint){
@@ -352,7 +354,7 @@ var ProjectMaster = React.createClass({
 
          overlayClass: 'animsition-overlay-slide',
          overlayParentElement: 'body'
-        });
+        }); 
     },
 
     componentWillMount:function(){
@@ -372,31 +374,30 @@ var ProjectMaster = React.createClass({
     },    
 
     destroyTooltip: function(){
-        var classname = ".show-qtooltip";
-        var isqtipInitialised = false;
-        var qtipApi;
 
-        // check of qtip is already initialised or not
-        if('object' === typeof $(".show-qtooltip").data('qtip'))
-          isqtipInitialised = true;
+        $('.qtip').each(function(){
+          $(this).data('qtip').destroy();
+        });
 
-        if(isqtipInitialised){
-          // destroy qtip
-          qtipApi = $(classname).qtip('api');
-          qtipApi.destroy();
-        }
     },    
 
-    showTooltip: function(text){
-
+    showTooltip: function(text, selector){
  
-        var classname = ".show-qtooltip";
-   
         // initialise qtip
-
-        qtipSettings['content'] = text;
-
-        $(classname).qtip(qtipSettings);
+         $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
+                $(item).qtip({ // Grab some elements to apply the tooltip to
+                    content: text,
+                    show: qtipSettings['show'],
+                    hide: qtipSettings['hide'],
+                    position:{
+                               my: 'center',  // Position my top left...
+                               at: 'center', // at the bottom right of...
+                               viewport: $(window), 
+                               target: $(item) // my target
+                           },
+                    style:qtipSettings['style']
+                });
+            }); 
     },  
 
     rotateImage: function(unitData){
@@ -459,7 +460,7 @@ var ProjectMaster = React.createClass({
 
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
-        modalData.projectData = "";
+        modalData.projectData = {title:data.projectTitle};
 
         // display dom based on whether it is a mobile or a desktop view
         if(window.isMobile){

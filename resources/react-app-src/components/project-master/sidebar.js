@@ -62,6 +62,8 @@ var SideBar = React.createClass({
 		return (
 	         <div ref="sidebarWrapper" id="sidebar-wrapper">
 	            <NavBar 
+	                cardListFor = {cardListFor}
+                    cardListForId = {cardListForId}
                     projectTitle = {this.props.projectTitle} 
                     projectLogo = {this.props.projectLogo} 
                     unitCount = {this.props.unitCount}

@@ -204,11 +204,12 @@ var BuildingMaster = React.createClass({
             mySwiper.slideTo(slideToGotTo);
         }
 
+        this.destroyTooltip();
 
         buildings = this.state.data.buildings;
         buildingToHighlight = buildings[slideToGotTo];
         buildingName = buildingToHighlight.building_name;
-        this.showTooltip(buildingName);
+        this.showTooltip(buildingName,".floor_group"+buildingToHighlight.id);
     },
 
     updateChosenBreakPoint: function(chosenBreakPoint){
@@ -516,32 +517,29 @@ var BuildingMaster = React.createClass({
     },    
 
     destroyTooltip: function(){
-        var classname = ".show-qtooltip";
-        var isqtipInitialised = false;
-        var qtipApi;
-
-        // check of qtip is already initialised or not
-        if('object' === typeof $(".show-qtooltip").data('qtip'))
-          isqtipInitialised = true;
-
-        if(isqtipInitialised){
-          // destroy qtip
-          qtipApi = $(classname).qtip('api');
-          qtipApi.destroy();
-        }
+        $('.qtip').each(function(){
+          $(this).data('qtip').destroy();
+        });
     },    
 
-    showTooltip: function(text){
-
+    showTooltip: function(text, selector){
  
-        var classname = ".show-qtooltip";
-   
         // initialise qtip
-
-        qtipSettings['content'] = text;
-
-        $(classname).qtip(qtipSettings);
-    },  
+         $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
+                $(item).qtip({ // Grab some elements to apply the tooltip to
+                    content: text,
+                    show: qtipSettings['show'],
+                    hide: qtipSettings['hide'],
+                    position:{
+                               my: 'center',  // Position my top left...
+                               at: 'center', // at the bottom right of...
+                               viewport: $(window), 
+                               target: $(item) // my target
+                           },
+                    style:qtipSettings['style']
+                });
+            }); 
+    },   
 
     rotateImage: function(unitData){
       

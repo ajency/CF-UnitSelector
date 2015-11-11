@@ -142,7 +142,7 @@ var FilterPopover = React.createClass({
                                 </div>
                             </div>
 	                        
-	                        <a className="toggle" href="#" onClick = {this.closeFilterPopOver}></a>
+	                        <a className="toggle" onClick = {this.closeFilterPopOver}></a>
                             <span className={filterCountClasses}>{appliedFilterCount}</span>
 	                    </nav>
 	                </div>
