@@ -1120,6 +1120,7 @@ div.spritespin-div {
 }
 .contactModal .modal-body h4 {
   margin-top: 30px;
+  font-size: 18px;
 }
 .contactModal .content {
   padding: 10px;
@@ -1127,6 +1128,7 @@ div.spritespin-div {
 }
 .contactModal .modal-header {
   border: none !important;
+  padding: 0;
 }
 .contactModal .p-0 {
   padding: 0;
@@ -1142,6 +1144,8 @@ div.spritespin-div {
 }
 .contactModal .modal-content {
   border-radius: 0;
+  border: none;
+  box-shadow: none;
 }
 .contactModal .inputOuter {
   padding: 10px;
@@ -1154,7 +1158,6 @@ div.spritespin-div {
   padding: 10px 0px 5px 0;
   border-bottom: 1px solid #d5d5d4;
   font-size: 12px;
-  text-transform: uppercase;
 }
 .contactModal .inputOuter input:focus {
   outline: none;

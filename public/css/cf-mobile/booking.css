@@ -518,6 +518,9 @@ body {
 .bookFlowContent .panel .personalDetails select:focus {
   outline: none;
 }
+.bookFlowContent .panel .personalDetails select {
+  margin-bottom: 0;
+}
 .bookFlowContent .panel .buttonOuter {
   margin: 20px 0 10px 0;
 }
@@ -867,7 +870,6 @@ body {
   width: 100%;
   margin-top: 40px;
   margin-bottom: 20px;
-  font-size: 14px;
 }
 .bookingFooter a {
   font-size: 12px;
@@ -991,6 +993,63 @@ body {
 .successContent.transactionFailed h3 {
   margin-top: 30px;
   margin-bottom: 20px;
+}
+.s-hidden {
+  visibility: hidden;
+  padding-right: 10px;
+}
+.select {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  color: black;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+.styledSelect {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  padding: 6px;
+  font-size: 14px;
+}
+.styledSelect:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-color: black transparent transparent transparent;
+  position: absolute;
+  top: 15px;
+  right: 6px;
+}
+.styledSelect:active,
+.styledSelect.active {
+  background-color: #eee;
+}
+.options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  margin: 0 0;
+  padding: 0 0;
+  list-style: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.options li {
+  margin: 0 0;
+  padding: 6px;
+}
+.options li:hover {
+  background-color: #f6f6f6;
 }
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .reviewDetails {
@@ -1178,4 +1237,4 @@ body {
     width: 100%;
   }
 }
-/*# sourceMappingURL=bookflow.css.map */
+/*# sourceMappingURL=booking.css.map */
