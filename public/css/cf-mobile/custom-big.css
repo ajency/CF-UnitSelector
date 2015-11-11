@@ -1117,7 +1117,7 @@ select::-ms-expand {
 }
 .float-nav {
   position: fixed;
-  z-index: 1;
+  z-index: 15002;
   top: 20px;
   right: 170px;
   width: 470px;
@@ -1324,16 +1324,16 @@ select::-ms-expand {
 .float-nav li.filterCheckbox input[type=checkbox]:checked + label:before {
   content: "\2714";
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  font-size: 100%;
+  font-size: 89%;
   color: #f3f3f3;
   text-align: center;
   line-height: 15px;
   background: #12acac;
   border: none;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   font-weight: 400;
-  padding-top: 2px;
+  padding-top: 1.2px;
   display: block;
   border: 2px solid rgba(0, 0, 0, 0);
   margin: -2px 0 0 -2px;
