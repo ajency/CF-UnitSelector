@@ -284,12 +284,14 @@ function goToNextStep(anchor ,divClass)
     }
     else
     {
-       $('.'+divClass).find('input, select').each(function(index) {
-            if($(this).val()=='' || $(this).hasClass("parsley-error")){
-               flag =false;
-            }
-        });
-
+       // $('.'+divClass).find('input, select').each(function(index) {
+       //      if($(this).val()=='' || $(this).hasClass("parsley-error")){
+       //         flag =false;
+       //      }
+       //  });
+        if($( ".buyerDetails li.parsley-required").length >1)
+            flag =false;
+    
        if(divClass == 'unitDetails' && flag)
         {
              $('#acceptterm').attr('data-parsley-required', 'true');
@@ -305,7 +307,8 @@ function goToNextStep(anchor ,divClass)
 
 function addValidation(anchor ,divClass)
 {   
-    $('#acceptterm').attr('data-parsley-required', 'true');
+    if(!$( ".buyerDetails li.parsley-required").length)
+        $('#acceptterm').attr('data-parsley-required', 'true');
 }
 
 function makeUnitPayment()
