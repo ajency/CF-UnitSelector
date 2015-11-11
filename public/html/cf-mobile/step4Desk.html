@@ -513,7 +513,12 @@
           <div class="row">
             <div class="col-xs-7">
               <div class="plan col-xs-12 text-uppercase pNone">Tower overview</div>
-                              <div class="svg-top-area">
+               <div class="step4-svg">
+ <div class="image-contain">
+                 
+
+                  <div class="image  ">
+                     <div class="svg-area" >
                        <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -528,11 +533,11 @@
       -->
   </g>
   
-</svg>                                                            
+</svg>         </div>                                                     
                    <img class="myImg" src="img/svg/master-00.jpg"/>  
                 </div>
-              
-
+                </div>
+</div>
 
             </div>
             <div class="col-xs-5">
@@ -812,7 +817,26 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.panzoom.js"></script> 
     <script type="text/javascript">
+     windowHeight = $(window).innerHeight() ;
+         // $('.image-contain img').css('height', windowHeight);
+         
+         $('.image   ').css('height', windowHeight);
 
+         $('.step4-svg   ').css('height', windowHeight);
+  
+         function set_body_height() { // set body height = window height
+         $('.image   ').height($(window).height());
+         }
+      
+          $('.us-right-content  ').css('height', windowHeight);
+    
+         $('.svg-area   ').css('height', windowHeight);
+    
+           function set_body_height() { // set body height = window height
+             $('.svg-area   ').height($(window).height());
+         }
+       
+         
      $(document).ready(function () {
         $(window).scroll(function () {
 
