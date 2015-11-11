@@ -131,7 +131,7 @@
                                     <div class="text-right">
                                        <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
-                             <button class="btn btn-default btn-cons" type="submit"><i class="fa fa-ban"></i>
+                             <button class="btn btn-default btn-cons" type="button"><i class="fa fa-ban"></i>
                                             Cancel</button>
                                     </div>
                                 </div>
