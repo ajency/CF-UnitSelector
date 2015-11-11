@@ -1,0 +1,1237 @@
+/* Social Colors */
+/*Real Wedding colors*/
+.pNone {
+  padding: 0;
+}
+.btn {
+  padding: 5px;
+  border-radius: 0 !important;
+  text-transform: uppercase;
+}
+.btn:focus {
+  outline: none;
+}
+.btn-gray {
+  background: #d5d5d4 !important;
+  border-radius: 3px !important;
+  border: 1px solid #d5d5d4 !important;
+}
+.btn-primary {
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+  color: #ffffff;
+  border-radius: 3px !important;
+  outline: none;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #fe780b !important;
+  color: #ffffff !important;
+  border: 1px solid #fe943e !important;
+  outline: none;
+}
+.orangeText {
+  color: #fe943e !important;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #333333;
+}
+.header {
+  background: -webkit-linear-gradient(top, #fe943e 0, #fd7201 100%);
+  background: linear-gradient(to bottom, #fe943e 0, #fd7201 100%);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  width: 100%;
+}
+.header h3 {
+  color: #ffffff;
+  font-size: 30px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+.bookFlowContent {
+  background: url(../../html/Bookflow/img/Project-noshadow.jpg) no-repeat;
+  height: 50%;
+  background-size: cover;
+  height: 300px;
+  position: relative;
+}
+.bookFlowContent .absoluteLayout {
+  height: 300px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.bookFlowContent .container {
+  position: relative;
+}
+.bookFlowContent h3 {
+  color: #ffffff;
+  font-weight: 300;
+  margin-bottom: 5px;
+  margin-top: 50px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+.bookFlowContent .spanText {
+  color: #d5d5d4;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+}
+.bookFlowContent .timerText {
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+.bookFlowContent .bookAptOuter {
+  margin: 0 auto;
+}
+.bookFlowContent .bookAptOuter .row {
+  width: 100%;
+  float: left;
+  margin: 0;
+}
+.bookFlowContent .bookAptOuter .row > div:first-child {
+  margin-top: 15px;
+  padding: 0;
+}
+.bookFlowContent .bookAptOuter .row > div:last-child {
+  text-align: right;
+  padding: 0;
+  margin-top: 20px;
+}
+.bookFlowContent .bookAptOuter > div {
+  float: right;
+  width: 470px;
+}
+.bookFlowContent .bookAptOuter i {
+  font-size: 16px;
+  display: inline-block;
+  margin-top: 2px;
+}
+.bookFlowContent .bookAptOuter .amount {
+  color: #ffffff;
+  margin-left: 10px;
+  display: inline-block;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-weight: 600;
+  font-size: 17px;
+}
+.bookFlowContent .bookAptOuter .totalPrice {
+  font-size: 11px;
+  color: #ffffff;
+  float: left;
+  width: 100%;
+  padding-right: 27px;
+}
+.bookFlowContent .bookAptOuter .priceSheet {
+  font-size: 11px;
+  color: #ffffff;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 3px 15px;
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  margin-top: 11px;
+  margin-left: 10px;
+  text-decoration: none;
+  float: left;
+  line-height: 1.8;
+}
+.bookFlowContent .bookAptOuter .priceSheet:focus {
+  outline: none;
+}
+.bookFlowContent .bookAptOuter .priceSheet i {
+  float: left;
+  margin-right: 5px;
+  margin-top: 1px;
+}
+.bookFlowContent .bookAptOuter .download {
+  color: #ffffff;
+  margin-left: 10px;
+  margin-top: 15px;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  outline: none;
+  float: right;
+}
+.bookFlowContent .bookAptOuter .download:focus {
+  text-decoration: none;
+  outline: none;
+}
+.bookFlowContent .bookAptOuter .booked {
+  background: #0eab08;
+  color: white;
+  font-size: 10px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  float: right;
+  margin-top: 12px;
+  border-radius: 3px;
+}
+.bookFlowContent .bookAptOuter .priceOuter {
+  width: 140px;
+  display: inline-block;
+}
+.bookFlowContent .bookAptOuter .priceOuter:first-child {
+  text-align: left;
+}
+.bookFlowContent .bookAptOuter .priceOuter:last-child .amount {
+  margin-right: 28px;
+}
+.bookFlowContent .bookAptOuter .priceOuter:last-child .totalPrice {
+  padding-right: 0px;
+}
+.bookFlowContent .bookAptOuter .borderDiv {
+  display: inline-block;
+  background: #bcbcba;
+  height: 40px;
+  width: 1px;
+  margin: 0 5px;
+  transform: rotate(25deg);
+  -webkit-transform: rotate(25deg);
+  -ms-transform: rotate(25deg);
+}
+.bookFlowContent .bookAptOuter .bookApmt {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+}
+.bookFlowContent .bookAptOuter .projectName {
+  font-size: 14px;
+  color: #ffffff;
+}
+.bookFlowContent .bookAptOuter .flatNo {
+  color: #ffffff;
+}
+.bookFlowContent .panel-group {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background: #ffffff;
+  padding: 0;
+  float: left;
+  margin: auto;
+}
+.bookFlowContent .panel-inner {
+  margin: auto;
+  padding: 10px 30px 15px;
+}
+.bookFlowContent .panel {
+  margin-top: 0 !important;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  border: none;
+  border-bottom: none;
+}
+.bookFlowContent .panel:last-child {
+  border-bottom: none;
+}
+.bookFlowContent .panel .tooltip {
+  top: -5px !important;
+  left: 0px !important;
+}
+.bookFlowContent .panel h4 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.bookFlowContent .panel h4.addressHeading {
+  margin: 25px 10px 20px;
+  font-weight: 700;
+}
+.bookFlowContent .panel h4.apartmentName {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0;
+}
+.bookFlowContent .panel .pricepaymentButtons {
+  padding: 10px 0;
+  text-align: right;
+}
+.bookFlowContent .panel .pricepaymentButtons a {
+  font-weight: 600;
+  text-decoration: none;
+  color: #fe943e;
+  outline: none;
+}
+.bookFlowContent .panel .pricepaymentButtons a:focus {
+  text-decoration: none;
+  outline: none;
+}
+.bookFlowContent .panel .pricepaymentButtons > div {
+  padding-right: 0;
+}
+.bookFlowContent .panel .panel-heading {
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  border-radius: 0;
+  background: #ffffff;
+  border: none;
+}
+.bookFlowContent .panel .panel-heading.active {
+  color: #fe943e;
+}
+.bookFlowContent .panel .panel-heading.active a {
+  border-bottom: 1px solid #fe943e;
+}
+.bookFlowContent .panel .panel-heading a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 20px 0 15px 0;
+  display: block;
+  text-transform: uppercase;
+  border-bottom: 1px solid #bcbcba;
+}
+.bookFlowContent .panel .userInfo {
+  margin-top: 25px;
+  line-height: 2;
+  padding-right: 0;
+  background: #f6f6f6;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+.bookFlowContent .panel .reviewDetails {
+  padding-left: 0;
+}
+.bookFlowContent .panel .reviewDetails h4 {
+  border-bottom: 1px solid #bcbcba;
+  padding-bottom: 5px;
+}
+.bookFlowContent .panel .reviewDetails .buildingName {
+  font-size: 30px;
+  color: #999999;
+  border: 2px solid #edeef0;
+  border-bottom: none;
+  padding: 10px;
+}
+.bookFlowContent .panel .reviewDetails .title {
+  background: #edeef0;
+  color: #333333;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.bookFlowContent .panel .reviewDetails .detailsOuter {
+  padding: 0;
+  float: left;
+  width: 100%;
+}
+.bookFlowContent .panel .reviewDetails .detailsOuter > div {
+  width: 32%;
+  display: inline-block;
+  padding-left: 15px;
+  position: relative;
+}
+.bookFlowContent .panel .reviewDetails .detailsOuter a {
+  color: #fe943e;
+  text-decoration: none;
+  outline: none;
+  float: left;
+  margin-top: 20px;
+}
+.bookFlowContent .panel .reviewDetails .detailsOuter a:hover,
+.bookFlowContent .panel .reviewDetails .detailsOuter a:focus {
+  text-decoration: none;
+  outline: none;
+  color: #fe943e;
+}
+.bookFlowContent .panel .termsConditions {
+  font-size: 16px;
+  margin-top: 18px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.bookFlowContent .panel .termsConditions .row > div {
+  font-size: 14px;
+}
+.bookFlowContent .panel .termsConditions label {
+  font-weight: 400;
+  font-size: 12px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+.bookFlowContent .panel .termsConditions label input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  height: 15px;
+  width: 100%;
+  left: 0;
+  margin-top: 0;
+  float: left;
+}
+.bookFlowContent .panel .termsConditions label .accept {
+  float: left;
+}
+.bookFlowContent .panel .termsConditions label label.checkboxLabel {
+  height: 15px;
+  width: 15px;
+  background: none;
+  border: 2px solid #d5d5d4;
+  text-align: center;
+  margin-top: 0px !important;
+  float: left;
+  margin-right: 5px;
+}
+.bookFlowContent .panel .termsConditions label input[type=checkbox]:checked + label:before {
+  content: "\2714";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 15px;
+  background: #12acac;
+  border: none;
+  width: 15px;
+  height: 15px;
+  font-weight: 400;
+  padding-top: 2px;
+  display: block;
+  border: 2px solid rgba(0, 0, 0, 0);
+  margin: -2px 0 0 -2px;
+  line-height: 0.8;
+  font-size: 12px;
+}
+.bookFlowContent .panel .termsConditions label a {
+  color: #fe943e;
+  outline: none;
+  position: relative;
+  z-index: 9999;
+}
+.bookFlowContent .panel .termsConditions li.parsley-required,
+.bookFlowContent .panel .termsConditions li.parsley-pattern,
+.bookFlowContent .panel .termsConditions li.parsley-type {
+  list-style: none;
+  font-size: 11px;
+  position: absolute;
+  top: 58px;
+  left: 0;
+  width: 100%;
+  color: #ee1f3b;
+}
+.bookFlowContent .panel .mandatory {
+  background: #fcf8e3;
+  padding: 10px;
+  border: 1px solid #fcf8e3;
+  color: #8a6d3b;
+  margin-bottom: 20px;
+}
+.bookFlowContent .panel .mandatory a {
+  text-decoration: none;
+  outline: none;
+  float: right;
+  color: #8a6d3b;
+}
+.bookFlowContent .panel .mandatory a:focus,
+.bookFlowContent .panel .mandatory a:hover {
+  text-decoration: none;
+  outline: none;
+  color: #8a6d3b;
+}
+.bookFlowContent .panel .sameAsAbove {
+  margin: 0 0 20px;
+  padding: 0;
+}
+.bookFlowContent .panel .sameAsAbove input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  height: 15px;
+  width: 100%;
+  left: 0;
+  margin-top: 0;
+  float: left;
+}
+.bookFlowContent .panel .sameAsAbove .accept {
+  float: left;
+}
+.bookFlowContent .panel .sameAsAbove label.checkboxLabel {
+  height: 15px;
+  width: 15px;
+  background: none;
+  border: 2px solid #d5d5d4;
+  text-align: center;
+  margin-top: 2px !important;
+  float: left;
+  margin-right: 5px;
+}
+.bookFlowContent .panel .sameAsAbove input[type=checkbox]:checked + label:before {
+  content: "\2714";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 15px;
+  background: #12acac;
+  border: none;
+  width: 15px;
+  height: 15px;
+  font-weight: 400;
+  padding-top: 2px;
+  display: block;
+  border: 2px solid rgba(0, 0, 0, 0);
+  margin: -2px 0 0 -2px;
+  line-height: 0.8;
+  font-size: 12px;
+}
+.bookFlowContent .panel .personalDetails {
+  padding: 0;
+}
+.bookFlowContent .panel .personalDetails label {
+  float: left;
+  width: 100%;
+  font-weight: 400;
+}
+.bookFlowContent .panel .personalDetails input,
+.bookFlowContent .panel .personalDetails select {
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid #edeef0;
+  margin-bottom: 20px;
+  font-size: 14px;
+  width: 100%;
+}
+.bookFlowContent .panel .personalDetails input:focus,
+.bookFlowContent .panel .personalDetails select:focus {
+  outline: none;
+}
+.bookFlowContent .panel .buttonOuter {
+  margin: 20px 0 10px 0;
+}
+.bookFlowContent .panel .btnOuter button {
+  margin-top: 10px;
+}
+.bookFlowContent .panel .panel-body {
+  border-top: none !important;
+  padding: 15px 0;
+}
+.bookFlowContent .panel .plusMinusOuter {
+  outline: none;
+}
+.bookFlowContent .panel .plusMinusOuter .plusMinusIcon {
+  float: right;
+  color: #7d7c7a;
+  font-size: 14px;
+}
+.bookFlowContent .panel .plusMinusOuter .plusMinusIcon.minusIcon {
+  display: block;
+}
+.bookFlowContent .panel .plusMinusOuter .plusMinusIcon.plusIcon {
+  display: none;
+}
+.bookFlowContent .panel .plusMinusOuter.collapsed .plusMinusIcon.minusIcon {
+  display: none;
+}
+.bookFlowContent .panel .plusMinusOuter.collapsed .plusMinusIcon.plusIcon {
+  display: block;
+}
+.bookFlowContent .closeIcon i {
+  margin: 50px auto 20px;
+  font-weight: lighter;
+  height: 45px;
+  width: 45px;
+  padding: 5px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  font-style: normal;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: 700;
+}
+.bookFlowContent .closeIcon h3 {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+.bookFlowContent .cancelDetail .unitDetails {
+  padding-top: 0px !important;
+  font-size: 14px;
+  padding-bottom: 30px !important;
+}
+.bookFlowContent .cancelDetail .titleDetails {
+  padding-top: 35px !important;
+}
+.bookFlowContent .bottomSection {
+  background: #ffffff;
+  float: left;
+  padding: 0 0 10px 10px;
+  width: 100%;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  color: #565654;
+}
+.bookFlowContent .bottomSection .rightContent h5 {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.bookFlowContent .bottomSection .rightContent p {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+.bookFlowContent .bottomSection .rightContent p .safePaymentText {
+  margin-left: 50px;
+}
+.bookFlowContent .bottomSection .rightContent p i {
+  margin: 0 2px 0 4px;
+  color: #7d7c7a;
+}
+.bookFlowContent .bottomSection .rightContent .supportNoText,
+.bookFlowContent .bottomSection .rightContent .safePaymentText {
+  font-size: 14px;
+}
+.bookFlowContent li.parsley-required,
+.bookFlowContent li.parsley-pattern,
+.bookFlowContent li.parsley-type {
+  list-style: none;
+  font-size: 11px;
+  position: absolute;
+  top: 34px;
+  left: 15px;
+  color: #ee1f3b;
+}
+.bookFlowContent .tooltip {
+  top: -5px !important;
+  left: 0px !important;
+}
+.accordion {
+  max-width: 100%;
+}
+.unitName {
+  color: #333333 !important;
+}
+.unitDetails {
+  font-weight: 700;
+  color: #333333;
+  padding: 0 !important;
+  padding-top: 25px !important;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-left: -15px;
+}
+.unitDetails.builderName,
+.unitDetails.localityName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  position: relative;
+}
+.unitDetails i {
+  color: #fe943e !important;
+}
+.titleDetails {
+  padding: 0 !important;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-left: -15px;
+  margin-top: 5px;
+}
+.bookingFlow .modal-backdrop {
+  left: 0 !important;
+}
+.priceSheetModal .modal-body {
+  padding: 15px 0;
+}
+.priceSheetModal .modal-content {
+  border-radius: 0;
+}
+.priceSheetModal h5 {
+  font-weight: 700;
+  margin: 10px 20px 20px 20px;
+}
+.priceSheetModal .contentOuter {
+  border: 1px solid #bcbcba;
+}
+.priceSheetModal .contentOuter .row {
+  border-bottom: 1px solid #bcbcba;
+}
+.priceSheetModal .contentOuter .row:last-child {
+  border-bottom: none;
+}
+.priceSheetModal .contentOuter .row.titles div {
+  font-weight: 700;
+}
+.priceSheetModal .contentOuter .row div {
+  padding: 10px 5px;
+  border-right: 1px solid #bcbcba;
+}
+.priceSheetModal .contentOuter .row div:last-child {
+  border-right: none;
+}
+.priceSheetModal .close {
+  position: absolute;
+  right: 10px;
+  z-index: 9999;
+  top: 5px;
+}
+.priceSheetModal .saleOuter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.priceSheetModal .saleOuter .saleValue {
+  font-weight: 700;
+}
+.successOuter {
+  padding: 15px;
+  color: #7d7c7a;
+  font-size: 12px;
+  margin: auto;
+  display: table;
+  width: 100%;
+}
+.successOuter .bookApmt {
+  font-size: 17px;
+  font-weight: 700;
+  color: #333333;
+  margin-top: 22px;
+  float: left;
+}
+.successOuter .flatNo {
+  color: #333333;
+  float: left;
+  margin-top: 22px;
+  margin-left: 5px;
+  font-size: 17px;
+  font-weight: 700;
+}
+.successOuter h5 {
+  color: #333333;
+}
+.successOuter .booked {
+  background: #0eab08;
+  color: #ffffff;
+  padding: 4px 10px 3px;
+  border: none;
+  float: right;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+.successOuter a {
+  text-decoration: none;
+  outline: none;
+  color: #296ec3;
+}
+.successOuter a:hover,
+.successOuter a:focus {
+  text-decoration: none;
+  outline: none;
+  color: #296ec3;
+}
+.successOuter .titles {
+  font-weight: 800;
+  color: #333333;
+  font-size: 12px;
+}
+.successOuter .unitTitle {
+  font-weight: 700;
+  font-size: 16px;
+}
+.successOuter .unitDetails {
+  border: none;
+  font-weight: 600;
+  padding: 0;
+}
+.successOuter i {
+  color: #296ec3;
+  margin-right: 4px;
+}
+.successOuter .bottomSection {
+  margin-top: -2px;
+}
+.successOuter .cancelBookingOuter {
+  padding: 20px 0 10px 0 ;
+  border-top: 1px solid #bcbcba;
+  margin-top: 40px;
+}
+.successOuter .cancelBookingOuter a {
+  margin-bottom: 10px;
+  color: #ffffff;
+  float: right;
+}
+.successOuter .cancelBookingOuter .backToHomeBtn {
+  text-align: right;
+}
+.successOuter .detailsOuter > div {
+  width: 20%;
+  position: relative;
+}
+.failureOuter {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  width: 500px !important;
+  height: 230px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin-top: -120px;
+  margin-left: -250px;
+}
+.failureOuter i {
+  color: #ee1f3b;
+  float: left;
+  margin-right: 6px;
+}
+.failureOuter .failureMsg {
+  color: #ee1f3b;
+  font-weight: 800;
+  font-size: 15px;
+  float: left;
+  margin-top: 4px;
+}
+.failureOuter .transactionFailed {
+  color: #ee1f3b;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+.failureOuter .transactionNo {
+  font-size: 11px;
+  padding-left: 0;
+}
+.failureOuter .tryAgain {
+  margin-top: 20px;
+  background: #12acac;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px 4px;
+  font-size: 10px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  float: left;
+}
+.failureOuter .tryAgain:focus {
+  outline: none;
+}
+.timeoutOuter {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  width: 400px !important;
+  height: 150px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin-top: -75px;
+  margin-left: -200px;
+  color: #296ec3;
+}
+.timeoutOuter .failureMsg {
+  color: #565654;
+}
+.timeoutOuter .transactionFailed {
+  color: #565654;
+  font-size: 14px;
+  padding-left: 0;
+}
+.timeoutOuter .tryAgain {
+  margin-top: 20px;
+  background: #12acac;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px 4px;
+  font-size: 10px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  float: left;
+}
+.timeoutOuter .tryAgain:focus {
+  outline: none;
+}
+.bookingFooter {
+  text-align: center;
+  float: left;
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.bookingFooter a {
+  font-size: 12px;
+  color: #565654;
+  text-decoration: none;
+  outline: none;
+}
+.bookingFooter a:hover {
+  color: #565654;
+  text-decoration: none;
+}
+.bookingFooter .privacyOuter {
+  font-size: 12px;
+}
+.bookingFooter .privacyOuter a {
+  margin: 0 5px;
+  text-decoration: none;
+  outline: none;
+  font-size: 14px;
+}
+.bookingFooter.sessionExpireFooter {
+  margin-top: 90px;
+}
+.successContent {
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+}
+.successContent .reviewDetails > div:first-child {
+  border-bottom: 1px solid #bcbcba;
+  margin-bottom: 15px;
+}
+.successContent .unitName {
+  color: #fe943e !important;
+}
+.successContent .cancleText {
+  float: right;
+  font-size: 14px;
+  width: 61%;
+}
+.successContent .cancleText i {
+  margin-top: 4px;
+  float: left;
+  color: #7d7c7a;
+}
+.successContent .cancleText .text {
+  float: left;
+  width: 95%;
+}
+.successContent .note {
+  margin-top: 10px;
+  padding-right: 0;
+  font-size: 14px;
+}
+.successContent .cancleBooking {
+  float: right;
+  width: auto;
+  font-size: 10px;
+  background: #fe943e;
+  color: #ffffff;
+  padding: 6px 10px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 3px;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+.successContent .bookedUser > div:last-child {
+  margin-bottom: 20px;
+}
+.successContent .bookedUser .title {
+  font-size: 14px;
+  text-transform: capitalize;
+  width: 75px;
+  float: left;
+  line-height: 1.5;
+}
+.successContent .bookedUser .detail {
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.5;
+}
+.successContent.cancelBooking .cancelBookingOuter {
+  padding: 20px 0 0px 0;
+}
+.successContent.cancelBooking .note {
+  margin-top: 8px;
+}
+.successContent.cancelBooking .querTextOuter {
+  margin-top: 5px;
+  border-top: 1px solid #bcbcba;
+  padding-top: 20px;
+}
+.successContent.sessionExpireContent {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 30px 20px !important;
+  margin-top: 120px;
+}
+.successContent.sessionExpireContent > div {
+  margin: 0 0 50px 0;
+  font-size: 20px;
+}
+.successContent.sessionExpireContent i {
+  color: #ee1f3b;
+}
+.successContent.sessionExpireContent h3 {
+  float: left;
+  width: 100%;
+  color: #7d7c7a;
+  text-shadow: none;
+  font-size: 28px;
+}
+.successContent.transactionFailed > div {
+  margin: 0 0 30px 0;
+  font-size: 16px;
+}
+.successContent.transactionFailed h3 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.s-hidden {
+  visibility: hidden;
+  padding-right: 10px;
+}
+.select {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  color: black;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+.styledSelect {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  padding: 6px;
+  font-size: 14px;
+}
+.styledSelect:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-color: black transparent transparent transparent;
+  position: absolute;
+  top: 15px;
+  right: 6px;
+}
+.styledSelect:active,
+.styledSelect.active {
+  background-color: #eee;
+}
+.options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  margin: 0 0;
+  padding: 0 0;
+  list-style: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.options li {
+  margin: 0 0;
+  padding: 6px;
+}
+.options li:hover {
+  background-color: #f6f6f6;
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .reviewDetails {
+    padding: 0 !important;
+  }
+  .unitDetails {
+    font-size: 12px;
+  }
+  .successContent .detailsOuter {
+    padding: 0;
+  }
+  .successContent .bookedUser {
+    padding: 0;
+  }
+  .successContent .detailsOuter > div {
+    width: 25%;
+  }
+  .successContent .cancleText .text {
+    width: 93%;
+  }
+  .successContent .cancelBookingOuter a {
+    margin-top: 10px;
+  }
+  .bookFlowContent .panel .reviewDetails .detailsOuter > div {
+    width: 32%;
+    padding-right: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .bookFlowContent {
+    height: 380px;
+  }
+  .bookFlowContent .tooltip {
+    top: -25px !important;
+    left: 0px !important;
+  }
+  .bookFlowContent .panel .tooltip {
+    top: -5px !important;
+    left: 0px !important;
+  }
+  .bookFlowContent .container {
+    padding: 0;
+  }
+  .bookFlowContent .spanText {
+    margin-bottom: 20px;
+  }
+  .bookFlowContent .timerText {
+    margin-bottom: 5px;
+  }
+  .bookFlowContent .absoluteLayout {
+    height: 380px;
+  }
+  .bookFlowContent .bookAptOuter .row > div:last-child {
+    text-align: center;
+  }
+  .bookFlowContent .bookAptOuter > div {
+    text-align: center !important;
+    width: 100%;
+    padding: 0;
+  }
+  .bookFlowContent .bookAptOuter .priceOuter {
+    width: 120px;
+  }
+  .bookFlowContent .bookAptOuter .totalPrice {
+    padding-right: 0;
+  }
+  .bookFlowContent .bookAptOuter .borderDiv {
+    margin: 10px 2%;
+  }
+  .bookFlowContent .bookAptOuter i,
+  .bookFlowContent .bookAptOuter .amount {
+    float: none;
+    display: inline-block;
+    margin: 0;
+  }
+  .bookFlowContent .bookAptOuter .amount {
+    margin-left: 10px;
+    margin-right: 0 !important;
+  }
+  .bookFlowContent h3 {
+    font-size: 150%;
+  }
+  .bookFlowContent .panel-inner {
+    padding: 10px 15px 30px;
+  }
+  .bookFlowContent .userInfo {
+    padding-left: 0;
+  }
+  .bookFlowContent .panel .pricepaymentButtons > div {
+    text-align: left;
+    padding-left: 0;
+  }
+  .detailsOuter {
+    padding: 0 !important;
+  }
+  .detailsOuter > div {
+    width: 49% !important;
+    padding-right: 0;
+  }
+  .panel-body {
+    padding: 15px 0 !important;
+  }
+  .successOuter {
+    padding: 20px 0;
+  }
+  .successContent {
+    box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.3);
+    padding: 0 !important;
+  }
+  .successContent .bookedUser {
+    padding: 0 !important;
+  }
+  .successContent .cancelBookingOuter {
+    margin-top: 20px;
+  }
+  .successContent .cancelBookingOuter .backToHomeBtn {
+    text-align: left;
+  }
+  .successContent .note {
+    margin-bottom: 20px;
+    padding-right: 15px;
+  }
+  .successContent .cancleText {
+    float: left;
+    margin-bottom: 10px;
+  }
+  .successContent .cancleText .text {
+    width: 93%;
+  }
+  .successContent .bookApmt,
+  .successContent .flatNo {
+    font-size: 14px !important;
+  }
+  .successContent .reviewDetails > div:first-child {
+    margin-bottom: 0;
+  }
+  .successContent.sessionExpireContent i {
+    margin-top: 20px;
+  }
+  .successContent.sessionExpireContent button {
+    margin-bottom: 20px;
+  }
+  .successContent.sessionExpireContent h3 {
+    font-size: 22px;
+  }
+  .bookAptOuter .download {
+    float: left ;
+    width: 100% ;
+    text-align: center;
+  }
+  .bookAptOuter .priceSheet {
+    float: none !important;
+    display: inline-block;
+    margin-left: 0;
+  }
+  .buttonOuter {
+    text-align: center;
+  }
+  .bottomSection {
+    padding-left: 0 !important;
+  }
+  .bottomSection .supportNoText {
+    width: 100%;
+    float: left;
+  }
+  .bottomSection .safePaymentText {
+    margin-left: 0px !important;
+    margin-top: 10px;
+    width: 100%;
+    float: left;
+  }
+}
+@media screen and (max-width: 384px) {
+  .unitDetails,
+  .titleDetails {
+    font-size: 11px !important;
+  }
+  .successOuter .cancelBookingOuter a {
+    float: left;
+  }
+  .successOuter .cancleText {
+    float: left;
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=booking.css.map */

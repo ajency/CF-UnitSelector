@@ -1,0 +1,1603 @@
+@import 'var';
+
+@textColor: #333;
+@lightText: #999;
+@gPlusGradient: #e57f79;
+@fbGradient: #6b84c1;
+@lightBg: #edeef0;
+@errorBg: #fcf8e3;
+@erorBorder: #fcf8e3;
+@errorText: #8a6d3b;
+.pNone
+{
+	padding: 0;
+}
+
+.btn
+{
+	padding: 5px;
+	.border-radius(0) !important;
+	text-transform: uppercase;
+	&:focus
+	{
+		outline:none;
+	}
+}
+.btn-gray
+{
+	background: @gray-lighter !important;
+	border-radius: 3px !important;
+	border: 1px solid @gray-lighter !important;
+}
+.btn-primary
+{
+	background: @brand-primary !important;
+	border:1px solid @brand-primary !important;
+	color: @white;
+	border-radius:3px !important;outline:none;
+
+	&:hover, &:focus
+	{
+		background: darken(@brand-primary, 10%) !important;
+		color: @white !important;
+		border:1px solid @brand-primary !important;
+		outline:none;
+	}
+}
+.orangeText
+{
+	color: @brand-primary !important;
+}
+
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	color: @textColor;
+}   
+
+.header
+{
+	background: linear-gradient(to bottom, @brand-primary 0, darken(@brand-primary, 12%) 100%);
+	.BoxShadow(1px, 1px);
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	width: 100%;
+
+	h3
+	{
+		color: @white;
+		font-size: 30px;
+		.TextShadow(2px, 2px);
+		font-family: 'Lato', sans-serif;
+		font-weight: 300;
+	}
+}
+
+.bookFlowContent
+{
+	background:url(../../html/Bookflow/img/Project-noshadow.jpg) no-repeat;
+	height:50%;
+	background-size:cover;
+	height:300px;
+	position:relative;
+	.absoluteLayout
+	{
+		height:300px;
+		width:100%;
+		background:rgba(0,0,0,0.7);
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	.container
+	{
+		position:relative;
+	}
+
+	h3
+	{
+		color: @white;		
+		font-weight: 300;	
+		margin-bottom:5px;	
+		margin-top:50px;	
+		text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	}
+
+	.spanText
+	{
+		color: @gray-lighter;
+		font-size: 12px;
+    	text-transform: uppercase;
+    	margin-bottom:50px;
+	}
+	.timerText
+	{
+		color:@white;
+		text-transform: uppercase;
+		margin-bottom:20px;
+		text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	}
+	.bookAptOuter
+	{
+		.row 
+		{	
+			width:100%;
+			float:left;
+			margin:0;
+			> div
+			{
+				&:first-child
+				{
+					margin-top:15px;
+					padding:0;
+				}
+				&:last-child
+				{								
+					text-align:right;
+					padding:0;
+					margin-top: 20px;
+				}
+			}	
+		}
+		> div 
+		{
+			float:right;
+			width:470px;
+		}
+		margin:0 auto;			
+		i
+		{
+			font-size:16px;
+			display: inline-block;
+    		margin-top: 2px;    		
+		}
+		.amount
+		{
+			color: @white;
+    		margin-left: 10px;
+    		display: inline-block;
+		    margin-bottom: 0;
+		    margin-top: 0;
+		    font-weight: 600;
+		    font-size: 17px;
+		}
+		.totalPrice
+		{
+			font-size: 11px;
+		    color: @white;
+		    float: left;
+		    width: 100%;
+		    padding-right: 27px;
+		}
+		.priceSheet
+		{
+			font-size: 11px;
+		    color: @white;
+		    text-transform: uppercase;
+		    background: rgba(0,0,0,0.5);
+		    padding: 3px 15px;
+		    border: 1px solid @white;
+		    border-radius: 3px;
+		    margin-top: 11px;
+		    float: left;
+		    margin-left: 10px;
+		    text-decoration:none;
+		    float:left;
+		    line-height:1.8;
+		    &:focus
+		    {
+		    	outline:none;
+		    }
+		    i
+		    {
+		    	float:left;
+		    	margin-right:5px;
+		    	margin-top:1px;
+		    }
+		}
+		.download
+		{
+			color:@white;
+			margin-left:10px;
+			margin-top:15px;
+			font-size:12px;
+			text-transform:uppercase;
+			text-decoration:none;
+			outline:none;
+			float:right;
+			&:focus
+			{
+				text-decoration:none;
+				outline:none;
+			}
+		}
+		.booked
+		{
+			background: @real-green;
+		    color: white;
+		    font-size: 10px;
+		    text-transform: uppercase;
+		    padding:3px 10px;
+		    float: right;
+		    margin-top: 12px;
+		    border-radius: 3px;
+		}
+		.priceOuter
+		{
+			width: 140px;
+    		display:inline-block;
+    		&:first-child
+    		{
+    			text-align:left;
+    		}
+    		&:last-child
+    		{
+    			.amount
+    			{
+    				margin-right:28px;
+    			}
+    			.totalPrice 
+    			{
+    				padding-right:0px;
+    			}
+    		}	
+		}
+		.borderDiv
+		{
+			display:inline-block;
+		    background:@gray-light;
+		    height: 40px;
+		    width:1px;		    
+		    margin:0 5px;
+		    transform: rotate(25deg);
+		    -webkit-transform: rotate(25deg);
+		    -ms-transform: rotate(25deg);
+		}
+		.bookApmt
+		{				    
+		    color:@white;	
+		    font-size: 15px;
+		    font-weight: 600;	    
+		}
+		.projectName
+		{
+			font-size: 14px;
+			color: @white;
+		}
+		.flatNo
+		{
+			color:@white;		    
+		}
+	}
+	.panel-group
+	{
+		.BoxShadow(0, 1px, 2px);
+		background:@white;
+		padding:0;		
+		
+		float:left;
+		margin:auto;		
+	}
+	.panel-inner
+	{
+		
+		margin: auto;
+		padding:10px 30px 15px;
+	}	
+
+	.panel
+	{
+		margin-top: 0 !important;
+		.BoxShadow(0, 0px, 0px);
+		border-radius:0;
+		border:none;
+		border-bottom:none;
+		&:last-child
+		{
+			border-bottom:none;
+		}
+		.tooltip
+		{
+			top: -5px !important;
+			left: 0px !important;
+		}
+
+		h4
+		{
+			font-family: 'Lato', sans-serif;
+			font-weight: 400;
+			font-size:12px;
+			text-transform:uppercase;
+			&.addressHeading
+			{
+				margin: 25px 10px 20px;
+    			font-weight: 700;
+			}
+			&.apartmentName
+			{
+				font-size: 14px;
+				font-weight: 600;
+				padding: 0;
+			}
+		}
+		.pricepaymentButtons
+		{
+			padding: 10px 0;
+			text-align: right;
+			a
+			{
+				font-weight: 600;
+				text-decoration: none;
+				color: @brand-primary;
+				outline: none;
+				&:focus
+				{
+					text-decoration:none;
+					outline: none;
+				}
+			}
+			> div
+			{
+				padding-right: 0;
+			}
+		}						
+		.panel-heading
+		{
+			.BoxShadow(0, 0px, 0px);
+			padding: 0;		
+			.border-radius(0);	
+			background: @white;
+			border:none;
+
+			&.active
+			{				
+				color:  @brand-primary;
+				a
+				{
+					border-bottom:1px solid  @brand-primary;
+				}
+			}
+
+			a
+			{
+				text-decoration: none;
+				font-size: 14px;
+				font-weight: 700;
+				padding: 20px 0 15px 0;
+				display: block;
+				text-transform:uppercase;
+				border-bottom:1px solid @gray-light;
+			}
+		}		
+
+		.userInfo
+		{
+			margin-top: 25px;
+			line-height: 2;
+			padding-right: 0;
+			background: @gray-lightest;
+		    padding: 5px 15px;
+		    border-radius: 5px;
+		}
+
+		.reviewDetails
+		{	
+			padding-left: 0;		
+			h4
+			{
+				border-bottom:1px solid @gray-light;
+				padding-bottom:5px;
+			}
+			.buildingName
+			{
+				font-size: 30px;
+				color: @lightText;
+				border: 2px solid @lightBg;
+				border-bottom: none;
+				padding: 10px; 				
+			}
+			.title
+			{
+				background: @lightBg;
+				color: @textColor;
+				padding: 10px;
+				font-size: 14px;
+				font-weight: 700;
+			}
+			.detailsOuter
+		    {
+		    	padding:0;
+		    	float:left;
+		    	width:100%;
+		    	> div
+		    	{
+		    		width:32%;
+		    		display: inline-block;
+		    		padding-left: 15px;
+		    		position: relative;
+		    	}
+		    	a
+				{
+					color:@brand-primary;
+					text-decoration:none;
+					outline:none;
+					float: left;
+    				margin-top: 20px;
+					&:hover, &:focus
+					{
+						text-decoration:none;
+						outline:none;
+						color:@brand-primary;
+					}
+				}				
+		    }
+		}
+
+		.termsConditions
+		{
+			font-size:16px;
+			margin-top: 18px;
+			margin-bottom:15px;
+			text-align: center;
+			.row
+			{
+				> div
+				{
+					font-size: 14px;
+				}
+			}
+			label
+			{
+				font-weight: 400;
+				font-size: 12px;
+				margin-top:20px;
+				margin-bottom: 0;
+
+			  input[type=checkbox] 
+		      {
+		        position:absolute;
+		        opacity:0;
+		        height:15px;
+		        width:100%;
+		        left:0;     
+		        margin-top:0;
+		        float:left;
+		        
+		      }
+		      .accept
+		      {
+		      	float:left;
+		      }
+		      label.checkboxLabel
+		      {
+		        height:15px;
+		        width:15px;
+		        background:none;
+		        border:2px solid @gray-lighter;
+		        text-align:center;
+		        margin-top: 0px !important;
+		        float:left;
+		        margin-right:5px;
+		      }     
+
+		      input[type=checkbox]:checked + label:before 
+		      {
+		          content: "\2714";
+		          text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+		          font-size: 15px;
+		          color: #f3f3f3;
+		          text-align: center;
+		          line-height: 15px;
+		          background:@teal;
+		          border: none;
+		          width: 15px;
+		          height:15px;
+		          font-weight: 400; 
+		          padding-top:2px;
+		          display:block;           
+		          border:2px solid rgba(0,0,0,0);  
+		          margin:-2px 0 0 -2px;  
+		          line-height: 0.8;
+		          font-size: 12px;
+		      }
+
+				a
+				{
+					color: @brand-primary;
+					outline:none;
+					position: relative;
+					z-index: 9999;
+				}
+			}
+				li.parsley-required, li.parsley-pattern, li.parsley-type
+				{
+					list-style: none;
+					font-size: 11px;
+					position: absolute;
+				    top: 58px;
+				    left:0;
+				    width: 100%;
+				    color: @real-red;
+
+				}
+		}
+
+		.mandatory
+		{
+			background: @errorBg;
+			padding: 10px;
+			border: 1px solid @erorBorder;
+			color: @errorText; 
+			margin-bottom:20px;
+			a
+			{
+				text-decoration:none;
+				outline:none;
+				float:right;
+				color: @errorText; 
+				&:focus, &:hover
+				{
+					text-decoration:none;
+					outline:none;
+					color: @errorText; 
+				}
+			}
+		}
+		.sameAsAbove
+		{
+			margin: 0 0 20px;
+    		padding: 0;
+    		input[type=checkbox] 
+		      {
+		        position:absolute;
+		        opacity:0;
+		        height:15px;
+		        width:100%;
+		        left:0;     
+		        margin-top:0;
+		        float:left;
+		        
+		      }
+		      .accept
+		      {
+		      	float:left;
+		      }
+		      label.checkboxLabel
+		      {
+		        height:15px;
+		        width:15px;
+		        background:none;
+		        border:2px solid @gray-lighter;
+		        text-align:center;
+		        margin-top: 2px !important;
+		        float:left;
+		        margin-right:5px;
+		      }     
+
+		      input[type=checkbox]:checked + label:before 
+		      {
+		          content: "\2714";
+		          text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+		          font-size: 15px;
+		          color: #f3f3f3;
+		          text-align: center;
+		          line-height: 15px;
+		          background:@teal;
+		          border: none;
+		          width: 15px;
+		          height:15px;
+		          font-weight: 400; 
+		          padding-top:2px;
+		          display:block;           
+		          border:2px solid rgba(0,0,0,0);  
+		          margin:-2px 0 0 -2px;  
+		          line-height: 0.8;
+		          font-size: 12px;
+		      }
+
+		}
+
+		.personalDetails
+		{
+			padding:0;
+			label
+			{
+				float: left;
+				width: 100%;
+				font-weight: 400;			
+			}
+			input, select
+			{
+				box-shadow:none;
+				border:none;
+				border-bottom: 1px solid @lightBg;
+				margin-bottom: 20px;				
+				font-size:14px;				
+				width: 100%;
+				&:focus
+				{
+					outline:none;
+				}
+			}	
+			select
+			{
+				margin-bottom: 0;
+			}
+				
+			
+		}
+		.buttonOuter
+		{
+			margin: 20px 0 10px 0;
+		}
+		.btnOuter
+		{
+			button
+			{
+				margin-top:10px;
+			}		
+		}
+		.panel-body
+		{
+			border-top:none !important;
+			padding: 15px 0;
+		}
+		.plusMinusOuter
+		{
+			outline:none;
+			.plusMinusIcon
+			{
+				float: right;
+			    color: @gray;
+			    font-size: 14px;			    
+			    &.minusIcon
+			    {
+			    	display:block;			    	
+			    }	
+			    &.plusIcon
+			    {
+			    	display:none;
+			    }	    
+			}
+
+			&.collapsed 
+			{
+				.plusMinusIcon
+				{
+					&.minusIcon
+				    {
+				    	display:none;
+				    }
+				    &.plusIcon
+				    {
+				    	display:block;
+				    }
+				}
+			}	
+		}
+		
+	}		
+	.closeIcon
+	{
+		i
+		{
+			margin: 50px auto 20px;
+		    font-weight: lighter;
+		    height: 45px;
+		    width: 45px;
+		    padding: 5px;
+		    border: 4px solid #fff;
+		    border-radius: 50%;
+		    text-transform: uppercase;
+		    text-align: center;
+		    display: block;
+		    font-style: normal;
+		    font-size: 20px;
+		    color:@white;
+		    font-weight: 700;
+		}
+		h3
+		{
+			margin-top:0;
+			margin-bottom:30px;
+		}
+	}
+	.cancelDetail
+	{
+		.unitDetails
+		{
+			padding-top:0px !important;
+			font-size:14px;
+			padding-bottom: 30px !important;
+		}
+		.titleDetails
+		{
+			padding-top:35px !important;
+		}
+	}
+	.bottomSection
+	{
+		background: @white;
+	    float: left;
+	        padding: 0 0 10px 10px;
+	    width:100%;
+	    box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+	    color: @gray-darker;
+
+	    .rightContent
+	    {
+	    	h5
+	    	{
+	    		font-weight:700;
+	    		margin-bottom: 5px;
+	    	}
+	    	p
+	    	{
+	    		margin-bottom: 0;
+	    		font-size:12px;
+	    		.safePaymentText
+	    		{
+	    			margin-left: 50px;
+	    		}
+	    		i
+	    		{
+	    			margin: 0 2px 0 4px;
+	    			color: @gray;
+	    		}
+	    	}
+	    	.supportNoText, .safePaymentText
+	    	{
+	    		font-size: 14px;
+	    	}
+	    }
+	}
+				
+	li.parsley-required, li.parsley-pattern, li.parsley-type
+	{
+		list-style: none;
+		font-size: 11px;
+		position: absolute;
+	    top: 34px;
+	    left: 15px;
+	    color: @real-red;
+	}	
+
+	.tooltip
+	{
+		top: -5px !important;
+		left: 0px !important;
+	}	
+}
+.BoxShadow(@x: 0, @y: 0, @blur: 2px, @color: rgba(0,0,0,0.3)) {
+	box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	-webkit-box-shadow: @arguments;
+}
+
+.TextShadow(@x: 0, @y: 0, @blur: 2px, @color: rgba(0,0,0,0.3)) {
+	text-shadow: @arguments;
+	-moz-text-shadow: @arguments;
+	-webkit-text-shadow: @arguments;
+}
+
+.border-radius (@radius: 5px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+	border-radius:         @radius;
+}
+.accordion 
+{
+	max-width:100%;
+}
+.unitName
+{
+	color:@textColor !important;
+}
+.unitDetails
+{
+	font-weight:700;
+	color:@textColor;
+	padding:0 !important;
+	padding-top:25px !important;
+	font-size:13px;
+	text-transform:uppercase;
+	margin-left:-15px;
+	&.builderName, &.localityName
+	{
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 100%;
+		position: relative;
+	} 
+	i
+	{
+		color:@brand-primary !important;
+	}		
+}
+.titleDetails
+{
+	padding:0 !important;
+	font-size:12px;
+	text-transform:uppercase;
+	margin-left:-15px;	
+	margin-top:5px;	
+}
+.bookingFlow
+{
+	.modal-backdrop
+	{
+		left:0 !important;
+	}
+}
+.priceSheetModal
+{
+	.modal-body
+	{
+		padding:15px 0;		
+	}
+	.modal-content
+	{
+		border-radius:0;
+	}
+	h5
+	{
+		font-weight:700;
+		margin:10px 20px 20px 20px;
+	}
+	.contentOuter
+	{
+		border:1px solid @gray-light;
+		.row
+		{
+			border-bottom:1px solid @gray-light;
+			
+			&:last-child
+			{
+				border-bottom:none;
+			}
+			&.titles
+			{
+				div
+				{
+					font-weight:700;
+				}
+			}
+			div
+			{
+				padding:10px 5px;
+				border-right:1px solid @gray-light;
+				&:last-child
+				{
+					border-right:none;
+				}
+			}
+		}
+	}
+	.close
+	{
+		position:absolute;
+		right:10px;
+		z-index:9999;
+		top:5px;
+	}
+	.saleOuter
+	{
+		margin-top:20px;
+		margin-bottom:20px;
+		.saleValue
+		{
+			font-weight:700;
+		}
+	}
+}
+.successOuter
+{
+	
+    padding: 15px;
+    color:@gray;
+    font-size:12px;   
+    margin:auto;
+    display:table;    
+    width:100%;
+    .bookApmt
+	{
+		font-size: 17px;
+	    font-weight: 700;	    
+	    color:@textColor;
+	    margin-top: 22px;
+		float: left;
+	}	
+	.flatNo
+	{
+		color:@textColor;
+	    float: left;
+	    margin-top: 22px;
+	    margin-left: 5px;
+	    font-size: 17px;
+    	font-weight: 700;
+	}
+	h5
+	{
+		color:@textColor;
+	}
+    .booked
+    {
+    	background: @real-green;
+	    color: @white;
+	    padding: 4px 10px 3px;
+	    border: none;
+	    float: right;                                                                                                                                                                                                              
+	    font-size:9px;
+	    text-transform:uppercase;
+    }
+    a
+    {
+    	text-decoration:none;
+    	outline:none;
+    	color:@real-blue;
+
+    	&:hover, &:focus
+    	{
+    		text-decoration:none;
+	    	outline:none;
+	    	color:@real-blue;
+    	}
+    }    
+    .titles
+    {
+    	font-weight:800;
+    	color:@textColor;
+    	font-size:12px;
+    }
+    .unitTitle
+    {
+    	font-weight:700;    	
+    	font-size:16px;    	
+    }
+    .unitDetails
+    {
+    	border:none;
+    	font-weight:600;
+    	padding:0;      	 
+    }
+  
+    i
+    {
+    	color:@real-blue;
+    	margin-right:4px;
+    }
+    .bottomSection
+	{
+		margin-top: -2px;
+	}
+	.cancelBookingOuter
+	{
+		padding: 20px 0 10px 0 ;
+	    border-top: 1px solid @gray-light;	
+	    margin-top:40px;	 
+	    a
+	    {
+	    	margin-bottom:10px;
+	    	color:@white;
+	    	float:right;
+	    }  
+	    .backToHomeBtn
+	    {
+	    	text-align: right;
+	    }
+	}
+	.detailsOuter
+	{
+		> div
+		{
+			width:20%;
+			position: relative;
+		}
+	}
+
+}
+.failureOuter
+{
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+    padding: 15px;
+    width:500px !important;
+    height: 230px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -120px;
+    margin-left: -250px;
+    i
+    {    	
+    	color:@real-red;
+    	float: left;
+    	margin-right: 6px;
+    }   
+	.failureMsg
+    {
+    	color:@real-red;
+    	font-weight:800;
+    	font-size:15px;
+    	float: left;
+    	margin-top: 4px;
+    }
+    .transactionFailed
+    {
+    	color:@real-red;
+    	font-size:12px;
+    	font-weight:700;
+    	margin-bottom:20px;
+    	padding-left:0;
+    }	
+    .transactionNo
+    {
+    	font-size:11px;
+    	padding-left:0;
+    }
+    .tryAgain 
+    {
+    	margin-top: 20px;
+	    background: @teal;
+	    color: @white;
+	    border: none;
+	    padding: 5px 10px 4px;
+	    font-size: 10px;
+	    margin-bottom: 10px;
+	    margin-left:0;
+	    float:left;
+	    &:focus
+	    {
+	    	outline:none;
+	    }
+    }
+}
+.timeoutOuter
+{
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+    padding: 15px;
+    width:400px !important;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin-top: -75px;
+    margin-left: -200px;
+    color: @real-blue;
+
+    .failureMsg
+    {
+    	color: @gray-darker;
+    }
+    .transactionFailed
+    {
+    	color: @gray-darker;
+    	font-size:14px;
+    	padding-left:0
+    }
+    .tryAgain 
+    {
+    	margin-top: 20px;
+	    background: @teal;
+	    color: @white;
+	    border: none;
+	    padding: 5px 10px 4px;
+	    font-size: 10px;
+	    margin-bottom: 10px;
+	    margin-left:0;
+	    float:left;
+	    &:focus
+	    {
+	    	outline:none;
+	    }
+
+    }
+
+}
+.bookingFooter
+{	
+    text-align: center;
+    float:left;
+    width: 100%;
+    margin-top:40px;
+    margin-bottom:20px;
+    a
+    {
+    	font-size: 12px;	    
+	    color: @gray-darker;
+	    text-decoration: none;
+	    outline: none;
+	    &:hover
+	    {
+	    	color:@gray-darker;
+	    	text-decoration:none;
+	    }
+    }
+    .privacyOuter
+    {
+    	font-size: 12px;
+
+    	a
+    	{
+    		margin:0 5px;
+    		text-decoration:none;
+    		outline:none;
+    		font-size: 14px;
+    	}
+    }
+    &.sessionExpireFooter
+    {
+    	margin-top: 90px;
+    }
+}
+.successContent
+{
+	padding:20px;
+	background:@white;
+	.BoxShadow(0, -2px, 2px);
+	
+	.reviewDetails
+	{
+		
+		> div 
+		{
+			&:first-child
+			{
+				border-bottom:1px solid @gray-light;
+				margin-bottom:15px;
+			}
+		}
+
+		
+	}
+	.unitName
+	{
+		color:@brand-primary !important;
+	}
+	.cancleText
+	{
+		float: right;
+	    font-size: 14px;	    
+	    width: 61%;
+	    i
+	    {
+	    	margin-top:4px;
+	    	float:left;
+	    	color: @gray;
+	    }
+	    .text
+	    {
+	    	float:left;
+	    	width:95%;
+	    }
+	}
+	.note
+	{
+		margin-top: 10px;
+	    padding-right: 0;
+	    font-size: 14px;
+	}
+	.cancleBooking
+	{
+		float: right;
+	    width: auto;
+	    font-size: 10px;
+	    background: @brand-primary;
+	    color: @white;
+	    padding: 6px 10px 4px 10px;
+	    text-align: center;
+	    text-decoration: none;
+	    border-radius: 3px;
+	    margin-top: 5px;
+	    text-transform:uppercase;
+	}	
+	.bookedUser
+	{
+	> div
+	{
+		&:last-child
+		{
+			margin-bottom:20px;
+		}
+	}
+		.title 
+		{
+		    font-size: 14px;
+		    text-transform: capitalize;
+		    width: 75px;
+		    float: left;
+		    line-height: 1.5;
+		}
+		.detail
+		{
+			font-size: 14px;		    
+		    color: @textColor;
+		    line-height: 1.5;
+		}
+	}
+	&.cancelBooking
+	{
+		.cancelBookingOuter 
+		{
+			padding: 20px 0 0px 0;
+		}
+		.note
+		{
+			margin-top: 8px;
+		}
+		.querTextOuter
+		{
+			margin-top: 5px;
+			border-top: 1px solid @gray-light;
+			padding-top: 20px;
+		}
+	}
+	&.sessionExpireContent
+	{
+		.BoxShadow(0, 1px, 2px);	
+		padding: 30px 20px !important;
+		margin-top: 120px;
+		> div
+		{
+			margin:0 0 50px 0;
+			font-size: 20px;
+		}
+		i
+		{
+			color: @real-red;
+		}	
+		h3
+		{
+			float: left;
+			width: 100%;
+			color: @gray;
+			text-shadow:none;
+			font-size: 28px;
+		}
+	}
+	&.transactionFailed
+	{
+		> div
+		{
+			margin:0 0 30px 0;
+			font-size: 16px;
+		}
+		h3
+		{
+			margin-top: 30px;
+			margin-bottom:20px;
+		}
+	}
+}
+.s-hidden {
+    visibility:hidden;
+    padding-right:10px;
+}
+.select {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    color:black;
+    width: 100%;
+    border-bottom:1px solid #ccc;
+}
+.styledSelect {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color:white;
+    padding:6px;
+    font-size: 14px;
+}
+.styledSelect:after {
+    content:"";
+    width:0;
+    height:0;
+    border:5px solid transparent;
+    border-color:black transparent transparent transparent;
+    position:absolute;
+    top:15px;
+    right:6px;
+}
+.styledSelect:active, .styledSelect.active {
+    background-color:#eee;
+}
+.options {
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    z-index:999;
+    margin:0 0;
+    padding:0 0;
+    list-style:none;
+    border:1px solid #ccc;
+    background-color:white;
+    -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.options li {
+    margin:0 0;
+    padding:6px;
+}
+.options li:hover {
+    background-color:@gray-lightest;
+}
+
+
+@media screen and (min-width: 768px) and (max-width:991px)
+{
+	.reviewDetails
+	{
+		padding: 0 !important;
+	}
+	.unitDetails
+	{
+		font-size: 12px;	
+	}
+	.successContent
+	{
+		.detailsOuter
+		{
+			padding: 0;
+		}
+		.bookedUser
+		{
+			padding: 0;
+		}
+		.detailsOuter > div
+		{
+			width: 25%;
+		}
+		.cancleText .text 
+		{
+			width: 93%;
+		}
+		.cancelBookingOuter a
+		{
+			margin-top: 10px;
+		}
+	}
+	.bookFlowContent
+	{
+		.panel 
+		{							
+			.reviewDetails .detailsOuter > div
+			{
+				width: 32%;
+				padding-right:0;
+			}
+		}	
+	} 
+}
+
+@media screen and (max-width:767px)
+{	
+	.bookFlowContent
+	{
+		height:380px;
+
+		.tooltip
+		{
+			top: -25px !important;
+			left: 0px !important;
+		}
+		.panel .tooltip
+		{
+			top: -5px !important;
+			left: 0px !important;
+		}
+		.container
+		{
+			padding:0;
+		}
+		.spanText 
+		{
+			margin-bottom: 20px;
+		}	
+		.timerText 
+		{
+			margin-bottom: 5px;
+		}	
+		.absoluteLayout 
+		{
+				height: 380px;
+		}
+		.bookAptOuter
+		{	
+			.row > div
+			{
+				&:last-child
+				{
+					text-align:center;
+				}
+			}		
+			> div
+			{
+				text-align:center !important;
+				width:100%;
+				padding:0;
+			}				
+			.priceOuter 
+			{
+				width:120px;
+			}	
+			.totalPrice 
+			{
+				padding-right:0;
+			}
+			.borderDiv
+			{
+				margin:10px 2%;
+			}
+			i, .amount 
+			{
+				float:none;
+				display:inline-block;
+				margin:0;
+			}
+			.amount 
+			{
+				margin-left:10px;
+				margin-right:0 !important;
+			}
+		}
+		h3
+		{
+			font-size:150%;
+		}
+		.panel-inner  
+		{
+			padding: 10px 15px 30px;
+		}
+		.userInfo
+		{
+			padding-left: 0;
+		}
+		.panel .pricepaymentButtons > div
+		{
+			text-align: left;
+			padding-left: 0;
+		}
+	} 
+	.detailsOuter 
+	{
+		padding:0 !important;
+		> div
+		{
+			width:49% !important;
+			padding-right: 0;
+		}
+	}
+	.panel-body
+	{
+		padding:15px 0 !important;
+	}
+	.successOuter
+	{
+		padding:20px 0;
+	}
+	.successContent 
+	{
+		.BoxShadow(0, -2px, 2px);
+		padding:0 !important;
+		.bookedUser
+		{
+			padding:0 !important;
+		}
+		.cancelBookingOuter
+		{
+			margin-top:20px;
+			.backToHomeBtn
+		    {
+		    	text-align: left;
+		    }
+		}
+		.note 
+		{
+			margin-bottom:20px;
+			padding-right: 15px;
+		}
+		.cancleText
+		{
+			float:left;
+			margin-bottom:10px;
+			.text
+			{
+				width:93%;
+			}
+		}		
+		.bookApmt, .flatNo 
+		{
+			font-size:14px !important;
+		}
+		.reviewDetails > div:first-child
+		{
+			margin-bottom:0;
+		}	
+		&.sessionExpireContent	
+		{
+			i
+			{
+				margin-top: 20px;
+			}
+			button
+			{
+				margin-bottom: 20px;
+			}
+			h3
+			{
+				font-size: 22px;
+			}
+
+		}
+		
+	}
+	.bookAptOuter
+	{		
+		.download
+		{
+			float:left ;
+			width:100% ;
+			text-align:center;
+		}
+		.priceSheet 
+		{
+			float:none !important;
+			display:inline-block ;
+			margin-left:0;
+		}
+	}
+		
+	.buttonOuter
+	{
+		text-align:center;
+	}
+	.bottomSection 
+	{
+		padding-left: 0 !important;
+		.supportNoText
+		{
+			width:100%;
+			float:left;
+		}
+		.safePaymentText
+		{
+			margin-left: 0px !important;
+			margin-top: 10px;
+			width:100%;
+			float:left;
+		}
+	}
+}
+@media screen and (max-width:384px)
+{
+	.unitDetails , .titleDetails
+	{
+		font-size:11px !important;
+	}
+	.successOuter 
+	{
+	 .cancelBookingOuter a
+	 {
+		float:left;
+	 }
+	 .cancleText 
+	 {
+	 	float:left;
+	 	width:100%;
+	 }
+	} 
+}
