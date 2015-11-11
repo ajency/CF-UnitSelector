@@ -1,6 +1,7 @@
 var React = require('react')
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var ProjectMaster = require('./project-master/projectmaster');
+var StepOne = require('./project-master/stepone');
 var BuildingMaster = require('./building-master/buildingmaster');
 var GroupMaster = require('./building-master/groupmaster');
 var UnitDetails = require('./unit-details/unitdetails');
@@ -20,7 +21,7 @@ var APP = React.createClass({
 
         <Template>
           <Locations hash>
-            <Location path="/" handler={ProjectMaster} />
+            <Location path="/" handler={StepOne} />
             <Location path="/buildings/:buildingId" handler={BuildingMaster} />
             <Location path="/buildings/:buildingId/group/:groupId" handler={GroupMaster} />
             <Location path="/units/:unitId" handler={UnitDetails} />
