@@ -242,7 +242,7 @@
                         
     //     }
 
-    function getBookingAmount($unit_id,$value){
+    function getBookingAmount($unit_id,$value,$flag=true){
           $c = curl_init();
 
           $params['user']=USER;  //19;
@@ -278,7 +278,10 @@
           curl_close($c);
           $str=substr($info, 0,1);
           if($str==2){
+            if($flag)
               return moneyFormatIndia($o);
+            else
+              return $o;
           }else{
               return "Error code";
           }
