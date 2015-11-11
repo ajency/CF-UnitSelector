@@ -101,15 +101,27 @@
           "2.5BHK",
           "3BHK"
         ],
-        "starting_area": 498094,
+        "starting_area": 68296384,
         "availability": {
-          "sold": 0,
+          "sold": 9,
           "blocked": 0
         },
-        "starting_price": 3347143
+        "starting_price": 84340143
       }
     },
-    "filters": [],
+    "filters": {
+      "defaults": [
+        "area",
+        "budget",
+        "views",
+        "direction",
+        "floor"
+      ],
+      "Apartment": [
+        "unitTypes",
+        "unitVariantNames"
+      ]
+    },
     "buildings": [
       {
         "id": 21,
@@ -299,7 +311,7 @@
         "shadow_images": {
           "00": 1592
         },
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "floor_group": [
           {
             "id": 19,
@@ -346,18 +358,20 @@
         "no_of_floors": 6,
         "floors": [],
         "building_master": [
-          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-00.jpg"
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-01.jpg"
         ],
         "created_at": "2015-11-06 05:53:54",
-        "updated_at": "2015-11-06 07:09:23",
+        "updated_at": "2015-11-11 06:53:39",
         "breakpoints": [
-          0
+          0,
+          1
         ],
         "abbrevation": "",
         "has_master": "yes",
         "floor_rise": 1000,
         "shadow_images": [],
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 14,
         "floor_group": [
           {
             "id": 22,
@@ -369,7 +383,7 @@
             ],
             "created_at": "-0001-11-30 00:00:00",
             "updated_at": "-0001-11-30 00:00:00",
-            "primary_breakpoint": null
+            "primary_breakpoint": 0
           },
           {
             "id": 23,
@@ -535,7 +549,7 @@
         "shadow_images": {
           "00": 1589
         },
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "floor_group": [
           {
             "id": 31,
@@ -627,7 +641,7 @@
               }
             ],
             "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/292741494_0.jpeg",
-            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/154157442_0.jpeg"
+            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/823380594_25.jpeg"
           }
         ]
       },
@@ -725,9 +739,59 @@
         "floor_group_id": 31,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 2000,
+        "unit_price": 2000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 1000,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -751,9 +815,59 @@
         "floor_group_id": 31,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 3000,
+        "unit_price": 3000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 2000,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -777,9 +891,59 @@
         "floor_group_id": 32,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 4000,
+        "unit_price": 4000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 3000,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -803,9 +967,59 @@
         "floor_group_id": 32,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 5000,
+        "unit_price": 5000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 4000,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -829,9 +1043,59 @@
         "floor_group_id": 33,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 6000,
+        "unit_price": 6000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 5000,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -855,9 +1119,59 @@
         "floor_group_id": 33,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 7000,
+        "unit_price": 7000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 6000,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -881,9 +1195,59 @@
         "floor_group_id": 28,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 2000,
+        "unit_price": 2000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 1000,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -907,9 +1271,59 @@
         "floor_group_id": 28,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 3000,
+        "unit_price": 3000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 2000,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -933,9 +1347,59 @@
         "floor_group_id": 29,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 4000,
+        "unit_price": 4000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 3000,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -959,9 +1423,59 @@
         "floor_group_id": 29,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 5000,
+        "unit_price": 5000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 4000,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -985,9 +1499,59 @@
         "floor_group_id": 30,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 6000,
+        "unit_price": 6000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 5000,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1011,9 +1575,59 @@
         "floor_group_id": 30,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 7000,
+        "unit_price": 7000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 6000,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1037,9 +1651,59 @@
         "floor_group_id": 25,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 2000,
+        "unit_price": 2000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 1000,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1063,9 +1727,59 @@
         "floor_group_id": 25,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 3000,
+        "unit_price": 3000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 2000,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1089,9 +1803,59 @@
         "floor_group_id": 26,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 4000,
+        "unit_price": 4000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 3000,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1115,9 +1879,59 @@
         "floor_group_id": 26,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 5000,
+        "unit_price": 5000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 4000,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1141,9 +1955,59 @@
         "floor_group_id": 27,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 6000,
+        "unit_price": 6000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 5000,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1167,9 +2031,59 @@
         "floor_group_id": 27,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 7000,
+        "unit_price": 7000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 6000,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1193,9 +2107,59 @@
         "floor_group_id": 22,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 2000,
+        "unit_price": 2000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 1000,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1219,9 +2183,59 @@
         "floor_group_id": 22,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 3000,
+        "unit_price": 3000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 2000,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1245,9 +2259,59 @@
         "floor_group_id": 23,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 4000,
+        "unit_price": 4000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 3000,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1271,9 +2335,59 @@
         "floor_group_id": 23,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 5000,
+        "unit_price": 5000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 4000,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1297,9 +2411,59 @@
         "floor_group_id": 24,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 6000,
+        "unit_price": 6000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 5000,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1323,9 +2487,59 @@
         "floor_group_id": 24,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 7000,
+        "unit_price": 7000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 6000,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1349,9 +2563,59 @@
         "floor_group_id": 19,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 2000,
+        "unit_price": 2000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 1000,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1364,20 +2628,74 @@
         "floor": 2,
         "building_id": 23,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 06:48:29",
+        "updated_at": "2015-11-11 07:54:35",
         "phase_id": 0,
-        "views": [],
-        "direction": "South",
+        "views": [
+          "Swimming pool",
+          "Garden",
+          "Playground"
+        ],
+        "direction": "Noth-East",
         "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
+        "booked_at": "2015-11-11 07:54:35",
         "property_type_group_id": 0,
         "booking_id": "",
         "floor_group_id": 19,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 3000,
+        "unit_price": 3000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 2000,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1401,9 +2719,59 @@
         "floor_group_id": 20,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 4000,
+        "unit_price": 4000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 3000,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1427,9 +2795,59 @@
         "floor_group_id": 20,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 5000,
+        "unit_price": 5000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 4000,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1453,9 +2871,59 @@
         "floor_group_id": 21,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 6000,
+        "unit_price": 6000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 5000,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1479,9 +2947,59 @@
         "floor_group_id": 21,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 7000,
+        "unit_price": 7000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 6000,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1494,7 +3012,7 @@
         "floor": 1,
         "building_id": 21,
         "created_at": "2015-11-05 06:19:22",
-        "updated_at": "2015-11-06 13:11:02",
+        "updated_at": "2015-11-09 10:40:37",
         "phase_id": 0,
         "views": [
           "Swimming pool",
@@ -1504,16 +3022,66 @@
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "563ca35d82e6d",
+        "booking_id": "5640747c71c6a",
         "floor_group_id": 13,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 2000,
+        "unit_price": 2000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 1000,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
         "id": 159,
@@ -1523,7 +3091,7 @@
         "floor": 1,
         "building_id": 21,
         "created_at": "2015-11-05 06:19:41",
-        "updated_at": "2015-11-06 13:02:29",
+        "updated_at": "2015-11-11 09:43:39",
         "phase_id": 0,
         "views": [],
         "direction": "North",
@@ -1534,9 +3102,59 @@
         "floor_group_id": 13,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 2000,
+        "unit_price": 2000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 1000,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "sold"
@@ -1549,20 +3167,70 @@
         "floor": 3,
         "building_id": 21,
         "created_at": "2015-11-05 06:20:18",
-        "updated_at": "2015-11-07 05:02:33",
+        "updated_at": "2015-11-09 11:39:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "563ca38e2327a",
+        "booking_id": "5640822b4a194",
         "floor_group_id": 14,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 4000,
+        "unit_price": 4000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 3000,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1575,20 +3243,70 @@
         "floor": 4,
         "building_id": 21,
         "created_at": "2015-11-05 06:24:03",
-        "updated_at": "2015-11-05 06:34:32",
+        "updated_at": "2015-11-09 11:45:12",
         "phase_id": 0,
         "views": [],
         "direction": "North",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564082d73df8e",
         "floor_group_id": 14,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 5000,
+        "unit_price": 5000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 4000,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1612,9 +3330,59 @@
         "floor_group_id": 15,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 6000,
+        "unit_price": 6000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 5000,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
@@ -1638,9 +3406,59 @@
         "floor_group_id": 15,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 0,
-        "unit_price": 0,
-        "unit_price_component": [],
+        "selling_amount": 7000,
+        "unit_price": 7000,
+        "unit_price_component": {
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 2000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 3000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 1000,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 6000,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 6000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 1000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 4000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 5000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
         "property_type_id": 3,
         "primary_breakpoint": 0,
         "availability": "available"
