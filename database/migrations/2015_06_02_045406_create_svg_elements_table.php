@@ -22,6 +22,12 @@ class CreateSvgElementsTable extends Migration {
 			$table->longText('points')->nullable();
 			$table->text('other_details')->nullable();
 			$table->string('primary_breakpoint')->nullable();
+
+			//reference  a foreign key
+            $table->foreign( 'svg_id' )
+                    ->references( 'id' )
+                    ->on( 'svg' )
+                    ->onDelete( 'cascade' );
 		});
 	}
 

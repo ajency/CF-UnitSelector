@@ -604,7 +604,6 @@ body a {
   padding: 10px 0px 5px 0;
   border-bottom: 1px solid #d5d5d4;
   font-size: 12px;
-  text-transform: uppercase;
 }
 .contactModal .inputOuter input:focus {
   outline: none;
@@ -1837,6 +1836,7 @@ select::-ms-expand {
   color: #ffffff;
   text-decoration: none;
   outline: none;
+  font-size: 14px;
 }
 .footerDesk a:hover,
 .footerDesk a:focus {

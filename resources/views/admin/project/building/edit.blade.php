@@ -106,13 +106,13 @@
                                     </div>
                                 </div>
                     <hr/>
-            <div class="row floor-groups">
+            <div class="row building-floor-groups">
                 <div class="m-l-5 no-border col-md-4">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Floor   <span class="semi-bold">Group</span></h3>
                 </div>
                  
                 @foreach($floorGroups as $floorGroup)
-                <div class="col-md-12 m-b-20 ">
+                <div class="col-md-12 m-b-20 floor-group">
                         <div class="row">
                         <div class="col-md-10"> 
                             <div class="row">

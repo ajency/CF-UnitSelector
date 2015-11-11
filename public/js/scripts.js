@@ -313,11 +313,11 @@ function deleteFloorGroup(building_id,attributeId, obj) {
             type: "DELETE",
             success: function (response, status, xhr) { 
                 if(xhr.status ==204)
-                    $(obj).closest('.row').remove();
+                    $(obj).closest('.floor-group').remove();
             }
         });
     } else {
-        $(obj).closest('.row').remove();
+        $(obj).closest('.floor-group').remove();
     }
 }
 
@@ -2180,7 +2180,7 @@ function validateBuildingFloors(form)
 {
       var validateFloor = 0;
       var allFloors =[]
-      $('.floor-groups').find('input[name="group_floors[]"]').each(function() {
+      $('.building-floor-groups').find('input[name="group_floors[]"]').each(function() {
             floorStr = $(this).val();
             floors = floorStr.split(',');
             _.map(floors, function(num) { 
