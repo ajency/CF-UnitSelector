@@ -143,7 +143,7 @@
             </div>
  <script>
     var BASEURL = '{{ url() }}';
-    var BUILDING_ID = '{{ $building->id }}';
+    var BUILDING_ID = 0;
  
 
 </script>
