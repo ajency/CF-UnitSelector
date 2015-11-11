@@ -128,7 +128,8 @@ jQuery(document).ready ($)->
             units = window.actualUnits(value.toLowerCase())
             marked = []
             $.each items,(ind,val)->
-                if !_.isEmpty val.get('canvas_type')
+                # if !_.isEmpty val.get('canvas_type')
+                if val.get('object_id')!=0
                     marked.push val
 
             type.push

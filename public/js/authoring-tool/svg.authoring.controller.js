@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
       units = window.actualUnits(value.toLowerCase());
       marked = [];
       $.each(items, function(ind, val) {
-        if (!_.isEmpty(val.get('canvas_type'))) {
+        if (val.get('object_id') !== 0) {
           return marked.push(val);
         }
       });
