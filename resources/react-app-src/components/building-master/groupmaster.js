@@ -319,7 +319,10 @@ var GroupMaster = React.createClass({
     updateProjectMasterData: function(){
         oldState = this.state;
 
-        newProjectData = AppStore.getFilteredProjectMasterData();
+        groupId = this.props.groupId;
+        buildingId = this.props.buildingId;
+
+        newProjectData = AppStore.getFilteredProjectMasterData(buildingId,groupId);
 
         dataToSet = {
             property: "data",

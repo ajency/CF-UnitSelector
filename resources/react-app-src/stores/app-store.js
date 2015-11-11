@@ -133,12 +133,13 @@ function getAppliedFiltersCount(filters){
 
 
 
-function getUnitCount(propertyType,filters,buildingId){
+function getUnitCount(propertyType,filters,buildingId,groupId){
 	var unitCount = {"total":[],"available":[], "filtered":[]};
 	var units = [];
 	var availableUnits = [];
 	var totalUnitsInBuilding = [];
 	var filteredUnits = [];
+
 
 	var appliedFilters = filters;
 
@@ -153,6 +154,10 @@ function getUnitCount(propertyType,filters,buildingId){
 			availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available" && unit.building_id == buildingId){return unit;} });
 		}else{
 			availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
+		}
+
+		if(groupId != ''){
+			availableUnits = _.filter(availableUnits , function(unit){ if(unit.floor_group_id === groupId){return unit;} });
 		}
 
 		
@@ -562,7 +567,7 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 	return buildingsWithUnits;
 }
 
-function getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType){
+function getApartmentUnitTypes(collectivePropertyTypeId, groupId, collectivePropertyType){
 
 	var apartmentVariants = [];
 	var apartmentUnitTypes = [];
@@ -592,6 +597,11 @@ function getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType)
 				collectivePropertyUnits = _.filter(allUnits , function(unit){ if(unit.building_id == collectivePropertyTypeId){return unit;} });
 			}
 			
+		}
+
+
+		if(groupId != ''){
+			collectivePropertyUnits = _.filter(collectivePropertyUnits , function(unit){ if(unit.floor_group_id == groupId){return unit;} });
 		}
 		
 
@@ -626,7 +636,7 @@ function getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType)
 
 
 
-function getPropertyVariants(propertyType,variant,buildingId){
+function getPropertyVariants(propertyType,variant,buildingId,groupId){
 
 	var variants = [];
 
@@ -639,6 +649,10 @@ function getPropertyVariants(propertyType,variant,buildingId){
 	else{
 		var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available" && unit.building_id == buildingId){return unit;} });
 	}
+
+	if(groupId != ''){
+			allUnits = _.filter(allUnits , function(unit){ if(unit.floor_group_id == groupId){return unit;} });
+		}
 	
 	var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
 
@@ -701,7 +715,7 @@ function checkVariationIsUnique(variants,variantName){
 
 
 
-function getVariantsName(propertyType,variant,buildingId){
+function getVariantsName(propertyType,variant,buildingId,groupId){
 	var variants = [];
 
 
@@ -713,6 +727,10 @@ function getVariantsName(propertyType,variant,buildingId){
 	}
 	else{
 		var allUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available" && unit.building_id == buildingId){return unit;} });
+	}
+
+	if(groupId != ''){
+		allUnits = _.filter(allUnits , function(unit){ if(unit.floor_group_id === groupId){return unit;} });
 	}
 
 	var unitsIds = _.uniq(_.pluck(allUnits, "unit_variant_id"));
@@ -788,7 +806,7 @@ function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 	switch(propertyType) {
 
 	    case "Apartments":
-	    	unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, "buildings");
+	    	unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, '', "buildings");
 	    	supportedUnitTypes = _.pluck(unitTypes, 'name');
 	    break;
 
@@ -797,14 +815,16 @@ function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 	return supportedUnitTypes;
 }
 
-function getFilterTypes(propertyType,buildingId){
+function getFilterTypes(propertyType,buildingId,groupId){
+
+	console.log(groupId);
 
 	var filterTypes = [];
 
 	switch (propertyType) {
 	    
 	    case "Apartment":
-	        filterTypes = getApartmentFilterTypes(propertyType,buildingId);
+	        filterTypes = getApartmentFilterTypes(propertyType,buildingId,groupId);
 	        break;
 
 	}
@@ -866,7 +886,9 @@ function getAllttributeFilters(propertyType){
 
 
 
-function getApartmentFilterTypes(propertyType,buildingId){
+function getApartmentFilterTypes(propertyType,buildingId,groupId){
+
+	console.log(groupId);
 
 	
 	var attributeFilters = getAllttributeFilters(propertyType);
@@ -898,7 +920,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 
 			// get filter values ie the unit types for the apartment
 
-			apartmentUnitTypes = getApartmentUnitTypes(building,'buildings');
+			apartmentUnitTypes = getApartmentUnitTypes(building,groupId,'buildings');
 
 
 			
@@ -917,7 +939,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 				filterType.filterName = "Variant";
 				filterType.filterDisplayType = "normalCheckbox";
 
-				filterType.filterValues = getVariantsName(propertyType,'unit_variant_name',building);
+				filterType.filterValues = getVariantsName(propertyType,'unit_variant_name',building,groupId);
 				
 				filterTypes.push(filterType);
 			}
@@ -930,7 +952,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 					filterType.filterName = attribute;
 					filterType.filterDisplayType = "normalCheckbox";
 
-					filterType.filterValues = getPropertyVariants(propertyType,attribute,building);
+					filterType.filterValues = getPropertyVariants(propertyType,attribute,building,groupId);
 
 					if(filterType.filterValues.length>0){
 						filterTypes.push(filterType);
@@ -945,7 +967,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			filterType.filterName = "Budget";
 			filterType.filterDisplayType = "range";
 			
-			filterType.filterValues = getfilterRangeValues('budget',propertyType,building);
+			filterType.filterValues = getfilterRangeValues('budget',propertyType,building,groupId);
 
 			if(filterType.filterValues.length>0){
 				filterTypes.push(filterType);
@@ -958,7 +980,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			filterType.filterName = "Area";
 			filterType.filterDisplayType = "range";
 			
-			filterType.filterValues = getfilterRangeValues('area',propertyType,building);
+			filterType.filterValues = getfilterRangeValues('area',propertyType,building,groupId);
 
 			if(filterType.filterValues.length>0){
 				filterTypes.push(filterType);
@@ -971,7 +993,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			filterType.filterName = "Floor";
 			filterType.filterDisplayType = "normalCheckbox";
 			
-			filterType.filterValues = getAvailableUnitSelectOptions(propertyType,'floor',building);
+			filterType.filterValues = getAvailableUnitSelectOptions(propertyType,'floor',building,groupId);
 
 			if(filterType.filterValues.length>0){
 				filterTypes.push(filterType);
@@ -984,7 +1006,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			filterType.filterName = "Direction";
 			filterType.filterDisplayType = "normalCheckbox";
 			
-			filterType.filterValues = getAvailableUnitSelectOptions(propertyType,'direction',building);
+			filterType.filterValues = getAvailableUnitSelectOptions(propertyType,'direction',building,groupId);
 
 			if(filterType.filterValues.length>0){
 				filterTypes.push(filterType);
@@ -997,7 +1019,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 			filterType.filterName = "Views";
 			filterType.filterDisplayType = "normalCheckbox";
 
-			filterType.filterValues = getAvailableUnitViewsOptions(propertyType);
+			filterType.filterValues = getAvailableUnitViewsOptions(propertyType,building,groupId);
 
 			if(filterType.filterValues.length>0){
 				filterTypes.push(filterType);
@@ -1010,7 +1032,7 @@ function getApartmentFilterTypes(propertyType,buildingId){
 }
 
 
-function getfilterRangeValues( listName, propertyType, buildingId ){	
+function getfilterRangeValues( listName, propertyType, buildingId, groupId ){	
 	
 
 	var units = _projectData.units;
@@ -1020,6 +1042,10 @@ function getfilterRangeValues( listName, propertyType, buildingId ){
 	}
 	else{
 		var availableUnits = _.filter(units , function(unit){ if(unit.availability === "available" && unit.building_id == buildingId){return unit;} });
+	}
+
+	if(groupId != ''){
+		availableUnits = _.filter(availableUnits , function(unit){ if(unit.floor_group_id == groupId){return unit;} });
 	}
 
 	var unitsIds = _.uniq(_.pluck(availableUnits, "unit_variant_id"));
@@ -1068,7 +1094,7 @@ function getfilterRangeValues( listName, propertyType, buildingId ){
 }
 
 
-function getAvailableUnitSelectOptions(propertyType,key,buildingId){
+function getAvailableUnitSelectOptions(propertyType,key,buildingId,groupId){
 	var units = [];
 	var totalUnitsInBuilding = [];
 	var availableUnits = [];
@@ -1083,6 +1109,11 @@ function getAvailableUnitSelectOptions(propertyType,key,buildingId){
 	}
 
 
+	if(groupId != ''){
+		var availableUnits = _.filter(availableUnits , function(unit){ if(unit.floor_group_id == groupId){return unit;} });
+	}
+
+	
 
 	switch(propertyType) {
 
@@ -1117,13 +1148,28 @@ function getAvailableUnitSelectOptions(propertyType,key,buildingId){
 
 
 
-function getAvailableUnitViewsOptions(propertyType){
+function getAvailableUnitViewsOptions(propertyType,building,groupId){
 
 	var units = [];
 	var totalUnitsInBuilding = [];
 	var availableUnits = [];
 	var options =[];
 	units = _projectData.units;
+
+
+	if (buildingId==="all") {
+		var availableUnits = _.filter(units , function(unit){ if(unit.availability === "available"){return unit;} });			
+	}
+	else{
+		var availableUnits = _.filter(units , function(unit){ if(unit.availability === "available" && unit.building_id == buildingId){return unit;} });
+	}
+
+
+	if(groupId != ''){
+		availableUnits = _.filter(availableUnits , function(unit){ if(unit.floor_group_id == groupId){return unit;} });
+	}
+
+
 
 	switch(propertyType) {
 
@@ -1135,9 +1181,9 @@ function getAvailableUnitViewsOptions(propertyType){
 	    break;
 	}
 
-	totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
+	/*totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
 	availableUnits = _.filter(totalUnitsInBuilding , function(unit){ if(unit.availability === "available"){return unit;} });
-
+*/
 	_.each(availableUnits, function(unit){
 
 		if(unit.views.length>0){
@@ -1238,7 +1284,7 @@ function _getProjectMasterData(){
 		projectMasterData.breakpoints = breakpoints; 
 		projectMasterData.chosenBreakpoint = breakpoints[0] ;  
 		
-		unitCount = getUnitCount('Apartments',{},'') ;
+		unitCount = getUnitCount('Apartments',{},'','') ;
 		projectMasterData.totalCount = unitCount.total.length;
 		projectMasterData.availableCount = unitCount.available.length;
 		projectMasterData.filteredCount = unitCount.filtered.length;
@@ -1250,7 +1296,7 @@ function _getProjectMasterData(){
 
 		projectMasterData.buildings = buildingsWithUnits;
 
-        projectMasterData.filterTypes = getFilterTypes("Apartment",'');
+        projectMasterData.filterTypes = getFilterTypes("Apartment",'','');
 	}
 
 	finalData = {"data": projectMasterData};
@@ -1258,7 +1304,7 @@ function _getProjectMasterData(){
 	return finalData;
 }
 
-function getFilteredProjectMasterData(buildingId){
+function getFilteredProjectMasterData(buildingId,groupId){
 
 	var newProjectData;
 	var appliedFilters;
@@ -1274,7 +1320,7 @@ function getFilteredProjectMasterData(buildingId){
 	}
 
 	
-	apartmentUnits =  getUnitCount('Apartments', appliedFilters, buildingId);
+	apartmentUnits =  getUnitCount('Apartments', appliedFilters, buildingId, groupId);
 	
 	newProjectData.availableCount = apartmentUnits.available.length;
 	
@@ -1566,7 +1612,7 @@ function _getBuildingMasterDetails(buildingId){
 			_buildingMasterStateData.data.buildings = [selectedBuilding];
 			//console.log(_buildingMasterStateDat);
 
-			_buildingMasterStateData.data.filterTypes = getFilterTypes("Apartment",buildingId);
+			_buildingMasterStateData.data.filterTypes = getFilterTypes("Apartment",buildingId,'');
 			
 		}
 	}
@@ -1613,6 +1659,7 @@ function _getGroupMasterDetails(buildingId,groupId){
 	buildingId = parseInt(buildingId);
 	groupId = parseInt(groupId);
 
+
 	if(!_.isEmpty(_projectData)){
 
 		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
@@ -1630,10 +1677,13 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 			_groupStateData = buildingMasterStateData;
 			_groupStateData.data.buildings = [selectedGroup];
+
+			_groupStateData.data.filterTypes = getFilterTypes("Apartment",buildingId,groupId);
 			
 		}
 		else{
 			_groupStateData = getGroupMasterFromProjectData(buildingId,groupId);
+			_groupStateData.data.filterTypes = getFilterTypes("Apartment",buildingId,groupId);			
 		}
 	}
 	
@@ -1800,9 +1850,9 @@ var AppStore = merge(EventEmitter.prototype, {
 	},
 
 
-	getFilteredProjectMasterData: function(buildingId){
+	getFilteredProjectMasterData: function(buildingId,groupId){
 
-		var newProjectData = getFilteredProjectMasterData(buildingId);
+		var newProjectData = getFilteredProjectMasterData(buildingId,groupId);
 
 		return newProjectData;
 	},
@@ -1810,7 +1860,7 @@ var AppStore = merge(EventEmitter.prototype, {
 	getApartmentUnitTypes: function(collectivePropertyTypeId, collectivePropertyType){
 		var unitTypes =[];
 
-		unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, collectivePropertyType);
+		unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, '', collectivePropertyType);
 
 		return unitTypes;
 	},

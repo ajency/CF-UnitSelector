@@ -206,7 +206,7 @@ var ProjectMaster = React.createClass({
     updateProjectMasterData: function(){
         oldState = this.state;
 
-        newProjectData = AppStore.getFilteredProjectMasterData('');
+        newProjectData = AppStore.getFilteredProjectMasterData('','');
 
         console.log(newProjectData);
 
