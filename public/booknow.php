@@ -77,12 +77,12 @@ $startTime= time();
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">                       
                         <div class="priceOuter">
-                            <i class="fa fa-inr orangeText"></i><h4 class="amount"><?php echo $totalSaleValue;?></h4>
+                            <i class="fa fa-inr orangeText"></i><h4 class="amount"><?php echo formatAmount($totalSaleValue);?></h4>
                             <span class="text-uppercase totalPrice">Total price</span>
                         </div>
                         <div class="borderDiv">&nbsp;</div>
                         <div class="priceOuter">
-                            <i class="fa fa-inr orangeText"></i><h4 class="amount"><?php echo $booking_amount;?></h4>
+                            <i class="fa fa-inr orangeText"></i><h4 class="amount"><?php echo formatAmount($booking_amount);?></h4>
                             <span class="text-uppercase totalPrice">Booking Amount</span>
                         </div>
                     </div>
