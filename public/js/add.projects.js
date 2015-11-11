@@ -466,7 +466,7 @@ $('.add-floor-group-btn').click(function() {
   }
   allgroupFloors = [];
   allFloors = [];
-  $(this).closest('.floor-groups').find('.floors').find('input[name="group_floors[]"]').each(function() {
+  $(this).closest('.building-floor-groups').find('.floors').find('input[name="group_floors[]"]').each(function() {
     var allFloor, floorStr;
     floorStr = $(this).val();
     allFloor = floorStr.split(',');
@@ -477,7 +477,7 @@ $('.add-floor-group-btn').click(function() {
     alert('Floors : ' + floorDiff + ' already used in floor group');
     return;
   }
-  str = '<div class="col-md-12 m-b-20 "> <div class="row"> <div class="col-md-10"> <div class="row"> <div class="col-md-6"><input type="text" name="floor_group_name[]" value="{{groupName}}" class="form-control" placeholder="Enter Floor Group Name"> </div> <input type="hidden" name="floor_group_id[]" value="" class="form-control"> <div class="col-md-6 floors"><input type="text" name="group_floors[]" value="{{floors}}" class="form-control" placeholder="Enter Floors"></div> </div> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteFloorGroup({{ building_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div> </div>';
+  str = '<div class="col-md-12 m-b-20 floor-group"> <div class="row"> <div class="col-md-10"> <div class="row"> <div class="col-md-6"><input type="text" name="floor_group_name[]" value="{{groupName}}" class="form-control" placeholder="Enter Floor Group Name"> </div> <input type="hidden" name="floor_group_id[]" value="" class="form-control"> <div class="col-md-6 floors"><input type="text" name="group_floors[]" value="{{floors}}" class="form-control" placeholder="Enter Floors"></div> </div> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteFloorGroup({{ building_id }},0, this);" data-object-type="view"><i class=" fa fa-close" ></i></a> </div> </div> </div>';
   compile = Handlebars.compile(str);
   data = {
     groupName: floorGroupName,

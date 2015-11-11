@@ -602,7 +602,7 @@ $('.add-floor-group-btn').click ->
 
     allgroupFloors = []
     allFloors = []
-    $(@).closest('.floor-groups').find('.floors').find('input[name="group_floors[]"]').each ->
+    $(@).closest('.building-floor-groups').find('.floors').find('input[name="group_floors[]"]').each ->
         floorStr = $(@).val()
         allFloor = floorStr.split(',')
         allgroupFloors = allgroupFloors.concat(allFloor);
@@ -614,7 +614,7 @@ $('.add-floor-group-btn').click ->
         alert('Floors : '+floorDiff + ' already used in floor group')
         return
 
-    str = '<div class="col-md-12 m-b-20 ">
+    str = '<div class="col-md-12 m-b-20 floor-group">
                         <div class="row">
                         <div class="col-md-10"> 
                             <div class="row">

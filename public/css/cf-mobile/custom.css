@@ -976,6 +976,9 @@ div.spritespin-div {
   text-align: right;
   float: right;
 }
+.tab-content .details .flatDetails .price i {
+  margin-left: 5px;
+}
 .tab-content .details .flatDetails .dimensionalViewBtn {
   float: right;
   margin-top: 15px;
