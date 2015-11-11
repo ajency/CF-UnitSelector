@@ -82,7 +82,7 @@ $startTime= time();
                         </div>
                         <div class="borderDiv">&nbsp;</div>
                         <div class="priceOuter">
-                            <i class="fa fa-inr orangeText"></i><h4 class="amount"><?php echo formatAmount($booking_amount);?></h4>
+                            <i class="fa fa-inr orangeText"></i><h4 class="amount"><?php echo $booking_amount;?></h4>
                             <span class="text-uppercase totalPrice">Booking Amount</span>
                         </div>
                     </div>
@@ -244,7 +244,7 @@ $startTime= time();
                                 }
                                 ?>
                                 <div>
-                                    <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo $totalSaleValue;?></div>
+                                    <div class="col-xs-12 unitDetails"><i class="fa fa-inr"></i> <?php echo formatAmount($totalSaleValue);?></div>
                                     <div class="col-xs-12 titleDetails">Total Price</div> 
                                 </div>
                                 <div>
@@ -407,7 +407,7 @@ $startTime= time();
                 
                 </div>
                 <div class="bookingFooter">
-                   Call 1800 180 180 180
+                   Call <?php echo $unitData['builder_phone']?>
                      <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commnfloor inc. </a>| <a href="https://www.commonfloor.com/privacy-policy">Privacy Policy</a></div>
                  </div>
             </div>

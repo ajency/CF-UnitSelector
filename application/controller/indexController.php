@@ -859,7 +859,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                                   </tr>
                                                   <tr>
                                                     <td>
-                                                      Total Price : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>Rs. '.$totalSaleValue.'/-</span>
+                                                      Total Price : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>Rs. '.formatAmount($totalSaleValue).'</span>
                                                     </td>
                                                   </tr>
                                                   <tr>
@@ -1192,7 +1192,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                                   </tr>
                                                   <tr>
                                                     <td>
-                                                      Total Price : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>Rs. '.$totalSaleValue.'/-</span>
+                                                      Total Price : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>Rs. '.formatAmount($totalSaleValue).'</span>
                                                     </td>
                                                   </tr>
                                                   <tr>
@@ -1436,7 +1436,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                             </tr>
                             <tr>
                               <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Total Value <br><br></td>
-                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs. '.$totalSaleValue.' /-<br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs. '.formatAmount($totalSaleValue).' <br><br></td>
                             </tr>
                           </table>
                         </td>
