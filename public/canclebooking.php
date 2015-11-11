@@ -182,7 +182,7 @@ $bookingId = $_SESSION['booking_id'];
                         <div class="col-xs-12">                         
                             <span class="rightContent">                                                         
                                 <p class="text-capitalize">
-                                    <span class="supportNoText"><i class="fa fa-phone"></i> Support : 1800 180 180 180 </span>
+                                    <span class="supportNoText"><i class="fa fa-phone"></i> Support : <?php echo $unitData['builder_phone']?> </span>
                                     <span class="safePaymentText"><i class="fa fa-lock"></i> Safe & secure payment</span>
                                 </p>
                             </span>
@@ -190,7 +190,7 @@ $bookingId = $_SESSION['booking_id'];
                         
                     </div>
                 <div class="bookingFooter">
-                    Call 1800 180 180 180
+                    Call <?php echo $unitData['builder_phone']?>
                      <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commnfloor inc. </a>| <a href="https://www.commonfloor.com/privacy-policy">Privacy Policy</a></div>
                 </div>
             </div>

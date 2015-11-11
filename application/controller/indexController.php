@@ -1311,7 +1311,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table cellspacing="5" cellpadding="0" style="border-bottom:1px solid #ccc;">
                       <tr>
-                        <td width="600" style="color:#7d7d7d; font-size:16px;">'.$builderLogo.'<br><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
+                        <td width="620" style="color:#7d7d7d; font-size:16px;">'.$builderLogo.'<br><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
                         </td>                        
                       </tr>
                     </table>
@@ -1416,11 +1416,11 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                             </tr>
                             <tr>
                               <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Price Per Sqft</td>
-                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.moneyFormatIndia($unitData['unit']['per_sq_ft_price']).' /-</td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs. '.moneyFormatIndia($unitData['unit']['per_sq_ft_price']).' /-</td>
                             </tr>
                             <tr>
                               <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Total Value <br><br></td>
-                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.$totalSaleValue.' /-<br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs. '.$totalSaleValue.' /-<br><br></td>
                             </tr>
                           </table>
                         </td>
@@ -1435,7 +1435,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table width="630" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #ccc;">
                       <tr>                        
-                        <td align="right" style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking Amount : <span style="color:#FE943E">Rs '.$booking_amount.' /-<br></span>
+                        <td align="right" style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking Amount : <span style="color:#FE943E">Rs. '.$booking_amount.' /-<br></span>
                         </td>
                       </tr>
                     </table>
@@ -1445,13 +1445,13 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
                 <tr>
                   <td>
-                    <table width="630" cellpadding="2" cellspacing="0">
+                    <table width="630" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #999; font-size: 14px; vertical-align:top;" >
+                        <td width="15" valign="top" style="color: #999; font-size: 14px; vertical-align:top;" >
                           *
                         </td>
-                        <td style="color: #999; font-size: 14px;">
-                          * Booking can be cancelled within 7 days, for any queries please mail at '.$unitData['builder_email'].' or feel free to call on '.$unitData['builder_phone'].'.
+                        <td width="585" style="color: #999; font-size: 14px;">
+                          Booking can be cancelled within 7 days, for any queries please mail at '.$unitData['builder_email'].' or feel free to call on '.$unitData['builder_phone'].'.
                         </td>
                       </tr>
                     </table>
