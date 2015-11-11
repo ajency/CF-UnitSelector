@@ -157,8 +157,12 @@ function getUnitCount(propertyType,filters,buildingId,groupId){
 		}
 
 		if(groupId != ''){
-			availableUnits = _.filter(availableUnits , function(unit){ if(unit.floor_group_id === groupId){return unit;} });
+			var availableUnits = _.filter(availableUnits , function(unit){ if(unit.floor_group_id == groupId){return unit;} });
 		}
+
+
+		console.log(groupId);
+		console.log(availableUnits);
 
 		
 		// get all units that have building associated to it
