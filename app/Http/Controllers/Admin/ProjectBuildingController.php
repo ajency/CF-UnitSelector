@@ -79,24 +79,24 @@ class ProjectBuildingController extends Controller {
 
         $building->save();
 
-        $floorGroupNames =  $formData['floor_group_name'];
-        $floorGroupIds =  $formData['floor_group_id'];
-        $groupFloors =  $formData['group_floors'];
+        // $floorGroupNames =  $formData['floor_group_name'];
+        // $floorGroupIds =  $formData['floor_group_id'];
+        // $groupFloors =  $formData['group_floors'];
 
-        foreach ($floorGroupNames as $key => $floorGroupName) {
-            $floorGroupId = $floorGroupIds[$key];
-            $groupFloor = explode(",",$groupFloors[$key]);
+        // foreach ($floorGroupNames as $key => $floorGroupName) {
+        //     $floorGroupId = $floorGroupIds[$key];
+        //     $groupFloor = explode(",",$groupFloors[$key]);
 
-            if($floorGroupName =='')
-                continue;
+        //     if($floorGroupName =='')
+        //         continue;
 
-                $floorGroup = new FloorGroup();
-                $floorGroup->building_id = $building->id;
-                $floorGroup->name = ucfirst($floorGroupName);
-                $floorGroup->floors = $groupFloor;
-                $floorGroup->save();
+        //         $floorGroup = new FloorGroup();
+        //         $floorGroup->building_id = $building->id;
+        //         $floorGroup->name = ucfirst($floorGroupName);
+        //         $floorGroup->floors = $groupFloor;
+        //         $floorGroup->save();
 
-        }
+        // }
         
         Session::flash('success_message','Building Successfully Created');
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );

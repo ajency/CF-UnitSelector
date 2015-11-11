@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
 
-                             <hr/>
+            <!--                  <hr/>
             <div class="row floor-groups">
                 <div class="m-l-5 no-border">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Floor   <span class="semi-bold">Group</span></h3>
@@ -123,7 +123,7 @@
                         </div>
                         </div>
                     </div> 
-                </div>
+                </div> -->
                      
                     <div class="row">
                         <div class="col-md-12">
