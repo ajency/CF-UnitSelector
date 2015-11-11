@@ -156,7 +156,7 @@ $bookingId = $_SESSION['booking_id'];
                             <div class="col-xs-12 cancelBookingOuter">
                                 <div class="row">
                                     <div class="col-md-6 col-xs-12 note">
-                                        Note : The Refund can be made by cheque & nift.
+                                        Note : The refund can be made by cheque & NEFT.
                                     </div>
                                     <div class="col-md-6 col-xs-12">
                                         <a href="#"  onclick="refundAmount('<?php echo $unitId?>','<?php echo REFUND_URL;?>')" class="brn btn-default btn-sm btn-primary">Cancel booking</a>

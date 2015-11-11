@@ -28,19 +28,19 @@
   {
       if($number == 1)
       {
-         $number = $number .' st';
+         $number = $number .'st';
       }
       elseif($number == 2)
       {
-         $number = $number .' nd';
+         $number = $number .'nd';
       }
       elseif($number == 3)
       {
-         $number = $number .' rd';
+         $number = $number .'rd';
       }
       else
       {
-         $number = $number .' th';
+         $number = $number .'th';
       }
       return $number;
   }
@@ -779,7 +779,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                        </tr>
                                         <tr>
                                             <td valign="top" style="color:#505050; font-family:Arial; font-size:14px; line-height:1.5; padding: 10px 20px 10px; vertical-align:middle;">
-                                               Thank you for booking Unit <b style="color: #f68121;">'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> for Project " '.$unitData['project_title'].'". We have received your booking amount of <i class="fa fa-inr orangeText"></i> <b>'.$booking_amount.'/-</b>.
+                                               Thank you for booking Unit <b style="color: #f68121;">'.$unitData['unit']['name'].'</b> with Booking ID as <b>'.$bookingId.'</b> for Project " '.$unitData['project_title'].'". We have received your booking amount of <b>Rs. '.$booking_amount.'/-</b>.
                                                 <br><br>
                           Use your booking ID number for further processing.
                                             </td>                                            
@@ -818,7 +818,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                                   </tr> 
                                                   <tr>
                                                     <td>
-                                                       Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i> RS'. $unitData['unit']['per_sq_ft_price'].'/- </span>
+                                                       Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i> RS. '. $unitData['unit']['per_sq_ft_price'].'/- </span>
                                                     </td>
                                                   </tr> 
                                                    <tr>
@@ -1151,7 +1151,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                                   </tr> 
                                                   <tr>
                                                     <td>
-                                                       Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>RS '. $unitData['unit']['per_sq_ft_price'].'/- </span>
+                                                       Price per SQFT : <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>RS. '. $unitData['unit']['per_sq_ft_price'].'/- </span>
                                                     </td>
                                                   </tr> 
                                                    <tr>
@@ -1179,7 +1179,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                                   <tr>
                                                     <td>
                                                         Booking Amount : 
-                                                        <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>Rs.'.$booking_amount.'/-</span>
+                                                        <span style="font-weight: 600; font-size: 14px; text-transform: uppercase;"><i class="fa fa-inr orangeText"></i>Rs. '.$booking_amount.'/-</span>
                                                       </td>
                                                   </tr>
                                                 </table>  
@@ -1196,7 +1196,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                       <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                           <td>
-                                            <p>Your booking amount of Rs.  '.$booking_amount.' will be refunded in 7 days by NEFT or Cheque. For further details mail us at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' .</p>
+                                            <p>Your booking amount of Rs.  '.$booking_amount.' /- will be refunded in 7 days by NEFT or Cheque. For further details mail us at '.$unitData['builder_email'].' or feel free to call at our helpline number '.$unitData['builder_phone'].' .</p>
                                           </td>
                                         </tr>
                                       </table>
@@ -1413,7 +1413,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                             </tr>
                             <tr>
                               <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Price Per Sqft</td>
-                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.moneyFormatIndia($unitData['unit']['per_sq_ft_price']).'</td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs '.moneyFormatIndia($unitData['unit']['per_sq_ft_price']).' /-</td>
                             </tr>
                             <tr>
                               <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Total Value <br><br></td>
@@ -1432,7 +1432,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table width="630" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #ccc;">
                       <tr>                        
-                        <td align="right" style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking Amount : <span style="color:#FE943E">Rs '.$booking_amount.'<br></span>
+                        <td align="right" style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking Amount : <span style="color:#FE943E">Rs '.$booking_amount.' /-<br></span>
                         </td>
                       </tr>
                     </table>
@@ -1442,8 +1442,11 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
                 <tr>
                   <td>
-                    <table width="630" cellpadding="0" cellspacing="0">
+                    <table width="630" cellpadding="2" cellspacing="0">
                       <tr>
+                        <td style="color: #999; font-size: 14px; vertical-align:top;" >
+                          *
+                        </td>
                         <td style="color: #999; font-size: 14px;">
                           * Booking can be cancelled within 7 days, for any queries please mail at '.$unitData['builder_email'].' or feel free to call on '.$unitData['builder_phone'].'.
                         </td>
