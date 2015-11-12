@@ -6,13 +6,31 @@ var LiveTour = require('../tabs/tour');
 var OutsideView = require('../tabs/outerview');
 var SocietyAmenities = require('../tabs/amenities');
 
+var PROJECTID = window.projectId;
+var BASEURL = window.baseUrl;
+
 var TabPanes = React.createClass({
+
   render: function () {
-
+  	var unitData = this.props.unitData;
   	var domToDisplay ;
+  	var step1ImgUrl , step1SvgUrl, stepImgUrl, step2SvgUrl, step3ImgUrl, step3SvgUrl;
+
+  	buildingPrimaryBreakPoint = unitData.basic.buildingPrimaryBreakPoint;
+  	projectMasterImgs = unitData.basic.projectMasterImgs;
+
+  	unitPrimaryBreakPoint = unitData.basic.primaryBreakPoint;
+  	buildingMasterImgs = unitData.basic.buildingMasterImgs;
+  	buildingId = unitData.basic.buildingId;
+  	
+  	step1ImgUrl = projectMasterImgs[buildingPrimaryBreakPoint];
+  	step1SvgUrl = BASEURL+'/projects/'+PROJECTID+'/master/master-'+unitPrimaryBreakPoint+'.svg';
 
 
-		if(window.isMobile){
+  	step3SvgUrl = BASEURL+'/projects/'+PROJECTID+'/buildings/'+buildingId+'/step-three-'+unitPrimaryBreakPoint+'.svg';
+  	step3ImgUrl = buildingMasterImgs[unitPrimaryBreakPoint];
+
+	if(window.isMobile){
 		domToDisplay = (
 			<div className="tab-content">		    
 		    
@@ -28,7 +46,14 @@ var TabPanes = React.createClass({
 
 		    <LiveTour />
 
-		    <OutsideView />	   
+		    <OutsideView 
+		    	step1ImgUrl = {step1ImgUrl}
+		    	step1SvgUrl = {step1SvgUrl}
+		    	step3ImgUrl = {step3ImgUrl}
+		    	step3SvgUrl = {step3SvgUrl}
+		    	buildingId = {unitData.basic.buildingId}
+		    	unitId = {unitData.basic.id}
+		    />	   
 		</div>
 			);
 	}else{
@@ -47,7 +72,14 @@ var TabPanes = React.createClass({
 
 		    <LiveTour />
 
-		    <OutsideView />
+		    <OutsideView 
+		    	step1ImgUrl = {step1ImgUrl}
+		    	step1SvgUrl = {step1SvgUrl}
+		    	step3ImgUrl = {step3ImgUrl}
+		    	step3SvgUrl = {step3SvgUrl}
+		    	buildingId = {unitData.basic.buildingId}
+		    	unitId = {unitData.basic.id}
+		    />
 		    <SocietyAmenities
 		    allAmenities = {unitData.basic.allAmenities}
 		    unitAmenities = {unitData.basic.views}

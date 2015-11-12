@@ -39,7 +39,42 @@ var ImageContainerTemplate = React.createClass({
         return svgData;
     },
 
+    getDefaultProps: function() {
+      return {
+        buildings:[]
+      };
+    },
+
+    getMasterImagePath: function(imageType){
+        var imagePath="";
+        var baseImagePath="";
+        var masterImagePrefix = "master-";
+
+        if(imageType==="master"){
+          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/';
+          imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
+        }
+        else{
+          buildingId = this.props.buildingId;
+
+          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/buildings/'+buildingId+'/';
+
+          imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
+          
+        }
+
+        return {"imagePath":imagePath,"baseImagePath":baseImagePath};
+        
+    },
+
+
+
+
     componentDidMount: function(){
+
+        console.log("component did mount of image container");
+
+        var frames=[];
 
         details = this.props.breakpoints;
         
@@ -51,30 +86,44 @@ var ImageContainerTemplate = React.createClass({
           $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
         }
         
+        var imageType = this.props.imageType;
 
-        var masterImagePrefix = "master-";
         var digitsInName = 2; 
 
-        var projectMasterImgUrl = BASEURL+'/projects/'+PROJECTID+'/master/'+masterImagePrefix+'{frame}.jpg'
+        path = this.getMasterImagePath(imageType);
+        imagePath = path["imagePath"];
 
-        var frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
-         frame: [0, 35],
-         digits: digitsInName
-       });
+        var projectMasterImgUrl = imagePath;
+
+        if(!_.isEmpty(imagePath)){
+            frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
+             frame: [0, 35],
+             digits: digitsInName
+            });
+        }
+
 
         spin = $(this.refs.spritespin);
         
         spriteSpinSettings["source"] = frames;
-        spin.spritespin(spriteSpinSettings);
 
+        // initialize spritespin only if frames array is not empty
+        if(frames.length>0){
+          api = spin.spritespin(spriteSpinSettings).spritespin("api");
+          
         // get the api object. This is used to trigger animation to play up to a specific frame
-        api = spin.spritespin("api");
+        // if(!_.isUndefined(spin.spritespin)){
+        //     api = spin.spritespin("api");
+        // }
+          
+        }
+
 
         spin.bind("onLoad", function() {
             var data = api.data;
            data.stage.prepend($(".details .detail")); // add current details
            data.stage.find(".detail").hide(); // hide current details
-         })
+         });
 
         spin.bind("onFrame", function() {
            var data = api.data;
@@ -86,8 +135,10 @@ var ImageContainerTemplate = React.createClass({
                       'hide': true
                     }
             }
-
-            this.setState(svgData);
+            if(this.isMounted()){
+              this.setState(svgData);
+            }
+            
            }
            data.stage.find(".detail:visible").stop(false).fadeOut();
            data.stage.find(".detail.detail-" + data.frame).stop(false).fadeIn();
@@ -100,15 +151,35 @@ var ImageContainerTemplate = React.createClass({
                   }
         }
 
-        this.setState(svgData);
+        if(this.isMounted()){
+          this.setState(svgData);
+        }
           
 
          }.bind(this))  ;       
     },
 
+
+
+
+
+
     componentDidUpdate: function(){
+      console.log("did update img container")
 
       details = this.props.breakpoints;
+    },
+
+    componentWillUnmount: function(){
+      console.log("unmount image container");
+      spin = $(this.refs.spritespin);
+      
+      if(!_.isUndefined(spin.spritespin)){
+        console.log(spin.spritespin("api"));
+        api = spin.spritespin("api");
+        SpriteSpin.destroy(api.data);
+      }
+         
     },
 
     incrementIndex: function(){
@@ -118,8 +189,6 @@ var ImageContainerTemplate = React.createClass({
     resetIndex: function(){
       detailIndex = 0;
     },
-
-
 
     setDetailIndex: function() {
         console.log("set detail index");
@@ -172,7 +241,15 @@ var ImageContainerTemplate = React.createClass({
         
         var shadowImagePrefix = "shadow-";
 
-        var shadowImgUrl = BASEURL+'/projects/'+PROJECTID+'/shadow/'+shadowImagePrefix+''+this.props.chosenBreakpoint+'.jpg';
+        var shadowImages=this.props.shadowImages;
+        shadowIndex = this.props.chosenBreakpoint;
+
+        var shadowImgUrl = "#";
+
+        if(shadowImages.length>0){
+            shadowImgUrl = shadowImages[shadowIndex];
+        }
+        
 
         var imageContainerStyle = {
           "height": windowHeight,
@@ -201,6 +278,26 @@ var ImageContainerTemplate = React.createClass({
         
         var buildings = this.props.buildings;
 
+        buildingToHighlight = this.props.buildingToHighlight;
+
+        if(_.isEmpty(buildingToHighlight)){
+          if(buildings.length>0)
+            buildingToHighlight = buildings[0];
+          else
+            buildingToHighlight = {}
+
+        }
+
+        path = this.getMasterImagePath(this.props.imageType);
+        svgBaseUrl = path["baseImagePath"];
+
+        breakpoints = this.props.breakpoints;
+
+        var rotateClasses = classNames({
+          'rotate': true,
+          'hide': breakpoints.length === 1
+        }); 
+
         if(window.isMobile){
             domToDisplay = (
 
@@ -214,9 +311,11 @@ var ImageContainerTemplate = React.createClass({
                             chosenBreakpoint={this.props.chosenBreakpoint} 
                             key={this.props.chosenBreakpoint} 
                             buildings={ buildings} 
-                            buildingToHighlight={ this.props.buildingToHighlight} 
+                            buildingToHighlight={buildingToHighlight} 
                             showTooltip={ this.props.showTooltip} 
                             updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                            imageType = {this.props.imageType}
+                            svgBaseUrl = {svgBaseUrl}
                           />
 
                           <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
@@ -225,7 +324,7 @@ var ImageContainerTemplate = React.createClass({
                       </div>
                   </div>
 
-                  <div ref="next" className="rotate" onClick={this.setDetailIndex}>
+                  <div ref="next" className={rotateClasses} onClick={this.setDetailIndex}>
 
                   </div>
               </div>         
@@ -242,7 +341,7 @@ var ImageContainerTemplate = React.createClass({
                       <br /> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                   </div>
 
-                  <div className="rotate" onClick={this.setDetailIndex}>
+                  <div className={rotateClasses} onClick={this.setDetailIndex}>
                       <i id="next" className="i-icon i-icon-rotate"></i> Press To Rotate
                   </div>
 
@@ -257,6 +356,8 @@ var ImageContainerTemplate = React.createClass({
                             buildingToHighlight={ this.props.buildingToHighlight} 
                             showTooltip={ this.props.showTooltip} 
                             updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                            imageType = {this.props.imageType}
+                            svgBaseUrl = {svgBaseUrl}
                           />
 
                           <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>

@@ -96,9 +96,10 @@ var CardList = React.createClass({
     render: function() {
         var buildings = this.props.buildings;
         var buildingNodes; 
-        var isFilterApplied = this.props.isFilterApplied;
+        var isFilterApplied = this.props.isFilterApplied; 
 
-  
+        var cardListFor = this.props.cardListFor ;
+        var cardListForId = this.props.cardListForId ;
 
 
         buildingNodes = buildings.map(function(building,i){
@@ -108,6 +109,8 @@ var CardList = React.createClass({
                                     <CardView  
                                       building={building}
                                       isFilterApplied={isFilterApplied}
+                                      cardListFor = {cardListFor}
+                                      cardListForId = {cardListForId}
                                     /> 
                                   </div>
                                 </div>

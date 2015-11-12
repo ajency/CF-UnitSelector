@@ -126,7 +126,7 @@ if(window.isMobile){
                                     <div className="hiddenContent">                                
                                          <RoomAttributeList
                                             attributes={room.atributes}
-                                            listcount = 'less'
+                                            listcount = 'more'
                                         />                                
                                     </div>
 

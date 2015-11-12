@@ -4,6 +4,8 @@ var TabHeader = require('../tabs/tabheader');
 var TabPanes = require('../tabs/tabpanes');
 var TabFooter = require('../tabs/tabfooter');
 var SimilarUnits = require('../tabs/similarunits');
+var Modal = require('../modal/modal');
+var ReactDOM = require('react-dom');
 
 function getUnitStateData(unitId){
     return AppStore.getUnitStateData(unitId);
@@ -28,6 +30,8 @@ var UnitDetails = React.createClass({
 
 
     componentDidMount: function() {
+    $(window).scrollTop(0);
+
     if(!window.isMobile){
         $(document).on('click', '.click', function (e) {
         var theID = $(this).attr('id');
@@ -38,6 +42,10 @@ var UnitDetails = React.createClass({
         }, 1000);
         return false;
       });
+
+        //scroll top 
+        //$("body").animate({ scrollTop: 0 }, 600);
+        //$(window).scrollTop(0);
 
 
         /*var sections = $('.outerDivs')
@@ -88,7 +96,13 @@ var UnitDetails = React.createClass({
           sticky_relocate();
       });
       }
-  }, 
+  },
+
+
+    showContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
+    },	
+
      
     _onChange:function(){
     	var unitId;
@@ -117,8 +131,10 @@ var UnitDetails = React.createClass({
 		var roomData = [];
 
 		// initialise data
+		basicData.id="";
 		basicData.name="";
 		basicData.direction="";
+		basicData.primaryBreakPoint=0;
 		basicData.sellingAmount="";
 		basicData.propertyTypeName="";
 		basicData.status="";
@@ -128,6 +144,11 @@ var UnitDetails = React.createClass({
 		basicData.buildingName="";
 		basicData.url2dlayout="";
 		basicData.url3dlayout="";
+		basicData.buildingId="";
+		basicData.buildingPrimaryBreakPoint=0;
+		basicData.buildingMasterImgs=[];
+		basicData.projectMasterImgs=[];  
+		basicData.projectName="";  
 
 		basicData.variantAttributes = "";
 		basicData.views = "";
@@ -141,17 +162,25 @@ var UnitDetails = React.createClass({
 
 		if(!_.isEmpty(unit)){
 
+			unitData.basic.id = unit.id;
 			unitData.basic.name = unit.unit_name;
 			unitData.basic.cfProjectId = unit.cfProjectId;
 			unitData.basic.direction = unit.direction;
 			unitData.basic.sellingAmount= unit.selling_amount;
 			unitData.basic.propertyTypeName= unit.propertyTypeName;
+			unitData.basic.primaryBreakPoint= unit.primary_breakpoint;
 			unitData.basic.status = unit.availability;
 			unitData.basic.floor= this.ordinalSuffixof(unit.floor);
 			unitData.basic.superBuiltUpArea= unit.variantData.super_built_up_area;
 			unitData.basic.builtUpArea = unit.variantData.built_up_area;
+			unitData.basic.buildingId = unit.buildingData.id;
 			unitData.basic.buildingName = unit.buildingData.building_name;
+			unitData.basic.buildingPrimaryBreakPoint = unit.buildingData.primary_breakpoint;
+			unitData.basic.buildingMasterImgs = unit.buildingData.building_master;
 			unitData.basic.unitTypeName = unit.variantData.unitTypeName;
+			
+			unitData.basic.projectMasterImgs = unit.projectMasterImgs;
+			unitData.basic.projectName = unit.projectName;
 
 			unitData.basic.variantAttributes = unit.variantData.variant_attributes;
 			unitData.basic.views = unit.views;
@@ -189,51 +218,68 @@ var UnitDetails = React.createClass({
 		propertyTypeName = unitData.basic.propertyTypeName;
 		unitTypeName = unitData.basic.unitTypeName;
 
+		var modalData = {};
+    	modalData.projectData = {title:unitData.basic.projectName};
 
 		if(window.isMobile){
-		domToDisplay = (
-			<div>
-				<TabHeader
-					buildingName={buildingName}
-					unitTypeName={unitTypeName}
-					propertyTypeName={propertyTypeName}
-					unitId = {unitId}
-					projectId = {projectId}
-					unitStatus = {status}
-				/>
-				<TabPanes
-					unitData = {unitData}
-				/>
-				<TabFooter
-					unitId = {unitId}
-					projectId = {projectId}
-					unitStatus = {status}
-				/>
-			</div>
-		)
-		}else{
+
 			domToDisplay = (
 				<div>
-			<div className="container-fluid step4Desk">
-				<TabHeader
-					buildingName={buildingName}
-					unitTypeName={unitTypeName}
-					propertyTypeName={propertyTypeName}
-					unitId = {unitId}
-					projectId = {projectId}					
-					unitData = {unitData}
-				/>
-				<TabPanes
-					unitData = {unitData}
-				/>
-				<SimilarUnits similarUnits={unitData.similarUnits} />				
-			</div>
+					<TabHeader
+						buildingName={buildingName}
+						unitTypeName={unitTypeName}
+						propertyTypeName={propertyTypeName}
+						unitId = {unitId}
+						projectId = {projectId}
+						unitStatus = {status}
+					/>
+					<TabPanes
+						unitData = {unitData}
+					/>
+					<TabFooter
+						unitId = {unitId}
+						projectId = {projectId}
+						unitStatus = {status}
+						showContactModal = {this.showContactModal}
+					/>
 
-			<TabFooter
-					unitId = {unitId}
-					projectId = {projectId}
-					unitStatus = {status}
-				/>
+	                <Modal 
+	                    ref="contactModal" 
+	                    modalData = {modalData}
+	                    modalPurpose = "mobileContactModal"
+	                />					
+				</div>
+			)
+		}
+		else{
+
+			domToDisplay = (
+				<div>
+					<div className="container-fluid step4Desk">
+						<TabHeader
+							buildingName={buildingName}
+							unitTypeName={unitTypeName}
+							propertyTypeName={propertyTypeName}					
+							unitData = {unitData}
+							showContactModal = {this.showContactModal}
+						/>
+						<TabPanes
+							unitData = {unitData}
+						/>
+						<SimilarUnits similarUnits={unitData.similarUnits} />				
+					</div>
+
+					<TabFooter
+							unitId = {unitId}
+							projectId = {projectId}
+							unitStatus = {status}
+
+					/>
+	                <Modal 
+	                    ref="contactModal" 
+	                    modalData = {modalData}
+	                    modalPurpose = "contactModal"
+	                />
 				</div>
 		)
 		}

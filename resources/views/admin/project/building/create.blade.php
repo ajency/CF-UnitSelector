@@ -21,7 +21,7 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
-<form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building') }}">    
+<form onsubmit="return validateBuildingFloors(this);" data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building') }}">    
                 <div class="grid-body grid-padding no-border">
                     <div class=" m-t-15 m-b-15 no-border">
                         <div class="row">
@@ -102,8 +102,8 @@
                                     </div>
                                 </div>
 
-                             <hr/>
-            <div class="row">
+            <!--                  <hr/>
+            <div class="row floor-groups">
                 <div class="m-l-5 no-border">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Floor   <span class="semi-bold">Group</span></h3>
                 </div>
@@ -123,7 +123,7 @@
                         </div>
                         </div>
                     </div> 
-                </div>
+                </div> -->
                      
                     <div class="row">
                         <div class="col-md-12">
@@ -131,8 +131,8 @@
                                     <div class="text-right">
                                        <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
-                             <button class="btn btn-default btn-cons" type="submit"><i class="fa fa-ban"></i>
-                                            Cancel</button>
+                             <a href="{{ url('admin/project/'. $project['id'] .'/building') }}"><button class="btn btn-default btn-cons" type="button"><i class="fa fa-ban"></i>
+                                            Cancel</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -141,5 +141,10 @@
                 </form>
 
             </div>
+ <script>
+    var BASEURL = '{{ url() }}';
+    var BUILDING_ID = 0;
  
+
+</script>
 @endsection

@@ -465,6 +465,7 @@ class SvgController extends Controller {
 
     	// these arrays contain the possible unit ids that need to be marked in an svg
     	$buildingArr =(isset($units['building'])) ? $units['building'] : array() ;
+    	$floorGroupArr =(isset($units['floor_group'])) ? $units['floor_group'] : array() ;
     	$unitArr = (isset($units['unit'])) ? $units['unit'] : array() ;
     	
     	// for each media id get svg
@@ -492,6 +493,18 @@ class SvgController extends Controller {
     				
 
     			}
+    			else if ($unitType=="floor_group") {
+
+    				foreach ($unitIds as $unitId) {
+    					$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->first();
+ 						// if svg element not there then add unitid to $unmarkedUnits
+    					if (!is_null($svgElement)) {
+    						// $unmarkedUnits[$unitType][$unitId] = $unitId;
+    						$unmarkedunitArray[$unitType][$unitId] = $svgElement->id;
+    					}
+    				}
+
+    			}
     			else if ($unitType=="unit") {
     				foreach ($unitIds as $unitId) {
     					
@@ -512,6 +525,7 @@ class SvgController extends Controller {
     	}
 
     	$building_units_marked = (isset($unmarkedunitArray['building'])) ? array_keys($unmarkedunitArray['building']) : array() ; 
+    	$floor_group_marked = (isset($unmarkedunitArray['floor_group'])) ? array_keys($unmarkedunitArray['floor_group']) : array() ; 
     	$other_units_marked =(isset($unmarkedunitArray['unit'])) ? array_keys($unmarkedunitArray['unit']) : array() ; 
 
     	// var_dump($buildingArr);
@@ -520,6 +534,12 @@ class SvgController extends Controller {
 
     	foreach ($buildings_unmarked as $building_unmarked) {
     		$unmarkedUnits['building'][] = $building_unmarked;
+    	}
+
+    	$floor_groups_unmarked = array_diff($floorGroupArr,$floor_group_marked);
+
+    	foreach ($floor_groups_unmarked as $floor_group_unmarked) {
+    		$unmarkedUnits['floor_group'][] = $floor_group_unmarked;
     	}
     	
     	// var_dump($unitArr);

@@ -36,17 +36,132 @@ var qtipSettings = { // Grab some elements to apply the tooltip to
 
 
 
-function getStateData(){
-    return AppStore.getStateData();
+function getGroupStateData(buildingId,groupId){
+    return AppStore.getGroupStateData(buildingId,groupId);
 }
 
 
-var ProjectMaster = React.createClass({
+
+var GroupMaster = React.createClass({
 
 
     getInitialState: function() {
-        return getStateData();
+        var groupId;
+        groupId = this.props.groupId;
+
+        stateData =  this.getGroupState();
+
+        return stateData;
     },
+
+    getGroupState: function() {
+        var groupId;
+        groupId = this.props.groupId;
+        buildingId = this.props.buildingId;
+
+        stateData =  getGroupStateData(buildingId,groupId);
+
+        return this.formatStateData(stateData);
+    },
+
+    formatStateData: function(stateDataToformat){
+        var newState = stateDataToformat;
+        var apartments = [];
+        var floorGroups = [];
+
+        if(!_.isEmpty(stateDataToformat)){
+            floorGroups = stateDataToformat.data.buildings;
+        
+        }
+        
+        if(floorGroups.length>0){
+            newStateData = newState.data;
+
+            // floor group
+            floorGroup = floorGroups[0];
+
+            // floorGroup specific data for units
+            unitData = floorGroup.unitData;
+            availableUnitData = floorGroup.availableUnitData;
+            filteredUnitData = floorGroup.filteredUnitData;
+            supportedUnitTypes = floorGroup.supportedUnitTypes;
+
+
+            // all units in the floor group
+            allUnits = floorGroup.unitData;
+
+            _.each(allUnits, function(singleUnit){
+                supportedUnitTypes = [];
+                
+                unitId = singleUnit.id;
+                
+                unit = {};
+
+                unit.id = singleUnit.id;
+                unit.building_name = singleUnit.unit_name;
+                unit.primary_breakpoint = singleUnit.primary_breakpoint;
+                unit.minStartPrice = singleUnit.selling_amount;
+                unit.unitType = singleUnit.unitType;
+                unit.superBuiltUpArea = singleUnit.super_built_up_area;
+
+                apartmentUnitData =[];
+                apartmentAvailableUnitData =[];
+                apartmentFilteredUnitData =[];
+
+                // will be the same unit
+                apartmentUnitData = [singleUnit]; 
+
+                // insert in apartmentAvailableUnitData if this unit's status is available 
+                if(singleUnit.availability==="available"){
+                    apartmentAvailableUnitData.push(singleUnit);
+                }
+ 
+                
+                // if current unit is present in filteredUnitData then push in array
+                if(_.contains(filteredUnitData,singleUnit)){
+                    apartmentFilteredUnitData.push(singleUnit);
+                } 
+
+                unit.unitData = apartmentUnitData;
+                unit.availableUnitData = apartmentAvailableUnitData;
+                unit.filteredUnitData = apartmentFilteredUnitData;
+
+                minStartPrice = singleUnit.selling_amount;
+                unit.minStartPrice = minStartPrice;
+
+                // supportedUnitTypesArr = AppStore.getApartmentUnitTypes(floorGrpId, "floorgroups");
+                // supportedUnitTypes = _.pluck(supportedUnitTypesArr,"name");
+                // floorGroup.supportedUnitTypes = supportedUnitTypes;
+
+                apartments.push(unit) ;                             
+
+            }.bind(this));
+
+            
+            // modify new state data as per building selected
+            newStateData.projectTitle = floorGroup.building_name;
+            newStateData.breakpoints = stateDataToformat.data.breakpoints;
+            newStateData.buildings = apartments;
+            newStateData.shadowImages = stateDataToformat.data.shadowImages;
+
+            newState.data = newStateData;
+
+
+        }
+
+        return newState;
+    },
+
+    componentWillMount:function(){
+        AppStore.addChangeListener(this._onChange);
+    },     
+
+    _onChange:function(){
+        var groupId;
+        groupId = this.props.groupId;
+        newState = this.getGroupState();
+        this.setState(newState);
+    },     
 
     projectDataUpdateCallBack: function(){
         spinDom = $(ReactDOM.findDOMNode(this.refs.imageContainer)).find("#spritespin");
@@ -61,14 +176,12 @@ var ProjectMaster = React.createClass({
             mySwiper = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container")[0].swiper;
             mySwiper.slideTo(slideToGotTo);
         }
-
+        
         this.destroyTooltip();
-
         buildings = this.state.data.buildings;
         buildingToHighlight = buildings[slideToGotTo];
         buildingName = buildingToHighlight.building_name;
-
-        this.showTooltip(buildingName,".building"+buildingToHighlight.id);
+        this.showTooltip(buildingName,".apartment"+buildingToHighlight.id);
     },
 
     updateChosenBreakPoint: function(chosenBreakPoint){
@@ -206,9 +319,10 @@ var ProjectMaster = React.createClass({
     updateProjectMasterData: function(){
         oldState = this.state;
 
-        newProjectData = AppStore.getFilteredProjectMasterData('','');
+        groupId = this.props.groupId;
+        buildingId = this.props.buildingId;
 
-        console.log(newProjectData);
+        newProjectData = AppStore.getFilteredProjectMasterData(buildingId,groupId);
 
         dataToSet = {
             property: "data",
@@ -220,7 +334,7 @@ var ProjectMaster = React.createClass({
     },
 
     updateStateData: function(data){
-        oldState = getStateData();
+        oldState = this.state;
         
         newState = oldState;
 
@@ -329,9 +443,7 @@ var ProjectMaster = React.createClass({
 
 
         this.setState(newState, this.projectDataUpdateCallBack);
-        AppStore.updateGlobalState(newState,"projectMaster");
-
-        console.log(newState);
+        AppStore.updateGlobalState(newState,"buildingFloorGroups");
 
     },
 
@@ -354,16 +466,8 @@ var ProjectMaster = React.createClass({
 
          overlayClass: 'animsition-overlay-slide',
          overlayParentElement: 'body'
-        }); 
+        });
     },
-
-    componentWillMount:function(){
-        AppStore.addChangeListener(this._onChange);
-    },  
-
-    _onChange:function(){
-      this.setState(getStateData());
-    }, 
 
     showFilterModal: function(){
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
@@ -374,12 +478,10 @@ var ProjectMaster = React.createClass({
     },    
 
     destroyTooltip: function(){
-
         $('.qtip').each(function(){
           $(this).data('qtip').destroy();
         });
-
-    },    
+    },     
 
     showTooltip: function(text, selector){
  
@@ -431,39 +533,52 @@ var ProjectMaster = React.createClass({
     },
 
     render: function(){
-        var data = this.state.data;
+        var stateData = this.state;
+        var data;
 
-        console.log(this.state);
-        
-        var projectTitle = data.projectTitle;
-        var projectLogo = data.projectLogo;
-        var unitCount = data.totalCount;
-        var buildings = data.buildings;
-        var breakpoints = data.breakpoints;
-        var applied_filters = data.applied_filters;
-        var isFilterApplied = data.isFilterApplied;
+        if(!_.isEmpty(stateData)){
+            data = this.state.data;        
+            var projectTitle = data.projectTitle;
+            var projectLogo = data.projectLogo;
+            var unitCount = data.totalCount;
+            var buildings = data.buildings;
+            var breakpoints = data.breakpoints;
+            var applied_filters = data.applied_filters;
+            var isFilterApplied = data.isFilterApplied;
 
-        var filterTypes = data.filterTypes;
+            var filterTypes = data.filterTypes;
 
-        var unitIndexToHighlight = data.unitIndexToHighlight;
+            var unitIndexToHighlight = data.unitIndexToHighlight;
 
-        var buildingToHighlight = buildings[unitIndexToHighlight];
+            var buildingToHighlight = buildings[unitIndexToHighlight];
 
-        var availableUnitData = buildings.availableUnitData;
-        var filteredUnitData = buildings.filteredUnitData;
+            var availableUnitData = buildings.availableUnitData;
+            var filteredUnitData = buildings.filteredUnitData;
 
-        var domToDisplay;
-        var modalData = {};
+            var domToDisplay;
+            var modalData = {};
 
-        var cardListFor = "project";
-        var cardListForId = 0;
+            modalData.filterTypes = filterTypes;
+            modalData.search_filters = data.search_filters;
+            modalData.projectData = {title:projectTitle,projectLogo:projectLogo};
 
-        modalData.filterTypes = filterTypes;
-        modalData.search_filters = data.search_filters;
-        modalData.projectData = {title:data.projectTitle};
+            buildingId = this.props.buildingId;
+            groupId = this.props.groupId;
+
+            var cardListFor = "group";
+            var cardListForId = groupId;       
+        }
+
 
         // display dom based on whether it is a mobile or a desktop view
-        if(window.isMobile){
+        if(_.isEmpty(stateData)){
+            domToDisplay = (
+                <div className="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
+                    
+                </div>
+            );
+        }
+        else if(window.isMobile){
             domToDisplay = (
                 <div className="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
                     <NavBar 
@@ -484,20 +599,21 @@ var ProjectMaster = React.createClass({
                         unapplyFilters = {this.unapplyFilters}
                     />
                     <SunToggle 
-                        shadowImages={data.shadowImages}
                         toggelSunView = {this.toggelSunView} 
                         showShadow={data.showShadow}
+                        shadowImages={data.shadowImages}
                     />
                     <ImageContainerTemplate 
                         ref= "imageContainer"
                         showShadow={data.showShadow}
                         shadowImages={data.shadowImages}
-                        imageType="master"
+                        imageType="singleFloorGroup"
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
                         updateRotateShadow = {this.updateRotateShadow}
                         buildings =  {buildings}
+                        buildingId = {buildingId}
                         buildingToHighlight = {buildingToHighlight}
                         destroyTooltip = {this.destroyTooltip}
                         showTooltip = {this.showTooltip}
@@ -505,12 +621,12 @@ var ProjectMaster = React.createClass({
                     />
                     <CardList 
                         ref = "cardList"
-                        cardListFor = {cardListFor}
-                        cardListForId = {cardListForId}
                         buildings={buildings}
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip}
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId}
                     />
                 </div>
             );
@@ -532,7 +648,7 @@ var ProjectMaster = React.createClass({
                         destroyTooltip = {this.destroyTooltip} 
                         unitIndexToHighlight = {unitIndexToHighlight}
                         cardListFor = {cardListFor}
-                        cardListForId = {cardListForId}                   
+                        cardListForId = {cardListForId} 
                     />
 
                     <div id="page-content-wrapper">
@@ -541,12 +657,13 @@ var ProjectMaster = React.createClass({
                             ref= "imageContainer"
                             showShadow={data.showShadow}
                             shadowImages={data.shadowImages}
-                            imageType="master"
+                            imageType="singleFloorGroup"
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
                             updateChosenBreakPoint = {this.updateChosenBreakPoint}
                             updateRotateShadow = {this.updateRotateShadow}
                             buildings =  {buildings}
+                            buildingId = {buildingId}
                             buildingToHighlight = {buildingToHighlight}
                             destroyTooltip = {this.destroyTooltip}
                             showTooltip = {this.showTooltip}  
@@ -612,4 +729,4 @@ var ProjectMaster = React.createClass({
     }
 });
 
-module.exports = ProjectMaster;
+module.exports = GroupMaster;

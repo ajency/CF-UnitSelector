@@ -1,90 +1,96 @@
 {
   "data": {
-    "cf_project_id": "of905c",
-    "id": 1,
-    "project_title": "Legend Apartments",
-    "logo": "http://www.commonfloor.com/public/images/builder/-logo.gif",
+    "cf_project_id": "cpkbh4",
+    "id": 7,
+    "project_title": "Hiranandani Upscale Bannerghatta",
+    "logo": "http://www.commonfloor.com/public/images/builder/house-of-hiranandani-logo.gif",
     "project_master": [
-      "http://unitselector.com/projects/1/master/master-00.jpg",
-      "http://unitselector.com/projects/1/master/master-01.jpg",
-      "http://unitselector.com/projects/1/master/master-02.jpg",
-      "http://unitselector.com/projects/1/master/master-03.jpg",
-      "http://unitselector.com/projects/1/master/master-04.jpg",
-      "http://unitselector.com/projects/1/master/master-05.jpg",
-      "http://unitselector.com/projects/1/master/master-06.jpg",
-      "http://unitselector.com/projects/1/master/master-07.jpg",
-      "http://unitselector.com/projects/1/master/master-08.jpg",
-      "http://unitselector.com/projects/1/master/master-09.jpg",
-      "http://unitselector.com/projects/1/master/master-10.jpg",
-      "http://unitselector.com/projects/1/master/master-11.jpg",
-      "http://unitselector.com/projects/1/master/master-12.jpg",
-      "http://unitselector.com/projects/1/master/master-13.jpg",
-      "http://unitselector.com/projects/1/master/master-14.jpg",
-      "http://unitselector.com/projects/1/master/master-15.jpg",
-      "http://unitselector.com/projects/1/master/master-16.jpg",
-      "http://unitselector.com/projects/1/master/master-17.jpg",
-      "http://unitselector.com/projects/1/master/master-18.jpg",
-      "http://unitselector.com/projects/1/master/master-19.jpg",
-      "http://unitselector.com/projects/1/master/master-20.jpg",
-      "http://unitselector.com/projects/1/master/master-21.jpg",
-      "http://unitselector.com/projects/1/master/master-22.jpg",
-      "http://unitselector.com/projects/1/master/master-23.jpg",
-      "http://unitselector.com/projects/1/master/master-24.jpg",
-      "http://unitselector.com/projects/1/master/master-25.jpg",
-      "http://unitselector.com/projects/1/master/master-26.jpg",
-      "http://unitselector.com/projects/1/master/master-27.jpg",
-      "http://unitselector.com/projects/1/master/master-28.jpg",
-      "http://unitselector.com/projects/1/master/master-29.jpg",
-      "http://unitselector.com/projects/1/master/master-30.jpg",
-      "http://unitselector.com/projects/1/master/master-31.jpg",
-      "http://unitselector.com/projects/1/master/master-32.jpg",
-      "http://unitselector.com/projects/1/master/master-33.jpg",
-      "http://unitselector.com/projects/1/master/master-34.jpg",
-      "http://unitselector.com/projects/1/master/master-35.jpg",
-      "http://unitselector.com/projects/1/master/master-36.jpg",
-      "http://unitselector.com/projects/1/master/master-37.jpg",
-      "http://unitselector.com/projects/1/master/master-38.jpg",
-      "http://unitselector.com/projects/1/master/master-39.jpg",
-      "http://unitselector.com/projects/1/master/master-40.jpg",
-      "http://unitselector.com/projects/1/master/master-41.jpg",
-      "http://unitselector.com/projects/1/master/master-42.jpg",
-      "http://unitselector.com/projects/1/master/master-43.jpg",
-      "http://unitselector.com/projects/1/master/master-44.jpg",
-      "http://unitselector.com/projects/1/master/master-45.jpg",
-      "http://unitselector.com/projects/1/master/master-46.jpg",
-      "http://unitselector.com/projects/1/master/master-47.jpg",
-      "http://unitselector.com/projects/1/master/master-48.jpg",
-      "http://unitselector.com/projects/1/master/master-49.jpg",
-      "http://unitselector.com/projects/1/master/master-50.jpg",
-      "http://unitselector.com/projects/1/master/master-51.jpg",
-      "http://unitselector.com/projects/1/master/master-52.jpg",
-      "http://unitselector.com/projects/1/master/master-53.jpg",
-      "http://unitselector.com/projects/1/master/master-54.jpg",
-      "http://unitselector.com/projects/1/master/master-55.jpg",
-      "http://unitselector.com/projects/1/master/master-56.jpg",
-      "http://unitselector.com/projects/1/master/master-57.jpg",
-      "http://unitselector.com/projects/1/master/master-58.jpg",
-      "http://unitselector.com/projects/1/master/master-59.jpg"
+      "http://test.cfunitselectortest.com/projects/7/master/master-00.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-01.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-02.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-03.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-04.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-05.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-06.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-07.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-08.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-09.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-10.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-11.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-12.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-13.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-14.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-15.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-16.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-17.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-18.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-19.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-20.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-21.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-22.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-23.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-24.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-25.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-26.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-27.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-28.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-29.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-30.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-31.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-32.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-33.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-34.jpg",
+      "http://test.cfunitselectortest.com/projects/7/master/master-35.jpg"
     ],
     "breakpoints": [
       0,
-      9,
-      18,
-      27
+      14,
+      28
     ],
     "shadow_images": [
-      "http://unitselector.com/projects/1/shadow/shadow-00.jpg",
-      "http://unitselector.com/projects/1/shadow/shadow-14.jpg",
-      "http://unitselector.com/projects/1/shadow/shadow-29.jpg",
-      "http://unitselector.com/projects/1/shadow/shadow-44.jpg",
-      "http://unitselector.com/projects/1/shadow/shadow-59.jpg"
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-00.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-01.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-02.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-03.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-04.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-05.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-06.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-07.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-08.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-09.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-10.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-11.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-12.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-13.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-14.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-15.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-16.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-17.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-18.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-19.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-20.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-21.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-22.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-23.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-24.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-25.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-26.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-27.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-28.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-29.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-30.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-31.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-32.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-33.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-34.jpg",
+      "http://test.cfunitselectortest.com/projects/7/shadow/shadow-35.jpg"
     ],
     "top_view": {
       "svg": "http://lorempixel.com/1300/800/city/",
       "image": "http://lorempixel.com/1300/800/city/"
     },
-    "address": "Behind Vakola Church, Vakola, Santacruz East, Mumbai-400055, Maharashtra, INDIA.  ",
-    "measurement_units": "Sq. Mt.",
+    "address": "Bannerghatta, Bangalore, Karnataka, INDIA.",
+    "measurement_units": "Sq. Ft.",
     "project_status": "Under Construction",
     "property_types": {
       "3": "Apartments"
@@ -92,407 +98,588 @@
     "project_property_types": {
       "3": {
         "unit_types": [
-          "2BHK",
-          "3BHK",
-          "1BHK"
+          "2.5BHK",
+          "3BHK"
         ],
-        "starting_area": 905,
+        "starting_area": 498094,
         "availability": {
-          "sold": 1,
-          "blocked": 7
+          "sold": 0,
+          "blocked": 0
         },
-        "starting_price": 4458259
+        "starting_price": 3347143
       }
     },
-    "filters": {
-      "defaults": [
-        "area",
-        "budget",
-        "views",
-        "direction",
-        "floor"
-      ],
-      "Apartment": [
-        "unitTypes",
-        "unitVariantNames",
-        "Flooring",
-        "Kitchen"
-      ]
-    },
+    "filters": [],
     "buildings": [
       {
-        "id": 2,
-        "building_name": "A1",
-        "phase_id": 1,
+        "id": 21,
+        "building_name": "Wing A",
+        "phase_id": 15,
         "no_of_floors": 6,
         "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:44:47",
-        "updated_at": "2015-10-10 11:44:47",
-        "breakpoints": [],
+        "building_master": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/master-35.jpg"
+        ],
+        "created_at": "2015-11-05 06:14:38",
+        "updated_at": "2015-11-06 10:45:11",
+        "breakpoints": [
+          0,
+          14,
+          28
+        ],
         "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 123456,
-        "shadow_images": [],
-        "primary_breakpoint": 0
+        "has_master": "yes",
+        "floor_rise": 1000,
+        "shadow_images": {
+          "10": 1476,
+          "11": 1477,
+          "12": 1478,
+          "13": 1479,
+          "14": 1480,
+          "15": 1481,
+          "16": 1482,
+          "17": 1483,
+          "18": 1484,
+          "19": 1485,
+          "20": 1486,
+          "21": 1487,
+          "22": 1488,
+          "23": 1489,
+          "24": 1490,
+          "25": 1491,
+          "26": 1492,
+          "27": 1493,
+          "28": 1494,
+          "29": 1495,
+          "30": 1496,
+          "31": 1497,
+          "32": 1498,
+          "33": 1499,
+          "34": 1500,
+          "35": 1501,
+          "00": 1591,
+          "01": 1467,
+          "02": 1468,
+          "03": 1469,
+          "04": 1470,
+          "05": 1471,
+          "06": 1472,
+          "07": 1473,
+          "08": 1474,
+          "09": 1475
+        },
+        "primary_breakpoint": 0,
+        "floor_group": [
+          {
+            "id": 13,
+            "building_id": 21,
+            "name": "Floor 1-2",
+            "floors": [
+              1,
+              2
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 14,
+            "building_id": 21,
+            "name": "Floor 3-4",
+            "floors": [
+              3,
+              4
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 15,
+            "building_id": 21,
+            "name": "Floor 5-6",
+            "floors": [
+              5,
+              6
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          }
+        ]
       },
       {
-        "id": 3,
-        "building_name": "A2",
-        "phase_id": 1,
-        "no_of_floors": 8,
-        "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:45:17",
-        "updated_at": "2015-10-10 11:45:17",
-        "breakpoints": [],
-        "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 332244,
-        "shadow_images": [],
-        "primary_breakpoint": 9
-      },
-      {
-        "id": 4,
-        "building_name": "A3",
-        "phase_id": 1,
+        "id": 23,
+        "building_name": "Wing B",
+        "phase_id": 17,
         "no_of_floors": 6,
         "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:45:38",
-        "updated_at": "2015-10-10 11:45:38",
-        "breakpoints": [],
+        "building_master": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/master-35.jpg"
+        ],
+        "created_at": "2015-11-06 05:49:19",
+        "updated_at": "2015-11-06 10:45:44",
+        "breakpoints": [
+          0,
+          14
+        ],
         "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 432132,
-        "shadow_images": [],
-        "primary_breakpoint": 18
+        "has_master": "yes",
+        "floor_rise": 1000,
+        "shadow_images": {
+          "00": 1592
+        },
+        "primary_breakpoint": 0,
+        "floor_group": [
+          {
+            "id": 19,
+            "building_id": 23,
+            "name": "Floor 1-2",
+            "floors": [
+              1,
+              2
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 20,
+            "building_id": 23,
+            "name": "Floor 3-4",
+            "floors": [
+              3,
+              4
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 21,
+            "building_id": 23,
+            "name": "Floor 5-6",
+            "floors": [
+              5,
+              6
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          }
+        ]
       },
       {
-        "id": 5,
-        "building_name": "A4",
-        "phase_id": 1,
+        "id": 24,
+        "building_name": "Wing C",
+        "phase_id": 17,
         "no_of_floors": 6,
         "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:46:12",
-        "updated_at": "2015-10-10 11:46:12",
-        "breakpoints": [],
+        "building_master": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-00.jpg"
+        ],
+        "created_at": "2015-11-06 05:53:54",
+        "updated_at": "2015-11-06 07:09:23",
+        "breakpoints": [
+          0
+        ],
         "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 65432,
+        "has_master": "yes",
+        "floor_rise": 1000,
         "shadow_images": [],
-        "primary_breakpoint": 27
+        "primary_breakpoint": 0,
+        "floor_group": [
+          {
+            "id": 22,
+            "building_id": 24,
+            "name": "Floor 1-2",
+            "floors": [
+              1,
+              2
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": null
+          },
+          {
+            "id": 23,
+            "building_id": 24,
+            "name": "Floor 3-4",
+            "floors": [
+              3,
+              4
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 24,
+            "building_id": 24,
+            "name": "Floor 5-6",
+            "floors": [
+              5,
+              6
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          }
+        ]
       },
       {
-        "id": 6,
-        "building_name": "A5",
-        "phase_id": 1,
-        "no_of_floors": 9,
+        "id": 25,
+        "building_name": "Wing D ",
+        "phase_id": 17,
+        "no_of_floors": 6,
         "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-10 11:49:26",
-        "updated_at": "2015-10-10 11:49:26",
-        "breakpoints": [],
+        "building_master": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/25/master-00.jpg"
+        ],
+        "created_at": "2015-11-06 05:54:29",
+        "updated_at": "2015-11-06 10:46:37",
+        "breakpoints": [
+          0
+        ],
         "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 433443,
+        "has_master": "yes",
+        "floor_rise": 1000,
+        "shadow_images": {
+          "00": 1593
+        },
+        "primary_breakpoint": 0,
+        "floor_group": [
+          {
+            "id": 25,
+            "building_id": 25,
+            "name": "Floor 1-2",
+            "floors": [
+              1,
+              2
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 26,
+            "building_id": 25,
+            "name": "Floor 3-4",
+            "floors": [
+              3,
+              4
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 27,
+            "building_id": 25,
+            "name": "Floor 5-6",
+            "floors": [
+              5,
+              6
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          }
+        ]
+      },
+      {
+        "id": 26,
+        "building_name": "Wing E",
+        "phase_id": 17,
+        "no_of_floors": 6,
+        "floors": [],
+        "building_master": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/26/master-00.jpg"
+        ],
+        "created_at": "2015-11-06 05:55:05",
+        "updated_at": "2015-11-06 07:46:04",
+        "breakpoints": [
+          0
+        ],
+        "abbrevation": "",
+        "has_master": "yes",
+        "floor_rise": 1000,
         "shadow_images": [],
-        "primary_breakpoint": 27
+        "primary_breakpoint": 0,
+        "floor_group": [
+          {
+            "id": 28,
+            "building_id": 26,
+            "name": "Floor 1-2",
+            "floors": [
+              1,
+              2
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 29,
+            "building_id": 26,
+            "name": "Floor 3-4",
+            "floors": [
+              3,
+              4
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 30,
+            "building_id": 26,
+            "name": "Floor 5-6",
+            "floors": [
+              5,
+              6
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          }
+        ]
+      },
+      {
+        "id": 27,
+        "building_name": "Wing F",
+        "phase_id": 17,
+        "no_of_floors": 6,
+        "floors": [],
+        "building_master": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-00.jpg"
+        ],
+        "created_at": "2015-11-06 05:56:02",
+        "updated_at": "2015-11-06 07:52:26",
+        "breakpoints": [
+          0
+        ],
+        "abbrevation": "",
+        "has_master": "yes",
+        "floor_rise": 1000,
+        "shadow_images": {
+          "00": 1589
+        },
+        "primary_breakpoint": 0,
+        "floor_group": [
+          {
+            "id": 31,
+            "building_id": 27,
+            "name": "Floor 1-2",
+            "floors": [
+              1,
+              2
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 32,
+            "building_id": 27,
+            "name": "Floor 3-4",
+            "floors": [
+              3,
+              4
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 33,
+            "building_id": 27,
+            "name": "Floor 5-6",
+            "floors": [
+              5,
+              6
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          }
+        ]
       }
     ],
-    "notlive_buildings": [
-      {
-        "id": 7,
-        "building_name": "B1",
-        "phase_id": 3,
-        "no_of_floors": 5,
-        "floors": [],
-        "building_master": [],
-        "created_at": "2015-10-12 10:12:38",
-        "updated_at": "2015-10-12 10:12:38",
-        "breakpoints": [],
-        "abbrevation": "",
-        "has_master": "no",
-        "floor_rise": 123456,
-        "shadow_images": []
-      }
-    ],
+    "notlive_buildings": [],
     "bunglow_variants": [],
     "apartment_variants": [
       {
-        "id": 2,
-        "unit_variant_name": "Apartment 2bhk",
-        "unit_type_id": 4,
-        "carpet_area": 400,
-        "built_up_area": 440,
-        "super_built_up_area": 550,
-        "per_sq_ft_price": 35000,
+        "id": 25,
+        "unit_variant_name": "1255 sq.ft",
+        "unit_type_id": 23,
+        "carpet_area": 896,
+        "built_up_area": 1255,
+        "super_built_up_area": 1255,
+        "per_sq_ft_price": 1000,
         "variant_attributes": {
-          "Flooring": "Woodden",
-          "Kitchen": "Modular"
+          "Flooring": "Wooden "
         },
-        "created_at": "2015-10-10 11:31:47",
-        "updated_at": "2015-10-23 07:19:29",
+        "created_at": "2015-11-05 06:14:02",
+        "updated_at": "2015-11-05 06:14:02",
         "deleted_at": null,
         "size": 0,
         "floor": [
           {
             "rooms_data": [
               {
-                "room_id": 2,
+                "room_id": 19,
                 "room_name": "Bedroom",
                 "atributes": [
                   {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 1234
+                    "attribute_key": "dimension",
+                    "attribute_value": "10'5\" x 4'6\""
                   },
                   {
-                    "attribute_key": "dimension",
-                    "attribute_value": "2d"
+                    "attribute_key": "color",
+                    "attribute_value": "Green"
+                  },
+                  {
+                    "attribute_key": "attached-section",
+                    "attribute_value": "Living"
                   }
                 ]
               },
               {
-                "room_id": 3,
-                "room_name": "Bedroom",
+                "room_id": 20,
+                "room_name": "Living",
                 "atributes": [
                   {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 1232
-                  },
-                  {
                     "attribute_key": "dimension",
-                    "attribute_value": "3d"
+                    "attribute_value": "11'3\" x 5'7\""
                   }
                 ]
               }
             ],
-            "url2dlayout_image": "http://unitselector.com/projects/1/variants/2/1628825643_2.jpeg",
-            "url3dlayout_image": "http://unitselector.com/projects/1/variants/2/880083652_2.jpeg"
+            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/292741494_0.jpeg",
+            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/154157442_0.jpeg"
           }
         ]
       },
       {
-        "id": 3,
-        "unit_variant_name": "Apartment 2",
-        "unit_type_id": 3,
-        "carpet_area": 300,
-        "built_up_area": 330,
-        "super_built_up_area": 480,
-        "per_sq_ft_price": 12345,
+        "id": 27,
+        "unit_variant_name": 1355,
+        "unit_type_id": 24,
+        "carpet_area": 1000,
+        "built_up_area": 1355,
+        "super_built_up_area": 1355,
+        "per_sq_ft_price": 1000,
         "variant_attributes": {
-          "Flooring": "wood",
-          "Kitchen": "Modular"
+          "Flooring": " Vitrified Tiles"
         },
-        "created_at": "2015-10-10 11:36:35",
-        "updated_at": "2015-10-12 07:13:29",
+        "created_at": "2015-11-06 05:51:41",
+        "updated_at": "2015-11-06 05:51:41",
         "deleted_at": null,
         "size": 0,
         "floor": [
           {
             "rooms_data": [
               {
-                "room_id": 2,
+                "room_id": 19,
                 "room_name": "Bedroom",
                 "atributes": [
                   {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 1236
+                    "attribute_key": "dimension",
+                    "attribute_value": " 10'9\" x 7' 8\""
                   },
                   {
-                    "attribute_key": "dimension",
-                    "attribute_value": "Asfd"
+                    "attribute_key": "color",
+                    "attribute_value": "Green"
+                  },
+                  {
+                    "attribute_key": "attached-section",
+                    "attribute_value": "Living"
                   }
                 ]
               },
               {
-                "room_id": 3,
-                "room_name": "Bedroom",
+                "room_id": 20,
+                "room_name": "Living",
                 "atributes": [
                   {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 2323
-                  },
-                  {
                     "attribute_key": "dimension",
-                    "attribute_value": "Er"
+                    "attribute_value": " 10'9\" x 7' 8\""
                   }
                 ]
               }
             ],
-            "url2dlayout_image": "http://unitselector.com/projects/1/variants/3/199498864_3.jpeg",
-            "url3dlayout_image": "http://unitselector.com/projects/1/variants/3/441383035_3.jpeg"
-          }
-        ]
-      },
-      {
-        "id": 4,
-        "unit_variant_name": "Apartment 3",
-        "unit_type_id": 4,
-        "carpet_area": 400,
-        "built_up_area": 440,
-        "super_built_up_area": 550,
-        "per_sq_ft_price": 23432,
-        "variant_attributes": {
-          "Flooring": "water",
-          "Kitchen": "Modular"
-        },
-        "created_at": "2015-10-10 11:38:32",
-        "updated_at": "2015-10-10 11:38:32",
-        "deleted_at": null,
-        "size": 0,
-        "floor": [
-          {
-            "rooms_data": [
-              {
-                "room_id": 2,
-                "room_name": "Bedroom",
-                "atributes": [
-                  {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 3234
-                  },
-                  {
-                    "attribute_key": "dimension",
-                    "attribute_value": "Fdg"
-                  }
-                ]
-              },
-              {
-                "room_id": 3,
-                "room_name": "Bedroom",
-                "atributes": [
-                  {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 123
-                  },
-                  {
-                    "attribute_key": "dimension",
-                    "attribute_value": 123
-                  }
-                ]
-              }
-            ],
-            "url2dlayout_image": "http://unitselector.com/projects/1/variants/4/47297085_4.jpeg",
-            "url3dlayout_image": "http://unitselector.com/projects/1/variants/4/1027740007_4.jpeg"
-          }
-        ]
-      },
-      {
-        "id": 5,
-        "unit_variant_name": "Apartment ",
-        "unit_type_id": 2,
-        "carpet_area": 400,
-        "built_up_area": 440,
-        "super_built_up_area": 550,
-        "per_sq_ft_price": 12345,
-        "variant_attributes": {
-          "Flooring": "werty",
-          "Kitchen": "Modular"
-        },
-        "created_at": "2015-10-10 11:39:33",
-        "updated_at": "2015-10-12 07:12:14",
-        "deleted_at": null,
-        "size": 0,
-        "floor": [
-          {
-            "rooms_data": [
-              {
-                "room_id": 2,
-                "room_name": "Bedroom",
-                "atributes": [
-                  {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 2134
-                  },
-                  {
-                    "attribute_key": "dimension",
-                    "attribute_value": "Dfgf"
-                  }
-                ]
-              }
-            ],
-            "url2dlayout_image": "http://unitselector.com/projects/1/variants/5/1833961115_5.jpeg",
-            "url3dlayout_image": "http://unitselector.com/projects/1/variants/5/152005814_5.jpeg"
-          }
-        ]
-      },
-      {
-        "id": 6,
-        "unit_variant_name": "Apartment 5",
-        "unit_type_id": 2,
-        "carpet_area": 344,
-        "built_up_area": 555,
-        "super_built_up_area": 666,
-        "per_sq_ft_price": 12345,
-        "variant_attributes": {
-          "Flooring": "good",
-          "Kitchen": "Modular"
-        },
-        "created_at": "2015-10-10 11:41:49",
-        "updated_at": "2015-10-10 11:41:49",
-        "deleted_at": null,
-        "size": 0,
-        "floor": [
-          {
-            "rooms_data": [
-              {
-                "room_id": 2,
-                "room_name": "Bedroom",
-                "atributes": [
-                  {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 2222
-                  },
-                  {
-                    "attribute_key": "dimension",
-                    "attribute_value": "Qwerty"
-                  }
-                ]
-              }
-            ],
-            "url2dlayout_image": "http://unitselector.com/projects/1/variants/6/1855501551_6.jpeg",
-            "url3dlayout_image": "http://unitselector.com/projects/1/variants/6/1048626651_6.jpeg"
-          }
-        ]
-      },
-      {
-        "id": 7,
-        "unit_variant_name": "Apartment 6",
-        "unit_type_id": 2,
-        "carpet_area": 1221,
-        "built_up_area": 123213,
-        "super_built_up_area": 12312,
-        "per_sq_ft_price": 12313,
-        "variant_attributes": {
-          "Flooring": "gta",
-          "Kitchen": "Modular"
-        },
-        "created_at": "2015-10-10 11:43:15",
-        "updated_at": "2015-10-10 11:43:15",
-        "deleted_at": null,
-        "size": 0,
-        "floor": [
-          {
-            "rooms_data": [
-              {
-                "room_id": 3,
-                "room_name": "Bedroom",
-                "atributes": [
-                  {
-                    "attribute_key": "size-sq-mt",
-                    "attribute_value": 1231
-                  },
-                  {
-                    "attribute_key": "dimension",
-                    "attribute_value": "Wer"
-                  }
-                ]
-              }
-            ],
-            "url2dlayout_image": "http://unitselector.com/projects/1/variants/7/1172521985_7.jpeg",
-            "url3dlayout_image": "http://unitselector.com/projects/1/variants/7/611260887_7.jpeg"
+            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/27/1099947863_0.jpeg",
+            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/27/378828983_0.jpeg"
           }
         ]
       }
@@ -501,11 +688,11 @@
     "settings": {
       "phases": [
         {
-          "phase_id": 1,
+          "phase_id": 15,
           "phase_name": "Phase 1"
         },
         {
-          "phase_id": 3,
+          "phase_id": 17,
           "phase_name": "Phase 2"
         }
       ],
@@ -516,847 +703,959 @@
       "service_tax_low": null,
       "service_tax_high": null,
       "infrastructure_charges": null,
-      "membership_fees": ""
+      "membership_fees": "House of Hiranandani"
     },
     "units": [
       {
-        "id": 92,
-        "unit_name": "FC2",
-        "unit_variant_id": 4,
-        "position": 4,
+        "id": 191,
+        "unit_name": "Unit - 1F",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 1,
+        "building_id": 27,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:55:17",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 31,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 192,
+        "unit_name": "Unit -2F",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 2,
+        "building_id": 27,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:55:09",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 31,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 193,
+        "unit_name": "Unit -3F",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 3,
+        "building_id": 27,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:54:57",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 32,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 194,
+        "unit_name": "Unit - 4F",
+        "unit_variant_id": 27,
+        "position": 1,
         "floor": 4,
-        "building_id": 6,
-        "created_at": "2015-10-19 12:42:04",
-        "updated_at": "2015-10-23 09:57:29",
+        "building_id": 27,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:54:49",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 32,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 195,
+        "unit_name": "Unit - 5F",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 5,
+        "building_id": 27,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:54:35",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 33,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 196,
+        "unit_name": "Unit - 6F",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 6,
+        "building_id": 27,
+        "created_at": "2015-11-06 06:31:38",
+        "updated_at": "2015-11-06 07:54:24",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 33,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 185,
+        "unit_name": "Unit - 1E",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 1,
+        "building_id": 26,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:49:20",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 28,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 186,
+        "unit_name": "Unit - 2E",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 2,
+        "building_id": 26,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:48:36",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 28,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 187,
+        "unit_name": "Unit - 3E",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 3,
+        "building_id": 26,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:48:23",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 29,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 188,
+        "unit_name": "Unit - 4E",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 4,
+        "building_id": 26,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:48:16",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 29,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 189,
+        "unit_name": "Unit - 5E",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 5,
+        "building_id": 26,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:48:07",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 30,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 190,
+        "unit_name": "Unit - 6E",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 6,
+        "building_id": 26,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:47:53",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 30,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 179,
+        "unit_name": "Unit - 1D",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 1,
+        "building_id": 25,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:50:23",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 25,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 180,
+        "unit_name": "Unit - 2D",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 2,
+        "building_id": 25,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:50:30",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 25,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 181,
+        "unit_name": "Unit - 3D",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 3,
+        "building_id": 25,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:50:14",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 26,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 182,
+        "unit_name": "Unit - 4D",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 4,
+        "building_id": 25,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:50:04",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 26,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 183,
+        "unit_name": "Unit - 5D",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 5,
+        "building_id": 25,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:49:56",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 27,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 184,
+        "unit_name": "Unit - 6D",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 6,
+        "building_id": 25,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:49:46",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 27,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 173,
+        "unit_name": "Unit - 1C",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 1,
+        "building_id": 24,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:23:55",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 22,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 174,
+        "unit_name": "Unit- 2C",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 2,
+        "building_id": 24,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:23:46",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 22,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 175,
+        "unit_name": "Unit - 3C",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 3,
+        "building_id": 24,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:23:31",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 23,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 176,
+        "unit_name": "Unit - 4C",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 4,
+        "building_id": 24,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:23:22",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 23,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 177,
+        "unit_name": "Unit - 5C",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 5,
+        "building_id": 24,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:23:12",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 24,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 178,
+        "unit_name": "Unit - 6C",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 6,
+        "building_id": 24,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 07:22:57",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 24,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 167,
+        "unit_name": "Unit - 1B",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 1,
+        "building_id": 23,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 12:54:33",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "563ca14132212",
+        "floor_group_id": 19,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 168,
+        "unit_name": "Unit - 2B",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 2,
+        "building_id": 23,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 06:48:29",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 19,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 169,
+        "unit_name": "Unit - 3B",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 3,
+        "building_id": 23,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 06:50:04",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 20,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 170,
+        "unit_name": "Unit - 4B",
+        "unit_variant_id": 27,
+        "position": 1,
+        "floor": 4,
+        "building_id": 23,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 06:50:18",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 20,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 171,
+        "unit_name": "Unit - 5B",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 5,
+        "building_id": 23,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 06:50:40",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 21,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 172,
+        "unit_name": "Unit -6B",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 6,
+        "building_id": 23,
+        "created_at": "2015-11-06 06:31:37",
+        "updated_at": "2015-11-06 06:50:48",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "",
+        "floor_group_id": 21,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 158,
+        "unit_name": "Unit 1A",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 1,
+        "building_id": 21,
+        "created_at": "2015-11-05 06:19:22",
+        "updated_at": "2015-11-06 13:11:02",
         "phase_id": 0,
         "views": [
-          "Garden",
-          "Gym",
-          "Pool"
+          "Swimming pool",
+          "Garden"
         ],
-        "direction": "Noth-East",
-        "agent_id": 0,
-        "booked_at": "2015-10-23 09:57:29",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "available"
-      },
-      {
-        "id": 93,
-        "unit_name": "FC23",
-        "unit_variant_id": 3,
-        "position": 5,
-        "floor": 6,
-        "building_id": 6,
-        "created_at": "2015-10-19 12:42:24",
-        "updated_at": "2015-10-19 12:42:24",
-        "phase_id": 0,
-        "views": [],
-        "direction": "Noth-East",
+        "direction": "North",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "breakpoint": "",
+        "booking_id": "563ca35d82e6d",
+        "floor_group_id": 13,
+        "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 22650000,
-        "unit_price": 22650000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 14400000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 8250000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
         "availability": "available"
       },
       {
-        "id": 94,
-        "unit_name": "FC28",
-        "unit_variant_id": 7,
+        "id": 159,
+        "unit_name": "Unit 2A",
+        "unit_variant_id": 25,
         "position": 2,
-        "floor": 5,
-        "building_id": 6,
-        "created_at": "2015-10-19 12:42:46",
-        "updated_at": "2015-10-19 12:42:46",
+        "floor": 1,
+        "building_id": 21,
+        "created_at": "2015-11-05 06:19:41",
+        "updated_at": "2015-11-06 13:02:29",
         "phase_id": 0,
         "views": [],
-        "direction": "Soth-East",
+        "direction": "North",
+        "agent_id": 0,
+        "booked_at": "2015-11-05 06:27:10",
+        "property_type_group_id": 0,
+        "booking_id": "563ca49f1a277",
+        "floor_group_id": 13,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "sold"
+      },
+      {
+        "id": 160,
+        "unit_name": "Unit 3A",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 3,
+        "building_id": 21,
+        "created_at": "2015-11-05 06:20:18",
+        "updated_at": "2015-11-07 05:02:33",
+        "phase_id": 0,
+        "views": [],
+        "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "breakpoint": "",
+        "booking_id": "563ca38e2327a",
+        "floor_group_id": 14,
+        "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 3449685000,
-        "unit_price": 3449685000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 369360000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 3080325000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
         "availability": "available"
       },
       {
-        "id": 95,
-        "unit_name": "FC29",
-        "unit_variant_id": 4,
-        "position": 6,
-        "floor": 6,
-        "building_id": 6,
-        "created_at": "2015-10-19 12:43:19",
-        "updated_at": "2015-10-19 12:43:19",
-        "phase_id": 0,
-        "views": [],
-        "direction": "West",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "booked_by_agent"
-      },
-      {
-        "id": 96,
-        "unit_name": "FC32",
-        "unit_variant_id": 6,
-        "position": 7,
-        "floor": 5,
-        "building_id": 6,
-        "created_at": "2015-10-19 13:32:41",
-        "updated_at": "2015-10-21 05:03:24",
-        "phase_id": 0,
-        "views": [],
-        "direction": "West",
-        "agent_id": 0,
-        "booked_at": "2015-10-21 05:03:24",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 33855000,
-        "unit_price": 33855000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 19980000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 13875000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "archived"
-      },
-      {
-        "id": 88,
-        "unit_name": "FC1",
-        "unit_variant_id": 2,
-        "position": 4,
+        "id": 161,
+        "unit_name": "Unit 4A",
+        "unit_variant_id": 25,
+        "position": 1,
         "floor": 4,
-        "building_id": 5,
-        "created_at": "2015-10-19 12:40:08",
-        "updated_at": "2015-10-19 12:40:08",
+        "building_id": 21,
+        "created_at": "2015-11-05 06:24:03",
+        "updated_at": "2015-11-05 06:34:32",
         "phase_id": 0,
         "views": [],
-        "direction": "West",
+        "direction": "North",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "breakpoint": "",
+        "booking_id": "",
+        "floor_group_id": 14,
+        "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
         "availability": "available"
       },
       {
-        "id": 89,
-        "unit_name": "FC2",
-        "unit_variant_id": 4,
-        "position": 4,
+        "id": 162,
+        "unit_name": "Unit 5A",
+        "unit_variant_id": 25,
+        "position": 1,
         "floor": 5,
-        "building_id": 5,
-        "created_at": "2015-10-19 12:40:37",
-        "updated_at": "2015-10-19 12:40:37",
-        "phase_id": 0,
-        "views": [],
-        "direction": "East",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "available"
-      },
-      {
-        "id": 90,
-        "unit_name": "FC3",
-        "unit_variant_id": 2,
-        "position": 6,
-        "floor": 5,
-        "building_id": 5,
-        "created_at": "2015-10-19 12:41:02",
-        "updated_at": "2015-10-19 12:41:02",
+        "building_id": 21,
+        "created_at": "2015-11-05 06:25:37",
+        "updated_at": "2015-11-05 06:34:14",
         "phase_id": 0,
         "views": [],
         "direction": "North-West",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "breakpoint": "",
+        "booking_id": "",
+        "floor_group_id": 15,
+        "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "available"
-      },
-      {
-        "id": 91,
-        "unit_name": "FC4",
-        "unit_variant_id": 2,
-        "position": 5,
-        "floor": 4,
-        "building_id": 5,
-        "created_at": "2015-10-19 12:41:24",
-        "updated_at": "2015-10-19 12:41:24",
-        "phase_id": 0,
-        "views": [],
-        "direction": "West",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "available"
-      },
-      {
-        "id": 83,
-        "unit_name": "A1",
-        "unit_variant_id": 4,
-        "position": 2,
-        "floor": 3,
-        "building_id": 4,
-        "created_at": "2015-10-19 12:37:02",
-        "updated_at": "2015-10-19 12:37:02",
-        "phase_id": 0,
-        "views": [],
-        "direction": "West",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "sold"
-      },
-      {
-        "id": 84,
-        "unit_name": "A2",
-        "unit_variant_id": 4,
-        "position": 3,
-        "floor": 4,
-        "building_id": 4,
-        "created_at": "2015-10-19 12:37:44",
-        "updated_at": "2015-10-19 12:37:44",
-        "phase_id": 0,
-        "views": [],
-        "direction": "East",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "available"
-      },
-      {
-        "id": 85,
-        "unit_name": "A4",
-        "unit_variant_id": 4,
-        "position": 5,
-        "floor": 5,
-        "building_id": 4,
-        "created_at": "2015-10-19 12:38:16",
-        "updated_at": "2015-10-21 05:01:45",
-        "phase_id": 0,
-        "views": [],
-        "direction": "West",
-        "agent_id": 0,
-        "booked_at": "2015-10-21 05:01:45",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "sold"
-      },
-      {
-        "id": 86,
-        "unit_name": "A5",
-        "unit_variant_id": 4,
-        "position": 6,
-        "floor": 5,
-        "building_id": 4,
-        "created_at": "2015-10-19 12:39:05",
-        "updated_at": "2015-10-19 12:39:05",
-        "phase_id": 0,
-        "views": [],
-        "direction": "East",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "sold"
-      },
-      {
-        "id": 87,
-        "unit_name": "RC1",
-        "unit_variant_id": 2,
-        "position": 5,
-        "floor": 4,
-        "building_id": 4,
-        "created_at": "2015-10-19 12:39:27",
-        "updated_at": "2015-10-19 12:39:27",
-        "phase_id": 0,
-        "views": [],
-        "direction": "West",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
         "property_type_id": 3,
-        "unit_price": 27500000,
-        "availability": "sold"
-      },
-      {
-        "id": 79,
-        "unit_name": "FC14",
-        "unit_variant_id": 7,
-        "position": 3,
-        "floor": 3,
-        "building_id": 3,
-        "created_at": "2015-10-19 12:34:18",
-        "updated_at": "2015-10-19 12:34:18",
-        "phase_id": 0,
-        "views": [],
-        "direction": "East",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 3449685000,
-        "unit_price": 3449685000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 369360000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 3080325000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "blocked"
-      },
-      {
-        "id": 80,
-        "unit_name": "FC15",
-        "unit_variant_id": 3,
-        "position": 6,
-        "floor": 4,
-        "building_id": 3,
-        "created_at": "2015-10-19 12:35:05",
-        "updated_at": "2015-10-23 05:42:14",
-        "phase_id": 0,
-        "views": [],
-        "direction": "West",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 22650000,
-        "unit_price": 22650000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 14400000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 8250000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
+        "primary_breakpoint": 0,
         "availability": "available"
       },
       {
-        "id": 81,
-        "unit_name": "FC16",
-        "unit_variant_id": 5,
-        "position": 4,
-        "floor": 3,
-        "building_id": 3,
-        "created_at": "2015-10-19 12:35:40",
-        "updated_at": "2015-10-19 12:35:40",
+        "id": 163,
+        "unit_name": "Unit 6A",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 6,
+        "building_id": 21,
+        "created_at": "2015-11-05 06:26:20",
+        "updated_at": "2015-11-05 06:33:19",
         "phase_id": 0,
         "views": [],
-        "direction": "Noth-East",
+        "direction": "North-West",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "breakpoint": "",
+        "booking_id": "",
+        "floor_group_id": 15,
+        "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "blocked"
-      },
-      {
-        "id": 82,
-        "unit_name": "FC17",
-        "unit_variant_id": 3,
-        "position": 2,
-        "floor": 2,
-        "building_id": 3,
-        "created_at": "2015-10-19 12:36:14",
-        "updated_at": "2015-10-19 12:36:14",
-        "phase_id": 0,
-        "views": [],
-        "direction": "East",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 22650000,
-        "unit_price": 22650000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 14400000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 8250000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
+        "selling_amount": 0,
+        "unit_price": 0,
+        "unit_price_component": [],
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
         "availability": "available"
-      },
-      {
-        "id": 75,
-        "unit_name": "FC1",
-        "unit_variant_id": 2,
-        "position": 2,
-        "floor": 3,
-        "building_id": 2,
-        "created_at": "2015-10-19 12:31:49",
-        "updated_at": "2015-10-23 09:52:45",
-        "phase_id": 0,
-        "views": [
-          "Garden",
-          "Gym"
-        ],
-        "direction": "South",
-        "agent_id": 0,
-        "booked_at": "2015-10-23 09:52:45",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "blocked"
-      },
-      {
-        "id": 76,
-        "unit_name": "FC21",
-        "unit_variant_id": 2,
-        "position": 3,
-        "floor": 3,
-        "building_id": 2,
-        "created_at": "2015-10-19 12:32:17",
-        "updated_at": "2015-10-23 09:54:19",
-        "phase_id": 0,
-        "views": [],
-        "direction": "South",
-        "agent_id": 0,
-        "booked_at": "2015-10-23 05:58:13",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "sold"
-      },
-      {
-        "id": 77,
-        "unit_name": "FC10",
-        "unit_variant_id": 2,
-        "position": 3,
-        "floor": 4,
-        "building_id": 2,
-        "created_at": "2015-10-19 12:32:45",
-        "updated_at": "2015-10-19 12:32:45",
-        "phase_id": 0,
-        "views": [],
-        "direction": "West",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "blocked"
-      },
-      {
-        "id": 78,
-        "unit_name": "FC11",
-        "unit_variant_id": 2,
-        "position": 5,
-        "floor": 5,
-        "building_id": 2,
-        "created_at": "2015-10-19 12:33:44",
-        "updated_at": "2015-10-19 12:33:44",
-        "phase_id": 0,
-        "views": [],
-        "direction": "East",
-        "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
-        "property_type_group_id": 0,
-        "breakpoint": "",
-        "booking_amount": 20000,
-        "selling_amount": 27500000,
-        "unit_price": 27500000,
-        "unit_price_component": {
-          "l2zs3x": {
-            "amount": 16500000,
-            "component_price_sub_type": "Super Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 30000,
-            "component_price_type": "Basic"
-          },
-          "s9n1hl": {
-            "amount": 11000000,
-            "component_price_sub_type": "Builtup Area",
-            "cost_type": "Per sqft",
-            "entered_value": 25000,
-            "component_price_type": "Basic"
-          }
-        },
-        "availability": "blocked"
       }
     ],
     "unit_types": [
       {
-        "id": 2,
-        "name": "2BHK",
-        "property_type_id": 2
+        "id": 23,
+        "name": "2.5BHK",
+        "property_type_id": 12
       },
       {
-        "id": 3,
+        "id": 24,
         "name": "3BHK",
-        "property_type_id": 2
-      },
-      {
-        "id": 4,
-        "name": "1BHK",
-        "property_type_id": 2
+        "property_type_id": 12
       }
     ],
     "floor_layout": []

@@ -290,6 +290,8 @@ class ProjectMediaController extends Controller {
         //unlink($targetDir);
         \File::delete($targetDir);
         $media->delete();
+
+        $svg = Svg::where('image_id',$id)->delete();
         
         return response()->json( [
                     'code' => 'media_deleted',

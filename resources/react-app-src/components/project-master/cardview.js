@@ -30,6 +30,30 @@ var CardView = React.createClass({
       // this.setState(newState);
     },
 
+    getNextStepUrl: function(navigationType, navigationId){
+
+      var url = "";
+
+      switch(navigationType){
+        case "project":
+          url = "/buildings/";
+          break;
+        case "building":
+          url = "/buildings/"+navigationId+"/group/";
+          break;
+        case "group":
+          url = "/units/";
+          break;          
+        default:
+          url = "/buildings/";
+      }
+
+      return url;
+
+
+    },
+
+
     render: function() {
         var buildingData = this.props.building;
         var buildingId = buildingData.id;
@@ -38,13 +62,17 @@ var CardView = React.createClass({
         var noOfFloors = 0;
         var buildingName = "";
         var supportedUnitTypeString = " ";
-        var buildingUrl = " ";
+        var baseUrl = "";
+        var buildingUrl = "";
         var minStartPrice = buildingData.minStartPrice;
         
         var unitCount = 0;
         var unitCountDisplayString = "available"; 
 
         var isZeroUnits = isZeroInSelection = false;
+
+        var cardListFor = this.props.cardListFor;
+        var cardListForId = this.props.cardListForId;
 
         var mainDom;
 
@@ -56,8 +84,8 @@ var CardView = React.createClass({
           noOfFloors = buildingData.no_of_floors;
           buildingName = buildingData.building_name;
           
-
-          buildingUrl = "/buildings/"+buildingData.id;
+          baseUrl = this.getNextStepUrl(cardListFor,cardListForId);
+          buildingUrl =  baseUrl+buildingData.id;
 
           _.each(buildingData.supportedUnitTypes, function(supportedUnitType , i){
                 
@@ -120,6 +148,13 @@ var CardView = React.createClass({
 
 
         if(window.isMobile){
+
+          unitTypeDom = (<div className="col-xs-12 text-muted"><span> {noOfFloors}  &nbsp;Floors</span><li></li> <span> {supportedUnitTypeString} </span></div>  );
+
+          if((!_.isUndefined(buildingData.unitType))&&(!_.isUndefined(buildingData.superBuiltUpArea))){
+            unitTypeDom = (<div className="col-xs-12 text-muted"><span> {buildingData.unitType}</span><li></li> <span> {buildingData.superBuiltUpArea} &nbsp;sqFt </span></div> );
+          }
+
           mainDom = ( <div className={cardClasses} data-unitid={buildingId}>
                           <div className="row">
                               <div className="col-xs-12">
@@ -131,9 +166,9 @@ var CardView = React.createClass({
                           </div>
                           
                           <div className=" swipe-unit-info row">
-                             <div className="col-xs-12 text-muted">
-                                <span> {noOfFloors}  &nbsp;Floors</span><li></li> <span> {supportedUnitTypeString} </span>
-                             </div>  
+                             
+                                {unitTypeDom}
+                             
                           </div>
 
                           <div className="row swipe-footer">
@@ -164,6 +199,12 @@ var CardView = React.createClass({
           // give card an id to help in scrolling
           cardId = "building"+buildingId;
 
+          unitTypeDom = ( <div className="col-xs-12 text-muted"> <span>{noOfFloors} Floors</span> <ul> <li></li> </ul> <span>{supportedUnitTypeString}</span> </div>);
+
+          if((!_.isUndefined(buildingData.unitType))&&(!_.isUndefined(buildingData.superBuiltUpArea))){
+            unitTypeDom = (<div className="col-xs-12 text-muted"><span> {buildingData.unitType}</span><ul><li></li> </ul> <span> {buildingData.superBuiltUpArea} &nbsp;sqFt </span></div> );
+          }          
+
           mainDom = (   <li className="sidebar-brand">
                             <div className={cardClasses} onClick={this.selectCard} data-unitid={buildingId} id={cardId}>
                                 <div className="row">
@@ -175,13 +216,7 @@ var CardView = React.createClass({
                                     </div>
                                 </div>
                                 <div className=" swipe-unit-info row">
-                                    <div className="col-xs-12 text-muted">
-                                        <span>{noOfFloors} Floors</span>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
-                                        <span>{supportedUnitTypeString}</span>
-                                    </div>
+                                  {unitTypeDom}
                                 </div>
                                 <div className="swipe-footer">
                                     <div className="col-xs-12">

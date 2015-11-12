@@ -22,7 +22,7 @@
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
  <div class="grid simple">
      @include('admin.project.flashmessage')
-<form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">
+<form onsubmit="return validateBuildingFloors(this);" data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">
     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
                 <div class="grid-body grid-padding no-border">
                     <div class=" m-t-15 m-b-15 no-border">
@@ -49,13 +49,15 @@
                                     <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Number of Floors<span class="text-primary">*</span></label>
-                                        <select id="phase" name="no_of_floors" class="select2 form-control m-b-5" data-parsley-required {{ $disabled }}>
+                                        <select id="phase" name="no_of_floors" class="select2 form-control m-b-5" data-parsley-required {{ $disabled }} {{ (count($floorGroups)) ? 'disabled' :''}}>
                                                 <option value="">Select Floors</option>
                                                 @for($i=1 ;  $i<=100; $i++)
                                                 <option {{ $building->no_of_floors == $i ? 'selected' : '' }}  value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
-                                             
+                                            @if(count($floorGroups))
+                                              <input type="hidden" name="no_of_floors"  value="{{ $building->no_of_floors }}">   
+                                            @endif
                                         </div>
                                     </div>
                     <div class="col-md-4">
@@ -104,20 +106,20 @@
                                     </div>
                                 </div>
                     <hr/>
-            <div class="row">
+            <div class="row building-floor-groups">
                 <div class="m-l-5 no-border col-md-4">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Floor   <span class="semi-bold">Group</span></h3>
                 </div>
                  
                 @foreach($floorGroups as $floorGroup)
-                <div class="col-md-12 m-b-20 ">
+                <div class="col-md-12 m-b-20 floor-group">
                         <div class="row">
                         <div class="col-md-10"> 
                             <div class="row">
                                 <div class="col-md-6"><input type="text" name="floor_group_name[]" value="{{ $floorGroup['name'] }}" class="form-control" placeholder="Enter Floor Group Name"> </div>
                                 <input type="hidden" name="floor_group_id[]" value="{{ $floorGroup['id'] }}" class="form-control">
                             
-                                <div class="col-md-6"><input type="text" name="group_floors[]" value="{{ (!empty($floorGroup['floors'])) ?implode(',',$floorGroup['floors']) :'' }}" class="form-control" placeholder="Enter Floors"></div>
+                                <div class="col-md-6 floors"><input type="text" name="group_floors[]" value="{{ (!empty($floorGroup['floors'])) ?implode(',',$floorGroup['floors']) :'' }}" class="form-control" placeholder="Enter Floors"></div>
                             </div>
                         </div>
                         <div class="col-md-2 text-center">
@@ -127,8 +129,8 @@
                         </div>
                     </div>
                 @endforeach   
-                 <div class="col-md-12">
-                   <div class="add-unit floor_group_block">
+                 <div class="col-md-12 floor_group_block">
+                   <div class="add-unit ">
                         <div class="row p-t-10 p-r-15 p-l-15">
                             <div class="col-md-12">
                             <div class="col-md-6">
@@ -279,8 +281,9 @@
             </div>
 <script>
     var BASEURL = '{{ url() }}';
-
+    var BUILDING_ID = '{{ $building->id }}';
     var BREAKPOINTS = ['<?php echo (isset($positions))? implode("','", $positions):"" ?>'];
 
+    
 </script>
 @endsection

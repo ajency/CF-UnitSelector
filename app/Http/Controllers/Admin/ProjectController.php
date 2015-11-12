@@ -887,26 +887,35 @@ class ProjectController extends Controller {
                 }
 
 
-                $unitSvgExits =[]; 
+                $unitSvgExits =[];
+                $floorGroupSvgExits =[]; 
                 if($building['has_master'] == 'yes')
                 { 
-                     ///Floor group 
-                    $buildingfloorGroup=[];
-                    $buildingfloorGroup = $buildingData->floorGroups()->get()->toArray();
+                     ///Floor group
+                    $buildingfloorGroupIds =[];
+                    $buildingfloorGroupNames = [];
+                    $buildingfloorGroups = $buildingData->floorGroups()->get()->toArray(); 
+                    foreach ($buildingfloorGroups as $buildingfloorGroup) {
+                        $buildingfloorGroupIds['floor_group'][]=$buildingfloorGroup['id'];
+                        $buildingfloorGroupNames['floor_group'][$buildingfloorGroup['id']]=$buildingfloorGroup['name'];
+                    }
          
-                    if(empty($buildingfloorGroup))
+                    if(empty($buildingfloorGroupIds))
                             $errors['buildingfloorgroup-'. $building['id']] = 'No Floor Group Created For Building :'.$building['building_name']; 
                 
-
+                  
                     if(!empty($buildingMediaIdArr))
+                    {
+                       $floorGroupSvgExits = SvgController :: getUnmarkedSvgUnits($buildingfloorGroupIds,$buildingMediaIdArr);
                        $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
+                    }
                     else
                       $errors['buildingunitauthtool-'. $building['id']] = 'No Authoring Done For Building ('. $building['building_name'].')';
                        
                     if(empty($buildingUnits))
                        $errors['buildingunitauthtool-'. $building['id']] = 'No Authoring Done For Building ('.$building['building_name'].')'; 
 
-                  if (!empty($unitSvgExits)) {
+                    if (!empty($unitSvgExits)) {
 
                         if(isset($unitSvgExits['unit']))
                         {
@@ -914,6 +923,19 @@ class ProjectController extends Controller {
                             foreach($unitSvgExits['unit'] as $unitId)
                             {
                                 $errors['buildingunitauthtool-'. $building['id']] .= $buildingunitNames['unit'][$unitId].' ,';
+                            }
+
+                        }
+                    }
+
+                    if (!empty($floorGroupSvgExits)) {
+
+                        if(isset($floorGroupSvgExits['floor_group']))
+                        {
+                            $errors['buildingfloorGroupauthtool-'. $building['id']] = ' Building ('. $building['building_name'].') Svg Unmarked for Floor Group  : ';
+                            foreach($floorGroupSvgExits['floor_group'] as $unitId)
+                            {
+                                $errors['buildingfloorGroupauthtool-'. $building['id']] .= $buildingfloorGroupNames['floor_group'][$unitId].' ,';
                             }
 
                         }
