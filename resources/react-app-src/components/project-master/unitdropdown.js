@@ -1,18 +1,37 @@
 var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var classNames = require('classnames');
+var Router = require('react-router-component')
 
 
 var UnitDropdown = React.createClass({
 
+	mixins: [Router.NavigatableMixin],
+
+	getInitialState: function() {
+         return {
+             selectedBuilding: this.props.selectedBuilding
+         }
+     },
+
+
+    change: function(event){
+    	var buildingId = event.target.value;
+    	this.setState({selectedBuilding: buildingId});
+    	return this.navigate('/buildings/'+buildingId);
+    },
+
+
 	render : function(){
 
-		buildings = this.props.buildings;
+		var selectedoption = this.state.selectedBuilding;
 
-		buildingSelectNodes= buildings.map(function(building,i){
+		dropwDownData = this.props.dropDownData;
+
+		buildingSelectNodes= _.map( dropwDownData , function(building, i){
 	            return(
 	                
-	                <option value={building.id}>
+	                <option key={i} value={building.id}>
 	                	{building.building_name} 
 	                </option>
 	            ); 
@@ -21,8 +40,8 @@ var UnitDropdown = React.createClass({
 		return (
 			<h4 className="margin-none"> 
 	              <div className="styled-select">
-	                 <select disabled>
-	                    <option>{this.props.projectTitle}</option>
+	                 <select onChange={this.change} value={selectedoption}>
+	                    {buildingSelectNodes}
 	                 </select>
 	              </div>
 	            </h4>

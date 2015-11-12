@@ -41,6 +41,8 @@ function getBuildingStateData(buildingId){
 }
 
 
+
+
 var BuildingMaster = React.createClass({
 
 
@@ -59,6 +61,7 @@ var BuildingMaster = React.createClass({
         console.log(newState);
 
         buildings = stateDataToformat.data.buildings;
+
         
         if(buildings.length>0){
             newStateData = newState.data;
@@ -152,15 +155,15 @@ var BuildingMaster = React.createClass({
         }
 
 
-
         return newState;
     },
 
     getBuildingState: function(){
-        var buildingId;
-        buildingId = this.props.buildingId;
+        var buildingId = this.props.buildingId;
 
         stateData =  getBuildingStateData(buildingId);
+
+        console.log(stateData);
 
         return this.formatStateData(stateData);
     },
@@ -347,7 +350,7 @@ var BuildingMaster = React.createClass({
     updateProjectMasterData: function(){
         oldState = this.state;
 
-        newProjectData = AppStore.getFilteredProjectMasterData(this.props.buildingId);
+        newProjectData = AppStore.getFilteredProjectMasterData(this.props.buildingId,'');
 
         console.log(newProjectData);
 
@@ -572,11 +575,9 @@ var BuildingMaster = React.createClass({
     },
 
     render: function(){
-        var data = this.state.data;
+       var data = this.state.data;
 
-
-
-                
+                        
         var projectTitle = data.projectTitle;
         var projectLogo = data.projectLogo;
         var unitCount = data.totalCount;
@@ -584,6 +585,10 @@ var BuildingMaster = React.createClass({
         var breakpoints = data.breakpoints;
         var applied_filters = data.applied_filters;
         var isFilterApplied = data.isFilterApplied;
+
+        var allBuildings = AppStore.getProjectData();
+
+        var buildingDropwdownData = allBuildings.buildings;
 
         var filterTypes = data.filterTypes;
 
@@ -684,6 +689,7 @@ var BuildingMaster = React.createClass({
                         unitIndexToHighlight = {unitIndexToHighlight}
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId}
+                        dropDownData = {buildingDropwdownData}
                     />
 
                     <div id="page-content-wrapper">
