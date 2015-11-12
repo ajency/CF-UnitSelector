@@ -18,14 +18,36 @@ var svgData = {
     svgClasses: {
       'svg-area': true,
        'hide': false
-    }
+    },
+    hideSoloImage: true
 };
 
 var SteponeImage = React.createClass({
 
     getInitialState: function() {
         return svgData;
-    },    
+    }, 
+
+    getImageFrames: function(){
+        var frames;
+        var imageType = this.props.imageType;
+
+        var digitsInName = 2; 
+
+        path = this.getMasterImagePath(imageType);
+        imagePath = path["imagePath"];
+
+        var projectMasterImgUrl = imagePath;
+
+        if(!_.isEmpty(imagePath)){
+            frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
+             frame: [0, 35],
+             digits: digitsInName
+            });
+        }
+
+        return frames;
+    },   
 
     applyPanzoom: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
@@ -47,22 +69,8 @@ var SteponeImage = React.createClass({
     },
 
     applySpriteSpin: function(){
-        var frames;
-        var imageType = this.props.imageType;
 
-        var digitsInName = 2; 
-
-        path = this.getMasterImagePath(imageType);
-        imagePath = path["imagePath"];
-
-        var projectMasterImgUrl = imagePath;
-
-        if(!_.isEmpty(imagePath)){
-            frames = SpriteSpin.sourceArray(projectMasterImgUrl, {
-             frame: [0, 35],
-             digits: digitsInName
-            });
-        }
+        frames = this.getImageFrames();
 
         var spin = $('#spritespin');
         
@@ -211,16 +219,33 @@ var SteponeImage = React.createClass({
           "height": windowHeight
         }; 
 
-        showShadow = false;
+        showShadow = this.props.showShadow;
         var shadowImageClasses = classNames({
           'img-responsive': true,
           'fit': true,
           'no-shadow': true,
-          'hide-shadow': showShadow 
-        });  
+          'hide-shadow': showShadow,
+          'hide': !this.state.hideSoloImage
+        }); 
 
+        var soloImageClasses = classNames({
+            'img-responsive': true,
+            'fit': true,
+            'no-shadow': true,
+            'hide-shadow': showShadow,            
+            'hide': this.state.hideSoloImage
+        });
+
+        var soloImgUrl = "#"; 
+        var soloImgUrl = "#"; 
+
+        var shadowImages = this.props.shadowImages;
         var shadowImgUrl = "#";
-        var shadowImgUrl = "http://commonfloorlocal.com/projects/25/shadow/shadow-00.jpg";
+        shadowIndex = this.props.chosenBreakpoint;
+
+        if(shadowImages.length>0){
+            shadowImgUrl = shadowImages[shadowIndex];
+        }
 
         var buildings = this.props.buildings;
 
@@ -260,6 +285,7 @@ var SteponeImage = React.createClass({
                             />                        
                             
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
+                            <img src={shadowImgUrl} className={soloImageClasses} />
                             <img src={shadowImgUrl} className="img-responsive shadow fit" />
 
                         </div>
