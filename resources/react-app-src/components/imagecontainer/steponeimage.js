@@ -3,13 +3,23 @@ var ReactDOM = require('react-dom');
 var classNames = require('classnames');
 var SvgContainer = require('../project-master/svgcontainer');
 
+var PROJECTID = window.projectId;
+var BASEURL = window.baseUrl;
+
 var panZoomSettings = {
      startTransform: 'scale(1.0)',
      contain: 'invert',
      minScale: 1,
      disablePan: false,
      disableZoom: false
-  };  
+};
+
+var svgData = {
+    svgClasses: {
+      'svg-area': true,
+       'hide': false
+    }
+};
 
 var SteponeImage = React.createClass({
 
@@ -60,6 +70,28 @@ var SteponeImage = React.createClass({
        
     },
 
+    getMasterImagePath: function(imageType){
+        var imagePath="";
+        var baseImagePath="";
+        var masterImagePrefix = "master-";
+
+        if(imageType==="master"){
+          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/';
+          imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
+        }
+        else{
+          buildingId = this.props.buildingId;
+
+          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/buildings/'+buildingId+'/';
+
+          imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
+          
+        }
+
+        return {"imagePath":imagePath,"baseImagePath":baseImagePath};
+        
+    },
+
     render: function(){
 
         var domToDisplay;
@@ -97,6 +129,21 @@ var SteponeImage = React.createClass({
         var shadowImgUrl = "#";
         var shadowImgUrl = "http://commonfloorlocal.com/projects/25/shadow/shadow-00.jpg";
 
+        var buildings = this.props.buildings;
+
+        var buildingToHighlight = this.props.buildingToHighlight;
+        if(_.isEmpty(buildingToHighlight)){
+          if(buildings.length>0)
+            buildingToHighlight = buildings[0];
+          else
+            buildingToHighlight = {}
+
+        } 
+
+
+        path = this.getMasterImagePath(this.props.imageType);
+        svgBaseUrl = path["baseImagePath"];
+
 
 
         if(window.isMobile){
@@ -105,6 +152,19 @@ var SteponeImage = React.createClass({
                 <div className="us-right-content">
                     <div className="image-contain">
                         <div ref="imageContainer" className="image" style={imageContainerStyle}>
+
+                            <SvgContainer 
+                                ref="svgContainer"
+                                key={this.props.chosenBreakpoint} 
+                                svgData={svgData} 
+                                chosenBreakpoint={this.props.chosenBreakpoint}
+                                buildings={ buildings} 
+                                buildingToHighlight={buildingToHighlight} 
+                                imageType = {this.props.imageType}
+                                svgBaseUrl = {svgBaseUrl}
+                                showTooltip={ this.props.showTooltip} 
+                                updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                            />                        
                             
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
                             <img src={shadowImgUrl} className="img-responsive shadow fit" />
@@ -135,6 +195,19 @@ var SteponeImage = React.createClass({
 
                     <div ref="imageContain" className="image-contain" style={imageContainStyle}>
                         <div ref="imageContainer" className="image" style={imageContainerStyle}>
+
+                            <SvgContainer 
+                                ref="svgContainer"
+                                key={this.props.chosenBreakpoint} 
+                                svgData={svgData} 
+                                chosenBreakpoint={this.props.chosenBreakpoint}
+                                buildings={ buildings} 
+                                buildingToHighlight={buildingToHighlight} 
+                                imageType = {this.props.imageType}
+                                svgBaseUrl = {svgBaseUrl}
+                                showTooltip={ this.props.showTooltip} 
+                                updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                            />                          
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
                              
