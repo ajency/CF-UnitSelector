@@ -6,6 +6,7 @@ var Link = require('react-router-component').Link;
 var AppStore = require('../../stores/app-store.js');
 var CardList = require('../project-master/cardlist');
 var SideBar = require('../project-master/sidebar');
+var NavBar = require('../project-master/navbar');
 var immutabilityHelpers = require('react-addons-update');
 
 
@@ -167,7 +168,11 @@ var StepOne = React.createClass({
 
         console.log(newState);
 
-    },            
+    },   
+
+    showFilterModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.modal)).modal();
+    },             
 
     render: function(){
         
@@ -191,6 +196,15 @@ var StepOne = React.createClass({
 
             domToDisplay = (
                 <div id="site-wrapper">
+                    <NavBar 
+                        projectTitle = {projectTitle} 
+                        projectLogo = {projectLogo} 
+                        unitCount = {unitCount}
+                        showFilterModal = {this.showFilterModal}
+                        buildings = {buildings}
+                        isFilterApplied = {isFilterApplied}
+                        applied_filters = {applied_filters}
+                    />                
 
                     <SteponeImage
                         ref= "imageContainerone"                      
