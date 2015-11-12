@@ -284,11 +284,12 @@ function goToNextStep(anchor ,divClass)
     }
     else
     {
-       // $('.'+divClass).find('input, select').each(function(index) {
-       //      if($(this).val()=='' || $(this).hasClass("parsley-error")){
-       //         flag =false;
-       //      }
-       //  });
+       $('.'+divClass).find('input, select').each(function(index) {
+            if($(this).val()==''){
+               flag =false;
+            }
+        });
+
         if($( ".buyerDetails li.parsley-required").length >1)
             flag =false;
     
@@ -325,6 +326,10 @@ function updateTextValue()
 {
     if(!$( ".buyerDetails li.parsley-required").length){
      $("input[name='makePayment']").val('1');
+    }
+    else
+    {
+        $("#acc-1").click();
     }
 }
 

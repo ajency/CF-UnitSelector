@@ -136,7 +136,7 @@ $startTime= time();
                                     <input class="basic_info form-control" type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-length="[10, 12]"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                   <input class="basic_info form-control" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-required/>
+                                   <input class="basic_info form-control" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" data-parsley-required/>
                                 </div>
                             </div>
                                                             
