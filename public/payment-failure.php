@@ -13,7 +13,8 @@ $bookingId = $_SESSION['booking_id'];
 
 $projectId = $unitData['project_id'];
 
-$backlink = UNITSELECTOR_URL.'project/'.$projectId;
+$backlink = UNITSELECTOR_URL.'project/'.$projectId.'#/units/'.$unitId;
+$backhomelink = UNITSELECTOR_URL.'project/'.$projectId;
  
 unset($_SESSION);
 ?>
@@ -54,7 +55,7 @@ unset($_SESSION);
                       </div>
 
                       <a href="<?php echo $backlink;?>"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>
-                      <a href="<?php echo $backlink;?>"> <button class="btn btn-sm btn-default btn-primary">Back to home</button></a>
+                      <a href="<?php echo $backhomelink;?>"> <button class="btn btn-sm btn-default btn-primary">Back to home</button></a>
                     </div>
                   
                 </div>
