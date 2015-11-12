@@ -634,13 +634,19 @@ body {
   text-transform: uppercase;
   margin-left: -15px;
 }
-.unitDetails.builderName,
+.unitDetails.builderName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  width: 135px;
+}
 .unitDetails.localityName {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
   position: relative;
+  max-width: 100%;
 }
 .unitDetails i {
   color: #fe943e !important;
@@ -870,6 +876,7 @@ body {
   margin-top: 40px;
   margin-bottom: 20px;
   font-size: 14px;
+  color: #565654;
 }
 .bookingFooter a {
   font-size: 12px;

@@ -53,6 +53,12 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $buyer_email=$_POST['udf4'];
         $buyer_phone=$_POST['udf5'];
 
+        $_SESSION["mihpayid"]=$_POST['mihpayid'];
+        $_SESSION["booking_id"]= $booking_id;
+        $_SESSION["buyer_name"]=$_POST['udf3'];
+        $_SESSION["buyer_email"]=$_POST['udf4'];
+        $_SESSION["buyer_phone"]=$_POST['udf5'];
+
         $old_status = booking_history_status_booking_progress;  
         $new_status = booking_history_status_booking_failure; 
         $comments = booking_history_comment_payment_failure;  
@@ -122,17 +128,18 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $buyerData['STATE'] = $state;
         $buyerData['COUNTRY'] = $country;
 
-        //BILLING INFO
-        $billingData['billing_name']= $_POST['billing_first_name'].' '.$_POST['billing_last_name'];
-        $billingData['billing_email'] =$_POST['billing_email'];
-        $billingData['billing_mobile'] =$_POST['billing_mobile'];
-        $billingData['billing_pancard'] =$_POST['billing_pancard'];
-        $billingData['billing_city'] =$_POST['billing_city'];
-        $billingData['billing_address'] =$_POST['billing_address'];
-        $billingData['billing_zipcode'] =$_POST['billing_zipcode'];
-        $billingData['billing_buyer_type'] =$_POST['billing_buyer_type'];
-        $billingData['billing_state'] =$_POST['billing_state'];
-        $billingData['billing_country'] =$_POST['billing_country'];
+        $billingData =[];
+        // //BILLING INFO
+        // $billingData['billing_name']= $_POST['billing_first_name'].' '.$_POST['billing_last_name'];
+        // $billingData['billing_email'] =$_POST['billing_email'];
+        // $billingData['billing_mobile'] =$_POST['billing_mobile'];
+        // $billingData['billing_pancard'] =$_POST['billing_pancard'];
+        // $billingData['billing_city'] =$_POST['billing_city'];
+        // $billingData['billing_address'] =$_POST['billing_address'];
+        // $billingData['billing_zipcode'] =$_POST['billing_zipcode'];
+        // $billingData['billing_buyer_type'] =$_POST['billing_buyer_type'];
+        // $billingData['billing_state'] =$_POST['billing_state'];
+        // $billingData['billing_country'] =$_POST['billing_country'];
 
 
         

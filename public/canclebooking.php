@@ -12,6 +12,10 @@ $booking_amount=getBookingAmount($unitId,"booking_amount");
 $totalSaleValue=getBookingAmount($unitId,"sale_value");
 $bookingId = $_SESSION['booking_id'];
 //unset($_SESSION);
+
+$projectId = $unitData['project_id'];
+
+$backlink = UNITSELECTOR_URL.'project/'.$projectId;
 ?>
 <!doctype html>
 <html>
@@ -150,7 +154,7 @@ $bookingId = $_SESSION['booking_id'];
                                         Note : The refund can be made by cheque or NEFT.
                                     </div>      
                                     <div class="col-md-4 col-sm-4 col-xs-12 backToHomeBtn">    
-                                        <a href="http://www.commonfloor.com/"><button class="btn btn-sm btn-primary btn-default text-uppeercase">Back to home</button></a>
+                                        <a href="<?php echo $backlink;?>"><button class="btn btn-sm btn-primary btn-default text-uppeercase">Back to home</button></a>
                                     </div>                                                      
                                 </div>
                             </div>
@@ -211,6 +215,32 @@ $bookingId = $_SESSION['booking_id'];
             });
             
         </script>
+    <script type="text/javascript">
+ 
+    jQuery(document).ready(function($) {
+
+      if (window.history && window.history.pushState) {
+
+        $(window).on('popstate', function() {
+          var hashLocation = location.hash;
+          var hashSplit = hashLocation.split("#!/");
+          var hashName = hashSplit[1];
+
+          if (hashName !== '') {
+            var hash = window.location.hash;
+            if (hash === '') {
+              alert('This session is expired and the history altered.');
+                window.location='<?php echo $backlink;?>';
+                return false;
+            }
+          }
+        });
+
+        window.history.pushState('cancel-booking', null, './#cancel-booking');
+      }
+
+    });
+</script> 
 
     </body>                
 

@@ -1466,7 +1466,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                         <td width="15" valign="top" style="color: #999; font-size: 14px; vertical-align:top;" >
                           *
                         </td>
-                        <td width="585" style="color: #999; font-size: 14px;">
+                        <td width="585" style="color: #999; font-size: 13px;">
                           Booking can be cancelled within 7 days, for any queries please mail at '.$unitData['builder_email'].' or feel free to call on '.$unitData['builder_phone'].'.
                         </td>
                       </tr>

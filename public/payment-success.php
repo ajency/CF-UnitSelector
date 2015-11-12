@@ -14,6 +14,9 @@ $booking_amount=getBookingAmount($unitId,"booking_amount");
 $totalSaleValue=getBookingAmount($unitId,"sale_value");
 $bookingId = $_SESSION['booking_id'];
 
+$projectId = $unitData['project_id'];
+
+$backlink = UNITSELECTOR_URL.'project/'.$projectId;
 ?>
 <!doctype html>
 <html>
@@ -161,7 +164,7 @@ $bookingId = $_SESSION['booking_id'];
                                     <div class="col-md-6 col-xs-12">
                                         <a href="#"  onclick="refundAmount('<?php echo $unitId?>','<?php echo REFUND_URL;?>')" class="brn btn-default btn-sm btn-primary">Cancel booking</a>
                                         <span class="cancleText"><i class="fa">*</i> <span class="text">Booking can be cancelled within 7 days.
-                                        Contact <?php echo $unitData['builder_name']?> for more details. </span></span>                                      
+                                        Contact <?php echo $unitData['builder_phone']?> or <?php echo $unitData['builder_email']?> for more details. </span></span>                                      
                                     </div>
                                 </div>
                             </div>
@@ -254,6 +257,32 @@ $bookingId = $_SESSION['booking_id'];
                 }   */                
             });
         </script>
+        <script type="text/javascript">
+ 
+    jQuery(document).ready(function($) {
+
+      if (window.history && window.history.pushState) {
+
+        $(window).on('popstate', function() {
+          var hashLocation = location.hash;
+          var hashSplit = hashLocation.split("#!/");
+          var hashName = hashSplit[1];
+
+          if (hashName !== '') {
+            var hash = window.location.hash;
+            if (hash === '') {
+              alert('This session is expired and the history altered.');
+                window.location='<?php echo $backlink;?>';
+                return false;
+            }
+          }
+        });
+
+        window.history.pushState('payment-success', null, './#payment-success');
+      }
+
+    });
+</script>      
 
     </body>
 </html>

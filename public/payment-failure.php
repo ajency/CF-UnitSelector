@@ -7,11 +7,14 @@ $buyer_email = $_SESSION['buyer_email'];
 $buyer_phone = $_SESSION['buyer_phone'];
 $unitId = $_SESSION['unitId'];
 $unitinfo =  json_decode(getUnitInfo($unitId),true); 
-$unitData =$unitinfo['data'] ;
+$unitData =$unitinfo['data'] ; 
  
 $bookingId = $_SESSION['booking_id'];
+
+$projectId = $unitData['project_id'];
+
+$backlink = UNITSELECTOR_URL.'project/'.$projectId;
  
-session_start();
 unset($_SESSION);
 ?>
 <!doctype html>
@@ -50,8 +53,8 @@ unset($_SESSION);
                       <div class="col-xs-12">We regret to inform you that your payment for <b class="orangeText"><?php echo $unitData['unit']['name']?></b>  with Booking ID as <b><?php echo $bookingId;?></b> at <?php echo $unitData['project_title']?> for Project  is unsuccessful. Sorry for the inconvenience. The Unit booking could not proceed and you can still book the unit  by visiting at <a href="<?php echo $unitData['builder_link']?>"><?php echo $unitData['builder_link']?></a>.
                       </div>
 
-                      <a href="unit.php"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>
-                      <a href="http://www.commonfloor.com/"> <button class="btn btn-sm btn-default btn-primary">Back to home</button></a>
+                      <a href="<?php echo $backlink;?>"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>
+                      <a href="<?php echo $backlink;?>"> <button class="btn btn-sm btn-default btn-primary">Back to home</button></a>
                     </div>
                   
                 </div>
@@ -62,11 +65,37 @@ unset($_SESSION);
                  
             </div>
         </div>                         
-           
 
-        <script src="../cf-mobile/js/jquery.min.js"></script>
+
+        <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../cf-mobile/js/bootstrap.min.js"></script>
-    <script src="../cf-mobile/js/jquery.panzoom.js"></script>       
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.panzoom.js"></script>   
+    <script type="text/javascript">
+ 
+    jQuery(document).ready(function($) {
+
+      if (window.history && window.history.pushState) {
+
+        $(window).on('popstate', function() {
+          var hashLocation = location.hash;
+          var hashSplit = hashLocation.split("#!/");
+          var hashName = hashSplit[1];
+
+          if (hashName !== '') {
+            var hash = window.location.hash;
+            if (hash === '') {
+              alert('This session is expired and the history altered.');
+                window.location='<?php echo $backlink;?>';
+                return false;
+            }
+          }
+        });
+
+        window.history.pushState('payment-failure', null, './#payment-failure');
+      }
+
+    });
+</script>      
     </body>
 </html>

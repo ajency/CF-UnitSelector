@@ -1,5 +1,16 @@
 <?php
-session_start();
+require_once '../includes/include.php';
+require_once '../application/controller/indexController.php'; 
+
+$unitId = $_SESSION['unitId'];
+$unitinfo =  json_decode(getUnitInfo($unitId),true); 
+
+$unitData =$unitinfo['data'] ;
+$projectId = $unitData['project_id'];
+
+$backlink = UNITSELECTOR_URL.'project/'.$projectId.'#/units/'.$unitId;
+$backhomelink = UNITSELECTOR_URL.'project/'.$projectId;
+
 unset($_SESSION);
 ?>
 <!doctype html>
@@ -38,8 +49,8 @@ unset($_SESSION);
                           <h3 class="text-center text-uppercase">Your session is expired</h3>
                           <div class="col-xs-12">Sorry for the inconvinience.</div>
                                                 
-                          <a href="unit.php"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>
-                          <a href="http://www.commonfloor.com/"><button class="btn btn-sm btn-default btn-primary">Back to home</button></a>
+                          <a href="<?php echo $backlink;?>"><button class="btn btn-sm btn-default btn-primary">Try again</button></a>
+                          <a href="<?php echo $backhomelink;?>"><button class="btn btn-sm btn-default btn-primary">Back to home</button></a>
                     </div>
                     
                 </div>
@@ -81,7 +92,7 @@ unset($_SESSION);
             var hash = window.location.hash;
             if (hash === '') {
               alert('This session is expired and the history altered.');
-                window.location='unit.php';
+                window.location='<?php echo $backlink;?>';
                 return false;
             }
           }
