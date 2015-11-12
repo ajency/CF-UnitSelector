@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require('classnames');
 var SvgContainer = require('../project-master/svgcontainer');
+var immutabilityHelpers = require('react-addons-update');
 
 var PROJECTID = window.projectId;
 var BASEURL = window.baseUrl;
@@ -19,7 +20,7 @@ var svgData = {
       'svg-area': true,
        'hide': false
     },
-    hideSoloImage: true
+    hideSoloImage: false
 };
 
 var SteponeImage = React.createClass({
@@ -81,22 +82,32 @@ var SteponeImage = React.createClass({
             height: 1080,
             animate: false,
             onLoad: function(){
-                
-            },
+                // hide solo image
+                oldState = this.state;
+                newState = oldState;
+                newState = immutabilityHelpers( oldState, {hideSoloImage: {$set: true} });
+
+                if(this.isMounted()){
+                    this.setState(newState);
+                }
+
+                // show spritespin
+            }.bind(this),
             onFrame: function(e, data){
                 // destroy existing tooltips;
                 this.props.destroyTooltip();  
 
                 if(data.frame !== data.stopFrame){
-                    svgData = {
-                          svgClasses: 
-                            {'svg-area': true,
-                              'hide': true
-                            }
-                    }
 
+                    oldState = this.state;
+                    newState = oldState;
+                    newState = immutabilityHelpers( oldState, {svgClasses: 
+                                                                {hide: {$set: true} 
+                                                              }
+                                });
+                    
                     if(this.isMounted()){
-                        this.setState(svgData);
+                        this.setState(newState);
                     }
                 }
             }.bind(this)
@@ -106,14 +117,15 @@ var SteponeImage = React.createClass({
             console.log("stop animation");
             var that = this;
             
-            svgData = {
-              svgClasses: {'svg-area': true,
-                       'hide': false
-                  }
-            } 
+            oldState = this.state;
+            newState = oldState;
+            newState = immutabilityHelpers( oldState, {svgClasses: 
+                                                        {hide: {$set: false} 
+                                                      }
+                        });
 
             if(that.isMounted()){
-                that.setState(svgData);
+                that.setState(newState);
             }
 
             buildingToHighlight = this.props.buildingToHighlight;
@@ -137,11 +149,27 @@ var SteponeImage = React.createClass({
 
 
     componentDidMount: function() {
+
+        var breakpoints = this.props.breakpoints;
         
         this.applyPanzoom();
 
-        this.applySpriteSpin();
+        // decide whether or not to initialise spritespin, if breakpoints length is 1 the no need of spritespin
+        if(breakpoints.length>1){
+            this.applySpriteSpin();
+        }
        
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        spin = $("#spritespin");
+        data = spin.spritespin("data");
+
+        breakpoints = this.props.breakpoints;
+
+        if(_.isUndefined(data)&&(breakpoints.length>1)){
+            this.applySpriteSpin();
+        }
     },
 
     getMasterImagePath: function(imageType){
@@ -206,7 +234,7 @@ var SteponeImage = React.createClass({
 
         var rotateClasses = classNames({
           'rotate': true,
-          'hide': false
+          'hide': !this.state.hideSoloImage
         }); 
 
         var imageContainerStyle = {
@@ -262,6 +290,9 @@ var SteponeImage = React.createClass({
         path = this.getMasterImagePath(this.props.imageType);
         svgBaseUrl = path["baseImagePath"];
 
+        frames = this.getImageFrames();
+        soloImageUrl = frames[0];
+
 
 
         if(window.isMobile){
@@ -274,7 +305,7 @@ var SteponeImage = React.createClass({
                             <SvgContainer 
                                 ref="svgContainer"
                                 key={this.props.chosenBreakpoint} 
-                                svgData={svgData} 
+                                svgData={this.state} 
                                 chosenBreakpoint={this.props.chosenBreakpoint}
                                 buildings={ buildings} 
                                 buildingToHighlight={buildingToHighlight} 
@@ -285,7 +316,7 @@ var SteponeImage = React.createClass({
                             />                        
                             
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
-                            <img src={shadowImgUrl} className={soloImageClasses} />
+                            <img src={soloImageUrl} className={soloImageClasses} />
                             <img src={shadowImgUrl} className="img-responsive shadow fit" />
 
                         </div>
