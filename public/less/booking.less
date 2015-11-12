@@ -1601,3 +1601,75 @@ body
 	 }
 	} 
 }
+
+
+
+/**************** Custom select box ******************/
+
+.select {
+    cursor: pointer;
+    display: inline-block;
+    padding-right: 16px;
+    position: relative;
+    float: left;
+    width: 100%;
+    -webkit-user-select:none;
+       -moz-user-select:none;
+        -ms-user-select:none;
+         -o-user-select:none;
+            user-select:none;
+            text-align: left;
+}
+
+.styledSelect:after {
+    content: "\f13a";
+    font-family: FontAwesome;
+    position: absolute;
+    right: 10px;
+    color: @brand-primary;
+    top: 0px;
+    font-size: 17px;
+}
+
+.options {
+    background:@white;    
+    color: @gray-darker;
+    display: none;
+    font: 14px/24px sans-serif;
+    left: 2px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 2px;
+    top: 97%;
+    z-index: 999;
+    text-align: left;
+    border:1px solid @gray-light;
+}
+.active + .options {
+    z-index: 9999;
+}
+.options li {
+    padding: 3px 6px;
+    list-style: none;
+}
+
+.options li:hover {
+    background: @gray-lightest;   
+    color: #222;
+}
+.float-nav
+{
+  .select
+  {
+    ul
+    {
+      height: auto;
+    }
+  }
+  .styledSelect:after
+  {
+    content: "\f0d7";
+    color: @black;
+  }
+}
