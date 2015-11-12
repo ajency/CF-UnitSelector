@@ -46,7 +46,15 @@ var StepOne = React.createClass({
       this.setState(getStateData());
     },
 
+    componentWillUnmount: function() {
+        // destroy tooltips if any
+        this.destroyTooltip();
+    },
+
     showTooltip: function(text, selector){
+
+        // first destroy tooltip
+        this.destroyTooltip();
  
         // initialise qtip
         $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
