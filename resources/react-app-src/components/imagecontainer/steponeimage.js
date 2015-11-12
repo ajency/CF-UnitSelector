@@ -23,6 +23,10 @@ var svgData = {
 
 var SteponeImage = React.createClass({
 
+    getInitialState: function() {
+        return svgData;
+    },    
+
     applyPanzoom: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
         $imageContainerDom.panzoom(panZoomSettings);
@@ -72,15 +76,60 @@ var SteponeImage = React.createClass({
                 
             },
             onFrame: function(e, data){
-                console.log("On frame sprite spin");
-                console.log(this.props.imageType);
-            }.bind(this),
-        }); 
+                // destroy existing tooltips;
+                this.props.destroyTooltip();  
+
+                if(data.frame !== data.stopFrame){
+                    svgData = {
+                          svgClasses: 
+                            {'svg-area': true,
+                              'hide': true
+                            }
+                    }
+
+                    if(this.isMounted()){
+                        this.setState(svgData);
+                    }
+                }
+            }.bind(this)
+        });
+
+        spin.bind("onAnimationStop", function(){
+            console.log("stop animation");
+            var that = this;
+            
+            svgData = {
+              svgClasses: {'svg-area': true,
+                       'hide': false
+                  }
+            } 
+
+            if(that.isMounted()){
+                that.setState(svgData);
+            }
+
+            buildingToHighlight = this.props.buildingToHighlight;
+            
+            if(!_.isUndefined(buildingToHighlight)){
+                this.displayHighlightedTooltip();
+            }
+        }.bind(this)); 
 
     },
 
-    componentDidMount: function() {
+    displayHighlightedTooltip: function(){
+         
+        buildingToHighlight = this.props.buildingToHighlight;
+        
+        highlightedBuildingSelector = ".building"+buildingToHighlight.id; 
+        highlightedBuildingName = buildingToHighlight.building_name;  
 
+        this.props.showTooltip(highlightedBuildingName,highlightedBuildingSelector);
+    },
+
+
+    componentDidMount: function() {
+        
         this.applyPanzoom();
 
         this.applySpriteSpin();
@@ -112,6 +161,9 @@ var SteponeImage = React.createClass({
     rotateSpriteSpin: function(){
         var breakpoints = [];
         var spin, nextbreakpoint;
+
+        // destroy existing tooltips;
+        this.props.destroyTooltip();        
 
         breakpoints = this.props.breakpoints;
         currentBreakpoint = parseInt(this.props.chosenBreakpoint);
