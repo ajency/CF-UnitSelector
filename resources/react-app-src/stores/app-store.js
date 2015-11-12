@@ -160,11 +160,6 @@ function getUnitCount(propertyType,filters,buildingId,groupId){
 			var availableUnits = _.filter(availableUnits , function(unit){ if(unit.floor_group_id == groupId){return unit;} });
 		}
 
-
-		console.log(groupId);
-		console.log(availableUnits);
-
-		
 		// get all units that have building associated to it
 		//totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
 
@@ -470,9 +465,6 @@ function getUnitCount(propertyType,filters,buildingId,groupId){
 		unitCount["available"] = availableUnits ;
 		unitCount["filtered"] = filteredUnits ;
 	}
-
-	console.log(unitCount);
-	console.log(appliedFilters);
 
 	return unitCount;
 } 
@@ -821,8 +813,6 @@ function getSupportedUnitTypes(propertyType, collectivePropertyTypeId){
 
 function getFilterTypes(propertyType,buildingId,groupId){
 
-	console.log(groupId);
-
 	var filterTypes = [];
 
 	switch (propertyType) {
@@ -891,9 +881,6 @@ function getAllttributeFilters(propertyType){
 
 
 function getApartmentFilterTypes(propertyType,buildingId,groupId){
-
-	console.log(groupId);
-
 	
 	var attributeFilters = getAllttributeFilters(propertyType);
 	
@@ -910,8 +897,6 @@ function getApartmentFilterTypes(propertyType,buildingId,groupId){
 	}else{
 		var building = 'all';
 	}
-
-	console.log(building);
 
 	_.each(allFilterTypes, function(supportedFilterType){
 
@@ -1384,9 +1369,6 @@ function getFilteredProjectMasterData(buildingId,groupId){
 		newProjectData.isFilterApplied = true;
 	}
 
-
-	console.log(apartmentUnits);
-
     return newProjectData;
 
 }
@@ -1502,8 +1484,6 @@ function getSimilarUnitsByBudget(allUnits,sellingAmount,count){
 	});
 
 	var getClosests =  getClosestBudget(allAmounts, sellingAmount, count);
-	
-	console.log(allAmounts);
 
 	var simBudgetUnits = _.filter(allUnits , function(unit){		
 		if(_.indexOf(getClosests, unit.selling_amount) > -1){
@@ -1697,8 +1677,6 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 function formatBuildingStateData(stateDataToformat){
     var newState = stateDataToformat;
-
-    console.log(newState);
 
     buildings = stateDataToformat.data.buildings;
     
