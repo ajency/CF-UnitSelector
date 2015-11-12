@@ -1681,6 +1681,9 @@ select::-ms-expand {
 .step4Desk .detailView .unit .roomDetails:last-child {
   border-right: none;
 }
+.step4Desk .detailView .unit .roomDetails:nth-child(4n+1) {
+  padding-left: 15px;
+}
 .step4Desk .detailView .unit .hiddenContent {
   display: none;
 }
@@ -1905,60 +1908,5 @@ select::-ms-expand {
   .floatingButtons .floatingPlusIcon i {
     margin-top: 19px;
   }
-}
-.select {
-  cursor: pointer;
-  display: inline-block;
-  padding-right: 16px;
-  position: relative;
-  float: left;
-  width: 100%;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  text-align: left;
-}
-.styledSelect:after {
-  content: "\f13a";
-  font-family: FontAwesome;
-  position: absolute;
-  right: 10px;
-  color: #fe943e;
-  top: 0px;
-  font-size: 17px;
-}
-.options {
-  background: #ffffff;
-  color: #565654;
-  display: none;
-  font: 14px/24px sans-serif;
-  left: 0px;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  right: 2px;
-  top: 20px;
-  z-index: 999;
-  text-align: left;
-  border: 1px solid #bcbcba;
-}
-.active + .options {
-  z-index: 9999;
-}
-.options li {
-  padding: 3px 6px;
-  list-style: none;
-}
-.options li:hover {
-  background: #f6f6f6;
-  color: #222;
-}
-.float-nav .select ul {
-  height: auto;
-}
-.float-nav .styledSelect:after {
-  content: "\f0d7";
-  color: #000000;
 }
 /*# sourceMappingURL=custom-big.css.map */
