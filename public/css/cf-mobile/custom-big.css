@@ -552,11 +552,12 @@ body a {
   outline: none;
 }
 .navbar-header {
-  z-index: 99;
+  z-index: 99999;
 }
 .contactModal {
   left: 320px !important;
   top: 15% !important;
+  z-index: 99999;
 }
 .contactModal .modal-body {
   float: left;
@@ -1117,7 +1118,7 @@ select::-ms-expand {
 }
 .float-nav {
   position: fixed;
-  z-index: 15002;
+  z-index: 15;
   top: 20px;
   right: 170px;
   width: 470px;
@@ -1148,6 +1149,9 @@ select::-ms-expand {
   color: #565654;
 }
 .float-nav .filterLiTop h5 .filterHeader {
+  color: #fe943e;
+}
+.float-nav .filterLiTop h5 .filterHeader .link:hover {
   color: #fe943e;
 }
 .float-nav .filterLiTop button {
@@ -1264,6 +1268,7 @@ select::-ms-expand {
   margin-bottom: 0px;
   margin-top: 0;
   overflow: auto;
+  padding: 0 !important;
 }
 .float-nav.closed ul {
   opacity: 0;
@@ -1288,6 +1293,9 @@ select::-ms-expand {
 .float-nav li.filterCheckbox {
   background: #f6f6f6;
   padding: 10px 2px 0px;
+}
+.float-nav li.filterCheckbox ul li {
+  padding: 10px 5px;
 }
 .float-nav li.filterCheckbox div {
   padding: 0 5px;
@@ -1325,17 +1333,16 @@ select::-ms-expand {
   font-size: 89%;
   color: #f3f3f3;
   text-align: center;
-  line-height: 15px;
   background: #12acac;
   border: none;
   width: 16px;
   height: 16px;
   font-weight: 400;
-  padding-top: 1.2px;
+  /*padding-top:1.2px;*/
   display: block;
   border: 2px solid rgba(0, 0, 0, 0);
   margin: -2px 0 0 -2px;
-  line-height: 0.8;
+  line-height: 12px;
 }
 .float-nav li.budgetOuter {
   background: #f6f6f6;
