@@ -1151,6 +1151,9 @@ select::-ms-expand {
 .float-nav .filterLiTop h5 .filterHeader {
   color: #fe943e;
 }
+.float-nav .filterLiTop h5 .filterHeader .link:hover {
+  color: #fe943e;
+}
 .float-nav .filterLiTop button {
   margin-right: 30px;
 }
@@ -1265,6 +1268,7 @@ select::-ms-expand {
   margin-bottom: 0px;
   margin-top: 0;
   overflow: auto;
+  padding: 0 !important;
 }
 .float-nav.closed ul {
   opacity: 0;
@@ -1289,6 +1293,9 @@ select::-ms-expand {
 .float-nav li.filterCheckbox {
   background: #f6f6f6;
   padding: 10px 2px 0px;
+}
+.float-nav li.filterCheckbox ul li {
+  padding: 10px 5px;
 }
 .float-nav li.filterCheckbox div {
   padding: 0 5px;

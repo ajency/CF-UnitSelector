@@ -36,6 +36,13 @@
       .filterHeader
       {
         color:@brand-primary;
+        .link
+        {
+          &:hover
+          {
+            color:@brand-primary;
+          }
+        }
       }
     }
     button
@@ -162,6 +169,7 @@
     margin-bottom:0px;
     margin-top:0;
     overflow: auto;
+    padding: 0 !important;
 }
 .float-nav.closed ul { opacity: 0; }
 
@@ -188,6 +196,13 @@
   {
     background:@gray-lightest;
     padding:10px 2px 0px;
+    ul
+    {
+      li
+      {
+        padding: 10px 5px;
+      }
+    }
     div
     {
       padding:0 5px;
