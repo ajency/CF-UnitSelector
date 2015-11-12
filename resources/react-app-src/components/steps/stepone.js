@@ -5,6 +5,7 @@ var SteponeImage = require('../imagecontainer/steponeimage');
 var Link = require('react-router-component').Link; 
 var AppStore = require('../../stores/app-store.js');
 var CardList = require('../project-master/cardlist');
+var SideBar = require('../project-master/sidebar');
 var immutabilityHelpers = require('react-addons-update');
 
 
@@ -170,15 +171,21 @@ var StepOne = React.createClass({
 
     render: function(){
         
-        var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied;
+        var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
 
         data = this.state.data;
 
         // Get card list data
+        projectTitle = data.projectTitle;
+        projectLogo = data.projectLogo;
         cardListFor = "project";
         cardListForId = window.projectId; 
         buildings = data.buildings;
         isFilterApplied = data.isFilterApplied;
+        unitCount = data.totalCount;
+
+        unitIndexToHighlight = data.unitIndexToHighlight;
+        applied_filters = data.applied_filters;
 
         if(window.isMobile){
 
@@ -207,6 +214,21 @@ var StepOne = React.createClass({
             domToDisplay = (
                 <div id="wrapper">
 
+                    <SideBar                    
+                        ref = "sideBarList"
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId}
+                        buildings = {buildings}
+                        isFilterApplied = {isFilterApplied}
+                        rotateImage = {this.rotateImage}
+                        destroyTooltip = {this.destroyTooltip}              
+                        projectTitle = {projectTitle} 
+                        projectLogo = {projectLogo}
+                        unitCount = {unitCount} 
+                        unitIndexToHighlight = {unitIndexToHighlight}
+                        applied_filters = {applied_filters}     
+                    />                
+
                     <div id="page-content-wrapper">
 
                         <SteponeImage
@@ -215,12 +237,6 @@ var StepOne = React.createClass({
                         
 
                     </div>
-
-                    <div style={style}>
-                        <Link href={url}><h1 className="margin-none">NEXT STEP 2<i className="fa fa-angle-right"></i></h1></Link>
-                    </div>
-
-
        
                 </div>
             ); 
