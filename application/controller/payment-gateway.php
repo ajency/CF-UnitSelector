@@ -163,7 +163,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $payment_plan_id="";
         $price_sheet_id="";
 
-        $booking_amount=getBookingAmount($unit_id,"booking_amount",fasle); 
+        $booking_amount=getBookingAmount($unit_id,"booking_amount",'0'); 
         //$totalSaleValue=getBookingAmount($unit_id,"sale_value",fasle);
 
         $status =booking_history_status_booking_progress;  

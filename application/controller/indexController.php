@@ -260,7 +260,7 @@
                         
     //     }
 
-    function getBookingAmount($unit_id,$value,$flag=true){
+    function getBookingAmount($unit_id,$value,$flag='1'){
           $c = curl_init();
 
           $params['user']=USER;  //19;
