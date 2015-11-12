@@ -3,12 +3,31 @@ var ReactDOM = require('react-dom');
 var Modal = require('../modal/modal');
 var SteponeImage = require('../imagecontainer/steponeimage');
 var Link = require('react-router-component').Link; 
+var AppStore = require('../../stores/app-store.js');
 
 
+function getStateData(){
+    return AppStore.getStateData();
+}
 
 var StepOne = React.createClass({
 
+    getInitialState: function() {
+        return getStateData();
+    }, 
+
+    componentWillMount:function(){
+        AppStore.addChangeListener(this._onChange);
+    },  
+
+    _onChange:function(){
+      this.setState(getStateData());
+    },      
+
     render: function(){
+        
+        var domToDisplay;
+
         style = {
             "position" : "absolute",
             "zIndex" : "99999",
@@ -16,26 +35,47 @@ var StepOne = React.createClass({
 
         url = "/buildings/21";
 
-        domToDisplay = (
-            <div id="wrapper">
+        if(window.isMobile){
 
-                <div id="page-content-wrapper">
+            domToDisplay = (
+                <div id="site-wrapper">
 
                     <SteponeImage
                         ref= "imageContainerone"                      
                     />
-                    
 
+                    <div style={style}>
+                        <Link href={url}><h1 className="margin-none">NEXT STEP 2<i className="fa fa-angle-right"></i></h1></Link>
+                    </div>
+       
                 </div>
+            ); 
+        }
+        else{
 
-                <div style={style}>
-                    <Link href={url}><h1 className="margin-none">NEXT STEP 2<i className="fa fa-angle-right"></i></h1></Link>
+            domToDisplay = (
+                <div id="wrapper">
+
+                    <div id="page-content-wrapper">
+
+                        <SteponeImage
+                            ref= "imageContainerone"                      
+                        />
+                        
+
+                    </div>
+
+                    <div style={style}>
+                        <Link href={url}><h1 className="margin-none">NEXT STEP 2<i className="fa fa-angle-right"></i></h1></Link>
+                    </div>
+
+
+       
                 </div>
+            ); 
+        }
 
 
-   
-            </div>
-        ); 
 
         return domToDisplay;
     }
