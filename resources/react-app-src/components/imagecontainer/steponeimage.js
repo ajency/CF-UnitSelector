@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require('classnames');
+var SvgContainer = require('../project-master/svgcontainer');
 
 var panZoomSettings = {
      startTransform: 'scale(1.0)',
@@ -104,7 +105,7 @@ var SteponeImage = React.createClass({
                 <div className="us-right-content">
                     <div className="image-contain">
                         <div ref="imageContainer" className="image" style={imageContainerStyle}>
-
+                            
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
                             <img src={shadowImgUrl} className="img-responsive shadow fit" />
 

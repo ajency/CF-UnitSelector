@@ -9,6 +9,24 @@ var SideBar = require('../project-master/sidebar');
 var NavBar = require('../project-master/navbar');
 var immutabilityHelpers = require('react-addons-update');
 
+var qtipSettings = { // Grab some elements to apply the tooltip to
+    content: "Dummy Text",
+    show: {
+        when: false, // Don't specify a show event
+        ready: true // Show the tooltip when ready
+    },
+    hide: false,
+    style: {
+        classes: 'qtip-light',
+        tip: {
+            corner: 'bottom center',
+            mimic: 'bottom left',
+            border: 1,
+            width: 88,
+            height: 66
+        }
+    } // Don't specify a hide event
+};
 
 function getStateData(){
     return AppStore.getStateData();
@@ -26,7 +44,26 @@ var StepOne = React.createClass({
 
     _onChange:function(){
       this.setState(getStateData());
-    }, 
+    },
+
+    showTooltip: function(text, selector){
+ 
+        // initialise qtip
+        $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
+            $(item).qtip({ // Grab some elements to apply the tooltip to
+                content: text,
+                show: qtipSettings['show'],
+                hide: qtipSettings['hide'],
+                position:{
+                           my: 'center',  // Position my top left...
+                           at: 'center', // at the bottom right of...
+                           viewport: $(window), 
+                           target: $(item) // my target
+                       },
+                style:qtipSettings['style']
+            });
+        }); 
+    },  
 
     destroyTooltip: function(){
 
@@ -52,7 +89,46 @@ var StepOne = React.createClass({
         // update unit index to higlight
         this.updateStateData([{property:"chosenBreakpoint",value:rotateToBreakpoint},{property:"unitIndexToHighlight", value:unitIndexToHighlight }]);
 
-    }, 
+    },
+
+    updateUnitIndexToHighlight: function(unitId){
+        unitId = parseInt(unitId);
+        data  = this.state.data;
+        buildings  = data.buildings;
+        buildingIds  = _.pluck(buildings, 'id');
+
+        indexTohighlight = _.indexOf(buildingIds,unitId);
+
+        dataToSet ={
+            property: "unitIndexToHighlight",
+            value: indexTohighlight
+        };
+
+        this.updateStateData([dataToSet]);    
+
+    },
+
+    updateChosenBreakPoint: function(chosenBreakPoint){
+        dataToSet = {
+            property: "chosenBreakpoint",
+            value: chosenBreakPoint
+        }
+
+        this.updateStateData([dataToSet]);
+    },  
+    
+    updateRotateShadow: function(showShadowStatus){
+        dataToSet = {
+            property: "showShadow",
+            value: showShadowStatus
+        };
+
+        // this.updateStateData(dataToSet);
+
+        var delay=100000; //1 seconds
+
+        setTimeout(this.updateStateData([dataToSet]), delay);
+    },      
     
     updateStateData: function(data){
         oldState = getStateData();
@@ -177,6 +253,7 @@ var StepOne = React.createClass({
     render: function(){
         
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
+        var imageType, buildingToHighlight;
 
         data = this.state.data;
 
@@ -191,6 +268,11 @@ var StepOne = React.createClass({
 
         unitIndexToHighlight = data.unitIndexToHighlight;
         applied_filters = data.applied_filters;
+        buildingToHighlight = buildings[unitIndexToHighlight];
+
+
+        // Get image container data
+        imageType = "master";
 
         if(window.isMobile){
 
@@ -207,7 +289,19 @@ var StepOne = React.createClass({
                     />                
 
                     <SteponeImage
-                        ref= "imageContainerone"                      
+                        ref= "imageContainerone"
+                        imageType = {imageType}
+                        showShadow={data.showShadow}
+                        shadowImages={data.shadowImages}
+                        breakpoints = {data.breakpoints}
+                        chosenBreakpoint = {data.chosenBreakpoint}
+                        buildings =  {buildings}
+                        buildingToHighlight = {buildingToHighlight}
+                        destroyTooltip = {this.destroyTooltip}
+                        showTooltip = {this.showTooltip}
+                        updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
+                        updateChosenBreakPoint = {this.updateChosenBreakPoint}
+                        updateRotateShadow = {this.updateRotateShadow}                    
                     />
                     
                     <CardList 
@@ -246,7 +340,19 @@ var StepOne = React.createClass({
                     <div id="page-content-wrapper">
 
                         <SteponeImage
-                            ref= "imageContainerone"                      
+                            ref= "imageContainerone"
+                            imageType = {imageType}
+                            showShadow={data.showShadow}
+                            shadowImages={data.shadowImages}
+                            breakpoints = {data.breakpoints}
+                            chosenBreakpoint = {data.chosenBreakpoint}
+                            buildings =  {buildings}
+                            buildingToHighlight = {buildingToHighlight}
+                            destroyTooltip = {this.destroyTooltip}
+                            showTooltip = {this.showTooltip}
+                            updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
+                            updateChosenBreakPoint = {this.updateChosenBreakPoint}
+                            updateRotateShadow = {this.updateRotateShadow}                        
                         />
                         
 
