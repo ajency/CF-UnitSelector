@@ -252,7 +252,20 @@ $startTime= time();
                                     <div class="col-xs-12 titleDetails">Booking Amount</div>
                                 </div>
                                 <div>
-                                     <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><?php echo $unitData['builder_name']?></div>                                     
+                                     <?php
+                                     if(strlen($unitData['builder_name'])>18)
+                                     {
+                                        ?>
+                                        <div class="col-xs-12 unitDetails builderName" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo $unitData['builder_name']?>"><?php echo $unitData['builder_name']?></div>
+                                        <?php
+                                     }
+                                     else
+                                     {
+                                        ?>
+                                        <div class="col-xs-12 unitDetails builderName" ><?php echo $unitData['builder_name']?></div>
+                                        <?php
+                                     }
+                                     ?>
                                      <div class="col-xs-12 titleDetails">Builder</div>                                   
                                 </div>
                                 <div>
