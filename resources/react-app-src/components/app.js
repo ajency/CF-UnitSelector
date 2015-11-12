@@ -1,9 +1,7 @@
-var React = require('react')
-var PureRenderMixin = require('react-addons-pure-render-mixin');
-var ProjectMaster = require('./project-master/projectmaster');
-var StepOne = require('./project-master/stepone');
-var BuildingMaster = require('./building-master/buildingmaster');
-var GroupMaster = require('./building-master/groupmaster');
+var React = require('react');
+var StepOne = require('./steps/stepone');
+var StepTwo = require('./steps/steptwo');
+var StepThree = require('./steps/stepthree');
 var UnitDetails = require('./unit-details/unitdetails');
 var Router = require('react-router-component');
 var Template = require('./app-template');
@@ -22,8 +20,8 @@ var APP = React.createClass({
         <Template>
           <Locations hash>
             <Location path="/" handler={StepOne} />
-            <Location path="/buildings/:buildingId" handler={BuildingMaster} />
-            <Location path="/buildings/:buildingId/group/:groupId" handler={GroupMaster} />
+            <Location path="/buildings/:buildingId" handler={StepTwo} />
+            <Location path="/buildings/:buildingId/group/:groupId" handler={StepThree} />
             <Location path="/units/:unitId" handler={UnitDetails} />
           </Locations>
         </Template>
