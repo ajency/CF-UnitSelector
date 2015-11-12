@@ -194,6 +194,9 @@ div.spritespin-div {
 .step2-svg:hover {
   opacity: .2 !important;
 }
+html {
+  -ms-overflow-style: scrollbar;
+}
 body {
   -webkit-text-size-adjust: none;
   font-family: sans-serif;
