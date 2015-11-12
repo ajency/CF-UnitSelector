@@ -16,7 +16,9 @@
     }
     else
     {
-      header('location:'.SITE_URL.'public/unit.php');
+      $projectId = $unitData['data']['project_id'];
+      $backlink = UNITSELECTOR_URL.'project/'.$projectId.'#/units/'.$unitId;
+      header('location:'.$backlink);
       exit;
     }
     

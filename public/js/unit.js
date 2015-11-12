@@ -324,7 +324,14 @@ function makeUnitPayment()
 
 function updateTextValue()
 {
-    if(!$( ".buyerDetails li.parsley-required").length){
+    var err =0;
+    $('.buyerDetails').find('input, select').each(function(index) {
+        if($(this).val()==''){
+           err =err +1 ;
+        }
+    });
+
+    if(!$( ".buyerDetails li.parsley-required").length && err == 0){
      $("input[name='makePayment']").val('1');
     }
     else
