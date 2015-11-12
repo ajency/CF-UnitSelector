@@ -412,6 +412,22 @@ var StepOne = React.createClass({
                             updateChosenBreakPoint = {this.updateChosenBreakPoint}
                             updateRotateShadow = {this.updateRotateShadow}                        
                         />
+
+                        <div className="container-fluid">
+
+                            <div className="navbar-header">
+                                <div className="row">
+                                    
+                                    <SunToggle 
+                                        shadowImages={data.shadowImages}
+                                        toggelSunView = {this.toggelSunView} 
+                                        showShadow={data.showShadow}
+                                    />                                    
+
+                                </div>
+                            </div>
+                        
+                        </div>                        
                         
 
                     </div>
