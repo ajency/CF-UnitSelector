@@ -9,6 +9,8 @@ var SideBar = require('../project-master/sidebar');
 var NavBar = require('../project-master/navbar');
 var immutabilityHelpers = require('react-addons-update');
 
+var SunToggle = require('../project-master/suntoggle');
+
 var qtipSettings = { // Grab some elements to apply the tooltip to
     content: "Dummy Text",
     show: {
@@ -131,11 +133,11 @@ var StepOne = React.createClass({
             value: showShadowStatus
         };
 
-        // this.updateStateData(dataToSet);
+        this.updateStateData([dataToSet]);
 
-        var delay=100000; //1 seconds
+        // var delay=100000; //1 seconds
 
-        setTimeout(this.updateStateData([dataToSet]), delay);
+        // setTimeout(this.updateStateData([dataToSet]), delay);
     },      
     
     updateStateData: function(data){
@@ -279,7 +281,26 @@ var StepOne = React.createClass({
 
     showFilterModal: function(){
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
-    },             
+    }, 
+
+    toggelSunView: function(evt){
+        $clickedDiv = $(evt.currentTarget);
+
+        if($clickedDiv.hasClass('sun-highlight')){
+            showShadow = false;
+        }
+        else{
+            showShadow = true;    
+        }
+
+        dataToSet = {
+            property: "showShadow",
+            value: showShadow
+        }
+
+        this.updateStateData([dataToSet]);
+
+    },                
 
     render: function(){
         
@@ -317,7 +338,13 @@ var StepOne = React.createClass({
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
-                    />                
+                    />   
+
+                    <SunToggle 
+                        shadowImages={data.shadowImages}
+                        toggelSunView = {this.toggelSunView} 
+                        showShadow={data.showShadow}
+                    />
 
                     <SteponeImage
                         ref= "imageContainerone"

@@ -23,6 +23,8 @@ var svgData = {
     hideSoloImage: false
 };
 
+var prevShadowState = false;
+
 var SteponeImage = React.createClass({
 
     getInitialState: function() {
@@ -133,6 +135,13 @@ var SteponeImage = React.createClass({
             if(!_.isUndefined(buildingToHighlight)){
                 this.displayHighlightedTooltip();
             }
+
+            // check if shadow image was selected previously and set state accordingly
+            if(prevShadowState){
+                this.props.updateRotateShadow(prevShadowState);
+                prevShadowState = false;
+            }
+
         }.bind(this)); 
 
     },
@@ -199,7 +208,16 @@ var SteponeImage = React.createClass({
         var spin, nextbreakpoint;
 
         // destroy existing tooltips;
-        this.props.destroyTooltip();        
+        this.props.destroyTooltip(); 
+
+        prevShowShadow = this.props.showShadow;
+        
+        // store previous shadow state, to later use it to update main shadow state
+        prevShadowState = prevShowShadow;
+
+        if( this.props.showShadow ){
+            this.props.updateRotateShadow(false);
+        }       
 
         breakpoints = this.props.breakpoints;
         currentBreakpoint = parseInt(this.props.chosenBreakpoint);
