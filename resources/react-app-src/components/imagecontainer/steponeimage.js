@@ -109,6 +109,30 @@ var SteponeImage = React.createClass({
         
     },
 
+    rotateSpriteSpin: function(){
+        var breakpoints = [];
+        var spin, nextbreakpoint;
+
+        breakpoints = this.props.breakpoints;
+        currentBreakpoint = parseInt(this.props.chosenBreakpoint);
+
+        // find index of current breakpoint in the array of breakpoints and play sprite spin to the next breakpoint
+        indexOfCurrent = _.indexOf(breakpoints, currentBreakpoint);
+
+        if(indexOfCurrent === breakpoints.length-1){
+            nextbreakpoint = breakpoints[0];
+        }else{
+            nextbreakpoint = breakpoints[indexOfCurrent+1];
+        }
+        
+        spin = $('#spritespin');
+        api = spin.spritespin("api");
+        api.playTo(nextbreakpoint);
+
+        // update chosen breakpoint in the state data
+        this.props.updateChosenBreakPoint(nextbreakpoint);
+    },
+
     render: function(){
 
         var domToDisplay;
@@ -189,7 +213,7 @@ var SteponeImage = React.createClass({
                         </div>
                     </div>
 
-                    <div ref="next" className={rotateClasses}>
+                    <div ref="next" className={rotateClasses} onClick={this.rotateSpriteSpin}>
 
                     </div>
                 </div>         
@@ -206,7 +230,7 @@ var SteponeImage = React.createClass({
                         <br /> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
                      </div>
 
-                    <div className={rotateClasses}>
+                    <div className={rotateClasses} onClick={this.rotateSpriteSpin}>
                         <i id="next" className="i-icon i-icon-rotate"></i> Press To Rotate
                     </div>
 
