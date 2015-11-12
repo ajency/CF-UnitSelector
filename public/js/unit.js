@@ -241,11 +241,12 @@ function getPaymentPlan(id,is_booked,apartment_name,project_id,url){
             })
 }
 
-function refundAmount(id,url){ 
+function refundAmount(id,url){
+    $("#cancelbooking").val('1'); 
      if (confirm('Are you sure you want to cancel booking? ') === false) {
         return;
     }
-   
+    
     $.ajax({
         url: url,
         method:'POST',
@@ -258,8 +259,10 @@ function refundAmount(id,url){
         success: function(data){ 
             console.log(data);
             if(data !=1){
+                $("#cancelbooking").val('0');
                 alert("Issue while cancelling the book. Please contact Administrator for further process"); 
             }else{
+
                 //location.reload(); /////------------load the page
                 window.location= "canclebooking.php";
             }

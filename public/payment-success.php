@@ -227,6 +227,7 @@ $backlink = UNITSELECTOR_URL.'project/'.$projectId;
                 </div>
             </div>
         </div>
+        <input type="hidden" name="cancelbooking" id="cancelbooking" value="0">
      <script src="js/jquery.min.js"></script>
     <script src="js/unit.js"></script>
    
@@ -267,8 +268,8 @@ $backlink = UNITSELECTOR_URL.'project/'.$projectId;
           var hashLocation = location.hash;
           var hashSplit = hashLocation.split("#!/");
           var hashName = hashSplit[1];
-
-          if (hashName !== '') {
+       
+          if (hashName !== '' && $("#cancelbooking").val()=='0') {
             var hash = window.location.hash;
             if (hash === '') {
               alert('This session is expired and the history altered.');
