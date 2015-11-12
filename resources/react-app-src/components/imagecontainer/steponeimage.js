@@ -349,7 +349,7 @@ var SteponeImage = React.createClass({
                             <SvgContainer 
                                 ref="svgContainer"
                                 key={this.props.chosenBreakpoint} 
-                                svgData={svgData} 
+                                svgData={this.state} 
                                 chosenBreakpoint={this.props.chosenBreakpoint}
                                 buildings={ buildings} 
                                 buildingToHighlight={buildingToHighlight} 
@@ -360,7 +360,7 @@ var SteponeImage = React.createClass({
                             />                          
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
-                             
+                            <img src={soloImageUrl} className={soloImageClasses} />
                             <img  src={shadowImgUrl} className="img-responsive shadow fit" />
 
                         </div>

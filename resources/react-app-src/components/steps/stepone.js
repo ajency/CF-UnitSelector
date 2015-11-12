@@ -252,7 +252,30 @@ var StepOne = React.createClass({
 
         console.log(newState);
 
-    },   
+    },  
+
+    projectDataUpdateCallBack: function(){
+        spin = $(ReactDOM.findDOMNode(this.refs.imageContainerone)).find("#spritespin");
+        api = spin.spritespin("api");
+
+        chosenBreakPoint = this.state.data.chosenBreakpoint
+        api.playTo(chosenBreakPoint);
+
+        slideToGotTo = this.state.data.unitIndexToHighlight;
+
+        if(window.isMobile){
+            mySwiper = $(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container")[0].swiper;
+            mySwiper.slideTo(slideToGotTo);
+        }
+
+        this.destroyTooltip();
+
+        buildings = this.state.data.buildings;
+        buildingToHighlight = buildings[slideToGotTo];
+        buildingName = buildingToHighlight.building_name;
+
+        this.showTooltip(buildingName,".building"+buildingToHighlight.id);
+    },     
 
     showFilterModal: function(){
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
