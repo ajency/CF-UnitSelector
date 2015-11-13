@@ -316,6 +316,10 @@ var StepOne = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
     }, 
 
+    showContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
+    },     
+
     toggelSunView: function(evt){
         $clickedDiv = $(evt.currentTarget);
 
@@ -591,7 +595,13 @@ var StepOne = React.createClass({
                                 </div>
                             </div>
                         
-                        </div>                        
+                        </div> 
+
+                       <Modal 
+                            ref="contactModal" 
+                            modalData = {modalData}
+                            modalPurpose = "contactModal"
+                        />
                         
 
                     </div>
