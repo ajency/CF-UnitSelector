@@ -1148,14 +1148,14 @@ select::-ms-expand {
   transition: all 300ms;
 }
 .float-nav .filterLiTop h5 {
-  margin: 10px 0 0 0;
+  margin: 8px 0 0 0;
   float: left;
   color: #565654;
 }
 .float-nav .filterLiTop h5 .filterHeader {
   color: #fe943e;
 }
-.float-nav .filterLiTop h5 .filterHeader .link:hover {
+.float-nav .filterLiTop h5 .filterHeader.link:hover {
   color: #fe943e;
 }
 .float-nav .filterLiTop button {
@@ -1810,11 +1810,13 @@ select::-ms-expand {
 .step4Desk .specificationOuter .textInner h5 {
   margin-bottom: 0px;
   color: #565654;
+  width: 12%;
 }
 .step4Desk .specificationOuter .textInner > div {
   color: #565654;
   font-size: 12px;
   text-transform: uppercase;
+  width: 88%;
 }
 .step4Desk .specificationOuter .textInner:first-child {
   margin-top: 10px;
@@ -1920,6 +1922,12 @@ select::-ms-expand {
   }
   .floatingButtons .floatingPlusIcon i {
     margin-top: 19px;
+  }
+  .step4Desk .specificationOuter .textInner h5 {
+    width: 20%;
+  }
+  .step4Desk .specificationOuter .textInner > div {
+    width: 80%;
   }
 }
 /*# sourceMappingURL=custom-big.css.map */
