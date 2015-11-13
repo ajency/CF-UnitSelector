@@ -466,6 +466,7 @@ var StepOne = React.createClass({
                         projectLogo = {projectLogo} 
                         unitCount = {unitCount}
                         showFilterModal = {this.showFilterModal}
+                        showContactModal = {this.showContactModal}
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
@@ -478,7 +479,12 @@ var StepOne = React.createClass({
                         selectFilter={this.selectFilter}
                         applyFilters = {this.applyFilters}
                         unapplyFilters = {this.unapplyFilters}
-                    />                      
+                    /> 
+                    <Modal 
+                        ref="contactModal" 
+                        modalData = {modalData}
+                        modalPurpose = "contactModal"
+                    />                     
 
                     <SunToggle 
                         shadowImages={data.shadowImages}

@@ -99,7 +99,7 @@ _.each(applied_filters, function(filter, key){
                         </div>
                         <div className="col-xs-4 p-0">
                           <ul className="list-inline pull-right">
-                            <li> <i className="i-phone i-icon"></i></li>
+                            <li onClick={this.props.showContactModal}> <i className="i-phone i-icon"></i></li>
                             <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i><span className={filterClasses}>{appliedFilterCount}</span></li>
                           </ul>
                         </div>
