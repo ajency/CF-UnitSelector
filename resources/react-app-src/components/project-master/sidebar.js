@@ -66,6 +66,7 @@ var SideBar = React.createClass({
                     cardListForId = {cardListForId}
                     projectTitle = {this.props.projectTitle} 
                     projectLogo = {this.props.projectLogo} 
+                    logoExist = {this.props.logoExist}
                     unitCount = {this.props.unitCount}
                     showFilterModal = {this.props.showFilterModal}
                     buildings = {this.props.buildings}

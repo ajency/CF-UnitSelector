@@ -129,12 +129,13 @@ _.each(applied_filters, function(filter, key){
                         );
         }
 
-        if(_.isEmpty(this.props.projectLogo)){
-          logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
+        if(this.props.logoExist){
+          logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
           
         }
         else{
-          logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
+          
+          logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
         }
          
 

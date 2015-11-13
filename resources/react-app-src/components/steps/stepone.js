@@ -437,6 +437,7 @@ var StepOne = React.createClass({
         // Get card list data
         projectTitle = data.projectTitle;
         projectLogo = data.projectLogo;
+        logoExist = data.logoExist;
         cardListFor = "project";
         cardListForId = window.projectId; 
         buildings = data.buildings;
@@ -465,6 +466,7 @@ var StepOne = React.createClass({
                     <NavBar 
                         projectTitle = {projectTitle} 
                         projectLogo = {projectLogo} 
+                        logoExist = {logoExist} 
                         unitCount = {unitCount}
                         showFilterModal = {this.showFilterModal}
                         showContactModal = {this.showContactModal}
@@ -545,6 +547,7 @@ var StepOne = React.createClass({
                         destroyTooltip = {this.destroyTooltip}              
                         projectTitle = {projectTitle} 
                         projectLogo = {projectLogo}
+                        logoExist = {logoExist}
                         unitCount = {unitCount} 
                         unitIndexToHighlight = {unitIndexToHighlight}
                         applied_filters = {applied_filters}     

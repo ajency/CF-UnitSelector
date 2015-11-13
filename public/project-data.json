@@ -4,6 +4,7 @@
     "id": 7,
     "project_title": "Hiranandani Upscale Bannerghatta",
     "logo": "http://www.commonfloor.com/public/images/builder/house-of-hiranandani-logo.gif",
+    "logo_exist": true,
     "project_master": [
       "http://test.cfunitselectortest.com/projects/7/master/master-00.jpg",
       "http://test.cfunitselectortest.com/projects/7/master/master-01.jpg",
@@ -101,25 +102,25 @@
           "2.5BHK",
           "3BHK"
         ],
-        "starting_area": 68296384,
+        "starting_area": 852,
         "availability": {
-          "sold": 9,
-          "blocked": 0
+          "sold": 0,
+          "blocked": 3
         },
-        "starting_price": 84340143
+        "starting_price": 662
       }
     },
     "filters": {
       "defaults": [
         "area",
         "budget",
-        "views",
         "direction",
         "floor"
       ],
       "Apartment": [
         "unitTypes",
-        "unitVariantNames"
+        "unitVariantNames",
+        "Flooring"
       ]
     },
     "buildings": [
@@ -590,7 +591,41 @@
         ]
       }
     ],
-    "notlive_buildings": [],
+    "notlive_buildings": [
+      {
+        "id": 28,
+        "building_name": "Wing G",
+        "phase_id": 18,
+        "no_of_floors": 6,
+        "floors": [],
+        "building_master": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/28/master-00.jpg"
+        ],
+        "created_at": "2015-11-11 14:14:50",
+        "updated_at": "2015-11-11 14:18:38",
+        "breakpoints": [
+          0
+        ],
+        "abbrevation": "",
+        "has_master": "yes",
+        "floor_rise": 1000,
+        "shadow_images": [],
+        "primary_breakpoint": null,
+        "floor_group": [
+          {
+            "id": 45,
+            "building_id": 28,
+            "name": "Floor 1-2",
+            "floors": [
+              1
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          }
+        ]
+      }
+    ],
     "bunglow_variants": [],
     "apartment_variants": [
       {
@@ -602,10 +637,11 @@
         "super_built_up_area": 1255,
         "per_sq_ft_price": 1000,
         "variant_attributes": {
-          "Flooring": "Wooden "
+          "Flooring": "Wooden ",
+          "Roofing": "pop"
         },
         "created_at": "2015-11-05 06:14:02",
-        "updated_at": "2015-11-05 06:14:02",
+        "updated_at": "2015-11-13 11:28:30",
         "deleted_at": null,
         "size": 0,
         "floor": [
@@ -636,6 +672,24 @@
                   {
                     "attribute_key": "dimension",
                     "attribute_value": "11'3\" x 5'7\""
+                  }
+                ]
+              },
+              {
+                "room_id": 22,
+                "room_name": "Balcony",
+                "atributes": [
+                  {
+                    "attribute_key": "size-sq-ft",
+                    "attribute_value": "11'3\" x 5'7\""
+                  },
+                  {
+                    "attribute_key": "dimension",
+                    "attribute_value": "Asdsda"
+                  },
+                  {
+                    "attribute_key": "color",
+                    "attribute_value": "Dasdasdasdasdasdasdasdasda sadsad sdasdasd asdasd asdsad asd asdasda sd asd asdasdasd sad asd asd asd asda asd asd asqweqweqwe rtertertqwertyuiop asdfghjkl zxcvbnm."
                   }
                 ]
               }
@@ -708,6 +762,10 @@
         {
           "phase_id": 17,
           "phase_name": "Phase 2"
+        },
+        {
+          "phase_id": 18,
+          "phase_name": "Phase 3"
         }
       ],
       "floor_rise": null,
@@ -2096,14 +2154,14 @@
         "floor": 1,
         "building_id": 24,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:23:55",
+        "updated_at": "2015-11-12 13:15:02",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "56448c88f1906",
         "floor_group_id": 22,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2172,14 +2230,14 @@
         "floor": 2,
         "building_id": 24,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:23:46",
+        "updated_at": "2015-11-12 13:12:16",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "56448d7bb25e8",
         "floor_group_id": 22,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2238,7 +2296,7 @@
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
         "id": 175,
@@ -2552,14 +2610,14 @@
         "floor": 1,
         "building_id": 23,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 12:54:33",
+        "updated_at": "2015-11-12 05:53:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "563ca14132212",
+        "booking_id": "56442583828c8",
         "floor_group_id": 19,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2628,18 +2686,18 @@
         "floor": 2,
         "building_id": 23,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-11 07:54:35",
+        "updated_at": "2015-11-12 07:43:40",
         "phase_id": 0,
         "views": [
           "Swimming pool",
           "Garden",
           "Playground"
         ],
-        "direction": "Noth-East",
+        "direction": "North-East",
         "agent_id": 0,
         "booked_at": "2015-11-11 07:54:35",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564438a359666",
         "floor_group_id": 19,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2698,7 +2756,7 @@
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
         "id": 169,
@@ -2784,14 +2842,14 @@
         "floor": 4,
         "building_id": 23,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 06:50:18",
+        "updated_at": "2015-11-12 06:06:14",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "5644283595bf3",
         "floor_group_id": 20,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2850,7 +2908,7 @@
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
         "id": 171,
@@ -2860,14 +2918,14 @@
         "floor": 5,
         "building_id": 23,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 06:50:40",
+        "updated_at": "2015-11-12 11:31:55",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "56447847bf41f",
         "floor_group_id": 21,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2926,7 +2984,7 @@
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
         "id": 172,
@@ -2936,14 +2994,14 @@
         "floor": 6,
         "building_id": 23,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 06:50:48",
+        "updated_at": "2015-11-12 11:32:43",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "5644784a72b7d",
         "floor_group_id": 21,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3012,7 +3070,7 @@
         "floor": 1,
         "building_id": 21,
         "created_at": "2015-11-05 06:19:22",
-        "updated_at": "2015-11-09 10:40:37",
+        "updated_at": "2015-11-13 11:04:08",
         "phase_id": 0,
         "views": [
           "Swimming pool",
@@ -3020,7 +3078,7 @@
         ],
         "direction": "North",
         "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
+        "booked_at": "2015-11-13 11:04:08",
         "property_type_group_id": 0,
         "booking_id": "5640747c71c6a",
         "floor_group_id": 13,
@@ -3081,7 +3139,7 @@
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "sold"
+        "availability": "available"
       },
       {
         "id": 159,
@@ -3167,14 +3225,14 @@
         "floor": 3,
         "building_id": 21,
         "created_at": "2015-11-05 06:20:18",
-        "updated_at": "2015-11-09 11:39:01",
+        "updated_at": "2015-11-13 04:53:38",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "5640822b4a194",
+        "booking_id": "56456afd7b4dc",
         "floor_group_id": 14,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3243,14 +3301,14 @@
         "floor": 4,
         "building_id": 21,
         "created_at": "2015-11-05 06:24:03",
-        "updated_at": "2015-11-09 11:45:12",
+        "updated_at": "2015-11-12 07:20:51",
         "phase_id": 0,
         "views": [],
         "direction": "North",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "564082d73df8e",
+        "booking_id": "564434b32c715",
         "floor_group_id": 14,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3309,7 +3367,7 @@
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
         "id": 162,
@@ -3319,14 +3377,14 @@
         "floor": 5,
         "building_id": 21,
         "created_at": "2015-11-05 06:25:37",
-        "updated_at": "2015-11-05 06:34:14",
+        "updated_at": "2015-11-12 12:49:24",
         "phase_id": 0,
         "views": [],
         "direction": "North-West",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "56448906dab8f",
         "floor_group_id": 15,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3385,7 +3443,7 @@
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
         "id": 163,
@@ -3395,14 +3453,14 @@
         "floor": 6,
         "building_id": 21,
         "created_at": "2015-11-05 06:26:20",
-        "updated_at": "2015-11-05 06:33:19",
+        "updated_at": "2015-11-12 12:14:02",
         "phase_id": 0,
         "views": [],
         "direction": "North-West",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "56447ee7ae918",
         "floor_group_id": 15,
         "breakpoint": 0,
         "booking_amount": 20000,
