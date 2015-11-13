@@ -687,11 +687,17 @@ function getPropertyVariants(propertyType,variant,buildingId,groupId){
 	
 
 	_.each(filteredVariants, function(p_variants){
+
+		if(p_variants.variant_attributes.hasOwnProperty(variant)){			
+		
 				var variantName = p_variants.variant_attributes[variant];
+				var formatCheck = variantName.toString();
+				var formatedName = formatCheck[0].toUpperCase() + formatCheck.substr(1);
+				
 	    		var var_attributes = {
 	    			id: variantName,
 	    			isSelected: false,
-	    			name: variantName[0].toUpperCase() + variantName.substr(1),
+	    			name: formatedName,
 	    			property_type_id: prop_type_id
 	    		};
 
@@ -702,7 +708,8 @@ function getPropertyVariants(propertyType,variant,buildingId,groupId){
 	    		if(!check){
 	    			variants.push(var_attributes);
 	    		}
-	    	});
+	    }
+	});
 
 	return variants;
 }
@@ -956,7 +963,10 @@ function getApartmentFilterTypes(propertyType,buildingId,groupId){
 					filterType.filterName = attribute;
 					filterType.filterDisplayType = "normalCheckbox";
 
+					//getPropertyVariants(propertyType,attribute,building,groupId);
+
 					filterType.filterValues = getPropertyVariants(propertyType,attribute,building,groupId);
+					//filterType.filterValues = [];
 
 					if(filterType.filterValues.length>0){
 						filterTypes.push(filterType);
@@ -1263,6 +1273,10 @@ function _updateGlobalState(newStateData,type){
 	  case "buildingFloorGroups":
 	      _buildingMasterStateData = newStateData;
 	      break;
+
+	  case "singleUnits":
+	      _groupStateData = newStateData;
+	      break;
 	  default:
 	      _globalStateData = newStateData;
 	}	
@@ -1315,7 +1329,23 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 	var newProjectData = {};
 
-	if(buildingId != ''){
+	/*if(buildingId != ''){
+		newProjectData = _buildingMasterStateData.data;
+		appliedFilters = _buildingMasterStateData.data.applied_filters;
+	}else{
+		newProjectData = _globalStateData.data;
+		appliedFilters = _globalStateData.data.applied_filters;
+	}
+
+	if(groupId != ''){
+		newProjectData = _groupStateData.data;
+		appliedFilters = _groupStateData.data.applied_filters;
+	}*/
+
+	if(buildingId != '' && groupId != ''){
+		newProjectData = _groupStateData.data;
+		appliedFilters = _groupStateData.data.applied_filters;
+	}else if(buildingId != '' && groupId == ''){
 		newProjectData = _buildingMasterStateData.data;
 		appliedFilters = _buildingMasterStateData.data.applied_filters;
 	}else{
@@ -1390,6 +1420,8 @@ function getFilteredProjectMasterData(buildingId,groupId){
     return newProjectData;
 
 }
+
+
 
 
 function getSimilarUnits(unitId){
@@ -1695,6 +1727,10 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 }
 
+
+
+
+
 function formatBuildingStateData(stateDataToformat){
     var newState = stateDataToformat;
 
@@ -1869,6 +1905,9 @@ var AppStore = merge(EventEmitter.prototype, {
 		return unitTypes;
 	},
 
+
+	
+	
 	
 
   	// Register callback with AppDispatcher

@@ -7,22 +7,7 @@ var SimilarUnits = React.createClass({
 
   render: function () {
 
-    var similarUnits = this.props.similarUnits;
-
-    var beautifyAmount = function (amount){
-      var amount = parseInt(amount);
-    var formatedAmount;
-    if(amount>=10000000){
-      formatedAmount = Math.round((amount/10000000),1)+' crore';
-    }else if(amount>=100000){
-      formatedAmount = Math.round((amount/100000),1)+' lakh';
-    }else if(amount>=1000){
-      formatedAmount = Math.round((amount/1000),1)+' thousand';
-    }else if(amount<1000){
-      formatedAmount = amount;
-    }
-    return formatedAmount;
-    };
+    var similarUnits = this.props.similarUnits;   
 
         
     console.log(window.location.pathname);
@@ -37,7 +22,7 @@ var SimilarUnits = React.createClass({
                       <h5 className=" margin-none text-left text-uppercase"> {unit.name}</h5>
                    </div>
                    <div className="col-xs-12 text-muted price">
-                      From <PriceFormat numPrice={unit.sellingAmount} />
+                      From <span className="amount"><i className="fa fa-inr"></i><PriceFormat numPrice={unit.sellingAmount} /></span>
                    </div>
                 </div>
                 <div className=" swipe-unit-info row">

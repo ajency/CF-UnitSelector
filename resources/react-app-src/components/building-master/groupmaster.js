@@ -434,7 +434,13 @@ var GroupMaster = React.createClass({
                                                             {unitIndexToHighlight: {$set: dataToSet.value} 
                                                             }
                                                           });                
-            }  
+            }
+
+
+            if(dataToSet.property === "data"){
+             newState = immutabilityHelpers( oldState, { data: {$set: newState}
+            });                
+            }      
 
             oldState = newState;               
 
@@ -443,7 +449,7 @@ var GroupMaster = React.createClass({
 
 
         this.setState(newState, this.projectDataUpdateCallBack);
-        AppStore.updateGlobalState(newState,"buildingFloorGroups");
+        AppStore.updateGlobalState(newState,"singleUnits");
 
     },
 
@@ -565,6 +571,11 @@ var GroupMaster = React.createClass({
             buildingId = this.props.buildingId;
             groupId = this.props.groupId;
 
+
+            var allBuildings = AppStore.getProjectData();
+            var currentBuilding = _.find(allBuildings.buildings, function(f){ return f.id == buildingId;});            
+            var groupDropwdownData = currentBuilding.floor_group;
+
             var cardListFor = "group";
             var cardListForId = groupId;       
         }
@@ -649,6 +660,8 @@ var GroupMaster = React.createClass({
                         unitIndexToHighlight = {unitIndexToHighlight}
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId} 
+                        dropDownData = {groupDropwdownData}
+                        buildingId = {this.props.buildingId}
                     />
 
                     <div id="page-content-wrapper">
