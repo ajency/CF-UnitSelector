@@ -23,6 +23,8 @@ var svgData = {
     hideSoloImage: false
 };
 
+var svgKeyType = "breakpoint";
+
 var SteponeImage = React.createClass({
 
     getInitialState: function() {
@@ -237,10 +239,29 @@ var SteponeImage = React.createClass({
         this.props.updateChosenBreakPoint(nextbreakpoint);
     },
 
+    getRandomArbitrary: function (min, max) {
+        return Math.random() * (max - min) + min;
+    }, 
+
+    componentWillReceiveProps: function(nextProps) {
+        prevBreakPoint = this.props.chosenBreakpoint;
+        newBreakPoint = nextProps.chosenBreakpoint;
+
+        applyFiltersSvgCheck = nextProps.applyFiltersSvgCheck;
+
+        if((prevBreakPoint===newBreakPoint)&&(applyFiltersSvgCheck)){
+            svgKeyType = "random";
+        }
+        else{
+            svgKeyType = "breakpoint" ;
+        }
+    },  
+
     render: function(){
 
         var domToDisplay;
         var windowHeight = window.innerHeight ;
+        var svgKey;
 
 
         var  parentContainerStyle ={
@@ -309,7 +330,13 @@ var SteponeImage = React.createClass({
         frames = this.getImageFrames();
         soloImageUrl = frames[0];
 
-
+        
+        if(svgKeyType==="random"){
+            svgkey = parseInt(this.getRandomArbitrary(1,100));
+        }
+        else{
+            svgkey = this.props.chosenBreakpoint;
+        }
 
         if(window.isMobile){
             domToDisplay = (
@@ -320,7 +347,7 @@ var SteponeImage = React.createClass({
 
                             <SvgContainer 
                                 ref="svgContainer"
-                                key={this.props.chosenBreakpoint} 
+                                key={svgkey} 
                                 svgData={this.state} 
                                 chosenBreakpoint={this.props.chosenBreakpoint}
                                 buildings={ buildings} 
@@ -329,6 +356,8 @@ var SteponeImage = React.createClass({
                                 svgBaseUrl = {svgBaseUrl}
                                 showTooltip={ this.props.showTooltip} 
                                 updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                                applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
+                                updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
                             />                        
                             
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
@@ -364,7 +393,7 @@ var SteponeImage = React.createClass({
 
                             <SvgContainer 
                                 ref="svgContainer"
-                                key={this.props.chosenBreakpoint} 
+                                key={svgkey} 
                                 svgData={this.state} 
                                 chosenBreakpoint={this.props.chosenBreakpoint}
                                 buildings={ buildings} 
@@ -373,6 +402,8 @@ var SteponeImage = React.createClass({
                                 svgBaseUrl = {svgBaseUrl}
                                 showTooltip={ this.props.showTooltip} 
                                 updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                                applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
+                                updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
                             />                          
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>

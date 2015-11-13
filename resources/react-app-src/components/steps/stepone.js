@@ -10,6 +10,7 @@ var NavBar = require('../project-master/navbar');
 var immutabilityHelpers = require('react-addons-update');
 var SunToggle = require('../project-master/suntoggle');
 var Modal = require('../modal/modal');
+var FilterPopover = require('../filter/filterpopover');
 
 
 var qtipSettings = { // Grab some elements to apply the tooltip to
@@ -150,7 +151,20 @@ var StepOne = React.createClass({
         // var delay=100000; //1 seconds
 
         // setTimeout(this.updateStateData([dataToSet]), delay);
-    },      
+    }, 
+
+    updatefiltersSvgCheck: function(status){
+        dataToSet = {
+            property: "applyFiltersSvgCheck",
+            value: status
+        };
+
+        this.updateStateData([dataToSet]);
+
+        // var delay=100000; //1 seconds
+
+        // setTimeout(this.updateStateData([dataToSet]), delay);
+    }, 
     
     updateStateData: function(data){
         oldState = getStateData();
@@ -170,6 +184,13 @@ var StepOne = React.createClass({
                 
                 newState = immutabilityHelpers( oldState, { data: 
                                                             {chosenBreakpoint: {$set: dataToSet.value} 
+                                                            }
+                                                          });
+            }
+            if(dataToSet.property === "applyFiltersSvgCheck"){
+                
+                newState = immutabilityHelpers( oldState, { data: 
+                                                            {applyFiltersSvgCheck: {$set: dataToSet.value} 
                                                             }
                                                           });
             }
@@ -468,13 +489,15 @@ var StepOne = React.createClass({
                         shadowImages={data.shadowImages}
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
-                        buildings =  {buildings}
+                        buildings =  {buildings} 
                         buildingToHighlight = {buildingToHighlight}
+                        applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
+                        updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
                         destroyTooltip = {this.destroyTooltip}
                         showTooltip = {this.showTooltip}
                         updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
-                        updateRotateShadow = {this.updateRotateShadow}                    
+                        updateRotateShadow = {this.updateRotateShadow}                  
                     />
                     
                     <CardList 
@@ -521,6 +544,8 @@ var StepOne = React.createClass({
                             chosenBreakpoint = {data.chosenBreakpoint}
                             buildings =  {buildings}
                             buildingToHighlight = {buildingToHighlight}
+                            applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
+                            updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
                             destroyTooltip = {this.destroyTooltip}
                             showTooltip = {this.showTooltip}
                             updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
@@ -537,7 +562,31 @@ var StepOne = React.createClass({
                                         shadowImages={data.shadowImages}
                                         toggelSunView = {this.toggelSunView} 
                                         showShadow={data.showShadow}
-                                    />                                    
+                                    /> 
+                                    
+                                    <div className="col-sm-3 col-sm-offset-3">
+                                        <FilterPopover
+                                            filterTypes={filterTypes}
+                                            selectFilter={this.selectFilter}
+                                            search_filters={data.search_filters}
+                                            applyFilters = {this.applyFilters}
+                                            unapplyFilters = {this.unapplyFilters}
+                                            applied_filters = {applied_filters}                                       
+                                        />
+                                    </div>
+
+                                    <div className="col-sm-3">
+                                        <div className="pull-right text-center text-uppercase">
+                                            <button type="button" 
+                                                className="btn btn-default  btn-primary" 
+                                                data-toggle="modal" data-target="#contactModal" 
+                                                onClick={this.showContactModal} 
+                                            >
+                                                <i className="fa fa-phone"></i>
+                                                <span className="enquiryText text-uppercase">Contact Us</span>
+                                            </button>
+                                        </div>
+                                    </div>                                                                       
 
                                 </div>
                             </div>

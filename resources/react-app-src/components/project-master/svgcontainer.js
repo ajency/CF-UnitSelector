@@ -17,6 +17,12 @@ var SvgContainer = React.createClass({
 
         var imageType = this.props.imageType;
 
+        // on load of svg rest apply svg filter check to avoid continuous reload of svg file
+        if(this.props.applyFiltersSvgCheck){
+            this.props.updatefiltersSvgCheck(false);
+        }
+        
+
         if(!_.isUndefined(buildingToHighlight)){
             highlightedBuildingId = buildingToHighlight.id;
             highlightedBuildingName = buildingToHighlight.building_name;

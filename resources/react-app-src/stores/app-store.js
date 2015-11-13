@@ -13,7 +13,7 @@ var _projectData = {}, _selected = null ;
 var _unitStateData = {};
 var _groupStateData = {};
 var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
-var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "unitIndexToHighlight":0 } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -1364,9 +1364,12 @@ function getFilteredProjectMasterData(buildingId,groupId){
 	// since filters are applied set isFilterAPplied as true
 	if(_.isEmpty(appliedFilters)){
 		newProjectData.isFilterApplied = false;
+		newProjectData.applyFiltersSvgCheck = true;
 	}
 	else{
 		newProjectData.isFilterApplied = true;
+		newProjectData.applyFiltersSvgCheck = true;
+		
 	}
 
     return newProjectData;
