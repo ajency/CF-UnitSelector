@@ -122,6 +122,8 @@ section {
 .image img {
   max-height: inherit !important;
   width: 100%;
+  -webkit-transition: all ease-in 300ms;
+          transition: all ease-in 300ms;
 }
 .image .no-shadow {
   position: absolute !important;
@@ -754,6 +756,11 @@ select::-ms-expand {
   width: 100%;
   margin-top: -15px;
 }
+.logoOuter h3 {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
 .sideBarLogo {
   /* background:url('../../images/logo.jpg') no-repeat;*/
   height: 65px;
@@ -809,6 +816,10 @@ select::-ms-expand {
             transform: scale(1);
   }
 }
+.titleOuter h3 {
+  float: left;
+  width: 50%;
+}
 .titleOuter .sideBarLogo {
   width: 53%;
   margin-left: -18px;
@@ -820,6 +831,9 @@ select::-ms-expand {
   text-align: right;
   text-transform: uppercase;
   font-size: 16px;
+}
+.titleOuter h4.wingName {
+  margin-top: 15px;
 }
 .titleOuter h4 button {
   margin-left: 5px;

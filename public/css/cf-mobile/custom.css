@@ -775,6 +775,8 @@ section {
 .image img {
   max-height: inherit !important;
   width: 100%;
+  -webkit-transition: all ease-in 300ms;
+          transition: all ease-in 300ms;
 }
 .image .no-shadow {
   position: absolute !important;
