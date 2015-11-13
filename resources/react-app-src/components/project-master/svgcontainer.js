@@ -2,8 +2,12 @@ var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Isvg = require('react-inlinesvg');
 var classNames = require('classnames');
+var Router = require('react-router-component');
 
 var SvgContainer = React.createClass({
+
+
+    mixins: [Router.NavigatableMixin],
 
     componentDidMount: function(){
         svgDom = $(".svg-area");
@@ -136,6 +140,23 @@ var SvgContainer = React.createClass({
 
             // update building to highlight
             that.props.updateUnitIndexToHighlight(id);
+        }.bind(this));
+
+        // on mouse click of building apply tooltip
+        $(classNameToSelect).click(function(e){
+            var that = this;
+            id = parseInt(e.currentTarget.id);
+            
+            if(imageType === 'master'){
+               that.navigate('/buildings/'+id);
+            }
+            else if(imageType === 'buildingFloorGrps'){
+                that.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
+            }
+            else{
+                that.navigate('/units/'+id);
+            }
+            
         }.bind(this));
 
     },

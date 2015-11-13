@@ -512,7 +512,9 @@ var StepOne = React.createClass({
                         showTooltip = {this.showTooltip}
                         updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
-                        updateRotateShadow = {this.updateRotateShadow}                  
+                        updateRotateShadow = {this.updateRotateShadow}
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId}                  
                     />
                     
                     <CardList 
@@ -565,7 +567,9 @@ var StepOne = React.createClass({
                             showTooltip = {this.showTooltip}
                             updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
                             updateChosenBreakPoint = {this.updateChosenBreakPoint}
-                            updateRotateShadow = {this.updateRotateShadow}                        
+                            updateRotateShadow = {this.updateRotateShadow}
+                            cardListFor = {cardListFor}
+                            cardListForId = {cardListForId}                        
                         />
 
                         <div className="container-fluid">

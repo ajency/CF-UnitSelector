@@ -342,6 +342,9 @@ var SteponeImage = React.createClass({
             svgkey = this.props.chosenBreakpoint;
         }
 
+        cardListFor = this.props.cardListFor;
+        cardListForId = this.props.cardListForId;
+
         if(window.isMobile){
             domToDisplay = (
 
@@ -362,6 +365,8 @@ var SteponeImage = React.createClass({
                                 updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
                                 applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
                                 updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
+                                cardListFor = {cardListFor}
+                                cardListForId = {cardListForId}               
                             />                        
                             
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
@@ -408,6 +413,8 @@ var SteponeImage = React.createClass({
                                 updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
                                 applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
                                 updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
+                                cardListFor = {cardListFor}
+                                cardListForId = {cardListForId}               
                             />                          
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
