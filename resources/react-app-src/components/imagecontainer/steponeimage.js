@@ -23,8 +23,6 @@ var svgData = {
     hideSoloImage: false
 };
 
-var prevShadowState = false;
-
 var SteponeImage = React.createClass({
 
     getInitialState: function() {
@@ -137,9 +135,9 @@ var SteponeImage = React.createClass({
             }
 
             // check if shadow image was selected previously and set state accordingly
-            if(prevShadowState){
-                this.props.updateRotateShadow(prevShadowState);
-                prevShadowState = false;
+            if(window.prevShadowState){
+                this.props.updateRotateShadow(window.prevShadowState);
+                window.prevShadowState = false;
             }
 
         }.bind(this)); 

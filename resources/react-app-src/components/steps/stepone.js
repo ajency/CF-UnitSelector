@@ -30,6 +30,8 @@ var qtipSettings = { // Grab some elements to apply the tooltip to
     } // Don't specify a hide event
 };
 
+var prevShadow = false;
+
 function getStateData(){
     return AppStore.getStateData();
 }
@@ -87,6 +89,15 @@ var StepOne = React.createClass({
         // ALways rotate to primary breakpoint
         rotateToBreakpoint = unitData.primary_breakpoint;
         unitId = unitData.id;
+
+        prevShowShadow = this.state.data.showShadow;
+        
+        // store previous shadow state, to later use it to update main shadow state
+        window.prevShadowState = prevShowShadow;
+
+        if( prevShowShadow ){
+            this.updateRotateShadow(false);
+        }          
         
         // hide svg area
         allbuildings = this.state.data.buildings;

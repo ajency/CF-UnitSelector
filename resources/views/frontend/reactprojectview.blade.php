@@ -60,6 +60,7 @@
         window.isMobile = isMobile;
     	window.baseUrl = '{{url()}}';
     	window.projectId = '{{$id}}';
+        window.prevShadowState = false;
     </script>
 
 
