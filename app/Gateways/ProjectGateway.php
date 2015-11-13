@@ -33,12 +33,17 @@ class ProjectGateway implements ProjectGatewayInterface {
             $propertyTypes[$projectPropertyType['property_type_id']] =get_property_type( $projectPropertyType['property_type_id'] );
         }
         $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
+        
+        $project_logo =  $project->projectMeta()->where( 'meta_key', 'project_image' )->first()->meta_value;
+        $logoUrl=getimagesize($project_logo);
+        $logoExist = (is_array($logoUrl)) ? true : false;
          
         $projectData = [
             'cf_project_id' => $project->cf_project_id,
             'id' => $project->id,
             'project_title' => $project->project_title,
-            'logo' => $project->projectMeta()->where( 'meta_key', 'project_image' )->first()->meta_value,
+            'logo' => $project_logo,
+            'logo_exist' => $logoExist,
             /*'step_one' => [
                 'svg' => $project->getGoogleEarthSvgPath()
             ],*/

@@ -1,4 +1,5 @@
 var React = require('react');
+var PriceFormat = require('../tabs/priceformat');
 
 var TabHeader = React.createClass({
 
@@ -66,7 +67,7 @@ var TabHeader = React.createClass({
                     className="btn btn-default btn-primary text-uppercase" 
                     onClick={this.redirectToBooking}
                 >
-                    Book now <i className="fa fa-inr"></i> {sellingAmount}
+                    Book now <i className="fa fa-inr"></i> <PriceFormat numPrice={sellingAmount} />                    
                 </button>
             );
         }
