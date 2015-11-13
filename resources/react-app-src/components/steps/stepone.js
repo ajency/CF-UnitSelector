@@ -8,8 +8,9 @@ var CardList = require('../project-master/cardlist');
 var SideBar = require('../project-master/sidebar');
 var NavBar = require('../project-master/navbar');
 var immutabilityHelpers = require('react-addons-update');
-
 var SunToggle = require('../project-master/suntoggle');
+var Modal = require('../modal/modal');
+
 
 var qtipSettings = { // Grab some elements to apply the tooltip to
     content: "Dummy Text",
@@ -311,12 +312,99 @@ var StepOne = React.createClass({
 
         this.updateStateData([dataToSet]);
 
-    },                
+    }, 
+
+    selectFilter: function(evt){
+        isChecked = evt.target.checked;
+
+        filterType = $(evt.target).data("filtertype");
+        filterStyle = $(evt.target).data("filterstyle");
+        
+
+        if(filterStyle && filterStyle === 'range'){
+            filterValue = [evt.min,evt.max];
+            this.updateSearchFilters(filterType, filterValue, filterStyle);            
+        }
+        else{
+           filterValue = $(evt.target).val();
+           this.updateSearchFilters(filterType, filterValue); 
+       }        
+
+    },
+
+    applyFilters: function(evt){
+
+        this.destroyTooltip();
+
+        var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
+
+        if(totalFilterApplied === 0){
+            dataToSet ={
+                property: "reset_filters",
+                value: {}
+            };
+        }
+        else{
+            dataToSet = {
+                property: "applied_filters",
+                value: this.state.data.search_filters
+            };
+        }
+
+        
+        this.updateStateData([dataToSet]);
+
+        this.updateProjectMasterData();
+
+
+    },
+
+    unapplyFilters: function(evt){
+
+        console.log("Un Apply filters");
+        this.destroyTooltip();
+
+        dataToSet ={
+            property: "reset_filters",
+            value: {}
+        };
+
+        this.updateStateData([dataToSet]);
+
+        this.updateProjectMasterData();
+
+
+    },
+
+    updateSearchFilters: function(filterType, filterValue, filterStyle){
+        dataToSet = {
+            property: "search_filters",
+            filterType: filterType,
+            filterStyle: filterStyle,
+            value: filterValue
+        }
+       
+        this.updateStateData([dataToSet]);
+    },    
+
+    updateProjectMasterData: function(){
+        oldState = this.state;
+
+        newProjectData = AppStore.getFilteredProjectMasterData('','');
+
+        dataToSet = {
+            property: "data",
+            value: newProjectData
+        };
+
+        this.updateStateData([dataToSet]);
+
+    },    
 
     render: function(){
         
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
-        var imageType, buildingToHighlight;
+        var imageType, buildingToHighlight, modalData, filterTypes;
 
         data = this.state.data;
 
@@ -337,6 +425,13 @@ var StepOne = React.createClass({
         // Get image container data
         imageType = "master";
 
+        // get data for modal
+        modalData = {};
+        filterTypes = data.filterTypes;
+        modalData.filterTypes = filterTypes;
+        modalData.search_filters = data.search_filters;
+        modalData.projectData = {title:data.projectTitle};        
+
         if(window.isMobile){
 
             domToDisplay = (
@@ -349,7 +444,16 @@ var StepOne = React.createClass({
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
-                    />   
+                    /> 
+
+                    <Modal 
+                        ref="modal" 
+                        modalPurpose = "filterModal"
+                        modalData={modalData}
+                        selectFilter={this.selectFilter}
+                        applyFilters = {this.applyFilters}
+                        unapplyFilters = {this.unapplyFilters}
+                    />                      
 
                     <SunToggle 
                         shadowImages={data.shadowImages}
