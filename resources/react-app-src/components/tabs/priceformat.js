@@ -11,13 +11,16 @@ var PriceFormat = React.createClass({
     }else if(amount>=100000){
       formatedAmount = Math.round((amount/100000),1)+' lakh';
     }else if(amount>=1000){
-      formatedAmount = Math.round((amount/1000),1)+' thousand';
+      formatedAmount = amount;
     }else if(amount<1000){
+      formatedAmount = amount;
+    }else{
       formatedAmount = amount;
     }
 
+    
     return (
-    <span className="amount"><i className="fa fa-inr"></i>{formatedAmount}</span>
+      <span>{formatedAmount}</span>
       );
   } 
 
