@@ -473,7 +473,8 @@ var BuildingMaster = React.createClass({
             } 
 
             if(dataToSet.property === "data"){
-             newState = immutabilityHelpers( oldState, { data: {$set: dataToSet.value}
+             //newState = immutabilityHelpers( oldState, { data: {$set: dataToSet.value}
+            newState = immutabilityHelpers( oldState, { data: {$set: newState}
             });                
             }     
 
@@ -576,6 +577,18 @@ var BuildingMaster = React.createClass({
 
     render: function(){
        var data = this.state.data;
+
+       /*if(!_.isEmpty(AppStore.getProjectData())){
+       var stateData = getBuildingStateData(this.props.buildingId);
+       console.log(stateData);
+       }*/
+
+       
+       /*var stateDataa = getBuildingStateData(this.props.buildingId);
+       var frmtData = this.formatStateData(stateDataa);
+       console.log(frmtData);*/
+
+
 
                         
         var projectTitle = data.projectTitle;

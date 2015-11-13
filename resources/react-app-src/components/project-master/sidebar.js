@@ -71,7 +71,8 @@ var SideBar = React.createClass({
                     buildings = {this.props.buildings}
                     isFilterApplied = {this.props.isFilterApplied}
                     applied_filters = {this.props.applied_filters}
-                    dropDownData = {this.props.dropDownData}	            
+                    dropDownData = {this.props.dropDownData}
+                    buildingId = {this.props.buildingId}	            
 	            />
 	            <div ref="sideContentBar" className="content cardOuter" style={SideBarStyle}>
 	                <ul className="sidebar-nav">

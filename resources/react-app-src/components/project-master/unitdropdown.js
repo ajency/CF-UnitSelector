@@ -10,25 +10,34 @@ var UnitDropdown = React.createClass({
 
 	getInitialState: function() {
          return {
-             selectedBuilding: this.props.selectedBuilding
+             selectedId: this.props.selectedId
          }
      },
 
 
     change: function(event){
-    	var buildingId = event.target.value;
-    	this.setState({selectedBuilding: buildingId});
-    	return this.navigate('/buildings/'+buildingId);
+    	var targetId = event.target.value;
+    	this.setState({selectedId: targetId});
+
+    	if(this.props.cardListFor === 'building'){
+    		return this.navigate('/buildings/'+targetId);
+    	}else if(this.props.cardListFor === 'group'){
+    		return this.navigate('/buildings/'+this.props.buildingId+'/group/'+targetId);
+    	}
+    	
     },
 
 
 	render : function(){
 
-		var selectedoption = this.state.selectedBuilding;
+		var selectedoption = this.state.selectedId;
 
 		dropwDownData = this.props.dropDownData;
+		cardListFor = this.props.cardListFor;
 
-		buildingSelectNodes= _.map( dropwDownData , function(building, i){
+
+		if(cardListFor === 'building'){
+			var buildingSelectNodes= _.map( dropwDownData , function(building, i){
 	            return(
 	                
 	                <option key={i} value={building.id}>
@@ -37,6 +46,21 @@ var UnitDropdown = React.createClass({
 	            ); 
 	                 
 	        });
+
+		}else if(cardListFor === 'group'){
+			var buildingSelectNodes= _.map( dropwDownData , function(group, i){
+	            return(
+	                
+	                <option key={i} value={group.id}>
+	                	{group.name} 
+	                </option>
+	            ); 
+	                 
+	        });
+
+		}
+
+		
 		return (
 			<h4 className="margin-none"> 
 	              <div className="styled-select">
