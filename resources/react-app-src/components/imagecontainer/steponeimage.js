@@ -63,12 +63,16 @@ var SteponeImage = React.createClass({
         $imageContainerDom.on('panzoomend', function(e, panzoom, matrix, changed) {
           if (changed) {
             // deal with drags or touch moves
-            alert("drag");
+
+            // show correct tooltip
+            this.displayHighlightedTooltip();
+
           } else {
             // deal with clicks or taps
-            alert("click");
+            // show correct tooltip
+            this.displayHighlightedTooltip();
           }
-        });        
+        }.bind(this));        
     },
 
     applySpriteSpin: function(){
