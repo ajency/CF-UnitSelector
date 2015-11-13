@@ -1879,6 +1879,15 @@ select::-ms-expand {
   .step4Desk .detailView .unit .roomDetails:last-child {
     border-right: none;
   }
+  .step4Desk .detailView .unit .roomDetails:nth-child(3n+4) {
+    border-right: 1px solid #d5d5d4;
+  }
+  .step4Desk .detailView .unit .roomDetails:nth-child(3n+1) {
+    padding-left: 15px;
+  }
+  .step4Desk .detailView .unit .roomDetails:nth-child(4n+1) {
+    padding-left: 25px;
+  }
   .step4Desk .tabHeader.stick .stickyButtons {
     display: none;
   }
