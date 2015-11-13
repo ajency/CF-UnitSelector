@@ -337,8 +337,8 @@ var ImageContainerTemplate = React.createClass({
               <div className="us-right-content" style={parentContainerStyle}>
                   <div className="footer">
                       <h2 className="primary-txt text-right m-b-5"> Call 1800 180 180 180</h2>
-                      <a href="#"> Commonfloor </a> | <a href="#">FAQ  </a> | <a href="#"> Mobile Apps  </a>
-                      <br /> © 2015 Commonfloor Inc. |<a href="#"> Privacy Policy</a>
+                      <a href="https://www.commonfloor.com/" target="_blank"> Commonfloor </a> | <a href="#" target="_blank">FAQ  </a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank"> Mobile Apps  </a>
+                      <br /> © 2015 Commonfloor Inc. |<a href="https://www.commonfloor.com/privacy-policy" target="_blank"> Privacy Policy</a>
                   </div>
 
                   <div className={rotateClasses} onClick={this.setDetailIndex}>
