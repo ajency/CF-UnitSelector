@@ -195,6 +195,9 @@ div.spritespin-div {
 .step2-svg:hover {
   opacity: .2 !important;
 }
+html {
+  -ms-overflow-style: scrollbar;
+}
 body {
   -webkit-text-size-adjust: none;
   font-family: sans-serif;
@@ -813,7 +816,7 @@ select::-ms-expand {
 .titleOuter h4 {
   float: right;
   width: 45%;
-  margin-top: 27px;
+  margin-top: 36px;
   text-align: right;
   text-transform: uppercase;
   font-size: 16px;
@@ -1690,6 +1693,9 @@ select::-ms-expand {
 .step4Desk .detailView .unit .roomDetails:nth-child(3n+4),
 .step4Desk .detailView .unit .roomDetails:last-child {
   border-right: none;
+}
+.step4Desk .detailView .unit .roomDetails:nth-child(4n+1) {
+  padding-left: 15px;
 }
 .step4Desk .detailView .unit .hiddenContent {
   display: none;
