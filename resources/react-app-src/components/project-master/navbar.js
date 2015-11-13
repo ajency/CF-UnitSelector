@@ -117,8 +117,11 @@ _.each(applied_filters, function(filter, key){
         }
         else{
             dropdownDom =( <UnitDropdown
-                                buildings = {this.props.buildings}
+                                dropDownData = {this.props.dropDownData}
                                 projectTitle = {this.props.projectTitle}
+                                buildingId = {this.props.buildingId}
+                                selectedId = {this.props.cardListForId}
+                                cardListFor = {this.props.cardListFor}
                             />
                         );
         }
