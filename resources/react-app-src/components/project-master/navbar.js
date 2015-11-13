@@ -28,6 +28,8 @@ var NavBar = React.createClass({
       var applied_filters = this.props.applied_filters;
       var appliedCount = 0;
 
+      var logoDisplay;
+
       var domTodisplay;
 
       if(_.isEmpty(applied_filters)){
@@ -111,6 +113,7 @@ _.each(applied_filters, function(filter, key){
       }
       else{
         var dropdownDom;
+        var logoclasses;
 
         if(this.props.cardListFor==="project"){
             dropdownDom = ""
@@ -126,11 +129,25 @@ _.each(applied_filters, function(filter, key){
                         );
         }
 
+        if(_.isEmpty(this.props.projectLogo)){
+          logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
+          
+        }
+        else{
+          logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
+        }
+         
+
+          logoclasses = classNames({
+            "logoOuter" : true,
+            "titleOuter" : !(this.props.cardListFor === "project")
+          });
+
 
         domTodisplay = (
             <div>
-                <div className="logoOuter titleOuter">
-                    <i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>
+                <div className={logoclasses}>
+                    {logoDisplay}
                     {dropdownDom}
                 </div>
                 <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}</small></div>
