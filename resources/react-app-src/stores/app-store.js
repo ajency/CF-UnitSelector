@@ -1263,6 +1263,10 @@ function _updateGlobalState(newStateData,type){
 	  case "buildingFloorGroups":
 	      _buildingMasterStateData = newStateData;
 	      break;
+
+	  case "singleUnits":
+	      _groupStateData = newStateData;
+	      break;
 	  default:
 	      _globalStateData = newStateData;
 	}	
@@ -1315,7 +1319,23 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 	var newProjectData = {};
 
-	if(buildingId != ''){
+	/*if(buildingId != ''){
+		newProjectData = _buildingMasterStateData.data;
+		appliedFilters = _buildingMasterStateData.data.applied_filters;
+	}else{
+		newProjectData = _globalStateData.data;
+		appliedFilters = _globalStateData.data.applied_filters;
+	}
+
+	if(groupId != ''){
+		newProjectData = _groupStateData.data;
+		appliedFilters = _groupStateData.data.applied_filters;
+	}*/
+
+	if(buildingId != '' && groupId != ''){
+		newProjectData = _groupStateData.data;
+		appliedFilters = _groupStateData.data.applied_filters;
+	}else if(buildingId != '' && groupId == ''){
 		newProjectData = _buildingMasterStateData.data;
 		appliedFilters = _buildingMasterStateData.data.applied_filters;
 	}else{
@@ -1390,6 +1410,8 @@ function getFilteredProjectMasterData(buildingId,groupId){
     return newProjectData;
 
 }
+
+
 
 
 function getSimilarUnits(unitId){
@@ -1695,6 +1717,10 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 }
 
+
+
+
+
 function formatBuildingStateData(stateDataToformat){
     var newState = stateDataToformat;
 
@@ -1869,6 +1895,9 @@ var AppStore = merge(EventEmitter.prototype, {
 		return unitTypes;
 	},
 
+
+	
+	
 	
 
   	// Register callback with AppDispatcher
