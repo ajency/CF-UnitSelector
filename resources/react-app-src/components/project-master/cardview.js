@@ -2,6 +2,7 @@ var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Link = require('react-router-component').Link
 var classNames = require('classnames');
+var PriceFormat = require('../tabs/priceformat');
 
 
 
@@ -161,7 +162,7 @@ var CardView = React.createClass({
                                   <h4 className=" margin-none text-left"> {buildingName}</h4>
                               </div>
                               <div className="col-xs-12 text-muted price">
-                                    From <b className="price-tag"><i className="fa fa-inr"></i> {minStartPrice} </b>
+                                    From <b className="price-tag"> <PriceFormat numPrice={minStartPrice} /> </b>
                               </div>
                           </div>
                           
