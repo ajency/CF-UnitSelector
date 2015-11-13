@@ -68,6 +68,7 @@ var SvgContainer = React.createClass({
 
       // Loop through each building svg element in svg
         $(svgDom).find(svgSelector).each(function(ind, item) {
+            var svgElemClassName;
             var id = parseInt(item.id);
 
             var exisitngClasses = "";
@@ -83,7 +84,13 @@ var SvgContainer = React.createClass({
 
             existingClasses = $(selector).attr("class"); 
 
-            svgElemClassName = existingClasses+' svg-light step2-svg';
+
+            if(imageType==="master"){
+                svgElemClassName = existingClasses;
+            }else{
+                svgElemClassName = existingClasses+' step2-svg';
+            }
+            
 
 
             if(id == highlightedBuildingId){
