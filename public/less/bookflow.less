@@ -517,7 +517,7 @@ body
 					z-index: 9999;
 				}
 			}
-				li.parsley-required, li.parsley-pattern, li.parsley-type
+				li.parsley-required, li.parsley-pattern, li.parsley-type, li.parsley-length
 				{
 					list-style: none;
 					font-size: 11px;
@@ -756,7 +756,7 @@ body
 	    }
 	}
 				
-	li.parsley-required, li.parsley-pattern, li.parsley-type
+	li.parsley-required, li.parsley-pattern, li.parsley-type, li.parsley-length
 	{
 		list-style: none;
 		font-size: 11px;
@@ -806,14 +806,22 @@ body
 	font-size:13px;
 	text-transform:uppercase;
 	margin-left:-15px;
-	&.builderName, &.localityName
+	&.builderName
 	{
 		white-space: nowrap;
 		overflow: hidden;
-		text-overflow: ellipsis;
-		max-width: 100%;
+		text-overflow: ellipsis;		
 		position: relative;
+		width:135px;
 	} 
+	&.localityName
+	{
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;		
+		position: relative;
+		max-width:100%;
+	}
 	i
 	{
 		color:@brand-primary !important;
@@ -1106,6 +1114,7 @@ body
     margin-top:40px;
     margin-bottom:20px;
     font-size:14px;
+    color: @gray-darker;
     a
     {
     	font-size: 12px;	    
