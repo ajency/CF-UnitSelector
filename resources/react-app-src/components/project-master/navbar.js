@@ -17,7 +17,16 @@ var NavBar = React.createClass({
         applied_filters : {}
 
       };
-    } ,   
+    } , 
+
+    componentDidUpdate: function() {
+
+      var $titleElem = $(this.refs.titleElem);
+
+      if(this.props.projectTitle.length > 12){
+        $titleElem.tooltip();
+      }
+    },  
     
     render: function(){
 
@@ -41,12 +50,12 @@ var NavBar = React.createClass({
       else{
 
 
-var newAppliedFiltersCount = [];
-_.each(applied_filters, function(filter, key){
-  if(filter.length>0){
-    newAppliedFiltersCount.push(key);
-  }
-});
+      var newAppliedFiltersCount = [];
+      _.each(applied_filters, function(filter, key){
+        if(filter.length>0){
+          newAppliedFiltersCount.push(key);
+        }
+      });
 
 
 
@@ -96,7 +105,7 @@ _.each(applied_filters, function(filter, key){
                             <i className="i-marker i-icon"></i>
                         </div>
                         <div className="col-xs-6 p-0">
-                            <h3 className="normal margin-none">{this.props.projectTitle} </h3>
+                            <h3 ref="titleElem" className="normal margin-none" data-toggle="tooltip" data-placement="bottom" title={this.props.projectTitle}>{this.props.projectTitle} </h3>
                             <small>{unitCount} {selectionText}</small>
                         </div>
                         <div className="col-xs-4 p-0">
