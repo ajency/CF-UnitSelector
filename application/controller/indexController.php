@@ -767,6 +767,18 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                         </td>
                       </tr>';
         }
+
+        $imageUrl=getimagesize($unitData['project_image']);
+
+        if(is_array($imageUrl))
+        {
+             $builderLogo = '<img src="'.$unitData['project_image'].'" style="width:100px"/>';
+        }
+        else
+        {
+             $builderLogo = '<span style="color: #333; font-weight:bold; font-size: 18px; text-transform: capitalize;">'.$unitData['project_title'].'</span>';
+        } 
+
         $html ='<table border="0" cellpadding="0" cellspacing="0" style="width:600px; border:1px solid #BBBBBB;">
                           <tr>
                               <td align="center" valign="top">
@@ -781,7 +793,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                     <table border="0" cellpadding="10px" cellspacing="0" width="100%" style="background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;">
                                         <tr>
                                             <td valign="top" style="padding-left: 20px;">
-                                              <img style="width:100px" src="'.$unitData['project_image'].'"/>
+                                              '.$builderLogo.' 
                                             </td>
 
                                         </tr>
@@ -948,7 +960,18 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
         
 
         $unitinfo = json_decode(getUnitInfo($unitId),true);
-        $unitData =$unitinfo['data'] ; 
+        $unitData =$unitinfo['data'] ;
+
+        $imageUrl=getimagesize($unitData['project_image']);
+
+        if(is_array($imageUrl))
+        {
+             $builderLogo = '<img src="'.$unitData['project_image'].'" style="width:100px"/>';
+        }
+        else
+        {
+             $builderLogo = '<span style="color: #333; font-weight:bold; font-size: 18px; text-transform: capitalize;">'.$unitData['project_title'].'</span>';
+        } 
  
         $html ='<table  border="0" cellpadding="0" cellspacing="0" style="width:600px; border:1px solid #BBBBBB;">
                           <tr>
@@ -964,7 +987,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                     <table border="0" cellpadding="10px" cellspacing="0" width="100%" style="background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;">
                                         <tr>
                                             <td valign="top" style="padding-left: 20px;">
-                                              <img style="width:100px" src="'.$unitData['project_image'].'"/>
+                                              '.$builderLogo.'
                                             </td>
 
                                         </tr>
@@ -1102,6 +1125,17 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                       </tr>';
         }
 
+        $imageUrl=getimagesize($unitData['project_image']);
+
+        if(is_array($imageUrl))
+        {
+             $builderLogo = '<img src="'.$unitData['project_image'].'" style="width:100px"/>';
+        }
+        else
+        {
+             $builderLogo = '<span style="color: #333; font-weight:bold; font-size: 18px; text-transform: capitalize;">'.$unitData['project_title'].'</span>';
+        }
+
         $html ='<table border="0" cellpadding="0" cellspacing="0" style="width:600px; border:1px solid #BBBBBB;">
                           <tr>
                               <td align="center" valign="top">
@@ -1116,7 +1150,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                                     <table border="0" cellpadding="10px" cellspacing="0" width="100%" style=" background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;">
                                         <tr>
                                             <td valign="top" style="padding-left: 20px;">
-                                              <img style="width:100px" src="'.$unitData['project_image'].'"/>
+                                              '. $builderLogo.'
                                             </td>
 
                                         </tr>
