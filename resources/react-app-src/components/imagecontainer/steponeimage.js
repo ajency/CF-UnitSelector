@@ -384,8 +384,8 @@ var SteponeImage = React.createClass({
                           <br /> © 2015 Commonfloor Inc. |<a href="https://www.commonfloor.com/privacy-policy" target="_blank"> Privacy Policy</a>
                     </div>
 
-                    <div className={rotateClasses} onClick={this.rotateSpriteSpin}>
-                        <i id="next" className="i-icon i-icon-rotate"></i> Press To Rotate
+                    <div className={rotateClasses}>
+                        <i id="next" className="i-icon i-icon-rotate" onClick={this.rotateSpriteSpin}></i> Press To Rotate
                     </div>
 
                     <div ref="imageContain" className="image-contain" style={imageContainStyle}>
