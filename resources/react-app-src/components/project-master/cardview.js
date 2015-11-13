@@ -199,7 +199,7 @@ var CardView = React.createClass({
           // give card an id to help in scrolling
           cardId = "building"+buildingId;
 
-          unitTypeDom = ( <div className="col-xs-12 text-muted"> <span>{noOfFloors} Floors</span> <ul> <li></li> </ul> <span>{supportedUnitTypeString}</span> </div>);
+          unitTypeDom = ( <div className="col-xs-12 text-muted"> <span>{noOfFloors} &nbsp; Floors</span> <ul> <li></li> </ul> <span>{supportedUnitTypeString}</span> </div>);
 
           if((!_.isUndefined(buildingData.unitType))&&(!_.isUndefined(buildingData.superBuiltUpArea))){
             unitTypeDom = (<div className="col-xs-12 text-muted"><span> {buildingData.unitType}</span><ul><li></li> </ul> <span> {buildingData.superBuiltUpArea} &nbsp;sqFt </span></div> );
