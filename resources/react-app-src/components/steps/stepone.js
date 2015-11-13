@@ -11,6 +11,7 @@ var immutabilityHelpers = require('react-addons-update');
 var SunToggle = require('../project-master/suntoggle');
 var Modal = require('../modal/modal');
 var FilterPopover = require('../filter/filterpopover');
+var MessageBox = require('../common/messagebox');
 
 
 var qtipSettings = { // Grab some elements to apply the tooltip to
@@ -483,13 +484,17 @@ var StepOne = React.createClass({
                     <Modal 
                         ref="contactModal" 
                         modalData = {modalData}
-                        modalPurpose = "contactModal"
+                        modalPurpose = "mobileContactModal"
                     />                     
 
                     <SunToggle 
                         shadowImages={data.shadowImages}
                         toggelSunView = {this.toggelSunView} 
                         showShadow={data.showShadow}
+                    />
+
+                    <MessageBox
+                        message = "Click on tower to proceed"
                     />
 
                     <SteponeImage
@@ -599,8 +604,11 @@ var StepOne = React.createClass({
                                     </div>                                                                       
 
                                 </div>
+                                <div className="row text-center">
+                                    <MessageBox message = "Click on tower to proceed" />
+                                </div> 
                             </div>
-                        
+
                         </div> 
 
                        <Modal 
