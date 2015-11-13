@@ -1481,6 +1481,7 @@ div.spritespin-div {
   /*left: 0;	   */
   color: #ffffff;
   float: left;
+  margin-bottom: -5px;
   text-align: center
   /*z-index:9999;   */
 }
