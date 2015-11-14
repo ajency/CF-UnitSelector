@@ -21,7 +21,7 @@ var APP = React.createClass({
         <Template>
           <Locations hash>
             <Location path="/" handler={StepOne} />
-            <Location path="/buildings/:buildingId" handler={BuildingMaster} />
+            <Location path="/buildings/:buildingId" handler={StepTwo} />
             <Location path="/buildings/:buildingId/group/:groupId" handler={StepThree} />
             <Location path="/units/:unitId" handler={UnitDetails} />
           </Locations>
