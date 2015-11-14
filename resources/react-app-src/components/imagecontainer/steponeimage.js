@@ -151,10 +151,23 @@ var SteponeImage = React.createClass({
     },
 
     displayHighlightedTooltip: function(){
+        var baseSelector , imageType;
+
+        imageType = this.props.imageType;
+
+        if(imageType === "master"){
+          baseSelector = '.building';
+        }
+        else if(imageType === "buildingFloorGrps"){
+          baseSelector = '.floor_group';  
+        }
+        else{
+          baseSelector = '.apartment';
+        }        
          
         buildingToHighlight = this.props.buildingToHighlight;
         
-        highlightedBuildingSelector = ".building"+buildingToHighlight.id; 
+        highlightedBuildingSelector = baseSelector+buildingToHighlight.id; 
         highlightedBuildingName = buildingToHighlight.building_name;  
 
         this.props.showTooltip(highlightedBuildingName,highlightedBuildingSelector);
@@ -191,13 +204,13 @@ var SteponeImage = React.createClass({
         var masterImagePrefix = "master-";
 
         if(imageType==="master"){
-          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/'+imageType+'/';
+          baseImagePath = BASEURL+'/projects/'+window.projectId+'/'+imageType+'/';
           imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
         }
         else{
-          buildingId = this.props.buildingId;
+          buildingId = this.props.cardListForId;
 
-          baseImagePath = BASEURL+'/projects/'+PROJECTID+'/buildings/'+buildingId+'/';
+          baseImagePath = BASEURL+'/projects/'+window.projectId+'/buildings/'+buildingId+'/';
 
           imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
           
@@ -370,8 +383,16 @@ var SteponeImage = React.createClass({
                             />                        
                             
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
-                            <img src={soloImageUrl} className={soloImageClasses} />
-                            <img src={shadowImgUrl} className="img-responsive shadow fit" />
+                            <img 
+                                key={svgkey+1} 
+                                src={soloImageUrl} 
+                                className={soloImageClasses} 
+                            />
+                            <img 
+                                src={shadowImgUrl}
+                                key={svgkey+2}  
+                                className="img-responsive shadow fit" 
+                            />
 
                         </div>
                     </div>
@@ -418,8 +439,16 @@ var SteponeImage = React.createClass({
                             />                          
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
-                            <img src={soloImageUrl} className={soloImageClasses} />
-                            <img  src={shadowImgUrl} className="img-responsive shadow fit" />
+                            <img 
+                                key={svgkey+1} 
+                                src={soloImageUrl} 
+                                className={soloImageClasses} 
+                            />
+                            <img 
+                                src={shadowImgUrl}
+                                key={svgkey+2}  
+                                className="img-responsive shadow fit" 
+                            />
 
                         </div>
                     </div>
