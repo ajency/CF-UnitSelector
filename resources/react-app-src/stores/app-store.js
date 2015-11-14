@@ -563,6 +563,47 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 	return buildingsWithUnits;
 }
 
+
+
+
+
+
+
+
+
+function getCardUnits(floor_groups, allFilteredUnits){
+	
+		
+	_.each(floor_groups,function(group){		
+		
+
+		_.each(group.unitData, function(unit){
+
+			var check = _.some( allFilteredUnits, function( el ) {
+	    			return el.id === unit.id;
+	    	} );
+
+			if(check){
+				group.filteredUnitData.push(unit);
+			}
+
+		});
+
+	});
+
+
+	return floor_groups;
+}
+
+
+
+
+
+
+
+
+
+
 function getApartmentUnitTypes(collectivePropertyTypeId, groupId, collectivePropertyType){
 
 	var apartmentVariants = [];
@@ -1331,12 +1372,22 @@ function getFilteredProjectMasterData(buildingId,groupId){
 	if(buildingId != '' && groupId != ''){
 		newProjectData = _groupStateData.data;
 		appliedFilters = _groupStateData.data.applied_filters;
+		buildings = _projectData.buildings;
+		allUnits = _projectData.units;
 	}else if(buildingId != '' && groupId == ''){
 		newProjectData = _buildingMasterStateData.data;
 		appliedFilters = _buildingMasterStateData.data.applied_filters;
+		buildings = newProjectData.buildings;
+		allUnits = _.filter(_projectData.units , function(unit){
+		if(unit.building_id == buildingId){
+			return unit;
+		} 
+	});
 	}else{
 		newProjectData = _globalStateData.data;
 		appliedFilters = _globalStateData.data.applied_filters;
+		buildings = _projectData.buildings;
+		allUnits = _projectData.units;
 	}
 
 	
@@ -1347,14 +1398,18 @@ function getFilteredProjectMasterData(buildingId,groupId){
 	newProjectData.filteredCount = apartmentUnits.filtered.length;
 	
 
-	buildings = _projectData.buildings;
 	
-	allUnits = _projectData.units;
+	
+	
 	
 	filteredUnits = apartmentUnits.filtered;
 	
 
-	buildingsWithUnits = getBuildingUnits(buildings, allUnits, filteredUnits );
+	//buildingsWithUnits = getBuildingUnits(buildings, allUnits, filteredUnits );
+
+	buildingsWithUnits = getCardUnits(buildings, filteredUnits );
+
+	//buildingsWithUnits = buildings;
 
 
 	// return first building that has filtered units
