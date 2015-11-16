@@ -488,15 +488,18 @@ var StepOne = React.createClass({
                         modalPurpose = "mobileContactModal"
                     />                     
 
-                    <SunToggle 
-                        shadowImages={data.shadowImages}
-                        toggelSunView = {this.toggelSunView} 
-                        showShadow={data.showShadow}
-                    />
+                    <div className="toggleDiv">
 
-                    <MessageBox
-                        message = "Click on tower to proceed"
-                    />
+                        <SunToggle 
+                            shadowImages={data.shadowImages}
+                            toggelSunView = {this.toggelSunView} 
+                            showShadow={data.showShadow}
+                        />
+
+                        <MessageBox
+                            message = "Click on tower to proceed"
+                        />
+                    </div>
 
                     <SteponeImage
                         ref= "imageContainerone"
