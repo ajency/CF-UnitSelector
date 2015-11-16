@@ -208,7 +208,7 @@ var SteponeImage = React.createClass({
           imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
         }
         else{
-          buildingId = this.props.cardListForId;
+          buildingId = this.props.buildingId;
 
           baseImagePath = BASEURL+'/projects/'+window.projectId+'/buildings/'+buildingId+'/';
 
