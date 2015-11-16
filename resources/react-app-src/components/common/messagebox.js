@@ -10,7 +10,8 @@ var MessageBox = React.createClass({
         return stateData;
     },
 
-    closeBox: function(){
+    closeBox: function(evt){
+        evt.preventDefault();
         newstate = {
             showBox: false
         }

@@ -65,6 +65,8 @@ var CardList = React.createClass({
       if((!($sliderContainer.hasClass('swiper-container-horizontal'))) && (window.isMobile)){
             mySwiper = new Swiper('.swiper-container', sliderSettings);
       }
+
+      mySwiper.on("TransitionEnd", this.swipeCard);
            
        },    
 
