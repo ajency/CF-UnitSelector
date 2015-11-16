@@ -723,6 +723,30 @@ var StepTwo = React.createClass({
                                         toggelSunView = {this.toggelSunView} 
                                         showShadow={data.showShadow}
                                     /> 
+
+                                    <div className="col-sm-3 col-sm-offset-3">
+                                        <FilterPopover
+                                            filterTypes={filterTypes}
+                                            selectFilter={this.selectFilter}
+                                            search_filters={data.search_filters}
+                                            applyFilters = {this.applyFilters}
+                                            unapplyFilters = {this.unapplyFilters}
+                                            applied_filters = {applied_filters}                                       
+                                        />
+                                    </div>
+
+                                    <div className="col-sm-3">
+                                        <div className="pull-right text-center text-uppercase">
+                                            <button type="button" 
+                                                className="btn btn-default  btn-primary" 
+                                                data-toggle="modal" data-target="#contactModal" 
+                                                onClick={this.showContactModal} 
+                                            >
+                                                <i className="fa fa-phone"></i>
+                                                <span className="enquiryText text-uppercase">Contact Us</span>
+                                            </button>
+                                        </div>
+                                    </div>                                          
                                                                      
 
                                 </div>
@@ -732,6 +756,12 @@ var StepTwo = React.createClass({
                             </div>
 
                         </div> 
+
+                        <Modal 
+                            ref="contactModal" 
+                            modalData = {modalData}
+                            modalPurpose = "contactModal"
+                        />                        
 
                     </div>
        
