@@ -20,16 +20,29 @@ var SvgView = React.createClass({
         buildingToHighlight = "sdf";
         imgUrl = this.props.imgUrl;
 
+        windowHeight = $(window).innerHeight() ;
+
+        var imageStyle = {
+          "height": windowHeight
+        };         
+
         return (
 
-                  <div ref= "svgView" className="svg-top-area" >
-                  <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight)}>
-                      Here's some optional content for browsers that don't support XHR or inline
-                      SVGs. You can use other React components here too. Here, I'll show you.
+            <div ref= "svgView" className="step4-svg" style={imageStyle}>
+                <div className="image-contain">
+                    <div className="image" style={imageStyle}>
+                        <div className="svg-area" style={imageStyle}>
+                            <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight)}>
+                                  Here's some optional content for browsers that don't support XHR or inline
+                                  SVGs. You can use other React components here too. Here, I'll show you.
 
-                  </Isvg> 
-                  <img className="myImg" src={imgUrl}/>   
-                  </div>
+                           </Isvg>                         
+                        </div>
+                        <img className="myImg" src={imgUrl}/> 
+                    </div>
+                </div>
+            </div>          
+
         );
 
     }
