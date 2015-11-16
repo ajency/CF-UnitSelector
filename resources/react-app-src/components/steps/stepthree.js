@@ -57,6 +57,7 @@ var StepThree = React.createClass({
     _onChange:function(){
         newState = this.getGroupState();
         this.setState(newState);
+        console.log("new state data");
     },
 
     componentDidMount: function() {
@@ -460,8 +461,10 @@ var StepThree = React.createClass({
         buildingId = this.props.buildingId;
 
         stateData =  getGroupStateData(buildingId,groupId);
+        formattedData = this.formatStateData(stateData)
 
-        return this.formatStateData(stateData);
+        return formattedData;
+
     },
 
     formatStateData: function(stateDataToformat){
@@ -591,8 +594,8 @@ var StepThree = React.createClass({
 
         // drop down data
         allBuildings = AppStore.getProjectData();
-        currentBuilding = _.find(allBuildings.buildings, function(f){ return f.id == buildingId;});            
-        groupDropwdownData = currentBuilding.floor_group;
+        currentBuilding = _.find(allBuildings.buildings, function(f){ return f.id == buildingId;});
+        groupDropwdownData = [];
 
 
         if(window.isMobile){
