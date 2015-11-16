@@ -579,7 +579,7 @@ function getCardUnits(floor_groups, allFilteredUnits){
 	_.each(floor_groups,function(group){
 
 		group.filteredUnitData = [];
-		
+
 		_.each(group.unitData, function(unit){
 
 			var check = _.some( allFilteredUnits, function( el ) {
@@ -1359,10 +1359,14 @@ function getFilteredProjectMasterData(buildingId,groupId){
 	
 
 	if(buildingId != '' && groupId != ''){
-		newProjectData = _groupStateData.data;
-		appliedFilters = _groupStateData.data.applied_filters;
-		buildings = _projectData.buildings;
-		allUnits = _projectData.units;
+		newProjectData = _buildingMasterStateData.data;
+		appliedFilters = _buildingMasterStateData.data.applied_filters;
+		buildings = newProjectData.buildings;
+		allUnits = _.filter(_projectData.units , function(unit){
+		if(unit.building_id == buildingId){
+			return unit;
+		} 
+		});
 	}else if(buildingId != '' && groupId == ''){
 		newProjectData = _buildingMasterStateData.data;
 		appliedFilters = _buildingMasterStateData.data.applied_filters;
@@ -1391,7 +1395,7 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 
 	if(buildingId != '' && groupId != ''){
-		buildingsWithUnits = getBuildingUnits(buildings, allUnits, filteredUnits );
+		buildingsWithUnits = getCardUnits(buildings, filteredUnits );
 	}else if(buildingId != '' && groupId == ''){
 		buildingsWithUnits = getCardUnits(buildings, filteredUnits );
 	}else{
