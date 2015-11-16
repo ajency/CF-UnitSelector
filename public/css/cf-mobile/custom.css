@@ -413,11 +413,6 @@ body .row {
   height: 100% !important;
   opacity: .9 !important;
 }
-@media screen and (max-width: 767px) and (orientation: landscape) {
-  .rotate {
-    bottom: 47%;
-  }
-}
 .svg-light {
   opacity: 0.3;
   fill: #ffffff;
@@ -447,6 +442,16 @@ body .row {
 @media (max-width: 320px) {
   .swiper-slide {
     width: 260px;
+  }
+}
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .rotate {
+    bottom: 47%;
+  }
+}
+@media screen and (min-width: 480px) and (max-width: 767px) and (orientation: portrait) {
+  .rotate {
+    bottom: 27%;
   }
 }
 .i-icon {
@@ -1123,9 +1128,10 @@ div.spritespin-div {
   width: 100%;
   background: #ffffff;
   padding-top: 0;
+  margin-bottom: 5px;
 }
 .contactModal .modal-body h4 {
-  margin-top: 30px;
+  margin-top: 0px;
   font-size: 18px;
 }
 .contactModal .content {
@@ -1143,7 +1149,7 @@ div.spritespin-div {
   font-size: 14px;
   margin-top: 2px;
   color: #bcbcba;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .contactModal .modal-dialog {
   border-radius: 0;
@@ -1216,7 +1222,7 @@ div.spritespin-div {
   font-size: 12px;
   text-align: center;
   color: #706f6d;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 @media screen and (max-width: 320px) {
   .tab-content {
