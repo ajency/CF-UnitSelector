@@ -172,6 +172,12 @@ var BuildingMaster = React.createClass({
         AppStore.addChangeListener(this._onChange);
     },
 
+
+    componentWillUnmount:function(){
+        this.setState({data: {}});
+        console.log(this.state.data);
+    },
+
     
     _onChange:function(){
         var buildingId;
