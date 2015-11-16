@@ -49,7 +49,7 @@ var FloorPlan = React.createClass({
     }
     else{
         previewDom = (<div className="nopreview">
-                        <i class="fa fa-2x fa-picture-o"></i>
+                        <i className="fa fa-2x fa-picture-o"></i>
                         <h5>No preview available</h5>
                       </div>) ;   
     }
