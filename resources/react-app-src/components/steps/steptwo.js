@@ -6,11 +6,14 @@ var Link = require('react-router-component').Link;
 var AppStore = require('../../stores/app-store.js');
 var CardList = require('../project-master/cardlist');
 var SideBar = require('../project-master/sidebar');
+var NavBar = require('../project-master/navbar');
 var immutabilityHelpers = require('react-addons-update');
 var SunToggle = require('../project-master/suntoggle');
 var Modal = require('../modal/modal');
 var FilterPopover = require('../filter/filterpopover');
 var MessageBox = require('../common/messagebox');
+
+
 var qtipSettings = { 
     content: "Dummy Text",
     show: {
@@ -54,12 +57,10 @@ var StepTwo = React.createClass({
         newState = this.getBuildingState();        
         this.setState(newState);
     },
-    
-    componentWillUnmount: function() {
-        // destroy tooltips if any
-        this.destroyTooltip();
-    },  
 
+    componentDidMount: function() {
+        console.log("component mounted");
+    },
 
     componentWillUnmount: function() {
         // destroy tooltips if any
@@ -315,7 +316,124 @@ var StepTwo = React.createClass({
         buildingName = buildingToHighlight.building_name;
 
         this.showTooltip(buildingName,".floor_group"+buildingToHighlight.id);
-    },       
+    }, 
+
+    showFilterModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.modal)).modal();
+    }, 
+
+    showContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
+    },     
+
+    toggelSunView: function(evt){
+        $clickedDiv = $(evt.currentTarget);
+
+        if($clickedDiv.hasClass('sun-highlight')){
+            showShadow = false;
+        }
+        else{
+            showShadow = true;    
+        }
+
+        dataToSet = {
+            property: "showShadow",
+            value: showShadow
+        }
+
+        this.updateStateData([dataToSet]);
+
+    }, 
+
+    selectFilter: function(evt){
+        isChecked = evt.target.checked;
+
+        filterType = $(evt.target).data("filtertype");
+        filterStyle = $(evt.target).data("filterstyle");
+        
+
+        if(filterStyle && filterStyle === 'range'){
+            filterValue = [evt.min,evt.max];
+            this.updateSearchFilters(filterType, filterValue, filterStyle);            
+        }
+        else{
+           filterValue = $(evt.target).val();
+           this.updateSearchFilters(filterType, filterValue); 
+       }        
+
+    },
+
+    applyFilters: function(evt){
+
+        this.destroyTooltip();
+
+        var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
+
+        if(totalFilterApplied === 0){
+            dataToSet ={
+                property: "reset_filters",
+                value: {}
+            };
+        }
+        else{
+            dataToSet = {
+                property: "applied_filters",
+                value: this.state.data.search_filters
+            };
+        }
+
+        
+        this.updateStateData([dataToSet]);
+
+        this.updateProjectMasterData();
+
+
+    },
+
+    unapplyFilters: function(evt){
+
+        console.log("Un Apply filters");
+        this.destroyTooltip();
+
+        dataToSet ={
+            property: "reset_filters",
+            value: {}
+        };
+
+        this.updateStateData([dataToSet]);
+
+        this.updateProjectMasterData();
+
+
+    },
+
+    updateSearchFilters: function(filterType, filterValue, filterStyle){
+        dataToSet = {
+            property: "search_filters",
+            filterType: filterType,
+            filterStyle: filterStyle,
+            value: filterValue
+        }
+       
+        this.updateStateData([dataToSet]);
+    },  
+
+    updateProjectMasterData: function(){
+        oldState = this.state;
+
+        newProjectData = AppStore.getFilteredProjectMasterData(this.props.buildingId,'');
+
+        console.log(newProjectData);
+
+        dataToSet = {
+            property: "data",
+            value: newProjectData
+        };
+
+        this.updateStateData([dataToSet]);
+
+    },      
+       
 
     getMinUnitPrice: function(floorGrpUnits){
         unitPrices = [];
@@ -342,8 +460,6 @@ var StepTwo = React.createClass({
 
     formatStateData: function(stateDataToformat){
         var newState = stateDataToformat;
-
-        console.log(newState);
 
         buildings = stateDataToformat.data.buildings;
 
@@ -448,7 +564,8 @@ var StepTwo = React.createClass({
 
 
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
-        var imageType, buildingToHighlight, modalData, filterTypes, buildingId;
+        var imageType, buildingToHighlight, modalData, filterTypes;
+        var buildingId, allBuildings, buildingDropwdownData;
 
 
         data = this.state.data;
@@ -468,55 +585,87 @@ var StepTwo = React.createClass({
         applied_filters = data.applied_filters;
         buildingToHighlight = buildings[unitIndexToHighlight];
 
-
-        // drop down data
-        var allBuildings = AppStore.getProjectData();
-        var buildingDropwdownData = allBuildings.buildings;
-
         // Get image container data
         imageType = "buildingFloorGrps"; 
+
+        // get data for modal
+        modalData = {};
+        filterTypes = data.filterTypes;
+        modalData.filterTypes = filterTypes;
+        modalData.search_filters = data.search_filters;
+        modalData.projectData = {title:data.projectTitle}; 
+
+        // drop down data
+        allBuildings = AppStore.getProjectData();
+        buildingDropwdownData = allBuildings.buildings;
 
 
         if(window.isMobile){
             domToDisplay = (
-                <div id="wrapper">
+                <div id="site-wrapper">
+                    <NavBar 
+                        projectTitle = {projectTitle} 
+                        projectLogo = {projectLogo} 
+                        logoExist = {logoExist} 
+                        unitCount = {unitCount}
+                        showFilterModal = {this.showFilterModal}
+                        showContactModal = {this.showContactModal}
+                        buildings = {buildings}
+                        isFilterApplied = {isFilterApplied}
+                        applied_filters = {applied_filters}
+                    /> 
+                    <Modal 
+                        ref="modal" 
+                        modalPurpose = "filterModal"
+                        modalData={modalData}
+                        selectFilter={this.selectFilter}
+                        applyFilters = {this.applyFilters}
+                        unapplyFilters = {this.unapplyFilters}
+                    /> 
+                    <Modal 
+                        ref="contactModal" 
+                        modalData = {modalData}
+                        modalPurpose = "mobileContactModal"
+                    />                      
+                    <SunToggle 
+                        shadowImages={data.shadowImages}
+                        toggelSunView = {this.toggelSunView} 
+                        showShadow={data.showShadow}
+                    />
 
-                    <div id="page-content-wrapper">
+                    <MessageBox
+                        message = "Click on floor group to proceed"
+                    />                                    
 
-                        <SteptwoImage
-                            ref= "imageContainerone"
-                            imageType = {imageType}
-                            showShadow={data.showShadow}
-                            shadowImages={data.shadowImages}
-                            breakpoints = {data.breakpoints}
-                            chosenBreakpoint = {data.chosenBreakpoint}
-                            buildings =  {buildings} 
-                            buildingToHighlight = {buildingToHighlight}
-                            applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
-                            updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
-                            destroyTooltip = {this.destroyTooltip}
-                            showTooltip = {this.showTooltip}
-                            updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
-                            updateChosenBreakPoint = {this.updateChosenBreakPoint}
-                            updateRotateShadow = {this.updateRotateShadow}
-                            cardListFor = {cardListFor}
-                            cardListForId = {cardListForId}                  
-                        />
+                    <SteptwoImage
+                        ref= "imageContainerone"
+                        imageType = {imageType}
+                        showShadow={data.showShadow}
+                        shadowImages={data.shadowImages}
+                        breakpoints = {data.breakpoints}
+                        chosenBreakpoint = {data.chosenBreakpoint}
+                        buildings =  {buildings} 
+                        buildingToHighlight = {buildingToHighlight}
+                        applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
+                        updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
+                        destroyTooltip = {this.destroyTooltip}
+                        showTooltip = {this.showTooltip}
+                        updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
+                        updateChosenBreakPoint = {this.updateChosenBreakPoint}
+                        updateRotateShadow = {this.updateRotateShadow}
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId}                  
+                    />
 
-                        <CardList 
-                            ref = "cardList"
-                            cardListFor = {cardListFor}
-                            cardListForId = {cardListForId}
-                            buildings={buildings}
-                            isFilterApplied = {isFilterApplied}
-                            rotateImage = {this.rotateImage}
-                            destroyTooltip = {this.destroyTooltip}
-                        />                     
-                        
-
-                    </div>
-
-       
+                    <CardList 
+                        ref = "cardList"
+                        cardListFor = {cardListFor}
+                        cardListForId = {cardListForId}
+                        buildings={buildings}
+                        isFilterApplied = {isFilterApplied}
+                        rotateImage = {this.rotateImage}
+                        destroyTooltip = {this.destroyTooltip}
+                    /> 
                 </div>
             ); 
         }
