@@ -161,10 +161,6 @@ var StepOne = React.createClass({
         };
 
         this.updateStateData([dataToSet]);
-
-        // var delay=100000; //1 seconds
-
-        // setTimeout(this.updateStateData([dataToSet]), delay);
     }, 
     
     updateStateData: function(data){
