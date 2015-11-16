@@ -576,7 +576,7 @@ function getCardUnits(floor_groups, allFilteredUnits){
 		
 	_.each(floor_groups,function(group){		
 		
-
+		group.filteredUnitData = [];
 		_.each(group.unitData, function(unit){
 
 			var check = _.some( allFilteredUnits, function( el ) {
@@ -1303,8 +1303,6 @@ function _updateGlobalState(newStateData,type){
 	  case "singleUnits":
 	      _groupStateData = newStateData;
 	      break;
-	  default:
-	      _globalStateData = newStateData;
 	}	
 	
 }
@@ -1652,12 +1650,14 @@ function _getUnitDetails(unitId){
 
 function _getBuildingMasterDetails(buildingId){
 	var finalData = {};
+	var projectMasterStateData = {};
 
 	buildingId = parseInt(buildingId);
 
 	if(!_.isEmpty(_projectData)){
 
 		if((!_.isEmpty(_globalStateData.data.projectTitle))){
+
 			projectMasterStateData = _globalStateData;
 
 			allBuildings = projectMasterStateData.data.buildings;
@@ -1665,16 +1665,27 @@ function _getBuildingMasterDetails(buildingId){
 			selectedBuilding = _.findWhere(allBuildings,{id:buildingId});
 
 			// send only array of selected building
+			var newBuildings = [selectedBuilding];
+            projectMasterStateData = immutabilityHelpers( _globalStateData, { data: 
+                                                            {buildings: {$set: newBuildings} 
+                                                            }
+                                                          }); 
 
+            var filterTypes;
+            filterTypes = getFilterTypes("Apartment",buildingId,'');
+            projectMasterStateData = immutabilityHelpers( _globalStateData, { data: 
+                                                            {filterTypes: {$set: filterTypes} 
+                                                            }
+                                                          }); 
 
-			delete projectMasterStateData.data.buildings;
+			
+            projectMasterStateData = immutabilityHelpers( _globalStateData, { data: 
+                                                            {applyFiltersSvgCheck: {$set: false} 
+                                                            }
+                                                          }); 
 
+			
 			_buildingMasterStateData = projectMasterStateData;
-			_buildingMasterStateData.data.buildings = [selectedBuilding];
-			//console.log(_buildingMasterStateDat);
-
-			_buildingMasterStateData.data.filterTypes = getFilterTypes("Apartment",buildingId,'');
-			_buildingMasterStateData.data.applyFiltersSvgCheck = false;
 			
 		}
 	}

@@ -57,7 +57,7 @@ var StepOne = React.createClass({
         // destroy tooltips if any
         this.destroyTooltip();
     },
-
+ 
     showTooltip: function(text, selector){
 
         // first destroy tooltip
@@ -272,6 +272,9 @@ var StepOne = React.createClass({
                                                             }
                                                           });                
             }  
+            if(dataToSet.property === "data"){
+                newState = immutabilityHelpers( oldState, { data: {$set: dataToSet.value}});
+            }            
 
             oldState = newState;               
 
@@ -281,8 +284,6 @@ var StepOne = React.createClass({
 
         this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState,"projectMaster");
-
-        console.log(newState);
 
     },  
 
@@ -318,7 +319,7 @@ var StepOne = React.createClass({
     },     
 
     toggelSunView: function(evt){
-        
+
         evt.preventDefault();
         $clickedDiv = $(evt.currentTarget);
 
