@@ -438,7 +438,7 @@ var GroupMaster = React.createClass({
 
 
             if(dataToSet.property === "data"){
-             newState = immutabilityHelpers( oldState, { data: {$set: newState}
+             newState = immutabilityHelpers( oldState, { data: {$set: dataToSet.value}
             });                
             }      
 
