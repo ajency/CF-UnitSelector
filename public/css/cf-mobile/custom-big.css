@@ -122,13 +122,6 @@ section {
 .image img {
   max-height: inherit !important;
   width: 100%;
-  opacity: 0;
-  -webkit-animation: fadeIn ease-in 1;
-  animation: fadeIn ease-in 1;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
 }
 .image .no-shadow {
   position: absolute !important;
@@ -157,6 +150,14 @@ section {
   to {
     opacity: 1;
   }
+}
+.fadeInCls {
+  -webkit-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
 }
 .primary-txt {
   color: #fe943e;
@@ -1817,6 +1818,9 @@ select::-ms-expand {
 .step4Desk .similarFlat .moreFlats .card-swipe .amount {
   color: #fe943e;
   margin-left: 5px;
+}
+.step4Desk .similarFlat .moreFlats .card-swipe .amount i {
+  margin-right: 2px;
 }
 .step4Desk .similarFlat .moreFlats .card-swipe .matchingSelection {
   color: #333 !important;

@@ -170,17 +170,26 @@ body .row {
 .navbar-default a:focus {
   outline: none;
 }
+.toggleDiv {
+  position: absolute;
+  width: 100%;
+  top: 14%;
+  text-align: center;
+}
 .sun-toggle {
   width: 40px;
   height: 40px;
   background: #fff;
   z-index: 99;
-  position: absolute;
-  left: 4%;
-  top: 14%;
+  position: relative;
   border-radius: 100%;
   box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.44);
   padding: 5px 4px;
+  float: left;
+  margin: 0 0px 0 15px;
+}
+.sun-toggle .i-sun {
+  background-position: -23px -226px;
 }
 .sun-highlight {
   background: yellow;
@@ -781,13 +790,6 @@ section {
 .image img {
   max-height: inherit !important;
   width: 100%;
-  opacity: 0;
-  -webkit-animation: fadeIn ease-in 1;
-  animation: fadeIn ease-in 1;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
 }
 .image .no-shadow {
   position: absolute !important;
@@ -816,6 +818,14 @@ section {
   to {
     opacity: 1;
   }
+}
+.fadeInCls {
+  -webkit-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
 }
 .primary-txt {
   color: #fe943e;
@@ -1158,7 +1168,7 @@ div.spritespin-div {
 }
 .contactModal .content {
   padding: 10px;
-  width: auto;
+  width: 100%;
 }
 .contactModal .modal-header {
   border: none !important;
@@ -1649,15 +1659,14 @@ div.spritespin-div {
   color: #ee1f3b;
 }
 .messageBox {
-  position: absolute;
+  position: relative;
   background: rgba(0, 0, 0, 0.7);
   color: #ffffff;
   padding: 0px;
-  left: 21%;
-  top: 15%;
-  display: block;
+  display: inline-block;
   z-index: 99;
   font-size: 11px;
+  margin-top: 4px;
 }
 .messageBox .tip {
   float: left;
