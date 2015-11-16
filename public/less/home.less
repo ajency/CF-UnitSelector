@@ -400,13 +400,6 @@ body .row {
     height: 100% !important;
     opacity: .9 !important;
 }
-@media screen and (max-width:767px) and (orientation : landscape)
-{  
-    .rotate
-    {
-      bottom:47%;
-    }     
-}
 .svg-light{
   opacity: 0.3;
   fill:@white;
@@ -428,14 +421,28 @@ body .row {
 .animsition, .animsition-overlay {
     position: initial !important;
 }
-       .swiper-container {
-            width: 100%;
+.swiper-container {
+    width: 100%;
+}
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+          @media(max-width: 320px){
+              width: 260px;
+     }
         }
-        .swiper-slide {
-            background-position: center;
-            background-size: cover;
-            width: 300px;
-                  @media(max-width: 320px){
-                      width: 260px;
-             }
-        }
+@media screen and (max-width:767px) and (orientation : landscape)
+{  
+    .rotate
+    {
+      bottom:47%;
+    }     
+}
+@media screen and (min-width:480px) and (max-width:767px)  and (orientation : portrait)
+{  
+    .rotate
+    {
+      bottom:27%;
+    }     
+}
