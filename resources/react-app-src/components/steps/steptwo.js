@@ -280,13 +280,14 @@ var StepTwo = React.createClass({
                                                             {unitIndexToHighlight: {$set: dataToSet.value} 
                                                             }
                                                           });                
-            }  
+            } 
+            if(dataToSet.property === "data"){
+                newState = immutabilityHelpers( oldState, { data: {$set: dataToSet.value}});
+            }
 
             oldState = newState;               
 
-        })
-    
-
+        });
 
         this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState,"buildingFloorGroups");
