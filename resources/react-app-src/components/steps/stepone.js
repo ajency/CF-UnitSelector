@@ -318,6 +318,8 @@ var StepOne = React.createClass({
     },     
 
     toggelSunView: function(evt){
+        
+        evt.preventDefault();
         $clickedDiv = $(evt.currentTarget);
 
         if($clickedDiv.hasClass('sun-highlight')){
