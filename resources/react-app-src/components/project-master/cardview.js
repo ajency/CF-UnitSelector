@@ -183,8 +183,10 @@ var CardView = React.createClass({
         }
         else{
 
-          buildingToBeHighlighted = this.props.buildingToBeHighlighted;
-          buildingToBeHighlightedId = buildingToBeHighlighted.id;
+          var buildingToBeHighlighted = this.props.buildingToBeHighlighted;
+
+          if(buildingToBeHighlighted){
+            var buildingToBeHighlightedId = buildingToBeHighlighted.id;
 
           if(buildingId === buildingToBeHighlightedId){
             
@@ -193,9 +195,11 @@ var CardView = React.createClass({
               'card-swipe': true,
               'not-released': isZeroUnits,
               'highlight': true
-            });             
-
+            });
           }
+          }
+         
+          
 
           // give card an id to help in scrolling
           cardId = "building"+buildingId;
