@@ -667,6 +667,7 @@ var StepTwo = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip}
+                        applied_filters = {applied_filters}
                     /> 
                 </div>
             ); 

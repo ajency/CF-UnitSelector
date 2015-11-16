@@ -466,6 +466,8 @@ function getUnitCount(propertyType,filters,buildingId,groupId){
 		unitCount["filtered"] = filteredUnits ;
 	}
 
+	console.log(unitCount);
+
 	return unitCount;
 } 
 
@@ -574,9 +576,10 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 function getCardUnits(floor_groups, allFilteredUnits){
 	
 		
-	_.each(floor_groups,function(group){		
-		
+	_.each(floor_groups,function(group){
+
 		group.filteredUnitData = [];
+		
 		_.each(group.unitData, function(unit){
 
 			var check = _.some( allFilteredUnits, function( el ) {
