@@ -107,7 +107,7 @@ body .row {
 }
 .navbar-default .navbar-header {
   color: white;
-  z-index: 99;
+  z-index: 15002;
   margin: 0 !important;
   position: absolute;
   top: 0;
@@ -457,6 +457,9 @@ body .row {
 @media screen and (max-width: 767px) and (orientation: landscape) {
   .rotate {
     bottom: 47%;
+  }
+  .navbar-header .i-marker {
+    margin: 0 17px;
   }
 }
 @media screen and (min-width: 480px) and (max-width: 767px) and (orientation: portrait) {

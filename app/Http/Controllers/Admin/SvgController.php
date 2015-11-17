@@ -103,7 +103,8 @@ class SvgController extends Controller {
 			}
 			elseif($svg_type == 'building_master')
 			{
-				$svgElements = $svg->svgElement()->where( 'object_type', '!=', 'floor_group' )->get()->toArray(); 
+				$svgElements = $svg->svgElement()->get()->toArray(); 
+				//$svgElements = $svg->svgElement()->where( 'object_type', '!=', 'floor_group' )->get()->toArray(); 
 			}
 			else{
 				$svgElements = $svg->svgElement()->get()->toArray(); 

@@ -110,7 +110,7 @@ var FilterType = React.createClass({
                                                 <h5 className="col-xs-9 normal">{filterValue.name}</h5>
                                                 <span className="col-xs-3 text-center">
 
-                                                        <input type="checkbox" checked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id} /><label></label>
+                                                        <input type="checkbox" defaultChecked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id} /><label></label>
 
                                                 </span>
                                             </li>                              
@@ -119,7 +119,7 @@ var FilterType = React.createClass({
                                     else{
                                         filterUiDom = (
                                                 <li key={i} className="col-xs-4">
-                                                    <input type="checkbox" checked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
+                                                    <input type="checkbox" defaultChecked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
                                                     <label className="checkboxLabel"></label>
                                                     <label>{filterValue.name}</label>
                                                 </li>
