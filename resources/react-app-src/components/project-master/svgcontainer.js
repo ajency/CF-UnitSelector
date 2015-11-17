@@ -53,7 +53,7 @@ var SvgContainer = React.createClass({
                     if(id === cardListForId){
                         svgElemClassName = existingClasses+' svg-light step2-svg';
                     }else{
-                        svgElemClassName = existingClasses+' svg-light not-in-selection';   
+                        svgElemClassName = existingClasses+' svg-light disabled-floor-group';   
                     }
 
                     $(selector).attr("class", svgElemClassName);
