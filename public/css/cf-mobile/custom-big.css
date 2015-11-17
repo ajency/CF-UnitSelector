@@ -264,7 +264,7 @@ body a {
   color: white;
   position: absolute;
   bottom: 10px;
-  z-index: 9999;
+  z-index: 99;
 }
 .footer a {
   font-size: 12px;
@@ -516,7 +516,7 @@ body a {
   opacity: .5;
 }
 .rotate {
-  z-index: 999;
+  z-index: 9;
   margin: auto;
   position: absolute;
   left: 0;
@@ -580,10 +580,10 @@ body a {
   outline: none;
 }
 .navbar-header {
-  z-index: 99999;
+  z-index: 99;
 }
 .contactModal {
-  left: 320px !important;
+  left: 0px !important;
   top: 15% !important;
   z-index: 99999;
 }
@@ -687,7 +687,7 @@ body a {
   margin-bottom: 20px;
 }
 .modal-backdrop.in {
-  left: 320px;
+  left: 0px;
 }
 .hide-shadow {
   opacity: 0;
@@ -873,6 +873,7 @@ select::-ms-expand {
   background: none!important;
   color: #fff!important;
   font-size: 14px!important;
+  z-index: 9 !important;
 }
 .qtip-light .qtip-content {
   background: #000;
@@ -1042,7 +1043,7 @@ select::-ms-expand {
 }
 .sideBarLogo img {
   height: 100%;
-  padding-left: 8px;
+  padding-left: 7px;
 }
 #overlay {
   position: absolute;
@@ -1518,10 +1519,6 @@ select::-ms-expand {
   margin-bottom: -2px;
   font-weight: 400;
   margin-left: 10px;
-}
-.step4Body .modal-backdrop.in,
-.step4Body .contactModal {
-  left: 0 !important;
 }
 .step4Desk {
   padding: 15px 0 !important
