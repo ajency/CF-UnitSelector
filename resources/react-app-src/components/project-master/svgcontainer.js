@@ -13,8 +13,9 @@ var SvgContainer = React.createClass({
         svgDom = $(".svg-area");
         $(svgDom).find("svg .floor_group").attr("class", "in-selection");
     },
+ 
 
-    svgLoaded: function(buildingToHighlight){
+    svgLoaded: function(buildingToHighlight,cardListFor){
         var highlightedBuildingId = 0 ;
         var highlightedBuildingName = "Loading.." ;
         var highlightedBuildingSelector = "";
@@ -31,6 +32,10 @@ var SvgContainer = React.createClass({
             highlightedBuildingId = buildingToHighlight.id;
             highlightedBuildingName = buildingToHighlight.building_name;
         }
+
+        if(cardListFor==="group"){
+            this.props.panToZoomedGroup();
+        }        
 
         var filteredBuildingIds = [];
         var notAvailableBuildingIds = [];
@@ -72,6 +77,7 @@ var SvgContainer = React.createClass({
 
       // Loop through each building svg element in svg
         $(svgDom).find(svgSelector).each(function(ind, item) {
+
             var svgElemClassName;
             var id = parseInt(item.id);
 
@@ -113,6 +119,7 @@ var SvgContainer = React.createClass({
             }
 
             $(selector).attr("class", svgElemClassName);
+
         });
 
 
@@ -199,12 +206,14 @@ var SvgContainer = React.createClass({
 
         // need current highlighted building
         var buildingToHighlight = this.props.buildingToHighlight;
+        var cardListFor = this.props.cardListFor;
+        var panToZoomedGroup = this.props.panToZoomedGroup;
       
         
         return (
 
                   <div ref= "svgComp" className={svgClasses} >
-                  <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight)}>
+                  <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight, cardListFor)}>
 	                  Here's some optional content for browsers that don't support XHR or inline
 	                  SVGs. You can use other React components here too. Here, I'll show you.
 
