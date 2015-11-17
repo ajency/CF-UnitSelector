@@ -22,6 +22,8 @@ var SvgContainer = React.createClass({
 
         var imageType = this.props.imageType;
 
+        var svgDom = $(".svg-area");
+
         // on load of svg rest apply svg filter check to avoid continuous reload of svg file
         if(this.props.applyFiltersSvgCheck){
             this.props.updatefiltersSvgCheck(false);
@@ -35,6 +37,28 @@ var SvgContainer = React.createClass({
 
         if(cardListFor==="group"){
             this.props.panToZoomedGroup();
+            cardListForId = parseInt(this.props.cardListForId);
+            
+            $(svgDom).find(".floor_group").each(function(ind, item) {
+
+                    var svgElemClassName;
+                    var id = parseInt(item.id);
+
+                    var exisitngClasses = "";
+                    var selector= '.floor_group'+id;
+
+                    existingClasses = $(selector).attr("class"); 
+
+
+                    if(id === cardListForId){
+                        svgElemClassName = existingClasses+' svg-light step2-svg';
+                    }else{
+                        svgElemClassName = existingClasses+' svg-light not-in-selection';   
+                    }
+
+                    $(selector).attr("class", svgElemClassName);
+
+            });            
         }        
 
         var filteredBuildingIds = [];
@@ -61,17 +85,14 @@ var SvgContainer = React.createClass({
         filteredBuildingIds = _.unique(filteredBuildingIds);
         notAvailableBuildingIds = _.unique(notAvailableBuildingIds);
 
-
-        svgDom = $(".svg-area");
-
-      
-
         var svgSelector= "";
 
         if(imageType === "master"){
             svgSelector = "svg .building";
-        }else{
+        }else if(imageType === "buildingFloorGrps"){
             svgSelector = "svg .floor_group";
+        }else{
+            svgSelector = "svg .apartment";    
         }      
 
 
@@ -89,8 +110,7 @@ var SvgContainer = React.createClass({
             }else if(imageType === "buildingFloorGrps"){
               selector = '.floor_group'+id;  
             }else{
-              // selector = '.apartment'+id;
-              selector = '.floor_group'+id;
+              selector = '.apartment'+id;
             }
 
             existingClasses = $(selector).attr("class"); 
@@ -180,8 +200,7 @@ var SvgContainer = React.createClass({
                 svgNamePrefix = "step-two-";
                 break;
             case "singleFloorGroup":
-                // svgNamePrefix = "step-three-";
-                svgNamePrefix = "step-two-";
+                svgNamePrefix = "step-three-";
                 break;
             default:
                 svgNamePrefix = "master-";

@@ -120,7 +120,7 @@ var SteponeImage = React.createClass({
                 panZoomSettings = {
                         minScale : 0,
                         contain: "invert",
-                        startTransform: 'scale(2.0)'
+                        startTransform: 'scale(2.1)'
                         }
 
                 $imageContainerDom.panzoom(panZoomSettings);                
