@@ -318,6 +318,7 @@ var StepThree = React.createClass({
         buildingToHighlight = buildings[slideToGotTo];
         buildingName = buildingToHighlight.building_name;
 
+
         this.showTooltip(buildingName,".apartment"+buildingToHighlight.id);
     }, 
 
@@ -594,8 +595,14 @@ var StepThree = React.createClass({
 
         // drop down data
         allBuildings = AppStore.getProjectData();
+        if(!_.isEmpty(allBuildings)){
         currentBuilding = _.find(allBuildings.buildings, function(f){ return f.id == buildingId;});
-        groupDropwdownData = [];
+        groupDropwdownData = currentBuilding.floor_group;
+        }else{
+          groupDropwdownData = [];  
+        }
+
+        console.log(allBuildings);
 
 
         if(window.isMobile){
@@ -689,7 +696,8 @@ var StepThree = React.createClass({
                         unitCount = {unitCount} 
                         unitIndexToHighlight = {unitIndexToHighlight}
                         applied_filters = {applied_filters}
-                        dropDownData = {groupDropwdownData}     
+                        dropDownData = {groupDropwdownData}
+                        buildingId = {buildingId}     
                     />                
 
                     <div id="page-content-wrapper">
