@@ -46,6 +46,7 @@ if(window.isMobile){
 
                                     <RoomAttributeList
                                         attributes={room.atributes}
+                                        listcount = 'less'
                                     />
                                 </div>
                

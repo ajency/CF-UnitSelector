@@ -20,7 +20,7 @@ var sliderSettings = {
 
 var CardList = React.createClass({
 
-    mixins: [PureRenderMixin],
+     mixins: [PureRenderMixin],
 
     swipeCard: function(swiper){
 
@@ -57,9 +57,19 @@ var CardList = React.createClass({
             }
         
     },
+
+
+
+    componentWillReceiveProps: function(nextProps){      
+        
+    },
+
+
     componentDidMount: function() {
       var mySwiper;
       var $sliderContainer = $(this.refs.sliderContainer);
+
+      console.log('cardlist mounted');
 
 
       if((!($sliderContainer.hasClass('swiper-container-horizontal'))) && (window.isMobile)){
@@ -71,6 +81,9 @@ var CardList = React.createClass({
        },    
 
     componentDidUpdate: function() {
+
+      console.log('cardlist updated');
+
         var mySwiper;
         var $sliderContainer = $(this.refs.sliderContainer);
 
@@ -96,6 +109,9 @@ var CardList = React.createClass({
 
 
     render: function() {
+
+      console.log('cardlist rendered');
+
         var buildings = this.props.buildings;
         var buildingNodes; 
         var isFilterApplied = this.props.isFilterApplied; 

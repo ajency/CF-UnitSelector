@@ -56,6 +56,9 @@ var CardView = React.createClass({
 
 
     render: function() {
+
+
+
         var buildingData = this.props.building;
         var buildingId = buildingData.id;
         var isFilterApplied = this.props.isFilterApplied;
@@ -76,6 +79,9 @@ var CardView = React.createClass({
         var cardListForId = this.props.cardListForId;
 
         var mainDom;
+
+
+        console.log(buildingData.building_name+' rendered');
 
         if (!_.isEmpty(buildingData)){
           

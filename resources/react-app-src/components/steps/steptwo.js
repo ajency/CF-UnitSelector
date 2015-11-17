@@ -628,16 +628,19 @@ var StepTwo = React.createClass({
                         ref="contactModal" 
                         modalData = {modalData}
                         modalPurpose = "mobileContactModal"
-                    />                      
-                    <SunToggle 
-                        shadowImages={data.shadowImages}
-                        toggelSunView = {this.toggelSunView} 
-                        showShadow={data.showShadow}
-                    />
+                    /> 
 
-                    <MessageBox
-                        message = "Click on floor group to proceed"
-                    />                                    
+                    <div className="toggleDiv">                     
+                        <SunToggle 
+                            shadowImages={data.shadowImages}
+                            toggelSunView = {this.toggelSunView} 
+                            showShadow={data.showShadow}
+                        />
+
+                        <MessageBox
+                            message = "Click on floor group to proceed"
+                        /> 
+                    </div>                                   
 
                     <SteptwoImage
                         ref= "imageContainerone"
@@ -646,6 +649,7 @@ var StepTwo = React.createClass({
                         shadowImages={data.shadowImages}
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
+                        buildingId = {buildingId}
                         buildings =  {buildings} 
                         buildingToHighlight = {buildingToHighlight}
                         applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
@@ -667,6 +671,7 @@ var StepTwo = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip}
+                        applied_filters = {applied_filters}
                     /> 
                 </div>
             ); 
@@ -701,6 +706,7 @@ var StepTwo = React.createClass({
                             shadowImages={data.shadowImages}
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
+                            buildingId ={buildingId}
                             buildings =  {buildings}
                             buildingToHighlight = {buildingToHighlight}
                             applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 

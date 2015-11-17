@@ -11,7 +11,7 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
-var _groupStateData = {};
+var _groupStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
 var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
 var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
 
@@ -466,6 +466,8 @@ function getUnitCount(propertyType,filters,buildingId,groupId){
 		unitCount["filtered"] = filteredUnits ;
 	}
 
+	console.log(unitCount);
+
 	return unitCount;
 } 
 
@@ -574,9 +576,10 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 function getCardUnits(floor_groups, allFilteredUnits){
 	
 		
-	_.each(floor_groups,function(group){		
-		
+	_.each(floor_groups,function(group){
+
 		group.filteredUnitData = [];
+
 		_.each(group.unitData, function(unit){
 
 			var check = _.some( allFilteredUnits, function( el ) {
@@ -1356,10 +1359,14 @@ function getFilteredProjectMasterData(buildingId,groupId){
 	
 
 	if(buildingId != '' && groupId != ''){
-		newProjectData = _groupStateData.data;
-		appliedFilters = _groupStateData.data.applied_filters;
-		buildings = _projectData.buildings;
-		allUnits = _projectData.units;
+		newProjectData = _buildingMasterStateData.data;
+		appliedFilters = _buildingMasterStateData.data.applied_filters;
+		buildings = newProjectData.buildings;
+		allUnits = _.filter(_projectData.units , function(unit){
+		if(unit.building_id == buildingId){
+			return unit;
+		} 
+		});
 	}else if(buildingId != '' && groupId == ''){
 		newProjectData = _buildingMasterStateData.data;
 		appliedFilters = _buildingMasterStateData.data.applied_filters;
@@ -1388,7 +1395,7 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 
 	if(buildingId != '' && groupId != ''){
-		buildingsWithUnits = getBuildingUnits(buildings, allUnits, filteredUnits );
+		buildingsWithUnits = getCardUnits(buildings, filteredUnits );
 	}else if(buildingId != '' && groupId == ''){
 		buildingsWithUnits = getCardUnits(buildings, filteredUnits );
 	}else{
@@ -1694,21 +1701,41 @@ function _getBuildingMasterDetails(buildingId){
 }
 
 function getGroupMasterFromProjectData(buildingId,groupId){
+	var buildingMasterStateData = {};
 	buildingStateData = _getBuildingMasterDetails(buildingId);
-	buildingMasterStateData = formatBuildingStateData(buildingStateData);
+	formattedStateData = formatBuildingStateData(buildingStateData);
+	buildingMasterStateData = formattedStateData;
 
 	// buildings here would refer to floor groups
 	allGroups = buildingMasterStateData.data.buildings;
 
 	// selected floor group
-	selectedGroup = _.findWhere(allGroups,{id:groupId});  
+	selectedGroup = _.findWhere(allGroups,{id:groupId}); 
 
-	// send only array of selected floor group
-	delete buildingMasterStateData.data.buildings;
+	newBuildings = [selectedGroup]; 
+
+    buildingMasterStateData = immutabilityHelpers( buildingMasterStateData, { data: 
+                                                {buildings: {$set: newBuildings} 
+                                                }
+                                              }); 
 
 
-	_groupStateData = buildingMasterStateData ;
-	_groupStateData.data.buildings = [selectedGroup];
+    var filterTypes;
+    filterTypes = getFilterTypes("Apartment",buildingId,groupId);	
+    buildingMasterStateData = immutabilityHelpers( buildingMasterStateData, { data: 
+                                                    {filterTypes: {$set: filterTypes} 
+                                                    }
+                                                  }); 
+
+	
+    buildingMasterStateData = immutabilityHelpers( buildingMasterStateData, { data: 
+                                                    {applyFiltersSvgCheck: {$set: false} 
+                                                    }
+                                                  }); 
+
+	
+	_groupStateData = buildingMasterStateData;
+
 
 	return _groupStateData;
 
@@ -1731,6 +1758,7 @@ function getMinUnitPrice (units){
 function _getGroupMasterDetails(buildingId,groupId){
 	buildingId = parseInt(buildingId);
 	groupId = parseInt(groupId);
+	var buildingMasterStateData = {};
 
 
 	if(!_.isEmpty(_projectData)){
@@ -1742,21 +1770,33 @@ function _getGroupMasterDetails(buildingId,groupId){
 			allGroups = buildingMasterStateData.data.buildings;
 
 			// selected floor group
-			selectedGroup = _.findWhere(allGroups,{id:groupId});  
+			selectedGroup = _.findWhere(allGroups,{id:groupId}); 
+			newBuildings = [selectedGroup]; 
 
-			// send only array of selected floor group
-			delete buildingMasterStateData.data.buildings;
+            buildingMasterStateData = immutabilityHelpers( _buildingMasterStateData, { data: 
+                                                {buildings: {$set: newBuildings} 
+                                                }
+                                              }); 
 
+            var filterTypes;
+            filterTypes = getFilterTypes("Apartment",buildingId,groupId);	
+            buildingMasterStateData = immutabilityHelpers( _buildingMasterStateData, { data: 
+                                                            {filterTypes: {$set: filterTypes} 
+                                                            }
+                                                          }); 
 
+			
+            buildingMasterStateData = immutabilityHelpers( _buildingMasterStateData, { data: 
+                                                            {applyFiltersSvgCheck: {$set: false} 
+                                                            }
+                                                          }); 
+
+			
 			_groupStateData = buildingMasterStateData;
-			_groupStateData.data.buildings = [selectedGroup];
-
-			_groupStateData.data.filterTypes = getFilterTypes("Apartment",buildingId,groupId);
 			
 		}
 		else{
-			_groupStateData = getGroupMasterFromProjectData(buildingId,groupId);
-			_groupStateData.data.filterTypes = getFilterTypes("Apartment",buildingId,groupId);			
+			_groupStateData = getGroupMasterFromProjectData(buildingId,groupId);		
 		}
 	}
 	
