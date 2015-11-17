@@ -573,7 +573,7 @@ function getBuildingUnits(buildings, allUnits, allFilteredUnits){
 
 
 
-function getCardUnits(floor_groups, allFilteredUnits){
+function getGroupUnits(floor_groups, allFilteredUnits){
 	
 		
 	_.each(floor_groups,function(group){
@@ -597,12 +597,6 @@ function getCardUnits(floor_groups, allFilteredUnits){
 
 	return floor_groups;
 }
-
-
-
-
-
-
 
 
 
@@ -1359,23 +1353,15 @@ function getFilteredProjectMasterData(buildingId,groupId){
 	
 
 	if(buildingId != '' && groupId != ''){
-		newProjectData = _buildingMasterStateData.data;
-		appliedFilters = _buildingMasterStateData.data.applied_filters;
+		newProjectData = _groupStateData.data;
+		appliedFilters = _groupStateData.data.applied_filters;
 		buildings = newProjectData.buildings;
-		allUnits = _.filter(_projectData.units , function(unit){
-		if(unit.building_id == buildingId){
-			return unit;
-		} 
-		});
+		
 	}else if(buildingId != '' && groupId == ''){
 		newProjectData = _buildingMasterStateData.data;
 		appliedFilters = _buildingMasterStateData.data.applied_filters;
 		buildings = newProjectData.buildings;
-		allUnits = _.filter(_projectData.units , function(unit){
-		if(unit.building_id == buildingId){
-			return unit;
-		} 
-		});
+		
 	}else{
 		newProjectData = _globalStateData.data;
 		appliedFilters = _globalStateData.data.applied_filters;
@@ -1395,9 +1381,9 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 
 	if(buildingId != '' && groupId != ''){
-		buildingsWithUnits = getCardUnits(buildings, filteredUnits );
+		buildingsWithUnits = getGroupUnits(buildings, filteredUnits );
 	}else if(buildingId != '' && groupId == ''){
-		buildingsWithUnits = getCardUnits(buildings, filteredUnits );
+		buildingsWithUnits = getGroupUnits(buildings, filteredUnits );
 	}else{
 		buildingsWithUnits = getBuildingUnits(buildings, allUnits, filteredUnits );
 	}	
@@ -1780,13 +1766,13 @@ function _getGroupMasterDetails(buildingId,groupId){
 
             var filterTypes;
             filterTypes = getFilterTypes("Apartment",buildingId,groupId);	
-            buildingMasterStateData = immutabilityHelpers( _buildingMasterStateData, { data: 
+            buildingMasterStateData = immutabilityHelpers( buildingMasterStateData, { data: 
                                                             {filterTypes: {$set: filterTypes} 
                                                             }
                                                           }); 
 
 			
-            buildingMasterStateData = immutabilityHelpers( _buildingMasterStateData, { data: 
+            buildingMasterStateData = immutabilityHelpers( buildingMasterStateData, { data: 
                                                             {applyFiltersSvgCheck: {$set: false} 
                                                             }
                                                           }); 

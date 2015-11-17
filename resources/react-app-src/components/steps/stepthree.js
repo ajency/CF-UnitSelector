@@ -318,6 +318,7 @@ var StepThree = React.createClass({
         buildingToHighlight = buildings[slideToGotTo];
         buildingName = buildingToHighlight.building_name;
 
+        
         this.showTooltip(buildingName,".apartment"+buildingToHighlight.id);
     }, 
 
