@@ -810,7 +810,7 @@ function getVariantsName(propertyType,variant,buildingId,groupId){
 		var formatedName = formatCheck[0].toUpperCase() + formatCheck.substr(1);
 
 		var var_attributes = {
-			id: key,
+			id: variantName,
 			isSelected: false,
 			name: formatedName,
 			property_type_id: prop_type_id
