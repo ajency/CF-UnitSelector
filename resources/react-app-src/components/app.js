@@ -2,6 +2,7 @@ var React = require('react');
 var StepOne = require('./steps/stepone');
 var StepTwo = require('./steps/steptwo');
 var StepThree = require('./steps/stepthree');
+var GroupMaster = require('./building-master/groupmaster');
 var BuildingMaster = require('./building-master/buildingmaster');
 var UnitDetails = require('./unit-details/unitdetails');
 var Router = require('react-router-component');
@@ -22,7 +23,7 @@ var APP = React.createClass({
           <Locations hash>
             <Location path="/" handler={StepOne} />
             <Location path="/buildings/:buildingId" handler={StepTwo} />
-            <Location path="/buildings/:buildingId/group/:groupId" handler={StepThree} />
+            <Location path="/buildings/:buildingId/group/:groupId" handler={GroupMaster} />
             <Location path="/units/:unitId" handler={UnitDetails} />
           </Locations>
         </Template>

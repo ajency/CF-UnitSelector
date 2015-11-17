@@ -573,9 +573,11 @@ var GroupMaster = React.createClass({
 
 
             var allBuildings = AppStore.getProjectData();
+            //var allBuildings = AppStore.getBuildingMasterStateData(buildingId);
             var currentBuilding = _.find(allBuildings.buildings, function(f){ return f.id == buildingId;});            
             var groupDropwdownData = currentBuilding.floor_group;
 
+            
             var cardListFor = "group";
             var cardListForId = groupId;       
         }
