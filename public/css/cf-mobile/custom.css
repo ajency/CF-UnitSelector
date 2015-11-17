@@ -459,7 +459,7 @@ body .row {
     bottom: 47%;
   }
   .navbar-header .i-marker {
-    margin: 0 17px;
+    margin: 0 14px;
   }
 }
 @media screen and (min-width: 480px) and (max-width: 767px) and (orientation: portrait) {
