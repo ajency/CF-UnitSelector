@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Modal = require('../modal/modal');
 var SteptwoImage = require('../imagecontainer/steponeimage');
-var Link = require('react-router-component').Link;  
+var Link = require('react-router-component').Link;
 var AppStore = require('../../stores/app-store.js');
 var CardList = require('../project-master/cardlist');
 var SideBar = require('../project-master/sidebar');
@@ -14,11 +14,11 @@ var FilterPopover = require('../filter/filterpopover');
 var MessageBox = require('../common/messagebox');
 
 
-var qtipSettings = { 
+var qtipSettings = {
     content: "Dummy Text",
     show: {
-        when: false, 
-        ready: true 
+        when: false,
+        ready: true
     },
     hide: false,
     style: {
@@ -30,7 +30,7 @@ var qtipSettings = {
             width: 88,
             height: 66
         }
-    } 
+    }
 };
 
 var prevShadow = false;
@@ -42,19 +42,19 @@ function getBuildingStateData(buildingId){
 var StepTwo = React.createClass({
 
     getInitialState: function() {
-        
+
         var stateData =  this.getBuildingState();
         return stateData;
-    }, 
+    },
 
     componentWillMount:function(){
         AppStore.addChangeListener(this._onChange);
-    },  
+    },
 
     _onChange:function(){
         var buildingId;
         buildingId = this.props.buildingId;
-        newState = this.getBuildingState();        
+        newState = this.getBuildingState();
         this.setState(newState);
     },
 
@@ -71,7 +71,7 @@ var StepTwo = React.createClass({
 
         // first destroy tooltip
         this.destroyTooltip();
- 
+
         // initialise qtip
         $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
             $(item).qtip({ // Grab some elements to apply the tooltip to
@@ -81,13 +81,13 @@ var StepTwo = React.createClass({
                 position:{
                            my: 'center',  // Position my top left...
                            at: 'center', // at the bottom right of...
-                           viewport: $(window), 
+                           viewport: $(window),
                            target: $(item) // my target
                        },
                 style:qtipSettings['style']
             });
-        }); 
-    },  
+        });
+    },
 
     destroyTooltip: function(){
 
@@ -95,7 +95,7 @@ var StepTwo = React.createClass({
           $(this).data('qtip').destroy();
         });
 
-    },  
+    },
     rotateImage: function(unitData){
 
         // ALways rotate to primary breakpoint
@@ -103,14 +103,14 @@ var StepTwo = React.createClass({
         unitId = unitData.id;
 
         prevShowShadow = this.state.data.showShadow;
-        
+
         // store previous shadow state, to later use it to update main shadow state
         window.prevShadowState = prevShowShadow;
 
         if( prevShowShadow ){
             this.updateRotateShadow(false);
-        }          
-        
+        }
+
         // hide svg area
         allbuildings = this.state.data.buildings;
         allbuildingIds = _.pluck(allbuildings,"id");
@@ -137,7 +137,7 @@ var StepTwo = React.createClass({
             value: indexTohighlight
         };
 
-        this.updateStateData([dataToSet]);    
+        this.updateStateData([dataToSet]);
 
     },
 
@@ -148,8 +148,8 @@ var StepTwo = React.createClass({
         }
 
         this.updateStateData([dataToSet]);
-    },  
-    
+    },
+
     updateRotateShadow: function(showShadowStatus){
         dataToSet = {
             property: "showShadow",
@@ -161,7 +161,7 @@ var StepTwo = React.createClass({
         // var delay=100000; //1 seconds
 
         // setTimeout(this.updateStateData([dataToSet]), delay);
-    }, 
+    },
 
     updatefiltersSvgCheck: function(status){
         dataToSet = {
@@ -170,39 +170,39 @@ var StepTwo = React.createClass({
         };
 
         this.updateStateData([dataToSet]);
-    }, 
-    
+    },
+
     updateStateData: function(data){
         oldState = this.state;
-        
+
         newState = oldState;
 
         _.each(data, function(dataToSet){
 
             if(dataToSet.property === "showShadow"){
-                
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {showShadow: {$set: dataToSet.value} 
+
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {showShadow: {$set: dataToSet.value}
                                                             }
                                                           });
             }
             if(dataToSet.property === "chosenBreakpoint"){
-                
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {chosenBreakpoint: {$set: dataToSet.value} 
+
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {chosenBreakpoint: {$set: dataToSet.value}
                                                             }
                                                           });
             }
             if(dataToSet.property === "applyFiltersSvgCheck"){
-                
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {applyFiltersSvgCheck: {$set: dataToSet.value} 
+
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {applyFiltersSvgCheck: {$set: dataToSet.value}
                                                             }
                                                           });
             }
             if(dataToSet.property === "reset_filters"){
-                
-                newState = immutabilityHelpers( oldState, { data: 
+
+                newState = immutabilityHelpers( oldState, { data:
                                                             {
                                                                 search_filters: {$set: dataToSet.value},
                                                                 applied_filters: {$set: dataToSet.value}
@@ -216,7 +216,7 @@ var StepTwo = React.createClass({
                 filterStyle = dataToSet.filterStyle;
 
                 oldSearchFilters = oldState["data"]["search_filters"];
-                
+
                 oldSearchFilterKeys = _.keys(oldSearchFilters);
 
                 if(_.contains(oldSearchFilterKeys,filterType)){
@@ -226,18 +226,18 @@ var StepTwo = React.createClass({
                     oldSearchFilters[filterType] = [];
                     oldataTochange = oldSearchFilters[filterType];
                 }
-                
 
-                
+
+
 
                 valueToSet = dataToSet.value;
 
                 // if valueToset is already present in array then remove it from array
                 //  if valueToset is not present then add to the array
                 indexOfELem = _.indexOf(oldataTochange,valueToSet);
-                
+
                 if (indexOfELem > -1) {
-                    
+
                     oldataTochange.splice(indexOfELem, 1);
 
                 }else{
@@ -250,7 +250,7 @@ var StepTwo = React.createClass({
                     _.each(valueToSet, function(rangeValue){
                         oldataTochange.push(rangeValue);
                     });
-                    
+
                 }
 
 
@@ -259,33 +259,33 @@ var StepTwo = React.createClass({
 
                 mutatedfilter =  {};
                 mutatedfilter[filterType] = {$set: oldataTochange};
-                
-                newState = immutabilityHelpers( oldState, { data: 
+
+                newState = immutabilityHelpers( oldState, { data:
                                                             {search_filters: mutatedfilter
                                                             }
                                                           });
-            } 
+            }
             if(dataToSet.property === "applied_filters"){
 
                 valueToSet = dataToSet.value;
 
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {applied_filters: 
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {applied_filters:
                                                                 {$set: valueToSet}
                                                             }
                                                           });
-            } 
+            }
             if(dataToSet.property === "unitIndexToHighlight"){
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {unitIndexToHighlight: {$set: dataToSet.value} 
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {unitIndexToHighlight: {$set: dataToSet.value}
                                                             }
-                                                          });                
-            } 
+                                                          });
+            }
             if(dataToSet.property === "data"){
                 newState = immutabilityHelpers( oldState, { data: {$set: dataToSet.value}});
             }
 
-            oldState = newState;               
+            oldState = newState;
 
         });
 
@@ -317,15 +317,15 @@ var StepTwo = React.createClass({
         buildingName = buildingToHighlight.building_name;
 
         this.showTooltip(buildingName,".floor_group"+buildingToHighlight.id);
-    }, 
+    },
 
     showFilterModal: function(){
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
-    }, 
+    },
 
     showContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
-    },     
+    },
 
     toggelSunView: function(evt){
         evt.preventDefault();
@@ -335,7 +335,7 @@ var StepTwo = React.createClass({
             showShadow = false;
         }
         else{
-            showShadow = true;    
+            showShadow = true;
         }
 
         dataToSet = {
@@ -345,23 +345,23 @@ var StepTwo = React.createClass({
 
         this.updateStateData([dataToSet]);
 
-    }, 
+    },
 
     selectFilter: function(evt){
         isChecked = evt.target.checked;
 
         filterType = $(evt.target).data("filtertype");
         filterStyle = $(evt.target).data("filterstyle");
-        
+
 
         if(filterStyle && filterStyle === 'range'){
             filterValue = [evt.min,evt.max];
-            this.updateSearchFilters(filterType, filterValue, filterStyle);            
+            this.updateSearchFilters(filterType, filterValue, filterStyle);
         }
         else{
            filterValue = $(evt.target).val();
-           this.updateSearchFilters(filterType, filterValue); 
-       }        
+           this.updateSearchFilters(filterType, filterValue);
+       }
 
     },
 
@@ -384,7 +384,7 @@ var StepTwo = React.createClass({
             };
         }
 
-        
+
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
@@ -416,9 +416,9 @@ var StepTwo = React.createClass({
             filterStyle: filterStyle,
             value: filterValue
         }
-       
+
         this.updateStateData([dataToSet]);
-    },  
+    },
 
     updateProjectMasterData: function(){
         oldState = this.state;
@@ -434,8 +434,8 @@ var StepTwo = React.createClass({
 
         this.updateStateData([dataToSet]);
 
-    },      
-       
+    },
+
 
     getMinUnitPrice: function(floorGrpUnits){
         unitPrices = [];
@@ -465,7 +465,7 @@ var StepTwo = React.createClass({
 
         buildings = stateDataToformat.data.buildings;
 
-        
+
         if(buildings.length>0){
             newStateData = newState.data;
 
@@ -498,34 +498,34 @@ var StepTwo = React.createClass({
                 floorGroupFilteredUnitData =[];
 
                 // pick only those units from unit data which have the current floor id
-                _.each(unitData, function(unit){ 
-                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+                _.each(unitData, function(unit){
+                    unitFloorGrpId = parseInt(unit.floor_group_id);
 
                     if(floorGrpId===unitFloorGrpId){
                         floorGroupUnitData.push(unit) ;
-                    } 
+                    }
 
                 });
 
                 // pick only those units from unit data which have the current floor id
-                _.each(availableUnitData, function(unit){ 
-                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+                _.each(availableUnitData, function(unit){
+                    unitFloorGrpId = parseInt(unit.floor_group_id);
 
                     if(floorGrpId===unitFloorGrpId){
                         floorGroupAvailableUnitData.push(unit) ;
-                    } 
+                    }
 
-                });  
-                
+                });
+
                 // pick only those units from unit data which have the current floor id
-                _.each(filteredUnitData, function(unit){ 
-                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+                _.each(filteredUnitData, function(unit){
+                    unitFloorGrpId = parseInt(unit.floor_group_id);
 
                     if(floorGrpId===unitFloorGrpId){
                         floorGroupFilteredUnitData.push(unit);
-                    } 
+                    }
 
-                }); 
+                });
 
                 floorGroup.unitData = floorGroupUnitData;
                 floorGroup.availableUnitData = floorGroupAvailableUnitData;
@@ -541,11 +541,11 @@ var StepTwo = React.createClass({
                 supportedUnitTypes = _.pluck(supportedUnitTypesArr,"name");
                 floorGroup.supportedUnitTypes = supportedUnitTypes;
 
-                floorGroups.push(floorGroup) ;                             
+                floorGroups.push(floorGroup) ;
 
             }.bind(this));
 
-            
+
             // modify new state data as per building selected
             newStateData.projectTitle = building.building_name;
             newStateData.breakpoints = building.breakpoints;
@@ -561,7 +561,50 @@ var StepTwo = React.createClass({
 
 
         return newState;
-    },            
+    },
+
+
+
+    componentWillReceiveProps: function(nextProps){
+      if(!_.isEmpty(AppStore.getProjectData())){
+        var buildingId = nextProps.buildingId;
+
+        if(!_.isEmpty(buildingId)){
+
+          var rawBuildingData = getBuildingStateData(buildingId);
+          var processedBuildingData = this.formatStateData(rawBuildingData);
+          processedBuildingData.data.applyFiltersSvgCheck = true;
+          newData = processedBuildingData.data;
+
+          dataToSet = {
+              property: "data",
+              value: newData
+          };
+
+          this.updateStateData([dataToSet]);
+        }
+      }
+    },
+
+
+
+    getAvailableFacing: function(data){
+      if(data.isFilterApplied){
+        var buildingProperty = 'filteredUnitData';
+      }else{
+        var buildingProperty = 'availableUnitData';
+      }
+      var facing = [];
+      _.each(data.buildings, function(building){
+        _.each(building[buildingProperty], function(unit){
+          facing.push(unit.direction);
+        });
+      });
+      facing = _.uniq(facing);
+      return facing.join(', ');
+    },
+
+
 
 
     render: function(){
@@ -574,22 +617,14 @@ var StepTwo = React.createClass({
 
         data = this.state.data;
 
-        if(!_.isEmpty(AppStore.getProjectData())){
-            //var rawBuildingData = getBuildingStateData(this.props.buildingId);
-            //console.log(this.formatStateData(rawBuildingData));
-            console.log(this.getBuildingState());
-        }
 
-        console.log(data);
-
-        
         // Get card list data
         projectTitle = data.projectTitle;
         projectLogo = data.projectLogo;
         logoExist = data.logoExist;
         buildingId = this.props.buildingId;
         cardListFor = "building";
-        cardListForId = buildingId; 
+        cardListForId = buildingId;
         buildings = data.buildings;
         isFilterApplied = data.isFilterApplied;
         unitCount = data.totalCount;
@@ -598,15 +633,17 @@ var StepTwo = React.createClass({
         applied_filters = data.applied_filters;
         buildingToHighlight = buildings[unitIndexToHighlight];
 
+        var facing = this.getAvailableFacing(data);
+
         // Get image container data
-        imageType = "buildingFloorGrps"; 
+        imageType = "buildingFloorGrps";
 
         // get data for modal
         modalData = {};
         filterTypes = data.filterTypes;
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
-        modalData.projectData = {title:data.projectTitle}; 
+        modalData.projectData = {title:data.projectTitle};
 
         // drop down data
         allBuildings = AppStore.getProjectData();
@@ -620,42 +657,42 @@ var StepTwo = React.createClass({
         if(window.isMobile){
             domToDisplay = (
                 <div id="site-wrapper">
-                    <NavBar 
-                        projectTitle = {projectTitle} 
-                        projectLogo = {projectLogo} 
-                        logoExist = {logoExist} 
+                    <NavBar
+                        projectTitle = {projectTitle}
+                        projectLogo = {projectLogo}
+                        logoExist = {logoExist}
                         unitCount = {unitCount}
                         showFilterModal = {this.showFilterModal}
                         showContactModal = {this.showContactModal}
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
-                    /> 
-                    <Modal 
-                        ref="modal" 
+                    />
+                    <Modal
+                        ref="modal"
                         modalPurpose = "filterModal"
                         modalData={modalData}
                         selectFilter={this.selectFilter}
                         applyFilters = {this.applyFilters}
                         unapplyFilters = {this.unapplyFilters}
-                    /> 
-                    <Modal 
-                        ref="contactModal" 
+                    />
+                    <Modal
+                        ref="contactModal"
                         modalData = {modalData}
                         modalPurpose = "mobileContactModal"
-                    /> 
+                    />
 
-                    <div className="toggleDiv">                     
-                        <SunToggle 
+                    <div className="toggleDiv">
+                        <SunToggle
                             shadowImages={data.shadowImages}
-                            toggelSunView = {this.toggelSunView} 
+                            toggelSunView = {this.toggelSunView}
                             showShadow={data.showShadow}
                         />
 
                         <MessageBox
                             message = "Click on floor group to proceed"
-                        /> 
-                    </div>                                   
+                        />
+                    </div>
 
                     <SteptwoImage
                         ref= "imageContainerone"
@@ -665,20 +702,20 @@ var StepTwo = React.createClass({
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
                         buildingId = {buildingId}
-                        buildings =  {buildings} 
+                        buildings =  {buildings}
                         buildingToHighlight = {buildingToHighlight}
-                        applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
+                        applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                         updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
                         destroyTooltip = {this.destroyTooltip}
                         showTooltip = {this.showTooltip}
-                        updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
+                        updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight}
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
                         updateRotateShadow = {this.updateRotateShadow}
                         cardListFor = {cardListFor}
-                        cardListForId = {cardListForId}                  
+                        cardListForId = {cardListForId}
                     />
 
-                    <CardList 
+                    <CardList
                         ref = "cardList"
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId}
@@ -687,30 +724,31 @@ var StepTwo = React.createClass({
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip}
                         applied_filters = {applied_filters}
-                    /> 
+                    />
                 </div>
-            ); 
+            );
         }
         else{
            domToDisplay = (
                 <div id="wrapper">
 
-                    <SideBar                    
+                    <SideBar
                         ref = "sideBarList"
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId}
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
-                        destroyTooltip = {this.destroyTooltip}              
-                        projectTitle = {projectTitle} 
+                        destroyTooltip = {this.destroyTooltip}
+                        projectTitle = {projectTitle}
                         projectLogo = {projectLogo}
                         logoExist = {logoExist}
-                        unitCount = {unitCount} 
+                        unitCount = {unitCount}
                         unitIndexToHighlight = {unitIndexToHighlight}
                         applied_filters = {applied_filters}
-                        dropDownData = {buildingDropwdownData}     
-                    />                
+                        dropDownData = {buildingDropwdownData}
+                        facing = {facing}
+                    />
 
                     <div id="page-content-wrapper">
 
@@ -724,27 +762,27 @@ var StepTwo = React.createClass({
                             buildingId ={buildingId}
                             buildings =  {buildings}
                             buildingToHighlight = {buildingToHighlight}
-                            applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
+                            applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                             updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
                             destroyTooltip = {this.destroyTooltip}
                             showTooltip = {this.showTooltip}
-                            updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
+                            updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight}
                             updateChosenBreakPoint = {this.updateChosenBreakPoint}
                             updateRotateShadow = {this.updateRotateShadow}
                             cardListFor = {cardListFor}
-                            cardListForId = {cardListForId}                        
+                            cardListForId = {cardListForId}
                         />
 
                         <div className="container-fluid">
 
                             <div className="navbar-header">
                                 <div className="row">
-                                    
-                                    <SunToggle 
+
+                                    <SunToggle
                                         shadowImages={data.shadowImages}
-                                        toggelSunView = {this.toggelSunView} 
+                                        toggelSunView = {this.toggelSunView}
                                         showShadow={data.showShadow}
-                                    /> 
+                                    />
 
                                     <div className="col-sm-3 col-sm-offset-3">
                                         <FilterPopover
@@ -753,42 +791,42 @@ var StepTwo = React.createClass({
                                             search_filters={data.search_filters}
                                             applyFilters = {this.applyFilters}
                                             unapplyFilters = {this.unapplyFilters}
-                                            applied_filters = {applied_filters}                                       
+                                            applied_filters = {applied_filters}
                                         />
                                     </div>
 
                                     <div className="col-sm-3">
                                         <div className="pull-right text-center text-uppercase">
-                                            <button type="button" 
-                                                className="btn btn-default  btn-primary" 
-                                                data-toggle="modal" data-target="#contactModal" 
-                                                onClick={this.showContactModal} 
+                                            <button type="button"
+                                                className="btn btn-default  btn-primary"
+                                                data-toggle="modal" data-target="#contactModal"
+                                                onClick={this.showContactModal}
                                             >
                                                 <i className="fa fa-phone"></i>
                                                 <span className="enquiryText text-uppercase">Contact Us</span>
                                             </button>
                                         </div>
-                                    </div>                                          
-                                                                     
+                                    </div>
+
 
                                 </div>
                                 <div className="row text-center">
                                     <MessageBox message = "Click on floor group to proceed" />
-                                </div> 
+                                </div>
                             </div>
 
-                        </div> 
+                        </div>
 
-                        <Modal 
-                            ref="contactModal" 
+                        <Modal
+                            ref="contactModal"
                             modalData = {modalData}
                             modalPurpose = "contactModal"
-                        />                        
+                        />
 
                     </div>
-       
+
                 </div>
-            );             
+            );
         }
 
         return domToDisplay;
