@@ -458,6 +458,11 @@ body a {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
 }
+.navbar-header .tipRow {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+}
 .filter-type li {
   margin-left: 10px;
   font-weight: 300;
@@ -553,7 +558,7 @@ body a {
   width: auto;
   margin: auto;
   display: inline-block;
-  margin-top: -20px;
+  margin-top: 0px;
   font-size: 12px;
 }
 .messageBoxDesk .tip {

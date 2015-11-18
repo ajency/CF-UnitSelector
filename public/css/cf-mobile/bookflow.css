@@ -120,6 +120,24 @@ body {
   float: right;
   width: 470px;
 }
+.bookFlowContent .bookAptOuter > div.backToHomeOuter {
+  width: 150px;
+  margin-top: 16px;
+  margin-left: 15px;
+}
+.bookFlowContent .bookAptOuter > div.backToHomeOuter a {
+  color: #ffffff;
+  font-size: 14px;
+  display: inline-block;
+  outline: none;
+  text-decoration: none;
+}
+.bookFlowContent .bookAptOuter > div.backToHomeOuter a i {
+  font-size: 12px;
+  margin-right: 4px;
+  margin-top: 4px;
+  float: left;
+}
 .bookFlowContent .bookAptOuter i {
   font-size: 16px;
   display: inline-block;
@@ -1062,6 +1080,10 @@ body {
     text-align: center !important;
     width: 100%;
     padding: 0;
+  }
+  .bookFlowContent .bookAptOuter > div.backToHomeOuter {
+    width: 100%;
+    margin-left: 0;
   }
   .bookFlowContent .bookAptOuter .priceOuter {
     width: 120px;
