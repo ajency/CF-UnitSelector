@@ -26,7 +26,11 @@ Path = (function(superClass) {
       'type': item.object_type,
       svgid: item.id
     });
-    path.addClass('path-type');
+    if (svg_type === 'building_master' && path.hasClass('floor_group')) {
+      path.addClass('svg-border');
+    } else {
+      path.addClass('path-type');
+    }
     path.addClass('svg-light');
     path.addClass(item.object_type + item.object_id);
     if (item.primary_breakpoint !== null) {

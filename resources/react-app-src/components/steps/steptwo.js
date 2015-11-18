@@ -552,6 +552,8 @@ var StepTwo = React.createClass({
             newStateData.buildings = floorGroups;
             newStateData.shadowImages = building.shadow_images;
 
+            console.log(newStateData);
+
             newState.data = newStateData;
 
 
@@ -572,6 +574,15 @@ var StepTwo = React.createClass({
 
         data = this.state.data;
 
+        if(!_.isEmpty(AppStore.getProjectData())){
+            //var rawBuildingData = getBuildingStateData(this.props.buildingId);
+            //console.log(this.formatStateData(rawBuildingData));
+            console.log(this.getBuildingState());
+        }
+
+        console.log(data);
+
+        
         // Get card list data
         projectTitle = data.projectTitle;
         projectLogo = data.projectLogo;
@@ -599,7 +610,11 @@ var StepTwo = React.createClass({
 
         // drop down data
         allBuildings = AppStore.getProjectData();
+        if(!_.isEmpty(allBuildings)){
         buildingDropwdownData = allBuildings.buildings;
+        }else{
+        buildingDropdownData = [];
+        }
 
 
         if(window.isMobile){
