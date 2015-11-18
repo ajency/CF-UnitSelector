@@ -73,7 +73,7 @@ $startTime= time();
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <span class="text-uppercase bookApmt">Book your apartment</span>
                         <br>
-                        <span class="text-uppercase flatNo">( <?php echo $unitData['project_title']?> - <?php echo $unitData['unit']['name']?> ) </span>
+                        <span class="text-uppercase flatNo">( <?php echo $unitData['project_title']?> - <br><?php echo $unitData['unit']['name']?> ) </span>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">                       
                         <div class="priceOuter">
@@ -421,7 +421,7 @@ $startTime= time();
                 </div>
                 <div class="bookingFooter">
                    Call <?php echo $unitData['builder_phone']?>
-                     <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commnfloor inc. </a>| <a href="https://www.commonfloor.com/privacy-policy">Privacy Policy</a></div>
+                     <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commonfloor inc. </a>| <a href="https://www.commonfloor.com/privacy-policy">Privacy Policy</a></div>
                  </div>
             </div>
         </div>

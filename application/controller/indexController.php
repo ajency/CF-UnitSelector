@@ -1363,8 +1363,9 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table cellspacing="5" cellpadding="0" style="border-bottom:1px solid #ccc;">
                       <tr>
-                        <td width="620" style="color:#7d7d7d; font-size:16px;">'.$builderLogo.'<br><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
-                        </td>                        
+                        <td width="520" style="color:#7d7d7d; font-size:16px;">'.$builderLogo.'<br><br>'.$unitData['project_address'].',<br>'.$unitData['city'].'  - '.$unitData['area_code'].'<br><br>Tel : '.$unitData['builder_phone'].'<br>
+                        </td>  
+                        <td width="100"></td>                      
                       </tr>
                     </table>
                   </td>
