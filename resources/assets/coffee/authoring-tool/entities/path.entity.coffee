@@ -25,7 +25,11 @@ class Path extends Backbone.Model
             svgid:  item.id 
 
         # add additional class to identify shape
-        path.addClass('path-type')
+        if svg_type == 'building_master' and path.hasClass('floor_group')
+           path.addClass('svg-border')
+        else
+           path.addClass('path-type')
+
         path.addClass('svg-light')
         path.addClass(item.object_type+item.object_id)
 
