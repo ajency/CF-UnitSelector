@@ -554,7 +554,100 @@ var StepThree = React.createClass({
         }
 
         return newState;
-    },        
+    }, 
+
+
+
+    getGroupDropdown: function(stateDataToformat){
+        var newState = stateDataToformat;
+
+        buildings = stateDataToformat.data.buildings;
+
+        
+        if(buildings.length>0){
+            newStateData = newState.data;
+
+            floorGroups = [];
+
+            building = buildings[0];
+
+            // building specific data for units
+            unitData = building.unitData;
+            availableUnitData = building.availableUnitData;
+            filteredUnitData = building.filteredUnitData;
+            supportedUnitTypes = building.supportedUnitTypes;
+
+
+            // building floor groups
+            floor_groups = building.floor_group;
+
+            _.each(floor_groups, function(floor_group){
+                supportedUnitTypes = [];
+                floorGrpId = floor_group.id;
+                floorGroup = {};
+
+                floorGroup.id = floor_group.id;
+                floorGroup.building_name = floor_group.name;
+                floorGroup.no_of_floors = floor_group.floors.length;
+                floorGroup.primary_breakpoint = floor_group.primary_breakpoint;
+
+                floorGroupUnitData =[];
+                floorGroupAvailableUnitData =[];
+                floorGroupFilteredUnitData =[];
+
+                // pick only those units from unit data which have the current floor id
+                _.each(unitData, function(unit){ 
+                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+
+                    if(floorGrpId===unitFloorGrpId){
+                        floorGroupUnitData.push(unit) ;
+                    } 
+
+                });
+
+                // pick only those units from unit data which have the current floor id
+                _.each(availableUnitData, function(unit){ 
+                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+
+                    if(floorGrpId===unitFloorGrpId){
+                        floorGroupAvailableUnitData.push(unit) ;
+                    } 
+
+                });  
+                
+                // pick only those units from unit data which have the current floor id
+                _.each(filteredUnitData, function(unit){ 
+                    unitFloorGrpId = parseInt(unit.floor_group_id); 
+
+                    if(floorGrpId===unitFloorGrpId){
+                        floorGroupFilteredUnitData.push(unit);
+                    } 
+
+                }); 
+
+                floorGroup.unitData = floorGroupUnitData;
+                floorGroup.availableUnitData = floorGroupAvailableUnitData;
+                floorGroup.filteredUnitData = floorGroupFilteredUnitData;
+                floorGroup.unitData = floorGroupUnitData;
+
+                minPrice = 0;
+
+                minStartPrice = this.getMinUnitPrice(floorGroupUnitData);
+                floorGroup.minStartPrice = minStartPrice;
+
+                supportedUnitTypesArr = AppStore.getApartmentUnitTypes(floorGrpId, "floorgroups");
+                supportedUnitTypes = _.pluck(supportedUnitTypesArr,"name");
+                floorGroup.supportedUnitTypes = supportedUnitTypes;
+
+                floorGroups.push(floorGroup) ;                             
+
+            }.bind(this));           
+
+        }
+
+
+        return floorGroups;
+    },          
 
 
     render: function(){
@@ -566,6 +659,29 @@ var StepThree = React.createClass({
 
 
         data = this.state.data;
+
+        
+        if(!_.isEmpty(AppStore.getProjectData())){
+            var buildingId = this.props.buildingId;
+            var groupId = this.props.groupId;           
+        
+            if(!_.isEmpty(buildingId) && !_.isEmpty(groupId)){
+
+                 var rawGroupData = getGroupStateData(buildingId,groupId);
+                console.log(rawGroupData);
+                var allBuildingsData = AppStore.getBuildingMasterStateData(buildingId);
+                var formatedBuildingsData = this.getGroupDropdown(allBuildingsData);
+                var selectedGroup = _.find(formatedBuildingsData, function(group){                    
+                    return group.id == groupId;
+                });
+
+                rawGroupData.buildings = [];
+                rawGroupData.buildings.push(selectedGroup);
+
+                console.log(this.formatStateData(rawGroupData));
+            }
+                 
+        }
 
         // Get card list data
         projectTitle = data.projectTitle;
@@ -595,15 +711,14 @@ var StepThree = React.createClass({
 
         // drop down data
         allBuildings = AppStore.getProjectData();
-        if(!_.isEmpty(allBuildings)){
-        currentBuilding = _.find(allBuildings.buildings, function(f){ return f.id == buildingId;});
-        groupDropwdownData = currentBuilding.floor_group;
+        if(!_.isEmpty(allBuildings)){        
+        var buildingsData = AppStore.getBuildingMasterStateData(buildingId);
+        groupDropwdownData = this.getGroupDropdown(buildingsData);
         }else{
           groupDropwdownData = [];  
         }
 
-        console.log(allBuildings);
-
+        
 
         if(window.isMobile){
             domToDisplay = (
