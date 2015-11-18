@@ -7,13 +7,6 @@ var immutabilityHelpers = require('react-addons-update');
 var PROJECTID = window.projectId;
 var BASEURL = window.baseUrl;
 
-var panZoomSettings = {
-     startTransform: 'scale(1.0)',
-     contain: 'invert',
-     minScale: 1,
-     disablePan: false,
-     disableZoom: false
-};
 
 var svgData = {
     svgClasses: {
@@ -50,29 +43,92 @@ var SteponeImage = React.createClass({
         }
 
         return frames;
-    },   
+    },  
+
+    panToZoomedGroup: function(){
+        var $imageContainerDom = $(this.refs.imageContainer);
+        
+        // get rectangle to select
+        cardListForId = this.props.cardListForId
+        selectorClass = ".floor_group"+cardListForId;
+
+        rect = $(selectorClass)[0].getBoundingClientRect();  
+
+        panTo = 0-rect.top+90;      
+
+        $imageContainerDom.panzoom("pan", 0, panTo, {
+                      relative: true,
+                      animate: true
+                  });
+    }, 
 
     applyPanzoom: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
-        $imageContainerDom.panzoom(panZoomSettings);
+        var imageType = this.props.imageType;
+        var panZoomSettings;
+        var cardListFor = this.props.cardListFor;
+        var cardListForId = this.props.cardListForId;
+        var selectorClass, panTo;
 
-        if(window.isMobile){
-          $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
+        
+
+        if(cardListFor!=="group"){
+
+            panZoomSettings = {
+                 startTransform: 'scale(1.0)',
+                 contain: 'invert',
+                 minScale: 1,
+                 disablePan: false,
+                 disableZoom: false
+            };
+
+            $imageContainerDom.panzoom(panZoomSettings);
+
+            if(window.isMobile){
+              $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -285, 9]);
+            }
+
+            $imageContainerDom.on('panzoomend', function(e, panzoom, matrix, changed) {
+                if (changed) {
+                    // deal with drags or touch moves
+
+                    // show correct tooltip
+                    this.displayHighlightedTooltip();
+
+                } else {
+                    // deal with clicks or taps
+                    // show correct tooltip
+                    this.displayHighlightedTooltip();
+                }
+            }.bind(this));             
+        }
+        else{
+
+            if(window.isMobile){
+                panZoomSettings = {
+                     startTransform: 'scale(1.0)',
+                     contain: 'invert',
+                     minScale: 1,
+                     disablePan: false,
+                     disableZoom: false
+                };
+
+                $imageContainerDom.panzoom(panZoomSettings);                
+                $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -350, 9]);
+            }
+            else{
+                panZoomSettings = {
+                        minScale : 0,
+                        contain: "invert",
+                        startTransform: 'scale(2.1)'
+                        }
+
+                $imageContainerDom.panzoom(panZoomSettings);                
+            }
+
         }
 
-        $imageContainerDom.on('panzoomend', function(e, panzoom, matrix, changed) {
-          if (changed) {
-            // deal with drags or touch moves
-
-            // show correct tooltip
-            this.displayHighlightedTooltip();
-
-          } else {
-            // deal with clicks or taps
-            // show correct tooltip
-            this.displayHighlightedTooltip();
-          }
-        }.bind(this));        
+       
     },
 
     applySpriteSpin: function(){
@@ -177,6 +233,7 @@ var SteponeImage = React.createClass({
     componentDidMount: function() {
 
         var breakpoints = this.props.breakpoints;
+        var imageType = this.props.imageType;
         
         this.applyPanzoom();
 
@@ -379,7 +436,8 @@ var SteponeImage = React.createClass({
                                 applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
                                 updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
                                 cardListFor = {cardListFor}
-                                cardListForId = {cardListForId}               
+                                cardListForId = {cardListForId} 
+                                panToZoomedGroup = {this.panToZoomedGroup}            
                             />                        
                             
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
@@ -435,7 +493,8 @@ var SteponeImage = React.createClass({
                                 applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
                                 updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
                                 cardListFor = {cardListFor}
-                                cardListForId = {cardListForId}               
+                                cardListForId = {cardListForId} 
+                                panToZoomedGroup = {this.panToZoomedGroup}                
                             />                          
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>

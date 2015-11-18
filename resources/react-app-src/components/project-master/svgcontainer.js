@@ -13,13 +13,16 @@ var SvgContainer = React.createClass({
         svgDom = $(".svg-area");
         $(svgDom).find("svg .floor_group").attr("class", "in-selection");
     },
+ 
 
-    svgLoaded: function(buildingToHighlight){
+    svgLoaded: function(buildingToHighlight,cardListFor){
         var highlightedBuildingId = 0 ;
         var highlightedBuildingName = "Loading.." ;
         var highlightedBuildingSelector = "";
 
         var imageType = this.props.imageType;
+
+        var svgDom = $(".svg-area");
 
         // on load of svg rest apply svg filter check to avoid continuous reload of svg file
         if(this.props.applyFiltersSvgCheck){
@@ -31,6 +34,32 @@ var SvgContainer = React.createClass({
             highlightedBuildingId = buildingToHighlight.id;
             highlightedBuildingName = buildingToHighlight.building_name;
         }
+
+        if(cardListFor==="group"){
+            this.props.panToZoomedGroup();
+            cardListForId = parseInt(this.props.cardListForId);
+            
+            $(svgDom).find(".floor_group").each(function(ind, item) {
+
+                    var svgElemClassName;
+                    var id = parseInt(item.id);
+
+                    var exisitngClasses = "";
+                    var selector= '.floor_group'+id;
+
+                    existingClasses = $(selector).attr("class"); 
+
+
+                    if(id === cardListForId){
+                        svgElemClassName = existingClasses+' svg-light step2-svg';
+                    }else{
+                        svgElemClassName = existingClasses+' svg-light disabled-floor-group';   
+                    }
+
+                    $(selector).attr("class", svgElemClassName);
+
+            });            
+        }        
 
         var filteredBuildingIds = [];
         var notAvailableBuildingIds = [];
@@ -56,22 +85,20 @@ var SvgContainer = React.createClass({
         filteredBuildingIds = _.unique(filteredBuildingIds);
         notAvailableBuildingIds = _.unique(notAvailableBuildingIds);
 
-
-        svgDom = $(".svg-area");
-
-      
-
         var svgSelector= "";
 
         if(imageType === "master"){
             svgSelector = "svg .building";
-        }else{
+        }else if(imageType === "buildingFloorGrps"){
             svgSelector = "svg .floor_group";
+        }else{
+            svgSelector = "svg .apartment";    
         }      
 
 
       // Loop through each building svg element in svg
         $(svgDom).find(svgSelector).each(function(ind, item) {
+
             var svgElemClassName;
             var id = parseInt(item.id);
 
@@ -112,6 +139,7 @@ var SvgContainer = React.createClass({
             }
 
             $(selector).attr("class", svgElemClassName);
+
         });
 
 
@@ -197,12 +225,14 @@ var SvgContainer = React.createClass({
 
         // need current highlighted building
         var buildingToHighlight = this.props.buildingToHighlight;
+        var cardListFor = this.props.cardListFor;
+        var panToZoomedGroup = this.props.panToZoomedGroup;
       
         
         return (
 
                   <div ref= "svgComp" className={svgClasses} >
-                  <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight)}>
+                  <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight, cardListFor)}>
 	                  Here's some optional content for browsers that don't support XHR or inline
 	                  SVGs. You can use other React components here too. Here, I'll show you.
 
