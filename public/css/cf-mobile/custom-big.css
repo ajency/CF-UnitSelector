@@ -125,8 +125,7 @@ section {
 }
 .image .no-shadow {
   position: absolute !important;
-  -webkit-transition: visibility 0s 0.6s, opacity 0.6s linear;
-          transition: visibility 0s 0.6s, opacity 0.6s linear;
+  transition: visibility 0s 0.6s, opacity 0.6s linear;
   top: 0;
 }
 .image2 {
@@ -136,6 +135,14 @@ section {
   overflow: hidden;
 }
 @-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -153,10 +160,13 @@ section {
 }
 .fadeInCls {
   -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
   animation: fadeIn ease-in 1;
   -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
   -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
   animation-duration: 1s;
 }
 .primary-txt {
@@ -164,8 +174,7 @@ section {
 }
 .hide-shadow {
   opacity: 0;
-  -webkit-transition: all 0.5s ease ;
-          transition: all 0.5s ease ;
+  transition: all 0.5s ease ;
 }
 .svg-area {
   position: absolute;
@@ -264,7 +273,7 @@ body a {
   color: white;
   position: absolute;
   bottom: 10px;
-  z-index: 9999;
+  z-index: 99;
 }
 .footer a {
   font-size: 12px;
@@ -279,8 +288,7 @@ body a {
   padding-top: 11px;
 }
 .card-swipe h4 {
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
   font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
@@ -516,7 +524,7 @@ body a {
   opacity: .5;
 }
 .rotate {
-  z-index: 999;
+  z-index: 9;
   margin: auto;
   position: absolute;
   left: 0;
@@ -580,10 +588,10 @@ body a {
   outline: none;
 }
 .navbar-header {
-  z-index: 99999;
+  z-index: 99;
 }
 .contactModal {
-  left: 320px !important;
+  left: 0px !important;
   top: 15% !important;
   z-index: 99999;
 }
@@ -687,12 +695,11 @@ body a {
   margin-bottom: 20px;
 }
 .modal-backdrop.in {
-  left: 320px;
+  left: 0px;
 }
 .hide-shadow {
   opacity: 0;
-  -webkit-transition: all 0.5s ease ;
-          transition: all 0.5s ease ;
+  transition: all 0.5s ease ;
 }
 .image-contain .no-shadow {
   position: absolute;
@@ -804,38 +811,31 @@ select::-ms-expand {
 .unitDetails small.zoomEffect {
   animation: zoomEffect 2s;
   -webkit-animation: zoomEffect 2s;
-  -webkit-transition: -webkit-transform 0.3s ease-out;
-          transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 .unitDetails small.availableUnits {
   font-weight: 700;
 }
 @keyframes zoomEffect {
   0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
   50% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
+    transform: scale(1.1);
   }
   100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
 }
 @-webkit-keyframes zoomEffect {
   0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
   50% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
+    transform: scale(1.1);
   }
   100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
 }
 .titleOuter h3 {
@@ -873,6 +873,7 @@ select::-ms-expand {
   background: none!important;
   color: #fff!important;
   font-size: 14px!important;
+  z-index: 9 !important;
 }
 .qtip-light .qtip-content {
   background: #000;
@@ -949,10 +950,12 @@ select::-ms-expand {
 }
 .pop-up-in {
   -webkit-animation: pop-in 1s both;
+  -moz-animation: pop-in 1s both;
   animation: pop-in 1s both;
 }
 .pop-up-out {
   -webkit-animation: pop-out 1s both;
+  -moz-animation: pop-out 1s both;
   animation: pop-out 1s both;
 }
 @keyframes pop-in {
@@ -985,23 +988,49 @@ select::-ms-expand {
     -webkit-transform: scale(1) translate(0%, 0);
   }
 }
+@-moz-keyframes pop-in {
+  0% {
+    opacity: 0;
+    -moz-transform-origin: 0 0;
+    -moz-transform: scale(0) translate(50%, 0);
+  }
+  100% {
+    top: 50%;
+    left: 50%;
+    margin: -206px 0 0 -304px;
+    opacity: 1;
+    -moz-transform-origin: 0 0;
+    -moz-transform: scale(1) translate(0%, 0);
+  }
+}
 @keyframes pop-out {
   0% {
     top: 50%;
     left: 50%;
     margin: -206px 0 0 -304px;
     opacity: 1;
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: scale(1) translate(0%, 0);
-            transform: scale(1) translate(0%, 0);
+    transform-origin: 0 0;
+    transform: scale(1) translate(0%, 0);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: scale(0) translate(50%, 0);
-            transform: scale(0) translate(50%, 0);
+    transform-origin: 0 0;
+    transform: scale(0) translate(50%, 0);
+  }
+}
+@-moz-keyframes pop-out {
+  0% {
+    top: 50%;
+    left: 50%;
+    margin: -206px 0 0 -304px;
+    opacity: 1;
+    -moz-transform-origin: 0 0;
+    -moz-transform: scale(1) translate(0%, 0);
+  }
+  100% {
+    opacity: 0;
+    -moz-transform-origin: 0 0;
+    -moz-transform: scale(0) translate(50%, 0);
   }
 }
 @-webkit-keyframes pop-out {
@@ -1042,7 +1071,11 @@ select::-ms-expand {
 }
 .sideBarLogo img {
   height: 100%;
-  padding-left: 8px;
+  padding-left: 7px;
+}
+.disabled-floor-group {
+  fill: rgba(0, 0, 0, 0.63) !important;
+  opacity: .9 !important;
 }
 #overlay {
   position: absolute;
@@ -1096,12 +1129,21 @@ select::-ms-expand {
   transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -webkit-animation: slide 22s linear;
+  -moz-animation: slide 22s linear;
   animation: slide 22s linear;
   -webkit-animation-fill-mode: forwards;
   /* Chrome, Safari, Opera */
   animation-fill-mode: forwards;
 }
 @-webkit-keyframes slide {
+  0% {
+    margin-left: 25%;
+  }
+  100% {
+    margin-left: 75%;
+  }
+}
+@-moz-keyframes slide {
   0% {
     margin-left: 25%;
   }
@@ -1167,8 +1209,7 @@ select::-ms-expand {
   text-align: left;
   background: #fff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.15);
-  -webkit-transition: all 300ms cubic-bezier(0.6, -0.3, 0.3, 1.3);
-          transition: all 300ms cubic-bezier(0.6, -0.3, 0.3, 1.3);
+  transition: all 300ms cubic-bezier(0.6, -0.3, 0.3, 1.3);
 }
 .float-nav .mCustomScrollBox {
   width: 100% !important;
@@ -1237,9 +1278,7 @@ select::-ms-expand {
   transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
-  -webkit-transform-origin: 50%;
-      -ms-transform-origin: 50%;
-          transform-origin: 50%;
+  transform-origin: 50%;
   cursor: pointer;
   text-decoration: none;
   outline: none;
@@ -1279,9 +1318,7 @@ select::-ms-expand {
   content: '';
 }
 .float-nav.closed .toggle {
-  -webkit-transform: rotate(0);
-      -ms-transform: rotate(0);
-          transform: rotate(0);
+  transform: rotate(0);
   text-decoration: none;
   width: 131px;
   font-weight: 400;
@@ -1319,8 +1356,7 @@ select::-ms-expand {
   color: #333;
   padding: 10px;
   margin-bottom: 0;
-  -webkit-transition: all 600ms;
-          transition: all 600ms;
+  transition: all 600ms;
   float: left;
   width: 100%;
 }
@@ -1519,12 +1555,8 @@ select::-ms-expand {
   font-weight: 400;
   margin-left: 10px;
 }
-.step4Body .modal-backdrop.in,
-.step4Body .contactModal {
-  left: 0 !important;
-}
 .step4Desk {
-  padding: 15px 0 !important
+  padding: 15px 0 !important;
   /*.amenitiesView
 {
 	min-height: 90vH;
@@ -1843,7 +1875,7 @@ select::-ms-expand {
 }
 .step4Desk .specificationOuter .textInner {
   margin-bottom: 15px;
-  color: #7d7c7a
+  color: #7d7c7a;
   /*border-right:1px solid @gray-lightest;*/
 }
 .step4Desk .specificationOuter .textInner h5 {
@@ -1978,4 +2010,3 @@ select::-ms-expand {
     width: 80%;
   }
 }
-/*# sourceMappingURL=custom-big.css.map */
