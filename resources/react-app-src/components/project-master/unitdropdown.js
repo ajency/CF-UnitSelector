@@ -52,7 +52,7 @@ var UnitDropdown = React.createClass({
 	            return(
 	                
 	                <option key={i} value={group.id}>
-	                	{group.name} 
+	                	{group.building_name} 
 	                </option>
 	            ); 
 	                 

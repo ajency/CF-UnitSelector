@@ -1659,20 +1659,20 @@ function _getBuildingMasterDetails(buildingId){
 
 			// send only array of selected building
 			var newBuildings = [selectedBuilding];
-            projectMasterStateData = immutabilityHelpers( _globalStateData, { data: 
+            projectMasterStateData = immutabilityHelpers( projectMasterStateData, { data: 
                                                             {buildings: {$set: newBuildings} 
                                                             }
                                                           }); 
 
             var filterTypes;
             filterTypes = getFilterTypes("Apartment",buildingId,'');
-            projectMasterStateData = immutabilityHelpers( _globalStateData, { data: 
+            projectMasterStateData = immutabilityHelpers( projectMasterStateData, { data: 
                                                             {filterTypes: {$set: filterTypes} 
                                                             }
                                                           }); 
 
 			
-            projectMasterStateData = immutabilityHelpers( _globalStateData, { data: 
+            projectMasterStateData = immutabilityHelpers( projectMasterStateData, { data: 
                                                             {applyFiltersSvgCheck: {$set: false} 
                                                             }
                                                           }); 
