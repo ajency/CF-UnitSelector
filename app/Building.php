@@ -58,10 +58,11 @@ class Building extends Model {
         $data = parent::toArray();
         $data['breakpoints'] = (!empty($data['breakpoints']))?unserialize($data['breakpoints']):[];
         $buildingMasters = $data['building_master'];
+        $buildingShadow = $data['shadow_images'];
         $buildingId = $data['id'];
         $phaseId = $data['phase_id'];
         $projectId = Phase::find( $phaseId )->project_id;
-        $svgImages = [];
+        $svgImages = $svgShadowImages = [];
         
         ksort($buildingMasters);
         foreach ($buildingMasters as $key => $images) {
@@ -71,7 +72,16 @@ class Building extends Model {
                 }
             
         }
+        ksort($buildingShadow);
+        foreach ($buildingShadow as $key => $images) {
+                if ($images != '' && is_numeric( $images )) {
+                    $imageName = Media::find( $images )->image_name;
+                    $svgShadowImages[] = url() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/" . $imageName;
+                }
+            
+        }
         $data['building_master'] = $svgImages; 
+        $data['shadow_images'] = $svgShadowImages; 
         return $data;
     }
 
