@@ -151,6 +151,27 @@ body
 		{
 			float:right;
 			width:470px;
+			&.backToHomeOuter
+			{
+				width: 150px;
+				margin-top: 16px;
+				margin-left: 15px;
+				a
+				{
+					color: @white;
+					font-size: 14px;
+					display:inline-block;
+					outline: none;
+					text-decoration: none;				
+					i
+					{
+						font-size: 12px;
+					    margin-right: 4px;
+					    margin-top: 4px;
+					    float: left;
+					}
+				}
+			}
 		}
 		margin:0 auto;			
 		i
@@ -274,7 +295,12 @@ body
 		}
 		.flatNo
 		{
-			color:@white;		    
+			color:@white;	
+
+			br
+			{
+				display: none;
+			}	    
 		}
 	}
 	.panel-group
@@ -1377,6 +1403,11 @@ body
 				text-align:center !important;
 				width:100%;
 				padding:0;
+				&.backToHomeOuter
+				{
+					width: 100%;
+					margin-left: 0;
+				}
 			}				
 			.priceOuter 
 			{
@@ -1400,6 +1431,10 @@ body
 			{
 				margin-left:10px;
 				margin-right:0 !important;
+			}
+			.flatNo br
+			{
+				display: block;
 			}
 		}
 		h3

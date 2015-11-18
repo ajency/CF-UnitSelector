@@ -263,7 +263,14 @@ body {
       background-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent);
       background-repeat: repeat-x;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59000000', endColorstr='#00000000', GradientType=0);
+
+      .tipRow
+      {
+        position: absolute;
+        top: 20px;
+        width: 100%;
       }
+}
 
 .filter-type{
     li{
@@ -378,7 +385,7 @@ body {
   width:auto;  
   margin:auto;
   display:inline-block;
-  margin-top:-20px;
+  margin-top:0px;
   font-size:12px;
 
     .tip
@@ -743,7 +750,7 @@ select::-ms-expand {
       background: none!important;
       color: #fff!important;
       font-size: 14px!important;
-      z-index:99 !important;
+      z-index:9 !important;
       .qtip-content{
         background: #000;
         border: 0px;
