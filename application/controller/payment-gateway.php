@@ -38,7 +38,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         updateBookingInfo($booking_id,$status); 
 
         //$txt = "Unit successfully boooked.";
-        $subject = 'Thanks for booking your property';
+        $subject = 'Congratulations on booking your property';
       // self::sendEmail($login_id,$name,$txt,$subject);
 
         sendMail($_POST['udf4'],$_POST['udf3'],$subject,$booking_id,'success');

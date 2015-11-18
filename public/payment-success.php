@@ -17,6 +17,7 @@ $bookingId = $_SESSION['booking_id'];
 $projectId = $unitData['project_id'];
 
 $backlink = UNITSELECTOR_URL.'project/'.$projectId;
+
 ?>
 <!doctype html>
 <html>
@@ -49,7 +50,11 @@ $backlink = UNITSELECTOR_URL.'project/'.$projectId;
             <div class="container">
                 <h3 class="text-center mT10 text-uppercase mB20">Your property is now booked</h3>
                 <span class="text-center col-md-12 col-sm-12 col-xs-12 mB20 spanText"></span>
-                <div class="bookAptOuter">                  
+                <div class="bookAptOuter">   
+
+                    <div class="backToHomeOuter pull-left">
+                    <a href="<?php echo $backlink;?>" class="text-uppercase"><i class="fa fa-arrow-left"></i>Back to home</a>
+                    </div>                
                     <div class="col-md-6 col-xs-12 text-center">
                         <a style="cursor:pointer" class="priceSheet" onclick="getPriceSheet('<?php echo $bookingId ?>',true,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>','<?php echo $project_id?>','<?php echo GET_PAYMENT_PLAN_URL?>')"><i class="fa fa-list-alt"></i> Price sheet</a>
                         <a style="cursor:pointer" class="priceSheet" onclick="getPaymentPlan('<?php echo $bookingId ?>',true,'<?php echo $unitData['project_title'] ." (". $unitData['unit']['name'].")"?>','<?php echo $project_id?>','<?php echo GET_PAYMENT_PLAN_URL?>')"><i class="fa fa-list-alt"></i> Payment Plan</a>               

@@ -392,7 +392,7 @@ $startTime= time();
                                 <label>
                                     <input type="checkbox" name="acceptterm"  id="acceptterm"  />
                                     <label class="checkboxLabel"></label>
-                                    <span class="accept">I accept the <a href="#">Terms and Conditions</a></span>
+                                    <span class="accept">I accept the <a target="_blank" href="https://www.commonfloor.com/terms-conditions">Terms and Conditions</a></span>
                                 </label>
                             </div>
                         </div>
