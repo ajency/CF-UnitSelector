@@ -652,29 +652,33 @@ var StepThree = React.createClass({
 
 
     componentWillReceiveProps: function(nextProps){
-      if(!_.isEmpty(AppStore.getProjectData())){
-          var buildingId = nextProps.buildingId;
-          var groupId = nextProps.groupId;
+        if(!_.isEmpty(AppStore.getProjectData())){
+            var buildingId = nextProps.buildingId;
+            var groupId = nextProps.groupId;
 
-          if(!_.isEmpty(buildingId) && !_.isEmpty(groupId)){
+            if(!_.isEmpty(buildingId) && !_.isEmpty(groupId)){
 
-               var rawGroupData = getGroupStateData(buildingId,groupId);
-              var allBuildingsData = AppStore.getBuildingMasterStateData(buildingId);
-              var formatedBuildingsData = this.getGroupDropdown(allBuildingsData);
-              var selectedGroup = _.find(formatedBuildingsData, function(group){
+                var rawGroupData = getGroupStateData(buildingId,groupId);
+                var allBuildingsData = AppStore.getBuildingMasterStateData(buildingId);
+                var formatedBuildingsData = this.getGroupDropdown(allBuildingsData);
+                var selectedGroup = _.find(formatedBuildingsData, function(group){
                   return group.id == groupId;
-              });
+            });
 
-              rawGroupData.data.buildings = [];
-              rawGroupData.data.buildings.push(selectedGroup);
+                rawGroupData.data.buildings = [];
+                rawGroupData.data.buildings.push(selectedGroup);
 
-              var processedGroupData = this.formatStateData(rawGroupData);
+                var processedGroupData = this.formatStateData(rawGroupData);
+                processedGroupData.data.applyFiltersSvgCheck = true;
 
-              newData = processedGroupData.data;
+                newData = processedGroupData.data;
 
-                this.setState({
-                  data : newData
-                });
+                dataToSet = {
+                    property: "data",
+                    value: newData
+                };
+
+                this.updateStateData([dataToSet]);
           }
       }
 },
