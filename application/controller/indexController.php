@@ -82,9 +82,9 @@
         if(!is_numeric($n)) return false;
         
         // now filter it;
-        if($n>1000000000000) return round(($n/1000000000000),1).' Cr';
-        else if($n>1000000000) return round(($n/1000000000),1).' Cr';
-        else if($n>1000000) return round(($n/1000000),1).' Lacs';
+        if($n>100000000000) return round(($n/100000000000),1).' Cr';
+        else if($n>10000000) return round(($n/10000000),1).' Cr';
+        else if($n>100000) return round(($n/100000),1).' Lacs';
         else if($n>1000) return round(($n/1000),1).' k';
         
         return number_format($n);
