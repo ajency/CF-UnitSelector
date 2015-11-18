@@ -222,6 +222,9 @@ body {
 .bookFlowContent .bookAptOuter .flatNo {
   color: #ffffff;
 }
+.bookFlowContent .bookAptOuter .flatNo br {
+  display: none;
+}
 .bookFlowContent .panel-group {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -422,8 +425,10 @@ body {
   position: relative;
   z-index: 9999;
 }
-.bookFlowContent .panel .termsConditions ul.parsley-errors-list li
- {
+.bookFlowContent .panel .termsConditions li.parsley-required,
+.bookFlowContent .panel .termsConditions li.parsley-pattern,
+.bookFlowContent .panel .termsConditions li.parsley-type,
+.bookFlowContent .panel .termsConditions li.parsley-length {
   list-style: none;
   font-size: 11px;
   position: absolute;
@@ -602,7 +607,10 @@ body {
 .bookFlowContent .bottomSection .rightContent .safePaymentText {
   font-size: 14px;
 }
-.bookFlowContent ul.parsley-errors-list li {
+.bookFlowContent li.parsley-required,
+.bookFlowContent li.parsley-pattern,
+.bookFlowContent li.parsley-type,
+.bookFlowContent li.parsley-length {
   list-style: none;
   font-size: 11px;
   position: absolute;
@@ -1073,6 +1081,9 @@ body {
   .bookFlowContent .bookAptOuter .amount {
     margin-left: 10px;
     margin-right: 0 !important;
+  }
+  .bookFlowContent .bookAptOuter .flatNo br {
+    display: block;
   }
   .bookFlowContent h3 {
     font-size: 150%;
