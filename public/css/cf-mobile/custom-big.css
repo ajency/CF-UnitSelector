@@ -1712,6 +1712,7 @@ select::-ms-expand {
   width: 24%;
   padding: 0 15px 0 30px;
   display: inline-block;
+  vertical-align: top;
 }
 .step4Desk .detailView .unit .roomDetails .left,
 .step4Desk .detailView .unit .roomDetails .right {
