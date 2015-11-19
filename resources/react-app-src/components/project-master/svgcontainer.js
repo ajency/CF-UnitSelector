@@ -84,6 +84,35 @@ var SvgContainer = React.createClass({
 
     },
 
+    applyNotLiveBuildingClasses : function(){
+        var svgDom = $(".svg-area");
+        var notLiveBuildings = this.props.not_live_buildings;
+
+        notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+
+
+        $(svgDom).find(".building").each(function(ind, item) {
+
+                var svgElemClassName;
+                var id = parseInt(item.id);
+
+                var exisitngClasses = "";
+                var selector= '.building'+id;
+
+                existingClasses = $(selector).attr("class"); 
+
+
+                if(_.contains(notLiveBuildingsIdsToMark,id)){
+                    // if selected floor group then apply border
+                    svgElemClassName = existingClasses+' svg-light not-in-selection';
+                    $(selector).attr("class", svgElemClassName);
+                }
+
+               
+
+        });         
+    }
+
     svgLoaded: function(buildingToHighlight,cardListFor){
         var highlightedBuildingId = 0 ;
         var highlightedBuildingName = "Loading.." ;
@@ -106,6 +135,11 @@ var SvgContainer = React.createClass({
 
         if(cardListFor==="group"){
             this.applyGroupSpecificClasses();            
+        }
+
+        notLiveBuildings = this.props.notLiveBuildings;   
+        if((cardListFor==="master")&&(notLiveBuildings.length>0)){
+            this.applyNotLiveBuildingClasses();   
         }        
 
         var filteredBuildingIds = [];

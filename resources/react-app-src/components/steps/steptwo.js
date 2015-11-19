@@ -654,6 +654,9 @@ var StepTwo = React.createClass({
         }
 
 
+        var notlive_buildings =  [];
+
+
         if(window.isMobile){
             domToDisplay = (
                 <div id="site-wrapper">
@@ -703,6 +706,7 @@ var StepTwo = React.createClass({
                         chosenBreakpoint = {data.chosenBreakpoint}
                         buildingId = {buildingId}
                         buildings =  {buildings}
+                        notlive_buildings =  {notlive_buildings}
                         buildingToHighlight = {buildingToHighlight}
                         applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                         updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
@@ -761,6 +765,7 @@ var StepTwo = React.createClass({
                             chosenBreakpoint = {data.chosenBreakpoint}
                             buildingId ={buildingId}
                             buildings =  {buildings}
+                            notlive_buildings =  {notlive_buildings}
                             buildingToHighlight = {buildingToHighlight}
                             applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                             updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
