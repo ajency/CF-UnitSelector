@@ -429,7 +429,7 @@ var StepOne = React.createClass({
     render: function(){
         
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
-        var imageType, buildingToHighlight, modalData, filterTypes;
+        var imageType, buildingToHighlight, modalData, filterTypes, messageBoxMsg;
 
         data = this.state.data;
 
@@ -456,7 +456,13 @@ var StepOne = React.createClass({
         filterTypes = data.filterTypes;
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
-        modalData.projectData = {title:data.projectTitle};        
+        modalData.projectData = {title:data.projectTitle}; 
+
+        if(data.showShadow){
+            messageBoxMsg = "Shadow of Morning Sun";
+        }else{
+            messageBoxMsg = "Click on tower to proceed";   
+        }
 
         if(window.isMobile){
 
@@ -497,7 +503,7 @@ var StepOne = React.createClass({
                         />
 
                         <MessageBox
-                            message = "Click on tower to proceed"
+                            message = {messageBoxMsg}
                         />
                     </div>
 
@@ -616,7 +622,7 @@ var StepOne = React.createClass({
 
                                 </div>
                                 <div className="row text-center tipRow">
-                                    <MessageBox message = "Click on tower to proceed" />
+                                    <MessageBox message = {messageBoxMsg} />
                                 </div> 
                             </div>
 

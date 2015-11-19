@@ -737,6 +737,14 @@ var StepThree = React.createClass({
           groupDropwdownData = [];
         }
 
+        var notlive_buildings =  [];
+
+        if(data.showShadow){
+            messageBoxMsg = "Shadow of Morning Sun";
+        }else{
+            messageBoxMsg = "Click on tower to proceed";   
+        }   
+
 
 
         if(window.isMobile){
@@ -775,7 +783,7 @@ var StepThree = React.createClass({
                         />
 
                         <MessageBox
-                            message = "Click on unit to proceed"
+                            message = {messageBoxMsg}
                         />
                     </div>
 
@@ -897,7 +905,7 @@ var StepThree = React.createClass({
 
                                 </div>
                                 <div className="row text-center tipRow">
-                                    <MessageBox message = "Click on unit to proceed" />
+                                    <MessageBox message = {messageBoxMsg} />
                                 </div>
                             </div>
 
