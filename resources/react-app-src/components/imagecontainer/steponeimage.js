@@ -372,6 +372,7 @@ var SteponeImage = React.createClass({
             'fit': true,
             'no-shadow': true,
             'hide-shadow': showShadow,            
+            'fadeInCls': true,
             'hide': this.state.hideSoloImage
         });
 
