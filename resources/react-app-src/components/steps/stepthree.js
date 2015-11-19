@@ -316,10 +316,14 @@ var StepThree = React.createClass({
 
         buildings = this.state.data.buildings;
         buildingToHighlight = buildings[slideToGotTo];
-        buildingName = buildingToHighlight.building_name;
 
+        if(!_.isUndefined((buildingToHighlight))){
+            buildingName = buildingToHighlight.building_name;
+            this.showTooltip(buildingName,".apartment"+buildingToHighlight.id);
+        }else{
+            console.log("Building to highlight is undefined");
+        }
 
-        this.showTooltip(buildingName,".apartment"+buildingToHighlight.id);
     },
 
     showFilterModal: function(){

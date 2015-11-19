@@ -9,11 +9,80 @@ var SvgContainer = React.createClass({
 
     mixins: [Router.NavigatableMixin],
 
-    componentDidMount: function(){
-        svgDom = $(".svg-area");
-        $(svgDom).find("svg .floor_group").attr("class", "in-selection");
+    applyGroupSpecificClasses : function(){
+        var apartmentIdsToMark;
+        var svgDom = $(".svg-area");
+        var buildings = this.props.buildings;
+        
+        this.props.panToZoomedGroup();
+        
+        cardListForId = parseInt(this.props.cardListForId);
+
+        apartmentIdsToMark = _.pluck(buildings,'id');
+
+        // loop through each apartment class and remove apartment class for all those ids which do not belong to apartmentidstomark
+        $(svgDom).find(".apartment").each(function(ind, item) {
+
+                var svgElemClassName;
+                var id = parseInt(item.id);
+
+                var exisitngClasses = "";
+                var selector= '.apartment'+id;
+
+                existingClasses = $(selector).attr("class"); 
+
+
+                if(!_.contains(apartmentIdsToMark,id)){
+                    // if selected floor group then apply border
+                    svgElemClassName = 'svg-light disabled-floor-group';
+                    $(selector).attr("class", svgElemClassName);
+                }
+
+                
+
+        });  
+
+        // if there are any unassigned classes then apply disabled class for them
+        $(svgDom).find(".unassign").each(function(ind, item) {
+
+                var svgElemClassName;
+                var id = parseInt(item.id);
+
+                var exisitngClasses = "";
+                var selector= '.unassign'+id;
+
+                svgElemClassName = 'svg-light disabled-floor-group';
+
+
+                $(selector).attr("class", svgElemClassName);
+
+        });   
+
+        $(svgDom).find(".floor_group").each(function(ind, item) {
+
+                var svgElemClassName;
+                var id = parseInt(item.id);
+
+                var exisitngClasses = "";
+                var selector= '.floor_group'+id;
+
+                existingClasses = $(selector).attr("class"); 
+
+
+                if(id === cardListForId){
+                    // if selected floor group then apply border
+                    svgElemClassName = existingClasses+' svg-light step2-svg';
+                }
+                else{
+                    // if not selected floor group then dont apply border, just diable the group
+                    svgElemClassName = existingClasses+' svg-light disabled-floor-group';   
+                }
+
+                $(selector).attr("class", svgElemClassName);
+
+        });                
+
     },
- 
 
     svgLoaded: function(buildingToHighlight,cardListFor){
         var highlightedBuildingId = 0 ;
@@ -36,29 +105,7 @@ var SvgContainer = React.createClass({
         }
 
         if(cardListFor==="group"){
-            this.props.panToZoomedGroup();
-            cardListForId = parseInt(this.props.cardListForId);
-            
-            $(svgDom).find(".floor_group").each(function(ind, item) {
-
-                    var svgElemClassName;
-                    var id = parseInt(item.id);
-
-                    var exisitngClasses = "";
-                    var selector= '.floor_group'+id;
-
-                    existingClasses = $(selector).attr("class"); 
-
-
-                    if(id === cardListForId){
-                        svgElemClassName = existingClasses+' svg-light step2-svg';
-                    }else{
-                        svgElemClassName = existingClasses+' svg-light disabled-floor-group';   
-                    }
-
-                    $(selector).attr("class", svgElemClassName);
-
-            });            
+            this.applyGroupSpecificClasses();            
         }        
 
         var filteredBuildingIds = [];
@@ -126,7 +173,7 @@ var SvgContainer = React.createClass({
 
             if(id == highlightedBuildingId){
               highlightedBuildingSelector = selector;  
-              svgElemClassName = existingClasses+' svg-light show-qtooltip';
+              svgElemClassName = svgElemClassName+' svg-light show-qtooltip';
             }
             
             // apply filter inselection class 
