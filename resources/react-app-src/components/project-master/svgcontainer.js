@@ -111,7 +111,7 @@ var SvgContainer = React.createClass({
                
 
         });         
-    }
+    },
 
     svgLoaded: function(buildingToHighlight,cardListFor){
         var highlightedBuildingId = 0 ;
