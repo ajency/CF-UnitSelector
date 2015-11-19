@@ -86,7 +86,7 @@ var TabFooter = React.createClass({
 		    		<div className="privacyOuter">
 		    			<a href="https://www.commonfloor.com/" target="_blank">Commonfloor</a> | &nbsp; 
 		    			<a href="#" target="_blank">FAQ</a> | &nbsp;
-		    			<a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank">Mobile Apps</a> © commnfloor inc. | &nbsp;
+		    			<a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank">Mobile Apps</a> © commonfloor inc. | &nbsp;
 		    			<a href="https://www.commonfloor.com/privacy-policy  " target="_blank">Privacy Policy</a>
 		    		</div>
 	    		</div>

@@ -613,7 +613,7 @@ var StepOne = React.createClass({
                                     </div>                                                                       
 
                                 </div>
-                                <div className="row text-center">
+                                <div className="row text-center tipRow">
                                     <MessageBox message = "Click on tower to proceed" />
                                 </div> 
                             </div>
