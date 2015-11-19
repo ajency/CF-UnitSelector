@@ -316,10 +316,14 @@ var StepThree = React.createClass({
 
         buildings = this.state.data.buildings;
         buildingToHighlight = buildings[slideToGotTo];
-        buildingName = buildingToHighlight.building_name;
 
+        if(!_.isUndefined((buildingToHighlight))){
+            buildingName = buildingToHighlight.building_name;
+            this.showTooltip(buildingName,".apartment"+buildingToHighlight.id);
+        }else{
+            console.log("Building to highlight is undefined");
+        }
 
-        this.showTooltip(buildingName,".apartment"+buildingToHighlight.id);
     },
 
     showFilterModal: function(){
@@ -733,6 +737,14 @@ var StepThree = React.createClass({
           groupDropwdownData = [];
         }
 
+        var notlive_buildings =  [];
+
+        if(data.showShadow){
+            messageBoxMsg = "Shadow of Morning Sun";
+        }else{
+            messageBoxMsg = "Click on tower to proceed";   
+        }   
+
 
 
         if(window.isMobile){
@@ -771,7 +783,7 @@ var StepThree = React.createClass({
                         />
 
                         <MessageBox
-                            message = "Click on unit to proceed"
+                            message = {messageBoxMsg}
                         />
                     </div>
 
@@ -784,6 +796,7 @@ var StepThree = React.createClass({
                         chosenBreakpoint = {data.chosenBreakpoint}
                         buildingId = {buildingId}
                         buildings =  {buildings}
+                        notlive_buildings =  {notlive_buildings}
                         buildingToHighlight = {buildingToHighlight}
                         applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                         updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
@@ -841,6 +854,7 @@ var StepThree = React.createClass({
                             chosenBreakpoint = {data.chosenBreakpoint}
                             buildingId ={buildingId}
                             buildings =  {buildings}
+                            notlive_buildings =  {notlive_buildings}
                             buildingToHighlight = {buildingToHighlight}
                             applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                             updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
@@ -890,8 +904,8 @@ var StepThree = React.createClass({
 
 
                                 </div>
-                                <div className="row text-center">
-                                    <MessageBox message = "Click on unit to proceed" />
+                                <div className="row text-center tipRow">
+                                    <MessageBox message = {messageBoxMsg} />
                                 </div>
                             </div>
 

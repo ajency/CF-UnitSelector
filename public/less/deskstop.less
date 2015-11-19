@@ -268,7 +268,8 @@ body {
       {
         position: absolute;
         top: 20px;
-        width: 100%;
+        width: auto;
+        left:37%;
       }
 }
 
@@ -909,4 +910,13 @@ select::-ms-expand {
 .disabled-floor-group {
     fill: rgba(0, 0, 0, 0.63) !important;
     opacity: .9 !important;
+}
+
+.enabled-shadow{
+  visibility: visible;
+  transition: opacity 0.5s linear;
+}
+.disabled-shadow{
+  visibility: hidden;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
 }

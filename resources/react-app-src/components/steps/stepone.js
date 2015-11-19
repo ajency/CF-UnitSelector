@@ -434,7 +434,7 @@ var StepOne = React.createClass({
     render: function(){
 
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
-        var imageType, buildingToHighlight, modalData, filterTypes;
+        var imageType, buildingToHighlight, modalData, filterTypes, messageBoxMsg;
 
         data = this.state.data;
 
@@ -461,8 +461,14 @@ var StepOne = React.createClass({
         filterTypes = data.filterTypes;
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
-        modalData.projectData = {title:data.projectTitle};
 
+        modalData.projectData = {title:data.projectTitle}; 
+
+        if(data.showShadow){
+            messageBoxMsg = "Shadow of Morning Sun";
+        }else{
+            messageBoxMsg = "Click on tower to proceed";   
+        }
         if(window.isMobile){
 
             domToDisplay = (
@@ -502,7 +508,7 @@ var StepOne = React.createClass({
                         />
 
                         <MessageBox
-                            message = "Click on tower to proceed"
+                            message = {messageBoxMsg}
                         />
                     </div>
 
@@ -513,7 +519,10 @@ var StepOne = React.createClass({
                         shadowImages={data.shadowImages}
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
-                        buildings =  {buildings}
+
+                        buildings =  {buildings} 
+                        notlive_buildings =  {data.notlive_buildings}
+
                         buildingToHighlight = {buildingToHighlight}
                         applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                         updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
@@ -570,6 +579,7 @@ var StepOne = React.createClass({
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
                             buildings =  {buildings}
+                            notlive_buildings =  {data.notlive_buildings}
                             buildingToHighlight = {buildingToHighlight}
                             applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                             updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
@@ -618,9 +628,11 @@ var StepOne = React.createClass({
                                     </div>
 
                                 </div>
-                                <div className="row text-center">
-                                    <MessageBox message = "Click on tower to proceed" />
-                                </div>
+
+                                <div className="row text-center tipRow">
+                                    <MessageBox message = {messageBoxMsg} />
+                                </div> 
+
                             </div>
 
                         </div>

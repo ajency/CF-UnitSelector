@@ -612,7 +612,7 @@ var StepTwo = React.createClass({
 
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
         var imageType, buildingToHighlight, modalData, filterTypes;
-        var buildingId, allBuildings, buildingDropwdownData;
+        var buildingId, allBuildings, buildingDropwdownData, messageBoxMsg;
 
 
         data = this.state.data;
@@ -654,6 +654,15 @@ var StepTwo = React.createClass({
         }
 
 
+        var notlive_buildings =  [];
+
+        if(data.showShadow){
+            messageBoxMsg = "Shadow of Morning Sun";
+        }else{
+            messageBoxMsg = "Click on tower to proceed";   
+        }        
+
+
         if(window.isMobile){
             domToDisplay = (
                 <div id="site-wrapper">
@@ -690,7 +699,7 @@ var StepTwo = React.createClass({
                         />
 
                         <MessageBox
-                            message = "Click on floor group to proceed"
+                            message = {messageBoxMsg}
                         />
                     </div>
 
@@ -703,6 +712,7 @@ var StepTwo = React.createClass({
                         chosenBreakpoint = {data.chosenBreakpoint}
                         buildingId = {buildingId}
                         buildings =  {buildings}
+                        notlive_buildings =  {notlive_buildings}
                         buildingToHighlight = {buildingToHighlight}
                         applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                         updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
@@ -761,6 +771,7 @@ var StepTwo = React.createClass({
                             chosenBreakpoint = {data.chosenBreakpoint}
                             buildingId ={buildingId}
                             buildings =  {buildings}
+                            notlive_buildings =  {notlive_buildings}
                             buildingToHighlight = {buildingToHighlight}
                             applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                             updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
@@ -810,8 +821,8 @@ var StepTwo = React.createClass({
 
 
                                 </div>
-                                <div className="row text-center">
-                                    <MessageBox message = "Click on floor group to proceed" />
+                                <div className="row text-center tipRow">
+                                    <MessageBox message = {messageBoxMsg} />
                                 </div>
                             </div>
 

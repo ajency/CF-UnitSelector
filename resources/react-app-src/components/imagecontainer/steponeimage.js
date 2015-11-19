@@ -13,7 +13,8 @@ var svgData = {
       'svg-area': true,
        'hide': false
     },
-    hideSoloImage: false
+    hideSoloImage: false,
+    isRotate: false
 };
 
 var svgKeyType = "breakpoint";
@@ -176,7 +177,7 @@ var SteponeImage = React.createClass({
         });
 
         spin.bind("onAnimationStop", function(){
-            console.log("stop animation");
+            // update image state data           
             var that = this;
             
             oldState = this.state;
@@ -184,7 +185,8 @@ var SteponeImage = React.createClass({
             newState = immutabilityHelpers( oldState, {svgClasses: 
                                                         {hide: {$set: false} 
                                                       }
-                        });
+                        });            
+            newState = immutabilityHelpers( newState,{isRotate: {$set: false} });
 
             if(that.isMounted()){
                 that.setState(newState);
@@ -279,7 +281,12 @@ var SteponeImage = React.createClass({
 
     rotateSpriteSpin: function(){
         var breakpoints = [];
-        var spin, nextbreakpoint;
+        var spin, nextbreakpoint, oldState, newState;
+
+        // update image state data
+        oldState = this.state;
+        newState = immutabilityHelpers( oldState, {isRotate: {$set: true} });  
+        this.setState(newState);      
 
         // destroy existing tooltips;
         this.props.destroyTooltip(); 
@@ -336,6 +343,9 @@ var SteponeImage = React.createClass({
         var domToDisplay;
         var windowHeight = window.innerHeight ;
         var svgKey;
+        var isRotate;
+
+        isRotate = this.state.isRotate;
 
 
         var  parentContainerStyle ={
@@ -359,6 +369,7 @@ var SteponeImage = React.createClass({
         }; 
 
         showShadow = this.props.showShadow;
+        
         var shadowImageClasses = classNames({
           'img-responsive': true,
           'fit': true,
@@ -367,11 +378,21 @@ var SteponeImage = React.createClass({
           'hide': !this.state.hideSoloImage
         }); 
 
+        var shadowClasses = classNames({
+          'img-responsive': true,
+          'shadow': true,
+          'fit' : true,  
+          'disabled-shadow' : isRotate,
+          'enabled-shadow' : !isRotate
+        });
+
         var soloImageClasses = classNames({
             'img-responsive': true,
+            'fadeInCls': true,
             'fit': true,
             'no-shadow': true,
             'hide-shadow': showShadow,            
+            'fadeInCls': true,
             'hide': this.state.hideSoloImage
         });
 
@@ -427,7 +448,8 @@ var SteponeImage = React.createClass({
                                 key={svgkey} 
                                 svgData={this.state} 
                                 chosenBreakpoint={this.props.chosenBreakpoint}
-                                buildings={ buildings} 
+                                buildings={ buildings}
+                                notlive_buildings =  {this.props.notlive_buildings}
                                 buildingToHighlight={buildingToHighlight} 
                                 imageType = {this.props.imageType}
                                 svgBaseUrl = {svgBaseUrl}
@@ -449,7 +471,7 @@ var SteponeImage = React.createClass({
                             <img 
                                 src={shadowImgUrl}
                                 key={svgkey+2}  
-                                className="img-responsive shadow fit" 
+                                className={shadowClasses}
                             />
 
                         </div>
@@ -484,7 +506,8 @@ var SteponeImage = React.createClass({
                                 key={svgkey} 
                                 svgData={this.state} 
                                 chosenBreakpoint={this.props.chosenBreakpoint}
-                                buildings={ buildings} 
+                                buildings={ buildings}
+                                notlive_buildings =  {this.props.notlive_buildings} 
                                 buildingToHighlight={buildingToHighlight} 
                                 imageType = {this.props.imageType}
                                 svgBaseUrl = {svgBaseUrl}
@@ -506,7 +529,7 @@ var SteponeImage = React.createClass({
                             <img 
                                 src={shadowImgUrl}
                                 key={svgkey+2}  
-                                className="img-responsive shadow fit" 
+                                className={shadowClasses} 
                             />
 
                         </div>
