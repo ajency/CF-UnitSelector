@@ -810,7 +810,7 @@ var StepTwo = React.createClass({
 
 
                                 </div>
-                                <div className="row text-center">
+                                <div className="row text-center tipRow">
                                     <MessageBox message = "Click on floor group to proceed" />
                                 </div>
                             </div>

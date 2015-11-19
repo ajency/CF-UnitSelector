@@ -894,7 +894,7 @@ var StepThree = React.createClass({
 
 
                                 </div>
-                                <div className="row text-center">
+                                <div className="row text-center tipRow">
                                     <MessageBox message = "Click on unit to proceed" />
                                 </div>
                             </div>
