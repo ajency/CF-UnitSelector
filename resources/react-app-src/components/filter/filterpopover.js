@@ -11,14 +11,14 @@ var FilterPopover = React.createClass({
 
     getInitialState: function() {
         return filterState;
-    },	
+    },
 
     componentDidMount: function() {
         var customScrollBarSettings = {
          autoHideScrollbar:true,
          theme:"rounded"
        };
-        
+
        $(this.refs.filterUl).mCustomScrollbar(customScrollBarSettings);
     },
 
@@ -28,8 +28,10 @@ var FilterPopover = React.createClass({
 
     	if(oldState.closed){
     		newState.closed = false;
+        //$(this.refs.filterCountDesktop).hide();
     	}else{
     		newState.closed = true;
+        //$(this.refs.filterCountDesktop).show();
     	}
     	this.setState(newState);
     },
@@ -49,7 +51,7 @@ var FilterPopover = React.createClass({
         // call parent apply filters function
         this.props.unapplyFilters();
     },
-    
+
 
 	render: function(){
 
@@ -66,7 +68,7 @@ var FilterPopover = React.createClass({
         search_filters= this.props.search_filters
 
         filterTypeNodes = filterTypes.map(function(filterType,i){
-                            
+
                             if(_.isEmpty(search_filters))
                                 searchedFilter = [];
                             else
@@ -74,20 +76,20 @@ var FilterPopover = React.createClass({
 
                             return(
                                 <div key={i}>
-                                <FilterType  
+                                <FilterType
                                     filterType={filterType}
                                     selectFilter={this.props.selectFilter}
                                     searchedFilter = {searchedFilter}
-                                /> 
+                                />
                                 </div>
-                            ); 
-                                 
-                        }.bind(this));	
+                            );
 
-      var appliedFilterCount = "";  
+                        }.bind(this));
+
+      var appliedFilterCount = "";
       if(_.isEmpty(applied_filters)){
         appliedFilterCount = "";
-        
+
         filterCountClasses = classNames({
           "filterNumber" : false
         });
@@ -110,14 +112,19 @@ var FilterPopover = React.createClass({
         appliedFilterCount = newAppliedFiltersCount.length;
 
 
+        if(appliedFilterCount>0 && this.state.closed){
+          filterCountClasses = classNames({
+            "filterCountDesk" : true
+          });
+        }else{
+          filterCountClasses = classNames({
+            "filterCountDesk" : false
+          });
+        }
 
-
-        filterCountClasses = classNames({
-          "filterCountDesk" : true
-        });
 
         filterCountDisp = (<span className="filterHeader">( {appliedFilterCount} )</span>);
-      }        
+      }
 
         divStyle = {
             overflow:"hidden",
@@ -138,17 +145,17 @@ var FilterPopover = React.createClass({
                                 <div ref="filterUl" className="filterUl">
                                     <ul>
                                         {filterTypeNodes}
-                                    </ul>                                
+                                    </ul>
                                 </div>
                             </div>
-	                        
+
 	                        <a className="toggle" onClick = {this.closeFilterPopOver}></a>
-                            <span className={filterCountClasses}>{appliedFilterCount}</span>
+                            <span ref="filterCountDesktop" className={filterCountClasses}>{appliedFilterCount}</span>
 	                    </nav>
 	                </div>
 	            );
 
-	    return dom;	
+	    return dom;
 	}
 
 

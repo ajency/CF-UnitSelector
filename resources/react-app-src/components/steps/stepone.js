@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Modal = require('../modal/modal');
 var SteponeImage = require('../imagecontainer/steponeimage');
-var Link = require('react-router-component').Link; 
+var Link = require('react-router-component').Link;
 var AppStore = require('../../stores/app-store.js');
 var CardList = require('../project-master/cardlist');
 var SideBar = require('../project-master/sidebar');
@@ -43,11 +43,11 @@ var StepOne = React.createClass({
 
     getInitialState: function() {
         return getStateData();
-    }, 
+    },
 
     componentWillMount:function(){
         AppStore.addChangeListener(this._onChange);
-    },  
+    },
 
     _onChange:function(){
       this.setState(getStateData());
@@ -57,12 +57,12 @@ var StepOne = React.createClass({
         // destroy tooltips if any
         this.destroyTooltip();
     },
- 
+
     showTooltip: function(text, selector){
 
         // first destroy tooltip
         this.destroyTooltip();
- 
+
         // initialise qtip
         $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
             $(item).qtip({ // Grab some elements to apply the tooltip to
@@ -72,13 +72,13 @@ var StepOne = React.createClass({
                 position:{
                            my: 'center',  // Position my top left...
                            at: 'center', // at the bottom right of...
-                           viewport: $(window), 
+                           viewport: $(window),
                            target: $(item) // my target
                        },
                 style:qtipSettings['style']
             });
-        }); 
-    },  
+        });
+    },
 
     destroyTooltip: function(){
 
@@ -86,7 +86,7 @@ var StepOne = React.createClass({
           $(this).data('qtip').destroy();
         });
 
-    },  
+    },
     rotateImage: function(unitData){
 
         // ALways rotate to primary breakpoint
@@ -94,14 +94,14 @@ var StepOne = React.createClass({
         unitId = unitData.id;
 
         prevShowShadow = this.state.data.showShadow;
-        
+
         // store previous shadow state, to later use it to update main shadow state
         window.prevShadowState = prevShowShadow;
 
         if( prevShowShadow ){
             this.updateRotateShadow(false);
-        }          
-        
+        }
+
         // hide svg area
         allbuildings = this.state.data.buildings;
         allbuildingIds = _.pluck(allbuildings,"id");
@@ -128,7 +128,7 @@ var StepOne = React.createClass({
             value: indexTohighlight
         };
 
-        this.updateStateData([dataToSet]);    
+        this.updateStateData([dataToSet]);
 
     },
 
@@ -139,8 +139,8 @@ var StepOne = React.createClass({
         }
 
         this.updateStateData([dataToSet]);
-    },  
-    
+    },
+
     updateRotateShadow: function(showShadowStatus){
         dataToSet = {
             property: "showShadow",
@@ -152,7 +152,7 @@ var StepOne = React.createClass({
         // var delay=100000; //1 seconds
 
         // setTimeout(this.updateStateData([dataToSet]), delay);
-    }, 
+    },
 
     updatefiltersSvgCheck: function(status){
         dataToSet = {
@@ -161,42 +161,47 @@ var StepOne = React.createClass({
         };
 
         this.updateStateData([dataToSet]);
-    }, 
-    
+    },
+
     updateStateData: function(data){
-        oldState = getStateData();
-        
+
+      oldState = getStateData();
+
         newState = oldState;
 
         _.each(data, function(dataToSet){
 
             if(dataToSet.property === "showShadow"){
-                
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {showShadow: {$set: dataToSet.value} 
+
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {showShadow: {$set: dataToSet.value}
                                                             }
                                                           });
             }
             if(dataToSet.property === "chosenBreakpoint"){
-                
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {chosenBreakpoint: {$set: dataToSet.value} 
+
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {chosenBreakpoint: {$set: dataToSet.value}
                                                             }
                                                           });
             }
             if(dataToSet.property === "applyFiltersSvgCheck"){
-                
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {applyFiltersSvgCheck: {$set: dataToSet.value} 
+
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {applyFiltersSvgCheck: {$set: dataToSet.value}
                                                             }
                                                           });
             }
             if(dataToSet.property === "reset_filters"){
-                
-                newState = immutabilityHelpers( oldState, { data: 
+
+              console.log('resetting filters');
+
+                newState = immutabilityHelpers( oldState, { data:
                                                             {
-                                                                search_filters: {$set: dataToSet.value},
-                                                                applied_filters: {$set: dataToSet.value}
+                                                                //search_filters: {$set: dataToSet.value},
+                                                                //applied_filters: {$set: dataToSet.value}
+                                                                search_filters: {$set: {}},
+                                                                applied_filters: {$set: {}}
                                                             }
                                                           });
             }
@@ -207,7 +212,7 @@ var StepOne = React.createClass({
                 filterStyle = dataToSet.filterStyle;
 
                 oldSearchFilters = oldState["data"]["search_filters"];
-                
+
                 oldSearchFilterKeys = _.keys(oldSearchFilters);
 
                 if(_.contains(oldSearchFilterKeys,filterType)){
@@ -217,18 +222,18 @@ var StepOne = React.createClass({
                     oldSearchFilters[filterType] = [];
                     oldataTochange = oldSearchFilters[filterType];
                 }
-                
 
-                
+
+
 
                 valueToSet = dataToSet.value;
 
                 // if valueToset is already present in array then remove it from array
                 //  if valueToset is not present then add to the array
                 indexOfELem = _.indexOf(oldataTochange,valueToSet);
-                
+
                 if (indexOfELem > -1) {
-                    
+
                     oldataTochange.splice(indexOfELem, 1);
 
                 }else{
@@ -241,7 +246,7 @@ var StepOne = React.createClass({
                     _.each(valueToSet, function(rangeValue){
                         oldataTochange.push(rangeValue);
                     });
-                    
+
                 }
 
 
@@ -250,42 +255,42 @@ var StepOne = React.createClass({
 
                 mutatedfilter =  {};
                 mutatedfilter[filterType] = {$set: oldataTochange};
-                
-                newState = immutabilityHelpers( oldState, { data: 
+
+                newState = immutabilityHelpers( oldState, { data:
                                                             {search_filters: mutatedfilter
                                                             }
                                                           });
-            } 
+            }
             if(dataToSet.property === "applied_filters"){
 
                 valueToSet = dataToSet.value;
 
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {applied_filters: 
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {applied_filters:
                                                                 {$set: valueToSet}
                                                             }
                                                           });
-            } 
+            }
             if(dataToSet.property === "unitIndexToHighlight"){
-                newState = immutabilityHelpers( oldState, { data: 
-                                                            {unitIndexToHighlight: {$set: dataToSet.value} 
+                newState = immutabilityHelpers( oldState, { data:
+                                                            {unitIndexToHighlight: {$set: dataToSet.value}
                                                             }
-                                                          });                
-            }  
+                                                          });
+            }
             if(dataToSet.property === "data"){
                 newState = immutabilityHelpers( oldState, { data: {$set: dataToSet.value}});
-            }            
+            }
 
-            oldState = newState;               
+            oldState = newState;
 
         })
-    
+
 
 
         this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState,"projectMaster");
 
-    },  
+    },
 
     projectDataUpdateCallBack: function(){
         spin = $(ReactDOM.findDOMNode(this.refs.imageContainerone)).find("#spritespin");
@@ -308,15 +313,15 @@ var StepOne = React.createClass({
         buildingName = buildingToHighlight.building_name;
 
         this.showTooltip(buildingName,".building"+buildingToHighlight.id);
-    },     
+    },
 
     showFilterModal: function(){
         $(ReactDOM.findDOMNode(this.refs.modal)).modal();
-    }, 
+    },
 
     showContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
-    },     
+    },
 
     toggelSunView: function(evt){
 
@@ -327,7 +332,7 @@ var StepOne = React.createClass({
             showShadow = false;
         }
         else{
-            showShadow = true;    
+            showShadow = true;
         }
 
         dataToSet = {
@@ -337,23 +342,23 @@ var StepOne = React.createClass({
 
         this.updateStateData([dataToSet]);
 
-    }, 
+    },
 
     selectFilter: function(evt){
         isChecked = evt.target.checked;
 
         filterType = $(evt.target).data("filtertype");
         filterStyle = $(evt.target).data("filterstyle");
-        
+
 
         if(filterStyle && filterStyle === 'range'){
             filterValue = [evt.min,evt.max];
-            this.updateSearchFilters(filterType, filterValue, filterStyle);            
+            this.updateSearchFilters(filterType, filterValue, filterStyle);
         }
         else{
            filterValue = $(evt.target).val();
-           this.updateSearchFilters(filterType, filterValue); 
-       }        
+           this.updateSearchFilters(filterType, filterValue);
+       }
 
     },
 
@@ -376,7 +381,7 @@ var StepOne = React.createClass({
             };
         }
 
-        
+
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
@@ -408,9 +413,9 @@ var StepOne = React.createClass({
             filterStyle: filterStyle,
             value: filterValue
         }
-       
+
         this.updateStateData([dataToSet]);
-    },    
+    },
 
     updateProjectMasterData: function(){
         oldState = this.state;
@@ -424,12 +429,12 @@ var StepOne = React.createClass({
 
         this.updateStateData([dataToSet]);
 
-    },    
+    },
 
     render: function(){
-        
+
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
-        var imageType, buildingToHighlight, modalData, filterTypes;
+        var imageType, buildingToHighlight, modalData, filterTypes, messageBoxMsg;
 
         data = this.state.data;
 
@@ -438,7 +443,7 @@ var StepOne = React.createClass({
         projectLogo = data.projectLogo;
         logoExist = data.logoExist;
         cardListFor = "project";
-        cardListForId = window.projectId; 
+        cardListForId = window.projectId;
         buildings = data.buildings;
         isFilterApplied = data.isFilterApplied;
         unitCount = data.totalCount;
@@ -456,48 +461,54 @@ var StepOne = React.createClass({
         filterTypes = data.filterTypes;
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
-        modalData.projectData = {title:data.projectTitle};        
 
+        modalData.projectData = {title:data.projectTitle}; 
+
+        if(data.showShadow){
+            messageBoxMsg = "Shadow of Morning Sun";
+        }else{
+            messageBoxMsg = "Click on tower to proceed";   
+        }
         if(window.isMobile){
 
             domToDisplay = (
                 <div id="site-wrapper">
-                    <NavBar 
-                        projectTitle = {projectTitle} 
-                        projectLogo = {projectLogo} 
-                        logoExist = {logoExist} 
+                    <NavBar
+                        projectTitle = {projectTitle}
+                        projectLogo = {projectLogo}
+                        logoExist = {logoExist}
                         unitCount = {unitCount}
                         showFilterModal = {this.showFilterModal}
                         showContactModal = {this.showContactModal}
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
-                    /> 
+                    />
 
-                    <Modal 
-                        ref="modal" 
+                    <Modal
+                        ref="modal"
                         modalPurpose = "filterModal"
                         modalData={modalData}
                         selectFilter={this.selectFilter}
                         applyFilters = {this.applyFilters}
                         unapplyFilters = {this.unapplyFilters}
-                    /> 
-                    <Modal 
-                        ref="contactModal" 
+                    />
+                    <Modal
+                        ref="contactModal"
                         modalData = {modalData}
                         modalPurpose = "mobileContactModal"
-                    />                     
+                    />
 
                     <div className="toggleDiv">
 
-                        <SunToggle 
+                        <SunToggle
                             shadowImages={data.shadowImages}
-                            toggelSunView = {this.toggelSunView} 
+                            toggelSunView = {this.toggelSunView}
                             showShadow={data.showShadow}
                         />
 
                         <MessageBox
-                            message = "Click on tower to proceed"
+                            message = {messageBoxMsg}
                         />
                     </div>
 
@@ -509,19 +520,21 @@ var StepOne = React.createClass({
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
                         buildings =  {buildings} 
+                        notlive_buildings =  {data.notlive_buildings}
                         buildingToHighlight = {buildingToHighlight}
-                        applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
+                        isFilterApplied = {data.isFilterApplied}
+                        applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                         updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
                         destroyTooltip = {this.destroyTooltip}
                         showTooltip = {this.showTooltip}
-                        updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
+                        updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight}
                         updateChosenBreakPoint = {this.updateChosenBreakPoint}
                         updateRotateShadow = {this.updateRotateShadow}
                         cardListFor = {cardListFor}
-                        cardListForId = {cardListForId}                  
+                        cardListForId = {cardListForId}
                     />
-                    
-                    <CardList 
+
+                    <CardList
                         ref = "cardList"
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId}
@@ -529,31 +542,31 @@ var StepOne = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
                         destroyTooltip = {this.destroyTooltip}
-                    />                    
-       
+                    />
+
                 </div>
-            ); 
+            );
         }
         else{
 
             domToDisplay = (
                 <div id="wrapper">
 
-                    <SideBar                    
+                    <SideBar
                         ref = "sideBarList"
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId}
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         rotateImage = {this.rotateImage}
-                        destroyTooltip = {this.destroyTooltip}              
-                        projectTitle = {projectTitle} 
+                        destroyTooltip = {this.destroyTooltip}
+                        projectTitle = {projectTitle}
                         projectLogo = {projectLogo}
                         logoExist = {logoExist}
-                        unitCount = {unitCount} 
+                        unitCount = {unitCount}
                         unitIndexToHighlight = {unitIndexToHighlight}
-                        applied_filters = {applied_filters}     
-                    />                
+                        applied_filters = {applied_filters}
+                    />
 
                     <div id="page-content-wrapper">
 
@@ -565,29 +578,31 @@ var StepOne = React.createClass({
                             breakpoints = {data.breakpoints}
                             chosenBreakpoint = {data.chosenBreakpoint}
                             buildings =  {buildings}
+                            notlive_buildings =  {data.notlive_buildings}
                             buildingToHighlight = {buildingToHighlight}
-                            applyFiltersSvgCheck = {data.applyFiltersSvgCheck} 
+                            isFilterApplied = {data.isFilterApplied}
+                            applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                             updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
                             destroyTooltip = {this.destroyTooltip}
                             showTooltip = {this.showTooltip}
-                            updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight} 
+                            updateUnitIndexToHighlight = {this.updateUnitIndexToHighlight}
                             updateChosenBreakPoint = {this.updateChosenBreakPoint}
                             updateRotateShadow = {this.updateRotateShadow}
                             cardListFor = {cardListFor}
-                            cardListForId = {cardListForId}                        
+                            cardListForId = {cardListForId}
                         />
 
                         <div className="container-fluid">
 
                             <div className="navbar-header">
                                 <div className="row">
-                                    
-                                    <SunToggle 
+
+                                    <SunToggle
                                         shadowImages={data.shadowImages}
-                                        toggelSunView = {this.toggelSunView} 
+                                        toggelSunView = {this.toggelSunView}
                                         showShadow={data.showShadow}
-                                    /> 
-                                    
+                                    />
+
                                     <div className="col-sm-3 col-sm-offset-3">
                                         <FilterPopover
                                             filterTypes={filterTypes}
@@ -595,42 +610,44 @@ var StepOne = React.createClass({
                                             search_filters={data.search_filters}
                                             applyFilters = {this.applyFilters}
                                             unapplyFilters = {this.unapplyFilters}
-                                            applied_filters = {applied_filters}                                       
+                                            applied_filters = {applied_filters}
                                         />
                                     </div>
 
                                     <div className="col-sm-3">
                                         <div className="pull-right text-center text-uppercase">
-                                            <button type="button" 
-                                                className="btn btn-default  btn-primary" 
-                                                data-toggle="modal" data-target="#contactModal" 
-                                                onClick={this.showContactModal} 
+                                            <button type="button"
+                                                className="btn btn-default  btn-primary"
+                                                data-toggle="modal" data-target="#contactModal"
+                                                onClick={this.showContactModal}
                                             >
                                                 <i className="fa fa-phone"></i>
                                                 <span className="enquiryText text-uppercase">Contact Us</span>
                                             </button>
                                         </div>
-                                    </div>                                                                       
+                                    </div>
 
                                 </div>
+
                                 <div className="row text-center tipRow">
-                                    <MessageBox message = "Click on tower to proceed" />
+                                    <MessageBox message = {messageBoxMsg} />
                                 </div> 
+
                             </div>
 
-                        </div> 
+                        </div>
 
-                       <Modal 
-                            ref="contactModal" 
+                       <Modal
+                            ref="contactModal"
                             modalData = {modalData}
                             modalPurpose = "contactModal"
                         />
-                        
+
 
                     </div>
-       
+
                 </div>
-            ); 
+            );
         }
 
 

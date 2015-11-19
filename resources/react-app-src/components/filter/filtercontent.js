@@ -7,11 +7,11 @@ var FilterContent = React.createClass({
 
         filterTypes = this.props.filterTypes;
 
-        
+
         search_filters= this.props.search_filters
 
         filterTypeNodes = filterTypes.map(function(filterType,i){
-                            
+
                             if(_.isEmpty(search_filters))
                                 searchedFilter = [];
                             else
@@ -19,14 +19,14 @@ var FilterContent = React.createClass({
 
                             return(
                                 <div key={i}>
-                                <FilterType  
+                                <FilterType
                                     filterType={filterType}
                                     selectFilter={this.props.selectFilter}
                                     searchedFilter = {searchedFilter}
-                                /> 
+                                />
                                 </div>
-                            ); 
-                                 
+                            );
+
                         }.bind(this));
 
         return (
@@ -39,8 +39,8 @@ var FilterContent = React.createClass({
                         </button>
                     </div>
                 </div>
-                
-            </div>    
+
+            </div>
         )
     }
 });

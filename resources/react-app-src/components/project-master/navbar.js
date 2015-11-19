@@ -41,7 +41,7 @@ var NavBar = React.createClass({
 
       var domTodisplay;
 
-      if(_.isEmpty(applied_filters)){
+      if(_.isEmpty(applied_filters) || !this.props.isFilterApplied){
         appliedFilterCount = "";
         filterClasses = classNames({
           "filterNumber" : false

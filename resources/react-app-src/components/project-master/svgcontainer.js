@@ -84,6 +84,35 @@ var SvgContainer = React.createClass({
 
     },
 
+    applyNotLiveBuildingClasses : function(){
+        var svgDom = $(".svg-area");
+        var notLiveBuildings = this.props.not_live_buildings;
+
+        notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+
+
+        $(svgDom).find(".building").each(function(ind, item) {
+
+                var svgElemClassName;
+                var id = parseInt(item.id);
+
+                var exisitngClasses = "";
+                var selector= '.building'+id;
+
+                existingClasses = $(selector).attr("class"); 
+
+
+                if(_.contains(notLiveBuildingsIdsToMark,id)){
+                    // if selected floor group then apply border
+                    svgElemClassName = existingClasses+' svg-light not-in-selection';
+                    $(selector).attr("class", svgElemClassName);
+                }
+
+               
+
+        });         
+    },
+
     svgLoaded: function(buildingToHighlight,cardListFor){
         var highlightedBuildingId = 0 ;
         var highlightedBuildingName = "Loading.." ;
@@ -92,6 +121,8 @@ var SvgContainer = React.createClass({
         var imageType = this.props.imageType;
 
         var svgDom = $(".svg-area");
+
+        var isFilterApplied = this.props.isFilterApplied;
 
         // on load of svg rest apply svg filter check to avoid continuous reload of svg file
         if(this.props.applyFiltersSvgCheck){
@@ -106,10 +137,16 @@ var SvgContainer = React.createClass({
 
         if(cardListFor==="group"){
             this.applyGroupSpecificClasses();            
+        }
+
+        notLiveBuildings = this.props.notLiveBuildings;   
+        if((cardListFor==="master")&&(notLiveBuildings.length>0)){
+            this.applyNotLiveBuildingClasses();   
         }        
 
         var filteredBuildingIds = [];
         var notAvailableBuildingIds = [];
+        var notFilteredBuildingIds = [];
 
         buildings = this.props.buildings;
 
@@ -120,17 +157,29 @@ var SvgContainer = React.createClass({
               filteredUnits = building.filteredUnitData;
               availableUnits = building.availableUnitData;
      
+ 
               if(availableUnits.length==0){
                 notAvailableBuildingIds.push(building.id);
               }
               if(filteredUnits.length>0){
                 filteredBuildingIds.push(building.id);
               }
+              if(isFilterApplied&&filteredUnits.length==0){
+                notFilteredBuildingIds.push(building.id);
+              }
 
         });
 
         filteredBuildingIds = _.unique(filteredBuildingIds);
         notAvailableBuildingIds = _.unique(notAvailableBuildingIds);
+        notFilteredBuildingIds = _.unique(notFilteredBuildingIds);
+
+        notInSelectionBuilding = [];
+        if(isFilterApplied){
+            notInSelectionBuilding = notFilteredBuildingIds;
+        }else{
+            notInSelectionBuilding = notAvailableBuildingIds;   
+        }
 
         var svgSelector= "";
 
@@ -181,7 +230,7 @@ var SvgContainer = React.createClass({
               svgElemClassName+=" in-selection";
             }
 
-            if(_.contains(notAvailableBuildingIds, id)){
+            if(_.contains(notInSelectionBuilding, id)){
               svgElemClassName+=" not-in-selection";
             }
 
