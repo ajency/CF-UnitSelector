@@ -705,12 +705,14 @@ body a {
   top: 0;
 }
 .outSideView h6 {
-  margin-top: 20px;
+  margin-top: 15px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 .outSideView img {
-  width: 100%;
+  width: 95%;
   padding-right: 10px;
-  height: 110px;
+  height: 122px;
 }
 .towerDropdown button,
 .towerDropdown.open button {
