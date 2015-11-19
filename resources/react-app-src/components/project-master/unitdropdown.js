@@ -1,7 +1,7 @@
 var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var classNames = require('classnames');
-var Router = require('react-router-component')
+var Router = require('react-router-component');
 
 
 var UnitDropdown = React.createClass({
@@ -24,7 +24,7 @@ var UnitDropdown = React.createClass({
     	}else if(this.props.cardListFor === 'group'){
     		return this.navigate('/buildings/'+this.props.buildingId+'/group/'+targetId);
     	}
-    	
+
     },
 
 
@@ -39,30 +39,30 @@ var UnitDropdown = React.createClass({
 		if(cardListFor === 'building'){
 			var buildingSelectNodes= _.map( dropwDownData , function(building, i){
 	            return(
-	                
+
 	                <option key={i} value={building.id}>
-	                	{building.building_name} 
+	                	{building.building_name}
 	                </option>
-	            ); 
-	                 
+	            );
+
 	        });
 
 		}else if(cardListFor === 'group'){
 			var buildingSelectNodes= _.map( dropwDownData , function(group, i){
 	            return(
-	                
+
 	                <option key={i} value={group.id}>
-	                	{group.building_name} 
+	                	{group.building_name}
 	                </option>
-	            ); 
-	                 
+	            );
+
 	        });
 
 		}
 
-		
+
 		return (
-			<h4 className="margin-none"> 
+			<h4 className="margin-none">
 	              <div className="styled-select">
 	                 <select onChange={this.change} value={selectedoption}>
 	                    {buildingSelectNodes}

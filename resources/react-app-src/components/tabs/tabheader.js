@@ -1,18 +1,26 @@
 var React = require('react');
 var PriceFormat = require('../tabs/priceformat');
-var Link = require('react-router-component').Link;
+var PureRenderMixin = require('react-addons-pure-render-mixin');
+var Router = require('react-router-component');
 
 var TabHeader = React.createClass({
+
+  mixins: [Router.NavigatableMixin],
 
   _redirect: function(url){
     window.location.href = url;
   },
 
+  previousStep: function(){
+    return this.navigate('/buildings/'+this.props.buildingId+'/group/'+this.props.groupId);
+  },
+
   redirectToBooking: function(){
     unitId = this.props.unitId;
     projectId = this.props.projectId;
-    baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
+    baseBookingUrl = "//booking.cfunitselectortest.com/public/booknow.php?"
     redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
+
     this._redirect(redirectUrl);
 
   },
@@ -75,7 +83,6 @@ var TabHeader = React.createClass({
             var bookNowButton = "";
         }
 
-        var prevUrl = "buildings/"+this.props.buildingId+"/group/"+this.props.groupId;
 
 
       	domToDisplay = (
@@ -83,9 +90,9 @@ var TabHeader = React.createClass({
                 <div className="row">
                     <div className="col-xs-12">
                         <div className="col-xs-6">
-                            <div className="col-xs-12 backOuter">
+                            <div className="col-xs-12 backOuter" onClick={this.previousStep} style={{cursor: 'pointer'}}>
                                 <i className="i-icon i-dark-arrow"></i>
-                                <Link href={prevUrl}><span className="back text-uppercase"> back </span></Link>
+                                <span className="back text-uppercase"> back </span>
                             </div>
                             <h4 className="text-uppercase">{unitName}</h4>
                             <span className={ 'unitStatus text-uppercase '+statusClass}>{unitStatus}</span>

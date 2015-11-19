@@ -204,8 +204,8 @@ var StepTwo = React.createClass({
 
                 newState = immutabilityHelpers( oldState, { data:
                                                             {
-                                                                search_filters: {$set: dataToSet.value},
-                                                                applied_filters: {$set: dataToSet.value}
+                                                                search_filters: {$set: {}},
+                                                                applied_filters: {$set: {}}
                                                             }
                                                           });
             }
@@ -659,8 +659,8 @@ var StepTwo = React.createClass({
         if(data.showShadow){
             messageBoxMsg = "Shadow of Morning Sun";
         }else{
-            messageBoxMsg = "Click on tower to proceed";   
-        }        
+            messageBoxMsg = "Click on tower to proceed";
+        }
 
 
         if(window.isMobile){

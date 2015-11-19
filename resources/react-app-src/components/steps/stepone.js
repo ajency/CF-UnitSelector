@@ -462,12 +462,12 @@ var StepOne = React.createClass({
         modalData.filterTypes = filterTypes;
         modalData.search_filters = data.search_filters;
 
-        modalData.projectData = {title:data.projectTitle}; 
+        modalData.projectData = {title:data.projectTitle};
 
         if(data.showShadow){
             messageBoxMsg = "Shadow of Morning Sun";
         }else{
-            messageBoxMsg = "Click on tower to proceed";   
+            messageBoxMsg = "Click on tower to proceed";
         }
         if(window.isMobile){
 
@@ -519,7 +519,7 @@ var StepOne = React.createClass({
                         shadowImages={data.shadowImages}
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
-                        buildings =  {buildings} 
+                        buildings =  {buildings}
                         notlive_buildings =  {data.notlive_buildings}
                         buildingToHighlight = {buildingToHighlight}
                         isFilterApplied = {data.isFilterApplied}
@@ -631,7 +631,7 @@ var StepOne = React.createClass({
 
                                 <div className="row text-center tipRow">
                                     <MessageBox message = {messageBoxMsg} />
-                                </div> 
+                                </div>
 
                             </div>
 
