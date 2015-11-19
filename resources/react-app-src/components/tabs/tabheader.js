@@ -1,20 +1,28 @@
 var React = require('react');
 var PriceFormat = require('../tabs/priceformat');
+var PureRenderMixin = require('react-addons-pure-render-mixin');
+var Router = require('react-router-component');
 
 var TabHeader = React.createClass({
+
+  mixins: [Router.NavigatableMixin],
 
   _redirect: function(url){
     window.location.href = url;
   },
-    
+
+  previousStep: function(){
+    return this.navigate('/buildings/'+this.props.buildingId+'/group/'+this.props.groupId);
+  },
+
   redirectToBooking: function(){
     unitId = this.props.unitId;
     projectId = this.props.projectId;
-    baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
+    baseBookingUrl = "//booking.cfunitselectortest.com/public/booknow.php?"
     redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
 
     this._redirect(redirectUrl);
-    
+
   },
 
   render: function () {
@@ -30,7 +38,7 @@ var TabHeader = React.createClass({
   	var sellingAmount = unitData.basic.sellingAmount;
 
 
-    
+
     if(unitData.basic.status === 'sold'){
       var statusClass = 'sold';
     }
@@ -63,11 +71,11 @@ var TabHeader = React.createClass({
 
         if(unitData.basic.status === 'available'){
             var bookNowButton = (
-                <button 
-                    className="btn btn-default btn-primary text-uppercase" 
+                <button
+                    className="btn btn-default btn-primary text-uppercase"
                     onClick={this.redirectToBooking}
                 >
-                    Book now <i className="fa fa-inr"></i> <PriceFormat numPrice={sellingAmount} />                    
+                    Book now <i className="fa fa-inr"></i> <PriceFormat numPrice={sellingAmount} />
                 </button>
             );
         }
@@ -75,12 +83,14 @@ var TabHeader = React.createClass({
             var bookNowButton = "";
         }
 
+
+
       	domToDisplay = (
             <div>
                 <div className="row">
                     <div className="col-xs-12">
                         <div className="col-xs-6">
-                            <div className="col-xs-12 backOuter">
+                            <div className="col-xs-12 backOuter" onClick={this.previousStep} style={{cursor: 'pointer'}}>
                                 <i className="i-icon i-dark-arrow"></i>
                                 <span className="back text-uppercase"> back </span>
                             </div>
@@ -90,9 +100,9 @@ var TabHeader = React.createClass({
 
                         <div className="col-xs-6 text-right rightSide">
                             {bookNowButton}
-                            <button 
-                                className="btn btn-default btn-primary text-uppercase" 
-                                data-toggle="modal" data-target="#contactModal" 
+                            <button
+                                className="btn btn-default btn-primary text-uppercase"
+                                data-toggle="modal" data-target="#contactModal"
                                 onClick={this.props.showContactModal}
                             >
                                 <i className="fa fa-phone"></i>
@@ -107,13 +117,13 @@ var TabHeader = React.createClass({
                 <div className="row">
                     <div className="flatDetails text-uppercase col-xs-12">
                         <span className="units">{unitTypeName}</span>
-                        <ul><li></li></ul> 
+                        <ul><li></li></ul>
                         <span className="units">{builtupArea} SQFT </span>
-                        <ul><li></li></ul>  
+                        <ul><li></li></ul>
                         <span className="units">{unitFloor} Floor </span>
-                        <ul><li></li></ul>  
+                        <ul><li></li></ul>
                         <span className="units">{buildingName} </span>
-                        <ul><li></li></ul> 
+                        <ul><li></li></ul>
                         <span className="units">{unitDirection} facing </span>
                     </div>
                 </div>
