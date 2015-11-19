@@ -30,9 +30,13 @@ var SideBar = React.createClass({
         var cardListForId = this.props.cardListForId ;
 
 		// calculate sideContentBarHeight
-		sideContentBarHeight = windowHeight-390;
-    //sideContentBarHeight = 400;
-		sidebarHeightPx = sideContentBarHeight+"px";
+    if(cardListFor === 'project'){
+      sideContentBarHeight = windowHeight-250;
+    }else{
+      sideContentBarHeight = windowHeight-390;
+    }
+
+  	sidebarHeightPx = sideContentBarHeight+"px";
 
 		unitIndexToHighlight= this.props.unitIndexToHighlight;
 		buildingToBeHighlighted = buildings[unitIndexToHighlight];
@@ -61,6 +65,17 @@ var SideBar = React.createClass({
 		};
 
 
+    if(cardListFor != 'project'){
+      var outsideViewNode = (
+        <OutsideView
+        cardListFor = {cardListFor}
+         />
+      );
+    }else{
+      var outsideViewNode = "";
+    }
+
+
 		return (
 	         <div ref="sidebarWrapper" id="sidebar-wrapper">
 	            <NavBar
@@ -84,9 +99,7 @@ var SideBar = React.createClass({
 	                </ul>
 	            </div>
 
-              <OutsideView
-              cardListFor = {cardListFor}  
-               />
+              {outsideViewNode}
 
 	        </div>
 		);
