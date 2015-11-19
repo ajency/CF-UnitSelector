@@ -33,7 +33,8 @@ var SideBar = React.createClass({
     if(cardListFor === 'project'){
       sideContentBarHeight = windowHeight-250;
     }else{
-      sideContentBarHeight = windowHeight-390;
+      //sideContentBarHeight = windowHeight-390;
+      sideContentBarHeight = windowHeight-250;
     }
 
   	sidebarHeightPx = sideContentBarHeight+"px";
@@ -66,11 +67,12 @@ var SideBar = React.createClass({
 
 
     if(cardListFor != 'project'){
-      var outsideViewNode = (
-        <OutsideView
-        cardListFor = {cardListFor}
-         />
-      );
+      // var outsideViewNode = (
+      //   <OutsideView
+      //   cardListFor = {cardListFor}
+      //    />
+      // );
+      var outsideViewNode = "";
     }else{
       var outsideViewNode = "";
     }
