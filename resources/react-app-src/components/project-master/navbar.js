@@ -8,7 +8,7 @@ var NavBar = React.createClass({
     mixins: [PureRenderMixin],
 
     getDefaultProps: function () {
-      return { 
+      return {
         projectTitle : "Default project title" ,
         unitCount : 0,
         showFilterModal : true,
@@ -17,7 +17,7 @@ var NavBar = React.createClass({
         applied_filters : {}
 
       };
-    } , 
+    } ,
 
     componentDidUpdate: function() {
 
@@ -26,14 +26,14 @@ var NavBar = React.createClass({
       if(this.props.projectTitle.length > 12){
         $titleElem.tooltip();
       }
-    },  
-    
+    },
+
     render: function(){
 
-      var buildings = this.props.buildings; 
+      var buildings = this.props.buildings;
       var isFilterApplied = this.props.isFilterApplied;
 
-      var appliedFilterCount = "";     
+      var appliedFilterCount = "";
       var applied_filters = this.props.applied_filters;
       var appliedCount = 0;
 
@@ -83,12 +83,12 @@ var NavBar = React.createClass({
 
       })
 
-      
+
 
       if(isFilterApplied){
         unitCount = filteredUnitCount;
-        selectionText = "units in your selection";
-      } 
+        selectionText = 'units in your selection ('+availableUnitCount+' available)';
+      }
       else{
         unitCount = availableUnitCount;
         selectionText = "units available in total";
@@ -118,7 +118,7 @@ var NavBar = React.createClass({
                   </div>
               </div>
           </nav>
-        );        
+        );
       }
       else{
         var dropdownDom;
@@ -140,18 +140,30 @@ var NavBar = React.createClass({
 
         if(this.props.logoExist){
           logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
-          
+
         }
         else{
-          
+
           logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
         }
-         
+
 
           logoclasses = classNames({
             "logoOuter" : true,
             "titleOuter" : !(this.props.cardListFor === "project")
           });
+
+
+          if(this.props.cardListFor === "building"){
+            facingDisplay = (
+                <span>
+                  <br />
+                <small><span>Facing : {this.props.facing}</span></small>
+                </span>
+                );
+          }else{
+            facingDisplay = "";
+          }
 
 
         domTodisplay = (
@@ -160,10 +172,10 @@ var NavBar = React.createClass({
                     {logoDisplay}
                     {dropdownDom}
                 </div>
-                <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}</small></div>
+                <div className="col-xs-12 unitDetails"><small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}{facingDisplay}</small></div>
                 <div className="clear"></div>
             </div>
-        ); 
+        );
 
       }
 
