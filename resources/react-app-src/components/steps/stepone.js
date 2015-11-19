@@ -519,11 +519,10 @@ var StepOne = React.createClass({
                         shadowImages={data.shadowImages}
                         breakpoints = {data.breakpoints}
                         chosenBreakpoint = {data.chosenBreakpoint}
-
                         buildings =  {buildings} 
                         notlive_buildings =  {data.notlive_buildings}
-
                         buildingToHighlight = {buildingToHighlight}
+                        isFilterApplied = {data.isFilterApplied}
                         applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                         updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
                         destroyTooltip = {this.destroyTooltip}
@@ -581,6 +580,7 @@ var StepOne = React.createClass({
                             buildings =  {buildings}
                             notlive_buildings =  {data.notlive_buildings}
                             buildingToHighlight = {buildingToHighlight}
+                            isFilterApplied = {data.isFilterApplied}
                             applyFiltersSvgCheck = {data.applyFiltersSvgCheck}
                             updatefiltersSvgCheck = {this.updatefiltersSvgCheck}
                             destroyTooltip = {this.destroyTooltip}

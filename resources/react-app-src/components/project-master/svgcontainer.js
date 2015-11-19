@@ -122,6 +122,8 @@ var SvgContainer = React.createClass({
 
         var svgDom = $(".svg-area");
 
+        var isFilterApplied = this.props.isFilterApplied;
+
         // on load of svg rest apply svg filter check to avoid continuous reload of svg file
         if(this.props.applyFiltersSvgCheck){
             this.props.updatefiltersSvgCheck(false);
@@ -144,6 +146,7 @@ var SvgContainer = React.createClass({
 
         var filteredBuildingIds = [];
         var notAvailableBuildingIds = [];
+        var notFilteredBuildingIds = [];
 
         buildings = this.props.buildings;
 
@@ -154,17 +157,29 @@ var SvgContainer = React.createClass({
               filteredUnits = building.filteredUnitData;
               availableUnits = building.availableUnitData;
      
+ 
               if(availableUnits.length==0){
                 notAvailableBuildingIds.push(building.id);
               }
               if(filteredUnits.length>0){
                 filteredBuildingIds.push(building.id);
               }
+              if(isFilterApplied&&filteredUnits.length==0){
+                notFilteredBuildingIds.push(building.id);
+              }
 
         });
 
         filteredBuildingIds = _.unique(filteredBuildingIds);
         notAvailableBuildingIds = _.unique(notAvailableBuildingIds);
+        notFilteredBuildingIds = _.unique(notFilteredBuildingIds);
+
+        notInSelectionBuilding = [];
+        if(isFilterApplied){
+            notInSelectionBuilding = notFilteredBuildingIds;
+        }else{
+            notInSelectionBuilding = notAvailableBuildingIds;   
+        }
 
         var svgSelector= "";
 
@@ -215,7 +230,7 @@ var SvgContainer = React.createClass({
               svgElemClassName+=" in-selection";
             }
 
-            if(_.contains(notAvailableBuildingIds, id)){
+            if(_.contains(notInSelectionBuilding, id)){
               svgElemClassName+=" not-in-selection";
             }
 

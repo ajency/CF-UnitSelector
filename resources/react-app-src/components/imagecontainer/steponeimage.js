@@ -513,6 +513,7 @@ var SteponeImage = React.createClass({
                                 svgBaseUrl = {svgBaseUrl}
                                 showTooltip={ this.props.showTooltip} 
                                 updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
+                                isFilterApplied = {this.props.isFilterApplied}
                                 applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
                                 updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
                                 cardListFor = {cardListFor}
