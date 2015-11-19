@@ -461,7 +461,8 @@ body a {
 .navbar-header .tipRow {
   position: absolute;
   top: 20px;
-  width: 100%;
+  width: auto;
+  left: 37%;
 }
 .filter-type li {
   margin-left: 10px;
