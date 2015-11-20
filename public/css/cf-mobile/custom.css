@@ -855,6 +855,7 @@ section {
 .disabled-floor-group {
   fill: rgba(0, 0, 0, 0.63) !important;
   opacity: .9 !important;
+  cursor: default;
 }
 div.spritespin-div {
   width: 100% !important;
