@@ -86,7 +86,7 @@ var SvgContainer = React.createClass({
 
     applyNotLiveBuildingClasses : function(){
         var svgDom = $(".svg-area");
-        var notLiveBuildings = this.props.not_live_buildings;
+        var notLiveBuildings = this.props.notlive_buildings;
 
         notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
 
@@ -139,8 +139,8 @@ var SvgContainer = React.createClass({
             this.applyGroupSpecificClasses();            
         }
 
-        notLiveBuildings = this.props.notLiveBuildings;   
-        if((cardListFor==="master")&&(notLiveBuildings.length>0)){
+        notLiveBuildings = this.props.notlive_buildings;   
+        if((cardListFor==="project")&&(notLiveBuildings.length>0)){
             this.applyNotLiveBuildingClasses();   
         }        
 
