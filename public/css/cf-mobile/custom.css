@@ -175,6 +175,7 @@ body .row {
   width: 100%;
   top: 14%;
   text-align: center;
+  z-index: 15003;
 }
 .sun-toggle {
   width: 40px;
