@@ -66,6 +66,28 @@ var SteponeImage = React.createClass({
                   });
     }, 
 
+    navigateOntap: function(targettedId){
+        var imageType = this.props.imageType;
+        var notLiveBuildings = this.props.notlive_buildings; 
+        var notLiveBuildingsIdsToMark = [];        
+        if(notLiveBuildings.length > 0){
+
+            notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+        }                    
+        
+        id = parseInt(targettedId);
+
+        if((imageType === 'master')&&(_.indexOf(notLiveBuildingsIdsToMark,id)<0)){
+           this.navigate('/buildings/'+id);
+        }
+        else if(imageType === 'buildingFloorGrps'){
+            this.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
+        }
+        else if(imageType === 'singleFloorGroup'){
+            this.navigate('/units/'+id);
+        }  
+    },
+
     applyPanzoom: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
         var imageType = this.props.imageType;
@@ -102,26 +124,7 @@ var SteponeImage = React.createClass({
                 } else {
                     // deal with clicks or taps
                     // show correct tooltip
-                    var imageType = this.props.imageType;
-                    var notLiveBuildings = this.props.notlive_buildings; 
-                    var notLiveBuildingsIdsToMark = [];
-
-                    if(notLiveBuildings.length > 0){
-
-                        notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
-                    }                    
-                    
-                    id = parseInt(e.target.id);
-
-                    if((imageType === 'master')&&(_.indexOf(notLiveBuildingsIdsToMark,id)<0)){
-                       this.navigate('/buildings/'+id);
-                    }
-                    else if(imageType === 'buildingFloorGrps'){
-                        this.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
-                    }
-                    else if(imageType === 'singleFloorGroup'){
-                        this.navigate('/units/'+id);
-                    }  
+                    this.navigateOntap(e.target.id);
                                       
                 }
             }.bind(this));             
@@ -149,6 +152,21 @@ var SteponeImage = React.createClass({
 
                 $imageContainerDom.panzoom(panZoomSettings);                
             }
+
+            $imageContainerDom.on('panzoomend', function(e, panzoom, matrix, changed) {
+                if (changed) {
+                    // deal with drags or touch moves
+
+                    // show correct tooltip
+                    this.displayHighlightedTooltip();
+
+                } else {
+                    // deal with clicks or taps
+                    // show correct tooltip
+                    this.navigateOntap(e.target.id);
+                                      
+                }
+            }.bind(this));               
 
         }
 
