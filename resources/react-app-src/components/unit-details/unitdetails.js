@@ -16,17 +16,17 @@ function getUnitStateData(unitId){
 var UnitDetails = React.createClass({
 
 	getInitialState: function() {
-		
+
 		var unitId;
 		unitId = this.props.unitId;
-		
+
 
         return getUnitStateData(unitId);
     },
 
     componentWillMount:function(){
         AppStore.addChangeListener(this._onChange);
-    }, 
+    },
 
 
     componentDidMount: function() {
@@ -43,7 +43,7 @@ var UnitDetails = React.createClass({
         return false;
       });
 
-        //scroll top 
+        //scroll top
         //$("body").animate({ scrollTop: 0 }, 600);
         //$(window).scrollTop(0);
 
@@ -54,15 +54,15 @@ var UnitDetails = React.createClass({
 
           $(window).on('scroll', function () {
             var cur_pos = $(this).scrollTop();
-            
+
             sections.each(function() {
               var top = $(this).offset().top - nav_height,
                   bottom = top + $(this).outerHeight();
-              
+
               if (cur_pos >= top && cur_pos <= bottom) {
                 nav.find('a').removeClass('active');
                 sections.removeClass('active');
-                
+
                 $(this).addClass('active');
                 nav.find('a[href="#'+$(this).attr('id')+'"]').addClass('active');
               }
@@ -72,15 +72,15 @@ var UnitDetails = React.createClass({
           nav.find('a').on('click', function () {
             var $el = $(this)
               , id = $el.attr('href');
-            
+
             $('html, body').animate({
               scrollTop: $(id).offset().top - nav_height
             }, 500);
-            
+
             return false;
           });*/
 
-	
+
       function sticky_relocate() {
           var window_top = $(window).scrollTop();
           var div_top = $('#sticky-anchor').offset().top;
@@ -101,14 +101,14 @@ var UnitDetails = React.createClass({
 
     showContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
-    },	
+    },
 
-     
+
     _onChange:function(){
     	var unitId;
 		unitId = this.props.unitId;
       	this.setState(getUnitStateData(unitId));
-    },  
+    },
 
     ordinalSuffixof:function (i) {
 	    var j = i % 10,
@@ -123,7 +123,7 @@ var UnitDetails = React.createClass({
 	        return i + "rd";
 	    }
 	    return i + "th";
-	}, 
+	},
 
 	getFormattedUnitData: function(unformattedData){
 		var unitData = {};
@@ -147,8 +147,8 @@ var UnitDetails = React.createClass({
 		basicData.buildingId="";
 		basicData.buildingPrimaryBreakPoint=0;
 		basicData.buildingMasterImgs=[];
-		basicData.projectMasterImgs=[];  
-		basicData.projectName="";  
+		basicData.projectMasterImgs=[];
+		basicData.projectName="";
 
 		basicData.variantAttributes = "";
 		basicData.views = "";
@@ -178,7 +178,7 @@ var UnitDetails = React.createClass({
 			unitData.basic.buildingPrimaryBreakPoint = unit.buildingData.primary_breakpoint;
 			unitData.basic.buildingMasterImgs = unit.buildingData.building_master;
 			unitData.basic.unitTypeName = unit.variantData.unitTypeName;
-			
+
 			unitData.basic.projectMasterImgs = unit.projectMasterImgs;
 			unitData.basic.projectName = unit.projectName;
 
@@ -200,9 +200,9 @@ var UnitDetails = React.createClass({
 		return unitData;
 
 
-	},  
+	},
 
-	
+
 	render: function() {
 
 		var domToDisplay;
@@ -243,11 +243,11 @@ var UnitDetails = React.createClass({
 						showContactModal = {this.showContactModal}
 					/>
 
-	                <Modal 
-	                    ref="contactModal" 
+	                <Modal
+	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "mobileContactModal"
-	                />					
+	                />
 				</div>
 			)
 		}
@@ -258,15 +258,19 @@ var UnitDetails = React.createClass({
 					<div className="container-fluid step4Desk">
 						<TabHeader
 							buildingName={buildingName}
+              buildingId = {this.state.building_id}
+              groupId = {this.state.floor_group_id}
 							unitTypeName={unitTypeName}
-							propertyTypeName={propertyTypeName}					
+							propertyTypeName={propertyTypeName}
 							unitData = {unitData}
 							showContactModal = {this.showContactModal}
+              unitId = {unitId}
+							projectId = {projectId}
 						/>
 						<TabPanes
 							unitData = {unitData}
 						/>
-						<SimilarUnits similarUnits={unitData.similarUnits} />				
+						<SimilarUnits similarUnits={unitData.similarUnits} />
 					</div>
 
 					<TabFooter
@@ -275,8 +279,8 @@ var UnitDetails = React.createClass({
 							unitStatus = {status}
 
 					/>
-	                <Modal 
-	                    ref="contactModal" 
+	                <Modal
+	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "contactModal"
 	                />

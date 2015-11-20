@@ -206,8 +206,8 @@ var StepThree = React.createClass({
 
                 newState = immutabilityHelpers( oldState, { data:
                                                             {
-                                                                search_filters: {$set: dataToSet.value},
-                                                                applied_filters: {$set: dataToSet.value}
+                                                                search_filters: {$set: {}},
+                                                                applied_filters: {$set: {}}
                                                             }
                                                           });
             }
@@ -485,6 +485,8 @@ var StepThree = React.createClass({
         if(floorGroups.length>0){
             newStateData = newState.data;
 
+            console.log(floorGroups);
+
             // floor group
             floorGroup = floorGroups[0];
 
@@ -690,8 +692,6 @@ var StepThree = React.createClass({
 
     render: function(){
 
-      console.log('component rendered');
-
 
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
         var imageType, buildingToHighlight, modalData, filterTypes;
@@ -733,6 +733,7 @@ var StepThree = React.createClass({
         if(!_.isEmpty(allBuildings)){
         var buildingsData = AppStore.getBuildingMasterStateData(buildingId);
         groupDropwdownData = this.getGroupDropdown(buildingsData);
+        //groupDropwdownData = [];
         }else{
           groupDropwdownData = [];
         }
@@ -742,8 +743,8 @@ var StepThree = React.createClass({
         if(data.showShadow){
             messageBoxMsg = "Shadow of Morning Sun";
         }else{
-            messageBoxMsg = "Click on tower to proceed";   
-        }   
+            messageBoxMsg = "Click on tower to proceed";
+        }
 
 
 

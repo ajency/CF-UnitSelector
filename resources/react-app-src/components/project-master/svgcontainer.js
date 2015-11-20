@@ -175,11 +175,12 @@ var SvgContainer = React.createClass({
         notFilteredBuildingIds = _.unique(notFilteredBuildingIds);
 
         notInSelectionBuilding = [];
-        if(isFilterApplied){
-            notInSelectionBuilding = notFilteredBuildingIds;
-        }else{
-            notInSelectionBuilding = notAvailableBuildingIds;   
-        }
+        notInSelectionBuilding = notAvailableBuildingIds;   
+        // if(isFilterApplied){
+        //     notInSelectionBuilding = notFilteredBuildingIds;
+        // }else{
+        //     notInSelectionBuilding = notAvailableBuildingIds;   
+        // }
 
         var svgSelector= "";
 
