@@ -70,22 +70,38 @@ var SteponeImage = React.createClass({
         var imageType = this.props.imageType;
         var notLiveBuildings = this.props.notlive_buildings; 
         var notLiveBuildingsIdsToMark = [];        
-        if(notLiveBuildings.length > 0){
-
-            notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
-        }                    
         
+        // if(notLiveBuildings.length > 0){
+
+        //     notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+        // }  
+
+        var availableBuildingIds = [];
+
+        var buildings = this.props.buildings;
+
+        _.each(buildings,function(building){
+            availableUnits = building.availableUnitData;
+
+            if(availableUnits.length>0){
+                availableBuildingIds.push(building.id);
+            }
+
+        });
+
         id = parseInt(targettedId);
 
-        if((imageType === 'master')&&(_.indexOf(notLiveBuildingsIdsToMark,id)<0)){
+        // is clickable in case of master step one only if not present in not live buildings
+        if((imageType === 'master')&&(_.indexOf(availableBuildingIds,id)>-1)){
            this.navigate('/buildings/'+id);
         }
-        else if(imageType === 'buildingFloorGrps'){
+        else if((imageType === 'buildingFloorGrps')&&(_.indexOf(availableBuildingIds,id)>-1)){
             this.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
         }
-        else if(imageType === 'singleFloorGroup'){
+        else if(imageType === 'singleFloorGroup'&&(_.indexOf(availableBuildingIds,id)>-1)){
             this.navigate('/units/'+id);
-        }  
+        }                          
+  
     },
 
     applyPanzoom: function(){

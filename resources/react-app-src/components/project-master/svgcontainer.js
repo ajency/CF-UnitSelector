@@ -151,6 +151,7 @@ var SvgContainer = React.createClass({
         var filteredBuildingIds = [];
         var notAvailableBuildingIds = [];
         var notFilteredBuildingIds = [];
+        var availableBuildingIds = [];
 
         buildings = this.props.buildings;
 
@@ -158,19 +159,25 @@ var SvgContainer = React.createClass({
         _.each(buildings,function(building){
 
               // // find all filtered units
-              filteredUnits = building.filteredUnitData;
-              availableUnits = building.availableUnitData;
+            filteredUnits = building.filteredUnitData;
+            availableUnits = building.availableUnitData;
      
  
-              if(availableUnits.length==0){
+            if(availableUnits.length==0){
                 notAvailableBuildingIds.push(building.id);
-              }
-              if(filteredUnits.length>0){
+            }
+            
+            if(availableUnits.length>0){
+                availableBuildingIds.push(building.id);
+            }
+
+            if(filteredUnits.length>0){
                 filteredBuildingIds.push(building.id);
-              }
-              if(isFilterApplied&&filteredUnits.length==0){
+            }
+          
+            if(isFilterApplied && filteredUnits.length==0){
                 notFilteredBuildingIds.push(building.id);
-              }
+            }
 
         });
 
@@ -277,13 +284,13 @@ var SvgContainer = React.createClass({
             id = parseInt(e.currentTarget.id);
 
             // is clickable in case of master step one only if not present in not live buildings
-            if((imageType === 'master')&&(_.indexOf(notLiveBuildingsIdsToMark,id)<0)){
+            if((imageType === 'master')&&(_.indexOf(availableBuildingIds,id)>-1)){
                that.navigate('/buildings/'+id);
             }
-            else if(imageType === 'buildingFloorGrps'){
+            else if((imageType === 'buildingFloorGrps')&&(_.indexOf(availableBuildingIds,id)>-1)){
                 that.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
             }
-            else if(imageType === 'singleFloorGroup'){
+            else if((imageType === 'singleFloorGroup')&&(_.indexOf(availableBuildingIds,id)>-1)){
                 that.navigate('/units/'+id);
             }
             
