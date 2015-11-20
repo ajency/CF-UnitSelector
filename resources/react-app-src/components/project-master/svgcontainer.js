@@ -84,11 +84,8 @@ var SvgContainer = React.createClass({
 
     },
 
-    applyNotLiveBuildingClasses : function(){
+    applyNotLiveBuildingClasses : function(notLiveBuildingsIdsToMark){
         var svgDom = $(".svg-area");
-        var notLiveBuildings = this.props.notlive_buildings;
-
-        notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
 
 
         $(svgDom).find(".building").each(function(ind, item) {
@@ -123,6 +120,13 @@ var SvgContainer = React.createClass({
         var svgDom = $(".svg-area");
 
         var isFilterApplied = this.props.isFilterApplied;
+        var notLiveBuildings = this.props.notlive_buildings; 
+        var notLiveBuildingsIdsToMark = [];
+
+        if(notLiveBuildings.length > 0){
+
+            notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+        }
 
         // on load of svg rest apply svg filter check to avoid continuous reload of svg file
         if(this.props.applyFiltersSvgCheck){
@@ -139,9 +143,9 @@ var SvgContainer = React.createClass({
             this.applyGroupSpecificClasses();            
         }
 
-        notLiveBuildings = this.props.notlive_buildings;   
+          
         if((cardListFor==="project")&&(notLiveBuildings.length>0)){
-            this.applyNotLiveBuildingClasses();   
+            this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark);   
         }        
 
         var filteredBuildingIds = [];
@@ -269,16 +273,19 @@ var SvgContainer = React.createClass({
 
         // on mouse click of building apply tooltip
         $(classNameToSelect).click(function(e){
+            console.log("chek for not in selection class");
+            console.log($(e.currentTarget).hasClass('not-in-selection'));
             var that = this;
             id = parseInt(e.currentTarget.id);
-            
-            if(imageType === 'master'){
+
+            // is clickable in case of master step one only if not present in not live buildings
+            if((imageType === 'master')&&(_.indexOf(notLiveBuildingsIdsToMark,id)<0)){
                that.navigate('/buildings/'+id);
             }
             else if(imageType === 'buildingFloorGrps'){
                 that.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
             }
-            else{
+            else if(imageType === 'singleFloorGroup'){
                 that.navigate('/units/'+id);
             }
             

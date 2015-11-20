@@ -210,6 +210,11 @@ var SteponeImage = React.createClass({
 
     displayHighlightedTooltip: function(){
         var baseSelector , imageType;
+        var buildingToHighlight = this.props.buildingToHighlight;
+
+        if(_.isUndefined(buildingToHighlight)){
+            return;
+        }
 
         imageType = this.props.imageType;
 
@@ -223,8 +228,6 @@ var SteponeImage = React.createClass({
           baseSelector = '.apartment';
         }        
          
-        buildingToHighlight = this.props.buildingToHighlight;
-        
         highlightedBuildingSelector = baseSelector+buildingToHighlight.id; 
         highlightedBuildingName = buildingToHighlight.building_name;  
 

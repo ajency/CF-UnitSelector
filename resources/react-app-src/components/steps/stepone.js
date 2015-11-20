@@ -309,10 +309,15 @@ var StepOne = React.createClass({
         this.destroyTooltip();
 
         buildings = this.state.data.buildings;
-        buildingToHighlight = buildings[slideToGotTo];
-        buildingName = buildingToHighlight.building_name;
 
-        this.showTooltip(buildingName,".building"+buildingToHighlight.id);
+        buildingToHighlight = buildings[slideToGotTo];
+
+        if(!_.isUndefined(buildingToHighlight)){
+            buildingName = buildingToHighlight.building_name;
+
+            this.showTooltip(buildingName,".building"+buildingToHighlight.id);
+        }        
+
     },
 
     showFilterModal: function(){
