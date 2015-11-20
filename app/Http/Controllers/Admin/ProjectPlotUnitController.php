@@ -60,8 +60,6 @@ class ProjectPlotUnitController extends Controller {
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_arr', $unitArr)
                         ->with('current', 'plots-unit');
-
-        //
     }
 
     /**

@@ -180,6 +180,11 @@ section {
   top: 0px;
   width: 100%;
 }
+.disabled-floor-group {
+  fill: rgba(0, 0, 0, 0.63) !important;
+  opacity: .9 !important;
+  cursor: default;
+}
 div.spritespin-div {
   width: 100% !important;
   height: 100% !important;
@@ -1059,10 +1064,6 @@ select::-ms-expand {
 .sideBarLogo img {
   height: 100%;
   padding-left: 7px;
-}
-.disabled-floor-group {
-  fill: rgba(0, 0, 0, 0.63) !important;
-  opacity: .9 !important;
 }
 .enabled-shadow {
   visibility: visible;
