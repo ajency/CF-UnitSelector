@@ -273,8 +273,6 @@ var SvgContainer = React.createClass({
 
         // on mouse click of building apply tooltip
         $(classNameToSelect).click(function(e){
-            console.log("chek for not in selection class");
-            console.log($(e.currentTarget).hasClass('not-in-selection'));
             var that = this;
             id = parseInt(e.currentTarget.id);
 
