@@ -251,6 +251,19 @@ body {
   .faqTermsPrivacyOuter .container {
     padding: 0;
   }
+  .faqTermsPrivacyOuter .container .mainContent {
+    padding: 15px 10px;
+    font-size: 13px;
+  }
+  .faqTermsPrivacyOuter .container .mainContent h5 {
+    margin-top: 20px;
+  }
+  .faqTermsPrivacyOuter .container .mainContent ul {
+    padding-left: 30px;
+  }
+  .faqTermsPrivacyOuter .innerContent {
+    padding-left: 10px;
+  }
   .faqTermsPrivacyOuter h3 {
     font-size: 150%;
   }

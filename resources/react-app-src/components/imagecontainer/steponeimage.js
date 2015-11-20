@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var classNames = require('classnames');
 var SvgContainer = require('../project-master/svgcontainer');
 var immutabilityHelpers = require('react-addons-update');
+var Router = require('react-router-component');
 
 var PROJECTID = window.projectId;
 var BASEURL = window.baseUrl;
@@ -20,6 +21,8 @@ var svgData = {
 var svgKeyType = "breakpoint";
 
 var SteponeImage = React.createClass({
+    
+    mixins: [Router.NavigatableMixin],    
 
     getInitialState: function() {
         return svgData;
@@ -99,7 +102,27 @@ var SteponeImage = React.createClass({
                 } else {
                     // deal with clicks or taps
                     // show correct tooltip
-                    this.displayHighlightedTooltip();
+                    var imageType = this.props.imageType;
+                    var notLiveBuildings = this.props.notlive_buildings; 
+                    var notLiveBuildingsIdsToMark = [];
+
+                    if(notLiveBuildings.length > 0){
+
+                        notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+                    }                    
+                    
+                    id = parseInt(e.target.id);
+
+                    if((imageType === 'master')&&(_.indexOf(notLiveBuildingsIdsToMark,id)<0)){
+                       this.navigate('/buildings/'+id);
+                    }
+                    else if(imageType === 'buildingFloorGrps'){
+                        this.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
+                    }
+                    else if(imageType === 'singleFloorGroup'){
+                        this.navigate('/units/'+id);
+                    }  
+                                      
                 }
             }.bind(this));             
         }

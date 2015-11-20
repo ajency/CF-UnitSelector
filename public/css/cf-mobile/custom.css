@@ -852,6 +852,10 @@ section {
   top: 0px;
   width: 100%;
 }
+.disabled-floor-group {
+  fill: rgba(0, 0, 0, 0.63) !important;
+  opacity: .9 !important;
+}
 div.spritespin-div {
   width: 100% !important;
   height: 100% !important;
