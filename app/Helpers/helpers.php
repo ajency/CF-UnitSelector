@@ -49,7 +49,6 @@ define('BOOKING_HISTORY_COMMENT_PAYMENT_INITIALIZED', "Payment Initialized");
 define('BOOKING_HISTORY_COMMENT_PAYMENT_SUCCESS', "Payment Success");
 
 
-
  
 /**
  * 

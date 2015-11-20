@@ -168,7 +168,6 @@
     </form>
 </div>
 
-
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
 

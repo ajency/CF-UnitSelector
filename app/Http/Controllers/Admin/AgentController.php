@@ -83,7 +83,6 @@ class AgentController extends Controller {
         });
         
          
-        
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)

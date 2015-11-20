@@ -22,7 +22,6 @@ use CommonFloor\Http\Controllers\Admin\SvgController;
 use \Session;
 use \Excel;
 
-
 class ProjectController extends Controller {
 
     /**
