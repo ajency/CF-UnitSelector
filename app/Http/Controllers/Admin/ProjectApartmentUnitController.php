@@ -79,8 +79,7 @@ class ProjectApartmentUnitController extends Controller {
            
             $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray(); 
         }
-
-        
+      
         return view('admin.project.unit.apartment.create')
                         ->with('project', $project->toArray())
                         ->with('projectPropertyTypes', $projectPropertyTypes)

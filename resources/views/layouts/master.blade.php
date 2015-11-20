@@ -194,8 +194,7 @@
             <!-- END PAGE CONTAINER -->
         </div>
         <!-- END CONTENT --> 
-
-
+        
         <!-- BEGIN CORE JS FRAMEWORK--> 
         <script src="{{ asset('bower_components/lodash/lodash.js') }}"></script>
         <script src="{{ asset('bower_components/jquery/dist/jquery.js') }}"></script>
