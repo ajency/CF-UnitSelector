@@ -30,10 +30,10 @@ var SideBar = React.createClass({
         var cardListForId = this.props.cardListForId ;
 
 		// calculate sideContentBarHeight
-    if(cardListFor === 'project'){
+    if(cardListFor === 'building'){
+      //sideContentBarHeight = windowHeight-390;
       sideContentBarHeight = windowHeight-250;
     }else{
-      //sideContentBarHeight = windowHeight-390;
       sideContentBarHeight = windowHeight-250;
     }
 
@@ -66,7 +66,7 @@ var SideBar = React.createClass({
 		};
 
 
-    if(cardListFor != 'project'){
+    if(cardListFor === 'building'){
       // var outsideViewNode = (
       //   <OutsideView
       //   cardListFor = {cardListFor}
