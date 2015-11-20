@@ -1330,7 +1330,7 @@ function _getProjectMasterData(){
 		projectMasterData.filteredCount = unitCount.filtered.length;
 		
 		buildings = projectData.buildings;
-		notlive_buildings = projectData.notlive_buildings;
+		projectMasterData.notlive_buildings = projectData.notlive_buildings;
 		allUnits = projectData.units;
 
 		buildingsWithUnits = getBuildingUnits(buildings, allUnits, []);
