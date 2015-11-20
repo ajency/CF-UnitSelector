@@ -72,7 +72,8 @@
                 
                 @if(isAgent())
                <br> To check units assigned to you in the frontend <a target="_blank" href="{{ url( 'project/' . $project['id'].'/' . Auth::user()->id . '/') }}" class="text-primary">click here >></a> 
-               @endif        
+               @endif 
+                      
             </h5>
             </div>
         </div>
