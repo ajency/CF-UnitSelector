@@ -1366,7 +1366,7 @@ div.spritespin-div {
 }
 .filter-content {
   width: 100%;
-  margin-bottom: 55px;
+  margin-bottom: 75px;
   float: left;
 }
 .filter-content .imagecheckboxOuter {
@@ -1520,15 +1520,15 @@ div.spritespin-div {
   font-size: 10px;
 }
 .filterfooter {
-  /*position: fixed;
-    bottom: -1px;*/
+  position: fixed;
+  bottom: 0px;
   width: 100%;
-  /*left: 0;	   */
+  left: 0;
   color: #ffffff;
   float: left;
   margin-bottom: -5px;
-  text-align: center
-  /*z-index:9999;   */
+  text-align: center;
+  z-index: 9999;
 }
 .filterfooter button {
   margin: 0;

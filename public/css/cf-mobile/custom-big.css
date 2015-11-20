@@ -1036,6 +1036,9 @@ select::-ms-expand {
   opacity: 0.3;
   fill: #ffffff;
 }
+.svg-light:hover {
+  cursor: pointer;
+}
 .sunText,
 .enquiryText {
   margin-left: 5px;
