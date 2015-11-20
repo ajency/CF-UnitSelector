@@ -964,6 +964,7 @@ select::-ms-expand {
 .not-availabel {
   fill: rgba(0, 0, 0, 0.46) !important;
   opacity: .9 !important;
+  cursor: default;
 }
 .pop-up-in {
   -webkit-animation: pop-in 1s both;
