@@ -67,13 +67,13 @@ $startTime= time();
             <div class="container">
                 <h3 class="text-center text-uppercase">3 Steps for booking your apartment</h3>
                 <span class="text-center col-md-12 col-sm-12 col-xs-12 spanText">Complete your booking securely through our payment gateway</span>
-                <span class="text-center col-md-12 col-sm-12 col-xs-12 timerText">Current session will restart in <b><span id="timeCounter" class="orangeText "><?php echo EXPIREDURATION;echo ":00";?></b> minutes</span>
+                <span class="text-center col-md-12 col-sm-12 col-xs-12 timerText">Current session will restart in <b><br><span id="timeCounter" class="orangeText "><?php echo EXPIREDURATION;echo ":00";?></b> minutes</span>
                 <div class="bookAptOuter">
                     <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <span class="text-uppercase bookApmt">Book your apartment</span>
                         <br>
-                        <span class="text-uppercase flatNo">( <?php echo $unitData['project_title']?> - <br><?php echo $unitData['unit']['name']?> ) </span>
+                        <span class="text-uppercase flatNo"> <?php echo $unitData['project_title']?> <span class="hyphen">-</span> <br><?php echo $unitData['unit']['name']?>  </span>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">                       
                         <div class="priceOuter">
@@ -187,7 +187,7 @@ $startTime= time();
                     <div class="panel-heading" role="tab" id="headingTwo">
                       <h4 class="panel-title">
                         <a id="acc-2" class="collapsed plusMinusOuter" role="button"   href="#collapseTwo" data-parent="#accordion" data-toggle="collapse" aria-expanded="false" aria-controls="collapseTwo">
-                          2. Review
+                          2. Property Information
                           <span class="plusMinusIcon plusIcon"><i class="fa fa-plus-square-o"></i></span>
                           <span class="plusMinusIcon minusIcon"><i class="fa fa-minus-square-o"></i></span>
                         </a>
