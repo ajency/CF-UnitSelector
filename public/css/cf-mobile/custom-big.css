@@ -183,7 +183,10 @@ section {
 .disabled-floor-group {
   fill: rgba(0, 0, 0, 0.63) !important;
   opacity: .9 !important;
-  cursor: default;
+  cursor: default !important;
+}
+.disabled-floor-group:hover {
+  cursor: default !important;
 }
 div.spritespin-div {
   width: 100% !important;
@@ -964,7 +967,11 @@ select::-ms-expand {
 .not-availabel {
   fill: rgba(0, 0, 0, 0.46) !important;
   opacity: .9 !important;
-  cursor: default;
+  cursor: default !important;
+}
+.not-in-selection:hover,
+.not-availabel:hover {
+  cursor: default !important;
 }
 .pop-up-in {
   -webkit-animation: pop-in 1s both;
