@@ -102,25 +102,27 @@
           "2.5BHK",
           "3BHK"
         ],
-        "starting_area": 852,
+        "starting_area": 991281,
         "availability": {
-          "sold": 0,
-          "blocked": 3
+          "sold": 5,
+          "blocked": 0
         },
-        "starting_price": 662
+        "starting_price": 60780000
       }
     },
     "filters": {
       "defaults": [
         "area",
         "budget",
+        "views",
         "direction",
         "floor"
       ],
       "Apartment": [
         "unitTypes",
         "unitVariantNames",
-        "Flooring"
+        "Flooring",
+        "Roofing"
       ]
     },
     "buildings": [
@@ -169,7 +171,7 @@
           "http://test.cfunitselectortest.com/projects/7/buildings/21/master-35.jpg"
         ],
         "created_at": "2015-11-05 06:14:38",
-        "updated_at": "2015-11-06 10:45:11",
+        "updated_at": "2015-11-18 13:54:12",
         "breakpoints": [
           0,
           14,
@@ -178,44 +180,44 @@
         "abbrevation": "",
         "has_master": "yes",
         "floor_rise": 1000,
-        "shadow_images": {
-          "10": 1476,
-          "11": 1477,
-          "12": 1478,
-          "13": 1479,
-          "14": 1480,
-          "15": 1481,
-          "16": 1482,
-          "17": 1483,
-          "18": 1484,
-          "19": 1485,
-          "20": 1486,
-          "21": 1487,
-          "22": 1488,
-          "23": 1489,
-          "24": 1490,
-          "25": 1491,
-          "26": 1492,
-          "27": 1493,
-          "28": 1494,
-          "29": 1495,
-          "30": 1496,
-          "31": 1497,
-          "32": 1498,
-          "33": 1499,
-          "34": 1500,
-          "35": 1501,
-          "00": 1591,
-          "01": 1467,
-          "02": 1468,
-          "03": 1469,
-          "04": 1470,
-          "05": 1471,
-          "06": 1472,
-          "07": 1473,
-          "08": 1474,
-          "09": 1475
-        },
+        "shadow_images": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-35.jpg"
+        ],
         "primary_breakpoint": 0,
         "floor_group": [
           {
@@ -309,10 +311,10 @@
         "abbrevation": "",
         "has_master": "yes",
         "floor_rise": 1000,
-        "shadow_images": {
-          "00": 1592
-        },
-        "primary_breakpoint": 28,
+        "shadow_images": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/23/shadow-00.jpg"
+        ],
+        "primary_breakpoint": 0,
         "floor_group": [
           {
             "id": 19,
@@ -360,19 +362,89 @@
         "floors": [],
         "building_master": [
           "http://test.cfunitselectortest.com/projects/7/buildings/24/master-00.jpg",
-          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-01.jpg"
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/master-35.jpg"
         ],
         "created_at": "2015-11-06 05:53:54",
-        "updated_at": "2015-11-11 06:53:39",
+        "updated_at": "2015-11-18 08:29:30",
         "breakpoints": [
-          0,
-          1
+          0
         ],
         "abbrevation": "",
         "has_master": "yes",
         "floor_rise": 1000,
-        "shadow_images": [],
-        "primary_breakpoint": 14,
+        "shadow_images": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-35.jpg"
+        ],
+        "primary_breakpoint": 0,
         "floor_group": [
           {
             "id": 22,
@@ -429,9 +501,9 @@
         "abbrevation": "",
         "has_master": "yes",
         "floor_rise": 1000,
-        "shadow_images": {
-          "00": 1593
-        },
+        "shadow_images": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/25/shadow-00.jpg"
+        ],
         "primary_breakpoint": 0,
         "floor_group": [
           {
@@ -531,25 +603,231 @@
         ]
       },
       {
-        "id": 27,
-        "building_name": "Wing F",
-        "phase_id": 17,
-        "no_of_floors": 6,
+        "id": 30,
+        "building_name": "Wing H",
+        "phase_id": 18,
+        "no_of_floors": 7,
         "floors": [],
         "building_master": [
-          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-00.jpg"
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/master-35.jpg"
         ],
-        "created_at": "2015-11-06 05:56:02",
-        "updated_at": "2015-11-06 07:52:26",
+        "created_at": "2015-11-19 06:44:51",
+        "updated_at": "2015-11-19 07:02:48",
         "breakpoints": [
-          0
+          0,
+          8,
+          28
         ],
         "abbrevation": "",
         "has_master": "yes",
         "floor_rise": 1000,
-        "shadow_images": {
-          "00": 1589
+        "shadow_images": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-35.jpg"
+        ],
+        "primary_breakpoint": 0,
+        "floor_group": [
+          {
+            "id": 49,
+            "building_id": 30,
+            "name": "Floor 1-2",
+            "floors": [
+              1,
+              2
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 50,
+            "building_id": 30,
+            "name": "Floor 3-4-5",
+            "floors": [
+              3,
+              4,
+              5
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": 0
+          },
+          {
+            "id": 51,
+            "building_id": 30,
+            "name": "Floor 6-7",
+            "floors": [
+              6,
+              7
+            ],
+            "created_at": "-0001-11-30 00:00:00",
+            "updated_at": "-0001-11-30 00:00:00",
+            "primary_breakpoint": null
+          }
+        ]
+      }
+    ],
+    "notlive_buildings": [
+      {
+        "id": 27,
+        "building_name": "Wing F",
+        "phase_id": 21,
+        "no_of_floors": 6,
+        "floors": [],
+        "building_master": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/master-35.jpg"
+        ],
+        "created_at": "2015-11-06 05:56:02",
+        "updated_at": "2015-11-19 06:55:09",
+        "breakpoints": {
+          "1": 18,
+          "2": 35
         },
+        "abbrevation": "",
+        "has_master": "yes",
+        "floor_rise": 1000,
+        "shadow_images": [
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-00.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-01.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-02.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-03.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-04.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-05.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-06.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-07.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-08.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-09.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-10.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-11.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-12.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-13.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-14.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-15.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-16.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-17.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-18.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-19.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-20.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-21.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-22.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-23.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-24.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-25.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-26.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-27.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-28.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-29.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-30.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-31.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-32.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-33.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-34.jpg",
+          "http://test.cfunitselectortest.com/projects/7/buildings/27/shadow-35.jpg"
+        ],
         "primary_breakpoint": 28,
         "floor_group": [
           {
@@ -562,7 +840,7 @@
             ],
             "created_at": "-0001-11-30 00:00:00",
             "updated_at": "-0001-11-30 00:00:00",
-            "primary_breakpoint": 0
+            "primary_breakpoint": null
           },
           {
             "id": 32,
@@ -574,7 +852,7 @@
             ],
             "created_at": "-0001-11-30 00:00:00",
             "updated_at": "-0001-11-30 00:00:00",
-            "primary_breakpoint": 0
+            "primary_breakpoint": null
           },
           {
             "id": 33,
@@ -586,42 +864,7 @@
             ],
             "created_at": "-0001-11-30 00:00:00",
             "updated_at": "-0001-11-30 00:00:00",
-            "primary_breakpoint": 0
-          }
-        ]
-      }
-    ],
-    "notlive_buildings": [
-      {
-        "id": 28,
-        "building_name": "Wing G",
-        "phase_id": 18,
-        "no_of_floors": 6,
-        "floors": [],
-        "building_master": [
-          "http://test.cfunitselectortest.com/projects/7/buildings/28/master-00.jpg"
-        ],
-        "created_at": "2015-11-11 14:14:50",
-        "updated_at": "2015-11-11 14:18:38",
-        "breakpoints": [
-          0
-        ],
-        "abbrevation": "",
-        "has_master": "yes",
-        "floor_rise": 1000,
-        "shadow_images": [],
-        "primary_breakpoint": null,
-        "floor_group": [
-          {
-            "id": 45,
-            "building_id": 28,
-            "name": "Floor 1-2",
-            "floors": [
-              1
-            ],
-            "created_at": "-0001-11-30 00:00:00",
-            "updated_at": "-0001-11-30 00:00:00",
-            "primary_breakpoint": 0
+            "primary_breakpoint": null
           }
         ]
       }
@@ -638,10 +881,10 @@
         "per_sq_ft_price": 1000,
         "variant_attributes": {
           "Flooring": "Wooden ",
-          "Roofing": "pop"
+          "Roofing": "normal"
         },
         "created_at": "2015-11-05 06:14:02",
-        "updated_at": "2015-11-13 11:28:30",
+        "updated_at": "2015-11-19 07:40:27",
         "deleted_at": null,
         "size": 0,
         "floor": [
@@ -685,17 +928,59 @@
                   },
                   {
                     "attribute_key": "dimension",
-                    "attribute_value": "Asdsda"
+                    "attribute_value": "11'3\" x 5'7\""
                   },
                   {
                     "attribute_key": "color",
-                    "attribute_value": "Dasdasdasdasdasdasdasdasda sadsad sdasdasd asdasd asdsad asd asdasda sd asd asdasdasd sad asd asd asd asda asd asd asqweqweqwe rtertertqwertyuiop asdfghjkl zxcvbnm."
+                    "attribute_value": "Red"
+                  }
+                ]
+              },
+              {
+                "room_id": 24,
+                "room_name": "Dining",
+                "atributes": [
+                  {
+                    "attribute_key": "size-sq-ft",
+                    "attribute_value": 145
+                  },
+                  {
+                    "attribute_key": "dimension",
+                    "attribute_value": "11'3\" x 5'7\""
+                  }
+                ]
+              },
+              {
+                "room_id": 25,
+                "room_name": "Master Bedroom",
+                "atributes": [
+                  {
+                    "attribute_key": "size-sq-ft",
+                    "attribute_value": 156
+                  },
+                  {
+                    "attribute_key": "dimension",
+                    "attribute_value": "11'3\" x 5'7\""
+                  }
+                ]
+              },
+              {
+                "room_id": 26,
+                "room_name": "Toilet",
+                "atributes": [
+                  {
+                    "attribute_key": "size-sq-ft",
+                    "attribute_value": 123
+                  },
+                  {
+                    "attribute_key": "dimension",
+                    "attribute_value": "11'3\" x 5'7\""
                   }
                 ]
               }
             ],
-            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/292741494_0.jpeg",
-            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/823380594_25.jpeg"
+            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/94520514_25.jpeg",
+            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/232070623_25.jpeg"
           }
         ]
       },
@@ -708,10 +993,11 @@
         "super_built_up_area": 1355,
         "per_sq_ft_price": 1000,
         "variant_attributes": {
-          "Flooring": " Vitrified Tiles"
+          "Flooring": " Vitrified Tiles",
+          "Roofing": "pop"
         },
         "created_at": "2015-11-06 05:51:41",
-        "updated_at": "2015-11-06 05:51:41",
+        "updated_at": "2015-11-19 12:22:24",
         "deleted_at": null,
         "size": 0,
         "floor": [
@@ -744,10 +1030,69 @@
                     "attribute_value": " 10'9\" x 7' 8\""
                   }
                 ]
+              },
+              {
+                "room_id": 22,
+                "room_name": "Balcony",
+                "atributes": [
+                  {
+                    "attribute_key": "size-sq-ft",
+                    "attribute_value": ""
+                  },
+                  {
+                    "attribute_key": "dimension",
+                    "attribute_value": " 10'9\" x 7' 8\""
+                  },
+                  {
+                    "attribute_key": "color",
+                    "attribute_value": "Red"
+                  }
+                ]
+              },
+              {
+                "room_id": 24,
+                "room_name": "Dining",
+                "atributes": [
+                  {
+                    "attribute_key": "size-sq-ft",
+                    "attribute_value": 123
+                  },
+                  {
+                    "attribute_key": "dimension",
+                    "attribute_value": " 10'9\" x 7' 8\""
+                  }
+                ]
+              },
+              {
+                "room_id": 25,
+                "room_name": "Master Bedroom",
+                "atributes": [
+                  {
+                    "attribute_key": "size-sq-ft",
+                    "attribute_value": 145
+                  },
+                  {
+                    "attribute_key": "dimension",
+                    "attribute_value": " 10'9\" x 7' 8\""
+                  }
+                ]
+              },
+              {
+                "room_id": 26,
+                "room_name": "Toilet",
+                "atributes": [
+                  {
+                    "attribute_key": "size-sq-ft",
+                    "attribute_value": 78
+                  },
+                  {
+                    "attribute_key": "dimension",
+                    "attribute_value": " 10'9\" x 7' 8\" dsfgdfg dfgdfg dfgdfg dfg dsfg dsf Display the following details  Call 1800 180 180 180 Commonfloor | FAQ | Mobile Apps  © 2015 Commonfloor Inc. | Privacy Policy Press To Rotate .Display the following details  Call 1800 180 180 180 Commonfloor | FAQ | Mobile Apps  © 2015 Commonfloor Inc. | Privacy Policy Press To Rotate.Display the following details  Call 1800 180 180 180 Commonfloor | FAQ | Mobile Apps  © 2015 Commonfloor Inc. | Privacy Policy Press To Rotate Display the following details  Call 1800 180 180 180 Commonfloor | FAQ | Mobile Apps  © 2015 Commonfloor Inc. | Privacy Policy Press To Rotate. Display the following details  Call 1800 180 180 180 Commonfloor | FAQ | Mobile Apps  © 2015 Commonfloor Inc. | Privacy Policy Press To Rotate"
+                  }
+                ]
               }
             ],
-            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/27/1099947863_0.jpeg",
-            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/27/378828983_0.jpeg"
+            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/27/1099947863_0.jpeg"
           }
         ]
       }
@@ -766,6 +1111,10 @@
         {
           "phase_id": 18,
           "phase_name": "Phase 3"
+        },
+        {
+          "phase_id": 21,
+          "phase_name": "Unpublished"
         }
       ],
       "floor_rise": null,
@@ -779,74 +1128,85 @@
     },
     "units": [
       {
-        "id": 191,
-        "unit_name": "Unit - 1F",
+        "id": 211,
+        "unit_name": "Unit 1",
         "unit_variant_id": 25,
         "position": 1,
         "floor": 1,
-        "building_id": 27,
-        "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:55:17",
+        "building_id": 30,
+        "created_at": "2015-11-19 07:11:52",
+        "updated_at": "2015-11-19 07:14:34",
         "phase_id": 0,
-        "views": [],
-        "direction": "South",
+        "views": [
+          "Swimming pool",
+          "Garden",
+          "Playground"
+        ],
+        "direction": "North",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
         "booking_id": "",
-        "floor_group_id": 31,
+        "floor_group_id": 49,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 2000,
-        "unit_price": 2000,
+        "selling_amount": 234567,
+        "unit_price": 234567,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
-            "amount": 1000,
+            "amount": 111111,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -855,74 +1215,84 @@
         "availability": "available"
       },
       {
-        "id": 192,
-        "unit_name": "Unit -2F",
+        "id": 212,
+        "unit_name": "Unit 2",
         "unit_variant_id": 25,
         "position": 1,
         "floor": 2,
-        "building_id": 27,
-        "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:55:09",
+        "building_id": 30,
+        "created_at": "2015-11-19 07:12:08",
+        "updated_at": "2015-11-19 07:14:39",
         "phase_id": 0,
-        "views": [],
+        "views": [
+          "Garden",
+          "Playground"
+        ],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
         "booking_id": "",
-        "floor_group_id": 31,
+        "floor_group_id": 49,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 3000,
-        "unit_price": 3000,
+        "selling_amount": 323456,
+        "unit_price": 323456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
-            "amount": 2000,
+            "amount": 200000,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -931,226 +1301,258 @@
         "availability": "available"
       },
       {
-        "id": 193,
-        "unit_name": "Unit -3F",
+        "id": 213,
+        "unit_name": "Unit 3",
         "unit_variant_id": 27,
         "position": 1,
         "floor": 3,
-        "building_id": 27,
-        "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:54:57",
+        "building_id": 30,
+        "created_at": "2015-11-19 07:12:30",
+        "updated_at": "2015-11-19 18:42:01",
         "phase_id": 0,
-        "views": [],
-        "direction": "South",
+        "views": [
+          "Swimming pool",
+          "Garden",
+          "Playground"
+        ],
+        "direction": "East",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
-        "floor_group_id": 32,
-        "breakpoint": 0,
+        "booking_id": "564e143a3179b",
+        "floor_group_id": 50,
+        "breakpoint": 28,
         "booking_amount": 20000,
-        "selling_amount": 4000,
-        "unit_price": 4000,
+        "selling_amount": 423456,
+        "unit_price": 423456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
-            "amount": 3000,
+            "amount": 300000,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
         "property_type_id": 3,
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "availability": "available"
       },
       {
-        "id": 194,
-        "unit_name": "Unit - 4F",
+        "id": 214,
+        "unit_name": "Unit 4",
         "unit_variant_id": 27,
         "position": 1,
         "floor": 4,
-        "building_id": 27,
-        "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:54:49",
+        "building_id": 30,
+        "created_at": "2015-11-19 07:12:45",
+        "updated_at": "2015-11-19 09:15:25",
         "phase_id": 0,
-        "views": [],
-        "direction": "South",
+        "views": [
+          "Garden",
+          "Playground"
+        ],
+        "direction": "West",
         "agent_id": 0,
-        "booked_at": "0000-00-00 00:00:00",
+        "booked_at": "2015-11-19 08:06:08",
         "property_type_group_id": 0,
-        "booking_id": "",
-        "floor_group_id": 32,
+        "booking_id": "564d9038cc583",
+        "floor_group_id": 50,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 5000,
-        "unit_price": 5000,
+        "selling_amount": 523456,
+        "unit_price": 523456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
-            "amount": 4000,
+            "amount": 400000,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
-        "id": 195,
-        "unit_name": "Unit - 5F",
+        "id": 215,
+        "unit_name": "Unit 5",
         "unit_variant_id": 25,
         "position": 1,
         "floor": 5,
-        "building_id": 27,
-        "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:54:35",
+        "building_id": 30,
+        "created_at": "2015-11-19 07:13:21",
+        "updated_at": "2015-11-19 07:15:00",
         "phase_id": 0,
-        "views": [],
-        "direction": "South",
+        "views": [
+          "Garden",
+          "Playground",
+          "ATM"
+        ],
+        "direction": "North-East",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
         "booking_id": "",
-        "floor_group_id": 33,
+        "floor_group_id": 50,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 6000,
-        "unit_price": 6000,
+        "selling_amount": 623456,
+        "unit_price": 623456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
-            "amount": 5000,
+            "amount": 500000,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1159,74 +1561,169 @@
         "availability": "available"
       },
       {
-        "id": 196,
-        "unit_name": "Unit - 6F",
+        "id": 216,
+        "unit_name": "Unit 6",
         "unit_variant_id": 25,
         "position": 1,
         "floor": 6,
-        "building_id": 27,
-        "created_at": "2015-11-06 06:31:38",
-        "updated_at": "2015-11-06 07:54:24",
+        "building_id": 30,
+        "created_at": "2015-11-19 07:13:41",
+        "updated_at": "2015-11-19 09:55:32",
         "phase_id": 0,
-        "views": [],
-        "direction": "South",
+        "views": [
+          "Garden",
+          "Playground"
+        ],
+        "direction": "North-West",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
-        "floor_group_id": 33,
+        "booking_id": "564d9a66cdecc",
+        "floor_group_id": 51,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 7000,
-        "unit_price": 7000,
+        "selling_amount": 723456,
+        "unit_price": 723456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
-            "amount": 6000,
+            "amount": 600000,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
+            "component_price_type": "PLC-Floorrise"
+          }
+        },
+        "property_type_id": 3,
+        "primary_breakpoint": 0,
+        "availability": "available"
+      },
+      {
+        "id": 217,
+        "unit_name": "Unit 7",
+        "unit_variant_id": 25,
+        "position": 1,
+        "floor": 7,
+        "building_id": 30,
+        "created_at": "2015-11-19 07:13:57",
+        "updated_at": "2015-11-19 12:30:02",
+        "phase_id": 0,
+        "views": [
+          "Garden"
+        ],
+        "direction": "South-West",
+        "agent_id": 0,
+        "booked_at": "0000-00-00 00:00:00",
+        "property_type_group_id": 0,
+        "booking_id": "564dbd3ee1c6b",
+        "floor_group_id": 51,
+        "breakpoint": 0,
+        "booking_amount": 20000,
+        "selling_amount": 823456,
+        "unit_price": 823456,
+        "unit_price_component": {
+          "jhqxob": {
+            "amount": 700000,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "n1ua4z": {
+            "amount": 0,
+            "component_price_sub_type": 2,
+            "cost_type": "Lumpsump",
+            "entered_value": 200000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "h95njr": {
+            "amount": 0,
+            "component_price_sub_type": 3,
+            "cost_type": "Lumpsump",
+            "entered_value": 300000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "34cyfx": {
+            "amount": 123456,
+            "component_price_sub_type": "Super Builtup Area",
+            "cost_type": "Lumpsump",
+            "entered_value": 123456,
+            "component_price_type": "Basic"
+          },
+          "3aqtmo": {
+            "amount": 0,
+            "component_price_sub_type": 6,
+            "cost_type": "Lumpsump",
+            "entered_value": 600000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "8ik47e": {
+            "amount": 0,
+            "component_price_sub_type": 1,
+            "cost_type": "Lumpsump",
+            "entered_value": 111111,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "u2bvhq": {
+            "amount": 0,
+            "component_price_sub_type": 4,
+            "cost_type": "Lumpsump",
+            "entered_value": 400000,
+            "component_price_type": "PLC-Floorrise"
+          },
+          "hi55v0": {
+            "amount": 0,
+            "component_price_sub_type": 5,
+            "cost_type": "Lumpsump",
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1242,67 +1739,74 @@
         "floor": 1,
         "building_id": 26,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:49:20",
+        "updated_at": "2015-11-18 06:19:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564c14b0d7869",
         "floor_group_id": 28,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 2000,
-        "unit_price": 2000,
+        "selling_amount": 234567,
+        "unit_price": 234567,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
-            "amount": 1000,
+            "amount": 111111,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1318,67 +1822,74 @@
         "floor": 2,
         "building_id": 26,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:48:36",
+        "updated_at": "2015-11-18 08:20:02",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564c31284c793",
         "floor_group_id": 28,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 3000,
-        "unit_price": 3000,
+        "selling_amount": 323456,
+        "unit_price": 323456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
-            "amount": 2000,
+            "amount": 200000,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1394,67 +1905,74 @@
         "floor": 3,
         "building_id": 26,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:48:23",
+        "updated_at": "2015-11-18 08:30:07",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564c32702b1d3",
         "floor_group_id": 29,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 4000,
-        "unit_price": 4000,
+        "selling_amount": 423456,
+        "unit_price": 423456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
-            "amount": 3000,
+            "amount": 300000,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1470,67 +1988,74 @@
         "floor": 4,
         "building_id": 26,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:48:16",
+        "updated_at": "2015-11-18 06:22:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564c15513364b",
         "floor_group_id": 29,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 5000,
-        "unit_price": 5000,
+        "selling_amount": 523456,
+        "unit_price": 523456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
-            "amount": 4000,
+            "amount": 400000,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1546,67 +2071,74 @@
         "floor": 5,
         "building_id": 26,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:48:07",
+        "updated_at": "2015-11-18 06:25:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564c1602274ba",
         "floor_group_id": 30,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 6000,
-        "unit_price": 6000,
+        "selling_amount": 623456,
+        "unit_price": 623456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
-            "amount": 5000,
+            "amount": 500000,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1622,67 +2154,74 @@
         "floor": 6,
         "building_id": 26,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:47:53",
+        "updated_at": "2015-11-18 06:35:02",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564c188279395",
         "floor_group_id": 30,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 7000,
-        "unit_price": 7000,
+        "selling_amount": 723456,
+        "unit_price": 723456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
-            "amount": 6000,
+            "amount": 600000,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1698,67 +2237,74 @@
         "floor": 1,
         "building_id": 25,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:50:23",
+        "updated_at": "2015-11-19 10:02:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564d9a942ff70",
         "floor_group_id": 25,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 2000,
-        "unit_price": 2000,
+        "selling_amount": 234567,
+        "unit_price": 234567,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
-            "amount": 1000,
+            "amount": 111111,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1785,56 +2331,63 @@
         "floor_group_id": 25,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 3000,
-        "unit_price": 3000,
+        "selling_amount": 323456,
+        "unit_price": 323456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
-            "amount": 2000,
+            "amount": 200000,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1861,56 +2414,63 @@
         "floor_group_id": 26,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 4000,
-        "unit_price": 4000,
+        "selling_amount": 423456,
+        "unit_price": 423456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
-            "amount": 3000,
+            "amount": 300000,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -1937,56 +2497,63 @@
         "floor_group_id": 26,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 5000,
-        "unit_price": 5000,
+        "selling_amount": 523456,
+        "unit_price": 523456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
-            "amount": 4000,
+            "amount": 400000,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2013,56 +2580,63 @@
         "floor_group_id": 27,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 6000,
-        "unit_price": 6000,
+        "selling_amount": 623456,
+        "unit_price": 623456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
-            "amount": 5000,
+            "amount": 500000,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2078,67 +2652,74 @@
         "floor": 6,
         "building_id": 25,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:49:46",
+        "updated_at": "2015-11-18 07:01:51",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564c203fbd39f",
         "floor_group_id": 27,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 7000,
-        "unit_price": 7000,
+        "selling_amount": 723456,
+        "unit_price": 723456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
-            "amount": 6000,
+            "amount": 600000,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2154,67 +2735,74 @@
         "floor": 1,
         "building_id": 24,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-12 13:15:02",
+        "updated_at": "2015-11-19 09:56:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "56448c88f1906",
+        "booking_id": "564d99298f4f3",
         "floor_group_id": 22,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 2000,
-        "unit_price": 2000,
+        "selling_amount": 234567,
+        "unit_price": 234567,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
-            "amount": 1000,
+            "amount": 111111,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2241,56 +2829,63 @@
         "floor_group_id": 22,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 3000,
-        "unit_price": 3000,
+        "selling_amount": 323456,
+        "unit_price": 323456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
-            "amount": 2000,
+            "amount": 200000,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2317,56 +2912,63 @@
         "floor_group_id": 23,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 4000,
-        "unit_price": 4000,
+        "selling_amount": 423456,
+        "unit_price": 423456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
-            "amount": 3000,
+            "amount": 300000,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2393,56 +2995,63 @@
         "floor_group_id": 23,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 5000,
-        "unit_price": 5000,
+        "selling_amount": 523456,
+        "unit_price": 523456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
-            "amount": 4000,
+            "amount": 400000,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2469,56 +3078,63 @@
         "floor_group_id": 24,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 6000,
-        "unit_price": 6000,
+        "selling_amount": 623456,
+        "unit_price": 623456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
-            "amount": 5000,
+            "amount": 500000,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2545,56 +3161,63 @@
         "floor_group_id": 24,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 7000,
-        "unit_price": 7000,
+        "selling_amount": 723456,
+        "unit_price": 723456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
-            "amount": 6000,
+            "amount": 600000,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2621,56 +3244,63 @@
         "floor_group_id": 19,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 2000,
-        "unit_price": 2000,
+        "selling_amount": 234567,
+        "unit_price": 234567,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
-            "amount": 1000,
+            "amount": 111111,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2701,56 +3331,63 @@
         "floor_group_id": 19,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 3000,
-        "unit_price": 3000,
+        "selling_amount": 323456,
+        "unit_price": 323456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
-            "amount": 2000,
+            "amount": 200000,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2777,56 +3414,63 @@
         "floor_group_id": 20,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 4000,
-        "unit_price": 4000,
+        "selling_amount": 423456,
+        "unit_price": 423456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
-            "amount": 3000,
+            "amount": 300000,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2853,56 +3497,63 @@
         "floor_group_id": 20,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 5000,
-        "unit_price": 5000,
+        "selling_amount": 523456,
+        "unit_price": 523456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
-            "amount": 4000,
+            "amount": 400000,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -2929,56 +3580,63 @@
         "floor_group_id": 21,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 6000,
-        "unit_price": 6000,
+        "selling_amount": 623456,
+        "unit_price": 623456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
-            "amount": 5000,
+            "amount": 500000,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -3005,56 +3663,63 @@
         "floor_group_id": 21,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 7000,
-        "unit_price": 7000,
+        "selling_amount": 723456,
+        "unit_price": 723456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
-            "amount": 6000,
+            "amount": 600000,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -3070,7 +3735,7 @@
         "floor": 1,
         "building_id": 21,
         "created_at": "2015-11-05 06:19:22",
-        "updated_at": "2015-11-13 11:04:08",
+        "updated_at": "2015-11-19 13:03:02",
         "phase_id": 0,
         "views": [
           "Swimming pool",
@@ -3080,60 +3745,67 @@
         "agent_id": 0,
         "booked_at": "2015-11-13 11:04:08",
         "property_type_group_id": 0,
-        "booking_id": "5640747c71c6a",
+        "booking_id": "564dc4f7d8b90",
         "floor_group_id": 13,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 2000,
-        "unit_price": 2000,
+        "selling_amount": 234567,
+        "unit_price": 234567,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
-            "amount": 1000,
+            "amount": 111111,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -3149,7 +3821,7 @@
         "floor": 1,
         "building_id": 21,
         "created_at": "2015-11-05 06:19:41",
-        "updated_at": "2015-11-11 09:43:39",
+        "updated_at": "2015-11-18 12:53:41",
         "phase_id": 0,
         "views": [],
         "direction": "North",
@@ -3160,56 +3832,63 @@
         "floor_group_id": 13,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 2000,
-        "unit_price": 2000,
+        "selling_amount": 234567,
+        "unit_price": 234567,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
-            "amount": 1000,
+            "amount": 111111,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -3225,7 +3904,7 @@
         "floor": 3,
         "building_id": 21,
         "created_at": "2015-11-05 06:20:18",
-        "updated_at": "2015-11-13 04:53:38",
+        "updated_at": "2015-11-18 12:54:14",
         "phase_id": 0,
         "views": [],
         "direction": "South",
@@ -3236,56 +3915,63 @@
         "floor_group_id": 14,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 4000,
-        "unit_price": 4000,
+        "selling_amount": 423456,
+        "unit_price": 423456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
-            "amount": 3000,
+            "amount": 300000,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -3301,7 +3987,7 @@
         "floor": 4,
         "building_id": 21,
         "created_at": "2015-11-05 06:24:03",
-        "updated_at": "2015-11-12 07:20:51",
+        "updated_at": "2015-11-18 12:56:19",
         "phase_id": 0,
         "views": [],
         "direction": "North",
@@ -3312,56 +3998,63 @@
         "floor_group_id": 14,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 5000,
-        "unit_price": 5000,
+        "selling_amount": 523456,
+        "unit_price": 523456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
-            "amount": 4000,
+            "amount": 400000,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -3377,7 +4070,7 @@
         "floor": 5,
         "building_id": 21,
         "created_at": "2015-11-05 06:25:37",
-        "updated_at": "2015-11-12 12:49:24",
+        "updated_at": "2015-11-18 13:02:15",
         "phase_id": 0,
         "views": [],
         "direction": "North-West",
@@ -3388,56 +4081,63 @@
         "floor_group_id": 15,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 6000,
-        "unit_price": 6000,
+        "selling_amount": 623456,
+        "unit_price": 623456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
             "amount": 0,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
-            "amount": 5000,
+            "amount": 500000,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },
@@ -3453,67 +4153,74 @@
         "floor": 6,
         "building_id": 21,
         "created_at": "2015-11-05 06:26:20",
-        "updated_at": "2015-11-12 12:14:02",
+        "updated_at": "2015-11-17 10:50:01",
         "phase_id": 0,
         "views": [],
         "direction": "North-West",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "56447ee7ae918",
+        "booking_id": "564b029a43975",
         "floor_group_id": 15,
         "breakpoint": 0,
         "booking_amount": 20000,
-        "selling_amount": 7000,
-        "unit_price": 7000,
+        "selling_amount": 723456,
+        "unit_price": 723456,
         "unit_price_component": {
+          "jhqxob": {
+            "amount": 0,
+            "component_price_sub_type": 7,
+            "cost_type": "Lumpsump",
+            "entered_value": 700000,
+            "component_price_type": "PLC-Floorrise"
+          },
           "n1ua4z": {
             "amount": 0,
             "component_price_sub_type": 2,
             "cost_type": "Lumpsump",
-            "entered_value": 2000,
+            "entered_value": 200000,
             "component_price_type": "PLC-Floorrise"
           },
           "h95njr": {
             "amount": 0,
             "component_price_sub_type": 3,
             "cost_type": "Lumpsump",
-            "entered_value": 3000,
+            "entered_value": 300000,
             "component_price_type": "PLC-Floorrise"
           },
           "34cyfx": {
-            "amount": 1000,
+            "amount": 123456,
             "component_price_sub_type": "Super Builtup Area",
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 123456,
             "component_price_type": "Basic"
           },
           "3aqtmo": {
-            "amount": 6000,
+            "amount": 600000,
             "component_price_sub_type": 6,
             "cost_type": "Lumpsump",
-            "entered_value": 6000,
+            "entered_value": 600000,
             "component_price_type": "PLC-Floorrise"
           },
           "8ik47e": {
             "amount": 0,
             "component_price_sub_type": 1,
             "cost_type": "Lumpsump",
-            "entered_value": 1000,
+            "entered_value": 111111,
             "component_price_type": "PLC-Floorrise"
           },
           "u2bvhq": {
             "amount": 0,
             "component_price_sub_type": 4,
             "cost_type": "Lumpsump",
-            "entered_value": 4000,
+            "entered_value": 400000,
             "component_price_type": "PLC-Floorrise"
           },
           "hi55v0": {
             "amount": 0,
             "component_price_sub_type": 5,
             "cost_type": "Lumpsump",
-            "entered_value": 5000,
+            "entered_value": 500000,
             "component_price_type": "PLC-Floorrise"
           }
         },

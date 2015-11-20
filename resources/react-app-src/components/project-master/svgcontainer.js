@@ -84,11 +84,8 @@ var SvgContainer = React.createClass({
 
     },
 
-    applyNotLiveBuildingClasses : function(){
+    applyNotLiveBuildingClasses : function(notLiveBuildingsIdsToMark){
         var svgDom = $(".svg-area");
-        var notLiveBuildings = this.props.not_live_buildings;
-
-        notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
 
 
         $(svgDom).find(".building").each(function(ind, item) {
@@ -123,6 +120,13 @@ var SvgContainer = React.createClass({
         var svgDom = $(".svg-area");
 
         var isFilterApplied = this.props.isFilterApplied;
+        var notLiveBuildings = this.props.notlive_buildings; 
+        var notLiveBuildingsIdsToMark = [];
+
+        if(notLiveBuildings.length > 0){
+
+            notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+        }
 
         // on load of svg rest apply svg filter check to avoid continuous reload of svg file
         if(this.props.applyFiltersSvgCheck){
@@ -139,14 +143,15 @@ var SvgContainer = React.createClass({
             this.applyGroupSpecificClasses();            
         }
 
-        notLiveBuildings = this.props.notLiveBuildings;   
-        if((cardListFor==="master")&&(notLiveBuildings.length>0)){
-            this.applyNotLiveBuildingClasses();   
+          
+        if((cardListFor==="project")&&(notLiveBuildings.length>0)){
+            this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark);   
         }        
 
         var filteredBuildingIds = [];
         var notAvailableBuildingIds = [];
         var notFilteredBuildingIds = [];
+        var availableBuildingIds = [];
 
         buildings = this.props.buildings;
 
@@ -154,19 +159,25 @@ var SvgContainer = React.createClass({
         _.each(buildings,function(building){
 
               // // find all filtered units
-              filteredUnits = building.filteredUnitData;
-              availableUnits = building.availableUnitData;
+            filteredUnits = building.filteredUnitData;
+            availableUnits = building.availableUnitData;
      
  
-              if(availableUnits.length==0){
+            if(availableUnits.length==0){
                 notAvailableBuildingIds.push(building.id);
-              }
-              if(filteredUnits.length>0){
+            }
+            
+            if(availableUnits.length>0){
+                availableBuildingIds.push(building.id);
+            }
+
+            if(filteredUnits.length>0){
                 filteredBuildingIds.push(building.id);
-              }
-              if(isFilterApplied&&filteredUnits.length==0){
+            }
+          
+            if(isFilterApplied && filteredUnits.length==0){
                 notFilteredBuildingIds.push(building.id);
-              }
+            }
 
         });
 
@@ -271,14 +282,15 @@ var SvgContainer = React.createClass({
         $(classNameToSelect).click(function(e){
             var that = this;
             id = parseInt(e.currentTarget.id);
-            
-            if(imageType === 'master'){
+
+            // is clickable in case of master step one only if not present in not live buildings
+            if((imageType === 'master')&&(_.indexOf(availableBuildingIds,id)>-1)){
                that.navigate('/buildings/'+id);
             }
-            else if(imageType === 'buildingFloorGrps'){
+            else if((imageType === 'buildingFloorGrps')&&(_.indexOf(availableBuildingIds,id)>-1)){
                 that.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
             }
-            else{
+            else if((imageType === 'singleFloorGroup')&&(_.indexOf(availableBuildingIds,id)>-1)){
                 that.navigate('/units/'+id);
             }
             

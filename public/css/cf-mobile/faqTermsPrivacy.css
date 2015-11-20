@@ -1,0 +1,282 @@
+/* Social Colors */
+/*Real Wedding colors*/
+.pNone {
+  padding: 0;
+}
+.btn {
+  padding: 5px;
+  border-radius: 0 !important;
+  text-transform: uppercase;
+}
+.btn:focus {
+  outline: none;
+}
+.btn-gray {
+  background: #d5d5d4 !important;
+  border-radius: 3px !important;
+  border: 1px solid #d5d5d4 !important;
+}
+.btn-primary {
+  background: #fe943e !important;
+  border: 1px solid #fe943e !important;
+  color: #ffffff;
+  border-radius: 3px !important;
+  outline: none;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #fe780b !important;
+  color: #ffffff !important;
+  border: 1px solid #fe943e !important;
+  outline: none;
+}
+.orangeText {
+  color: #fe943e !important;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #333333;
+}
+.header {
+  background: -webkit-linear-gradient(top, #fe943e 0, #fd7201 100%);
+  background: linear-gradient(to bottom, #fe943e 0, #fd7201 100%);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  width: 100%;
+}
+.header h3 {
+  color: #ffffff;
+  font-size: 30px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  -moz-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+.faqTermsPrivacyOuter {
+  background: url(../../html/Bookflow/img/Project-noshadow.jpg) no-repeat;
+  height: 50%;
+  background-size: cover;
+  height: 300px;
+  position: relative;
+}
+.faqTermsPrivacyOuter .absoluteLayout {
+  height: 300px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.faqTermsPrivacyOuter .container {
+  position: relative;
+}
+.faqTermsPrivacyOuter .container .logo {
+  float: left;
+  width: 100%;
+  margin: 30px 0 0 0;
+}
+.faqTermsPrivacyOuter .mainContent {
+  float: left;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  font-size: 14px;
+  color: #706f6d;
+  line-height: 1.6;
+}
+.faqTermsPrivacyOuter .mainContent h5 {
+  margin-top: 50px;
+  font-weight: bold;
+  color: #565654;
+  line-height: 1.5;
+}
+.faqTermsPrivacyOuter .mainContent h6 {
+  font-weight: bold;
+  color: #000000;
+}
+.faqTermsPrivacyOuter .mainContent strong {
+  color: #565654;
+}
+.faqTermsPrivacyOuter .mainContent ul {
+  padding-left: 40px;
+}
+.faqTermsPrivacyOuter .innerContent {
+  padding-left: 20px;
+}
+.faqTermsPrivacyOuter .innerContent h5 {
+  margin-top: 20px;
+}
+.faqTermsPrivacyOuter .innerContent p {
+  padding-left: 10px;
+}
+.faqTermsPrivacyOuter h3 {
+  color: #ffffff;
+  font-weight: 300;
+  margin-bottom: 25px;
+  margin-top: 50px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  float: left;
+  width: 100%;
+}
+.faqTermsPrivacyOuter .panel-group {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background: #ffffff;
+  padding: 0;
+  float: left;
+  margin: auto;
+}
+.faqTermsPrivacyOuter .panel-inner {
+  margin: auto;
+  padding: 10px 30px 15px;
+}
+.faqTermsPrivacyOuter .panel {
+  margin-top: 0 !important;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  border: none;
+  border-bottom: none;
+}
+.faqTermsPrivacyOuter .panel:last-child {
+  border-bottom: none;
+}
+.faqTermsPrivacyOuter .panel h4 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.faqTermsPrivacyOuter .panel .panel-heading {
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  border-radius: 0;
+  background: #ffffff;
+  border: none;
+}
+.faqTermsPrivacyOuter .panel .panel-heading.active {
+  color: #fe943e;
+}
+.faqTermsPrivacyOuter .panel .panel-heading.active a {
+  border-bottom: 1px solid #fe943e;
+}
+.faqTermsPrivacyOuter .panel .panel-heading a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 20px 0 15px 0;
+  display: block;
+  text-transform: uppercase;
+  border-bottom: 1px solid #bcbcba;
+}
+.faqTermsPrivacyOuter .panel .panel-body {
+  border-top: none !important;
+  padding: 15px 0;
+}
+.faqTermsPrivacyOuter .panel .plusMinusOuter {
+  outline: none;
+}
+.faqTermsPrivacyOuter .panel .plusMinusOuter .plusMinusIcon {
+  float: right;
+  color: #7d7c7a;
+  font-size: 14px;
+}
+.faqTermsPrivacyOuter .panel .plusMinusOuter .plusMinusIcon.minusIcon {
+  display: block;
+}
+.faqTermsPrivacyOuter .panel .plusMinusOuter .plusMinusIcon.plusIcon {
+  display: none;
+}
+.faqTermsPrivacyOuter .panel .plusMinusOuter.collapsed .plusMinusIcon.minusIcon {
+  display: none;
+}
+.faqTermsPrivacyOuter .panel .plusMinusOuter.collapsed .plusMinusIcon.plusIcon {
+  display: block;
+}
+.accordion {
+  max-width: 100%;
+}
+.bookingFooter {
+  text-align: center;
+  float: left;
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #565654;
+}
+.bookingFooter a {
+  font-size: 12px;
+  color: #565654;
+  text-decoration: none;
+  outline: none;
+}
+.bookingFooter a:hover {
+  color: #565654;
+  text-decoration: none;
+}
+.bookingFooter .privacyOuter {
+  font-size: 12px;
+}
+.bookingFooter .privacyOuter a {
+  margin: 0 5px;
+  text-decoration: none;
+  outline: none;
+  font-size: 14px;
+}
+.bookingFooter.sessionExpireFooter {
+  margin-top: 90px;
+}
+@media screen and (max-width: 767px) {
+  .faqTermsPrivacyOuter {
+    height: 380px;
+  }
+  .faqTermsPrivacyOuter .container {
+    padding: 0;
+  }
+  .faqTermsPrivacyOuter .container .mainContent {
+    padding: 15px 10px;
+    font-size: 13px;
+  }
+  .faqTermsPrivacyOuter .container .mainContent h5 {
+    margin-top: 20px;
+  }
+  .faqTermsPrivacyOuter .container .mainContent ul {
+    padding-left: 30px;
+  }
+  .faqTermsPrivacyOuter .innerContent {
+    padding-left: 10px;
+  }
+  .faqTermsPrivacyOuter h3 {
+    font-size: 150%;
+  }
+  .faqTermsPrivacyOuter .panel-inner {
+    padding: 10px 15px 30px;
+  }
+  .panel-body {
+    padding: 15px 0 !important;
+  }
+}
+@media screen and (max-width: 384px) {
+  .faqTermsPrivacyOuter h3 {
+    font-size: 19px;
+  }
+}
+/*# sourceMappingURL=faqTermsPrivacy.css.map */

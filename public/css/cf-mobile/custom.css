@@ -175,6 +175,7 @@ body .row {
   width: 100%;
   top: 14%;
   text-align: center;
+  z-index: 15003;
 }
 .sun-toggle {
   width: 40px;
@@ -851,6 +852,14 @@ section {
   top: 0px;
   width: 100%;
 }
+.disabled-floor-group {
+  fill: rgba(0, 0, 0, 0.63) !important;
+  opacity: .9 !important;
+  cursor: default !important;
+}
+.disabled-floor-group:hover {
+  cursor: default !important;
+}
 div.spritespin-div {
   width: 100% !important;
   height: 100% !important;
@@ -1365,7 +1374,7 @@ div.spritespin-div {
 }
 .filter-content {
   width: 100%;
-  margin-bottom: 55px;
+  margin-bottom: 75px;
   float: left;
 }
 .filter-content .imagecheckboxOuter {
@@ -1519,15 +1528,15 @@ div.spritespin-div {
   font-size: 10px;
 }
 .filterfooter {
-  /*position: fixed;
-    bottom: -1px;*/
+  position: fixed;
+  bottom: 0px;
   width: 100%;
-  /*left: 0;	   */
+  left: 0;
   color: #ffffff;
   float: left;
   margin-bottom: -5px;
-  text-align: center
-  /*z-index:9999;   */
+  text-align: center;
+  z-index: 9999;
 }
 .filterfooter button {
   margin: 0;

@@ -66,7 +66,6 @@
         </ul>
         @endforeach
        
-       
         @if(isset($apartmentPenthouse) && hasPermission($project['id'],['configure_project','configure_building','configure_unit','unit_status_update','svg_auth_tool']))
         <?php
         $apartmentpenthouse= implode("/",$apartmentPenthouse);

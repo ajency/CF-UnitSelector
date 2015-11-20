@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var classNames = require('classnames');
 var SvgContainer = require('../project-master/svgcontainer');
 var immutabilityHelpers = require('react-addons-update');
+var Router = require('react-router-component');
 
 var PROJECTID = window.projectId;
 var BASEURL = window.baseUrl;
@@ -20,6 +21,8 @@ var svgData = {
 var svgKeyType = "breakpoint";
 
 var SteponeImage = React.createClass({
+    
+    mixins: [Router.NavigatableMixin],    
 
     getInitialState: function() {
         return svgData;
@@ -63,6 +66,44 @@ var SteponeImage = React.createClass({
                   });
     }, 
 
+    navigateOntap: function(targettedId){
+        var imageType = this.props.imageType;
+        var notLiveBuildings = this.props.notlive_buildings; 
+        var notLiveBuildingsIdsToMark = [];        
+        
+        // if(notLiveBuildings.length > 0){
+
+        //     notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+        // }  
+
+        var availableBuildingIds = [];
+
+        var buildings = this.props.buildings;
+
+        _.each(buildings,function(building){
+            availableUnits = building.availableUnitData;
+
+            if(availableUnits.length>0){
+                availableBuildingIds.push(building.id);
+            }
+
+        });
+
+        id = parseInt(targettedId);
+
+        // is clickable in case of master step one only if not present in not live buildings
+        if((imageType === 'master')&&(_.indexOf(availableBuildingIds,id)>-1)){
+           this.navigate('/buildings/'+id);
+        }
+        else if((imageType === 'buildingFloorGrps')&&(_.indexOf(availableBuildingIds,id)>-1)){
+            this.navigate('/buildings/'+this.props.cardListForId+'/group/'+id);
+        }
+        else if(imageType === 'singleFloorGroup'&&(_.indexOf(availableBuildingIds,id)>-1)){
+            this.navigate('/units/'+id);
+        }                          
+  
+    },
+
     applyPanzoom: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
         var imageType = this.props.imageType;
@@ -99,7 +140,8 @@ var SteponeImage = React.createClass({
                 } else {
                     // deal with clicks or taps
                     // show correct tooltip
-                    this.displayHighlightedTooltip();
+                    this.navigateOntap(e.target.id);
+                                      
                 }
             }.bind(this));             
         }
@@ -126,6 +168,21 @@ var SteponeImage = React.createClass({
 
                 $imageContainerDom.panzoom(panZoomSettings);                
             }
+
+            $imageContainerDom.on('panzoomend', function(e, panzoom, matrix, changed) {
+                if (changed) {
+                    // deal with drags or touch moves
+
+                    // show correct tooltip
+                    this.displayHighlightedTooltip();
+
+                } else {
+                    // deal with clicks or taps
+                    // show correct tooltip
+                    this.navigateOntap(e.target.id);
+                                      
+                }
+            }.bind(this));               
 
         }
 
@@ -210,6 +267,11 @@ var SteponeImage = React.createClass({
 
     displayHighlightedTooltip: function(){
         var baseSelector , imageType;
+        var buildingToHighlight = this.props.buildingToHighlight;
+
+        if(_.isUndefined(buildingToHighlight)){
+            return;
+        }
 
         imageType = this.props.imageType;
 
@@ -223,8 +285,6 @@ var SteponeImage = React.createClass({
           baseSelector = '.apartment';
         }        
          
-        buildingToHighlight = this.props.buildingToHighlight;
-        
         highlightedBuildingSelector = baseSelector+buildingToHighlight.id; 
         highlightedBuildingName = buildingToHighlight.building_name;  
 

@@ -27,7 +27,6 @@ class ProjectBunglowUnitController extends Controller {
      */
     
  
-    
     public function index($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();

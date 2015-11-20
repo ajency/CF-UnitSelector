@@ -1,3 +1,4 @@
+
 html
 {
    -ms-overflow-style: scrollbar;
@@ -28,6 +29,14 @@ body {
       font-size:12px;
       color:@brand-primary ;
     }
+}
+#sidebar-wrapper
+{
+  .bckArrow i
+  {
+    position: relative;
+    z-index: 2;    
+  }
 }
 .btn-primary
 {
@@ -837,6 +846,11 @@ select::-ms-expand {
 .not-availabel {
   fill: rgba(0, 0, 0, 0.46) !important;
   opacity: .9 !important;
+  cursor: default !important;
+  &:hover
+  {
+    cursor: default !important;
+  }
 }
 .pop-up-in
 {
@@ -884,6 +898,11 @@ select::-ms-expand {
 .svg-light{
   opacity: 0.3;
   fill: #ffffff;
+
+  &:hover
+  {
+    cursor:pointer;
+  }
 }
 .sunText, .enquiryText  
 {
@@ -909,11 +928,6 @@ select::-ms-expand {
     padding-left:7px;
   }
 }
-.disabled-floor-group {
-    fill: rgba(0, 0, 0, 0.63) !important;
-    opacity: .9 !important;
-}
-
 .enabled-shadow{
   visibility: visible;
   transition: opacity 0.5s linear;
