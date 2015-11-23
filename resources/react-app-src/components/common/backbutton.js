@@ -1,7 +1,14 @@
 var React = require('react');
 var classNames = require('classnames');
+var Router = require('react-router-component');
 
 var BackButton = React.createClass({
+
+    goToPreviousStep: function(e){
+        alert("back click");
+        e.preventDefault();
+        // return this.navigate('/buildings/'+this.props.buildingId+'/group/'+this.props.groupId);
+    },    
   
     render: function () {
         var domToDisplay, backbuttonType;
@@ -12,14 +19,14 @@ var BackButton = React.createClass({
 
             if(backStyleType === "light"){
                 domToDisplay = (
-                    <div className="col-xs-2 p-0">
+                    <div className="col-xs-2 p-0" onClick={this.goToPreviousStep}>
                         <i className="i-back i-icon backIcon"></i>
                     </div>
                 );                
             }
             else if(backStyleType === "dark"){
                 domToDisplay = (    
-                    <a href="#">
+                    <a href="#" onClick={this.goToPreviousStep}>
                         <i className="i-icon i-dark-arrow"></i>
                     </a>
                 );                   
@@ -28,16 +35,17 @@ var BackButton = React.createClass({
         }
         else{
 
-            if(backStyleType = "withoutLabel"){
+            if(backStyleType === "withoutLabel"){
                 domToDisplay = (
-                    <span className="bckArrow">
+                    <span className="bckArrow" onClick={this.goToPreviousStep}>
                         <i className="fa fa-arrow-left"></i>
                     </span>
                 ); 
             }
-            else if(backStyleType = "withLabel"){
+            else if(backStyleType === "withLabel"){
+                style = {cursor:"pointer"};
                 domToDisplay = (
-                    <div className="col-xs-12 backOuter" style="cursor:pointer;">
+                    <div className="col-xs-12 backOuter" style={style} onClick={this.goToPreviousStep}>
                         <i className="i-icon i-dark-arrow"></i>
                         <span className="back text-uppercase" > back </span>
                     </div>
