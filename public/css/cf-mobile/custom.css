@@ -853,7 +853,7 @@ section {
   width: 100%;
 }
 .disabled-floor-group {
-  fill: rgba(0, 0, 0, 0.63) !important;
+  fill: rgba(0, 0, 0, 0.77) !important;
   opacity: .9 !important;
   cursor: default !important;
 }
