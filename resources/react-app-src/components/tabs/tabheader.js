@@ -18,7 +18,7 @@ var TabHeader = React.createClass({
   redirectToBooking: function(){
     unitId = this.props.unitId;
     projectId = this.props.projectId;
-    baseBookingUrl = "//booking.cfunitselectortest.com/public/booknow.php?"
+    baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
     redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
 
     this._redirect(redirectUrl);
@@ -36,6 +36,7 @@ var TabHeader = React.createClass({
   	var builtupArea = unitData.basic.superBuiltUpArea;
   	var unitStatus = s.humanize(unitData.basic.status);
   	var sellingAmount = unitData.basic.sellingAmount;
+    var bookingAmount = unitData.basic.bookingAmount;
 
 
 
@@ -75,7 +76,7 @@ var TabHeader = React.createClass({
                     className="btn btn-default btn-primary text-uppercase"
                     onClick={this.redirectToBooking}
                 >
-                    Book now <i className="fa fa-inr"></i> <PriceFormat numPrice={sellingAmount} />
+                    Book now <i className="fa fa-inr"></i> <PriceFormat numPrice={bookingAmount} />
                 </button>
             );
         }

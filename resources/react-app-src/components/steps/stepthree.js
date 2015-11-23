@@ -45,7 +45,7 @@ var StepThree = React.createClass({
 
     getInitialState: function() {
 
-        stateData =  this.getGroupState();
+      stateData =  this.getGroupState();
 
         return stateData;
     },
@@ -466,6 +466,7 @@ var StepThree = React.createClass({
         buildingId = this.props.buildingId;
 
         stateData =  getGroupStateData(buildingId,groupId);
+
         formattedData = this.formatStateData(stateData)
 
         return formattedData;
