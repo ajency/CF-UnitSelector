@@ -1267,6 +1267,13 @@ select::-ms-expand {
 .float-nav .filterLiTop h5 .filterHeader {
   color: #fe943e;
 }
+.float-nav .filterLiTop h5 .filterHeader.link {
+  text-transform: uppercase;
+  margin-top: 0;
+  padding-bottom: 0;
+  padding-top: 7px;
+  font-size: 14px;
+}
 .float-nav .filterLiTop h5 .filterHeader.link:hover {
   color: #fe943e;
 }
@@ -1404,8 +1411,8 @@ select::-ms-expand {
   margin-bottom: 1.375em;
 }
 .float-nav li.filterCheckbox {
-  background: #f6f6f6;
-  padding: 10px 2px 0px;
+  border-bottom: 1px solid #d5d5d4;
+  padding: 10px 2px 5px;
 }
 .float-nav li.filterCheckbox ul li {
   padding: 10px 5px;
@@ -1458,24 +1465,29 @@ select::-ms-expand {
   line-height: 12px;
 }
 .float-nav li.budgetOuter {
-  background: #f6f6f6;
+  background: #ffffff;
   padding: 0;
   float: left;
   width: 100%;
+  border-bottom: 1px solid #d5d5d4;
+  padding-bottom: 10px;
 }
 .float-nav li.budgetOuter > div {
   padding: 10px;
-  background: #f6f6f6;
+  background: #ffffff;
 }
-.float-nav li.budgetOuter > div:first-child {
-  border-right: 1px solid #bcbcba;
+.float-nav li.budgetOuter > div.horizontalArrow {
+  padding-top: 15px !important;
+}
+.float-nav li.budgetOuter > div.horizontalArrow i {
+  color: #bcbcba;
 }
 .float-nav li.budgetOuter > div select {
   border: none;
-  background: #f6f6f6;
+  background: #ffffff;
   width: 100%;
   font-size: 100%;
-  border-bottom: 1px solid #bcbcba;
+  border-bottom: 1px solid #fe943e;
   padding: 5px;
 }
 .float-nav li.budgetOuter > div select:focus {
@@ -1507,8 +1519,8 @@ select::-ms-expand {
   padding-top: 0;
 }
 .float-nav li.moreFilters ul li.facingContent {
-  background: #f2f2f2;
-  padding: 10px 2px 0;
+  padding: 10px 2px 5px;
+  border-bottom: 1px solid #d5d5d4;
 }
 .filterOuter .sun-toggle {
   position: absolute;
@@ -1560,6 +1572,50 @@ select::-ms-expand {
   font-size: 10px;
   line-height: 1.5;
   opacity: 1;
+}
+.filterFloors .sub-list li {
+  margin-bottom: 5px;
+}
+.filterFloors .sub-list li:first-child {
+  padding-top: 10px !important;
+}
+.filterFloors .sub-list li input[type=checkbox] {
+  height: 29px;
+  width: 34px;
+  margin-top: 1px;
+  margin-left: 15px;
+  cursor: pointer;
+  z-index: 99;
+}
+.filterFloors .sub-list li label.checkboxLabel {
+  height: 29px;
+  width: 35px;
+  border: 1px solid #565654;
+  border-radius: 3px;
+  margin-bottom: -9px;
+}
+.filterFloors .sub-list li label.filterFloorText {
+  margin-left: 0;
+  position: absolute;
+  height: 27px;
+  width: 33px;
+  left: 16px;
+  text-align: center;
+  color: #565654;
+  line-height: 2;
+  top: 13px;
+}
+.filterFloors .sub-list li.selected label.filterFloorText {
+  color: #ffffff;
+}
+.filterFloors .sub-list li input[type=checkbox]:checked + label:before {
+  content: "";
+  width: 33px;
+  height: 27px;
+  background: #fe943e;
+  margin: 0;
+  line-height: 22px;
+  border-radius: 3px;
 }
 @media screen and (max-width: 1440px) {
   .float-nav {
@@ -1816,6 +1872,7 @@ select::-ms-expand {
   max-width: 100%;
   height: auto;
   max-height: 400px;
+  margin: auto;
 }
 .step4Desk .floorDetails .plan {
   margin-top: 20px;

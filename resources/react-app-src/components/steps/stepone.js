@@ -316,7 +316,7 @@ var StepOne = React.createClass({
             buildingName = buildingToHighlight.building_name;
 
             this.showTooltip(buildingName,".building"+buildingToHighlight.id);
-        }        
+        }
 
     },
 
@@ -350,7 +350,8 @@ var StepOne = React.createClass({
     },
 
     selectFilter: function(evt){
-        isChecked = evt.target.checked;
+
+          isChecked = evt.target.checked;
 
         filterType = $(evt.target).data("filtertype");
         filterStyle = $(evt.target).data("filterstyle");
@@ -361,6 +362,7 @@ var StepOne = React.createClass({
             this.updateSearchFilters(filterType, filterValue, filterStyle);
         }
         else{
+
            filterValue = $(evt.target).val();
            this.updateSearchFilters(filterType, filterValue);
        }
@@ -412,6 +414,7 @@ var StepOne = React.createClass({
     },
 
     updateSearchFilters: function(filterType, filterValue, filterStyle){
+      
         dataToSet = {
             property: "search_filters",
             filterType: filterType,
@@ -420,6 +423,7 @@ var StepOne = React.createClass({
         }
 
         this.updateStateData([dataToSet]);
+
     },
 
     updateProjectMasterData: function(){
@@ -598,6 +602,7 @@ var StepOne = React.createClass({
                             updateRotateShadow = {this.updateRotateShadow}
                             cardListFor = {cardListFor}
                             cardListForId = {cardListForId}
+
                         />
 
                         <div className="container-fluid">

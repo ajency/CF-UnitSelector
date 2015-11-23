@@ -3,6 +3,7 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var classNames = require('classnames');
 var UnitDropdown = require('../project-master/unitdropdown');
 var BackButton = require('../common/backbutton');
+var FilterCount = require('../common/filtercount');
 
 
 var NavBar = React.createClass({
@@ -127,10 +128,14 @@ var NavBar = React.createClass({
                             <small>{unitCount} {selectionText}</small>
                         </div>
                         <div className="col-xs-4 p-0">
-                            <ul className="list-inline pull-right">
-                                <li onClick={this.props.showContactModal}> <i className="i-phone i-icon"></i></li>
-                                <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i><span className={filterClasses}>{appliedFilterCount}</span></li>
-                            </ul>
+                          <ul className="list-inline pull-right">
+                            <li onClick={this.props.showContactModal}> <i className="i-phone i-icon"></i></li>
+                            <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i>
+                              <FilterCount
+                                appliedFilters = {applied_filters}
+                                />
+                              </li>
+                          </ul>
                         </div>
                     </div>
                   </div>

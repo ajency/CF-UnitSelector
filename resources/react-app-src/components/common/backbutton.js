@@ -45,8 +45,6 @@ var BackButton = React.createClass({
         urlToNavigate = this.getPreviousStepUrl(navigationType,navigationId);        
 
         urlToNavigate =  urlToNavigate+entityId;
-        
-        alert(urlToNavigate);
 
         this.navigate(urlToNavigate);
     },    
