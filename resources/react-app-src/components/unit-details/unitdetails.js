@@ -260,13 +260,13 @@ var UnitDetails = React.createClass({
 					<div className="container-fluid step4Desk">
 						<TabHeader
 							buildingName={buildingName}
-              buildingId = {this.state.building_id}
-              groupId = {this.state.floor_group_id}
+              				buildingId = {this.state.building_id}
+              				groupId = {this.state.floor_group_id}
 							unitTypeName={unitTypeName}
 							propertyTypeName={propertyTypeName}
 							unitData = {unitData}
 							showContactModal = {this.showContactModal}
-              unitId = {unitId}
+              				unitId = {unitId}
 							projectId = {projectId}
 						/>
 						<TabPanes
