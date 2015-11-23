@@ -139,15 +139,29 @@ var CardView = React.createClass({
         });
 
 
+        if(cardListFor==="group"){
+            domToDisplay = ( <div>
+                                <span className="units"><b>{unitCountDisplayString}</b></span>
+                                <div className={arrowClasses}>
+                                  <Link href={buildingUrl}><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></Link>
+                                </div>
+                              </div>);
 
-        domToDisplay = ( <div><sm>{unitCount}</sm><span className="units"><b>{unitCountDisplayString}</b><br/>{unitData.length} total units</span>
-                          <div className={arrowClasses}>
-                              <Link href={buildingUrl}><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></Link>
-                          </div>
-                          </div>);
+            if(isZeroUnits)
+              domToDisplay = (<b>Unit Not Available</b>);             
+        }
+        else{
+            domToDisplay = ( <div><sm>{unitCount}</sm><span className="units"><b>{unitCountDisplayString}</b><br/>{unitData.length} total units</span>
+                              <div className={arrowClasses}>
+                                  <Link href={buildingUrl}><h3 className="margin-none"><i className="fa fa-angle-right"></i></h3></Link>
+                              </div>
+                              </div>);
 
-        if(isZeroUnits)
-          domToDisplay = (<b>Units Not Available</b>);
+
+            if(isZeroUnits)
+              domToDisplay = (<b>Units Not Available</b>);              
+        }
+
 
 
 
@@ -160,12 +174,13 @@ var CardView = React.createClass({
           }
 
           mainDom = ( <div className={cardClasses} data-unitid={buildingId}>
-                          <div className="row">
-                              <div className="col-xs-12">
-                                  <h4 className=" margin-none text-left"> {buildingName}</h4>
-                              </div>
-                              <div className="col-xs-12 text-muted price">
+                            <div className="row">
+                                <div className="col-xs-12">
+                                    <h4 className=" margin-none text-left"> {buildingName}</h4>
+                                </div>
+                                <div className="col-xs-12 text-muted price">
                                     From <b className="price-tag"><i className="fa fa-inr"></i> <PriceFormat numPrice={minStartPrice} /> </b>
+
                               </div>
                           </div>
 
@@ -180,6 +195,7 @@ var CardView = React.createClass({
                                   {domToDisplay}
                                 </div>
                           </div>
+
                       </div>
                     );
 

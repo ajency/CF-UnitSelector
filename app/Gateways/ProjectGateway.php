@@ -32,11 +32,20 @@ class ProjectGateway implements ProjectGatewayInterface {
         {
             $propertyTypes[$projectPropertyType['property_type_id']] =get_property_type( $projectPropertyType['property_type_id'] );
         }
-        $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
-        
-        $project_logo =  $project->projectMeta()->where( 'meta_key', 'project_image' )->first()->meta_value;
+        $projectMeta = $project->projectMeta()->whereIn( 'meta_key', ['filters', 'project_image' ,'builder_email' ,'builder_phone'] )->get()->toArray();
+        $projectMetaData = [];
+        foreach ($projectMeta as $meta) {
+            $projectMetaData[$meta['meta_key']] = $meta['meta_value'];
+        }
+        $filters = $projectMetaData['filters'];
+        $project_logo = $projectMetaData['project_image'];
+        $builder_email = $projectMetaData['builder_email'];
+        $builder_phone = $projectMetaData['builder_phone'];
+        //$project_logo =  $project->projectMeta()->where( 'meta_key' )->first()->meta_value;
         $logoUrl=getimagesize($project_logo);
         $logoExist = (is_array($logoUrl)) ? true : false;
+
+        $projectViews = $project->attributes->toArray();
          
         $projectData = [
             'cf_project_id' => $project->cf_project_id,
@@ -55,11 +64,14 @@ class ProjectGateway implements ProjectGatewayInterface {
                 'image' => $faker->imageUrl( 1300, 800, 'city' )
             ],
             'address' => $project->project_address,
+            'builder_email' => $builder_email,
+            'builder_phone' => $builder_phone,
             'measurement_units' => $project->measurement_units,
             'project_status' => $project->getCFProjectStatus(),
             'property_types' => $propertyTypes,
             'project_property_types' => $this->propertyTypeUnits($projectId),
-            'filters' =>  unserialize($filters)
+            'filters' =>  unserialize($filters),
+            'views' =>  $projectViews
 
         ];
       
