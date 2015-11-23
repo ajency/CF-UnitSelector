@@ -40,7 +40,10 @@ var NavBar = React.createClass({
 
         var logoDisplay;
 
-        var domTodisplay;
+        var domTodisplay, cardListFor, backBtnDom;
+
+        cardListFor = this.props.cardListFor;
+
 
         if(_.isEmpty(applied_filters) || !this.props.isFilterApplied){
             appliedFilterCount = "";
@@ -95,15 +98,27 @@ var NavBar = React.createClass({
         }
 
       if(window.isMobile){
+        
+        if(cardListFor==="project"){
+            backBtnDom = ( 
+                        <div className="col-xs-2 p-0">
+                            <i className="i-marker i-icon"></i>
+                        </div>
+                    );            
+
+        }
+        else{
+            backBtnDom =  ( <BackButton 
+                                backStyleType = "light"                        
+                            />);
+        }        
 
         domTodisplay = (
             <nav className="navbar navbar-default">
                 <div className="container-fluid">
                   <div className="navbar-header">
                     <div className="row">
-                        <BackButton 
-                            backStyleType = "light"                        
-                        />
+                        {backBtnDom}
                         <div className="col-xs-6 p-0">
                             <h3 ref="titleElem" className="normal margin-none" data-toggle="tooltip" data-placement="bottom" title={this.props.projectTitle}>{this.props.projectTitle} </h3>
                             <small>{unitCount} {selectionText}</small>
@@ -123,6 +138,17 @@ var NavBar = React.createClass({
       else{
         var dropdownDom;
         var logoclasses;
+
+        if(cardListFor==="project"){
+            backBtnDom =  "";            
+          
+        }
+        else{
+            backBtnDom = ( <BackButton
+                                backStyleType = "withoutLabel"
+                            /> 
+                         );  
+        }          
 
         if(this.props.cardListFor==="project"){
             dropdownDom = ""
@@ -169,9 +195,7 @@ var NavBar = React.createClass({
 
         domTodisplay = (
             <div>
-                <BackButton
-                    backStyleType = "withoutLabel"
-                />
+                {backBtnDom}
                 <div className={logoclasses}>
                     {logoDisplay}
                     {dropdownDom}

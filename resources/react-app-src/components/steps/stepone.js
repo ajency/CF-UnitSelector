@@ -488,6 +488,7 @@ var StepOne = React.createClass({
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
+                        cardListFor = {cardListFor}
                     />
 
                     <Modal
