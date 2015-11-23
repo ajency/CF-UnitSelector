@@ -763,6 +763,7 @@ var StepThree = React.createClass({
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
                         cardListFor = {cardListFor}
+                        previousEntityId = {buildingId}
                     />
                     <Modal
                         ref="modal"
@@ -845,6 +846,7 @@ var StepThree = React.createClass({
                         applied_filters = {applied_filters}
                         dropDownData = {groupDropwdownData}
                         buildingId = {buildingId}
+                        previousEntityId = {buildingId}
                     />
 
                     <div id="page-content-wrapper">

@@ -229,6 +229,8 @@ var UnitDetails = React.createClass({
 				<div>
 					<TabHeader
 						buildingName={buildingName}
+          				buildingId = {this.state.building_id}
+          				groupId = {this.state.floor_group_id}
 						unitTypeName={unitTypeName}
 						propertyTypeName={propertyTypeName}
 						unitId = {unitId}

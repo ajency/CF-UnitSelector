@@ -109,7 +109,10 @@ var NavBar = React.createClass({
         }
         else{
             backBtnDom =  ( <BackButton 
-                                backStyleType = "light"                        
+                                backStyleType = "light"
+                                navigationType = {this.props.cardListFor}
+                                navigationId = {this.props.cardListForId}
+                                entityId = {this.props.previousEntityId}
                             />);
         }        
 
@@ -146,6 +149,9 @@ var NavBar = React.createClass({
         else{
             backBtnDom = ( <BackButton
                                 backStyleType = "withoutLabel"
+                                navigationType = {this.props.cardListFor}
+                                navigationId = {this.props.cardListForId}
+                                entityId = {this.props.previousEntityId}
                             /> 
                          );  
         }          

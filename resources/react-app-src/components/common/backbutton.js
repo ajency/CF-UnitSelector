@@ -3,11 +3,52 @@ var classNames = require('classnames');
 var Router = require('react-router-component');
 
 var BackButton = React.createClass({
+    mixins: [Router.NavigatableMixin],        
+    
+    getPreviousStepUrl: function(navigationType, navigationId){
+
+      var url = "";
+
+      switch(navigationType){
+        case "building":
+          url = "/";
+          break;
+        case "group":
+          url = "/buildings/";
+          break;
+        case "unit":
+          url = "/buildings/"+navigationId+"/group/";
+          break;
+        case "group":
+          url = "/units/";
+          break;          
+        default:
+          url = "/buildings/";
+      }
+
+      return url;
+
+
+    },
+
+    getPreviousEntityId: function(){
+        currentCardListFor = this.props.cardListFor;
+    },    
 
     goToPreviousStep: function(e){
-        alert("back click");
         e.preventDefault();
-        // return this.navigate('/buildings/'+this.props.buildingId+'/group/'+this.props.groupId);
+
+        navigationType = this.props.navigationType; 
+        navigationId = this.props.navigationId; 
+        entityId = this.props.entityId; 
+
+        urlToNavigate = this.getPreviousStepUrl(navigationType,navigationId);        
+
+        urlToNavigate =  urlToNavigate+entityId;
+        
+        alert(urlToNavigate);
+
+        this.navigate(urlToNavigate);
     },    
   
     render: function () {

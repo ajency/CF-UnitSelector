@@ -40,6 +40,9 @@ var TabHeader = React.createClass({
 		var bookingAmount = unitData.basic.bookingAmount;
 
 
+        cardListFor = this.props.cardListFor;
+
+
 
 		if(unitData.basic.status === 'sold'){
 		  var statusClass = 'sold';
@@ -59,6 +62,9 @@ var TabHeader = React.createClass({
 					<div className="title">
 						<BackButton 
 							backStyleType = "dark"
+                            navigationType = "unit"
+                            navigationId = {this.props.buildingId}
+                            entityId = {this.props.groupId} 
 						/>
 						<h3>{this.props.buildingName} : {this.props.unitTypeName} : {this.props.propertyTypeName}</h3>
 					</div>
@@ -96,11 +102,10 @@ var TabHeader = React.createClass({
 							<div className="col-xs-6">
 								<BackButton 
 									backStyleType = "withLabel"
+		                            navigationType = "unit"
+		                            navigationId = {this.props.buildingId}
+		                            entityId = {this.props.groupId} 
 								/>
-								<div className="col-xs-12 backOuter" onClick={this.previousStep} style={{cursor: 'pointer'}}>
-									<i className="i-icon i-dark-arrow"></i>
-									<span className="back text-uppercase"> back </span>
-								</div>
 								<h4 className="text-uppercase">{unitName}</h4>
 								<span className={ 'unitStatus text-uppercase '+statusClass}>{unitStatus}</span>
 							</div>
