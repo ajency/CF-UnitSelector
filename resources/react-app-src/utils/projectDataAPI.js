@@ -13,8 +13,8 @@ var Api = {
   getProjectData: function(projectId) {
 
 
-  	var url = makeUrl('project/' + projectId + '/project-data');
-  	// var url = BASE_URL+"/project-data.json";
+  	//var url = makeUrl('project/' + projectId + '/project-data');
+    var url = BASE_URL+"/project-data.json";
 
     var data = request
 				.get(url)
@@ -25,9 +25,9 @@ var Api = {
 						var data = {};
 						AppActions.receiveProjectData(data);
 					}
-				    
+
 				});
-    
+
   }
 }
 

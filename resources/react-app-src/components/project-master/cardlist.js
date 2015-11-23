@@ -27,8 +27,8 @@ var CardList = React.createClass({
       swiperContainer = swiper.container;
       swiperContainerHtml = swiperContainer[0];
       swiperSlides = swiper.slides;
-      
-      // current slide 
+
+      // current slide
       currentSlideIndex = swiper.activeIndex;
 
       // current slide html
@@ -44,7 +44,7 @@ var CardList = React.createClass({
       building = _.findWhere(buildings, {id: towerId});
 
       this.props.rotateImage(building);
-        
+
     },
 
     componentWillUnmount: function(){
@@ -55,13 +55,13 @@ var CardList = React.createClass({
               mySwiper = $('.swiper-container')[0].swiper;
               mySwiper.destroy(true,true);
             }
-        
+
     },
 
 
 
-    componentWillReceiveProps: function(nextProps){      
-        
+    componentWillReceiveProps: function(nextProps){
+
     },
 
 
@@ -69,20 +69,16 @@ var CardList = React.createClass({
       var mySwiper;
       var $sliderContainer = $(this.refs.sliderContainer);
 
-      console.log('cardlist mounted');
-
 
       if((!($sliderContainer.hasClass('swiper-container-horizontal'))) && (window.isMobile)){
             mySwiper = new Swiper('.swiper-container', sliderSettings);
       }
 
       mySwiper.on("TransitionEnd", this.swipeCard);
-           
-       },    
+
+       },
 
     componentDidUpdate: function() {
-
-      console.log('cardlist updated');
 
         var mySwiper;
         var $sliderContainer = $(this.refs.sliderContainer);
@@ -99,22 +95,20 @@ var CardList = React.createClass({
         // $sliderContainer.on('swipe', this.swipeCard);
 
         mySwiper.on("TransitionEnd", this.swipeCard);
-       
-  
 
 
-           
+
+
+
        },
 
 
 
     render: function() {
 
-      console.log('cardlist rendered');
-
         var buildings = this.props.buildings;
-        var buildingNodes; 
-        var isFilterApplied = this.props.isFilterApplied; 
+        var buildingNodes;
+        var isFilterApplied = this.props.isFilterApplied;
 
         var cardListFor = this.props.cardListFor ;
         var cardListForId = this.props.cardListForId ;
@@ -124,29 +118,29 @@ var CardList = React.createClass({
                             return(
                                 <div key={i} className="swiper-slide">
                                   <div>
-                                    <CardView  
+                                    <CardView
                                       building={building}
                                       isFilterApplied={isFilterApplied}
                                       cardListFor = {cardListFor}
                                       cardListForId = {cardListForId}
-                                    /> 
+                                    />
                                   </div>
                                 </div>
-                            ); 
-                                 
+                            );
+
                         });
 
-        
-        return (    
+
+        return (
             <div className="bottom-card">
                 <div className="blue">
-                    
+
                         <div ref="sliderContainer" className="swiper-container">
                         <div className="swiper-wrapper">
                             {buildingNodes}
-                        </div>    
                         </div>
-                   
+                        </div>
+
                 </div>
             </div>
 

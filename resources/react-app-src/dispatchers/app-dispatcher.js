@@ -3,7 +3,6 @@ var merge  = require('merge');
 
 var AppDispatcher = merge(Dispatcher.prototype, {
   handleViewAction: function(action){
-  	console.log('action' , action)
     this.dispatch({
       source: 'VIEW_ACTION',
       action:action
