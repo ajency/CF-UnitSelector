@@ -25,7 +25,7 @@ var CardView = React.createClass({
       // if(this.state.isHighlighted){
       //   newState.isHighlighted = false;
       // }else{
-      //   newState.isHighlighted = true;  
+      //   newState.isHighlighted = true;
       // }
 
       // this.setState(newState);
@@ -44,7 +44,7 @@ var CardView = React.createClass({
           break;
         case "group":
           url = "/units/";
-          break;          
+          break;
         default:
           url = "/buildings/";
       }
@@ -69,9 +69,9 @@ var CardView = React.createClass({
         var baseUrl = "";
         var buildingUrl = "";
         var minStartPrice = buildingData.minStartPrice;
-        
+
         var unitCount = 0;
-        var unitCountDisplayString = "available"; 
+        var unitCountDisplayString = "available";
 
         var isZeroUnits = isZeroInSelection = false;
 
@@ -80,22 +80,19 @@ var CardView = React.createClass({
 
         var mainDom;
 
-
-        console.log(buildingData.building_name+' rendered');
-
         if (!_.isEmpty(buildingData)){
-          
+
           unitData = buildingData.unitData;
           availableUnitData = buildingData.availableUnitData;
           filteredUnitData = buildingData.filteredUnitData;
           noOfFloors = buildingData.no_of_floors;
           buildingName = buildingData.building_name;
-          
+
           baseUrl = this.getNextStepUrl(cardListFor,cardListForId);
           buildingUrl =  baseUrl+buildingData.id;
 
           _.each(buildingData.supportedUnitTypes, function(supportedUnitType , i){
-                
+
                 len = buildingData.supportedUnitTypes.length
 
                 if(i==(len-1)){
@@ -104,7 +101,7 @@ var CardView = React.createClass({
                 else{
                     supportedUnitTypeString += supportedUnitType+", ";
                 }
-                
+
            });
 
           // Check if applied filters have atleast one filter array with size greater than 0 m if yes => filters have been applied else not
@@ -133,7 +130,7 @@ var CardView = React.createClass({
           'card-swipe': true,
           'not-released': isZeroUnits,
           'highlight': (window.isMobile === false) && (this.state.isHighlighted)
-        }); 
+        });
 
 
         var arrowClasses = classNames({
@@ -141,7 +138,7 @@ var CardView = React.createClass({
           hide: isZeroUnits||(isZeroInSelection && isFilterApplied)
         });
 
-        
+
 
         domToDisplay = ( <div><sm>{unitCount}</sm><span className="units"><b>{unitCountDisplayString}</b><br/>{unitData.length} total units</span>
                           <div className={arrowClasses}>
@@ -171,17 +168,17 @@ var CardView = React.createClass({
                                     From <b className="price-tag"><i className="fa fa-inr"></i> <PriceFormat numPrice={minStartPrice} /> </b>
                               </div>
                           </div>
-                          
+
                           <div className=" swipe-unit-info row">
-                             
+
                                 {unitTypeDom}
-                             
+
                           </div>
 
                           <div className="row swipe-footer">
                                <div className="col-xs-12 text-muted text-uppercase">
                                   {domToDisplay}
-                                </div>  
+                                </div>
                           </div>
                       </div>
                     );
@@ -195,7 +192,7 @@ var CardView = React.createClass({
             var buildingToBeHighlightedId = buildingToBeHighlighted.id;
 
           if(buildingId === buildingToBeHighlightedId){
-            
+
             // if no units in the tower are enabled then disable cardview
             cardClasses = classNames({
               'card-swipe': true,
@@ -204,8 +201,8 @@ var CardView = React.createClass({
             });
           }
           }
-         
-          
+
+
 
           // give card an id to help in scrolling
           cardId = "building"+buildingId;
@@ -214,7 +211,7 @@ var CardView = React.createClass({
 
           if((!_.isUndefined(buildingData.unitType))&&(!_.isUndefined(buildingData.superBuiltUpArea))){
             unitTypeDom = (<div className="col-xs-12 text-muted"><span> {buildingData.unitType}</span><ul><li></li> </ul> <span> {buildingData.superBuiltUpArea} &nbsp;sqFt </span></div> );
-          }          
+          }
 
           mainDom = (   <li className="sidebar-brand">
                             <div className={cardClasses} onClick={this.selectCard} data-unitid={buildingId} id={cardId}>
@@ -236,10 +233,10 @@ var CardView = React.createClass({
                                 </div>
                             </div>
                         </li>
-                  );          
+                  );
         }
 
-        
+
         return mainDom;
     }
 });
