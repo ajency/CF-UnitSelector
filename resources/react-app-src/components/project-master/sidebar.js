@@ -81,7 +81,7 @@ var SideBar = React.createClass({
 		return (
 	         <div ref="sidebarWrapper" id="sidebar-wrapper">
 	            <NavBar
-	                  cardListFor = {cardListFor}
+	                cardListFor = {cardListFor}
                     cardListForId = {cardListForId}
                     projectTitle = {this.props.projectTitle}
                     projectLogo = {this.props.projectLogo}
@@ -94,6 +94,7 @@ var SideBar = React.createClass({
                     dropDownData = {this.props.dropDownData}
                     buildingId = {this.props.buildingId}
                     facing = {this.props.facing}
+                    previousEntityId = {this.props.previousEntityId}
 	            />
             <div ref="sideContentBar" id="content-1" className="content cardOuter" style={SideBarStyle}>
 	                <ul className="sidebar-nav">

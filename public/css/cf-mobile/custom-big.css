@@ -181,7 +181,7 @@ section {
   width: 100%;
 }
 .disabled-floor-group {
-  fill: rgba(0, 0, 0, 0.63) !important;
+  fill: rgba(0, 0, 0, 0.77) !important;
   opacity: .9 !important;
   cursor: default !important;
 }
@@ -260,6 +260,10 @@ body a {
 #sidebar-wrapper .bckArrow i {
   position: relative;
   z-index: 2;
+  top: -5px;
+  -ms-transform: scale(0.75);
+      transform: scale(0.75);
+  -webkit-transform: scale(0.75);
 }
 .btn-primary {
   background: #fe943e !important;
@@ -963,6 +967,10 @@ select::-ms-expand {
   fill: rgba(16, 165, 169, 0.34) !important;
   opacity: .9 !important;
 }
+.in-selection-orange {
+  fill: rgba(254, 148, 62, 0.55) !important;
+  opacity: .9 !important;
+}
 .not-in-selection,
 .not-availabel {
   fill: rgba(0, 0, 0, 0.46) !important;
@@ -1082,6 +1090,9 @@ select::-ms-expand {
   visibility: hidden;
   -webkit-transition: visibility 0s 0.5s, opacity 0.5s linear;
           transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+.hide-floor-group {
+  opacity: 0 !important;
 }
 #overlay {
   position: absolute;

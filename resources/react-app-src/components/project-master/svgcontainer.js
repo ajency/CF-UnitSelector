@@ -75,7 +75,7 @@ var SvgContainer = React.createClass({
                 }
                 else{
                     // if not selected floor group then dont apply border, just diable the group
-                    svgElemClassName = existingClasses+' svg-light disabled-floor-group';   
+                    svgElemClassName = existingClasses+' svg-light disabled-floor-group hide-floor-group';   
                 }
 
                 $(selector).attr("class", svgElemClassName);

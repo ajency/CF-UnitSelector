@@ -468,6 +468,9 @@ body .row {
     bottom: 27%;
   }
 }
+body .hide-floor-group {
+  opacity: 0 !important;
+}
 .i-icon {
   background: url(../../images/sprite.png) no-repeat;
   width: 26px;
@@ -853,7 +856,7 @@ section {
   width: 100%;
 }
 .disabled-floor-group {
-  fill: rgba(0, 0, 0, 0.63) !important;
+  fill: rgba(0, 0, 0, 0.77) !important;
   opacity: .9 !important;
   cursor: default !important;
 }

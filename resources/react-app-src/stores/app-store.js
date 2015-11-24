@@ -1719,8 +1719,7 @@ function getGroupMasterFromProjectData(buildingId,groupId){
                                                     }
                                                   });
 
-
-	_groupStateData = buildingMasterStateData;
+	_groupStateData = formatGroupStateData(buildingMasterStateData);
 
 
 	return _groupStateData;
@@ -1749,7 +1748,10 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
+		if((!_.isEmpty(_groupStateData.data.projectTitle))){
+			_groupStateData = _groupStateData;
+		}
+		else if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
 			buildingMasterStateData = _buildingMasterStateData;
 
 			// buildings here would refer to floor groups
@@ -1777,19 +1779,18 @@ function _getGroupMasterDetails(buildingId,groupId){
                                                             }
                                                           });
 
-
-			_groupStateData = buildingMasterStateData;
+			_groupStateData = formatGroupStateData(buildingMasterStateData);
 
 		}
 		else{
 			_groupStateData = getGroupMasterFromProjectData(buildingId,groupId);
+
 		}
 	}
 
 	return _groupStateData;
 
 }
-
 
 
 
@@ -1895,6 +1896,96 @@ function formatBuildingStateData(stateDataToformat){
     return newState;
 }
 
+function formatGroupStateData(stateDataToformat){
+        var newState = stateDataToformat;
+        var apartments = [];
+        var floorGroups = [];
+
+        if(!_.isEmpty(stateDataToformat)){
+            floorGroups = stateDataToformat.data.buildings;
+
+        }
+
+        if(floorGroups.length>0){
+            newStateData = newState.data;
+
+            console.log(floorGroups);
+
+            // floor group
+            floorGroup = floorGroups[0];
+
+            // floorGroup specific data for units
+            unitData = floorGroup.unitData;
+            availableUnitData = floorGroup.availableUnitData;
+            filteredUnitData = floorGroup.filteredUnitData;
+            supportedUnitTypes = floorGroup.supportedUnitTypes;
+
+
+            // all units in the floor group
+            allUnits = floorGroup.unitData;
+
+            _.each(allUnits, function(singleUnit){
+                supportedUnitTypes = [];
+
+                unitId = singleUnit.id;
+
+                unit = {};
+
+                unit.id = singleUnit.id;
+                unit.building_name = singleUnit.unit_name;
+                unit.primary_breakpoint = singleUnit.primary_breakpoint;
+                unit.minStartPrice = singleUnit.selling_amount;
+                unit.unitType = singleUnit.unitType;
+                unit.superBuiltUpArea = singleUnit.super_built_up_area;
+
+                apartmentUnitData =[];
+                apartmentAvailableUnitData =[];
+                apartmentFilteredUnitData =[];
+
+                // will be the same unit
+                apartmentUnitData = [singleUnit];
+
+                // insert in apartmentAvailableUnitData if this unit's status is available
+                if(singleUnit.availability==="available"){
+                    apartmentAvailableUnitData.push(singleUnit);
+                }
+
+
+                // if current unit is present in filteredUnitData then push in array
+                if(_.contains(filteredUnitData,singleUnit)){
+                    apartmentFilteredUnitData.push(singleUnit);
+                }
+
+                unit.unitData = apartmentUnitData;
+                unit.availableUnitData = apartmentAvailableUnitData;
+                unit.filteredUnitData = apartmentFilteredUnitData;
+
+                minStartPrice = singleUnit.selling_amount;
+                unit.minStartPrice = minStartPrice;
+
+                // supportedUnitTypesArr = AppStore.getApartmentUnitTypes(floorGrpId, "floorgroups");
+                // supportedUnitTypes = _.pluck(supportedUnitTypesArr,"name");
+                // floorGroup.supportedUnitTypes = supportedUnitTypes;
+
+                apartments.push(unit) ;
+
+            });
+
+
+            // modify new state data as per building selected
+            newStateData.projectTitle = floorGroup.building_name;
+            newStateData.breakpoints = stateDataToformat.data.breakpoints;
+            newStateData.buildings = apartments;
+            newStateData.shadowImages = stateDataToformat.data.shadowImages;
+
+            newState.data = newStateData;
+
+
+        }
+
+        return newState;
+}
+
 
 // AppStore object
 var AppStore = merge(EventEmitter.prototype, {
@@ -1963,6 +2054,12 @@ var AppStore = merge(EventEmitter.prototype, {
 		unitTypes = getApartmentUnitTypes(collectivePropertyTypeId, '', collectivePropertyType);
 
 		return unitTypes;
+	},
+
+	formatGroupStateData: function(stateDataToformat){
+		var formattedStateData = formatGroupStateData(stateDataToformat);
+
+		return formattedStateData;		
 	},
 
 

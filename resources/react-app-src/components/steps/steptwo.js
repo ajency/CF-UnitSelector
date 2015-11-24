@@ -676,6 +676,8 @@ var StepTwo = React.createClass({
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
+                        cardListFor = {cardListFor}
+                        previousEntityId = ""
                     />
                     <Modal
                         ref="modal"
@@ -759,6 +761,7 @@ var StepTwo = React.createClass({
                         applied_filters = {applied_filters}
                         dropDownData = {buildingDropwdownData}
                         facing = {facing}
+                        previousEntityId = ""
                     />
 
                     <div id="page-content-wrapper">

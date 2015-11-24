@@ -492,6 +492,8 @@ var StepOne = React.createClass({
                         buildings = {buildings}
                         isFilterApplied = {isFilterApplied}
                         applied_filters = {applied_filters}
+                        cardListFor = {cardListFor}
+                        previousEntityId = ""
                     />
 
                     <Modal
@@ -575,6 +577,7 @@ var StepOne = React.createClass({
                         unitCount = {unitCount}
                         unitIndexToHighlight = {unitIndexToHighlight}
                         applied_filters = {applied_filters}
+                        previousEntityId = ""
                     />
 
                     <div id="page-content-wrapper">

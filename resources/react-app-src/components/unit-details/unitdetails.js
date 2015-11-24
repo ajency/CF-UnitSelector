@@ -136,7 +136,7 @@ var UnitDetails = React.createClass({
 		basicData.direction="";
 		basicData.primaryBreakPoint=0;
 		basicData.sellingAmount="";
-    basicData.bookingAmount="";
+    	basicData.bookingAmount="";
 		basicData.propertyTypeName="";
 		basicData.status="";
 		basicData.floor="";
@@ -168,7 +168,7 @@ var UnitDetails = React.createClass({
 			unitData.basic.cfProjectId = unit.cfProjectId;
 			unitData.basic.direction = unit.direction;
 			unitData.basic.sellingAmount= unit.selling_amount;
-      unitData.basic.bookingAmount= unit.booking_amount;
+      		unitData.basic.bookingAmount= unit.booking_amount;
 			unitData.basic.propertyTypeName= unit.propertyTypeName;
 			unitData.basic.primaryBreakPoint= unit.primary_breakpoint;
 			unitData.basic.status = unit.availability;
@@ -229,6 +229,8 @@ var UnitDetails = React.createClass({
 				<div>
 					<TabHeader
 						buildingName={buildingName}
+          				buildingId = {this.state.building_id}
+          				groupId = {this.state.floor_group_id}
 						unitTypeName={unitTypeName}
 						propertyTypeName={propertyTypeName}
 						unitId = {unitId}
@@ -260,13 +262,13 @@ var UnitDetails = React.createClass({
 					<div className="container-fluid step4Desk">
 						<TabHeader
 							buildingName={buildingName}
-              buildingId = {this.state.building_id}
-              groupId = {this.state.floor_group_id}
+              				buildingId = {this.state.building_id}
+              				groupId = {this.state.floor_group_id}
 							unitTypeName={unitTypeName}
 							propertyTypeName={propertyTypeName}
 							unitData = {unitData}
 							showContactModal = {this.showContactModal}
-              unitId = {unitId}
+              				unitId = {unitId}
 							projectId = {projectId}
 						/>
 						<TabPanes
