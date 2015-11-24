@@ -455,9 +455,9 @@ var StepTwo = React.createClass({
 
         stateData =  getBuildingStateData(buildingId);
 
-        formattedData = this.formatStateData(stateData)
+        // formattedData = this.formatStateData(stateData)
 
-        return formattedData;
+        return stateData;
     },
 
     formatStateData: function(stateDataToformat){

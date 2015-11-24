@@ -1649,7 +1649,10 @@ function _getBuildingMasterDetails(buildingId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_globalStateData.data.projectTitle))){
+		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
+			_buildingMasterStateData = _buildingMasterStateData;
+		}	
+		else if((!_.isEmpty(_globalStateData.data.projectTitle))){
 
 			projectMasterStateData = _globalStateData;
 
@@ -1678,19 +1681,20 @@ function _getBuildingMasterDetails(buildingId){
                                                           });
 
 
-			_buildingMasterStateData = projectMasterStateData;
-
+			_buildingMasterStateData = formatBuildingStateData(projectMasterStateData);
 		}
+
 	}
 
 	return _buildingMasterStateData;
 }
 
+
 function getGroupMasterFromProjectData(buildingId,groupId){
 	var buildingMasterStateData = {};
 	buildingStateData = _getBuildingMasterDetails(buildingId);
-	formattedStateData = formatBuildingStateData(buildingStateData);
-	buildingMasterStateData = formattedStateData;
+	// formattedStateData = formatBuildingStateData(buildingStateData);
+	buildingMasterStateData = buildingStateData;
 
 	// buildings here would refer to floor groups
 	allGroups = buildingMasterStateData.data.buildings;
@@ -2058,6 +2062,12 @@ var AppStore = merge(EventEmitter.prototype, {
 
 	formatGroupStateData: function(stateDataToformat){
 		var formattedStateData = formatGroupStateData(stateDataToformat);
+
+		return formattedStateData;		
+	},
+
+	formatBuildingStateData:function(stateDataToformat){
+		var formattedStateData = formatBuildingStateData(stateDataToformat);
 
 		return formattedStateData;		
 	},
