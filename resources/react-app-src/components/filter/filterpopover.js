@@ -2,12 +2,20 @@ var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var classNames = require('classnames');
 var FilterType = require('../filter/filtertype');
+var FilterCount = require('../common/filtercount');
 
 var filterState = {
    'closed': true
  };
 
 var FilterPopover = React.createClass({
+
+  getDefaultProps: function () {
+    return {
+      isFilterApplied : false,
+      applied_filters : {}
+    };
+  },
 
     getInitialState: function() {
         return filterState;

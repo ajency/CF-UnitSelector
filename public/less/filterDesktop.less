@@ -38,6 +38,11 @@
         color:@brand-primary;
         &.link
         {
+          text-transform: uppercase;
+          margin-top: 0;
+          padding-bottom: 0;
+          padding-top: 7px;
+          font-size: 14px;
           &:hover
           {
             color:@brand-primary;
@@ -195,8 +200,8 @@
 {  
   &.filterCheckbox
   {
-    background:@gray-lightest;
-    padding:10px 2px 0px;
+    border-bottom: 1px solid @gray-lighter;   
+    padding:10px 2px 5px;
     ul
     {
       li
@@ -262,27 +267,32 @@
   }
   &.budgetOuter
   {
-    background: @gray-lightest;
+    background: @white;
     padding: 0;
     float:left;
     width:100%;
+    border-bottom: 1px solid @gray-lighter;
+    padding-bottom: 10px;
 
     > div
     {
       padding: 10px;      
-      background:@gray-lightest;
-      &:first-child
+      background:@white;      
+      &.horizontalArrow
       {
-        border-right: 1px solid @gray-light;
+        padding-top: 15px !important;
+        i
+        {
+          color: @gray-light;
+        }
       }
-      
       select
       {
         border: none;
-        background: @gray-lightest;
+        background: @white;
         width: 100%;
         font-size: 100%;
-        border-bottom: 1px solid @gray-light;
+        border-bottom: 1px solid @brand-primary;
         padding: 5px;
         &:focus
         {
@@ -324,9 +334,9 @@
         }
 
        &.facingContent
-       {
-          background: #f2f2f2;
-          padding: 10px 2px 0;          
+       {          
+          padding: 10px 2px 5px;  
+          border-bottom: 1px solid @gray-lighter;        
        } 
       }
     }
@@ -390,6 +400,67 @@
     font-size: 10px;
     line-height: 1.5;
     opacity:1;
+  }
+}
+.filterFloors 
+{
+
+  .sub-list li 
+  {
+     margin-bottom: 5px;
+
+     &:first-child
+     {
+      padding-top:10px !important;
+     }
+    input[type=checkbox]
+    {
+        height: 29px;
+        width: 34px;
+        margin-top: 1px;
+        margin-left: 15px;
+        cursor: pointer;
+        z-index: 99;
+    }
+
+    label.checkboxLabel
+    {
+      height: 29px;
+      width: 35px;
+      border: 1px solid @gray-darker;
+      border-radius: 3px;
+      margin-bottom: -9px;
+    }
+    label.filterFloorText
+    {
+        margin-left: 0;
+        position: absolute;
+        height: 27px;
+        width: 33px;
+        left: 16px;
+        text-align: center;      
+        color: @gray-darker;
+        line-height: 2;
+        top: 13px;
+    }
+    &.selected
+    {
+      label.filterFloorText
+      {
+        color: @white;
+      }
+    }
+    input[type=checkbox]:checked + label:before
+    {
+      content: "";
+      width: 33px;
+      height: 27px;
+      background:@brand-primary;
+      margin: 0;
+      line-height: 22px;
+      border-radius: 3px;
+    }
+
   }
 }
 @media screen and (max-width:1440px)

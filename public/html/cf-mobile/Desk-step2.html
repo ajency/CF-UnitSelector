@@ -176,15 +176,20 @@
                            <div class="col-sm-3 col-sm-offset-3">
                                 <div class="filterOuter">
                                     <nav class="float-nav closed" id="filters">
+                                      <div style="overflow:hidden;height:100%;float:left;width:100%;">
+                                        <div class="filterLiTop">
+                                           <h5 class="text-uppercase col-xs-12">Filters (<span class="filterHeader"> 2 </span>)
+                                           <button class="btn btn-sm btn-default btn-primary text-uppercase pull-right">apply</button>
+                                           <span class="filterHeader btn-link link">Reset</span>
+                                           </h5>
+                                        </div>
                                        <ul class="filterUl">
-                                          <li class="filterLiTop">
-                                             <h5 class="text-uppercase">Filters (<span class="filterHeader"> 2 </span>)&nbsp; &nbsp; &nbsp; <span class="filterHeader">Clear filters</span></h5>
-                                          </li>
+                                          
                                           <li>
                                              <h6 class="text-uppercase">Unit type</h6>
                                           </li>
                                           <li class="filterCheckbox">
-                                             <div class="row">
+                                            
                                                 <div class="col-xs-4">
                                                    <input type="checkbox" />
                                                    <label class="checkboxLabel"></label>
@@ -200,8 +205,7 @@
                                                    <label class="checkboxLabel"></label>
                                                    <label>3BHK</label>
                                                 </div>
-                                             </div>
-                                             <div class="row">
+                                          
                                                 <div class="col-xs-4">
                                                    <input type="checkbox" />
                                                    <label class="checkboxLabel"></label>
@@ -212,13 +216,13 @@
                                                    <label class="checkboxLabel"></label>
                                                    <label>4BHK (Penthouse)</label>
                                                 </div>
-                                             </div>
+                                          
                                           </li>
                                           <li>
                                              <h6 class="text-uppercase">Budget</h6>
                                           </li>
                                           <li class="budgetOuter">
-                                             <div class="col-xs-6">
+                                             <div class="col-xs-5">
                                                 <select>
                                                    <option>MIN</option>
                                                    <option>10</option>
@@ -227,7 +231,10 @@
                                                    <option>40</option>
                                                 </select>
                                              </div>
-                                             <div class="col-xs-6">
+                                             <div class="col-xs-2 text-center horizontalArrow">
+                                               <i class="fa fa-arrows-h"></i>
+                                             </div>
+                                             <div class="col-xs-5">
                                                 <select>
                                                    <option>MAX</option>
                                                    <option>10</option>
@@ -241,7 +248,7 @@
                                              <h6 class="text-uppercase">Area</h6>
                                           </li>
                                           <li class="budgetOuter">
-                                             <div class="col-xs-6">
+                                             <div class="col-xs-5">
                                                 <select>
                                                    <option>MIN</option>
                                                    <option>10</option>
@@ -250,7 +257,10 @@
                                                    <option>40</option>
                                                 </select>
                                              </div>
-                                             <div class="col-xs-6">
+                                             <div class="col-xs-2 text-center horizontalArrow">
+                                               <i class="fa fa-arrows-h"></i>
+                                             </div>
+                                             <div class="col-xs-5">
                                                 <select>
                                                    <option>MAX</option>
                                                    <option>10</option>
@@ -269,7 +279,6 @@
                                                    <h6 class="text-uppercase">Flooring</h6>
                                                 </li>
                                                 <li class="facingContent">
-                                                   <div class="row">
                                                       <div class="col-xs-4">
                                                          <input type="checkbox" />
                                                          <label class="checkboxLabel"></label>
@@ -285,40 +294,12 @@
                                                          <label class="checkboxLabel"></label>
                                                          <label>Marble</label>
                                                       </div>
-                                                   </div>
+                                                 
                                                 </li>
                                                 <li>
                                                    <h6 class="text-uppercase">Views</h6>
                                                 </li>
                                                 <li class="facingContent">
-                                                  <ul class="list-inline sub-list">
-                                                      <li>
-                                                        <input type="checkbox" />
-                                                         <label class="checkboxLabel"></label>
-                                                         <label>Swimming pool</label>
-                                                      </li>
-                                                       <li>
-                                                        <input type="checkbox" />
-                                                         <label class="checkboxLabel"></label>
-                                                         <label>Club house</label>
-                                                      </li>
-                                                       <li>
-                                                        <input type="checkbox" />
-                                                         <label class="checkboxLabel"></label>
-                                                         <label>Playground</label>
-                                                      </li>
-                                                       <li>
-                                                        <input type="checkbox" />
-                                                         <label class="checkboxLabel"></label>
-                                                         <label>Club house</label>
-                                                      </li>
-                                                       <li>
-                                                        <input type="checkbox" />
-                                                         <label class="checkboxLabel"></label>
-                                                         <label>Playground</label>
-                                                      </li>
-                                                  </ul>
-                                                   <div class="row">
                                                       <div class="col-xs-4">
                                                          <input type="checkbox" />
                                                          <label class="checkboxLabel"></label>
@@ -334,8 +315,7 @@
                                                          <label class="checkboxLabel"></label>
                                                          <label>Playground</label>
                                                       </div>
-                                                   </div>
-                                                   <div class="row">
+                                                   
                                                       <div class="col-xs-4">
                                                          <input type="checkbox" />
                                                          <label class="checkboxLabel"></label>
@@ -346,13 +326,13 @@
                                                          <label class="checkboxLabel"></label>
                                                          <label>Parking</label>
                                                       </div>
-                                                   </div>
+                                                 
                                                 </li>
                                                 <li>
                                                    <h6 class="text-uppercase">Facings</h6>
                                                 </li>
                                                 <li class="facingContent">
-                                                   <div class="row">
+                                                  
                                                       <div class="col-xs-4">
                                                          <input type="checkbox" />
                                                          <label class="checkboxLabel"></label>
@@ -368,8 +348,6 @@
                                                          <label class="checkboxLabel"></label>
                                                          <label>East</label>
                                                       </div>
-                                                   </div>
-                                                   <div class="row">
                                                       <div class="col-xs-4">
                                                          <input type="checkbox" />
                                                          <label class="checkboxLabel"></label>
@@ -385,14 +363,54 @@
                                                          <label class="checkboxLabel"></label>
                                                          <label>North-West</label>
                                                       </div>
-                                                   </div>
-                                                   <div class="row">
                                                       <div class="col-xs-4">
                                                          <input type="checkbox" />
                                                          <label class="checkboxLabel"></label>
                                                          <label>South-East</label>
                                                       </div>
-                                                   </div>
+                                                  
+                                                </li>
+                                                <li>
+                                                   <h6 class="text-uppercase">Floors</h6>
+                                                </li>
+                                                <li class="facingContent filterFloors">
+                                                  <ul class="list-inline sub-list">
+                                                    <li class="col-xs-4 filterFloorLi">
+                                                      <input type="checkbox" />
+                                                      <label class="checkboxLabel"></label>
+                                                      <label class="filterFloorText">1</label>
+                                                    </li>
+                                                    <li class="col-xs-4 filterFloorLi">
+                                                      <input type="checkbox" />
+                                                      <label class="checkboxLabel"></label>
+                                                      <label class="filterFloorText">2</label>
+                                                    </li>
+                                                    <li class="col-xs-4 filterFloorLi">
+                                                      <input type="checkbox" />
+                                                      <label class="checkboxLabel"></label>
+                                                      <label class="filterFloorText">3</label>
+                                                    </li>
+                                                    <li class="col-xs-4 filterFloorLi">
+                                                      <input type="checkbox" />
+                                                      <label class="checkboxLabel"></label>
+                                                      <label class="filterFloorText">4</label>
+                                                    </li>
+                                                    <li class="col-xs-4 filterFloorLi">
+                                                      <input type="checkbox" />
+                                                      <label class="checkboxLabel"></label>
+                                                      <label class="filterFloorText">5</label>
+                                                    </li>
+                                                    <li class="col-xs-4 filterFloorLi">
+                                                      <input type="checkbox" />
+                                                      <label class="checkboxLabel"></label>
+                                                      <label class="filterFloorText">6</label>
+                                                    </li>
+                                                    <li class="col-xs-4 filterFloorLi">
+                                                      <input type="checkbox" />
+                                                      <label class="checkboxLabel"></label>
+                                                      <label class="filterFloorText">7</label>
+                                                    </li>
+                                                  </ul>
                                                 </li>
                                              </ul>
                                           </li>
@@ -401,6 +419,7 @@
                                        <span class="filterCountDesk">
                                          2
                                       </span>
+                                      </div>
                                     </nav>
 
                            </div>
@@ -643,86 +662,17 @@
        });
       </script>
 
-<<<<<<< HEAD
-
-    <script type="text/javascript">
-=======
           <script type="text/javascript">
->>>>>>> 4ca557f4f386e2d4fc6fa1d21facf8b09658ef60
-var numberOfSelects = $('select').length;
 
-// Iterate over each select element
-$('select').each( function() {
-    
-    // Cache the number of options
-    var $this = $(this),
-        numberOfOptions = $(this).children('option').length;
-    
-    // Hides the select element
-    $this.addClass('hidden');
-    
-    // Wrap the select element in a div
-    $this.wrap('<div class="select" />');
-    
-    // Insert a styled div to sit over the top of the hidden select element
-    $this.after('<div class="styledSelect"></div>');
-    
-    // Cache the styled div
-    var $styledSelect = $this.next('div.styledSelect');
-    
-    // Show the first select option in the styled div
-    $styledSelect.text($this.children('option').eq(0).text());
-    
-    // Insert an unordered list after the styled div and also cache the list
-    var $list = $('<ul />', {
-        'class' : 'options'
-    }).insertAfter($styledSelect);
-    
-    // Insert a list item into the unordered list for each select option
-    for(var i = 0; i < numberOfOptions; i++) {
-        $('<li />', {
-            text: $this.children('option').eq(i).text()
-        }).appendTo($list);
-    }
-    
-    // Cache the list items
-    var $listItems = $list.children('li');
-    
-    // Show the unordered list when the styled div is clicked (also hides it if the div is clicked again)
-    $styledSelect.click( function(e) {
-        e.stopPropagation();
-        $('div.styledSelect.active').each( function() {
-            $(this).removeClass('active')
-                .next('ul.options').filter(':not(:animated)').slideUp(10);   
+ 
+
+    $(document).ready(function() {  
+        $(":checkbox").on('click', function(){
+          $('.filterFloorLi:has(:checked)').addClass('selected');
+          $('.filterFloorLi:not(:has(:checked))').removeClass('selected');
+             
         });
-        /* Use this instead of the .each() method when dealing with a large number of elements:
-        for(var i = 0; i < numberOfSelects; i++) {
-            if($('div.styledSelect').eq(i).hasClass('active') === true) {
-                $('div.styledSelect').eq(i).removeClass('active')
-                    .next('ul.options').filter(':not(:animated)').slideUp(250);
-            }
-        } */
-        $(this).toggleClass('active')
-            .next('ul.options').filter(':not(:animated)').slideToggle(10);
     });
-    
-    // Hides the unordered list when a list item is clicked and updates the styled div to show the selected list item
-    // Updates the select element to have the value of the equivalent option
-    $listItems.click( function(e) {
-        e.stopPropagation();
-        $styledSelect.text($(this).text())
-            .removeClass('active');
-        $this.val($(this).text().toLowerCase());
-        $list.filter(':not(:animated)').slideUp(10);
-    });
-    
-    // Hides the unordered list when clicking outside of it
-    $(document).click( function() {
-        $styledSelect.removeClass('active');
-        $list.filter(':not(:animated)').slideUp(10);
-    });
-    
-});
 
         </script>
    </body>
