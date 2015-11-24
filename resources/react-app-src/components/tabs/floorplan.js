@@ -21,6 +21,8 @@ var FloorPlan = React.createClass({
 
 
 
+    if(window.isMobile){
+
     if (this.state.is2d) {
       imgSrc = twoDImgSrc;
 
@@ -53,6 +55,32 @@ var FloorPlan = React.createClass({
                         <h5>No preview available</h5>
                       </div>) ;
     }
+
+  }else{
+
+    if(!_.isEmpty(twoDImgSrc)){
+      var twodPreviewDom = (<img src={twoDImgSrc} className="img-responsive fit" id="imageid" />);
+    }else{
+      var twodPreviewDom = (<div className="nopreview">
+                      <i className="fa fa-2x fa-picture-o"></i>
+                      <h5>No preview available</h5>
+                    </div>) ;
+    }
+
+    if(!_.isEmpty(twoDImgSrc)){
+      var threedPreviewDom = (<img src={threeDImgSrc} className="img-responsive fit" id="imageid" />);
+    }else{
+      var threedPreviewDom = (<div className="nopreview">
+                      <i className="fa fa-2x fa-picture-o"></i>
+                      <h5>No preview available</h5>
+                    </div>) ;
+    }
+
+  }
+
+
+
+
 
 
 
@@ -103,11 +131,11 @@ else{
         <div className="col-xs-12 floorDetails">
           <div className="row">
             <div className="col-xs-6 text-center">
-              {previewDom}
+              {twodPreviewDom}
               <div className="plan col-xs-12 text-center text-uppercase">2D Floor plan</div>
             </div>
             <div className="col-xs-6 text-center">
-              {previewDom}
+              {threedPreviewDom}
               <div className="plan col-xs-12 text-center text-uppercase">3D Floor plan</div>
             </div>
           </div>
