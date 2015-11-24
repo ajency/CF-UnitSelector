@@ -1681,6 +1681,16 @@ select::-ms-expand {
 .step4Desk .rightSide button:first-child {
   margin-right: 5px;
 }
+.step4Desk .rightSide .totalUnitPrice {
+  padding-right: 5px;
+  color: #fe943e;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.step4Desk .rightSide .totalUnitPrice .totalPriceText {
+  color: #000000;
+  padding-right: 3px;
+}
 .step4Desk .flatDetails {
   margin-top: 5px;
   padding-left: 25px;
@@ -1711,7 +1721,7 @@ select::-ms-expand {
 }
 .step4Desk .tabHeader ul li {
   display: inline-block;
-  padding: 20px 30px 0 30px;
+  padding: 20px 15px 0 15px;
 }
 .step4Desk .tabHeader ul li:first-child {
   padding-left: 15px;
@@ -1753,6 +1763,16 @@ select::-ms-expand {
 .step4Desk .tabHeader ul li.stickyButtons {
   display: none;
   padding-top: 12px;
+}
+.step4Desk .tabHeader ul li.stickyButtons .totalUnitPrice {
+  padding-right: 5px;
+  color: #fe943e;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.step4Desk .tabHeader ul li.stickyButtons .totalUnitPrice .totalPriceText {
+  color: #000000;
+  padding-right: 3px;
 }
 .step4Desk .tabHeader ul li.stickyButtons button i {
   margin-left: 7px;
@@ -2014,7 +2034,7 @@ select::-ms-expand {
     padding: 20px 12px 0 12px;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   .step4Desk .detailView .unit .roomDetails {
     width: 32%;
   }
@@ -2060,6 +2080,13 @@ select::-ms-expand {
   }
   .floatingButtons .floatingBtnsInner button {
     margin: 5px 0;
+  }
+  .floatingButtons .floatingBtnsInner .totalUnitPrice {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
   }
   .floatingButtons .floatingPlusIcon {
     height: 50px;
