@@ -21,18 +21,18 @@ var svgData = {
 var svgKeyType = "breakpoint";
 
 var SteponeImage = React.createClass({
-    
-    mixins: [Router.NavigatableMixin],    
+
+    mixins: [Router.NavigatableMixin],
 
     getInitialState: function() {
         return svgData;
-    }, 
+    },
 
     getImageFrames: function(){
         var frames;
         var imageType = this.props.imageType;
 
-        var digitsInName = 2; 
+        var digitsInName = 2;
 
         path = this.getMasterImagePath(imageType);
         imagePath = path["imagePath"];
@@ -47,34 +47,34 @@ var SteponeImage = React.createClass({
         }
 
         return frames;
-    },  
+    },
 
     panToZoomedGroup: function(){
         var $imageContainerDom = $(this.refs.imageContainer);
-        
+
         // get rectangle to select
         cardListForId = this.props.cardListForId
         selectorClass = ".floor_group"+cardListForId;
 
-        rect = $(selectorClass)[0].getBoundingClientRect();  
+        rect = $(selectorClass)[0].getBoundingClientRect();
 
-        panTo = 0-rect.top+90;      
+        panTo = 0-rect.top+90;
 
         $imageContainerDom.panzoom("pan", 0, panTo, {
                       relative: true,
                       animate: true
                   });
-    }, 
+    },
 
     navigateOntap: function(targettedId){
         var imageType = this.props.imageType;
-        var notLiveBuildings = this.props.notlive_buildings; 
-        var notLiveBuildingsIdsToMark = [];        
-        
+        var notLiveBuildings = this.props.notlive_buildings;
+        var notLiveBuildingsIdsToMark = [];
+
         // if(notLiveBuildings.length > 0){
 
         //     notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
-        // }  
+        // }
 
         var availableBuildingIds = [];
 
@@ -100,8 +100,8 @@ var SteponeImage = React.createClass({
         }
         else if(imageType === 'singleFloorGroup'&&(_.indexOf(availableBuildingIds,id)>-1)){
             this.navigate('/units/'+id);
-        }                          
-  
+        }
+
     },
 
     applyPanzoom: function(){
@@ -112,7 +112,7 @@ var SteponeImage = React.createClass({
         var cardListForId = this.props.cardListForId;
         var selectorClass, panTo;
 
-        
+
 
         if(cardListFor!=="group"){
 
@@ -141,9 +141,9 @@ var SteponeImage = React.createClass({
                     // deal with clicks or taps
                     // show correct tooltip
                     this.navigateOntap(e.target.id);
-                                      
+
                 }
-            }.bind(this));             
+            }.bind(this));
         }
         else{
 
@@ -156,7 +156,7 @@ var SteponeImage = React.createClass({
                      disableZoom: false
                 };
 
-                $imageContainerDom.panzoom(panZoomSettings);                
+                $imageContainerDom.panzoom(panZoomSettings);
                 $imageContainerDom.panzoom("setMatrix", [1.1, 0, 0, 1.1, -350, 9]);
             }
             else{
@@ -166,7 +166,7 @@ var SteponeImage = React.createClass({
                         startTransform: 'scale(2.1)'
                         }
 
-                $imageContainerDom.panzoom(panZoomSettings);                
+                $imageContainerDom.panzoom(panZoomSettings);
             }
 
             $imageContainerDom.on('panzoomend', function(e, panzoom, matrix, changed) {
@@ -180,13 +180,13 @@ var SteponeImage = React.createClass({
                     // deal with clicks or taps
                     // show correct tooltip
                     this.navigateOntap(e.target.id);
-                                      
+
                 }
-            }.bind(this));               
+            }.bind(this));
 
         }
 
-       
+
     },
 
     applySpriteSpin: function(){
@@ -194,7 +194,7 @@ var SteponeImage = React.createClass({
         frames = this.getImageFrames();
 
         var spin = $('#spritespin');
-        
+
         spin.spritespin({
             source: frames,
             width: 1920,
@@ -215,17 +215,17 @@ var SteponeImage = React.createClass({
             }.bind(this),
             onFrame: function(e, data){
                 // destroy existing tooltips;
-                this.props.destroyTooltip();  
+                this.props.destroyTooltip();
 
                 if(data.frame !== data.stopFrame){
 
                     oldState = this.state;
                     newState = oldState;
-                    newState = immutabilityHelpers( oldState, {svgClasses: 
-                                                                {hide: {$set: true} 
+                    newState = immutabilityHelpers( oldState, {svgClasses:
+                                                                {hide: {$set: true}
                                                               }
                                 });
-                    
+
                     if(this.isMounted()){
                         this.setState(newState);
                     }
@@ -234,15 +234,15 @@ var SteponeImage = React.createClass({
         });
 
         spin.bind("onAnimationStop", function(){
-            // update image state data           
+            // update image state data
             var that = this;
-            
+
             oldState = this.state;
             newState = oldState;
-            newState = immutabilityHelpers( oldState, {svgClasses: 
-                                                        {hide: {$set: false} 
+            newState = immutabilityHelpers( oldState, {svgClasses:
+                                                        {hide: {$set: false}
                                                       }
-                        });            
+                        });
             newState = immutabilityHelpers( newState,{isRotate: {$set: false} });
 
             if(that.isMounted()){
@@ -250,7 +250,7 @@ var SteponeImage = React.createClass({
             }
 
             buildingToHighlight = this.props.buildingToHighlight;
-            
+
             if(!_.isUndefined(buildingToHighlight)){
                 this.displayHighlightedTooltip();
             }
@@ -261,7 +261,7 @@ var SteponeImage = React.createClass({
                 window.prevShadowState = false;
             }
 
-        }.bind(this)); 
+        }.bind(this));
 
     },
 
@@ -279,14 +279,14 @@ var SteponeImage = React.createClass({
           baseSelector = '.building';
         }
         else if(imageType === "buildingFloorGrps"){
-          baseSelector = '.floor_group';  
+          baseSelector = '.floor_group';
         }
         else{
           baseSelector = '.apartment';
-        }        
-         
-        highlightedBuildingSelector = baseSelector+buildingToHighlight.id; 
-        highlightedBuildingName = buildingToHighlight.building_name;  
+        }
+
+        highlightedBuildingSelector = baseSelector+buildingToHighlight.id;
+        highlightedBuildingName = buildingToHighlight.building_name;
 
         this.props.showTooltip(highlightedBuildingName,highlightedBuildingSelector);
     },
@@ -296,14 +296,14 @@ var SteponeImage = React.createClass({
 
         var breakpoints = this.props.breakpoints;
         var imageType = this.props.imageType;
-        
+
         this.applyPanzoom();
 
         // decide whether or not to initialise spritespin, if breakpoints length is 1 the no need of spritespin
         if(breakpoints.length>1){
             this.applySpriteSpin();
         }
-       
+
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -332,11 +332,11 @@ var SteponeImage = React.createClass({
           baseImagePath = BASEURL+'/projects/'+window.projectId+'/buildings/'+buildingId+'/';
 
           imagePath = baseImagePath+masterImagePrefix+'{frame}.jpg';
-          
+
         }
 
         return {"imagePath":imagePath,"baseImagePath":baseImagePath};
-        
+
     },
 
     rotateSpriteSpin: function(){
@@ -345,20 +345,20 @@ var SteponeImage = React.createClass({
 
         // update image state data
         oldState = this.state;
-        newState = immutabilityHelpers( oldState, {isRotate: {$set: true} });  
-        this.setState(newState);      
+        newState = immutabilityHelpers( oldState, {isRotate: {$set: true} });
+        this.setState(newState);
 
         // destroy existing tooltips;
-        this.props.destroyTooltip(); 
+        this.props.destroyTooltip();
 
         prevShowShadow = this.props.showShadow;
-        
+
         // store previous shadow state, to later use it to update main shadow state
         prevShadowState = prevShowShadow;
 
         if( this.props.showShadow ){
             this.props.updateRotateShadow(false);
-        }       
+        }
 
         breakpoints = this.props.breakpoints;
         currentBreakpoint = parseInt(this.props.chosenBreakpoint);
@@ -371,7 +371,7 @@ var SteponeImage = React.createClass({
         }else{
             nextbreakpoint = breakpoints[indexOfCurrent+1];
         }
-        
+
         spin = $('#spritespin');
         api = spin.spritespin("api");
         api.playTo(nextbreakpoint);
@@ -382,7 +382,7 @@ var SteponeImage = React.createClass({
 
     getRandomArbitrary: function (min, max) {
         return Math.random() * (max - min) + min;
-    }, 
+    },
 
     componentWillReceiveProps: function(nextProps) {
         prevBreakPoint = this.props.chosenBreakpoint;
@@ -396,7 +396,7 @@ var SteponeImage = React.createClass({
         else{
             svgKeyType = "breakpoint" ;
         }
-    },  
+    },
 
     render: function(){
 
@@ -411,37 +411,37 @@ var SteponeImage = React.createClass({
         var  parentContainerStyle ={
           "height" : windowHeight,
           "minWidth" : windowHeight * 1.78
-        }; 
+        };
 
         var rotateClasses = classNames({
           'rotate': true,
           'hide': !this.state.hideSoloImage
-        }); 
+        });
 
         var imageContainerStyle = {
           "height": windowHeight,
           "minWidth": windowHeight * 1.78
-        }; 
+        };
 
 
         var imageContainStyle = {
           "height": windowHeight
-        }; 
+        };
 
         showShadow = this.props.showShadow;
-        
+
         var shadowImageClasses = classNames({
           'img-responsive': true,
           'fit': true,
           'no-shadow': true,
           'hide-shadow': showShadow,
           'hide': !this.state.hideSoloImage
-        }); 
+        });
 
         var shadowClasses = classNames({
           'img-responsive': true,
           'shadow': true,
-          'fit' : true,  
+          'fit' : true,
           'disabled-shadow' : isRotate,
           'enabled-shadow' : !isRotate
         });
@@ -451,13 +451,13 @@ var SteponeImage = React.createClass({
             'fadeInCls': true,
             'fit': true,
             'no-shadow': true,
-            'hide-shadow': showShadow,            
+            'hide-shadow': showShadow,
             'fadeInCls': true,
             'hide': this.state.hideSoloImage
         });
 
-        var soloImgUrl = "#"; 
-        var soloImgUrl = "#"; 
+        var soloImgUrl = "#";
+        var soloImgUrl = "#";
 
         var shadowImages = this.props.shadowImages;
         var shadowImgUrl = "#";
@@ -476,7 +476,7 @@ var SteponeImage = React.createClass({
           else
             buildingToHighlight = {}
 
-        } 
+        }
 
 
         path = this.getMasterImagePath(this.props.imageType);
@@ -485,7 +485,7 @@ var SteponeImage = React.createClass({
         frames = this.getImageFrames();
         soloImageUrl = frames[0];
 
-        
+
         if(svgKeyType==="random"){
             svgkey = parseInt(this.getRandomArbitrary(1,100));
         }
@@ -503,34 +503,34 @@ var SteponeImage = React.createClass({
                     <div className="image-contain">
                         <div ref="imageContainer" className="image" style={imageContainerStyle}>
 
-                            <SvgContainer 
+                            <SvgContainer
                                 ref="svgContainer"
-                                key={svgkey} 
-                                svgData={this.state} 
+                                key={svgkey}
+                                svgData={this.state}
                                 chosenBreakpoint={this.props.chosenBreakpoint}
                                 buildings={ buildings}
                                 notlive_buildings =  {this.props.notlive_buildings}
-                                buildingToHighlight={buildingToHighlight} 
+                                buildingToHighlight={buildingToHighlight}
                                 imageType = {this.props.imageType}
                                 svgBaseUrl = {svgBaseUrl}
-                                showTooltip={ this.props.showTooltip} 
+                                showTooltip={ this.props.showTooltip}
                                 updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
                                 applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
                                 updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
                                 cardListFor = {cardListFor}
-                                cardListForId = {cardListForId} 
-                                panToZoomedGroup = {this.panToZoomedGroup}            
-                            />                        
-                            
-                            <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
-                            <img 
-                                key={svgkey+1} 
-                                src={soloImageUrl} 
-                                className={soloImageClasses} 
+                                cardListForId = {cardListForId}
+                                panToZoomedGroup = {this.panToZoomedGroup}
                             />
-                            <img 
+
+                            <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
+                            <img
+                                key={svgkey+1}
+                                src={soloImageUrl}
+                                className={soloImageClasses}
+                            />
+                            <img
                                 src={shadowImgUrl}
-                                key={svgkey+2}  
+                                key={svgkey+2}
                                 className={shadowClasses}
                             />
 
@@ -540,16 +540,16 @@ var SteponeImage = React.createClass({
                     <div ref="next" className={rotateClasses} onClick={this.rotateSpriteSpin}>
 
                     </div>
-                </div>         
+                </div>
 
-            );  
+            );
         }
         else{
             domToDisplay = (
 
                 <div className="us-right-content" style={parentContainerStyle}>
                     <div className="footer">
-                          <h2 className="primary-txt text-right m-b-5"> Call 1800 180 180 180</h2>
+                          <h2 className="primary-txt text-right m-b-5"> Call {this.props.projectContactNo}</h2>
                           <a href="https://www.commonfloor.com/" target="_blank"> Commonfloor </a> | <a href="#" target="_blank">FAQ  </a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank"> Mobile Apps  </a>
                           <br /> © 2015 Commonfloor Inc. |<a href="https://www.commonfloor.com/privacy-policy" target="_blank"> Privacy Policy</a>
                     </div>
@@ -561,45 +561,45 @@ var SteponeImage = React.createClass({
                     <div ref="imageContain" className="image-contain" style={imageContainStyle}>
                         <div ref="imageContainer" className="image" style={imageContainerStyle}>
 
-                            <SvgContainer 
+                            <SvgContainer
                                 ref="svgContainer"
-                                key={svgkey} 
-                                svgData={this.state} 
+                                key={svgkey}
+                                svgData={this.state}
                                 chosenBreakpoint={this.props.chosenBreakpoint}
                                 buildings={ buildings}
-                                notlive_buildings =  {this.props.notlive_buildings} 
-                                buildingToHighlight={buildingToHighlight} 
+                                notlive_buildings =  {this.props.notlive_buildings}
+                                buildingToHighlight={buildingToHighlight}
                                 imageType = {this.props.imageType}
                                 svgBaseUrl = {svgBaseUrl}
-                                showTooltip={ this.props.showTooltip} 
+                                showTooltip={ this.props.showTooltip}
                                 updateUnitIndexToHighlight= {this.props.updateUnitIndexToHighlight}
                                 isFilterApplied = {this.props.isFilterApplied}
                                 applyFiltersSvgCheck = {this.props.applyFiltersSvgCheck}
                                 updatefiltersSvgCheck = {this.props.updatefiltersSvgCheck}
                                 cardListFor = {cardListFor}
-                                cardListForId = {cardListForId} 
-                                panToZoomedGroup = {this.panToZoomedGroup}                
-                            />                          
+                                cardListForId = {cardListForId}
+                                panToZoomedGroup = {this.panToZoomedGroup}
+                            />
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
-                            <img 
-                                key={svgkey+1} 
-                                src={soloImageUrl} 
-                                className={soloImageClasses} 
+                            <img
+                                key={svgkey+1}
+                                src={soloImageUrl}
+                                className={soloImageClasses}
                             />
-                            <img 
+                            <img
                                 src={shadowImgUrl}
-                                key={svgkey+2}  
-                                className={shadowClasses} 
+                                key={svgkey+2}
+                                className={shadowClasses}
                             />
 
                         </div>
                     </div>
-                </div>        
+                </div>
 
-            ); 
+            );
         }
- 
+
 
         return domToDisplay;
     }

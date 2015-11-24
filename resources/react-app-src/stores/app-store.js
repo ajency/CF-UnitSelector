@@ -436,15 +436,25 @@ function getUnitCount(propertyType,filters,buildingId,groupId){
 							_.each(filteredUnits, function(filUnit){
 
 								if(filUnit.views.length>0){
-									_.each(filUnit.views , function(view){
 
-										if(viewsTocheck.indexOf(view.toString()) > -1){
-											//console.log(view+ ' is not available');
+									// _.each(filUnit.views , function(view){
+									//
+									// 	if(viewsTocheck.indexOf(view.toString()) > -1){
+									// 		//console.log(view+ ' is not available');
+									// 	}else{
+									// 		filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+									// 	}
+									//
+									// });
+
+									_.each(viewsTocheck , function(view){
+										if(filUnit.views.indexOf(view.toString()) > -1){
+											//console.log(view+ ' is available');
 										}else{
-											filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+										 		filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
 										}
-
 									});
+
 								}else{
 									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
 								}
@@ -1249,22 +1259,9 @@ function getAvailableUnitViewsOptions(propertyType,building,groupId){
 
 
 function getAllAmenities(){
+	var views = _projectData.views;
 
-	var totalUnitsInBuilding = [];
-	var options =[];
-	var units = _projectData.units;
-
-	totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
-
-	_.each(totalUnitsInBuilding, function(unit){
-
-		if(unit.views.length>0){
-			_.each(unit.views, function(view){
-
-					options.push(view);
-			});
-		}
-	});
+	var options = _.pluck(views, "label");
 
 	return _.uniq(options);
 }
@@ -1318,6 +1315,8 @@ function _getProjectMasterData(){
 		projectMasterData.projectLogo = projectData.logo ;
 		projectMasterData.logoExist = projectData.logo_exist ;
 		projectMasterData.shadowImages = projectData.shadow_images ;
+
+		projectMasterData.projectContactNo = projectData.builder_phone ;
 
 		breakpoints = projectData.breakpoints
 		projectMasterData.breakpoints = breakpoints;
@@ -1635,6 +1634,7 @@ function _getUnitDetails(unitId){
 
 		unitData.cfProjectId = projectData.cf_project_id;
 		unitData.projectName = projectData.project_title;
+		unitData.projectContactNo = projectData.builder_phone;
 	}
 
 	return unitData;

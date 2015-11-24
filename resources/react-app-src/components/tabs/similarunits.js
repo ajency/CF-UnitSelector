@@ -3,14 +3,12 @@ var Link = require('react-router-component').Link;
 var PriceFormat = require('../tabs/priceformat');
 
 var SimilarUnits = React.createClass({
-  
+
 
   render: function () {
 
-    var similarUnits = this.props.similarUnits;   
+    var similarUnits = this.props.similarUnits;
 
-        
-    console.log(window.location.pathname);
 
       var similarNodes =  _.map( similarUnits , function(unit, key){
         var unitUrl = "/units/"+unit.id;
@@ -44,8 +42,8 @@ var SimilarUnits = React.createClass({
                 </div>
              </div>
             </div>
-                        ); 
-                             
+                        );
+
                     });
 
 
@@ -58,7 +56,7 @@ var SimilarUnits = React.createClass({
           <div className="contentHEader">
             <span className="contentTitle text-uppercase">
               Similar flat based on your selection
-            </span>            
+            </span>
           </div>
         </div>
         <div className="col-xs-12 moreFlats">
