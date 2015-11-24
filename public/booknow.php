@@ -41,6 +41,8 @@ $startTime= time();
     <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="header" content="<?php echo unitSelectorAuthKey;?>" />
+
       <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Unit-selector -booknow</title>
@@ -98,6 +100,7 @@ $startTime= time();
                  <input type="hidden" name="bookingId" value="<?php echo $bookingId ?>" >
                  <input type="hidden" name="startTime" value="<?php echo $startTime ?>" >
                  <input type="hidden" name="makePayment" value="0" >
+                 <input type="hidden" name="lead" value="0" >
                  
                 <div class="panel-group col-md-12 col-sm-12 col-xs-12" id="accordion" role="tablist" aria-multiselectable="true">
                   <div class="panel-inner">
@@ -484,6 +487,7 @@ $startTime= time();
              });
              var unitId = $("input[name='unit_id']").val();
              var redirectPropertyUrl = "<?php echo SITE_URL ;?>public/booknow.php?timeout=true&unitId="+unitId;
+             var leadUrl = "<?php echo LeadUrl ;?>";
         </script>
 
     </body>

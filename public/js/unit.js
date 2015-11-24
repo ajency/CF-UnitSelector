@@ -284,6 +284,7 @@ function goToNextStep(anchor ,divClass)
    if(divClass!='buyerDetails' &&  $( ".buyerDetails li.parsley-required").length){
     
        $("#acc-1").click();
+
     }
     else
     {
@@ -295,9 +296,50 @@ function goToNextStep(anchor ,divClass)
 
         if($( ".buyerDetails li.parsley-required").length >1)
             flag =false;
-    
-       if(divClass == 'unitDetails' && flag)
+        else if ($( ".buyerDetails li.parsley-required").length==0 && $("input[name='lead']").val()==0)
         {
+           //API Call add lead
+
+            var data = {
+                    toemail:"",
+                    toname:"",
+                    name:$("input[name='contact_first_name']").val()+' '+$("input[name='contact_last_name']").val(),
+                    email:$("input[name='contact_email']").val(),
+                    phone:$("input[name='contact_mobile']").val(),
+                    pan_card:$("input[name='contact_pancard']").val(),
+                    buyer_type:$("input[name='buyer_type']").val(),
+                    address1:$("input[name='contact_address']").val(),
+                    address2:$("input[name='contact_address']").val(),
+                    city:$("input[name='contact_city']").val(),
+                    state:$("input[name='contact_state']").val(),
+                    country:$("input[name='contact_country']").val(),
+                    pincode:$("input[name='contact_zipcode']").val()
+
+                };
+                console.log(data);
+           $.ajax({
+                url: leadUrl,
+                type: "POST",
+                headers: {
+                    'X-Authorization': $('meta[name="header"]').attr('content')
+                },
+                data: data,
+                dataType: "json",
+                success: function (response) {
+                    if(!response.data)
+                         $("input[name='lead']").val(response.data.lead_id);
+
+                    // alert(response.data.lead_id);
+                },
+                  
+            });
+
+        }
+
+        
+        
+       if(divClass == 'unitDetails' && flag)
+        {  
              $('#acceptterm').attr('data-parsley-required', 'true');
         }
 
