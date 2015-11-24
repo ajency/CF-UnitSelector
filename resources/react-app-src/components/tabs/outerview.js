@@ -14,7 +14,7 @@ var OutsideView = React.createClass({
 
         var svgKey1 = this.getRandomArbitrary(0,50);
         var svgKey2 = this.getRandomArbitrary(0,50);
-        
+
         var step1SvgUrl = this.props.step1SvgUrl;
         var step1ImgUrl = this.props.step1ImgUrl;
         var step3SvgUrl = this.props.step3SvgUrl;
@@ -28,14 +28,14 @@ var OutsideView = React.createClass({
                             <div className="flatDetails">
                                 <h4>Outside view</h4>
                             </div>
-                            <br/> 
+                            <br/>
                             <SvgView
                                 key={svgKey1}
                                 svgUrl={step1SvgUrl}
                                 imgUrl={step1ImgUrl}
                                 svgElementToSelect = "building"
                                 svgElementId = {this.props.buildingId}
-                            /> 
+                            />
                             <br/>
                         </div>
                         <div id="Fullscreen">
@@ -52,7 +52,7 @@ var OutsideView = React.createClass({
                       Outside view
                     </span>
                     <span className="contentText">
-                      Simplicity of design and strong construction from the backbone of the Metro.
+                      2D view of project and your selected tower.
                     </span>
                   </div>
                 </div>
@@ -79,8 +79,8 @@ var OutsideView = React.createClass({
                             svgElementToSelect = "apartment"
                             svgElementId = {this.props.unitId}
                         />
-                    </div>                                                                          
-                  </div> 
+                    </div>
+                  </div>
                 </div>
             </div>
             );

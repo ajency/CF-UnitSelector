@@ -17,12 +17,12 @@ var SocietyAmenities = React.createClass({
       var classStatus = 'disabled';
     }
                         return(
-                            <div key={key} className={'col-xs-2 '+classStatus}> 
+                            <div key={key} className={'col-xs-2 '+classStatus}>
                               <span className="icon"><i className="fa fa-star-o"></i></span>
                               <span className="text text-uppercase">{val}</span>
-                            </div>  
-                        ); 
-                             
+                            </div>
+                        );
+
                     });
 
 
@@ -33,17 +33,17 @@ var SocietyAmenities = React.createClass({
         <div className="row">
           <div className="contentHEader">
             <span className="contentTitle text-uppercase">
-              Social amenities
+              Society amenities
             </span>
             <span className="contentText">
-              Simplicity of design and strong construction from the backbone of the Metro.
+              Explore amenities for your apartment.
             </span>
           </div>
         </div>
         <div className="col-xs-12 amenitiesDetails">
           <div className="row">
-            {amenitiesNodes}                                           
-          </div> 
+            {amenitiesNodes}
+          </div>
         </div>
         </div>
         );

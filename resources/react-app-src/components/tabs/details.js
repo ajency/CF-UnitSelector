@@ -35,7 +35,7 @@ if(window.isMobile){
     roomCardNodes = roomData.map(function(room,i){
                         return(
                             <div key={i} className="col-xs-12 details">
-              
+
                                 <div className="flatDetails">
                                     <h5 className="text-uppercase">Apartment Attributes </h5>
                                 </div>
@@ -49,10 +49,10 @@ if(window.isMobile){
                                         listcount = 'less'
                                     />
                                 </div>
-               
+
                             </div>
-                        ); 
-                             
+                        );
+
                     });
 
 
@@ -101,7 +101,7 @@ if(window.isMobile){
 }else{
 
     var roomDataNode;
-    
+
 
     roomDataNode = roomData.map(function(room,i){
 
@@ -114,7 +114,7 @@ if(window.isMobile){
                                         listcount = 'less'
                                     />
                             </div>
-                        ); 
+                        );
                 }else if(room.atributes.length>3){
                     return(
                             <div key={i} className="roomDetails text-uppercase">
@@ -124,34 +124,34 @@ if(window.isMobile){
                                         listcount = 'less'
                                     />
 
-                                    <div className="hiddenContent">                                
+                                    <div className="hiddenContent">
                                          <RoomAttributeList
                                             attributes={room.atributes}
                                             listcount = 'more'
-                                        />                                
+                                        />
                                     </div>
 
                                 <div className="row">
                                     <div className="col-xs-12">
-                                        <span className="moreLessLink" id={'moreless'+i} onClick={this.handleClick}>More</span>                 
+                                        <span className="moreLessLink" id={'moreless'+i} onClick={this.handleClick}>More</span>
                                     </div>
                                 </div>
-                            </div>                            
-                        ); 
+                            </div>
+                        );
                 }
-                        
-                             
+
+
                     }.bind(this));
 
 
-    
+
    specificationNodes = _.map( basicDetails.variantAttributes , function(val, key){
-        return(          
+        return(
         <div key={key} className="textInner col-xs-12 pNone">
               <h5 className="text-uppercase col-xs-2">{key}:</h5>
-              <div className="col-xs-10">{val}</div>          
+              <div className="col-xs-10">{val}</div>
             </div>
-        ); 
+        );
     });
 
 
@@ -164,14 +164,14 @@ if(window.isMobile){
               Details
             </span>
             <span className="contentText">
-              Simplicity of design and strong construction from the backbone of the Metro.
+              Explore.
             </span>
           </div>
         </div>
         <div className="col-xs-12 unit">
-          <div className="row">            
+          <div className="row">
             {roomDataNode}
-          </div> 
+          </div>
           <div className="col-xs-12 specificationOuter pNone">
             <div className="row">
             <div className="contentHEader">
@@ -179,19 +179,22 @@ if(window.isMobile){
               <span className="contentTitle text-uppercase">
                 Specification
               </span>
+              <span className="contentText">
+                Learn more about the specifics of your  apartment.
+              </span>
               </div>
             </div>
           </div>
 
             <div className="row">
-                {specificationNodes}            
+                {specificationNodes}
             </div>
 
           </div>
 
         </div>
       </div>
-   ); 
+   );
 }
 
 

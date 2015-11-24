@@ -7,7 +7,7 @@ var FloorPlan = React.createClass({
           is2d: true
         };
       },
-  
+
   setTwoD: function(setTwoDBool){
     this.setState({is2d:setTwoDBool});
   },
@@ -31,19 +31,19 @@ var FloorPlan = React.createClass({
       anchor3dStyle = {
         background: "rgb(255, 255, 255)"
       };
-    } 
+    }
     else{
       imgSrc = threeDImgSrc;
-      
+
       anchor2dStyle = {
         background: "rgb(255, 255, 255)"
       };
 
       anchor3dStyle = {
         background: "rgb(213, 213, 212)"
-      };      
-    } 
-    
+      };
+    }
+
     if(!_.isEmpty(imgSrc)){
         previewDom = (<img src={imgSrc} className="img-responsive fit" id="imageid" />);
     }
@@ -51,12 +51,12 @@ var FloorPlan = React.createClass({
         previewDom = (<div className="nopreview">
                         <i className="fa fa-2x fa-picture-o"></i>
                         <h5>No preview available</h5>
-                      </div>) ;   
+                      </div>) ;
     }
 
 
 
-    
+
   var domToDisplay ;
 
 
@@ -96,7 +96,7 @@ else{
               Floor plans
             </span>
             <span className="contentText">
-              Simplicity of design and strong construction from the backbone of the Metro.
+              Visualize a home even before it is built and evaluate how space works for you.
             </span>
           </div>
         </div>
@@ -109,12 +109,12 @@ else{
             <div className="col-xs-6 text-center">
               {previewDom}
               <div className="plan col-xs-12 text-center text-uppercase">3D Floor plan</div>
-            </div>                                                                          
-          </div> 
+            </div>
+          </div>
         </div>
       </div>
-    );  
-} 
+    );
+}
 
 
     return domToDisplay;
