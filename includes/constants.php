@@ -33,6 +33,7 @@ define('USER','19');
 // define('unitSelectorAuthKey','957ef76ea1f19aef1af0d341ae18e565f874a4c6'); 
 // define('bookingCrmAuthKey','43e-22a3c758e02ebdf0472b'); 
 // define('USER','19');
+/*********************/
 
 //MAIL CONFIG
 define('MAIL_HOST','smtp.sendgrid.net');
@@ -80,6 +81,7 @@ define('getTotalSaleValue',BOOKINGCRM_URL.'get_total_sale_value/');
 define('unitSummary',UNITSELECTOR_URL.'api/v2/unit/');
 define('getUnitStatus',UNITSELECTOR_URL.'api/v2/get-unit-status?unit_id=');
 define('updateUnitStatus',UNITSELECTOR_URL.'api/v2/unit/');
+define('LeadUrl',UNITSELECTOR_URL.'api/v2/addlead');
  
 
 
