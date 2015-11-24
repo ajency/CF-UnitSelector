@@ -416,10 +416,9 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
         
         function updateUnitInfo($unit_id,$unit_status){
         
-            $ini_array = parse_ini_file("../models/config.ini");
             $c = curl_init();
-            $getUnitURL=$ini_array["unitSummary"];
-            $authKey=$ini_array["unitSelectorAuthKey"];
+            $getUnitURL= unitSummary;
+            $authKey=unitSelectorAuthKey;
             $wsUrl=$getUnitURL . $unit_id;
             $params['status'] = $unit_status;
           
@@ -574,6 +573,42 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
       
       return $result;
         
+    }
+
+
+  
+
+      function addLead($data){
+         $sender_url = LeadUrl;
+         $authKey=unitSelectorAuthKey;
+ 
+
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+        curl_setopt($c, CURLOPT_POST, 1);
+        curl_setopt($c, CURLOPT_POSTFIELDS, $data);
+           curl_setopt($c,CURLOPT_HTTPHEADER,array('X-Authorization: '.$authKey));
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+
+        if (curl_errno($c)) {
+            $result= $c;
+        }
+        else{
+
+            $result = $o;
+
+           }
+
+       /* Check HTTP Code */
+       $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+       curl_close($c); 
+
+       return $result;      
     }
 
 

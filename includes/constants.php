@@ -69,6 +69,7 @@ define("booking_history_comment_refund_not_completed","Refund is not proccessed 
  
 define('GET_PAYMENT_PLAN_URL', SITE_URL.'application/controller/getPaymentPlan.php');
 define('REFUND_URL', SITE_URL.'application/controller/refundAmount.php');
+define('ADDLEAD_URL', SITE_URL.'application/controller/createLead.php');
 define('getBookedPriceSheet',BOOKINGCRM_URL.'booked_unit_price_sheet/'); 
 define('getPriceSheet',BOOKINGCRM_URL.'unit_price_sheet/'); 
 

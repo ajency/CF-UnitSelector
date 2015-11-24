@@ -307,7 +307,7 @@ function goToNextStep(anchor ,divClass)
                     email:$("input[name='contact_email']").val(),
                     phone:$("input[name='contact_mobile']").val(),
                     pan_card:$("input[name='contact_pancard']").val(),
-                    buyer_type:$("input[name='buyer_type']").val(),
+                    buyer_type:'',
                     address1:$("input[name='contact_address']").val(),
                     address2:$("input[name='contact_address']").val(),
                     city:$("input[name='contact_city']").val(),
@@ -316,7 +316,7 @@ function goToNextStep(anchor ,divClass)
                     pincode:$("input[name='contact_zipcode']").val()
 
                 };
-                console.log(data);
+             
            $.ajax({
                 url: leadUrl,
                 type: "POST",
@@ -326,10 +326,10 @@ function goToNextStep(anchor ,divClass)
                 data: data,
                 dataType: "json",
                 success: function (response) {
-                    if(!response.data)
-                         $("input[name='lead']").val(response.data.lead_id);
 
-                    // alert(response.data.lead_id);
+                         $("input[name='lead']").val(response.lead_id);
+
+                     
                 },
                   
             });

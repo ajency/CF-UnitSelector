@@ -487,7 +487,7 @@ $startTime= time();
              });
              var unitId = $("input[name='unit_id']").val();
              var redirectPropertyUrl = "<?php echo SITE_URL ;?>public/booknow.php?timeout=true&unitId="+unitId;
-             var leadUrl = "<?php echo LeadUrl ;?>";
+             var leadUrl = "<?php echo ADDLEAD_URL ;?>";
         </script>
 
     </body>
