@@ -77,8 +77,8 @@ var BackButton = React.createClass({
             if(backStyleType === "withoutLabel"){
                 domToDisplay = (
                     <span className="bckArrow" onClick={this.goToPreviousStep}>
-                        <i className="fa fa-arrow-left"></i>
-                    </span>
+                        <i className="i-icon i-dark-arrow"></i>
+                    </span>                
                 ); 
             }
             else if(backStyleType === "withLabel"){
