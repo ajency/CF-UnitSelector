@@ -1749,16 +1749,11 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_groupStateData.data.projectTitle))){
-			_groupStateData = _groupStateData;
-		}
-		else if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
-			formattedStateData = formatBuildingStateData(_buildingMasterStateData);
-			buildingMasterStateData = formattedStateData;
+		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
+			buildingMasterStateData = _buildingMasterStateData;
 
 			// buildings here would refer to floor groups
 			allGroups = buildingMasterStateData.data.buildings;
-
 
 			// selected floor group
 			selectedGroup = _.findWhere(allGroups,{id:groupId});
@@ -1794,7 +1789,6 @@ function _getGroupMasterDetails(buildingId,groupId){
 	return _groupStateData;
 
 }
-
 
 
 
