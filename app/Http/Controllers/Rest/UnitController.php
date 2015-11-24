@@ -12,6 +12,8 @@ use CommonFloor\Building;
 use CommonFloor\Phase;
 use CommonFloor\ProjectPropertyType;
 use \Input;
+use CommonFloor\Leads;
+use \Mail;
 
 
 use Illuminate\Http\Request;
@@ -462,6 +464,64 @@ class UnitController extends ApiGuardController {
                 'data' => array()
                 );
             $status_code = 400;
+        }
+
+        return response()->json( $json_resp, $status_code);
+    }
+
+
+    /**
+     * Add Lead
+     */
+    public function addLead(Request $request){
+     
+        try {
+
+            $leads = new Leads();
+        
+            $leads ->name = $request['name'];
+            $leads ->email = $request['email'];
+            $leads ->phone = $request['phone'];
+            $leads ->pan_card = $request['pan_card'];
+            $leads ->buyer_type = $request['buyer_type'];
+            $leads ->address1 = $request['address1'];
+            $leads ->address2 = $request['address2'];
+            $leads ->state = $request['state'];
+            $leads ->country = $request['country'];
+            $leads ->pincode = $request['pincode'];
+            $leads ->save();
+
+            $data =[];
+            $data['name'] = $request['name'];
+            $data['email'] = $request['email'];
+            $data['toemail'] = $request['toemail'];
+            $data['toname'] = $request['toname'];
+            
+            if($request['toemail'] !='' && $request['toname'] !='')
+            {
+                Mail::send('admin.user.leadmail', ['user'=>$data], function($message)use($data)
+                {  
+                    $message->to($data['toemail'], $data['toname'])->subject('Welcome to CommonFloor Unit Selector!');
+                });
+            }
+
+
+            $json_resp = array(
+                'lead_id' => $leads->id , 
+                'code' => 'success' , 
+                'message' => 'lead added'
+                );
+            $status_code = 200; 
+
+
+ 
+        } catch (Exception $ex) {
+
+            $json_resp = array(
+                'code' => 'Failed' , 
+                'message' => 'Some error message'
+                );
+            $status_code = 404;        
         }
 
         return response()->json( $json_resp, $status_code);
