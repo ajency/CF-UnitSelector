@@ -49,6 +49,7 @@
                     </div>
                 </div>
                 <div class="projectDetails">
+                  <div id="info">
                     <div class="row">
                       <div class="col-xs-6 left">
                           Project Type
@@ -74,6 +75,7 @@
                       </div>
                     </div>
                 </div>
+                </div>
             </div>
 
             <div class="col-xs-12 details">
@@ -81,10 +83,12 @@
                     <h5 class="text-uppercase">Apartment Attributes </h5>
                 </div>
                 <div class="projectDetails">
+                
                     <div class="col-xs-12 roomHeading">                  
                         <span><i class="fa fa-2x fa-bed"></i></span>
                         <h4 class="text-uppercase">Bedroom</h4>                    
                     </div>
+                    <div id="info1">
                     <div class="row">
                       <div class="col-xs-6 left">
                           Size sqft.
@@ -109,7 +113,7 @@
                           Wooden
                       </div>
                     </div>
-                    
+                    </div>
                 </div>
             </div>     
                <div class="col-xs-12 details">
@@ -117,10 +121,12 @@
                     <h5 class="text-uppercase">Apartment Attributes </h5>
                 </div>
                 <div class="projectDetails">
+                
                     <div class="col-xs-12 roomHeading">                  
                         <span><i class="fa fa-2x fa-bed"></i></span>
                         <h4 class="text-uppercase">Bedroom</h4>                    
                     </div>
+                    <div id="info3">
                     <div class="row">
                       <div class="col-xs-6 left">
                           Size sqft.
@@ -145,7 +151,7 @@
                           Wooden
                       </div>
                     </div>
-                    
+                    </div>
                 </div>
             </div> 
                <div class="col-xs-12 details">
@@ -292,6 +298,7 @@
 
 
     <script src="js/bootstrap.min.js"></script>  
+    <script src="js/readmore.js"></script>
     <script type="text/javascript">
            $('#Fullscreen').css('height', $(document).outerWidth() + 'px');
             //for when you click on an image
@@ -317,7 +324,44 @@
                    $(this).css('background', '#d5d5d4');
                   $('#imageid').attr('src','img/Single-Floor-House-Plans-in-3D1.jpg');
                    $(".viewTitle").html("3D FLOOR PLAN");
-                });                
+                });   
+
+                $('#info').readmore({
+                  moreLink: '<a href="#">More</a>',
+                  collapsedHeight: 50,
+                  afterToggle: function(trigger, element, expanded) {
+                    if(! expanded) { // The "Close" link was clicked
+                      $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+                    }
+                  }
+                });
+                $('#info1').readmore({
+                  moreLink: '<a href="#">More</a>',
+                  collapsedHeight: 50,
+                  afterToggle: function(trigger, element, expanded) {
+                    if(! expanded) { // The "Close" link was clicked
+                      $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+                    }
+                  }
+                });
+                $('#info2').readmore({
+                  moreLink: '<a href="#">More</a>',
+                  collapsedHeight: 50,
+                  afterToggle: function(trigger, element, expanded) {
+                    if(! expanded) { // The "Close" link was clicked
+                      $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+                    }
+                  }
+                });
+                $('#inf3').readmore({
+                  moreLink: '<a href="#">More</a>',
+                  collapsedHeight: 50,
+                  afterToggle: function(trigger, element, expanded) {
+                    if(! expanded) { // The "Close" link was clicked
+                      $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+                    }
+                  }
+                });             
             });
     </script>
   </body>
