@@ -31,7 +31,7 @@ if(window.isMobile){
               Live Tour
             </span>
            <span className="contentText">
-              Virtually discover project tower, floor and unit of your choice in a 3D and fully furnished state.
+              Virtually discover project tower, floor and unit of your choice in a 3D and fully furnished state
             </span>
           </div>
         </div>

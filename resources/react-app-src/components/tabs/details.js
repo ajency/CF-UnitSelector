@@ -23,6 +23,28 @@ var Details = React.createClass({
     },
 
 
+
+
+  componentDidMount: function() {
+    if(!window.isMobile){
+      $('.attributeList').each(function(event) {
+        console.log('attribute list');
+        $(this).readmore({
+          moreLink: '<a href="#">More</a>',
+          collapsedHeight: 120,
+          afterToggle: function(trigger, element, expanded) {
+            if(! expanded) { // The "Close" link was clicked
+              $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+            }
+          }
+        });
+      });
+    }
+  },
+
+
+
+
   render: function () {
     var basicDetails = this.props.basicDetails;
     var roomData = this.props.roomData;
@@ -46,7 +68,6 @@ if(window.isMobile){
 
                                     <RoomAttributeList
                                         attributes={room.atributes}
-                                        listcount = 'less'
                                     />
                                 </div>
 
@@ -104,43 +125,16 @@ if(window.isMobile){
 
 
     roomDataNode = roomData.map(function(room,i){
-
-                if(room.atributes.length<=3){
                     return(
                             <div key={i} className="roomDetails text-uppercase">
+                              <div  id={i} className="attributeList">
                                 <h5 className="text-uppercase">{room.room_name}</h5>
                                     <RoomAttributeList
                                         attributes={room.atributes}
-                                        listcount = 'less'
                                     />
-                            </div>
-                        );
-                }else if(room.atributes.length>3){
-                    return(
-                            <div key={i} className="roomDetails text-uppercase">
-                                <h5 className="text-uppercase">{room.room_name}</h5>
-                                    <RoomAttributeList
-                                        attributes={room.atributes}
-                                        listcount = 'less'
-                                    />
-
-                                    <div className="hiddenContent">
-                                         <RoomAttributeList
-                                            attributes={room.atributes}
-                                            listcount = 'more'
-                                        />
-                                    </div>
-
-                                <div className="row">
-                                    <div className="col-xs-12">
-                                        <span className="moreLessLink" id={'moreless'+i} onClick={this.handleClick}>More</span>
-                                    </div>
                                 </div>
                             </div>
                         );
-                }
-
-
                     }.bind(this));
 
 
@@ -164,7 +158,7 @@ if(window.isMobile){
               Details
             </span>
             <span className="contentText">
-              Explore.
+              Explore
             </span>
           </div>
         </div>

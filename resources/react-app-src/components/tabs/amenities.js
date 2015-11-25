@@ -36,7 +36,7 @@ var SocietyAmenities = React.createClass({
               Society amenities
             </span>
             <span className="contentText">
-              Explore amenities for your apartment.
+              Explore amenities for your apartment
             </span>
           </div>
         </div>

@@ -23,64 +23,60 @@ var FloorPlan = React.createClass({
 
     if(window.isMobile){
 
-    if (this.state.is2d) {
-      imgSrc = twoDImgSrc;
+      if (this.state.is2d) {
+        imgSrc = twoDImgSrc;
 
-      anchor2dStyle = {
-        background: "rgb(213, 213, 212)"
-      };
+        anchor2dStyle = {
+          background: "rgb(213, 213, 212)"
+        };
 
-      anchor3dStyle = {
-        background: "rgb(255, 255, 255)"
-      };
-    }
-    else{
-      imgSrc = threeDImgSrc;
+        anchor3dStyle = {
+          background: "rgb(255, 255, 255)"
+        };
+      }
+      else{
+        imgSrc = threeDImgSrc;
 
-      anchor2dStyle = {
-        background: "rgb(255, 255, 255)"
-      };
+        anchor2dStyle = {
+          background: "rgb(255, 255, 255)"
+        };
 
-      anchor3dStyle = {
-        background: "rgb(213, 213, 212)"
-      };
-    }
+        anchor3dStyle = {
+          background: "rgb(213, 213, 212)"
+        };
+      }
 
-    if(!_.isEmpty(imgSrc)){
+      if(!_.isEmpty(imgSrc)){
         previewDom = (<img src={imgSrc} className="img-responsive fit" id="imageid" />);
-    }
-    else{
+      }
+      else{
         previewDom = (<div className="nopreview">
-                        <i className="fa fa-2x fa-picture-o"></i>
-                        <h5>No preview available</h5>
-                      </div>) ;
-    }
+        <i className="fa fa-2x fa-picture-o"></i>
+        <h5>No preview available</h5>
+      </div>) ;
+      }
 
-  }else{
-
-    if(!_.isEmpty(twoDImgSrc)){
-      var twodPreviewDom = (<img src={twoDImgSrc} className="img-responsive fit" id="imageid" />);
     }else{
-      var twodPreviewDom = (<div className="nopreview">
-                      <i className="fa fa-2x fa-picture-o"></i>
-                      <h5>No preview available</h5>
-                    </div>) ;
-    }
 
-    if(!_.isEmpty(twoDImgSrc)){
-      var threedPreviewDom = (<img src={threeDImgSrc} className="img-responsive fit" id="imageid" />);
-    }else{
-      var threedPreviewDom = (<div className="nopreview">
-                      <i className="fa fa-2x fa-picture-o"></i>
-                      <h5>No preview available</h5>
-                    </div>) ;
-    }
+      if(!_.isEmpty(twoDImgSrc)){
+        var twodPreviewDom = (<img src={twoDImgSrc} className="img-responsive fit" id="imageid" />);
+      }else{
+        var twodPreviewDom = (<div className="nopreview">
+        <i className="fa fa-2x fa-picture-o"></i>
+        <h5>No preview available</h5>
+        </div>) ;
+      }
 
-  }
+      if(!_.isEmpty(threeDImgSrc)){
+        var threedPreviewDom = (<img src={threeDImgSrc} className="img-responsive fit" id="imageid" />);
+      }else{
+        var threedPreviewDom = (<div className="nopreview">
+        <i className="fa fa-2x fa-picture-o"></i>
+        <h5>No preview available</h5>
+        </div>) ;
+      }
 
-
-
-
+}
 
 
 
@@ -124,7 +120,7 @@ else{
               Floor plans
             </span>
             <span className="contentText">
-              Visualize a home even before it is built and evaluate how space works for you.
+              Visualize a home even before it is built and evaluate how space works for you
             </span>
           </div>
         </div>
