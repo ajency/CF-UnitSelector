@@ -97,8 +97,8 @@ var ModalBody = React.createClass({
                                    <div className="col-xs-12 content">
                                       <div className="col-xs-12 rightSide">
                                         <div className="developers">{window.project_title}</div>
-                                        <a href={callTel}><h5>Call for support {window.builder_phone}</h5></a>
-                                        <div ref="contactusform">
+                                        <a className="text-center" href={callTel}><h5>Call for support {window.builder_phone}</h5></a>
+                                        <div className="contactContent" ref="contactusform">
                                             <ContactUs hideContactModal = {this.props.hideContactModal}/>
                                         </div> 
                                       </div>
