@@ -1273,6 +1273,11 @@ function _loadProjectData(data) {
 
 	_projectData = data['data'];
 
+	// set a few globals
+    window.project_title = _projectData.project_title;
+    window.builder_email = _projectData.builder_email;
+    window.builder_phone = _projectData.builder_phone;	
+
 	_globalStateData = _getProjectMasterData();
 
 }

@@ -69,6 +69,7 @@ var Modal = React.createClass({
                   modalPurpose = {this.props.modalPurpose}
                   selectFilter={this.props.selectFilter}
                   applyFilters = {this.props.applyFilters}
+                  hideContactModal = {this.props.hideContactModal}
                 />
           		</div>
         	</div>

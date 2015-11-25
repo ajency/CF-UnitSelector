@@ -334,6 +334,10 @@ var StepThree = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
 
+    hideContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },       
+
     toggelSunView: function(evt){
         evt.preventDefault();
         $clickedDiv = $(evt.currentTarget);
@@ -608,11 +612,13 @@ var StepThree = React.createClass({
                         selectFilter={this.selectFilter}
                         applyFilters = {this.applyFilters}
                         unapplyFilters = {this.unapplyFilters}
+                        hideContactModal = {this.hideContactModal}
                     />
                     <Modal
                         ref="contactModal"
                         modalData = {modalData}
                         modalPurpose = "mobileContactModal"
+                        hideContactModal = {this.hideContactModal}
                     />
 
                     <div className="toggleDiv">
@@ -760,6 +766,7 @@ var StepThree = React.createClass({
                             ref="contactModal"
                             modalData = {modalData}
                             modalPurpose = "contactModal"
+                            hideContactModal = {this.hideContactModal}
                         />
 
                     </div>

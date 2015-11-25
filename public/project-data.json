@@ -91,6 +91,8 @@
       "image": "http://lorempixel.com/1300/800/city/"
     },
     "address": "Bannerghatta, Bangalore, Karnataka, INDIA.",
+    "builder_email": "amey20606@gmail.com",
+    "builder_phone": 9923412243,
     "measurement_units": "Sq. Ft.",
     "project_status": "Under Construction",
     "property_types": {
@@ -102,12 +104,12 @@
           "2.5BHK",
           "3BHK"
         ],
-        "starting_area": 991281,
+        "starting_area": 2,
         "availability": {
-          "sold": 5,
-          "blocked": 0
+          "sold": 2,
+          "blocked": 7
         },
-        "starting_price": 60780000
+        "starting_price": 73701000
       }
     },
     "filters": {
@@ -122,9 +124,78 @@
         "unitTypes",
         "unitVariantNames",
         "Flooring",
-        "Roofing"
+        "Roofing",
+        "Window"
       ]
     },
+    "views": [
+      {
+        "id": 96,
+        "label": "Swimming pool",
+        "control_type": "checkbox",
+        "object_type": "CommonFloor'CommonFloor\\Project",
+        "object_id": 7,
+        "defaults": "",
+        "created_at": "2015-11-05 05:50:54",
+        "updated_at": "2015-11-24 05:23:27",
+        "deleted_at": null
+      },
+      {
+        "id": 97,
+        "label": "Garden",
+        "control_type": "checkbox",
+        "object_type": "CommonFloor'CommonFloor\\Project",
+        "object_id": 7,
+        "defaults": "",
+        "created_at": "2015-11-05 05:50:54",
+        "updated_at": "2015-11-24 05:23:27",
+        "deleted_at": null
+      },
+      {
+        "id": 98,
+        "label": "Playground",
+        "control_type": "checkbox",
+        "object_type": "CommonFloor'CommonFloor\\Project",
+        "object_id": 7,
+        "defaults": "",
+        "created_at": "2015-11-05 05:50:54",
+        "updated_at": "2015-11-24 05:23:27",
+        "deleted_at": null
+      },
+      {
+        "id": 99,
+        "label": "ATM",
+        "control_type": "checkbox",
+        "object_type": "CommonFloor'CommonFloor\\Project",
+        "object_id": 7,
+        "defaults": "",
+        "created_at": "2015-11-05 05:50:54",
+        "updated_at": "2015-11-24 05:23:27",
+        "deleted_at": null
+      },
+      {
+        "id": 100,
+        "label": "Amphitheatre",
+        "control_type": "checkbox",
+        "object_type": "CommonFloor'CommonFloor\\Project",
+        "object_id": 7,
+        "defaults": "",
+        "created_at": "2015-11-05 05:50:54",
+        "updated_at": "2015-11-24 05:23:27",
+        "deleted_at": null
+      },
+      {
+        "id": 137,
+        "label": "Common hall",
+        "control_type": "checkbox",
+        "object_type": "CommonFloor'CommonFloor\\Project",
+        "object_id": 7,
+        "defaults": "",
+        "created_at": "2015-11-19 11:46:03",
+        "updated_at": "2015-11-24 05:23:27",
+        "deleted_at": null
+      }
+    ],
     "buildings": [
       {
         "id": 21,
@@ -171,7 +242,7 @@
           "http://test.cfunitselectortest.com/projects/7/buildings/21/master-35.jpg"
         ],
         "created_at": "2015-11-05 06:14:38",
-        "updated_at": "2015-11-18 13:54:12",
+        "updated_at": "2015-11-23 06:19:39",
         "breakpoints": [
           0,
           14,
@@ -218,7 +289,7 @@
           "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-34.jpg",
           "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-35.jpg"
         ],
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "floor_group": [
           {
             "id": 13,
@@ -254,7 +325,7 @@
             ],
             "created_at": "-0001-11-30 00:00:00",
             "updated_at": "-0001-11-30 00:00:00",
-            "primary_breakpoint": 0
+            "primary_breakpoint": null
           }
         ]
       },
@@ -314,7 +385,7 @@
         "shadow_images": [
           "http://test.cfunitselectortest.com/projects/7/buildings/23/shadow-00.jpg"
         ],
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "floor_group": [
           {
             "id": 19,
@@ -444,7 +515,7 @@
           "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-34.jpg",
           "http://test.cfunitselectortest.com/projects/7/buildings/24/shadow-35.jpg"
         ],
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "floor_group": [
           {
             "id": 22,
@@ -504,7 +575,7 @@
         "shadow_images": [
           "http://test.cfunitselectortest.com/projects/7/buildings/25/shadow-00.jpg"
         ],
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "floor_group": [
           {
             "id": 25,
@@ -562,7 +633,7 @@
         "has_master": "yes",
         "floor_rise": 1000,
         "shadow_images": [],
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "floor_group": [
           {
             "id": 28,
@@ -694,7 +765,7 @@
           "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-34.jpg",
           "http://test.cfunitselectortest.com/projects/7/buildings/30/shadow-35.jpg"
         ],
-        "primary_breakpoint": 0,
+        "primary_breakpoint": 28,
         "floor_group": [
           {
             "id": 49,
@@ -867,6 +938,23 @@
             "primary_breakpoint": null
           }
         ]
+      },
+      {
+        "id": 32,
+        "building_name": "WING I",
+        "phase_id": 21,
+        "no_of_floors": 6,
+        "floors": [],
+        "building_master": [],
+        "created_at": "2015-11-20 11:35:50",
+        "updated_at": "2015-11-20 11:36:00",
+        "breakpoints": [],
+        "abbrevation": "",
+        "has_master": "no",
+        "floor_rise": 1000,
+        "shadow_images": [],
+        "primary_breakpoint": 28,
+        "floor_group": []
       }
     ],
     "bunglow_variants": [],
@@ -884,7 +972,7 @@
           "Roofing": "normal"
         },
         "created_at": "2015-11-05 06:14:02",
-        "updated_at": "2015-11-19 07:40:27",
+        "updated_at": "2015-11-24 05:23:56",
         "deleted_at": null,
         "size": 0,
         "floor": [
@@ -994,10 +1082,11 @@
         "per_sq_ft_price": 1000,
         "variant_attributes": {
           "Flooring": " Vitrified Tiles",
-          "Roofing": "pop"
+          "Roofing": "pop",
+          "Window": "normal"
         },
         "created_at": "2015-11-06 05:51:41",
-        "updated_at": "2015-11-19 12:22:24",
+        "updated_at": "2015-11-24 05:04:28",
         "deleted_at": null,
         "size": 0,
         "floor": [
@@ -1481,7 +1570,7 @@
         "floor": 5,
         "building_id": 30,
         "created_at": "2015-11-19 07:13:21",
-        "updated_at": "2015-11-19 07:15:00",
+        "updated_at": "2015-11-20 13:00:14",
         "phase_id": 0,
         "views": [
           "Garden",
@@ -1492,7 +1581,7 @@
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "564f074015404",
         "floor_group_id": 50,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -1568,7 +1657,7 @@
         "floor": 6,
         "building_id": 30,
         "created_at": "2015-11-19 07:13:41",
-        "updated_at": "2015-11-19 09:55:32",
+        "updated_at": "2015-11-23 10:41:58",
         "phase_id": 0,
         "views": [
           "Garden",
@@ -1578,7 +1667,7 @@
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "564d9a66cdecc",
+        "booking_id": "5652ea682d6e4",
         "floor_group_id": 51,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -1654,7 +1743,7 @@
         "floor": 7,
         "building_id": 30,
         "created_at": "2015-11-19 07:13:57",
-        "updated_at": "2015-11-19 12:30:02",
+        "updated_at": "2015-11-23 10:44:01",
         "phase_id": 0,
         "views": [
           "Garden"
@@ -1663,7 +1752,7 @@
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "564dbd3ee1c6b",
+        "booking_id": "5652e8a0aed1d",
         "floor_group_id": 51,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2237,14 +2326,14 @@
         "floor": 1,
         "building_id": 25,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-19 10:02:01",
+        "updated_at": "2015-11-23 10:50:24",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "564d9a942ff70",
+        "booking_id": "5652ee05115c7",
         "floor_group_id": 25,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2486,14 +2575,14 @@
         "floor": 4,
         "building_id": 25,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:50:04",
+        "updated_at": "2015-11-23 11:09:02",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "5652f02808b90",
         "floor_group_id": 26,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2735,14 +2824,14 @@
         "floor": 1,
         "building_id": 24,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-19 09:56:01",
+        "updated_at": "2015-11-23 11:36:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "564d99298f4f3",
+        "booking_id": "5652f606bade2",
         "floor_group_id": 22,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3403,14 +3492,14 @@
         "floor": 3,
         "building_id": 23,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 06:50:04",
+        "updated_at": "2015-11-23 10:22:53",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "5652e6b500035",
         "floor_group_id": 20,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3735,7 +3824,7 @@
         "floor": 1,
         "building_id": 21,
         "created_at": "2015-11-05 06:19:22",
-        "updated_at": "2015-11-19 13:03:02",
+        "updated_at": "2015-11-24 04:54:01",
         "phase_id": 0,
         "views": [
           "Swimming pool",
@@ -3743,9 +3832,9 @@
         ],
         "direction": "North",
         "agent_id": 0,
-        "booked_at": "2015-11-13 11:04:08",
+        "booked_at": "2015-11-20 11:22:27",
         "property_type_group_id": 0,
-        "booking_id": "564dc4f7d8b90",
+        "booking_id": "5653e9d6c63c0",
         "floor_group_id": 13,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3904,14 +3993,14 @@
         "floor": 3,
         "building_id": 21,
         "created_at": "2015-11-05 06:20:18",
-        "updated_at": "2015-11-18 12:54:14",
+        "updated_at": "2015-11-23 14:40:55",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "56456afd7b4dc",
+        "booking_id": "5652fbe306f99",
         "floor_group_id": 14,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -4153,14 +4242,14 @@
         "floor": 6,
         "building_id": 21,
         "created_at": "2015-11-05 06:26:20",
-        "updated_at": "2015-11-17 10:50:01",
+        "updated_at": "2015-11-20 11:20:01",
         "phase_id": 0,
         "views": [],
         "direction": "North-West",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "564b029a43975",
+        "booking_id": "564efe408a4b8",
         "floor_group_id": 15,
         "breakpoint": 0,
         "booking_amount": 20000,
