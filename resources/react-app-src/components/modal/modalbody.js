@@ -71,9 +71,9 @@ var ModalBody = React.createClass({
                                  <div className="col-xs-12 content">
                                     <div className="col-xs-6 text-center">
                                        <span className="modalLogo"></span>
-                                       <div className="developers">{projectData.title}</div>
+                                       <div className="developers">{window.project_title}</div>
                                        <span className="help">Need Help? Contact us</span>
-                                       <h5>Toll free: 1800 121 0000</h5>
+                                       <a href="tel:18001210000"><h5>Toll free: 1800 121 0000</h5></a>
                                     </div>
                                     <div className="col-xs-6 rightSide">
                                         <div ref="contactusform">
@@ -94,15 +94,11 @@ var ModalBody = React.createClass({
                                 <div className="row">
                                    <div className="col-xs-12 content">
                                       <div className="col-xs-12 rightSide">
-                                        <div className="developers">{projectData.title}</div>
-                                         <div className="p-0 col-lg-12 inputOuter">
-                                            <input type="text" placeholder="Name" />
-                                            <input type="email" placeholder="Email ID" />
-                                            <input type="text" placeholder="Mobile" />
-                                         </div>
-                                         <div className="p-0 col-lg-12 proceedBtn text-center">
-                                            <button className="btn btn-primary btn-default text-uppercase">Submit</button>
-                                         </div>
+                                        <div className="developers">{window.project_title}</div>
+                                        <a href="tel:18001210000"><h5>Toll free: 1800 121 0000</h5></a>
+                                        <div ref="contactusform">
+                                            <ContactUs hideContactModal = {this.props.hideContactModal}/>
+                                        </div> 
                                       </div>
                                    </div>
                                 </div>
