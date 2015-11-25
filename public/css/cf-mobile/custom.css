@@ -1173,8 +1173,8 @@ div.spritespin-div {
   outline: none;
 }
 .contactModal {
-  top: 15% !important;
-  bottom: 50px !important;
+  top: 6% !important;
+  /*bottom:50px !important;*/
   z-index: 15050;
 }
 .contactModal .modal-body {
@@ -1364,6 +1364,9 @@ div.spritespin-div {
 .hasTooltip {
   position: absolute;
   z-index: 9999;
+}
+.modal-backdrop {
+  z-index: 15000!important;
 }
 .p-0 {
   padding: 0 !important;
