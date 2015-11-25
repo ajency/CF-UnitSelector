@@ -39,6 +39,9 @@ var TabHeader = React.createClass({
 		var sellingAmount = unitData.basic.sellingAmount;
 		var bookingAmount = unitData.basic.bookingAmount;
 
+		var url2dlayout = unitData.basic.url2dlayout;
+		var url3dlayout = unitData.basic.url3dlayout;
+
 
         cardListFor = this.props.cardListFor;
 
@@ -54,24 +57,42 @@ var TabHeader = React.createClass({
 		  var statusClass = '';
 		}
 
-		var domToDisplay ;
+		var domToDisplay, floorplanheader, livetourheader ;
 
 		if(window.isMobile){
+
+			if(_.isEmpty(url2dlayout) && _.isEmpty(url3dlayout)){
+				floorplanheader = "";
+			}else{
+				floorplanheader = (
+					<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Floor plan</a></li>
+				);
+			}
+
+			if(_.isEmpty(unitData.basic.tour_url)){
+				livetourheader = "";
+			}else{
+				livetourheader = (
+					<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Live in tour</a></li>
+				);
+			}
+
+
 			domToDisplay = (
 				<div className="tabHeader">
 					<div className="title">
-						<BackButton 
+						<BackButton
 							backStyleType = "dark"
                             navigationType = "unit"
                             navigationId = {this.props.buildingId}
-                            entityId = {this.props.groupId} 
+                            entityId = {this.props.groupId}
 						/>
 						<h3>{this.props.buildingName} : {this.props.unitTypeName} : {this.props.propertyTypeName}</h3>
 					</div>
 					<ul className="nav nav-tabs" role="tablist">
 						<li role="presentation" className="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Details</a></li>
-						<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Floor plan</a></li>
-						<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Live in tour</a></li>
+						{floorplanheader}
+						{livetourheader}
 						<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Outside view</a></li>
 					</ul>
 				</div>
@@ -94,17 +115,34 @@ var TabHeader = React.createClass({
 			}
 
 
+			if(_.isEmpty(url2dlayout) && _.isEmpty(url3dlayout)){
+				floorplanheader = "";
+			}else{
+				floorplanheader = (
+					<li><a href="#" id="floorPlan" className="click">Floor plan</a></li>
+				);
+			}
+
+			if(_.isEmpty(unitData.basic.tour_url)){
+				livetourheader = "";
+			}else{
+				livetourheader = (
+					<li className="liveInTourLi"><a href="#" id="liveTour" className="click"><span className="rotateIcon"></span><span className="liveInTourText">Live in tour</span></a></li>
+				);
+			}
+
+
 
 			domToDisplay = (
 				<div>
 					<div className="row">
 						<div className="col-xs-12">
 							<div className="col-xs-6">
-								<BackButton 
+								<BackButton
 									backStyleType = "withLabel"
 		                            navigationType = "unit"
 		                            navigationId = {this.props.buildingId}
-		                            entityId = {this.props.groupId} 
+		                            entityId = {this.props.groupId}
 								/>
 								<h4 className="text-uppercase">{unitName}</h4>
 								<span className={ 'unitStatus text-uppercase '+statusClass}>{unitStatus}</span>
@@ -144,8 +182,8 @@ var TabHeader = React.createClass({
 					<div className="tabHeader" id="stickyHeader">
 						<ul className="list-unstyled text-uppercase">
 							<li className="active"><a href="#" id="details" className="click active">Details</a></li>
-							<li><a href="#" id="floorPlan" className="click">Floor plan</a></li>
-							<li className="liveInTourLi"><a href="#" id="liveTour" className="click"><span className="rotateIcon"></span><span className="liveInTourText">Live in tour</span></a></li>
+							{floorplanheader}
+							{livetourheader}
 							<li><a href="#" id="outsideView" className="click">Outside view</a></li>
 							<li><a href="#" id="societyEmenities" className="click">Society amenities</a></li>
 							<li className="pull-right stickyButtons">

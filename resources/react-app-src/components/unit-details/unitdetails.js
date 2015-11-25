@@ -31,12 +31,30 @@ var UnitDetails = React.createClass({
 
     componentDidMount: function() {
       if(!window.isMobile){
+
+        $(window).scroll(function() {
+
+            var y = $(this).scrollTop();
+
+            $('.click').each(function(event) {
+              var currentTab = $(this).attr('id')+'_div';
+                if (y >= $('#'+currentTab).offset().top - 100) {
+                    $('.click').not(this).removeClass('active');
+                    $('.click').not(this).css('color','#565654');
+                    $(this).addClass('active');
+                    $(this).css('color','#fe943e');
+                }
+            });
+
+        });
+
+
         $(document).on('click', '.click', function (e) {
           var theID = $(this).attr('id');
           $('.list-unstyled li a.active').removeClass('active');
           $(this).addClass('active');
           $('html, body').animate({
-            scrollTop: $('#' + theID + '_div').offset().top-60
+            scrollTop: $('#' + theID + '_div').offset().top-80
           }, 1000);
           return false;
         });
@@ -213,6 +231,7 @@ var UnitDetails = React.createClass({
 						unitId = {unitId}
 						projectId = {projectId}
 						unitStatus = {status}
+            unitData = {unitData}
 					/>
 					<TabPanes
 						unitData = {unitData}
