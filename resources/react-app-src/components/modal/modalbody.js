@@ -53,6 +53,8 @@ var ModalBody = React.createClass({
 
         modalPurpose = this.props.modalPurpose;
 
+        callTel = "tel:"+window.builder_phone;
+
         if(modalPurpose==="filterModal"){
           modalBodyDom = (  <FilterContent
                               filterTypes = {filterTypes}
@@ -73,7 +75,7 @@ var ModalBody = React.createClass({
                                        <span className="modalLogo"></span>
                                        <div className="developers">{window.project_title}</div>
                                        <span className="help">Need Help? Contact us</span>
-                                       <a href="tel:18001210000"><h5>Toll free: 1800 121 0000</h5></a>
+                                       <a href={callTel}><h5>Call for support {window.builder_phone}</h5></a>
                                     </div>
                                     <div className="col-xs-6 rightSide">
                                         <div ref="contactusform">
@@ -95,7 +97,7 @@ var ModalBody = React.createClass({
                                    <div className="col-xs-12 content">
                                       <div className="col-xs-12 rightSide">
                                         <div className="developers">{window.project_title}</div>
-                                        <a href="tel:18001210000"><h5>Toll free: 1800 121 0000</h5></a>
+                                        <a href={callTel}><h5>Call for support {window.builder_phone}</h5></a>
                                         <div ref="contactusform">
                                             <ContactUs hideContactModal = {this.props.hideContactModal}/>
                                         </div> 
