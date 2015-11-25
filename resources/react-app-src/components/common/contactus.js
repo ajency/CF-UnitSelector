@@ -107,7 +107,7 @@ var ContactUs = React.createClass({
 		  			className = "p-0 col-lg-12 inputOuter"
 		  		/>
 		  		<div className="p-0 col-lg-12 proceedBtn text-center">
-		  			<button className="btn btn-default btn-primary text-uppercase" {disabled}>Submit</button>
+		  			<button className="btn btn-default btn-primary text-uppercase">Submit</button>
 		  		</div>
 		  		<div className={errorClass}>{message}</div>
 			</form>
