@@ -12,6 +12,7 @@
     "gulp-watch": "^4.2.1",
     "merge": "^1.2.0",
     "minimist": "^1.1.1",
+    "newforms": "^0.13.2",
     "react": "^0.14.0",
     "react-addons-pure-render-mixin": "^0.14.0",
     "react-addons-update": "^0.14.0",

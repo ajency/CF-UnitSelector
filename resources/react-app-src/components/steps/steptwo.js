@@ -327,6 +327,10 @@ var StepTwo = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
 
+    hideContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },       
+
     toggelSunView: function(evt){
         evt.preventDefault();
         $clickedDiv = $(evt.currentTarget);
@@ -512,7 +516,7 @@ var StepTwo = React.createClass({
     render: function(){
 
 
-        var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
+        var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight, projectContactNo;
         var imageType, buildingToHighlight, modalData, filterTypes;
         var buildingId, allBuildings, buildingDropwdownData, messageBoxMsg;
 
@@ -530,6 +534,8 @@ var StepTwo = React.createClass({
         buildings = data.buildings;
         isFilterApplied = data.isFilterApplied;
         unitCount = data.totalCount;
+
+        projectContactNo = data.projectContactNo;
 
         unitIndexToHighlight = data.unitIndexToHighlight;
         applied_filters = data.applied_filters;
@@ -588,11 +594,13 @@ var StepTwo = React.createClass({
                         selectFilter={this.selectFilter}
                         applyFilters = {this.applyFilters}
                         unapplyFilters = {this.unapplyFilters}
+                        hideContactModal = {this.hideContactModal}
                     />
                     <Modal
                         ref="contactModal"
                         modalData = {modalData}
                         modalPurpose = "mobileContactModal"
+                        hideContactModal = {this.hideContactModal}
                     />
 
                     <div className="toggleDiv">
@@ -628,6 +636,7 @@ var StepTwo = React.createClass({
                         updateRotateShadow = {this.updateRotateShadow}
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId}
+                        projectContactNo = {projectContactNo}
                     />
 
                     <CardList
@@ -689,6 +698,7 @@ var StepTwo = React.createClass({
                             updateRotateShadow = {this.updateRotateShadow}
                             cardListFor = {cardListFor}
                             cardListForId = {cardListForId}
+                            projectContactNo = {projectContactNo}
                         />
 
                         <div className="container-fluid">
@@ -739,6 +749,7 @@ var StepTwo = React.createClass({
                             ref="contactModal"
                             modalData = {modalData}
                             modalPurpose = "contactModal"
+                            hideContactModal = {this.hideContactModal}
                         />
 
                     </div>

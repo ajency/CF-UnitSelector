@@ -56,6 +56,7 @@ class ProjectController extends Controller {
         return view( 'frontend.reactprojectview' )->with( 'id' , $data['id'])
                                             ->with( 'project_title' , $data['project_title'])
                                             ->with( 'property_page_link' , $property_page_link)
-                                            ->with( 'agent_id' , $agentId);
+                                            ->with( 'agent_id' , $agentId)
+                                            ->with( 'unitSelectorAuthKey' , unitSelectorAuthKey);
     }
 }

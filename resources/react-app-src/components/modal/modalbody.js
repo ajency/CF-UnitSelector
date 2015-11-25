@@ -1,6 +1,7 @@
 var React = require('react');
 var classNames = require('classnames');
 var FilterContent = require('../filter/filtercontent');
+var ContactUs = require('../common/contactus');
 
 // var ReactMixin = {
 
@@ -62,6 +63,7 @@ var ModalBody = React.createClass({
                          );
         }
         else if(modalPurpose==="contactModal"){
+
           modalBodyDom = ( <div>
                               <h2 className="margin-none text-center">Have us call you</h2>
                               <p className="text-muted text-center">Please fill in this short form and we will get back to you.</p>
@@ -74,19 +76,15 @@ var ModalBody = React.createClass({
                                        <h5>Toll free: 1800 121 0000</h5>
                                     </div>
                                     <div className="col-xs-6 rightSide">
-                                       <div className="p-0 col-lg-12 inputOuter">
-                                          <input type="text" placeholder="Name" />
-                                          <input type="email" placeholder="Email ID" />
-                                          <input type="text" placeholder="Mobile" />
-                                       </div>
-                                       <div className="p-0 col-lg-12 proceedBtn text-center">
-                                          <button className="btn btn-primary btn-default text-uppercase">Submit</button>
-                                       </div>
+                                        <div ref="contactusform">
+                                            <ContactUs hideContactModal = {this.props.hideContactModal}/>
+                                        </div> 
                                     </div>
                                  </div>
                               </div>
                           </div>
                         );
+
         }
       else if(modalPurpose==="mobileContactModal"){
           modalBodyDom = (

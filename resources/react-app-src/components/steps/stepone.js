@@ -243,9 +243,17 @@ var StepOne = React.createClass({
                 //For range filter, reset the filter with new min max value
                 if(filterStyle == 'range'){
                     oldataTochange = [];
-                    _.each(valueToSet, function(rangeValue){
-                        oldataTochange.push(rangeValue);
-                    });
+                    var min = valueToSet.indexOf("MIN");
+                    var max = valueToSet.indexOf("MAX");
+                    if(min > -1 || max > -1){
+                      oldataTochange = [];
+                    }else{
+                      _.each(valueToSet, function(rangeValue){
+                          oldataTochange.push(rangeValue);
+                      });
+                    }
+
+
 
                 }
 
@@ -327,6 +335,10 @@ var StepOne = React.createClass({
     showContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
+    
+    hideContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },    
 
     toggelSunView: function(evt){
 
@@ -414,7 +426,7 @@ var StepOne = React.createClass({
     },
 
     updateSearchFilters: function(filterType, filterValue, filterStyle){
-      
+
         dataToSet = {
             property: "search_filters",
             filterType: filterType,
@@ -442,7 +454,7 @@ var StepOne = React.createClass({
 
     render: function(){
 
-        var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
+        var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight, projectContactNo;
         var imageType, buildingToHighlight, modalData, filterTypes, messageBoxMsg;
 
         data = this.state.data;
@@ -456,6 +468,8 @@ var StepOne = React.createClass({
         buildings = data.buildings;
         isFilterApplied = data.isFilterApplied;
         unitCount = data.totalCount;
+
+        projectContactNo = data.projectContactNo;
 
         unitIndexToHighlight = data.unitIndexToHighlight;
         applied_filters = data.applied_filters;
@@ -503,11 +517,13 @@ var StepOne = React.createClass({
                         selectFilter={this.selectFilter}
                         applyFilters = {this.applyFilters}
                         unapplyFilters = {this.unapplyFilters}
+                        hideContactModal = {this.props.hideContactModal}
                     />
                     <Modal
                         ref="contactModal"
                         modalData = {modalData}
                         modalPurpose = "mobileContactModal"
+                        hideContactModal = {this.hideContactModal}
                     />
 
                     <div className="toggleDiv">
@@ -543,6 +559,7 @@ var StepOne = React.createClass({
                         updateRotateShadow = {this.updateRotateShadow}
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId}
+                        projectContactNo = {projectContactNo}
                     />
 
                     <CardList
@@ -602,6 +619,7 @@ var StepOne = React.createClass({
                             updateRotateShadow = {this.updateRotateShadow}
                             cardListFor = {cardListFor}
                             cardListForId = {cardListForId}
+                            projectContactNo = {projectContactNo}
 
                         />
 
@@ -654,6 +672,7 @@ var StepOne = React.createClass({
                             ref="contactModal"
                             modalData = {modalData}
                             modalPurpose = "contactModal"
+                            hideContactModal = {this.hideContactModal}
                         />
 
 

@@ -26,10 +26,10 @@ var TabFooter = React.createClass({
 			baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
 			redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
 
-			this._redirect(redirectUrl);  			
-  		}		
+			this._redirect(redirectUrl);
+  		}
 
-		
+
 	},
 
   	render: function () {
@@ -56,9 +56,9 @@ var TabFooter = React.createClass({
 		domToDisplay = (
 				<div className="tabfooter">
 			    <div className="row">
-			        <button 
-			        	className="col-xs-6 button" 
-                        data-toggle="modal" 
+			        <button
+			        	className="col-xs-6 button"
+                        data-toggle="modal"
                         onClick={this.props.showContactModal}
 			        >
 			            <div>
@@ -82,9 +82,9 @@ var TabFooter = React.createClass({
 	    }else{
 	    	domToDisplay = (
 	    		<div className="footerDesk container-fluid text-center">
-		    		Call 1800 180 180 180
+		    		Call {this.props.projectContactNo}
 		    		<div className="privacyOuter">
-		    			<a href="https://www.commonfloor.com/" target="_blank">Commonfloor</a> | &nbsp; 
+		    			<a href="https://www.commonfloor.com/" target="_blank">Commonfloor</a> | &nbsp;
 		    			<a href="#" target="_blank">FAQ</a> | &nbsp;
 		    			<a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank">Mobile Apps</a> © commonfloor inc. | &nbsp;
 		    			<a href="https://www.commonfloor.com/privacy-policy  " target="_blank">Privacy Policy</a>

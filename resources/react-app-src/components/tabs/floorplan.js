@@ -7,7 +7,7 @@ var FloorPlan = React.createClass({
           is2d: true
         };
       },
-  
+
   setTwoD: function(setTwoDBool){
     this.setState({is2d:setTwoDBool});
   },
@@ -21,6 +21,8 @@ var FloorPlan = React.createClass({
 
 
 
+    if(window.isMobile){
+
     if (this.state.is2d) {
       imgSrc = twoDImgSrc;
 
@@ -31,19 +33,19 @@ var FloorPlan = React.createClass({
       anchor3dStyle = {
         background: "rgb(255, 255, 255)"
       };
-    } 
+    }
     else{
       imgSrc = threeDImgSrc;
-      
+
       anchor2dStyle = {
         background: "rgb(255, 255, 255)"
       };
 
       anchor3dStyle = {
         background: "rgb(213, 213, 212)"
-      };      
-    } 
-    
+      };
+    }
+
     if(!_.isEmpty(imgSrc)){
         previewDom = (<img src={imgSrc} className="img-responsive fit" id="imageid" />);
     }
@@ -51,12 +53,38 @@ var FloorPlan = React.createClass({
         previewDom = (<div className="nopreview">
                         <i className="fa fa-2x fa-picture-o"></i>
                         <h5>No preview available</h5>
-                      </div>) ;   
+                      </div>) ;
     }
 
+  }else{
+
+    if(!_.isEmpty(twoDImgSrc)){
+      var twodPreviewDom = (<img src={twoDImgSrc} className="img-responsive fit" id="imageid" />);
+    }else{
+      var twodPreviewDom = (<div className="nopreview">
+                      <i className="fa fa-2x fa-picture-o"></i>
+                      <h5>No preview available</h5>
+                    </div>) ;
+    }
+
+    if(!_.isEmpty(twoDImgSrc)){
+      var threedPreviewDom = (<img src={threeDImgSrc} className="img-responsive fit" id="imageid" />);
+    }else{
+      var threedPreviewDom = (<div className="nopreview">
+                      <i className="fa fa-2x fa-picture-o"></i>
+                      <h5>No preview available</h5>
+                    </div>) ;
+    }
+
+  }
 
 
-    
+
+
+
+
+
+
   var domToDisplay ;
 
 
@@ -96,25 +124,25 @@ else{
               Floor plans
             </span>
             <span className="contentText">
-              Simplicity of design and strong construction from the backbone of the Metro.
+              Visualize a home even before it is built and evaluate how space works for you.
             </span>
           </div>
         </div>
         <div className="col-xs-12 floorDetails">
           <div className="row">
             <div className="col-xs-6 text-center">
-              {previewDom}
+              {twodPreviewDom}
               <div className="plan col-xs-12 text-center text-uppercase">2D Floor plan</div>
             </div>
             <div className="col-xs-6 text-center">
-              {previewDom}
+              {threedPreviewDom}
               <div className="plan col-xs-12 text-center text-uppercase">3D Floor plan</div>
-            </div>                                                                          
-          </div> 
+            </div>
+          </div>
         </div>
       </div>
-    );  
-} 
+    );
+}
 
 
     return domToDisplay;

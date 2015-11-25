@@ -24,6 +24,7 @@ define('MAKE_BOOKING', 'makebooking/');
 define('BOOKING_PORTAL_URL', 'http://bookingcrm.cfunitselectortest.com/book-your-property');
 //define('BOOKING_PORTAL_URL', 'http://127.0.0.1:8000/book-your-property');
 define('CF_API_KEY', 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168');
+define('unitSelectorAuthKey','117ce294ece0684f69ad92ae450ba370b1259f69');  
 
 /**BOOKING CONSTANT***/
 define('EXPIREDURATION', 3);

@@ -334,6 +334,10 @@ var StepThree = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
 
+    hideContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },       
+
     toggelSunView: function(evt){
         evt.preventDefault();
         $clickedDiv = $(evt.currentTarget);
@@ -485,91 +489,7 @@ var StepThree = React.createClass({
         var newState = stateDataToformat;
 
         buildings = stateDataToformat.data.buildings;
-
-
-        if(buildings.length>0){
-            newStateData = newState.data;
-
-            floorGroups = [];
-
-            building = buildings[0];
-
-            // building specific data for units
-            unitData = building.unitData;
-            availableUnitData = building.availableUnitData;
-            filteredUnitData = building.filteredUnitData;
-            supportedUnitTypes = building.supportedUnitTypes;
-
-
-            // building floor groups
-            floor_groups = building.floor_group;
-
-            _.each(floor_groups, function(floor_group){
-                supportedUnitTypes = [];
-                floorGrpId = floor_group.id;
-                floorGroup = {};
-
-                floorGroup.id = floor_group.id;
-                floorGroup.building_name = floor_group.name;
-                floorGroup.no_of_floors = floor_group.floors.length;
-                floorGroup.primary_breakpoint = floor_group.primary_breakpoint;
-
-                floorGroupUnitData =[];
-                floorGroupAvailableUnitData =[];
-                floorGroupFilteredUnitData =[];
-
-                // pick only those units from unit data which have the current floor id
-                _.each(unitData, function(unit){
-                    unitFloorGrpId = parseInt(unit.floor_group_id);
-
-                    if(floorGrpId===unitFloorGrpId){
-                        floorGroupUnitData.push(unit) ;
-                    }
-
-                });
-
-                // pick only those units from unit data which have the current floor id
-                _.each(availableUnitData, function(unit){
-                    unitFloorGrpId = parseInt(unit.floor_group_id);
-
-                    if(floorGrpId===unitFloorGrpId){
-                        floorGroupAvailableUnitData.push(unit) ;
-                    }
-
-                });
-
-                // pick only those units from unit data which have the current floor id
-                _.each(filteredUnitData, function(unit){
-                    unitFloorGrpId = parseInt(unit.floor_group_id);
-
-                    if(floorGrpId===unitFloorGrpId){
-                        floorGroupFilteredUnitData.push(unit);
-                    }
-
-                });
-
-                floorGroup.unitData = floorGroupUnitData;
-                floorGroup.availableUnitData = floorGroupAvailableUnitData;
-                floorGroup.filteredUnitData = floorGroupFilteredUnitData;
-                floorGroup.unitData = floorGroupUnitData;
-
-                minPrice = 0;
-
-                minStartPrice = this.getMinUnitPrice(floorGroupUnitData);
-                floorGroup.minStartPrice = minStartPrice;
-
-                supportedUnitTypesArr = AppStore.getApartmentUnitTypes(floorGrpId, "floorgroups");
-                supportedUnitTypes = _.pluck(supportedUnitTypesArr,"name");
-                floorGroup.supportedUnitTypes = supportedUnitTypes;
-
-                floorGroups.push(floorGroup) ;
-
-            }.bind(this));
-
-        }
-
-
-        return floorGroups;
+        return buildings;
     },
 
 
@@ -610,7 +530,7 @@ var StepThree = React.createClass({
     render: function(){
 
 
-        var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight;
+        var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight, projectContactNo;
         var imageType, buildingToHighlight, modalData, filterTypes;
         var buildingId, groupId, allBuildings, currentBuilding, groupDropwdownData;
 
@@ -630,6 +550,8 @@ var StepThree = React.createClass({
         buildings = data.buildings;
         isFilterApplied = data.isFilterApplied;
         unitCount = data.totalCount;
+
+        projectContactNo = data.projectContactNo;
 
         unitIndexToHighlight = data.unitIndexToHighlight;
         applied_filters = data.applied_filters;
@@ -654,6 +576,8 @@ var StepThree = React.createClass({
         }else{
           groupDropwdownData = [];
         }
+
+        console.log(groupDropwdownData);
 
         var notlive_buildings =  [];
 
@@ -688,11 +612,13 @@ var StepThree = React.createClass({
                         selectFilter={this.selectFilter}
                         applyFilters = {this.applyFilters}
                         unapplyFilters = {this.unapplyFilters}
+                        hideContactModal = {this.hideContactModal}
                     />
                     <Modal
                         ref="contactModal"
                         modalData = {modalData}
                         modalPurpose = "mobileContactModal"
+                        hideContactModal = {this.hideContactModal}
                     />
 
                     <div className="toggleDiv">
@@ -728,6 +654,7 @@ var StepThree = React.createClass({
                         updateRotateShadow = {this.updateRotateShadow}
                         cardListFor = {cardListFor}
                         cardListForId = {cardListForId}
+                        projectContactNo = {projectContactNo}
                     />
 
                     <CardList
@@ -788,6 +715,7 @@ var StepThree = React.createClass({
                             updateRotateShadow = {this.updateRotateShadow}
                             cardListFor = {cardListFor}
                             cardListForId = {cardListForId}
+                            projectContactNo = {projectContactNo}
                         />
 
                         <div className="container-fluid">
@@ -838,6 +766,7 @@ var StepThree = React.createClass({
                             ref="contactModal"
                             modalData = {modalData}
                             modalPurpose = "contactModal"
+                            hideContactModal = {this.hideContactModal}
                         />
 
                     </div>
