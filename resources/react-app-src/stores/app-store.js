@@ -673,6 +673,8 @@ function getApartmentUnitTypes(collectivePropertyTypeId, groupId, collectiveProp
 		})
 	}
 
+	apartmentUnitTypes = _.sortBy(apartmentUnitTypes, function(type) { return type.id; });
+
 	return apartmentUnitTypes;
 }
 
@@ -1656,7 +1658,7 @@ function _getBuildingMasterDetails(buildingId){
 
 		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
 			_buildingMasterStateData = _buildingMasterStateData;
-		}	
+		}
 		else if((!_.isEmpty(_globalStateData.data.projectTitle))){
 
 			projectMasterStateData = _globalStateData;
@@ -2068,13 +2070,13 @@ var AppStore = merge(EventEmitter.prototype, {
 	formatGroupStateData: function(stateDataToformat){
 		var formattedStateData = formatGroupStateData(stateDataToformat);
 
-		return formattedStateData;		
+		return formattedStateData;
 	},
 
 	formatBuildingStateData:function(stateDataToformat){
 		var formattedStateData = formatBuildingStateData(stateDataToformat);
 
-		return formattedStateData;		
+		return formattedStateData;
 	},
 
 
