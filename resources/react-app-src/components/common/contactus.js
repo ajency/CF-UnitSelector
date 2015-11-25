@@ -65,7 +65,7 @@ var ContactUs = React.createClass({
 	  	var url = window.baseUrl + apiUrl + 'addlead';
 	  	var success =  request
 	   					.post(url)
-	   					.send(data)
+	   					.send(dataToSubmit)
 	   					.set('X-Authorization', window.unitSelectorAuthKey)
 	   					.set('Accept', 'application/json')
 	   					.end(function(err, res){
