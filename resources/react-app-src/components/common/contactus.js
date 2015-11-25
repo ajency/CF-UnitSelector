@@ -39,6 +39,10 @@ var ContactUs = React.createClass({
 	    }
 	},
 
+	componentDidUpdate: function() {
+		$('#contactform')[0].reset();
+	},
+
 	submitContactData: function(data){
 
 		var dataToSubmit = {
@@ -84,9 +88,8 @@ var ContactUs = React.createClass({
   	render: function() {
 
   		var errorClass = classNames({
-  			"successMsg" : (this.state.formSubmit)&&(this.state.successfulSubmission),
   			"errorMsg":(this.state.formSubmit)&&(!this.state.successfulSubmission),
-  			"hidden": (!this.state.formSubmit)&&(!this.state.successfulSubmission)
+  			"hidden": ((!this.state.formSubmit)&&(!this.state.successfulSubmission)) || ((this.state.formSubmit)&&(this.state.successfulSubmission))
   		})
 
   		var message = "";
@@ -97,14 +100,14 @@ var ContactUs = React.createClass({
   			message = "Not Successfully submitted";	
   		}
 		return (
-			<form onSubmit={this._onSubmit} >
+			<form onSubmit={this._onSubmit} id="contactform">
 		  		<forms.RenderForm 
 		  			form={SignupForm} 
 		  			ref="signupForm"
 		  			className = "p-0 col-lg-12 inputOuter"
 		  		/>
 		  		<div className="p-0 col-lg-12 proceedBtn text-center">
-		  			<button className="btn btn-default btn-primary text-uppercase">Submit</button>
+		  			<button className="btn btn-default btn-primary text-uppercase" {disabled}>Submit</button>
 		  		</div>
 		  		<div className={errorClass}>{message}</div>
 			</form>
