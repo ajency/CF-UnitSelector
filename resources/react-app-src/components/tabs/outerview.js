@@ -85,8 +85,6 @@ var OutsideView = React.createClass({
                             key={svgKey2}
                             svgUrl={step3SvgUrl}
                             imgUrl={step3ImgUrl}
-                            buildingId = {this.props.buildingId}
-                            unitId = {this.props.unitId}
                             svgElementToSelect = "apartment"
                             svgElementId = {this.props.unitId}
                         />
