@@ -84,7 +84,7 @@ var ContactUs = React.createClass({
   	render: function() {
 
   		var errorClass = classNames({
-  			"successMsg" : (this.state.formSubmit)&&(this.state.successfulSubmission)
+  			"successMsg" : (this.state.formSubmit)&&(this.state.successfulSubmission),
   			"errorMsg":(this.state.formSubmit)&&(!this.state.successfulSubmission),
   			"hidden": (!this.state.formSubmit)&&(!this.state.successfulSubmission)
   		})
