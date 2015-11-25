@@ -484,6 +484,10 @@ body {
   .inputOuter
   {
      padding:10px;
+     > div
+     {
+      position: relative;
+     }
     input
     {
       width:100%;
@@ -497,6 +501,21 @@ body {
       {
         outline:none;
       } 
+    }
+    label
+    {
+      display: none;
+    }
+    .errorlist 
+    {
+      li
+      {
+        list-style: none;
+        position: absolute;
+        top: 44px;
+        font-size: 11px;
+        color: @real-red;
+      }
     }
   }  
   .close
