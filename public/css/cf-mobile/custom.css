@@ -1035,6 +1035,7 @@ div.spritespin-div {
 }
 .tab-content .details .flatDetails .price i {
   margin-left: 1px;
+  margin-left: 5px;
 }
 .tab-content .details .flatDetails .dimensionalViewBtn {
   float: right;
@@ -1084,6 +1085,10 @@ div.spritespin-div {
 .tab-content .projectDetails {
   margin-top: 20px;
 }
+.tab-content .projectDetails a {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
 .tab-content .projectDetails .roomHeading {
   padding: 0;
   margin-bottom: 10px;
@@ -1107,11 +1112,13 @@ div.spritespin-div {
   color: #bcbcba;
   font-size: 14px;
   padding-left: 0;
+  word-wrap: break-word;
 }
 .tab-content .projectDetails .row .right {
   color: gray-darker;
   font-size: 14px;
   padding-right: 0;
+  word-wrap: break-word;
 }
 .tab-content .gallery h5 {
   margin-top: 15px;
@@ -1185,6 +1192,10 @@ div.spritespin-div {
   padding: 10px;
   width: 100%;
 }
+.contactModal .contactContent {
+  float: left;
+  width: 100%;
+}
 .contactModal .modal-header {
   border: none !important;
   padding: 0;
@@ -1209,6 +1220,9 @@ div.spritespin-div {
 .contactModal .inputOuter {
   padding: 10px;
 }
+.contactModal .inputOuter lebel {
+  display: none;
+}
 .contactModal .inputOuter input {
   width: 100%;
   background: none;
@@ -1220,6 +1234,16 @@ div.spritespin-div {
 }
 .contactModal .inputOuter input:focus {
   outline: none;
+}
+.contactModal .inputOuter > div {
+  position: relative;
+}
+.contactModal .inputOuter .errorlist li {
+  position: absolute;
+  top: 34px;
+  list-style: none;
+  color: red;
+  font-size: 11px;
 }
 .contactModal .close {
   position: absolute;
