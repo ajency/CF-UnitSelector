@@ -647,6 +647,9 @@ body a {
 .contactModal .inputOuter {
   padding: 10px;
 }
+.contactModal .inputOuter > div {
+  position: relative;
+}
 .contactModal .inputOuter input {
   width: 100%;
   background: none;
@@ -658,6 +661,16 @@ body a {
 }
 .contactModal .inputOuter input:focus {
   outline: none;
+}
+.contactModal .inputOuter label {
+  display: none;
+}
+.contactModal .inputOuter .errorlist li {
+  list-style: none;
+  position: absolute;
+  top: 44px;
+  font-size: 11px;
+  color: #ee1f3b;
 }
 .contactModal .close {
   position: absolute;
@@ -1835,6 +1848,7 @@ select::-ms-expand {
   color: #bcbcba;
   font-size: 12px;
   padding: 5px 15px;
+  word-wrap: break-word;
 }
 .step4Desk .detailView .unit .roomDetails .right {
   color: #565654;
