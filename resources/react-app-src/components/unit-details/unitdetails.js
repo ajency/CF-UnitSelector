@@ -198,6 +198,10 @@ var UnitDetails = React.createClass({
 
 	},
 
+    hideContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },   	
+
 
 	render: function() {
 
@@ -241,13 +245,14 @@ var UnitDetails = React.createClass({
 						projectId = {projectId}
 						unitStatus = {status}
 						showContactModal = {this.showContactModal}
-            projectContactNo = {projectContactNo}
+            			projectContactNo = {projectContactNo}
 					/>
 
 	                <Modal
 	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "mobileContactModal"
+                        hideContactModal = {this.hideContactModal}
 	                />
 				</div>
 			)
@@ -285,6 +290,7 @@ var UnitDetails = React.createClass({
 	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "contactModal"
+                        hideContactModal = {this.hideContactModal}
 	                />
 				</div>
 		)

@@ -59,8 +59,12 @@
 
         window.isMobile = isMobile;
     	window.baseUrl = '{{url()}}';
-    	window.projectId = '{{$id}}';
+        window.projectId = '{{$id}}';
+    	window.unitSelectorAuthKey = '{{$unitSelectorAuthKey}}';
         window.prevShadowState = false;
+        window.project_title = "";
+        window.builder_email = "";
+        window.builder_phone = "";
     </script>
 
 
