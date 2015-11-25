@@ -70,7 +70,7 @@ var OutsideView = React.createClass({
                 <div className="col-xs-12 floorDetails">
                   <div className="row">
                     <div className="col-xs-7 text-center">
-                        <div className="plan col-xs-12 text-uppercase pNone">Tower view</div>
+                        
                         <SvgView
                             key={svgKey1}
                             svgUrl={step1SvgUrl}
@@ -78,9 +78,10 @@ var OutsideView = React.createClass({
                             svgElementToSelect = "building"
                             svgElementId = {this.props.buildingId}
                         />
+                        <div className="plan col-xs-12 text-uppercase pNone">Tower view</div>
                     </div>
                     <div className="col-xs-5 text-center">
-                        <div className="plan col-xs-12 text-uppercase pNone">Unit view</div>
+                        
                         <SvgView
                             key={svgKey2}
                             svgUrl={step3SvgUrl}
@@ -88,6 +89,7 @@ var OutsideView = React.createClass({
                             svgElementToSelect = "apartment"
                             svgElementId = {this.props.unitId}
                         />
+                        <div className="plan col-xs-12 text-uppercase pNone">Unit view</div>
                     </div>
                   </div>
                 </div>
