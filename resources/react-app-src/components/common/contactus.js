@@ -39,6 +39,10 @@ var ContactUs = React.createClass({
 	    }
 	},
 
+	componentDidUpdate: function() {
+		$('#contactform')[0].reset();
+	},
+
 	submitContactData: function(data){
 
 		var dataToSubmit = {
@@ -84,9 +88,8 @@ var ContactUs = React.createClass({
   	render: function() {
 
   		var errorClass = classNames({
-  			"successMsg" : (this.state.formSubmit)&&(this.state.successfulSubmission),
   			"errorMsg":(this.state.formSubmit)&&(!this.state.successfulSubmission),
-  			"hidden": (!this.state.formSubmit)&&(!this.state.successfulSubmission)
+  			"hidden": ((!this.state.formSubmit)&&(!this.state.successfulSubmission)) || ((this.state.formSubmit)&&(this.state.successfulSubmission))
   		})
 
   		var message = "";
@@ -97,7 +100,7 @@ var ContactUs = React.createClass({
   			message = "Not Successfully submitted";	
   		}
 		return (
-			<form onSubmit={this._onSubmit} >
+			<form onSubmit={this._onSubmit} id="contactform">
 		  		<forms.RenderForm 
 		  			form={SignupForm} 
 		  			ref="signupForm"
