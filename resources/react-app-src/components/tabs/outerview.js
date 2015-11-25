@@ -29,6 +29,7 @@ var OutsideView = React.createClass({
                                 <h4>Outside view</h4>
                             </div>
                             <br/>
+                            <h5>Tower view</h5>
                             <SvgView
                                 key={svgKey1}
                                 svgUrl={step1SvgUrl}
@@ -37,6 +38,16 @@ var OutsideView = React.createClass({
                                 svgElementId = {this.props.buildingId}
                             />
                             <br/>
+                            <h5>Unit view</h5>
+                              <SvgView
+                                  key={svgKey2}
+                                  svgUrl={step3SvgUrl}
+                                  imgUrl={step3ImgUrl}
+                                  buildingId = {this.props.buildingId}
+                                  unitId = {this.props.unitId}
+                                  svgElementToSelect = "apartment"
+                                  svgElementId = {this.props.unitId}
+                              />
                         </div>
                         <div id="Fullscreen">
                             <img src="" alt="" />

@@ -22,7 +22,7 @@ var TabPanes = React.createClass({
   	unitPrimaryBreakPoint = unitData.basic.primaryBreakPoint;
   	buildingMasterImgs = unitData.basic.buildingMasterImgs;
   	buildingId = unitData.basic.buildingId;
-  	
+
   	step1ImgUrl = projectMasterImgs[buildingPrimaryBreakPoint];
   	step1SvgUrl = BASEURL+'/projects/'+PROJECTID+'/master/master-'+unitPrimaryBreakPoint+'.svg';
 
@@ -30,49 +30,62 @@ var TabPanes = React.createClass({
   	step3SvgUrl = BASEURL+'/projects/'+PROJECTID+'/buildings/'+buildingId+'/step-three-'+unitPrimaryBreakPoint+'.svg';
   	step3ImgUrl = buildingMasterImgs[unitPrimaryBreakPoint];
 
+    if(_.isEmpty(unitData.basic.url2dlayout) && _.isEmpty(unitData.basic.url3dlayout)){
+      floorplancontent = "";
+    }else{
+      floorplancontent = (
+        <FloorPlan
+		    	url2dlayout = {unitData.basic.url2dlayout}
+		    	url3dlayout = {unitData.basic.url3dlayout}
+		    />
+      );
+    }
+
+    if(_.isEmpty(unitData.basic.live_tour)){
+      livetourcontent = "";
+    }else{
+      livetourcontent = (
+        <LiveTour />
+      );
+    }
+
 	if(window.isMobile){
+
 		domToDisplay = (
-			<div className="tab-content">		    
-		    
-		    <Details 
+			<div className="tab-content">
+
+		    <Details
 		    	basicDetails = {unitData.basic}
 		    	roomData = {unitData.rooms}
 		    />
 
-		    <FloorPlan 
-		    	url2dlayout = {unitData.basic.url2dlayout}
-		    	url3dlayout = {unitData.basic.url3dlayout}
-		    />
+      {floorplancontent}
+      {livetourcontent}
 
-		    <LiveTour />
-
-		    <OutsideView 
+		    <OutsideView
 		    	step1ImgUrl = {step1ImgUrl}
 		    	step1SvgUrl = {step1SvgUrl}
 		    	step3ImgUrl = {step3ImgUrl}
 		    	step3SvgUrl = {step3SvgUrl}
 		    	buildingId = {unitData.basic.buildingId}
 		    	unitId = {unitData.basic.id}
-		    />	   
+		    />
 		</div>
 			);
 	}else{
 
 		domToDisplay = (
-			<div className="contentOuter col-xs-12 pNone">		    
-		    	<Details 
+			<div className="contentOuter col-xs-12 pNone">
+		    	<Details
 		    	basicDetails = {unitData.basic}
 		    	roomData = {unitData.rooms}
 		    />
 
-		    <FloorPlan 
-		    	url2dlayout = {unitData.basic.url2dlayout}
-		    	url3dlayout = {unitData.basic.url3dlayout}
-		    />
+		    {floorplancontent}
 
-		    <LiveTour />
+		    {livetourcontent}
 
-		    <OutsideView 
+		    <OutsideView
 		    	step1ImgUrl = {step1ImgUrl}
 		    	step1SvgUrl = {step1SvgUrl}
 		    	step3ImgUrl = {step3ImgUrl}
