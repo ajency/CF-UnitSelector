@@ -155,6 +155,7 @@
 				i
 				{
 					margin-left:1px;
+					margin-left: 5px;
 				}
 			}
 			.dimensionalViewBtn
@@ -222,6 +223,11 @@
 	.projectDetails
 	{	
 		margin-top:20px;
+		a
+		{
+			margin-bottom:20px;
+			margin-top:10px;
+		}
 		.roomHeading
 		{
 			padding:0;
@@ -253,6 +259,7 @@
 				color:@gray-light;
 				font-size:14px;
 				padding-left:0;
+				word-wrap: break-word;
 			}
 
 			.right
@@ -260,6 +267,7 @@
 				color:gray-darker;
 				font-size:14px;
 				padding-right:0;
+			    word-wrap: break-word;
 			}
 		}
 	}
@@ -337,8 +345,8 @@
 .contactModal 
 	{
   
-  top:15% !important;
-  bottom:50px !important;
+  top:6% !important;
+  /*bottom:50px !important;*/
   z-index:15050;
   .modal-body
   {
@@ -356,6 +364,11 @@
   .content
   {
   	padding:10px;
+  	width:100%;
+  }
+  .contactContent
+  {
+  	float:left;
   	width:100%;
   }
   .modal-header
@@ -389,6 +402,10 @@
   .inputOuter
   {
      padding:10px;
+     label
+     {
+		display:none;     
+     }
     input
     {
       width:100%;
@@ -402,6 +419,21 @@
       {
         outline:none;
       } 
+    }
+    > div
+    {
+    	position:relative;
+    }
+    .errorlist
+    {
+    	li
+    	{
+    		position: absolute;
+		    top: 34px;
+		    list-style: none;
+		    color: red;
+		    font-size: 11px;
+    	}
     }
   }  
   .close
@@ -544,4 +576,8 @@
 .hasTooltip{
 	position: absolute;
 	z-index: 9999;
+}
+.modal-backdrop
+{
+	z-index: 15000!important;
 }

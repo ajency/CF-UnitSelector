@@ -236,7 +236,7 @@ var UnitDetails = React.createClass({
 						unitId = {unitId}
 						projectId = {projectId}
 						unitStatus = {status}
-            unitData = {unitData}
+            			unitData = {unitData}
 					/>
 					<TabPanes
 						unitData = {unitData}

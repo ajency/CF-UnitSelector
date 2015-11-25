@@ -84,7 +84,7 @@ if(window.isMobile){
                         <h4 className="text-uppercase">{basicDetails.name}</h4>
                         <span className="text-muted unitFacing">{basicDetails.direction} Facing</span>
 
-                        <div className="price text-muted"> <i className="fa fa-inr"></i> {basicDetails.sellingAmount}
+                        <div className="price text-muted"> From <i className="fa fa-inr"></i> {basicDetails.sellingAmount}
                             <span className="availability">{s.humanize(basicDetails.status)}</span>
                         </div>
                     </div>
