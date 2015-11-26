@@ -542,6 +542,7 @@ var StepThree = React.createClass({
 
     render: function(){
 
+        window.currentStep = "three";
 
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight, projectContactNo;
         var imageType, buildingToHighlight, modalData, filterTypes;

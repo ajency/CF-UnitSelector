@@ -858,6 +858,14 @@ PROTOTYPE.reposition = function(event, effect) {
 	var svgElemwidth =  svgRect.width;
  	var newQtipLeft = position.left + (svgElemwidth/2);
  	position.left = newQtipLeft;
+
+ 	// if in step 2 or 3 of unit selctor then move the tooltip down
+ 	if(window.currentStep=="two"||window.currentStep=="three"){
+ 		var svgElemheight =  svgRect.height;
+ 		var newQtipTop = position.top + (svgElemheight/2);
+ 		position.top = newQtipTop;
+
+ 	}
  	/** Adjust left based on half of width of targetted svg element - ADDED BT NUTAN ENDs **/ 	
 
 	// Use viewport adjustment plugin if enabled

@@ -66,6 +66,7 @@
         window.project_title = "";
         window.builder_email = "";
         window.builder_phone = "";
+        window.currentStep = "one";
     </script>
 
 

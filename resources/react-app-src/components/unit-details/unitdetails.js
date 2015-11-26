@@ -206,6 +206,8 @@ var UnitDetails = React.createClass({
 
 	render: function() {
 
+		window.currentStep = "four";
+
 		var domToDisplay;
 
 		var unitId = this.props.unitId;

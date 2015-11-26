@@ -526,7 +526,8 @@ var StepTwo = React.createClass({
 
     render: function(){
 
-
+        window.currentStep = "two";
+        
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight, projectContactNo;
         var imageType, buildingToHighlight, modalData, filterTypes;
         var buildingId, allBuildings, buildingDropwdownData, messageBoxMsg;

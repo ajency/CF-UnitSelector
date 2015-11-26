@@ -462,6 +462,7 @@ var StepOne = React.createClass({
     },
 
     render: function(){
+        window.currentStep = "one";
 
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight, projectContactNo;
         var imageType, buildingToHighlight, modalData, filterTypes, messageBoxMsg;
