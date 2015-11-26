@@ -53,7 +53,6 @@ class ProjectGateway implements ProjectGatewayInterface {
         else
             $logoExist = false;
 
-        echo $logoExist; exit;
         // $logoUrl=getimagesize($project_logo);
         // $logoExist = (is_array($logoUrl)) ?  : false;
 
