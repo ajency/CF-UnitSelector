@@ -38,7 +38,7 @@ var SideBar = React.createClass({
 
 		// calculate sideContentBarHeight
     	if(cardListFor === 'building'){
-      		sideContentBarHeight = windowHeight-500;
+      		sideContentBarHeight = windowHeight-460;
       		// sideContentBarHeight = windowHeight-250;
     	}
     	else{

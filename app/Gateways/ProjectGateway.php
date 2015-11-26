@@ -42,8 +42,19 @@ class ProjectGateway implements ProjectGatewayInterface {
         $builder_email = $projectMetaData['builder_email'];
         $builder_phone = $projectMetaData['builder_phone'];
         //$project_logo =  $project->projectMeta()->where( 'meta_key' )->first()->meta_value;
-        $logoUrl=getimagesize($project_logo);
-        $logoExist = (is_array($logoUrl)) ? true : false;
+        
+        $ch = curl_init($project_logo);
+        curl_setopt($ch, CURLOPT_NOBODY, true);
+        curl_exec($ch);
+        $retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        if($retcode==200)
+            $logoExist = true;
+        else
+            $logoExist = false;
+
+        // $logoUrl=getimagesize($project_logo);
+        // $logoExist = (is_array($logoUrl)) ?  : false;
 
         $projectViews = $project->attributes->toArray();
          

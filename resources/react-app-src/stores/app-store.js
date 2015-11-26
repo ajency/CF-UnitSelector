@@ -1656,10 +1656,7 @@ function _getBuildingMasterDetails(buildingId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
-			_buildingMasterStateData = _buildingMasterStateData;
-		}
-		else if((!_.isEmpty(_globalStateData.data.projectTitle))){
+		if((!_.isEmpty(_globalStateData.data.projectTitle))){
 
 			projectMasterStateData = _globalStateData;
 

@@ -6,6 +6,7 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Project;
+use  CommonFloor\ProjectMeta;
 use CommonFloor\RoomType;
 use CommonFloor\Attribute;
 use CommonFloor\ProjectPropertyType;
@@ -298,7 +299,31 @@ class ProjectRoomTypeController extends Controller {
     }
 
     public function deleteAttribute($project_id, $attribute_id) {
-        Attribute::find($attribute_id)->delete();
+        $projectMeta = ProjectMeta:: where(['project_id'=>$project_id,'meta_key'=>'filters'])->first();
+        $filters = unserialize($projectMeta->meta_value);
+        $attribute = Attribute::find($attribute_id);
+     
+        if($attribute->object_type == "CommonFloor'CommonFloor\ProjectPropertyType")
+        { 
+            $propertyTypeNames = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
+            $propertyTypeId = ProjectPropertyType::find($attribute->object_id)->property_type_id;
+            $propertyType = $propertyTypeNames[$propertyTypeId]; 
+            $label = $attribute->label; 
+            if(isset($filters[$propertyType]))
+            {
+                $key = array_search($label, $filters[$propertyType]);
+               
+                unset($filters[$propertyType][$key]);
+                if(empty($filters[$propertyType]))
+                    unset($filters[$propertyType]);
+            }
+         
+             $projectMeta->meta_value = serialize($filters);
+             $projectMeta->save();
+
+        }
+        
+        $attribute->delete();
 
         return response()->json([
                     'code' => 'attribute_deleted',
