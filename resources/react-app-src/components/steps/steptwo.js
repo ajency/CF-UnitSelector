@@ -223,8 +223,11 @@ var StepTwo = React.createClass({
                     oldataTochange = oldSearchFilters[filterType];
                 }
                 else{
-                    oldSearchFilters[filterType] = [];
-                    oldataTochange = oldSearchFilters[filterType];
+                  var jsondata = {};
+                  jsondata[filterType] = {$set: []};
+
+                  oldSearchFilters = immutabilityHelpers( oldSearchFilters,jsondata);
+                  oldataTochange = oldSearchFilters[filterType];
                 }
 
 
@@ -247,10 +250,15 @@ var StepTwo = React.createClass({
                 //For range filter, reset the filter with new min max value
                 if(filterStyle == 'range'){
                     oldataTochange = [];
-                    _.each(valueToSet, function(rangeValue){
-                        oldataTochange.push(rangeValue);
-                    });
-
+                    var min = valueToSet.indexOf("MIN");
+                    var max = valueToSet.indexOf("MAX");
+                    if(min > -1 || max > -1){
+                      oldataTochange = [];
+                    }else{
+                      _.each(valueToSet, function(rangeValue){
+                          oldataTochange.push(rangeValue);
+                      });
+                    }
                 }
 
 
@@ -292,8 +300,6 @@ var StepTwo = React.createClass({
         this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState,"buildingFloorGroups");
 
-        console.log(newState);
-
     },
 
     projectDataUpdateCallBack: function(){
@@ -329,7 +335,7 @@ var StepTwo = React.createClass({
 
     hideContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
-    },       
+    },
 
     toggelSunView: function(evt){
         evt.preventDefault();
@@ -375,24 +381,27 @@ var StepTwo = React.createClass({
 
         var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
 
-        if(totalFilterApplied === 0){
-            dataToSet ={
-                property: "reset_filters",
-                value: {}
-            };
-        }
-        else{
-            dataToSet = {
-                property: "applied_filters",
-                value: this.state.data.search_filters
-            };
-        }
+      if(totalFilterApplied > 0){
 
+        dataToSet = {
+            property: "applied_filters",
+            value: this.state.data.search_filters
+        };
 
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
 
+      }else if(totalFilterApplied == 0){
+        dataToSet ={
+            property: "applied_filters",
+            value: {}
+        };
+
+        this.updateStateData([dataToSet]);
+
+        this.updateProjectMasterData();
+      }
 
     },
 
@@ -401,16 +410,18 @@ var StepTwo = React.createClass({
         console.log("Un Apply filters");
         this.destroyTooltip();
 
+        var totalFilterApplied = AppStore.getFilteredCount(this.state.data.applied_filters);
+
         dataToSet ={
             property: "reset_filters",
             value: {}
         };
 
+        if(totalFilterApplied > 0){
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
-
-
+      }
     },
 
     updateSearchFilters: function(filterType, filterValue, filterStyle){

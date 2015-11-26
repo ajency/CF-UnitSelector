@@ -673,7 +673,7 @@ function getApartmentUnitTypes(collectivePropertyTypeId, groupId, collectiveProp
 		})
 	}
 
-	apartmentUnitTypes = _.sortBy(apartmentUnitTypes, function(type) { return type.id; });
+	apartmentUnitTypes = _.sortBy(apartmentUnitTypes, function(type) { return type.name; });
 
 	return apartmentUnitTypes;
 }
@@ -1278,7 +1278,7 @@ function _loadProjectData(data) {
 	// set a few globals
     window.project_title = _projectData.project_title;
     window.builder_email = _projectData.builder_email;
-    window.builder_phone = _projectData.builder_phone;	
+    window.builder_phone = _projectData.builder_phone;
 
 	_globalStateData = _getProjectMasterData();
 

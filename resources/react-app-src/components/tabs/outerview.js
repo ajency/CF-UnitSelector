@@ -63,7 +63,7 @@ var OutsideView = React.createClass({
                       Outside view
                     </span>
                     <span className="contentText">
-                      2D view of project and your selected tower.
+                      2D view of project and your selected tower
                     </span>
                   </div>
                 </div>

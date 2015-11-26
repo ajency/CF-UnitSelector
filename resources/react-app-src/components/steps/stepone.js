@@ -219,8 +219,11 @@ var StepOne = React.createClass({
                     oldataTochange = oldSearchFilters[filterType];
                 }
                 else{
-                    oldSearchFilters[filterType] = [];
-                    oldataTochange = oldSearchFilters[filterType];
+                  var jsondata = {};
+                  jsondata[filterType] = {$set: []};
+
+                  oldSearchFilters = immutabilityHelpers( oldSearchFilters,jsondata);
+                  oldataTochange = oldSearchFilters[filterType];
                 }
 
 
@@ -252,9 +255,6 @@ var StepOne = React.createClass({
                           oldataTochange.push(rangeValue);
                       });
                     }
-
-
-
                 }
 
 
@@ -272,12 +272,14 @@ var StepOne = React.createClass({
             if(dataToSet.property === "applied_filters"){
 
                 valueToSet = dataToSet.value;
-
+                
                 newState = immutabilityHelpers( oldState, { data:
-                                                            {applied_filters:
-                                                                {$set: valueToSet}
-                                                            }
-                                                          });
+                  {applied_filters:
+                    {$set: valueToSet}
+                  }
+                });
+
+
             }
             if(dataToSet.property === "unitIndexToHighlight"){
                 newState = immutabilityHelpers( oldState, { data:
@@ -335,10 +337,10 @@ var StepOne = React.createClass({
     showContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
-    
+
     hideContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
-    },    
+    },
 
     toggelSunView: function(evt){
 
@@ -387,24 +389,27 @@ var StepOne = React.createClass({
 
         var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
 
-        if(totalFilterApplied === 0){
-            dataToSet ={
-                property: "reset_filters",
-                value: {}
-            };
-        }
-        else{
-            dataToSet = {
-                property: "applied_filters",
-                value: this.state.data.search_filters
-            };
-        }
+      if(totalFilterApplied > 0){
 
+        dataToSet = {
+            property: "applied_filters",
+            value: this.state.data.search_filters
+        };
 
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
 
+      }else if(totalFilterApplied == 0){
+        dataToSet ={
+            property: "applied_filters",
+            value: {}
+        };
+
+        this.updateStateData([dataToSet]);
+
+        this.updateProjectMasterData();
+      }
 
     },
 
@@ -413,14 +418,18 @@ var StepOne = React.createClass({
         console.log("Un Apply filters");
         this.destroyTooltip();
 
+        var totalFilterApplied = AppStore.getFilteredCount(this.state.data.applied_filters);
+
         dataToSet ={
             property: "reset_filters",
             value: {}
         };
 
+        if(totalFilterApplied > 0){
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
+        }
 
 
     },
