@@ -499,6 +499,7 @@ class UnitController extends ApiGuardController {
             $data['email'] = $request['email'];
             $data['toemail'] = $request['toemail'];
             $data['toname'] = $request['toname'];
+            $data['phone'] = $request['phone'];
             
             if($request['toemail'] !='' && $request['toname'] !='')
             {

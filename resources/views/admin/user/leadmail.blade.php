@@ -37,29 +37,20 @@
                                                     <td valign="top" class="bodyContent" mc:edit="body_content" style="color: #505050;font-family: Arial;font-size: 14px;line-height: 150%;padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;text-align: left;">
 
 
-                                                       Dear {{ $user['name']}},
+                                                       Dear {{ $user['toname']}},
                                                         <br/>
-                                                        <h3>Welcome to CommonFloor Unit Selector!</h3>
+                                                         
 
-                                                            Your Account on CommonFloor Unit Selector has been created with the following credentials -
+                                                            {{ $user['name']}} showed interest towards an apartment from {{ $user['toname']}}. Details are as follows:
                                                          <br>
                                                             <br>
+                                                            <span>Name:</span> {{ $user['name']}}<br>
                                                             <span>Email:</span> {{ $user['email']}}<br>
-                                                            <span>Your account has been set with a randomly generated password :</span> 
+                                                            <span>Phone:</span> {{ $user['phone']}}<br>
                                                             <br>
                                                             <br>
 
-                                                            To go back to the Login page, <a href="{{  url() }}">click here</a>
-
-                                                             or copy paste the link below in your browser to login to your account:<br>
-                                                            <a href="{{  url() }}">{{  url() }}</a>
-
-                                                            <br/>
-
-                                                            You can update the password to the one of your choice from the profile page.
-                                                            <br/>
-                                                            <br/>
-                                                            If you need any further assitance, feel free to reach us at 1800 180 180 180 or email us at <a href="#">support@commonfloor.com</a> 
+                                                            Kindly furnish him with details of the apartment selected/available. 
                                                         <br/>
                                                 <br/>
                                                             Thanks,
