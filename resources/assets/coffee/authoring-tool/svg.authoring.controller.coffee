@@ -129,7 +129,7 @@ jQuery(document).ready ($)->
             marked = []
             $.each items,(ind,val)->
                 # if !_.isEmpty val.get('canvas_type')
-                 
+                console.log val 
                 if parseInt val.get('object_id')!=0
                     marked.push val
 

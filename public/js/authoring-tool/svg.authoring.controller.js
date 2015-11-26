@@ -102,6 +102,7 @@ jQuery(document).ready(function($) {
       units = window.actualUnits(value.toLowerCase());
       marked = [];
       $.each(items, function(ind, val) {
+        console.log(val);
         if (parseInt(val.get('object_id') !== 0)) {
           return marked.push(val);
         }
