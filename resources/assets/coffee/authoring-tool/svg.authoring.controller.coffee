@@ -152,6 +152,13 @@ jQuery(document).ready ($)->
             units = plotVariantCollection.getPlotMasterUnits()
         if value == 'building'
             units = buildingMasterCollection.toArray()
+        if value == 'floor_group'
+            buildings = buildingMasterCollection.toArray()
+            building = _.where(buildings, {id: parseInt(building_id) })
+            attributes = _.pluck(building, 'attributes')
+            floorGroups = _.pluck(attributes, 'floor_group')
+            units = floorGroups[0]
+            console.log units
          if value == 'apartment'
             units = apartmentVariantCollection.getApartmentMasterUnits()
             temp = new Backbone.Collection units
@@ -588,7 +595,8 @@ jQuery(document).ready ($)->
                 floorGrops = _.pluck(attributes, 'floor_group')
 
                 unit = _.where(floorGrops[0], {id: parseInt(elem.id) })
-                unit_name = unit[0]['name']
+                if !_.isEmpty unit
+                    unit_name = unit[0]['name']
                  
             else if type isnt 'building' && type isnt 'project'
                 unit = unitMasterCollection.findWhere
@@ -602,6 +610,7 @@ jQuery(document).ready ($)->
                     floorGrops = _.pluck(attributes, 'floor_group')
                     floorGrop = _.where(floorGrops[0], {id: parseInt(unit.get('floor_group_id')) })
                     
+                    console.log "floorgroup"
                     select = $('.floor-group')
                     $('<option />', {value: floorGrop[0]['id'], text: floorGrop[0]['name']}).appendTo(select)
                     $('.floor-group').attr 'disabled' ,  true
