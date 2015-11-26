@@ -56,18 +56,15 @@
                                         </div>
                         
                                     </div>
-                     <div class="col-md-4">
+                     <!-- <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Floor Rise <span class="text-primary">*</span></label>
                                        <input required="" type="text" class="form-control" name="floor_rise"    placeholder="Enter Floor Rise" data-parsley-required data-parsley-type="number" > 
                                         </div>
 
-                                    </div>
-                                     
-                                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
+                                    </div> -->
+                                    <input required="" type="hidden" class="form-control" name="floor_rise"    placeholder="Enter Floor Rise" data-parsley-required data-parsley-type="number" > 
+                                     <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Phase<span class="text-primary">*</span></label>
                                 @if($project['has_phase']=='yes')
@@ -89,6 +86,10 @@
                                              
                                         </div>
                                     </div>
+                                    </div>
+
+                    <div class="row">
+                        
                         <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Has Master<span class="text-primary">*</span></label>
