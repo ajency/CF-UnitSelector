@@ -302,7 +302,7 @@ class ProjectRoomTypeController extends Controller {
         $projectMeta = ProjectMeta:: where(['project_id'=>$project_id,'meta_key'=>'filters'])->first();
         $filters = unserialize($projectMeta->meta_value);
         $attribute = Attribute::find($attribute_id);
-        
+     
         if($attribute->object_type == "CommonFloor'CommonFloor\ProjectPropertyType")
         { 
             $propertyTypeNames = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
@@ -314,6 +314,8 @@ class ProjectRoomTypeController extends Controller {
                 $key = array_search($label, $filters[$propertyType]);
                
                 unset($filters[$propertyType][$key]);
+                if(empty($filters[$propertyType]))
+                    unset($filters[$propertyType]);
             }
          
              $projectMeta->meta_value = serialize($filters);
