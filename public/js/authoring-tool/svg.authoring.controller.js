@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
       units = window.actualUnits(value.toLowerCase());
       marked = [];
       $.each(items, function(ind, val) {
-        if (val.get('object_id') !== 0) {
+        if (val.get('object_id') !== '0') {
           console.log("MARKED UNITS");
           console.log(val.get('object_id'));
           return marked.push(val);

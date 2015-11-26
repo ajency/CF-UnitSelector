@@ -130,7 +130,7 @@ jQuery(document).ready ($)->
             $.each items,(ind,val)->
                 # if !_.isEmpty val.get('canvas_type')
                 
-                if val.get('object_id')!=0
+                if val.get('object_id')!='0'
                     console.log "MARKED UNITS"
                     console.log val.get('object_id')
                     marked.push val
