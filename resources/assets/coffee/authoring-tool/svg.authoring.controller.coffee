@@ -139,6 +139,7 @@ jQuery(document).ready ($)->
                 'id'   : value
                 'total' : units.length
                 'marked' : marked.length
+            console.log type
         # $.each type,(index,value)->
         #   if value.total is 0
         #       type = _.without(type, value)

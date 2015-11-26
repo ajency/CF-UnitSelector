@@ -108,12 +108,13 @@ jQuery(document).ready(function($) {
           return marked.push(val);
         }
       });
-      return type.push({
+      type.push({
         'name': value,
         'id': value,
         'total': units.length,
         'marked': marked.length
       });
+      return console.log(type);
     });
     return type;
   };
