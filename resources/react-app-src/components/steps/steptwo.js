@@ -673,6 +673,9 @@ var StepTwo = React.createClass({
                         dropDownData = {buildingDropwdownData}
                         facing = {facing}
                         previousEntityId = ""
+                        projectMasterImages = {data.projectMasterImages}
+                        primaryBreakPoint = {data.primaryBreakPoint}
+                        buildingId = {buildingId}
                     />
 
                     <div id="page-content-wrapper">

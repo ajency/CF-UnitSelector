@@ -24,7 +24,7 @@ var TabPanes = React.createClass({
   	buildingId = unitData.basic.buildingId;
 
   	step1ImgUrl = projectMasterImgs[buildingPrimaryBreakPoint];
-  	step1SvgUrl = BASEURL+'/projects/'+PROJECTID+'/master/master-'+unitPrimaryBreakPoint+'.svg';
+  	step1SvgUrl = BASEURL+'/projects/'+PROJECTID+'/master/master-'+buildingPrimaryBreakPoint+'.svg';
 
 
   	step3SvgUrl = BASEURL+'/projects/'+PROJECTID+'/buildings/'+buildingId+'/step-three-'+unitPrimaryBreakPoint+'.svg';
