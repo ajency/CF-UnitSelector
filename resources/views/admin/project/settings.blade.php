@@ -88,7 +88,7 @@
                 </div>
             </div>
             <hr/>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="m-l-5 no-border">
                     <h3 class="inline"><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Project Master Images</span></h3>
                      <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="" data-original-title="These are 3D images of the project which will be viewed on unit selector page"></i>
@@ -104,7 +104,8 @@
 
                 </div>
             </div>
-            <hr/>
+            <hr/> -->
+            <input type="hidden" name="has_master" value="yes">
             <div class="row">
                 <div class="m-l-5 no-border">
                     <h3 class="inline"><i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Views</span></h3>

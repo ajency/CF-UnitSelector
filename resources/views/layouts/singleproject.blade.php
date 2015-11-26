@@ -15,11 +15,11 @@
             <li class="{{ $current === 'settings' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id']) }}">@if($current === 'settings')@endif Configuration</a>
             </li>
-            @if(hasPermission($project['id'],['configure_project']))
+            <!-- @if(hasPermission($project['id'],['configure_project']))
             <li class="{{ $current === 'cost' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/cost') }}">@if($current === 'cost')@endif Cost</a>
             </li>
-            @endif
+            @endif -->
             @if($project['has_master']=='yes' && hasPermission($project['id'],['svg_auth_tool'])) 
             <li class="{{ $current === 'svg' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/svg' ) }}" >@if($current === 'svg')@endif SVGs</a>

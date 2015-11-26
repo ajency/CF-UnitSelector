@@ -135,7 +135,7 @@
 
                             </ul>
                         </li>
-                        <li class="">
+                        <!-- <li class="">
                             <a href="javascript:;">
                                 <i class="fa fa-street-view"></i>
                                 <span class="title">Agents</span>
@@ -146,7 +146,7 @@
                                 <li ><a href="{{ url( 'admin/agent/create' ) }}">Add Agent</a></li>
 
                             </ul>
-                        </li>
+                        </li> -->
                         @endif
                         @if(hasPermission(0,['manage_roles']))
                         <li class="">
