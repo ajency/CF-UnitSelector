@@ -488,8 +488,8 @@ var StepTwo = React.createClass({
 
         if(!_.isEmpty(buildingId)){
 
-          var rawBuildingData = getBuildingStateData(buildingId);
-          var processedBuildingData = this.formatStateData(rawBuildingData);
+          // var rawBuildingData = getBuildingStateData(buildingId);
+          var processedBuildingData = getBuildingStateData(buildingId);
           processedBuildingData.data.applyFiltersSvgCheck = true;
           newData = processedBuildingData.data;
 
