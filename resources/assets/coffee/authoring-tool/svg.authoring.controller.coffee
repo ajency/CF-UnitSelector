@@ -129,6 +129,8 @@ jQuery(document).ready ($)->
             marked = []
             $.each items,(ind,val)->
                 # if !_.isEmpty val.get('canvas_type')
+                console.log "MARKED UNITS"
+                console.log val.get('object_id')
                 if val.get('object_id')!=0
                     marked.push val
 
@@ -587,7 +589,8 @@ jQuery(document).ready ($)->
                 unit = buildingMasterCollection.findWhere
                     'id' : parseInt elem.id
                 unit_name = unit.get('building_name')
-            if type is 'floor_group'
+            else if type is 'floor_group'
+                console.log 'floor_group'
                 buildings = buildingMasterCollection.toArray()
                 building = _.where(buildings, {id: parseInt(building_id) })
                 attributes = _.pluck(building, 'attributes')
