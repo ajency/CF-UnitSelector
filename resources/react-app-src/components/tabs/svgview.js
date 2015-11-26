@@ -20,7 +20,9 @@ var SvgView = React.createClass({
         buildingToHighlight = "sdf";
         imgUrl = this.props.imgUrl;
 
-        windowHeight = $(window).innerHeight() ;
+        //windowHeight = $(window).innerHeight() ;
+
+        windowHeight = "";
 
         if(window.isMobile){
         var imageStyle = {

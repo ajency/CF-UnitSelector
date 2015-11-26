@@ -243,10 +243,16 @@ var StepThree = React.createClass({
 
                 if (indexOfELem > -1) {
 
-                    oldataTochange.splice(indexOfELem, 1);
+
+                  oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
+
+                    //oldataTochange.splice(indexOfELem, 1);
 
                 }else{
-                    oldataTochange.push(valueToSet);
+
+                    oldataTochange = immutabilityHelpers( oldataTochange,{$push: [valueToSet]});
+
+                    //oldataTochange.push(valueToSet);
                 }
 
                 //For range filter, reset the filter with new min max value
@@ -390,27 +396,22 @@ var StepThree = React.createClass({
 
         var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
 
-      if(totalFilterApplied > 0){
+        if(!_.isEmpty(this.state.data.search_filters)){
+          if(totalFilterApplied>0){
+            dataToSet = {
+                property: "applied_filters",
+                value: this.state.data.search_filters
+            };
+          }else{
+            dataToSet = {
+                property: "reset_filters",
+                value: {}
+            };
+          }
 
-        dataToSet = {
-            property: "applied_filters",
-            value: this.state.data.search_filters
-        };
-
-        this.updateStateData([dataToSet]);
-
-        this.updateProjectMasterData();
-
-      }else if(totalFilterApplied == 0){
-        dataToSet ={
-            property: "applied_filters",
-            value: {}
-        };
-
-        this.updateStateData([dataToSet]);
-
-        this.updateProjectMasterData();
-      }
+          this.updateStateData([dataToSet]);
+          this.updateProjectMasterData();
+        }
 
     },
 
@@ -426,7 +427,8 @@ var StepThree = React.createClass({
             value: {}
         };
 
-        if(totalFilterApplied > 0){
+        //if(totalFilterApplied > 0){
+        if(!_.isEmpty(this.state.data.applied_filters)){
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
