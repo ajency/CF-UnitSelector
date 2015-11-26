@@ -66,6 +66,8 @@ var FilterPopover = React.createClass({
 		var filterCloseClass , filterCountDisp, filterCountClasses;
         var applied_filters = this.props.applied_filters;
 
+        var appliedFilterCountDesk;
+
 		filterClass = classNames({
 			"float-nav": true,
 			"closed": this.state.closed
@@ -124,10 +126,12 @@ var FilterPopover = React.createClass({
           filterCountClasses = classNames({
             "filterCountDesk" : true
           });
+          appliedFilterCountDesk = newAppliedFiltersCount.length;
         }else{
           filterCountClasses = classNames({
             "filterCountDesk" : false
           });
+          appliedFilterCountDesk = "";
         }
 
 
@@ -158,7 +162,7 @@ var FilterPopover = React.createClass({
                             </div>
 
 	                        <a className="toggle" onClick = {this.closeFilterPopOver}></a>
-                            <span ref="filterCountDesktop" className={filterCountClasses}>{appliedFilterCount}</span>
+                            <span ref="filterCountDesktop" className={filterCountClasses}>{appliedFilterCountDesk}</span>
 	                    </nav>
 	                </div>
 	            );

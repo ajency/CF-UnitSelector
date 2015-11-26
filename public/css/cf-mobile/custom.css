@@ -902,6 +902,64 @@ div.spritespin-div {
 .step2-svg:hover {
   opacity: .2 !important;
 }
+.loaderOuter {
+  background: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 100%;
+  z-index: 9;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.loader {
+  margin: 60px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 5px solid #fe943e;
+  border-right: 5px solid #fe943e;
+  border-bottom: 5px solid #fe943e;
+  border-left: 5px solid rgba(0, 0, 0, 0);
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  /* color: red; */
+  background: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  margin-left: -20px;
+  z-index: 5;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 .tabHeader {
   position: fixed;
   top: 0;
@@ -1034,6 +1092,7 @@ div.spritespin-div {
   float: right;
 }
 .tab-content .details .flatDetails .price i {
+  margin-left: 1px;
   margin-left: 5px;
 }
 .tab-content .details .flatDetails .dimensionalViewBtn {
@@ -1084,6 +1143,10 @@ div.spritespin-div {
 .tab-content .projectDetails {
   margin-top: 20px;
 }
+.tab-content .projectDetails a {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
 .tab-content .projectDetails .roomHeading {
   padding: 0;
   margin-bottom: 10px;
@@ -1107,11 +1170,13 @@ div.spritespin-div {
   color: #bcbcba;
   font-size: 14px;
   padding-left: 0;
+  word-wrap: break-word;
 }
 .tab-content .projectDetails .row .right {
   color: gray-darker;
   font-size: 14px;
   padding-right: 0;
+  word-wrap: break-word;
 }
 .tab-content .gallery h5 {
   margin-top: 15px;
@@ -1166,8 +1231,8 @@ div.spritespin-div {
   outline: none;
 }
 .contactModal {
-  top: 15% !important;
-  bottom: 50px !important;
+  top: 6% !important;
+  /*bottom:50px !important;*/
   z-index: 15050;
 }
 .contactModal .modal-body {
@@ -1183,6 +1248,10 @@ div.spritespin-div {
 }
 .contactModal .content {
   padding: 10px;
+  width: 100%;
+}
+.contactModal .contactContent {
+  float: left;
   width: 100%;
 }
 .contactModal .modal-header {
@@ -1209,6 +1278,9 @@ div.spritespin-div {
 .contactModal .inputOuter {
   padding: 10px;
 }
+.contactModal .inputOuter label {
+  display: none;
+}
 .contactModal .inputOuter input {
   width: 100%;
   background: none;
@@ -1220,6 +1292,16 @@ div.spritespin-div {
 }
 .contactModal .inputOuter input:focus {
   outline: none;
+}
+.contactModal .inputOuter > div {
+  position: relative;
+}
+.contactModal .inputOuter .errorlist li {
+  position: absolute;
+  top: 34px;
+  list-style: none;
+  color: red;
+  font-size: 11px;
 }
 .contactModal .close {
   position: absolute;
@@ -1340,6 +1422,9 @@ div.spritespin-div {
 .hasTooltip {
   position: absolute;
   z-index: 9999;
+}
+.modal-backdrop {
+  z-index: 15000!important;
 }
 .p-0 {
   padding: 0 !important;

@@ -12,8 +12,8 @@ var CHANGE_EVENT = 'change';
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
 var _groupStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
-var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
-var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"notlive_buildings":[] ,"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
+var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0 } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"notlive_buildings":[] ,"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -436,15 +436,25 @@ function getUnitCount(propertyType,filters,buildingId,groupId){
 							_.each(filteredUnits, function(filUnit){
 
 								if(filUnit.views.length>0){
-									_.each(filUnit.views , function(view){
 
-										if(viewsTocheck.indexOf(view.toString()) > -1){
-											//console.log(view+ ' is not available');
+									// _.each(filUnit.views , function(view){
+									//
+									// 	if(viewsTocheck.indexOf(view.toString()) > -1){
+									// 		//console.log(view+ ' is not available');
+									// 	}else{
+									// 		filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+									// 	}
+									//
+									// });
+
+									_.each(viewsTocheck , function(view){
+										if(filUnit.views.indexOf(view.toString()) > -1){
+											//console.log(view+ ' is available');
 										}else{
-											filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
+										 		filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
 										}
-
 									});
+
 								}else{
 									filteredUnits = _.reject(filteredUnits, function(el) { return el.id === filUnit.id; });
 								}
@@ -662,6 +672,8 @@ function getApartmentUnitTypes(collectivePropertyTypeId, groupId, collectiveProp
 			apartmentUnitTypes.push(unitTypeDetails);
 		})
 	}
+
+	apartmentUnitTypes = _.sortBy(apartmentUnitTypes, function(type) { return type.name; });
 
 	return apartmentUnitTypes;
 }
@@ -1249,22 +1261,9 @@ function getAvailableUnitViewsOptions(propertyType,building,groupId){
 
 
 function getAllAmenities(){
+	var views = _projectData.views;
 
-	var totalUnitsInBuilding = [];
-	var options =[];
-	var units = _projectData.units;
-
-	totalUnitsInBuilding = _.filter(units , function(unit){ if(unit.building_id != 0){return unit;} });
-
-	_.each(totalUnitsInBuilding, function(unit){
-
-		if(unit.views.length>0){
-			_.each(unit.views, function(view){
-
-					options.push(view);
-			});
-		}
-	});
+	var options = _.pluck(views, "label");
 
 	return _.uniq(options);
 }
@@ -1275,6 +1274,11 @@ function getAllAmenities(){
 function _loadProjectData(data) {
 
 	_projectData = data['data'];
+
+	// set a few globals
+    window.project_title = _projectData.project_title;
+    window.builder_email = _projectData.builder_email;
+    window.builder_phone = _projectData.builder_phone;
 
 	_globalStateData = _getProjectMasterData();
 
@@ -1306,7 +1310,7 @@ function _updateGlobalState(newStateData,type){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "logoExist": false, "unitCount":0, "shadowImages":[],"buildings":[],"notlive_buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
+	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "logoExist": false, "unitCount":0, "shadowImages":[],"buildings":[],"notlive_buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":""};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -1318,6 +1322,9 @@ function _getProjectMasterData(){
 		projectMasterData.projectLogo = projectData.logo ;
 		projectMasterData.logoExist = projectData.logo_exist ;
 		projectMasterData.shadowImages = projectData.shadow_images ;
+		projectMasterData.projectMasterImages = projectData.project_master ;
+
+		projectMasterData.projectContactNo = projectData.builder_phone ;
 
 		breakpoints = projectData.breakpoints
 		projectMasterData.breakpoints = breakpoints;
@@ -1635,6 +1642,7 @@ function _getUnitDetails(unitId){
 
 		unitData.cfProjectId = projectData.cf_project_id;
 		unitData.projectName = projectData.project_title;
+		unitData.projectContactNo = projectData.builder_phone;
 	}
 
 	return unitData;
@@ -1649,7 +1657,10 @@ function _getBuildingMasterDetails(buildingId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_globalStateData.data.projectTitle))){
+		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
+			_buildingMasterStateData = _buildingMasterStateData;
+		}
+		else if((!_.isEmpty(_globalStateData.data.projectTitle))){
 
 			projectMasterStateData = _globalStateData;
 
@@ -1678,19 +1689,20 @@ function _getBuildingMasterDetails(buildingId){
                                                           });
 
 
-			_buildingMasterStateData = projectMasterStateData;
-
+			_buildingMasterStateData = formatBuildingStateData(projectMasterStateData);
 		}
+
 	}
 
 	return _buildingMasterStateData;
 }
 
+
 function getGroupMasterFromProjectData(buildingId,groupId){
 	var buildingMasterStateData = {};
 	buildingStateData = _getBuildingMasterDetails(buildingId);
-	formattedStateData = formatBuildingStateData(buildingStateData);
-	buildingMasterStateData = formattedStateData;
+	// formattedStateData = formatBuildingStateData(buildingStateData);
+	buildingMasterStateData = buildingStateData;
 
 	// buildings here would refer to floor groups
 	allGroups = buildingMasterStateData.data.buildings;
@@ -1885,6 +1897,7 @@ function formatBuildingStateData(stateDataToformat){
         newStateData.breakpoints = building.breakpoints;
         newStateData.buildings = floorGroups;
         newStateData.shadowImages = building.shadow_images;
+        newStateData.primaryBreakPoint = building.primary_breakpoint;
 
         newState.data = newStateData;
 
@@ -2059,7 +2072,13 @@ var AppStore = merge(EventEmitter.prototype, {
 	formatGroupStateData: function(stateDataToformat){
 		var formattedStateData = formatGroupStateData(stateDataToformat);
 
-		return formattedStateData;		
+		return formattedStateData;
+	},
+
+	formatBuildingStateData:function(stateDataToformat){
+		var formattedStateData = formatBuildingStateData(stateDataToformat);
+
+		return formattedStateData;
 	},
 
 

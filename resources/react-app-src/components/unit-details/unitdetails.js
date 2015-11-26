@@ -30,72 +30,65 @@ var UnitDetails = React.createClass({
 
 
     componentDidMount: function() {
-    $(window).scrollTop(0);
+      if(!window.isMobile){
 
-    if(!window.isMobile){
-        $(document).on('click', '.click', function (e) {
-        var theID = $(this).attr('id');
-        $('.list-unstyled li a.active').removeClass('active');
-        $(this).addClass('active');
-        $('html, body').animate({
-            scrollTop: $('#' + theID + '_div').offset().top-60
-        }, 1000);
-        return false;
-      });
+        $(window).scroll(function() {
 
-        //scroll top
-        //$("body").animate({ scrollTop: 0 }, 600);
-        //$(window).scrollTop(0);
+            var y = $(this).scrollTop();
 
-
-        /*var sections = $('.outerDivs')
-          , nav = $('tabHeader')
-          , nav_height = nav.outerHeight();
-
-          $(window).on('scroll', function () {
-            var cur_pos = $(this).scrollTop();
-
-            sections.each(function() {
-              var top = $(this).offset().top - nav_height,
-                  bottom = top + $(this).outerHeight();
-
-              if (cur_pos >= top && cur_pos <= bottom) {
-                nav.find('a').removeClass('active');
-                sections.removeClass('active');
-
-                $(this).addClass('active');
-                nav.find('a[href="#'+$(this).attr('id')+'"]').addClass('active');
-              }
+            $('.click').each(function(event) {
+              var currentTab = $(this).attr('id')+'_div';
+                if (y >= $('#'+currentTab).offset().top - 100) {
+                    $('.click').not(this).removeClass('active');
+                    $('.click').not(this).css('color','#565654');
+                    $(this).addClass('active');
+                    $(this).css('color','#fe943e');
+                }
             });
-          });
 
-          nav.find('a').on('click', function () {
-            var $el = $(this)
-              , id = $el.attr('href');
-
-            $('html, body').animate({
-              scrollTop: $(id).offset().top - nav_height
-            }, 500);
-
-            return false;
-          });*/
+        });
 
 
-      function sticky_relocate() {
+        $(document).on('click', '.click', function (e) {
+          var theID = $(this).attr('id');
+          $('.list-unstyled li a.active').removeClass('active');
+          $(this).addClass('active');
+          $('html, body').animate({
+            scrollTop: $('#' + theID + '_div').offset().top-80
+          }, 1000);
+          return false;
+        });
+
+
+        function sticky_relocate() {
           var window_top = $(window).scrollTop();
           var div_top = $('#sticky-anchor').offset().top;
           if (window_top > div_top) {
-              $('#stickyHeader').addClass('stick');
+            $('#stickyHeader').addClass('stick');
           } else {
-              $('#stickyHeader').removeClass('stick');
+            $('#stickyHeader').removeClass('stick');
           }
-      }
+        }
 
-      $(function () {
+        $(function () {
           $(window).scroll(sticky_relocate);
           sticky_relocate();
-      });
+        });
       }
+
+  },
+
+
+
+  componentWillReceiveProps: function(nextProps){
+    //$(window).scrollTop(0);
+    var scrollStep = -window.scrollY / (600 / 15),
+        scrollInterval = setInterval(function(){
+        if ( window.scrollY != 0 ) {
+            window.scrollBy( 0, scrollStep );
+        }
+        else clearInterval(scrollInterval);
+    },15);
   },
 
 
@@ -184,6 +177,8 @@ var UnitDetails = React.createClass({
 			unitData.basic.projectMasterImgs = unit.projectMasterImgs;
 			unitData.basic.projectName = unit.projectName;
 
+      unitData.basic.projectContactNo = unit.projectContactNo;
+
 			unitData.basic.variantAttributes = unit.variantData.variant_attributes;
 			unitData.basic.views = unit.views;
 			unitData.basic.allAmenities = unit.allAmenities;
@@ -204,17 +199,24 @@ var UnitDetails = React.createClass({
 
 	},
 
+    hideContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },
+
 
 	render: function() {
+
+		window.currentStep = "four";
 
 		var domToDisplay;
 
 		var unitId = this.props.unitId;
-		var projectId ;
+		var projectId, projectContactNo;
 		unitStatetData = getUnitStateData(unitId);
 		unitData = this.getFormattedUnitData(unitStatetData);
 		projectId = unitData.basic.cfProjectId;
 		status = unitData.basic.status;
+    projectContactNo = unitData.basic.projectContactNo;
 
 		buildingName = unitData.basic.buildingName;
 		propertyTypeName = unitData.basic.propertyTypeName;
@@ -236,6 +238,7 @@ var UnitDetails = React.createClass({
 						unitId = {unitId}
 						projectId = {projectId}
 						unitStatus = {status}
+            			unitData = {unitData}
 					/>
 					<TabPanes
 						unitData = {unitData}
@@ -245,12 +248,14 @@ var UnitDetails = React.createClass({
 						projectId = {projectId}
 						unitStatus = {status}
 						showContactModal = {this.showContactModal}
+            			projectContactNo = {projectContactNo}
 					/>
 
 	                <Modal
 	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "mobileContactModal"
+                        hideContactModal = {this.hideContactModal}
 	                />
 				</div>
 			)
@@ -281,12 +286,14 @@ var UnitDetails = React.createClass({
 							unitId = {unitId}
 							projectId = {projectId}
 							unitStatus = {status}
+              projectContactNo = {projectContactNo}
 
 					/>
 	                <Modal
 	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "contactModal"
+                        hideContactModal = {this.hideContactModal}
 	                />
 				</div>
 		)

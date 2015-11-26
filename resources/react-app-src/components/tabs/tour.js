@@ -31,7 +31,7 @@ if(window.isMobile){
               Live Tour
             </span>
            <span className="contentText">
-              Simplicity of design and strong construction from the backbone of the Metro.
+              Virtually discover project tower, floor and unit of your choice in a 3D and fully furnished state
             </span>
           </div>
         </div>
@@ -43,7 +43,7 @@ if(window.isMobile){
           </div>
           </div>
         </div>
-        ); 
+        );
 }
 
 

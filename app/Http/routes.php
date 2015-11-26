@@ -149,7 +149,6 @@ Route::group( ['prefix' => 'api/v1'], function() {
     Route::get( 'get-unit-payment-plan', 'Rest\ProjectController@getUnitPaymentPlan' );
     Route::get( 'get-unit-price-sheet', 'Rest\ProjectController@getUnitPriceSheet' );
     Route::get( 'add-unit-to-bookingcrm', 'Rest\ProjectController@addUnitToBookingCrm' );
-   
 } );
 
 /**
@@ -161,6 +160,7 @@ Route::group( ['prefix' => 'api/v2', 'middleware' => ['whitelistip']], function(
     Route::get( 'get-project-url', 'Rest\UnitController@getCfProjectUrl' );
     Route::get( 'get-unit-status', 'Rest\UnitController@getUnitStatus' );
     Route::post( 'addlead', 'Rest\UnitController@addLead' );
+
 } );
 
 /**

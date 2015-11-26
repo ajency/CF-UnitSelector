@@ -63,6 +63,18 @@
 				margin-right: 5px;
 			}
 		}
+		.totalUnitPrice
+		{
+			padding-right: 5px;
+    		color: @brand-primary;
+    		font-size: 14px;
+    		text-transform: uppercase;
+    		.totalPriceText
+    		{
+    			color: @black;
+    			padding-right: 3px;
+    		}
+		}
 	}	
 	.flatDetails 
 	{
@@ -101,7 +113,7 @@
 			li
 			{
 				display:inline-block;
-				padding:20px 30px 0 30px;
+				padding:20px 15px 0 15px;
 				&:first-child
 				{
 					padding-left:15px;
@@ -155,6 +167,18 @@
 					display:none;
 					padding-top: 12px;
 
+					.totalUnitPrice
+					{
+						padding-right: 5px;
+			    		color: @brand-primary;
+			    		font-size: 14px;
+    					text-transform: uppercase;
+			    		.totalPriceText
+			    		{
+			    			color: @black;
+			    			padding-right: 3px;
+			    		}
+					}
 					button
 					{
 						i
@@ -239,6 +263,7 @@
 					color: @gray-light;
 				    font-size: 12px;
 				    padding: 5px 15px;
+				    word-wrap: break-word;
 				}
 				.right
 				{
@@ -514,7 +539,7 @@
 		padding: 20px 12px 0 12px;
 	}	
 }
-@media screen and (max-width:768px)
+@media screen and (min-width:768px) and (max-width:1024px)
 {
 	.step4Desk .detailView .unit .roomDetails
 	{
@@ -562,6 +587,7 @@
 	    z-index: 99;
 	    display: block;
 
+
 	    .floatingBtnsInner
 	    {
 	    	display: none;
@@ -570,6 +596,14 @@
 		    button
 		    {
 		    	margin: 5px 0;
+		    }
+		    .totalUnitPrice
+		    {
+		    	float: left;
+			    width: 100%;
+			    font-size: 18px;
+			    color: #fff;			    
+    			text-transform: uppercase;
 		    }
 	    }
 	    .floatingPlusIcon
