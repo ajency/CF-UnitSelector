@@ -108,8 +108,6 @@ var SideBar = React.createClass({
 
 					</div>
 				);
-
-	      	outsideViewNode = "";
 	    }
 	    else{
 	    	outsideViewNode = "";
