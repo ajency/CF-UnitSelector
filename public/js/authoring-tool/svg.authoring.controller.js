@@ -135,7 +135,6 @@ jQuery(document).ready(function($) {
       attributes = _.pluck(building, 'attributes');
       floorGroups = _.pluck(attributes, 'floor_group');
       units = floorGroups[0];
-      console.log(units);
     }
     if (value === 'apartment') {
       units = apartmentVariantCollection.getApartmentMasterUnits();
