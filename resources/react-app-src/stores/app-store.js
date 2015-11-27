@@ -1322,6 +1322,7 @@ function _getProjectMasterData(){
 		projectMasterData.projectLogo = projectData.logo ;
 		projectMasterData.logoExist = projectData.logo_exist ;
 		projectMasterData.shadowImages = projectData.shadow_images ;
+		projectMasterData.projectMasterImages = projectData.project_master ;
 
 		projectMasterData.projectContactNo = projectData.builder_phone ;
 
@@ -1893,9 +1894,10 @@ function formatBuildingStateData(stateDataToformat){
         newStateData.breakpoints = building.breakpoints;
         newStateData.buildings = floorGroups;
         newStateData.shadowImages = building.shadow_images;
-				newStateData.primaryBreakPoint = building.primary_breakpoint;
+		newStateData.primaryBreakPoint = building.primary_breakpoint;
 
         newState.data = newStateData;
+        newState.data.chosenBreakpoint = building.primary_breakpoint;
 
 
     }

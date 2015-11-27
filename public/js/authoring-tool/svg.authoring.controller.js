@@ -102,16 +102,17 @@ jQuery(document).ready(function($) {
       units = window.actualUnits(value.toLowerCase());
       marked = [];
       $.each(items, function(ind, val) {
-        if (val.get('object_id') !== 0) {
+        if (val.get('object_id') !== '0') {
           return marked.push(val);
         }
       });
-      return type.push({
+      type.push({
         'name': value,
         'id': value,
         'total': units.length,
         'marked': marked.length
       });
+      return console.log(type);
     });
     return type;
   };
@@ -566,8 +567,8 @@ jQuery(document).ready(function($) {
           'id': parseInt(elem.id)
         });
         unit_name = unit.get('building_name');
-      }
-      if (type === 'floor_group') {
+      } else if (type === 'floor_group') {
+        console.log('floor_group');
         buildings = buildingMasterCollection.toArray();
         building = _.where(buildings, {
           id: parseInt(building_id)

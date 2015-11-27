@@ -505,7 +505,7 @@ class UnitController extends ApiGuardController {
             {
                 Mail::send('admin.user.leadmail', ['user'=>$data], function($message)use($data)
                 {  
-                    $message->to($data['toemail'], $data['toname'])->subject('Welcome to CommonFloor Unit Selector!');
+                    $message->to($data['toemail'], $data['toname'])->subject('Lead for '.$data['toname']);
                 });
             }
 
