@@ -25,6 +25,9 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $new_status = booking_history_status_booking_booked;   
         $comments = booking_history_comment_payment_success;  
         $mihpayid_Val = $_POST['mihpayid'];
+        $mode = $_POST['mode'];
+        $card_type = $_POST['card_type'];
+        
         $_SESSION["mihpayid"]=$_POST['mihpayid'];
         $_SESSION["booking_id"]= $booking_id;
         $_SESSION["buyer_name"]=$_POST['udf3'];
@@ -34,7 +37,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $payment_history_is_active=payment_history_active;
         updatePaymentStructure($booking_id);
         saveBookingHistory($booking_id,$old_status, $new_status, $comments,$buyer_name);
-        savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
+        savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val,$mode,$card_type);
         updateBookingInfo($booking_id,$status); 
 
         //$txt = "Unit successfully boooked.";
@@ -101,6 +104,8 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
 
         $buyer_id = uniqid();
         $_SESSION["buyer_id"] = $buyer_id;
+        $_SESSION["builder_email"] = $unitData['data']['builder_email'];
+        $_SESSION["builder_name"] = $unitData['data']['project_title'];
         
         
         $_SESSION["unitId"]=$unit_id;

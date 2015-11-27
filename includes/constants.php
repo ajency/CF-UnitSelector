@@ -35,6 +35,8 @@ define('USER','19');
 // define('USER','19');
 /*********************/
 
+define('CF_EMAIL','online-booking@commonfloor.com');
+
 //MAIL CONFIG
 define('MAIL_HOST','smtp.sendgrid.net');
 define('MAIL_USER','shradha');

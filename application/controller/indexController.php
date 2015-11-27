@@ -365,13 +365,13 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
 
 
-    function savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val){
+    function savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val,$mode,$card_type){
 
         $t=time();
         $date= date('Y-m-d H:i:s',$t);
                    
-        $sql = 'INSERT INTO booking_engine_payment_history'.' (payment_id, booking_id, payment_status, is_active, updated_on, mihpayid) VALUES ("'
-                                                      .$booking_payment_id.'","'.$booking_id.'","'.$payment_status.'","'.$payment_history_is_active.'","'.$date.'","'.$mihpayid_Val.'")';
+        $sql = 'INSERT INTO booking_engine_payment_history'.' (payment_id, booking_id, payment_status, is_active, updated_on, mihpayid, mode, card_type) VALUES ("'
+                                                      .$booking_payment_id.'","'.$booking_id.'","'.$payment_status.'","'.$payment_history_is_active.'","'.$date.'","'.$mihpayid_Val.'","'.$mode.'","'.$card_type.'")';
 
         $retval = mysql_query($sql );
          if(! $retval )
@@ -680,8 +680,11 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
 
               $mail->AddReplyTo("online-booking@commonfloor.com","CommonFloor Unit Selector");
 
-              $mail->From       = "online-booking@commonfloor.com";
+              $mail->From       = CF_EMAIL;
               $mail->FromName   = "CommonFloor Unit Selector";
+
+              $builder_email = $_SESSION["builder_email"];
+              $builder_name = $_SESSION["builder_name"];
 
               //$to = "prajay@ajency.in";
 
@@ -702,6 +705,11 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
               $mail->MsgHTML($body);
 
               $mail->IsHTML(true); // send as HTML
+
+              if(CF_EMAIL!='')
+                 $mail->AddBCC(CF_EMAIL, "CommonFloor Unit Selector");
+              if($builder_email!='')
+                $mail->AddBCC($builder_email, $builder_name);
 
               $mail->Send();
 
@@ -1339,6 +1347,12 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
         $buyerId = $row['buyer_id'];
         $date = date('d F Y',strtotime($row['booking_date']));
 
+        $q= "SELECT * FROM `booking_engine_payment_history` WHERE payment_status='captured' and `booking_id`= '".$bookingId."'";
+        $r= mysql_query($q);
+        $row =mysql_fetch_assoc($r);
+        $mode = $row['mode'];
+        $card_type = $row['card_type'];
+
         $buyer_query= "SELECT * FROM `booking_engine_buyers` WHERE `buyer_id`= '".$buyerId."'";
         $buyer_res= mysql_query($buyer_query);
         $buyer_row =mysql_fetch_assoc($buyer_res);
@@ -1418,7 +1432,13 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                       <tr>
                         <td style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking ID : <span style="color:#FE943E">'.$bookingId.'</span>
                         </td>
-                      </tr>                      
+                      </tr> 
+                      <tr>
+                        <td style="color: #7d7d7d; font-size: 16px; text-transform: capitalize;">Payment Mode : '.$mode.'</td>
+                      </tr>
+                      <tr>
+                        <td style="color: #7d7d7d; font-size: 16px; text-transform: capitalize;">Card Type : '.$card_type.'</td>
+                      </tr>                     
                     </table>
                   </td>
                 </tr>
