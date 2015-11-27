@@ -149,6 +149,7 @@ Route::group( ['prefix' => 'api/v1'], function() {
     Route::get( 'get-unit-payment-plan', 'Rest\ProjectController@getUnitPaymentPlan' );
     Route::get( 'get-unit-price-sheet', 'Rest\ProjectController@getUnitPriceSheet' );
     Route::get( 'add-unit-to-bookingcrm', 'Rest\ProjectController@addUnitToBookingCrm' );
+    Route::get( 'get-unit-status', 'Rest\UnitController@getUnitStatus' );
 } );
 
 /**
