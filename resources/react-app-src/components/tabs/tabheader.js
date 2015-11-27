@@ -194,7 +194,11 @@ var TabHeader = React.createClass({
 										<span className="totalPriceText">Total</span> <i className="fa fa-inr"></i> <PriceFormat numPrice={sellingAmount} />
 								</span>
 								{bookNowButton}
-								<button className="btn btn-default btn-primary text-uppercase">
+								<button
+									className="btn btn-default btn-primary text-uppercase"
+									data-toggle="modal" data-target="#contactModal"
+									onClick={this.props.showContactModal}
+								>
 									<i className="fa fa-phone"></i>
 									<span className="enquiryText">Contact Us</span>
 								</button>
