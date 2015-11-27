@@ -1894,9 +1894,10 @@ function formatBuildingStateData(stateDataToformat){
         newStateData.breakpoints = building.breakpoints;
         newStateData.buildings = floorGroups;
         newStateData.shadowImages = building.shadow_images;
-				newStateData.primaryBreakPoint = building.primary_breakpoint;
+		newStateData.primaryBreakPoint = building.primary_breakpoint;
 
         newState.data = newStateData;
+        newState.data.chosenBreakpoint = building.primary_breakpoint;
 
 
     }
