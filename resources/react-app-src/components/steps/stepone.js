@@ -332,6 +332,8 @@ var StepOne = React.createClass({
             buildingName = buildingToHighlight.building_name;
 
             this.showTooltip(buildingName,".building"+buildingToHighlight.id);
+        }else{
+            buildingToHighlight = buildings[0];
         }
 
     },

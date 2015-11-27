@@ -263,6 +263,12 @@ var SteponeImage = React.createClass({
 
         }.bind(this));
 
+
+        api = spin.spritespin("api");
+
+        chosenBreakPoint = this.props.chosenBreakpoint;
+        api.playTo(chosenBreakPoint);    
+
     },
 
     displayHighlightedTooltip: function(){
