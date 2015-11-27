@@ -144,7 +144,7 @@ var NavBar = React.createClass({
         );
       }
       else{
-        var dropdownDom;
+        var dropdownDom, logoDivDom;
         var logoclasses;
 
         if(cardListFor==="project"){
@@ -175,19 +175,12 @@ var NavBar = React.createClass({
                         );
         }
 
-        if(this.props.logoExist){
-            logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
 
-        }
-        else{
-
-            logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
-        }
 
 
         logoclasses = classNames({
             "logoOuter" : true,
-            "titleOuter" : !(this.props.cardListFor === "project")
+            // "titleOuter" : !(this.props.cardListFor === "project")
         });
 
 
@@ -198,9 +191,27 @@ var NavBar = React.createClass({
                     <small><span>Facing : {this.props.facing}</span></small>
                 </span>
             );
+
+            logoDisplay = "";          
         }
         else{
             facingDisplay = "";
+
+            if(this.props.cardListFor === "group"){
+                logoDisplay = "";      
+            }
+            else{
+                if(this.props.logoExist){
+
+                    logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
+
+                }
+                else{
+
+                    logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
+                }                  
+            }
+        
         }
 
 
@@ -210,7 +221,7 @@ var NavBar = React.createClass({
                 <div className={logoclasses}>
                     {logoDisplay}
                     {dropdownDom}
-                </div>
+                </div>                          
                 <div className="col-xs-12 unitDetails">
                     <small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}{facingDisplay}</small>
                 </div>

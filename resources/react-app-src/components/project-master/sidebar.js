@@ -78,7 +78,7 @@ var SideBar = React.createClass({
 
   			var step1ImgUrl , step1SvgUrl;
 
-        	var svgKey1 = this.getRandomArbitrary(0,50);  			
+        	// var svgKey1 = this.getRandomArbitrary(0,50);  			
 
 		  	buildingPrimaryBreakPoint = this.props.primaryBreakPoint;
 		  	projectMasterImages = this.props.projectMasterImages;
@@ -99,7 +99,7 @@ var SideBar = React.createClass({
 					<div className="outSideView">
 						<h6>Out Side View</h6>
 		                  	<SvgView
-		                      	key={svgKey1}
+		                      	key={buildingPrimaryBreakPoint}
 		                      	svgUrl={step1SvgUrl}
 		                      	imgUrl={step1ImgUrl}
 		                      	svgElementToSelect = "building"
