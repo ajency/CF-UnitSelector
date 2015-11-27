@@ -173,7 +173,7 @@ var StepTwo = React.createClass({
     },
 
     updateStateData: function(data){
-        oldState = this.getBuildingState();
+        oldState = this.state;
 
         newState = oldState;
 
