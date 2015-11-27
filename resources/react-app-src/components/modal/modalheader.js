@@ -2,7 +2,7 @@ var React = require('react');
 
 var ModalHeader = React.createClass({
   render: function () {
-    
+
     var modalBodyDom, modalPurpose;
 
     modalPurpose = this.props.modalPurpose;
@@ -19,8 +19,8 @@ var ModalHeader = React.createClass({
     }
     else if((modalPurpose==="contactModal")||(modalPurpose==="mobileContactModal")){
       modalBodyDom = (  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>);
-    } 
-    
+    }
+
 
     return (
             <div className="modal-header">
