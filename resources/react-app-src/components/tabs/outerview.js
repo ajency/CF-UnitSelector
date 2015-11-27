@@ -69,7 +69,7 @@ var OutsideView = React.createClass({
                 </div>
                 <div className="col-xs-12 floorDetails">
                   <div className="row">
-                    <div className="col-xs-7 text-center">
+                    <div className="col-xs-6 text-center svg4">
                         
                         <SvgView
                             key={svgKey1}
@@ -80,7 +80,7 @@ var OutsideView = React.createClass({
                         />
                         <div className="plan col-xs-12 text-uppercase pNone">Tower view</div>
                     </div>
-                    <div className="col-xs-5 text-center">
+                    <div className="col-xs-6 text-center svg4">
                         
                         <SvgView
                             key={svgKey2}

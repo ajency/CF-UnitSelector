@@ -36,10 +36,10 @@ var SvgView = React.createClass({
 
         return (
 
-            <div ref= "svgView" className="step4-svg" style={imageStyle}>
+            <div ref= "svgView" className="step4-svg" >
                 <div className="image-containn">
-                    <div className="image" style={imageStyle}>
-                        <div className="svg-area" style={imageStyle}>
+                    <div className="image" >
+                        <div className="svg-area" >
                             <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight)}>
                                   Here's some optional content for browsers that don't support XHR or inline
                                   SVGs. You can use other React components here too. Here, I'll show you.
