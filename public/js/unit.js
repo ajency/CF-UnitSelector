@@ -304,7 +304,7 @@ function goToNextStep(anchor ,divClass)
 
         if($( ".buyerDetails li.parsley-required").length >1)
             flag =false;
-        else if ($( ".buyerDetails li.parsley-required").length==0 && $("input[name='lead']").val()==0)
+        else if ($( ".buyerDetails li.parsley-required").length==0) // && $("input[name='lead']").val()==0
         {
            //API Call add lead
 
