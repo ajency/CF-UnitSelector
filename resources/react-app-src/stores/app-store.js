@@ -1322,6 +1322,7 @@ function _getProjectMasterData(){
 		projectMasterData.projectLogo = projectData.logo ;
 		projectMasterData.logoExist = projectData.logo_exist ;
 		projectMasterData.shadowImages = projectData.shadow_images ;
+		projectMasterData.projectMasterImages = projectData.project_master ;
 
 		projectMasterData.projectContactNo = projectData.builder_phone ;
 
