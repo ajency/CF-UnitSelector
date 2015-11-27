@@ -21,7 +21,7 @@
                                             <table border="0" cellpadding="10px" cellspacing="0" width="100%" id="templateHeader" style="  background-color: #F4F4F4; border-top: 1px solid #FFFFFF; border-bottom: 1px solid #CCCCCC;">
                                                 <tr>
                                                     <td valign="top" class="headerContent">
-                                                        <img src="http://phase1.cfunitselectortest.com/images/inner-header-logo.png"/>
+                                                        <img src="{{ url('images/inner-header-logo.png') }}"/>
                                                     </td>
 
                                                 </tr>
@@ -39,7 +39,7 @@
 
                                                        Dear {{ $user['toname']}},
                                                         <br/>
-                                                         
+                                                        <br/> 
 
                                                             {{ $user['name']}} showed interest towards an apartment from {{ $user['toname']}}. Details are as follows:
                                                          <br>
@@ -50,7 +50,7 @@
                                                             <br>
                                                             <br>
 
-                                                            Kindly furnish him with details of the apartment selected/available. 
+                                                            Contact him/her at the earliest.
                                                         <br/>
                                                 <br/>
                                                             Thanks,
