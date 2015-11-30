@@ -40,6 +40,7 @@ var NavBar = React.createClass({
         var appliedCount = 0;
 
         var logoDisplay;
+        var countDom;
 
         var domTodisplay, cardListFor, backBtnDom;
 
@@ -117,35 +118,43 @@ var NavBar = React.createClass({
                             />);
         }
 
-        domTodisplay = (
-            <nav className="navbar navbar-default">
-                <div className="container-fluid">
-                  <div className="navbar-header">
-                    <div className="row">
-                        {backBtnDom}
-                        <div className="col-xs-6 p-0">
-                            <h3 ref="titleElem" className="normal margin-none" data-toggle="tooltip" data-placement="bottom" title={this.props.projectTitle}>{this.props.projectTitle} </h3>
-                            <small>{unitCount} {selectionText}</small>
+        if(unitCount==0){
+            domTodisplay = (<div/>);
+        }
+        else{
+            domTodisplay = (
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                      <div className="navbar-header">
+                        <div className="row">
+                            {backBtnDom}
+                            <div className="col-xs-6 p-0">
+                                <h3 ref="titleElem" className="normal margin-none" data-toggle="tooltip" data-placement="bottom" title={this.props.projectTitle}>{this.props.projectTitle} </h3>
+                                <small>{unitCount} {selectionText}</small>
+                            </div>
+                            <div className="col-xs-4 p-0">
+                              <ul className="list-inline pull-right">
+                                <li onClick={this.props.showContactModal}> <i className="i-phone i-icon"></i></li>
+                                <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i>
+                                  <FilterCount
+                                    appliedFilters = {applied_filters}
+                                    />
+                                  </li>
+                              </ul>
+                            </div>
                         </div>
-                        <div className="col-xs-4 p-0">
-                          <ul className="list-inline pull-right">
-                            <li onClick={this.props.showContactModal}> <i className="i-phone i-icon"></i></li>
-                            <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i>
-                              <FilterCount
-                                appliedFilters = {applied_filters}
-                                />
-                              </li>
-                          </ul>
-                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-            </nav>
-        );
+                </nav>
+            );
+        }
+
+
       }
       else{
         var dropdownDom, logoDivDom;
         var logoclasses;
+        var countDom;
 
         if(cardListFor==="project"){
             backBtnDom =  "";
@@ -214,20 +223,20 @@ var NavBar = React.createClass({
 
         }
 
+        if(unitCount==0){
+            domTodisplay = <div/>;
+        }
+        else{
+            domTodisplay = (    <div> 
+                                {backBtnDom}
+                                <div className={logoclasses}>
+                                    {logoDisplay}
+                                    {dropdownDom}
+                                </div>
+                            </div>
+                        );
+        }
 
-        domTodisplay = (
-            <div>
-                {backBtnDom}
-                <div className={logoclasses}>
-                    {logoDisplay}
-                    {dropdownDom}
-                </div>
-                <div className="col-xs-12 unitDetails">
-                    <small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}{facingDisplay}</small>
-                </div>
-                <div className="clear"></div>
-            </div>
-        );
 
       }
 
