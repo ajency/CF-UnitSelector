@@ -34,13 +34,14 @@ var FilterPopover = React.createClass({
     	oldState = this.state;
     	newState = {};
 
-      //$(this.refs.filterUl).scrollTop( 300 );
-      //alert('test filter');
-      $(this.refs.filterUl).mCustomScrollbar('scrollTo',['top',null]);
-
     	if(oldState.closed){
     		newState.closed = false;
-        //$(this.refs.filterCountDesktop).hide();
+
+        $(this.refs.filterUl).mCustomScrollbar('update');
+        setTimeout(function(){
+          $('filterUl').mCustomScrollbar('scrollTo','top');
+        },500);
+
     	}else{
     		newState.closed = true;
         //$(this.refs.filterCountDesktop).show();

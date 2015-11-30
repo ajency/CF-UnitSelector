@@ -502,6 +502,9 @@ var SteponeImage = React.createClass({
         cardListFor = this.props.cardListFor;
         cardListForId = this.props.cardListForId;
 
+        faqUrl = window.baseUrl+"/html/TermsPrivacyFaq/faq.html";
+        privacyUrl = window.baseUrl+"/html/TermsPrivacyFaq/privacy.html"
+
         if(window.isMobile){
             domToDisplay = (
 
@@ -556,8 +559,8 @@ var SteponeImage = React.createClass({
                 <div className="us-right-content" style={parentContainerStyle}>
                     <div className="footer">
                           <h2 className="primary-txt text-right m-b-5"> Call {this.props.projectContactNo}</h2>
-                          <a href="https://www.commonfloor.com/" target="_blank"> Commonfloor </a> | <a href="#" target="_blank">FAQ  </a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank"> Mobile Apps  </a>
-                          <br /> © 2015 Commonfloor Inc. |<a href="https://www.commonfloor.com/privacy-policy" target="_blank"> Privacy Policy</a>
+                          <a href="https://www.commonfloor.com/" target="_blank"> Commonfloor </a> | <a href={faqUrl} target="_blank">FAQ  </a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank"> Mobile Apps  </a>
+                          <br /> © 2015 Commonfloor Inc. |<a href={privacyUrl} target="_blank"> Privacy Policy</a>
                     </div>
 
                     <div className={rotateClasses}>

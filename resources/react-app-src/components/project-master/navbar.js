@@ -65,7 +65,7 @@ var NavBar = React.createClass({
             appliedFilterKeys = _.keys(applied_filters);
             //appliedFilterCount = appliedFilterKeys.length;
             appliedFilterCount = newAppliedFiltersCount.length;
-            
+
             filterClasses = classNames({
                 "filterNumber" : true
             });
@@ -99,23 +99,23 @@ var NavBar = React.createClass({
         }
 
       if(window.isMobile){
-        
+
         if(cardListFor==="project"){
-            backBtnDom = ( 
+            backBtnDom = (
                         <div className="col-xs-2 p-0">
                             <i className="i-marker i-icon"></i>
                         </div>
-                    );            
+                    );
 
         }
         else{
-            backBtnDom =  ( <BackButton 
+            backBtnDom =  ( <BackButton
                                 backStyleType = "light"
                                 navigationType = {this.props.cardListFor}
                                 navigationId = {this.props.cardListForId}
                                 entityId = {this.props.previousEntityId}
                             />);
-        }        
+        }
 
         domTodisplay = (
             <nav className="navbar navbar-default">
@@ -148,8 +148,8 @@ var NavBar = React.createClass({
         var logoclasses;
 
         if(cardListFor==="project"){
-            backBtnDom =  "";            
-          
+            backBtnDom =  "";
+
         }
         else{
             backBtnDom = ( <BackButton
@@ -157,9 +157,9 @@ var NavBar = React.createClass({
                                 navigationType = {this.props.cardListFor}
                                 navigationId = {this.props.cardListForId}
                                 entityId = {this.props.previousEntityId}
-                            /> 
-                         );  
-        }          
+                            />
+                         );
+        }
 
         if(this.props.cardListFor==="project"){
             dropdownDom = ""
@@ -192,13 +192,13 @@ var NavBar = React.createClass({
                 </span>
             );
 
-            logoDisplay = "";          
+            logoDisplay = "";
         }
         else{
             facingDisplay = "";
 
             if(this.props.cardListFor === "group"){
-                logoDisplay = "";      
+                logoDisplay = "";
             }
             else{
                 if(this.props.logoExist){
@@ -209,9 +209,9 @@ var NavBar = React.createClass({
                 else{
 
                     logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
-                }                  
+                }
             }
-        
+
         }
 
 
@@ -221,7 +221,7 @@ var NavBar = React.createClass({
                 <div className={logoclasses}>
                     {logoDisplay}
                     {dropdownDom}
-                </div>                          
+                </div>
                 <div className="col-xs-12 unitDetails">
                     <small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}{facingDisplay}</small>
                 </div>
