@@ -13,9 +13,16 @@ var SignupForm = forms.Form.extend({
 			errorMessages: {required: 'Please enter your email ID.'}
   		}),
   	phone: forms.CharField({
-  			required: false,
-  			widget: forms.TextInput({attrs: {placeholder: 'Mobile'}})
-  	})
+  			widget: forms.TextInput({attrs: {placeholder: 'Mobile'}}),
+  			errorMessages: {required: 'Please enter your phone number.'}
+  	}),
+
+	clean: ['phone', function() {
+	    if (isNaN(this.cleanedData.phone) || (this.cleanedData.phone.length>12) || (this.cleanedData.phone.length<10)){
+	       throw forms.ValidationError('Enter valid phone number.')
+	    }
+	}]
+
 });
 
 var ContactUs = React.createClass({
