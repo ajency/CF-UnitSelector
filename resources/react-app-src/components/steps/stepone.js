@@ -339,7 +339,8 @@ var StepOne = React.createClass({
     },
 
     showFilterModal: function(){
-        $(ReactDOM.findDOMNode(this.refs.modal)).modal();
+        $(ReactDOM.findDOMNode(this.refs.modal)).modal();        
+        $(".modal-body").scrollTop(0);
     },
 
     showContactModal: function(){
