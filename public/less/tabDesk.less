@@ -54,14 +54,15 @@
 		padding-top:25px;	
 		button 
 		{
+		&:last-child
+		{
+			margin-left: 5px;
+		}	
 			i
 			{
 				margin-left: 7px;
 			}
-			&:first-child
-			{
-				margin-right: 5px;
-			}
+			
 		}
 		.totalUnitPrice
 		{
@@ -69,6 +70,7 @@
     		color: @brand-primary;
     		font-size: 14px;
     		text-transform: uppercase;
+    		font-weight: bold;
     		.totalPriceText
     		{
     			color: @black;
@@ -604,6 +606,7 @@
 			    font-size: 18px;
 			    color: #fff;			    
     			text-transform: uppercase;
+    			font-weight: bold;
 		    }
 	    }
 	    .floatingPlusIcon
