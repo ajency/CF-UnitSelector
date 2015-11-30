@@ -91,8 +91,11 @@ class Project extends Model {
         if(!empty($shadowImages))
         {
             ksort($shadowImages);
-            end($shadowImages); 
-            $lastElementKey = key($shadowImages);
+            $shadowImages_1 = $shadowImages;
+            end($shadowImages_1); 
+            $lastElementKey = key($shadowImages_1);
+            echo $lastElementKey;
+
              
              for ($i=0; $i<=intval($lastElementKey);$i++)
             {
