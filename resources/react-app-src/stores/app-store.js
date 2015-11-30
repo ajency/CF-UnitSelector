@@ -1279,6 +1279,7 @@ function _loadProjectData(data) {
     window.project_title = _projectData.project_title;
     window.builder_email = _projectData.builder_email;
     window.builder_phone = _projectData.builder_phone;
+    window.booking_engine_url = _projectData.booking_engine_url;
 
 	_globalStateData = _getProjectMasterData();
 
