@@ -23,7 +23,7 @@
    <body>
       <div id="wrapper">
          <!-- Sidebar -->
-         <div id="sidebar-wrapper">
+         <div id="sidebar-wrapper">         
          <span class="bckArrow"><i class="fa fa-arrow-left"></i></span>
             <div class="logoOuter titleOuter">
             <i class="sideBarLogo "><img src="../../images/logo.jpg"/></i>
@@ -162,6 +162,7 @@
          <div class="container-fluid">
            <div class="navbar-header">
                        <div class="row">
+                      
                            <div class="col-sm-3">
                               <a href="#" class="sun-toggle btn btn-default btn-sm"> 
                                     <i class="fa fa-sun-o"></i>
@@ -621,6 +622,13 @@
          });
          });
          
+      </script>
+      <script type="text/javascript">
+          $(document).ready(function(){
+            $(".sidebarCloseBtn").click(function(){
+              $("#sidebar-wrapper").slideToggle();
+            });
+          });
       </script>
    </body>
 </html>

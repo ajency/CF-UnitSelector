@@ -138,8 +138,11 @@
          <div id="page-content-wrapper">
             <div class="us-right-content">
                <div class="footer">
-                     <h4 class="primary-txt"> Call 1800 180 180 180</h4>
-                     <a href="https://www.commonfloor.com/"> Commonfloor </a> |      <a href="#">FAQ  </a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en"> Mobile Apps  </a> <br> © 2015 Commonfloor Inc. |<a href="https://www.commonfloor.com/privacy-policy"> Privacy Policy</a>
+                     <span class="poweredBy"> Powered By</span>
+
+                     <span class="footerLogo"><img src="../../images/inner-header-logo.png"/></span>
+                     <br>
+                     <a href="#">FAQ  </a> | <a href="https://www.commonfloor.com/privacy-policy"> Privacy Policy</a>
                   </div>
                    <div class="rotate" >
                      <i id="next" class="i-icon i-icon-rotate"></i>
@@ -167,6 +170,7 @@
          <div class="container-fluid">
            <div class="navbar-header">
                        <div class="row">
+                           <button class="sidebarCloseBtn btn btn-primary btn-sm"><i class="fa fa-bars"></i></button>
                            <div class="col-sm-3">
                               <a href="#" class="sun-toggle btn btn-default btn-sm"> 
                                     <i class="fa fa-sun-o"></i>
@@ -435,7 +439,7 @@
 
                        </div>
 
-                       <div class="row text-center">
+                       <div class="row text-center tipRow">
                         <div class="messageBoxDesk">
                           <div class="tip">
                             Tip
@@ -675,5 +679,13 @@
     });
 
         </script>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $(".sidebarCloseBtn").click(function(){
+              $('#wrapper').toggleClass('wrapperClass');
+              $("#sidebar-wrapper").toggleClass('sideBarToggle');                           
+            });
+          });
+      </script>
    </body>
 </html>

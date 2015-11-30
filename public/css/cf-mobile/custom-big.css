@@ -315,6 +315,9 @@ body a {
   font-size: 12px;
   color: #fe943e;
 }
+#sidebar-wrapper {
+  left: 320px;
+}
 #sidebar-wrapper .bckArrow i {
   position: relative;
   z-index: 2;
@@ -322,6 +325,9 @@ body a {
   -ms-transform: scale(0.75);
       transform: scale(0.75);
   -webkit-transform: scale(0.75);
+}
+#sidebar-wrapper.sideBarToggle {
+  left: 0;
 }
 .btn-primary {
   background: #fe943e !important;
@@ -347,6 +353,18 @@ body a {
 .footer a:focus,
 .footer a:hover {
   color: #ccc;
+}
+.footer .poweredBy {
+  float: left;
+  width: 100%;
+}
+.footer .footerLogo {
+  float: left;
+  width: 100%;
+  margin: 5px 0;
+}
+.footer .footerLogo img {
+  width: 60px;
 }
 .card-swipe {
   font-size: 12px;
@@ -537,6 +555,13 @@ body a {
   top: 20px;
   width: auto;
   left: 37%;
+}
+.navbar-header .sidebarCloseBtn {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  z-index: 1;
+  display: none;
 }
 .filter-type li {
   margin-left: 10px;
@@ -1157,6 +1182,9 @@ select::-ms-expand {
 #wrapper {
   overflow: hidden;
 }
+.wrapperClass {
+  padding-left: 0 !important;
+}
 .us-right-content {
   overflow: auto;
 }
@@ -1188,6 +1216,14 @@ select::-ms-expand {
 }
 .svg4 .step4-svg .svg-area {
   width: 96%;
+}
+@media screen and (min-width: 768px) and (max-width: 991px) and (orientation: portrait) {
+  .navbar-header .sidebarCloseBtn {
+    display: block;
+  }
+  .sun-toggle {
+    margin-left: 20px;
+  }
 }
 #overlay {
   position: absolute;
