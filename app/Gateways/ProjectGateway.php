@@ -82,7 +82,8 @@ class ProjectGateway implements ProjectGatewayInterface {
             'property_types' => $propertyTypes,
             'project_property_types' => $this->propertyTypeUnits($projectId),
             'filters' =>  unserialize($filters),
-            'views' =>  $projectViews
+            'views' =>  $projectViews,
+            'booking_engine_url' =>  BOOKING_ENGINE_URL
 
         ];
       
