@@ -65,9 +65,14 @@
             isMobile = false;
             $("#size-stylesheet").attr("href", "{{ asset('css/cf-mobile/custom-big.css' )}}");
 
+        }else if(!_.isNull(md.tablet())){
+            isMobile = false;
+            $("#size-stylesheet").attr("href", "{{ asset('css/cf-mobile/custom-big.css' )}}");
         }else{
-            isMobile = true;
+                isMobile = true;
         }
+            
+
 
         window.isMobile = isMobile;
     	window.baseUrl = '{{url()}}';
