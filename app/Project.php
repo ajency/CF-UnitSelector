@@ -87,13 +87,18 @@ class Project extends Model {
         $shadowValue = $this->projectMeta()->where( 'meta_key', 'shadow' )->get()->first()->meta_value;
         $shadowImages = unserialize( $shadowValue );
         $Images =[];
-        for ($i=0; $i<count($shadowImages);$i++)
-        {
-            $Images[$i] ='';
-        }
+       
         if(!empty($shadowImages))
         {
             ksort($shadowImages);
+            end($shadowImages); 
+            $lastElementKey = key($shadowImages);
+             
+             for ($i=0; $i<=intval($lastElementKey);$i++)
+            {
+                $Images[$i] ='';
+            }
+
             foreach ($shadowImages as $key => $images) {
                 if($images!=''){
                     $imageName = Media::find($images)->image_name;
