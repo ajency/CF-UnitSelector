@@ -137,7 +137,7 @@ var TabHeader = React.createClass({
 				<div>
 					<div className="row">
 						<div className="col-xs-12">
-							<div className="col-xs-6">
+							<div className="col-xs-5">
 								<BackButton
 									backStyleType = "withLabel"
 		                            navigationType = "unit"
@@ -148,7 +148,7 @@ var TabHeader = React.createClass({
 								<span className={ 'unitStatus text-uppercase '+statusClass}>{unitStatus}</span>
 							</div>
 
-							<div className="col-xs-6 text-right rightSide">
+							<div className="col-xs-7 text-right rightSide">
 								<span className="totalUnitPrice">
 										<span className="totalPriceText">Total</span> <i className="fa fa-inr"></i> <PriceFormat numPrice={sellingAmount} />
 								</span>
