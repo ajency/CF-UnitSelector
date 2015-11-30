@@ -225,8 +225,11 @@ var StepThree = React.createClass({
                     oldataTochange = oldSearchFilters[filterType];
                 }
                 else{
-                    oldSearchFilters[filterType] = [];
-                    oldataTochange = oldSearchFilters[filterType];
+                  var jsondata = {};
+                  jsondata[filterType] = {$set: []};
+
+                  oldSearchFilters = immutabilityHelpers( oldSearchFilters,jsondata);
+                  oldataTochange = oldSearchFilters[filterType];
                 }
 
 
@@ -240,19 +243,30 @@ var StepThree = React.createClass({
 
                 if (indexOfELem > -1) {
 
-                    oldataTochange.splice(indexOfELem, 1);
+
+                  oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
+
+                    //oldataTochange.splice(indexOfELem, 1);
 
                 }else{
-                    oldataTochange.push(valueToSet);
+
+                    oldataTochange = immutabilityHelpers( oldataTochange,{$push: [valueToSet]});
+
+                    //oldataTochange.push(valueToSet);
                 }
 
                 //For range filter, reset the filter with new min max value
                 if(filterStyle == 'range'){
                     oldataTochange = [];
-                    _.each(valueToSet, function(rangeValue){
-                        oldataTochange.push(rangeValue);
-                    });
-
+                    var min = valueToSet.indexOf("MIN");
+                    var max = valueToSet.indexOf("MAX");
+                    if(min > -1 || max > -1){
+                      oldataTochange = [];
+                    }else{
+                      _.each(valueToSet, function(rangeValue){
+                          oldataTochange.push(rangeValue);
+                      });
+                    }
                 }
 
 
@@ -336,7 +350,7 @@ var StepThree = React.createClass({
 
     hideContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
-    },       
+    },
 
     toggelSunView: function(evt){
         evt.preventDefault();
@@ -382,24 +396,22 @@ var StepThree = React.createClass({
 
         var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
 
-        if(totalFilterApplied === 0){
-            dataToSet ={
-                property: "reset_filters",
-                value: {}
-            };
-        }
-        else{
+        if(!_.isEmpty(this.state.data.search_filters)){
+          if(totalFilterApplied>0){
             dataToSet = {
                 property: "applied_filters",
                 value: this.state.data.search_filters
             };
+          }else{
+            dataToSet = {
+                property: "reset_filters",
+                value: {}
+            };
+          }
+
+          this.updateStateData([dataToSet]);
+          this.updateProjectMasterData();
         }
-
-
-        this.updateStateData([dataToSet]);
-
-        this.updateProjectMasterData();
-
 
     },
 
@@ -408,16 +420,19 @@ var StepThree = React.createClass({
         console.log("Un Apply filters");
         this.destroyTooltip();
 
+        var totalFilterApplied = AppStore.getFilteredCount(this.state.data.applied_filters);
+
         dataToSet ={
             property: "reset_filters",
             value: {}
         };
 
+        //if(totalFilterApplied > 0){
+        if(!_.isEmpty(this.state.data.applied_filters)){
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
-
-
+      }
     },
 
     updateSearchFilters: function(filterType, filterValue, filterStyle){
@@ -529,6 +544,7 @@ var StepThree = React.createClass({
 
     render: function(){
 
+        window.currentStep = "three";
 
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight, projectContactNo;
         var imageType, buildingToHighlight, modalData, filterTypes;

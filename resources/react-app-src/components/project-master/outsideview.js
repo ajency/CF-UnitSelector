@@ -12,7 +12,7 @@ var OutsideView = React.createClass({
 			<h6>Out Side View</h6>
                               <SvgView
                                   key="dfsd"
-                                  svgUrl="http://commonfloorlocal.com/projects/25/master/master-0.svg"
+                                  svgUrl="http://test.cfunitselectortest.com/projects/7/master/master-28.jpg"
                                   imgUrl="http://test.cfunitselectortest.com/projects/7/master/master-28.jpg"
                                   svgElementToSelect = "building"
                                   svgElementId = "21"

@@ -14,6 +14,11 @@ var SideBar = React.createClass({
 		$(this.refs.sideContentBar).mCustomScrollbar(customScrollBarSettings);
 	},
 
+    getRandomArbitrary: function (min, max) {
+        return Math.random() * (max - min) + min;
+    },
+
+
 	render: function () {
 
 		var buildings = this.props.buildings;
@@ -71,32 +76,34 @@ var SideBar = React.createClass({
 
 	    if(cardListFor === 'building'){
 
-  			// var step1ImgUrl , step1SvgUrl, stepImgUrl, step2SvgUrl, step3ImgUrl, step3SvgUrl;
+  			var step1ImgUrl , step1SvgUrl;
 
-		  	// buildingPrimaryBreakPoint = 0;
-		  	// projectMasterImgs = this.props.project_master;
+        	// var svgKey1 = this.getRandomArbitrary(0,50);  			
 
-		  	// buildingId = this.props.buildingId;
+		  	buildingPrimaryBreakPoint = this.props.primaryBreakPoint;
+		  	projectMasterImages = this.props.projectMasterImages;
 
-		  	// if(projectMasterImgs.length > 0){
-	  		// 	step1ImgUrl = projectMasterImgs[buildingPrimaryBreakPoint];
-		  	// }else{
-	  		// 	step1ImgUrl = "";		  		
-		  	// }
+		  	buildingId = this.props.buildingId;
+
+		  	if(projectMasterImages.length > 0){
+	  			step1ImgUrl = projectMasterImages[buildingPrimaryBreakPoint];
+		  	}else{
+	  			step1ImgUrl = "";		  		
+		  	}
 
 
-  			// step1SvgUrl = window.baseUrl+'/projects/'+window.projectId+'/master/master-'+buildingPrimaryBreakPoint+'.svg';
+  			step1SvgUrl = window.baseUrl+'/projects/'+window.projectId+'/master/master-'+buildingPrimaryBreakPoint+'.svg';
 
 
 	      	outsideViewNode = (
 					<div className="outSideView">
 						<h6>Out Side View</h6>
 		                  	<SvgView
-		                      	key="23"
-		                      	svgUrl="http://test.cfunitselectortest.com/projects/7/master/master-28.svg"
-		                      	imgUrl="http://test.cfunitselectortest.com/projects/7/master/master-28.jpg"
+		                      	key={buildingPrimaryBreakPoint}
+		                      	svgUrl={step1SvgUrl}
+		                      	imgUrl={step1ImgUrl}
 		                      	svgElementToSelect = "building"
-		                      	svgElementId = "21"
+		                      	svgElementId = {buildingId}
 		                   	/>
 
 					</div>

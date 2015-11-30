@@ -108,7 +108,11 @@ var CardView = React.createClass({
 
           if(isFilterApplied){
             unitCount = filteredUnitData.length;
-            unitCountDisplayString = "matching your selection";
+
+            if(filteredUnitData.length > 0)
+              unitCountDisplayString = "matching your selection";
+            else
+              unitCountDisplayString = "not matching your selection";  
           }
           else{
             unitCount = availableUnitData.length;

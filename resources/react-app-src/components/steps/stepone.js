@@ -219,8 +219,11 @@ var StepOne = React.createClass({
                     oldataTochange = oldSearchFilters[filterType];
                 }
                 else{
-                    oldSearchFilters[filterType] = [];
-                    oldataTochange = oldSearchFilters[filterType];
+                  var jsondata = {};
+                  jsondata[filterType] = {$set: []};
+
+                  oldSearchFilters = immutabilityHelpers( oldSearchFilters,jsondata);
+                  oldataTochange = oldSearchFilters[filterType];
                 }
 
 
@@ -234,10 +237,16 @@ var StepOne = React.createClass({
 
                 if (indexOfELem > -1) {
 
-                    oldataTochange.splice(indexOfELem, 1);
+
+                  oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
+
+                    //oldataTochange.splice(indexOfELem, 1);
 
                 }else{
-                    oldataTochange.push(valueToSet);
+
+                    oldataTochange = immutabilityHelpers( oldataTochange,{$push: [valueToSet]});
+
+                    //oldataTochange.push(valueToSet);
                 }
 
                 //For range filter, reset the filter with new min max value
@@ -252,9 +261,6 @@ var StepOne = React.createClass({
                           oldataTochange.push(rangeValue);
                       });
                     }
-
-
-
                 }
 
 
@@ -274,10 +280,12 @@ var StepOne = React.createClass({
                 valueToSet = dataToSet.value;
 
                 newState = immutabilityHelpers( oldState, { data:
-                                                            {applied_filters:
-                                                                {$set: valueToSet}
-                                                            }
-                                                          });
+                  {applied_filters:
+                    {$set: valueToSet}
+                  }
+                });
+
+
             }
             if(dataToSet.property === "unitIndexToHighlight"){
                 newState = immutabilityHelpers( oldState, { data:
@@ -324,6 +332,8 @@ var StepOne = React.createClass({
             buildingName = buildingToHighlight.building_name;
 
             this.showTooltip(buildingName,".building"+buildingToHighlight.id);
+        }else{
+            buildingToHighlight = buildings[0];
         }
 
     },
@@ -335,10 +345,10 @@ var StepOne = React.createClass({
     showContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
-    
+
     hideContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
-    },    
+    },
 
     toggelSunView: function(evt){
 
@@ -387,25 +397,22 @@ var StepOne = React.createClass({
 
         var totalFilterApplied = AppStore.getFilteredCount(this.state.data.search_filters);
 
-        if(totalFilterApplied === 0){
-            dataToSet ={
-                property: "reset_filters",
-                value: {}
-            };
-        }
-        else{
+        if(!_.isEmpty(this.state.data.search_filters)){
+          if(totalFilterApplied>0){
             dataToSet = {
                 property: "applied_filters",
                 value: this.state.data.search_filters
             };
+          }else{
+            dataToSet = {
+                property: "reset_filters",
+                value: {}
+            };
+          }
+
+          this.updateStateData([dataToSet]);
+          this.updateProjectMasterData();
         }
-
-
-        this.updateStateData([dataToSet]);
-
-        this.updateProjectMasterData();
-
-
     },
 
     unapplyFilters: function(evt){
@@ -413,14 +420,19 @@ var StepOne = React.createClass({
         console.log("Un Apply filters");
         this.destroyTooltip();
 
+        var totalFilterApplied = AppStore.getFilteredCount(this.state.data.applied_filters);
+
         dataToSet ={
             property: "reset_filters",
             value: {}
         };
 
+        //if(totalFilterApplied > 0){
+        if(!_.isEmpty(this.state.data.applied_filters)){
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
+        }
 
 
     },
@@ -453,6 +465,7 @@ var StepOne = React.createClass({
     },
 
     render: function(){
+        window.currentStep = "one";
 
         var data, domToDisplay, cardListFor, cardListForId, buildings, isFilterApplied, projectTitle, projectLogo, unitCount, applied_filters, unitIndexToHighlight, projectContactNo;
         var imageType, buildingToHighlight, modalData, filterTypes, messageBoxMsg;

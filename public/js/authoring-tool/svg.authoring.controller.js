@@ -102,21 +102,22 @@ jQuery(document).ready(function($) {
       units = window.actualUnits(value.toLowerCase());
       marked = [];
       $.each(items, function(ind, val) {
-        if (val.get('object_id') !== 0) {
+        if (val.get('object_id') !== '0') {
           return marked.push(val);
         }
       });
-      return type.push({
+      type.push({
         'name': value,
         'id': value,
         'total': units.length,
         'marked': marked.length
       });
+      return console.log(type);
     });
     return type;
   };
   window.actualUnits = function(value) {
-    var newUnits, temp, units;
+    var attributes, building, buildings, floorGroups, newUnits, temp, units;
     units = [];
     if (value === 'villa') {
       units = bunglowVariantCollection.getBunglowMasterUnits();
@@ -126,6 +127,15 @@ jQuery(document).ready(function($) {
     }
     if (value === 'building') {
       units = buildingMasterCollection.toArray();
+    }
+    if (value === 'floor_group') {
+      buildings = buildingMasterCollection.toArray();
+      building = _.where(buildings, {
+        id: parseInt(building_id)
+      });
+      attributes = _.pluck(building, 'attributes');
+      floorGroups = _.pluck(attributes, 'floor_group');
+      units = floorGroups[0];
     }
     if (value === 'apartment') {
       units = apartmentVariantCollection.getApartmentMasterUnits();
@@ -557,8 +567,8 @@ jQuery(document).ready(function($) {
           'id': parseInt(elem.id)
         });
         unit_name = unit.get('building_name');
-      }
-      if (type === 'floor_group') {
+      } else if (type === 'floor_group') {
+        console.log('floor_group');
         buildings = buildingMasterCollection.toArray();
         building = _.where(buildings, {
           id: parseInt(building_id)
@@ -568,7 +578,9 @@ jQuery(document).ready(function($) {
         unit = _.where(floorGrops[0], {
           id: parseInt(elem.id)
         });
-        unit_name = unit[0]['name'];
+        if (!_.isEmpty(unit)) {
+          unit_name = unit[0]['name'];
+        }
       } else if (type !== 'building' && type !== 'project') {
         unit = unitMasterCollection.findWhere({
           'id': parseInt(elem.id)
@@ -584,6 +596,7 @@ jQuery(document).ready(function($) {
           floorGrop = _.where(floorGrops[0], {
             id: parseInt(unit.get('floor_group_id'))
           });
+          console.log("floorgroup");
           select = $('.floor-group');
           $('<option />', {
             value: floorGrop[0]['id'],

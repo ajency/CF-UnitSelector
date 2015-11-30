@@ -129,7 +129,8 @@ jQuery(document).ready ($)->
             marked = []
             $.each items,(ind,val)->
                 # if !_.isEmpty val.get('canvas_type')
-                if val.get('object_id')!=0
+                
+                if val.get('object_id')!='0'
                     marked.push val
 
             type.push
@@ -137,6 +138,7 @@ jQuery(document).ready ($)->
                 'id'   : value
                 'total' : units.length
                 'marked' : marked.length
+            console.log type
         # $.each type,(index,value)->
         #   if value.total is 0
         #       type = _.without(type, value)
@@ -152,6 +154,12 @@ jQuery(document).ready ($)->
             units = plotVariantCollection.getPlotMasterUnits()
         if value == 'building'
             units = buildingMasterCollection.toArray()
+        if value == 'floor_group'
+            buildings = buildingMasterCollection.toArray()
+            building = _.where(buildings, {id: parseInt(building_id) })
+            attributes = _.pluck(building, 'attributes')
+            floorGroups = _.pluck(attributes, 'floor_group')
+            units = floorGroups[0]
          if value == 'apartment'
             units = apartmentVariantCollection.getApartmentMasterUnits()
             temp = new Backbone.Collection units
@@ -581,14 +589,16 @@ jQuery(document).ready ($)->
                 unit = buildingMasterCollection.findWhere
                     'id' : parseInt elem.id
                 unit_name = unit.get('building_name')
-            if type is 'floor_group'
+            else if type is 'floor_group'
+                console.log 'floor_group'
                 buildings = buildingMasterCollection.toArray()
                 building = _.where(buildings, {id: parseInt(building_id) })
                 attributes = _.pluck(building, 'attributes')
                 floorGrops = _.pluck(attributes, 'floor_group')
 
                 unit = _.where(floorGrops[0], {id: parseInt(elem.id) })
-                unit_name = unit[0]['name']
+                if !_.isEmpty unit
+                    unit_name = unit[0]['name']
                  
             else if type isnt 'building' && type isnt 'project'
                 unit = unitMasterCollection.findWhere
@@ -602,6 +612,7 @@ jQuery(document).ready ($)->
                     floorGrops = _.pluck(attributes, 'floor_group')
                     floorGrop = _.where(floorGrops[0], {id: parseInt(unit.get('floor_group_id')) })
                     
+                    console.log "floorgroup"
                     select = $('.floor-group')
                     $('<option />', {value: floorGrop[0]['id'], text: floorGrop[0]['name']}).appendTo(select)
                     $('.floor-group').attr 'disabled' ,  true

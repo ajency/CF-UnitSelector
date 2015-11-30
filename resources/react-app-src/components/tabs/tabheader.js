@@ -149,6 +149,9 @@ var TabHeader = React.createClass({
 							</div>
 
 							<div className="col-xs-6 text-right rightSide">
+								<span className="totalUnitPrice">
+										<span className="totalPriceText">Total</span> <i className="fa fa-inr"></i> <PriceFormat numPrice={sellingAmount} />
+								</span>
 								{bookNowButton}
 								<button
 									className="btn btn-default btn-primary text-uppercase"
@@ -187,8 +190,15 @@ var TabHeader = React.createClass({
 							<li><a href="#" id="outsideView" className="click">Outside view</a></li>
 							<li><a href="#" id="societyEmenities" className="click">Society amenities</a></li>
 							<li className="pull-right stickyButtons">
+								<span className="totalUnitPrice">
+										<span className="totalPriceText">Total</span> <i className="fa fa-inr"></i> <PriceFormat numPrice={sellingAmount} />
+								</span>
 								{bookNowButton}
-								<button className="btn btn-default btn-primary text-uppercase">
+								<button
+									className="btn btn-default btn-primary text-uppercase"
+									data-toggle="modal" data-target="#contactModal"
+									onClick={this.props.showContactModal}
+								>
 									<i className="fa fa-phone"></i>
 									<span className="enquiryText">Contact Us</span>
 								</button>

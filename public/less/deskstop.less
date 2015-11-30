@@ -602,8 +602,10 @@ body {
   }  
  
 }
-.outSideView
-{
+.outSideView{
+.svg-area{
+    width:290px !important;
+}
   h6
   {
     margin-top: 15px;
@@ -612,9 +614,7 @@ body {
   }
   img
   {
-    width: 95%;
-    padding-right: 10px;
-    height: 122px;
+    width: 100%;
   }
 }
 .towerDropdown, .towerDropdown.open
@@ -973,4 +973,20 @@ select::-ms-expand {
 }
 .hide-floor-group{
   opacity:0 !important;
+}
+@media only screen and (min-width: 1920px){
+.svg4{
+  .step4-svg{ 
+      .svg-area {
+          width: 97% !important;
+      }
+    }
+  }
+}
+.svg4{
+.step4-svg{ 
+  .svg-area {
+        width: 96%;
+    }
+  }
 }

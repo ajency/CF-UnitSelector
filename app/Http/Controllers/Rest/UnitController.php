@@ -19,6 +19,8 @@ use \Mail;
 use Illuminate\Http\Request;
 use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 
+
+
 class UnitController extends ApiGuardController {
 
 	/**
@@ -474,6 +476,7 @@ class UnitController extends ApiGuardController {
      * Add Lead
      */
     public function addLead(Request $request){
+      
      
         try {
 
@@ -496,12 +499,13 @@ class UnitController extends ApiGuardController {
             $data['email'] = $request['email'];
             $data['toemail'] = $request['toemail'];
             $data['toname'] = $request['toname'];
+            $data['phone'] = $request['phone'];
             
             if($request['toemail'] !='' && $request['toname'] !='')
             {
                 Mail::send('admin.user.leadmail', ['user'=>$data], function($message)use($data)
                 {  
-                    $message->to($data['toemail'], $data['toname'])->subject('Welcome to CommonFloor Unit Selector!');
+                    $message->to($data['toemail'], $data['toname'])->subject('Lead for '.$data['toname']);
                 });
             }
 

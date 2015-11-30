@@ -75,6 +75,7 @@ var UnitDetails = React.createClass({
           sticky_relocate();
         });
       }
+
   },
 
 
@@ -200,10 +201,12 @@ var UnitDetails = React.createClass({
 
     hideContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
-    },   	
+    },
 
 
 	render: function() {
+
+		window.currentStep = "four";
 
 		var domToDisplay;
 

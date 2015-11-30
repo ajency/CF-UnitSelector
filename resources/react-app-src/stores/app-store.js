@@ -12,8 +12,8 @@ var CHANGE_EVENT = 'change';
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
 var _groupStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
-var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
-var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"notlive_buildings":[] ,"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
+var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0 } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"notlive_buildings":[] ,"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0 } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -673,7 +673,7 @@ function getApartmentUnitTypes(collectivePropertyTypeId, groupId, collectiveProp
 		})
 	}
 
-	apartmentUnitTypes = _.sortBy(apartmentUnitTypes, function(type) { return type.id; });
+	apartmentUnitTypes = _.sortBy(apartmentUnitTypes, function(type) { return type.name; });
 
 	return apartmentUnitTypes;
 }
@@ -1278,7 +1278,7 @@ function _loadProjectData(data) {
 	// set a few globals
     window.project_title = _projectData.project_title;
     window.builder_email = _projectData.builder_email;
-    window.builder_phone = _projectData.builder_phone;	
+    window.builder_phone = _projectData.builder_phone;
 
 	_globalStateData = _getProjectMasterData();
 
@@ -1310,7 +1310,7 @@ function _updateGlobalState(newStateData,type){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "logoExist": false, "unitCount":0, "shadowImages":[],"buildings":[],"notlive_buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0};
+	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "logoExist": false, "unitCount":0, "shadowImages":[],"buildings":[],"notlive_buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":""};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -1322,6 +1322,7 @@ function _getProjectMasterData(){
 		projectMasterData.projectLogo = projectData.logo ;
 		projectMasterData.logoExist = projectData.logo_exist ;
 		projectMasterData.shadowImages = projectData.shadow_images ;
+		projectMasterData.projectMasterImages = projectData.project_master ;
 
 		projectMasterData.projectContactNo = projectData.builder_phone ;
 
@@ -1656,10 +1657,7 @@ function _getBuildingMasterDetails(buildingId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
-			_buildingMasterStateData = _buildingMasterStateData;
-		}
-		else if((!_.isEmpty(_globalStateData.data.projectTitle))){
+		if((!_.isEmpty(_globalStateData.data.projectTitle))){
 
 			projectMasterStateData = _globalStateData;
 
@@ -1896,8 +1894,10 @@ function formatBuildingStateData(stateDataToformat){
         newStateData.breakpoints = building.breakpoints;
         newStateData.buildings = floorGroups;
         newStateData.shadowImages = building.shadow_images;
+		newStateData.primaryBreakPoint = building.primary_breakpoint;
 
         newState.data = newStateData;
+        newState.data.chosenBreakpoint = building.primary_breakpoint;
 
 
     }

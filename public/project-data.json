@@ -102,14 +102,15 @@
       "3": {
         "unit_types": [
           "2.5BHK",
-          "3BHK"
+          "3BHK",
+          "1BHK"
         ],
-        "starting_area": 2,
+        "starting_area": 14,
         "availability": {
-          "sold": 2,
-          "blocked": 7
+          "sold": 0,
+          "blocked": 5
         },
-        "starting_price": 73701000
+        "starting_price": 824073470
       }
     },
     "filters": {
@@ -124,8 +125,7 @@
         "unitTypes",
         "unitVariantNames",
         "Flooring",
-        "Roofing",
-        "Window"
+        "Roofing"
       ]
     },
     "views": [
@@ -137,7 +137,7 @@
         "object_id": 7,
         "defaults": "",
         "created_at": "2015-11-05 05:50:54",
-        "updated_at": "2015-11-24 05:23:27",
+        "updated_at": "2015-11-25 10:43:49",
         "deleted_at": null
       },
       {
@@ -148,7 +148,7 @@
         "object_id": 7,
         "defaults": "",
         "created_at": "2015-11-05 05:50:54",
-        "updated_at": "2015-11-24 05:23:27",
+        "updated_at": "2015-11-25 10:43:49",
         "deleted_at": null
       },
       {
@@ -159,7 +159,7 @@
         "object_id": 7,
         "defaults": "",
         "created_at": "2015-11-05 05:50:54",
-        "updated_at": "2015-11-24 05:23:27",
+        "updated_at": "2015-11-25 10:43:49",
         "deleted_at": null
       },
       {
@@ -170,7 +170,7 @@
         "object_id": 7,
         "defaults": "",
         "created_at": "2015-11-05 05:50:54",
-        "updated_at": "2015-11-24 05:23:27",
+        "updated_at": "2015-11-25 10:43:49",
         "deleted_at": null
       },
       {
@@ -181,18 +181,18 @@
         "object_id": 7,
         "defaults": "",
         "created_at": "2015-11-05 05:50:54",
-        "updated_at": "2015-11-24 05:23:27",
+        "updated_at": "2015-11-25 10:43:49",
         "deleted_at": null
       },
       {
-        "id": 137,
-        "label": "Common hall",
+        "id": 180,
+        "label": "Jogging track",
         "control_type": "checkbox",
         "object_type": "CommonFloor'CommonFloor\\Project",
         "object_id": 7,
         "defaults": "",
-        "created_at": "2015-11-19 11:46:03",
-        "updated_at": "2015-11-24 05:23:27",
+        "created_at": "2015-11-25 05:15:29",
+        "updated_at": "2015-11-25 10:43:49",
         "deleted_at": null
       }
     ],
@@ -289,7 +289,7 @@
           "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-34.jpg",
           "http://test.cfunitselectortest.com/projects/7/buildings/21/shadow-35.jpg"
         ],
-        "primary_breakpoint": 28,
+        "primary_breakpoint": 14,
         "floor_group": [
           {
             "id": 13,
@@ -1067,8 +1067,8 @@
                 ]
               }
             ],
-            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/94520514_25.jpeg",
-            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/232070623_25.jpeg"
+            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/929912895_25.jpeg",
+            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/25/1770627023_25.jpeg"
           }
         ]
       },
@@ -1082,11 +1082,10 @@
         "per_sq_ft_price": 1000,
         "variant_attributes": {
           "Flooring": " Vitrified Tiles",
-          "Roofing": "pop",
-          "Window": "normal"
+          "Roofing": "pop"
         },
         "created_at": "2015-11-06 05:51:41",
-        "updated_at": "2015-11-24 05:04:28",
+        "updated_at": "2015-11-25 10:59:28",
         "deleted_at": null,
         "size": 0,
         "floor": [
@@ -1116,7 +1115,7 @@
                 "atributes": [
                   {
                     "attribute_key": "dimension",
-                    "attribute_value": " 10'9\" x 7' 8\""
+                    "attribute_value": " 10'9\" x 7' 8\" hfcjd dfshjdgf dsf kjhksdf kj fs sdgf jh sj kj fkjh kj kjfkj skjh fskdjhk sdfhksfdk sfkjhjf kjhf dkjhf sjh sdfhj fdh kjhsdfhj ksdfjh jhf k hsfk jhds fhkjhkdf jh fsjh f slkjdhf. sfhkjsd,hkjhfsk. sidkjfkjdfdk kdkjdfksdfksld kdflkdfjj lkdjfslkdjf.hdfhkjld.hjsdlkfls.nfjhdfhsk.fsdfd sdfsdf sdfs fsdf sdf sdf sdf sdfsdf sdf sdf sdf sdf s."
                   }
                 ]
               },
@@ -1181,7 +1180,8 @@
                 ]
               }
             ],
-            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/27/1099947863_0.jpeg"
+            "url2dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/27/1099947863_0.jpeg",
+            "url3dlayout_image": "http://test.cfunitselectortest.com/projects/7/variants/27/1586614403_27.jpeg"
           }
         ]
       }
@@ -1311,7 +1311,7 @@
         "floor": 2,
         "building_id": 30,
         "created_at": "2015-11-19 07:12:08",
-        "updated_at": "2015-11-19 07:14:39",
+        "updated_at": "2015-11-25 07:06:02",
         "phase_id": 0,
         "views": [
           "Garden",
@@ -1321,7 +1321,7 @@
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "56555a4e184e2",
         "floor_group_id": 49,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -2492,14 +2492,14 @@
         "floor": 3,
         "building_id": 25,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:50:14",
+        "updated_at": "2015-11-24 12:09:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "56544fd8a9499",
         "floor_group_id": 26,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3156,14 +3156,14 @@
         "floor": 5,
         "building_id": 24,
         "created_at": "2015-11-06 06:31:37",
-        "updated_at": "2015-11-06 07:23:12",
+        "updated_at": "2015-11-25 04:20:01",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "",
+        "booking_id": "5655334b1fd44",
         "floor_group_id": 24,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3824,7 +3824,7 @@
         "floor": 1,
         "building_id": 21,
         "created_at": "2015-11-05 06:19:22",
-        "updated_at": "2015-11-24 04:54:01",
+        "updated_at": "2015-11-25 08:46:36",
         "phase_id": 0,
         "views": [
           "Swimming pool",
@@ -3834,7 +3834,7 @@
         "agent_id": 0,
         "booked_at": "2015-11-20 11:22:27",
         "property_type_group_id": 0,
-        "booking_id": "5653e9d6c63c0",
+        "booking_id": "5655747404c8d",
         "floor_group_id": 13,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -3993,14 +3993,14 @@
         "floor": 3,
         "building_id": 21,
         "created_at": "2015-11-05 06:20:18",
-        "updated_at": "2015-11-23 14:40:55",
+        "updated_at": "2015-11-25 07:56:16",
         "phase_id": 0,
         "views": [],
         "direction": "South",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "5652fbe306f99",
+        "booking_id": "565568169f7e9",
         "floor_group_id": 14,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -4066,7 +4066,7 @@
         },
         "property_type_id": 3,
         "primary_breakpoint": 0,
-        "availability": "available"
+        "availability": "sold"
       },
       {
         "id": 161,
@@ -4242,14 +4242,14 @@
         "floor": 6,
         "building_id": 21,
         "created_at": "2015-11-05 06:26:20",
-        "updated_at": "2015-11-20 11:20:01",
+        "updated_at": "2015-11-24 10:53:14",
         "phase_id": 0,
         "views": [],
         "direction": "North-West",
         "agent_id": 0,
         "booked_at": "0000-00-00 00:00:00",
         "property_type_group_id": 0,
-        "booking_id": "564efe408a4b8",
+        "booking_id": "56543e0c2f43e",
         "floor_group_id": 15,
         "breakpoint": 0,
         "booking_amount": 20000,
@@ -4327,6 +4327,11 @@
       {
         "id": 24,
         "name": "3BHK",
+        "property_type_id": 12
+      },
+      {
+        "id": 41,
+        "name": "1BHK",
         "property_type_id": 12
       }
     ],
