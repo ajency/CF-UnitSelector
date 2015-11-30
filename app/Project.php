@@ -94,7 +94,6 @@ class Project extends Model {
             $shadowImages_1 = $shadowImages;
             end($shadowImages_1); 
             $lastElementKey = key($shadowImages_1);
-            echo $lastElementKey;
 
              
              for ($i=0; $i<=intval($lastElementKey);$i++)
