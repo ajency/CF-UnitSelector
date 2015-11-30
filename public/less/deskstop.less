@@ -506,13 +506,24 @@ body {
     {
       display: none;
     }
-    .errorlist 
+    input ~ .errorlist 
     {
       li
       {
         list-style: none;
         position: absolute;
         top: 34px;
+        font-size: 11px;
+        color: @real-red;
+      }
+    }
+    .errorlist 
+    {
+      li
+      {
+        list-style: none;
+        position: absolute;
+        top: 130px;
         font-size: 11px;
         color: @real-red;
       }

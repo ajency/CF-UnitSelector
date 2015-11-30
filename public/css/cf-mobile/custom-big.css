@@ -723,10 +723,17 @@ body a {
 .contactModal .inputOuter label {
   display: none;
 }
-.contactModal .inputOuter .errorlist li {
+.contactModal .inputOuter input ~ .errorlist li {
   list-style: none;
   position: absolute;
   top: 34px;
+  font-size: 11px;
+  color: #ee1f3b;
+}
+.contactModal .inputOuter .errorlist li {
+  list-style: none;
+  position: absolute;
+  top: 130px;
   font-size: 11px;
   color: #ee1f3b;
 }
