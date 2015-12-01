@@ -425,7 +425,7 @@ body .row {
   opacity: .9 !important;
 }
 .svg-light {
-  opacity: 0.3;
+  opacity: 0;
   fill: #ffffff;
 }
 .svg-top-area svg {

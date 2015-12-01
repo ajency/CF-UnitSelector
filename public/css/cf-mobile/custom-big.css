@@ -1166,7 +1166,7 @@ select::-ms-expand {
   }
 }
 .svg-light {
-  opacity: 0.3;
+  opacity: 0;
   fill: #ffffff;
 }
 .svg-light:hover {
