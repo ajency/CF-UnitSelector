@@ -348,6 +348,7 @@ var SteponeImage = React.createClass({
     rotateSpriteSpin: function(){
         var breakpoints = [];
         var spin, nextbreakpoint, oldState, newState;
+        var stateDataChanges = [];
 
         // update image state data
         oldState = this.state;
@@ -363,7 +364,14 @@ var SteponeImage = React.createClass({
         prevShadowState = prevShowShadow;
 
         if( this.props.showShadow ){
-            this.props.updateRotateShadow(false);
+
+            dataToSet = {
+                property: "showShadow",
+                value: false
+            }
+            stateDataChanges.push(dataToSet); 
+
+            // this.props.updateRotateShadow(false);
         }
 
         breakpoints = this.props.breakpoints;
@@ -383,7 +391,14 @@ var SteponeImage = React.createClass({
         api.playTo(nextbreakpoint);
 
         // update chosen breakpoint in the state data
-        this.props.updateChosenBreakPoint(nextbreakpoint);
+        dataToSet = {
+            property: "chosenBreakpoint",
+            value: nextbreakpoint
+        };  
+        stateDataChanges.push(dataToSet);       
+        this.props.updateStateData(stateDataChanges);
+        
+        // this.props.updateChosenBreakPoint(nextbreakpoint);
     },
 
     getRandomArbitrary: function (min, max) {

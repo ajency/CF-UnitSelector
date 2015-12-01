@@ -84,13 +84,24 @@ class Project extends Model {
     }
 
     public function getProjectMasterShadowImages() {
-        $masterValue = $this->projectMeta()->where( 'meta_key', 'shadow' )->get()->first()->meta_value;
-        $masterImages = unserialize( $masterValue );
+        $shadowValue = $this->projectMeta()->where( 'meta_key', 'shadow' )->get()->first()->meta_value;
+        $shadowImages = unserialize( $shadowValue );
         $Images =[];
-        if(!empty($masterImages))
+       
+        if(!empty($shadowImages))
         {
-            ksort($masterImages);
-            foreach ($masterImages as $key => $images) {
+            ksort($shadowImages);
+            $shadowImages_1 = $shadowImages;
+            end($shadowImages_1); 
+            $lastElementKey = key($shadowImages_1);
+
+             
+             for ($i=0; $i<=intval($lastElementKey);$i++)
+            {
+                $Images[$i] ='';
+            }
+
+            foreach ($shadowImages as $key => $images) {
                 if($images!=''){
                     $imageName = Media::find($images)->image_name;
                     $Images[intval($key)] = url() . "/projects/" .  $this->id . "/shadow/" . $imageName;

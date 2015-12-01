@@ -23,7 +23,8 @@ var TabFooter = React.createClass({
   		else{
 			unitId = this.props.unitId;
 			projectId = this.props.projectId;
-			baseBookingUrl = "http://booking.cfunitselectortest.com/public/booknow.php?"
+			bookingBaseUrl = window.booking_engine_url;
+			baseBookingUrl = bookingBaseUrl+"public/booknow.php?"
 			redirectUrl = baseBookingUrl+"unitId="+unitId+"&projectId="+projectId;
 
 			this._redirect(redirectUrl);
