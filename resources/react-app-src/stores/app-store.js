@@ -1758,10 +1758,7 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_groupStateData.data.projectTitle))){
-			_groupStateData = _groupStateData;
-		}
-		else if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
+		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
 			buildingMasterStateData = _buildingMasterStateData;
 
 			// buildings here would refer to floor groups
