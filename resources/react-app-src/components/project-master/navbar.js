@@ -233,6 +233,9 @@ var NavBar = React.createClass({
                                     {logoDisplay}
                                     {dropdownDom}
                                 </div>
+                                 <div className="col-xs-12 unitDetails">
+                                     <small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}{facingDisplay}</small>
+                                 </div>                                
                             </div>
                         );
         }
