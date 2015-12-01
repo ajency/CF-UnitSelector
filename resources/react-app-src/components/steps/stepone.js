@@ -312,8 +312,19 @@ var StepOne = React.createClass({
         spin = $(ReactDOM.findDOMNode(this.refs.imageContainerone)).find("#spritespin");
         api = spin.spritespin("api");
 
-        chosenBreakPoint = this.state.data.chosenBreakpoint
-        api.playTo(chosenBreakPoint);
+        chosenBreakPoint = this.state.data.chosenBreakpoint;
+        currentBreakPt = api.currentFrame();
+
+        if(chosenBreakPoint!=currentBreakPt)
+            api.playTo(chosenBreakPoint);
+        else{
+            // check if shadow image was selected previously and set state accordingly
+            if(window.prevShadowState){
+                this.updateRotateShadow(window.prevShadowState);
+                window.prevShadowState = false;
+            }            
+        }
+
 
         slideToGotTo = this.state.data.unitIndexToHighlight;
 
