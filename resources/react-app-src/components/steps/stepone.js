@@ -91,6 +91,11 @@ var StepOne = React.createClass({
 
         // ALways rotate to primary breakpoint
         rotateToBreakpoint = unitData.primary_breakpoint;
+
+        if(_.isNull(rotateToBreakpoint)){
+            rotateToBreakpoint = 0;
+        }
+        
         unitId = unitData.id;
 
         prevShowShadow = this.state.data.showShadow;

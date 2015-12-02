@@ -2026,6 +2026,25 @@ var AppStore = merge(EventEmitter.prototype, {
 		return _globalStateData;
 	},
 
+	getCurrentStateData: function(type){
+
+		var stateData;
+
+		switch(type) {
+		  case "project":
+		      	stateData = _globalStateData;
+		      	break;
+		  case "building":
+		      	stateData = _buildingMasterStateData;
+		      	break;
+
+		  case "group":
+		      	stateData = _groupStateData;
+		      	break;
+		}		
+		return stateData;
+	},	
+
 	getUnitStateData: function(unitId){
 		_unitStateData = _getUnitDetails(unitId);
 		return _unitStateData;
