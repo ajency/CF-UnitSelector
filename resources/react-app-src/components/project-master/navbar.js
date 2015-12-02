@@ -223,8 +223,8 @@ var NavBar = React.createClass({
 
         }
 
-        if(unitCount==0){
-            domTodisplay = <div/>;
+        if((unitCount==0)&&!isFilterApplied&&(cardListFor==="project")){
+            domTodisplay = (<div/>);
         }
         else{
             domTodisplay = (    <div> 

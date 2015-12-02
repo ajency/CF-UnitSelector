@@ -94,12 +94,14 @@ var StepOne = React.createClass({
         unitId = unitData.id;
 
         prevShowShadow = this.state.data.showShadow;
+        dataToUpdate = [];
 
         // store previous shadow state, to later use it to update main shadow state
         window.prevShadowState = prevShowShadow;
 
         if( prevShowShadow ){
-            this.updateRotateShadow(false);
+            dataToSet = {property:"showShadow", value:false };
+            dataToUpdate.push(dataToSet);
         }
 
         // hide svg area
@@ -110,8 +112,14 @@ var StepOne = React.createClass({
 
 
         // update chosen breakpoint to primary breakpoint of tower of current slide
+        dataToSet = {property:"unitIndexToHighlight", value:unitIndexToHighlight };
+        dataToUpdate.push(dataToSet);  
+              
         // update unit index to higlight
-        this.updateStateData([{property:"chosenBreakpoint",value:rotateToBreakpoint},{property:"unitIndexToHighlight", value:unitIndexToHighlight }]);
+        dataToSet = {property:"chosenBreakpoint",value:rotateToBreakpoint};
+        dataToUpdate.push(dataToSet);
+
+        this.updateStateData(dataToUpdate);
 
     },
 
@@ -302,9 +310,9 @@ var StepOne = React.createClass({
         })
 
 
-
-        this.setState(newState, this.projectDataUpdateCallBack);
         AppStore.updateGlobalState(newState,"projectMaster");
+        this.setState(newState, this.projectDataUpdateCallBack);
+        
 
     },
 
