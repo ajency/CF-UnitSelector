@@ -1758,10 +1758,7 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_groupStateData.data.projectTitle))){
-			_groupStateData = _groupStateData;
-		}
-		else if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
+		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
 			buildingMasterStateData = _buildingMasterStateData;
 
 			// buildings here would refer to floor groups
@@ -2028,6 +2025,25 @@ var AppStore = merge(EventEmitter.prototype, {
 	getStateData: function(){
 		return _globalStateData;
 	},
+
+	getCurrentStateData: function(type){
+
+		var stateData;
+
+		switch(type) {
+		  case "project":
+		      	stateData = _globalStateData;
+		      	break;
+		  case "building":
+		      	stateData = _buildingMasterStateData;
+		      	break;
+
+		  case "group":
+		      	stateData = _groupStateData;
+		      	break;
+		}		
+		return stateData;
+	},	
 
 	getUnitStateData: function(unitId){
 		_unitStateData = _getUnitDetails(unitId);

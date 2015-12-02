@@ -255,11 +255,11 @@ class ProjectBuildingController extends Controller {
             $code = '200';
         }
         else{
-            
+            \CommonFloor\SvgElement::where('object_id',$id)->where('object_type','building')->delete();
             $building->delete();
             $code = '204';
 
-            $msg ='Building deleted successfully';
+            $msg ='Building deleted successfully'; 
             
         }
         Session::flash('success_message','Building successfully deleted');

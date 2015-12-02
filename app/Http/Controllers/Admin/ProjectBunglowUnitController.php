@@ -284,7 +284,7 @@ class ProjectBunglowUnitController extends Controller {
     public function destroy($projectId, $id) {
         $unit = Unit::find($id); 
         \CommonFloor\AgentUnit::where('unit_id',$id)->delete();  
-        \CommonFloor\SvgElement::where('object_id',$id)->delete();  
+        \CommonFloor\SvgElement::where('object_id',$id)->whereIn('object_type',['villa','apartment','plot'])->delete();  
         $unit->delete();
         
         Session::flash('success_message','Unit successfully deleted');

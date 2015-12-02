@@ -100,16 +100,25 @@ var StepTwo = React.createClass({
 
         // ALways rotate to primary breakpoint
         rotateToBreakpoint = unitData.primary_breakpoint;
+
+        if(_.isNull(rotateToBreakpoint)){
+            rotateToBreakpoint = 0;
+        }
+                
         unitId = unitData.id;
+        dataToUpdate = [];
 
         prevShowShadow = this.state.data.showShadow;
 
         // store previous shadow state, to later use it to update main shadow state
         window.prevShadowState = prevShowShadow;
 
+        
         if( prevShowShadow ){
-            this.updateRotateShadow(false);
+            dataToSet = {property:"showShadow", value:false };
+            dataToUpdate.push(dataToSet);
         }
+       
 
         // hide svg area
         allbuildings = this.state.data.buildings;
@@ -119,9 +128,14 @@ var StepTwo = React.createClass({
 
 
         // update chosen breakpoint to primary breakpoint of tower of current slide
+        dataToSet = {property:"unitIndexToHighlight", value:unitIndexToHighlight };
+        dataToUpdate.push(dataToSet);  
+              
         // update unit index to higlight
-        this.updateStateData([{property:"chosenBreakpoint",value:rotateToBreakpoint},{property:"unitIndexToHighlight", value:unitIndexToHighlight }]);
+        dataToSet = {property:"chosenBreakpoint",value:rotateToBreakpoint};
+        dataToUpdate.push(dataToSet);
 
+        this.updateStateData(dataToUpdate); 
     },
 
     updateUnitIndexToHighlight: function(unitId){
@@ -173,7 +187,7 @@ var StepTwo = React.createClass({
     },
 
     updateStateData: function(data){
-        oldState = this.state;
+        oldState = AppStore.getCurrentStateData("building");
 
         newState = oldState;
 
@@ -303,8 +317,9 @@ var StepTwo = React.createClass({
 
         });
 
-        this.setState(newState, this.projectDataUpdateCallBack);
+        
         AppStore.updateGlobalState(newState,"buildingFloorGroups");
+        this.setState(newState, this.projectDataUpdateCallBack);
 
     },
 
@@ -312,8 +327,19 @@ var StepTwo = React.createClass({
         spin = $(ReactDOM.findDOMNode(this.refs.imageContainerone)).find("#spritespin");
         api = spin.spritespin("api");
 
-        chosenBreakPoint = this.state.data.chosenBreakpoint
-        api.playTo(chosenBreakPoint);
+        chosenBreakPoint = this.state.data.chosenBreakpoint;
+        currentBreakPt = api.currentFrame();
+
+        if(chosenBreakPoint!=currentBreakPt)
+            api.playTo(chosenBreakPoint);
+        else{
+            // check if shadow image was selected previously and set state accordingly
+            if(window.prevShadowState){
+                this.updateRotateShadow(window.prevShadowState);
+                window.prevShadowState = false;
+            }            
+        }
+
 
         slideToGotTo = this.state.data.unitIndexToHighlight;
 

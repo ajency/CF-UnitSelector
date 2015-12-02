@@ -208,22 +208,25 @@ class SvgController extends Controller {
 			$svgElement->other_details = $request['other_details'];
 		}
         
-        if (isset($request['primary_breakpoint'])) {
-        	$svgbreakpointUpdate = SvgController::unset_primary_breakpoint($request['object_id'],$request['object_type'],$request['primary_breakpoint']);
+        if(isset($request['object_type']) && $request['object_type']!='amenity')
+        {
+	        if (isset($request['primary_breakpoint'])) {
+	        	$svgbreakpointUpdate = SvgController::unset_primary_breakpoint($request['object_id'],$request['object_type'],$request['primary_breakpoint']);
 
-        	if ($svgbreakpointUpdate) {
-        		
-        		$svgElement->primary_breakpoint = $request['primary_breakpoint'];
-        	}
-        	
-        }
-        else{
-        	$has_primary = SvgController::has_primary_breakpoint($request['object_id'],$request['object_type']);
-        	if(!$has_primary){
-        		$svgElement->primary_breakpoint = $request['breakpoint_position'];
-        	}
+	        	if ($svgbreakpointUpdate) {
+	        		
+	        		$svgElement->primary_breakpoint = $request['primary_breakpoint'];
+	        	}
+	        	
+	        }
+	        else{
+	        	$has_primary = SvgController::has_primary_breakpoint($request['object_id'],$request['object_type']);
+	        	if(!$has_primary){
+	        		$svgElement->primary_breakpoint = $request['breakpoint_position'];
+	        	}
 
-        }
+	        }
+	    }
 
 		$svgElement->save();
 
