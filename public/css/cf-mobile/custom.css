@@ -1768,7 +1768,7 @@ div.spritespin-div {
 }
 .messageBox {
   position: relative;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   padding: 0px;
   display: inline-block;
