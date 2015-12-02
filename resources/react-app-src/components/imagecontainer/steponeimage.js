@@ -575,7 +575,7 @@ var SteponeImage = React.createClass({
                     <div className="footer">
                         <span className="poweredBy"> Powered By</span>
 
-                        <span className="footerLogo"><img src="http://commonfloorlocal.com/images/commonfloor.png"/></span>
+                        <span className="footerLogo"><img src="../images/commonfloor.png"/></span>
                         <br/>
                         <a href={faqUrl}>FAQ  </a> | <a href={privacyUrl}> Privacy Policy</a>
                     </div>                   
