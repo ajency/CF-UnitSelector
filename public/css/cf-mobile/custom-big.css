@@ -1005,7 +1005,9 @@ select::-ms-expand {
 }
 .outSideView {
   float: left;
-  width: 100%;
+  position: absolute;
+  bottom: 0;
+  width: auto;
 }
 /* ToolTip */
 .qtip-light {
