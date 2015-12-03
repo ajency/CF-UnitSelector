@@ -217,7 +217,8 @@ var NavBar = React.createClass({
                 }
                 else{
 
-                    logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
+                    // logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
+                    logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
                 }
             }
 

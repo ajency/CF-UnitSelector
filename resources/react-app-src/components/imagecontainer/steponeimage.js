@@ -573,10 +573,12 @@ var SteponeImage = React.createClass({
 
                 <div className="us-right-content" style={parentContainerStyle}>
                     <div className="footer">
-                          <h2 className="primary-txt text-right m-b-5"> Call {this.props.projectContactNo}</h2>
-                          <a href="https://www.commonfloor.com/" target="_blank"> Commonfloor </a> | <a href={faqUrl} target="_blank">FAQ  </a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank"> Mobile Apps  </a>
-                          <br /> © 2015 Commonfloor Inc. |<a href={privacyUrl} target="_blank"> Privacy Policy</a>
-                    </div>
+                        <span className="poweredBy"> Powered By</span>
+
+                        <span className="footerLogo"><img src="../images/commonfloor.png"/></span>
+                        <br/>
+                        <a href={faqUrl}>FAQ  </a> | <a href={privacyUrl}> Privacy Policy</a>
+                    </div>                   
 
                     <div className={rotateClasses}>
                         <i id="next" className="i-icon i-icon-rotate" onClick={this.rotateSpriteSpin}></i> Press To Rotate
