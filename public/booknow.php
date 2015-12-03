@@ -68,7 +68,7 @@ $startTime= time();
         <div class="absoluteLayout"></div>
             <div class="container">
                 <h3 class="text-center text-uppercase">3 Steps for booking your apartment</h3>
-                <span class="text-center col-md-12 col-sm-12 col-xs-12 spanText">Complete your booking securely through our payment gateway</span>
+                <span class="text-center col-md-12 col-sm-12 col-xs-12 spanText">Complete your booking safely with us. You will be redirected to the payment getway on click of Make Payment button</span>
                 <span class="text-center col-md-12 col-sm-12 col-xs-12 timerText">Current session will restart in <b><br><span id="timeCounter" class="orangeText "><?php echo EXPIREDURATION;echo ":00";?></b> minutes</span>
                 <div class="bookAptOuter">
                     <div class="row">
@@ -139,7 +139,7 @@ $startTime= time();
                                     <input class="basic_info form-control" type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-length="[10, 12]"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                   <input class="basic_info form-control" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"  data-parsley-maxlength="10" data-parsley-maxlength-message="This value is too long. It should have 10 characters" data-parsley-required/>
+                                   <input class="basic_info form-control" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-pattern="[a-z]{5}[0-9]{4}[a-z]{1}"  data-parsley-maxlength="10" data-parsley-maxlength-message="This value is too long. It should have 10 characters" data-parsley-required/>
                                 </div>
                             </div>
                                                             
