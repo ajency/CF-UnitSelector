@@ -82,8 +82,8 @@
         window.project_title = "";
         window.builder_email = "";
         window.builder_phone = "";
-        window.amenity_title = "";
-        window.amenity_desc = "";
+        window.amenity_title = "Swimming Pool";
+        window.amenity_desc = "Swimming Pool";
         window.currentStep = "one";
     </script>
 
