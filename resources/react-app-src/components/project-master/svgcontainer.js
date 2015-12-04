@@ -3,6 +3,7 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Isvg = require('react-inlinesvg');
 var classNames = require('classnames');
 var Router = require('react-router-component');
+var Modal = require('../modal/modal');
 
 var SvgContainer = React.createClass({
 
@@ -322,18 +323,18 @@ var SvgContainer = React.createClass({
 
         $(".amenity").mouseover(function(e){
             var that = this;
-            title = $(e.currentTarget).attr('data-amenity-title');
-            desc = $(e.currentTarget).attr('data-amenity-desc');
+            window.amenity_title =   $(e.currentTarget).attr('data-amenity-title');
+            window.amenity_desc =  $(e.currentTarget).attr('data-amenity-desc');
               
             highlightedAmenitySelector =  e.currentTarget;               
             // apply tooltip only for higlighted amenity svg
 
-            var div = $('<div></div>');
+            var div = $('<div id="amenityTooltip"></div>');
             
             if(window.isMobile){
-                div.html(title);
+                div.html(window.amenity_title);
             }else{
-                div.html(title+'<br/><br/><a href="http://google.com">View details</a>');
+                div.html(window.amenity_title+'<br/><br/><a href="#" data-toggle="modal" data-target="#imageModal">View details</a>');
             }
             
 
@@ -360,6 +361,7 @@ var SvgContainer = React.createClass({
         var buildingToHighlight = this.props.buildingToHighlight;
         var cardListFor = this.props.cardListFor;
         var panToZoomedGroup = this.props.panToZoomedGroup;
+        var modalData = {};
       
         
         return (
@@ -373,7 +375,14 @@ var SvgContainer = React.createClass({
 	                  Here's some optional content for browsers that don't support XHR or inline
 	                  SVGs. You can use other React components here too. Here, I'll show you.
 
-                  </Isvg>  
+                  </Isvg> 
+
+                  <Modal
+                        ref="imageModal"
+                        modalData = {modalData}
+                        modalPurpose = "imageModal"
+                        hideImageModal = {this.hideContactModal}
+                    /> 
                   </div>
         );
     }
