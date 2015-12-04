@@ -1409,6 +1409,10 @@ function getFilteredProjectMasterData(buildingId,groupId){
 		if(buildingIndexToHighlight >= (buildingsWithUnits.length-1))
 			break;
 
+
+
+		// buildingToHighlight = getHighlightedBuilding(buildingsWithUnits);
+
 		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
 		filteredCount = buildingToHighlight.filteredUnitData.length;
 		availableCount = buildingToHighlight.availableUnitData.length;
@@ -2041,9 +2045,9 @@ var AppStore = merge(EventEmitter.prototype, {
 		  case "group":
 		      	stateData = _groupStateData;
 		      	break;
-		}		
+		}
 		return stateData;
-	},	
+	},
 
 	getUnitStateData: function(unitId){
 		_unitStateData = _getUnitDetails(unitId);

@@ -489,6 +489,7 @@ class UnitController extends ApiGuardController {
             $leads ->buyer_type = $request['buyer_type'];
             $leads ->address1 = $request['address1'];
             $leads ->address2 = $request['address2'];
+            $leads ->city = $request['city'];
             $leads ->state = $request['state'];
             $leads ->country = $request['country'];
             $leads ->pincode = $request['pincode'];

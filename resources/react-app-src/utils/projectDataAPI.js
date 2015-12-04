@@ -11,24 +11,26 @@ function makeUrl(apiUrl, part) {
 var Api = {
 
   // Load project data from server via actions
-  	getProjectData: function(projectId) {
 
-	  	var url = makeUrl(API_URL, 'project/' + projectId + '/project-data');
-	  	// var url = BASE_URL+"/project-data.json";
+  getProjectData: function(projectId) {
 
-	    var data = request
-					.get(url)
-					.end(function(err, res){
-						if (res.ok) {
-							AppActions.receiveProjectData(res.body);
-						} else {
-							var data = {};
-							AppActions.receiveProjectData(data);
-						}
-					    
-					});
-    
-  	}
+
+  	var url = makeUrl(API_URL, 'project/' + projectId + '/project-data');
+  	// var url = BASE_URL+"/project-data.json";
+
+    var data = request
+				.get(url)
+				.end(function(err, res){
+					if (res.ok) {
+						AppActions.receiveProjectData(res.body);
+					} else {
+						var data = {};
+						AppActions.receiveProjectData(data);
+					}
+
+				});
+
+  }
 
 }
 
