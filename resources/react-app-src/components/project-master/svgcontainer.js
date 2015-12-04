@@ -276,7 +276,7 @@ var SvgContainer = React.createClass({
 
             // update building to highlight
             that.props.updateUnitIndexToHighlight(id);
-        }.bind(this));
+        }.bind(this));        
 
         // on mouse click of building apply tooltip
         $(classNameToSelect).click(function(e){
@@ -318,6 +318,30 @@ var SvgContainer = React.createClass({
         return svgNamePrefix;
     },
 
+    handleMouseOver:function(e){
+
+        $(".amenity").mouseover(function(e){
+            var that = this;
+            title = $(e.currentTarget).attr('data-amenity-title');
+            desc = $(e.currentTarget).attr('data-amenity-desc');
+              
+            highlightedAmenitySelector =  e.currentTarget;               
+            // apply tooltip only for higlighted amenity svg
+
+            var div = $('<div></div>');
+            
+            if(window.isMobile){
+                div.html(title);
+            }else{
+                div.html(title+'<br/><br/><a href="http://google.com">View details</a>');
+            }
+            
+
+            
+            this.props.showTooltip(div,highlightedAmenitySelector);
+        }.bind(this));        
+    },    
+
     render: function(){
 
         var chosenBreakpoint = this.props.chosenBreakpoint;
@@ -340,7 +364,11 @@ var SvgContainer = React.createClass({
         
         return (
 
-                  <div ref= "svgComp" className={svgClasses} >
+                  <div 
+                    ref= "svgComp" 
+                    className={svgClasses} 
+                    onMouseOver={this.handleMouseOver}
+                  >
                   <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight, cardListFor)}>
 	                  Here's some optional content for browsers that don't support XHR or inline
 	                  SVGs. You can use other React components here too. Here, I'll show you.
