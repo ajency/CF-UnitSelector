@@ -23,6 +23,8 @@ class Permission {
                      'admin.project.media.store'=>['configure_project','svg_auth_tool'], 
                      'admin.project.media.destroy'=>['configure_project','svg_auth_tool'], 
 
+                     'admin.leads.index'=>['read_project','configure_project'],
+
                      'admin.phase.store'=>['configure_project'], 
                      'admin.phase.update'=>['configure_project'], 
                      'admin.phase.destroy'=>['configure_project'], 

@@ -50,6 +50,7 @@ Route::get( 'project/paymentfailed/{unitid}', 'UnitController@failedPayment' )->
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
     Route::resource( 'project', 'Admin\ProjectController' );
+    Route::resource( 'leads', 'Admin\LeadController' );
     Route::resource( 'user', 'Admin\UserController' );
     Route::resource( 'agent', 'Admin\AgentController' );
     Route::resource( 'role', 'Admin\RoleController' );
