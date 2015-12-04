@@ -310,7 +310,7 @@
           "http://production.cfunitselectortest.com/projects/1/buildings/2/shadow-34.jpg",
           "http://production.cfunitselectortest.com/projects/1/buildings/2/shadow-35.jpg"
         ],
-        "primary_breakpoint": 28,
+        "primary_breakpoint": 0,
         "floor_group": [
           {
             "id": 7,
@@ -709,7 +709,7 @@
           "http://production.cfunitselectortest.com/projects/1/buildings/9/shadow-34.jpg",
           "http://production.cfunitselectortest.com/projects/1/buildings/9/shadow-35.jpg"
         ],
-        "primary_breakpoint": 28,
+        "primary_breakpoint": 0,
         "floor_group": [
           {
             "id": 4,

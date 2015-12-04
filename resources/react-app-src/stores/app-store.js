@@ -1398,33 +1398,37 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 
 	// return first building that has filtered units
-	var buildingIndexToHighlight = -1;
+	// var buildingIndexToHighlight = -1;
+	var buildingIndexToHighlight = 0;
 	var filteredCount = 0;
 	var buildingToHighlight = {};
 	var availableBuildingIndex = 0;
 
-	while(filteredCount==0){
-		buildingIndexToHighlight++;
+	highestFilterCountBuilding = getHighlightedBuilding(buildingsWithUnits);
+	buildingIndexToHighlight = highestFilterCountBuilding.index;
 
-		if(buildingIndexToHighlight >= (buildingsWithUnits.length-1))
-			break;
+	// while(filteredCount==0){
+	// 	buildingIndexToHighlight++;
+
+	// 	if(buildingIndexToHighlight >= (buildingsWithUnits.length-1))
+	// 		break;
 
 
 
-		// buildingToHighlight = getHighlightedBuilding(buildingsWithUnits);
+	// 	// buildingToHighlight = getHighlightedBuilding(buildingsWithUnits);
 
-		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
-		filteredCount = buildingToHighlight.filteredUnitData.length;
-		availableCount = buildingToHighlight.availableUnitData.length;
+	// 	buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+	// 	filteredCount = buildingToHighlight.filteredUnitData.length;
+	// 	availableCount = buildingToHighlight.availableUnitData.length;
 
-		if(availableCount>0){
-			availableBuildingIndex = buildingIndexToHighlight;
-		}
-	}
+	// 	if(availableCount>0){
+	// 		availableBuildingIndex = buildingIndexToHighlight;
+	// 	}
+	// }
 
-	if(_.isEmpty(buildingToHighlight)){
-		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
-	}
+
+	buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+
 
 	newProjectData.unitIndexToHighlight = buildingIndexToHighlight
 
@@ -1451,6 +1455,69 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 }
 
+function getHighlightedBuilding(filteredUnits){
+
+	var allFilteredUnitsCount = {};
+	var allAvailableUnitsCount = {};
+	var filteredUnitsSum = [];
+	var availableUnitsSum = [];
+	var result = {};
+	var maxIndex = 0;
+	var totalFilteredUnits = 0; 
+	var totalAvailableUnits = 0; 
+
+	// default unit and index to return
+	var maxUnit = filteredUnits[0];
+	var maxIndex = 0;	
+	
+	_.each(filteredUnits, function(unit,index){
+		allFilteredUnitsCount[index] = unit.filteredUnitData.length;
+		filteredUnitsSum.push(unit.filteredUnitData.length);
+	});
+
+	totalFilteredUnits = filteredUnitsSum.reduce((a, b) => a + b);
+
+	if(totalFilteredUnits == 0){
+		
+		// check for available units count
+		_.each(filteredUnits, function(unit,index){
+			allAvailableUnitsCount[index] = unit.availableUnitData.length;
+			availableUnitsSum.push(unit.availableUnitData.length);
+		});
+
+		totalAvailableUnits = availableUnitsSum.reduce((a, b) => a + b);
+
+		if(totalAvailableUnits == 0){
+			maxUnit = filteredUnits[0];
+			maxIndex = 0;
+		}
+		else{
+			var maxValue = _.max(allAvailableUnitsCount);
+			_.findKey(allAvailableUnitsCount, function(x) {
+			   return x === maxValue;
+			});
+			maxKey = _.indexOf(availableUnitsSum,maxValue ) ;
+
+			var maxUnit = filteredUnits[maxKey];
+			maxIndex = maxKey; 
+		}
+
+
+	}
+	else{
+		var maxValue = _.max(allFilteredUnitsCount);
+		_.findKey(allFilteredUnitsCount, function(x) {
+		   return x === maxValue;
+		});
+		maxKey = _.indexOf(filteredUnitsSum,maxValue ) ;
+
+		var maxUnit = filteredUnits[maxKey];
+		maxIndex = maxKey; 
+	}
+	result.unit = maxUnit;
+	result.index = maxIndex;
+	return result;
+}
 
 
 
