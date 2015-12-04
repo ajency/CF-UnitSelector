@@ -1279,6 +1279,7 @@ function _loadProjectData(data) {
     window.project_title = _projectData.project_title;
     window.builder_email = _projectData.builder_email;
     window.builder_phone = _projectData.builder_phone;
+    window.booking_engine_url = _projectData.booking_engine_url;
 
 	_globalStateData = _getProjectMasterData();
 
@@ -1409,7 +1410,9 @@ function getFilteredProjectMasterData(buildingId,groupId){
 			break;
 
 
+
 		// buildingToHighlight = getHighlightedBuilding(buildingsWithUnits);
+
 		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
 		filteredCount = buildingToHighlight.filteredUnitData.length;
 		availableCount = buildingToHighlight.availableUnitData.length;
@@ -1446,33 +1449,6 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
     return newProjectData;
 
-}
-
-
-
-
-function getHighlightedBuilding(filteredUnits){
-
-var allUnitsCount = {};
-var unitsSum = [];
-_.each(filteredUnits, function(unit,index){
-allUnitsCount[index] = unit.filteredUnitData.length;
-unitsSum.push(unit.filteredUnitData.length);
-});
-
-var totalFilteredUnits = unitsSum.reduce((a, b) => a + b);
-
-if(totalFilteredUnits == 0){
-	var maxUnit = filteredUnits[0];
-}else{
-	var maxValue = _.max(allUnitsCount);
-	_.findKey(allUnitsCount, function(x) {
-	    return x === maxValue;
-	});
-
-	var maxUnit = filteredUnits[maxValue];
-}
-return maxUnit;
 }
 
 
@@ -1786,10 +1762,7 @@ function _getGroupMasterDetails(buildingId,groupId){
 
 	if(!_.isEmpty(_projectData)){
 
-		if((!_.isEmpty(_groupStateData.data.projectTitle))){
-			_groupStateData = _groupStateData;
-		}
-		else if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
+		if((!_.isEmpty(_buildingMasterStateData.data.projectTitle))){
 			buildingMasterStateData = _buildingMasterStateData;
 
 			// buildings here would refer to floor groups
@@ -2055,6 +2028,25 @@ var AppStore = merge(EventEmitter.prototype, {
 
 	getStateData: function(){
 		return _globalStateData;
+	},
+
+	getCurrentStateData: function(type){
+
+		var stateData;
+
+		switch(type) {
+		  case "project":
+		      	stateData = _globalStateData;
+		      	break;
+		  case "building":
+		      	stateData = _buildingMasterStateData;
+		      	break;
+
+		  case "group":
+		      	stateData = _groupStateData;
+		      	break;
+		}
+		return stateData;
 	},
 
 	getUnitStateData: function(unitId){
