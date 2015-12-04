@@ -26,7 +26,7 @@ var SvgView = React.createClass({
 
         if(window.isMobile){
         var imageStyle = {
-          "height": ""
+          "height": "auto"
         };
       }else{
         var imageStyle = {
