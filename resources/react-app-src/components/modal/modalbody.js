@@ -110,7 +110,7 @@ var ModalBody = React.createClass({
         else if(modalPurpose==="imageModal"){
           modalBodyDom = (
                     <div>
-                       <img src="img/bldg-3d.png"/>
+                       <img src="../images/amenities.jpg"/>
                        <div className="imageContent">
                          <h4 className="text-uppercase">{window.amenity_title}</h4>
                          <p>

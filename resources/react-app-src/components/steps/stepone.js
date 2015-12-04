@@ -373,6 +373,10 @@ var StepOne = React.createClass({
 
     hideContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    }, 
+
+    hideImageContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.imageModal)).modal('hide');
     },
 
     toggelSunView: function(evt){
@@ -616,6 +620,8 @@ var StepOne = React.createClass({
         }
         else{
 
+            imageModalData = {};
+
             domToDisplay = (
                 <div id="wrapper">
 
@@ -714,6 +720,13 @@ var StepOne = React.createClass({
                             modalPurpose = "contactModal"
                             hideContactModal = {this.hideContactModal}
                         />
+                        
+                        <Modal
+                            ref="imageModal"
+                            modalData = {imageModalData}
+                            modalPurpose = "imageModal"
+                            hideImageModal = {this.hideImageContactModal}
+                        />                         
 
 
                     </div>

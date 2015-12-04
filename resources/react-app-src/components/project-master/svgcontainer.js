@@ -377,12 +377,6 @@ var SvgContainer = React.createClass({
 
                   </Isvg> 
 
-                  <Modal
-                        ref="imageModal"
-                        modalData = {modalData}
-                        modalPurpose = "imageModal"
-                        hideImageModal = {this.hideContactModal}
-                    /> 
                   </div>
         );
     }
