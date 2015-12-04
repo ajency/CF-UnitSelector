@@ -1254,7 +1254,9 @@ select::-ms-expand {
   border: none;
 }
 .imageModal .modal-header {
-  display: none;
+  padding: 0;
+  position: absolute;
+  width: 100%;
 }
 .imageModal .modal-dialog {
   height: 400px;
