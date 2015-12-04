@@ -575,9 +575,9 @@ var SteponeImage = React.createClass({
                     <div className="footer">
                         <span className="poweredBy"> Powered By</span>
 
-                        <span className="footerLogo"><img src="../images/commonfloor.png"/></span>
+                        <span className="footerLogo"><img src="../images/cflogo.png"/></span>
                         <br/>
-                        <a href={faqUrl}>FAQ  </a> | <a href={privacyUrl}> Privacy Policy</a>
+                        <a href={faqUrl} target="_blank">FAQ  </a> | <a href={privacyUrl} target="_blank"> Privacy Policy</a>
                     </div>                   
 
                     <div className={rotateClasses}>

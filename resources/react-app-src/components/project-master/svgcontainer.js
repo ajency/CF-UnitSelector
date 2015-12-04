@@ -3,6 +3,7 @@ var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Isvg = require('react-inlinesvg');
 var classNames = require('classnames');
 var Router = require('react-router-component');
+var Modal = require('../modal/modal');
 
 var SvgContainer = React.createClass({
 
@@ -276,7 +277,7 @@ var SvgContainer = React.createClass({
 
             // update building to highlight
             that.props.updateUnitIndexToHighlight(id);
-        }.bind(this));
+        }.bind(this));        
 
         // on mouse click of building apply tooltip
         $(classNameToSelect).click(function(e){
@@ -318,6 +319,30 @@ var SvgContainer = React.createClass({
         return svgNamePrefix;
     },
 
+    handleMouseOver:function(e){
+
+        $(".amenity").mouseover(function(e){
+            var that = this;
+            window.amenity_title =   $(e.currentTarget).attr('data-amenity-title');
+            window.amenity_desc =  $(e.currentTarget).attr('data-amenity-desc');
+              
+            highlightedAmenitySelector =  e.currentTarget;               
+            // apply tooltip only for higlighted amenity svg
+
+            var div = $('<div id="amenityTooltip"></div>');
+            
+            if(window.isMobile){
+                div.html(window.amenity_title);
+            }else{
+                div.html(window.amenity_title+'<br/><br/><a href="#" data-toggle="modal" data-target="#imageModal">View details</a>');
+            }
+            
+
+            
+            this.props.showTooltip(div,highlightedAmenitySelector);
+        }.bind(this));        
+    },    
+
     render: function(){
 
         var chosenBreakpoint = this.props.chosenBreakpoint;
@@ -336,16 +361,28 @@ var SvgContainer = React.createClass({
         var buildingToHighlight = this.props.buildingToHighlight;
         var cardListFor = this.props.cardListFor;
         var panToZoomedGroup = this.props.panToZoomedGroup;
+        var modalData = {};
       
         
         return (
 
-                  <div ref= "svgComp" className={svgClasses} >
+                  <div 
+                    ref= "svgComp" 
+                    className={svgClasses} 
+                    onMouseOver={this.handleMouseOver}
+                  >
                   <Isvg src={svgUrl} onLoad={this.svgLoaded.bind(this, buildingToHighlight, cardListFor)}>
 	                  Here's some optional content for browsers that don't support XHR or inline
 	                  SVGs. You can use other React components here too. Here, I'll show you.
 
-                  </Isvg>  
+                  </Isvg> 
+
+                  <Modal
+                        ref="imageModal"
+                        modalData = {modalData}
+                        modalPurpose = "imageModal"
+                        hideImageModal = {this.hideContactModal}
+                    /> 
                   </div>
         );
     }
