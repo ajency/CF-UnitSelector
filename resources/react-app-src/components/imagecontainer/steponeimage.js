@@ -113,8 +113,36 @@ var SteponeImage = React.createClass({
         var selectorClass, panTo;
 
 
+        // if not step 3
+        if(cardListFor==="project"){
+            if(!window.isMobile){
+                panZoomSettings = {
+                     startTransform: 'scale(1.0)',
+                     contain: 'invert',
+                     minScale: 1,
+                     disablePan: false,
+                     disableZoom: false
+                };
 
-        if(cardListFor!=="group"){
+                $imageContainerDom.panzoom(panZoomSettings);
+
+                $imageContainerDom.on('panzoomend', function(e, panzoom, matrix, changed) {
+                    if (changed) {
+                        // deal with drags or touch moves
+
+                        // show correct tooltip
+                        this.displayHighlightedTooltip();
+
+                    } else {
+                        // deal with clicks or taps
+                        // show correct tooltip
+                        this.navigateOntap(e.target.id);
+
+                    }
+                }.bind(this));                
+            }
+        }
+        else if(cardListFor==="building"){
 
             panZoomSettings = {
                  startTransform: 'scale(1.0)',
@@ -145,7 +173,7 @@ var SteponeImage = React.createClass({
                 }
             }.bind(this));
         }
-        else{
+        else if(cardListFor==="group"){
 
             if(window.isMobile){
                 panZoomSettings = {
@@ -361,7 +389,7 @@ var SteponeImage = React.createClass({
         prevShowShadow = this.props.showShadow;
 
         // store previous shadow state, to later use it to update main shadow state
-        prevShadowState = prevShowShadow;
+        window.prevShadowState = prevShowShadow;
 
         if( this.props.showShadow ){
 
@@ -397,7 +425,7 @@ var SteponeImage = React.createClass({
         };  
         stateDataChanges.push(dataToSet);       
         this.props.updateStateData(stateDataChanges);
-        
+
         // this.props.updateChosenBreakPoint(nextbreakpoint);
     },
 
@@ -426,6 +454,9 @@ var SteponeImage = React.createClass({
         var svgKey;
         var isRotate;
 
+        var imageContainerStyle;
+        var imageContainStyle;
+
         isRotate = this.state.isRotate;
 
 
@@ -439,15 +470,29 @@ var SteponeImage = React.createClass({
           'hide': !this.state.hideSoloImage
         });
 
-        var imageContainerStyle = {
-          "height": windowHeight,
-          "minWidth": windowHeight * 1.78
-        };
+        if((this.props.cardListFor === "project")&&(window.isMobile)){
+            imageContainStyle = {
+                "height": "auto",
+                top: "inherit",
+                bottom: "152px"              
+            };            
+            imageContainerStyle = {
+              "height": "auto"
+            };                          
+        }else{
+            imageContainerStyle = {
+              "height": windowHeight,
+              "minWidth": windowHeight * 1.78
+            };
+
+            imageContainStyle = {
+              "height": windowHeight
+            };
+        }
 
 
-        var imageContainStyle = {
-          "height": windowHeight
-        };
+
+
 
         showShadow = this.props.showShadow;
 
@@ -521,11 +566,24 @@ var SteponeImage = React.createClass({
         privacyUrl = window.baseUrl+"/html/TermsPrivacyFaq/privacy.html"
 
         if(window.isMobile){
+            var imageContainClass;
+
+            if(this.props.cardListFor === "project"){
+                imageContainerClass = classNames({
+                  "image": true,
+                  "step1MobileCls": true
+                });  
+            }else{
+                imageContainerClass = classNames({
+                  "image": true,
+                  "step1MobileCls": false
+                });   
+            }            
             domToDisplay = (
 
                 <div className="us-right-content">
-                    <div className="image-contain">
-                        <div ref="imageContainer" className="image" style={imageContainerStyle}>
+                    <div className="image-contain" style={imageContainStyle}>
+                        <div ref="imageContainer" className={imageContainerClass} style={imageContainerStyle}>
 
                             <SvgContainer
                                 ref="svgContainer"
@@ -573,10 +631,12 @@ var SteponeImage = React.createClass({
 
                 <div className="us-right-content" style={parentContainerStyle}>
                     <div className="footer">
-                          <h2 className="primary-txt text-right m-b-5"> Call {this.props.projectContactNo}</h2>
-                          <a href="https://www.commonfloor.com/" target="_blank"> Commonfloor </a> | <a href={faqUrl} target="_blank">FAQ  </a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en" target="_blank"> Mobile Apps  </a>
-                          <br /> © 2015 Commonfloor Inc. |<a href={privacyUrl} target="_blank"> Privacy Policy</a>
-                    </div>
+                        <span className="poweredBy"> Powered By</span>
+
+                        <span className="footerLogo"><img src="../images/cflogo.png"/><br/>commonfloor.com</span>
+                        <br/>
+                        <a href={faqUrl} target="_blank">FAQ  </a> | <a href={privacyUrl} target="_blank"> Privacy Policy</a>
+                    </div>                   
 
                     <div className={rotateClasses}>
                         <i id="next" className="i-icon i-icon-rotate" onClick={this.rotateSpriteSpin}></i> Press To Rotate

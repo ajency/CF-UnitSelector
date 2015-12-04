@@ -181,7 +181,7 @@ section {
   width: 100%;
 }
 .disabled-floor-group {
-  fill: rgba(0, 0, 0, 0.77) !important;
+  fill: rgba(6, 6, 6, 0.39) !important;
   opacity: .9 !important;
   cursor: default !important;
 }
@@ -284,6 +284,10 @@ div.spritespin-div {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+.in-selection-orange {
+  fill: rgba(254, 148, 62, 0.55) !important;
+  opacity: .9 !important;
 }
 html {
   -ms-overflow-style: scrollbar;
@@ -653,7 +657,7 @@ body a {
   background-size: 100%;
 }
 .messageBoxDesk {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   width: auto;
   margin: auto;
@@ -1001,7 +1005,9 @@ select::-ms-expand {
 }
 .outSideView {
   float: left;
-  width: 100%;
+  position: absolute;
+  bottom: 0;
+  width: auto;
 }
 /* ToolTip */
 .qtip-light {
@@ -1077,10 +1083,6 @@ select::-ms-expand {
 }
 .in-selection {
   fill: rgba(16, 165, 169, 0.34) !important;
-  opacity: .9 !important;
-}
-.in-selection-orange {
-  fill: rgba(254, 148, 62, 0.55) !important;
   opacity: .9 !important;
 }
 .not-in-selection,
@@ -1215,7 +1217,7 @@ select::-ms-expand {
   }
 }
 .svg4 .step4-svg .svg-area {
-  width: 96%;
+  width: 100%;
 }
 @media screen and (min-width: 768px) and (max-width: 991px) and (orientation: portrait) {
   .navbar-header .sidebarCloseBtn {
@@ -1237,7 +1239,6 @@ select::-ms-expand {
 }
 .imageModal {
   margin-left: 0 !important;
-  border: 2px solid #000000;
 }
 .imageModal#msg {
   position: absolute;
@@ -1251,6 +1252,11 @@ select::-ms-expand {
 }
 .imageModal.closed {
   border: none;
+}
+.imageModal .modal-header {
+  padding: 0;
+  position: absolute;
+  width: 100%;
 }
 .imageModal .modal-dialog {
   height: 400px;

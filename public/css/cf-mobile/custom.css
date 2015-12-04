@@ -438,6 +438,9 @@ body .row {
   height: 200px;
   margin: 0px;
 }
+.step1MobileCls {
+  height: auto !important;
+}
 .animsition,
 .animsition-overlay {
   position: initial !important;
@@ -860,7 +863,7 @@ section {
   width: 100%;
 }
 .disabled-floor-group {
-  fill: rgba(0, 0, 0, 0.77) !important;
+  fill: rgba(6, 6, 6, 0.39) !important;
   opacity: .9 !important;
   cursor: default !important;
 }
@@ -963,6 +966,10 @@ div.spritespin-div {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+.in-selection-orange {
+  fill: rgba(254, 148, 62, 0.55) !important;
+  opacity: .9 !important;
 }
 .tabHeader {
   position: fixed;
@@ -1659,7 +1666,6 @@ div.spritespin-div {
 }
 .imageModal {
   margin-left: 0 !important;
-  border: 2px solid #000000;
 }
 .imageModal#msg {
   position: absolute;
@@ -1673,6 +1679,11 @@ div.spritespin-div {
 }
 .imageModal.closed {
   border: none;
+}
+.imageModal .modal-header {
+  padding: 0;
+  position: absolute;
+  width: 100%;
 }
 .imageModal .modal-dialog {
   height: 400px;
@@ -1764,7 +1775,7 @@ div.spritespin-div {
 }
 .messageBox {
   position: relative;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   padding: 0px;
   display: inline-block;

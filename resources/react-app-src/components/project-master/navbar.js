@@ -217,14 +217,15 @@ var NavBar = React.createClass({
                 }
                 else{
 
-                    logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
+                    // logoDisplay = (<h3 className="normal margin-none">{this.props.projectTitle} </h3>);
+                    logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
                 }
             }
 
         }
 
-        if(unitCount==0){
-            domTodisplay = <div/>;
+        if((unitCount==0)&&!isFilterApplied&&(cardListFor==="project")){
+            domTodisplay = (<div/>);
         }
         else{
             domTodisplay = (    <div> 

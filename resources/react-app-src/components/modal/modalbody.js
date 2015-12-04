@@ -107,6 +107,19 @@ var ModalBody = React.createClass({
                             </div>
                         );
         }
+        else if(modalPurpose==="imageModal"){
+          modalBodyDom = (
+                    <div>
+                       <img src="../images/amenities.jpg"/>
+                       <div className="imageContent">
+                         <h4 className="text-uppercase">{window.amenity_title}</h4>
+                         <p>
+                            {window.amenity_desc}
+                         </p>
+                       </div>
+                    </div>
+          )          
+        }
 
         return (
                 <div className="modal-body">
