@@ -1663,7 +1663,6 @@ div.spritespin-div {
 }
 .imageModal {
   margin-left: 0 !important;
-  border: 2px solid #000000;
 }
 .imageModal#msg {
   position: absolute;
@@ -1677,6 +1676,9 @@ div.spritespin-div {
 }
 .imageModal.closed {
   border: none;
+}
+.imageModal .modal-header {
+  display: none;
 }
 .imageModal .modal-dialog {
   height: 400px;

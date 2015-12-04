@@ -1253,6 +1253,9 @@ select::-ms-expand {
 .imageModal.closed {
   border: none;
 }
+.imageModal .modal-header {
+  display: none;
+}
 .imageModal .modal-dialog {
   height: 400px;
   width: 500px;
