@@ -1409,8 +1409,8 @@ function getFilteredProjectMasterData(buildingId,groupId){
 			break;
 
 
-		buildingToHighlight = getHighlightedBuilding(buildingsWithUnits);
-		//buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+		// buildingToHighlight = getHighlightedBuilding(buildingsWithUnits);
+		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
 		filteredCount = buildingToHighlight.filteredUnitData.length;
 		availableCount = buildingToHighlight.availableUnitData.length;
 
