@@ -1342,6 +1342,17 @@ function _getProjectMasterData(){
 
 		buildingsWithUnits = getBuildingUnits(buildings, allUnits, []);
 
+		// display card with higest available buildings as highlighted
+		var buildingIndexToHighlight = 0;
+		var buildingToHighlight = {};
+
+		highestFilterCountBuilding = getHighlightedBuilding(buildingsWithUnits);
+		buildingIndexToHighlight = highestFilterCountBuilding.index;
+		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+
+
+		projectMasterData.unitIndexToHighlight = buildingIndexToHighlight;
+
 		projectMasterData.buildings = buildingsWithUnits;
 
         projectMasterData.filterTypes = getFilterTypes("Apartment",'','');
@@ -1962,6 +1973,17 @@ function formatBuildingStateData(stateDataToformat){
         newStateData.projectTitle = building.building_name;
         newStateData.breakpoints = building.breakpoints;
         newStateData.buildings = floorGroups;
+
+		// display card with higest available buildings as highlighted
+		var buildingIndexToHighlight = 0;
+		var buildingToHighlight = {};
+
+		highestFilterCountBuilding = getHighlightedBuilding(floorGroups);
+		buildingIndexToHighlight = highestFilterCountBuilding.index;
+		buildingToHighlight = floorGroups[buildingIndexToHighlight];
+		
+		newStateData.unitIndexToHighlight = buildingIndexToHighlight;
+        
         newStateData.shadowImages = building.shadow_images;
 		newStateData.primaryBreakPoint = building.primary_breakpoint;
 
@@ -2056,6 +2078,18 @@ function formatGroupStateData(stateDataToformat){
             newStateData.projectTitle = floorGroup.building_name;
             newStateData.breakpoints = stateDataToformat.data.breakpoints;
             newStateData.buildings = apartments;
+
+			// display card with higest available buildings as highlighted
+			var buildingIndexToHighlight = 0;
+			var buildingToHighlight = {};
+
+			highestFilterCountBuilding = getHighlightedBuilding(apartments);
+			buildingIndexToHighlight = highestFilterCountBuilding.index;
+			buildingToHighlight = apartments[buildingIndexToHighlight];
+
+			newStateData.unitIndexToHighlight = buildingIndexToHighlight;
+
+
             newStateData.shadowImages = stateDataToformat.data.shadowImages;
 
             newState.data = newStateData;
