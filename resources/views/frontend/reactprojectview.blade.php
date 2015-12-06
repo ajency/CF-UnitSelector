@@ -90,18 +90,6 @@
 
     <script src="{{asset('react-app-dist/main.js')}}"></script>
 
-
-	<script type="text/javascript" language="JavaScript">
-	  function set_body_height() {
-	  	// set body height = window height
-	  	$('.image').height($(window).height());
-	  }
-	  $(document).ready(function() {
-	  	$(window).bind('resize', set_body_height);
-	  	set_body_height();
-	  });
-
-	</script>
     <script type="text/javascript">
         $(document).ready(function() {
 
