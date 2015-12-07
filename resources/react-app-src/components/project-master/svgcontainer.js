@@ -312,6 +312,19 @@ var SvgContainer = React.createClass({
 
             // update building to highlight
             that.props.updateUnitIndexToHighlight(id);
+
+            // if classname is building and if it belong to not live building then show tooltip
+            notliveBuildingIndex = _.indexOf(notLiveBuildingsIdsToMark, id);
+            if(notliveBuildingIndex>-1){
+                hoveredBuilding = notLiveBuildings[notliveBuildingIndex];
+                hoveredBuildingName = hoveredBuilding.building_name;
+                hoverselector = '.building'+id;
+
+                tooltipTitle = hoveredBuildingName+" - (PHASE NOT LIVE)";
+                this.props.showTooltip(tooltipTitle,hoverselector);
+            }
+
+            
         }.bind(this));        
 
         // on mouse click of building apply tooltip
