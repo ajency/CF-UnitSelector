@@ -10,6 +10,21 @@ var SvgContainer = React.createClass({
 
     mixins: [Router.NavigatableMixin],
 
+    componentDidUpdate: function(prevProps, prevState) {
+        console.log("did update svg container");
+        
+        var notLiveBuildings = this.props.notlive_buildings; 
+        var notLiveBuildingsIdsToMark = [];
+
+        if(notLiveBuildings.length > 0){
+
+            notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
+        }
+        if((this.props.cardListFor==="project")&&(notLiveBuildings.length>0)){
+            this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark);   
+        }            
+    },
+
     applyGroupSpecificClasses : function(){
         var apartmentIdsToMark;
         var svgDom = $(".svg-area");
@@ -112,6 +127,7 @@ var SvgContainer = React.createClass({
     },
 
     svgLoaded: function(buildingToHighlight,cardListFor){
+        console.log("svg loaded");
         var highlightedBuildingId = 0 ;
         var highlightedBuildingName = "Loading.." ;
         var highlightedBuildingSelector = "";
