@@ -76,15 +76,17 @@ var StepTwo = React.createClass({
         this.destroyTooltip();
     },
 
-    showTooltip: function(text, selector){
-        text = String(text);
+    showTooltip: function(text, selector, isHTML){
+        if(!isHTML){
+            content = String(content);
+        }
         // first destroy tooltip
         this.destroyTooltip();
 
         // initialise qtip
         $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
             $(item).qtip({ // Grab some elements to apply the tooltip to
-                content: text,
+                content: content,
                 show: qtipSettings['show'],
                 hide: qtipSettings['hide'],
                 position:{
@@ -363,7 +365,7 @@ var StepTwo = React.createClass({
         buildingToHighlight = buildings[slideToGotTo];
         buildingName = buildingToHighlight.building_name;
 
-        this.showTooltip(buildingName,".floor_group"+buildingToHighlight.id);
+        this.showTooltip(buildingName,".floor_group"+buildingToHighlight.id, false);
     },
 
     showFilterModal: function(){

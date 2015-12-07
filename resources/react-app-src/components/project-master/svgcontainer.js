@@ -40,7 +40,7 @@ var SvgContainer = React.createClass({
             }
 
             // apply tooltip only for higlighted building svg
-            this.props.showTooltip(highlightedBuildingName,selector);            
+            this.props.showTooltip(highlightedBuildingName,selector,false);            
         }           
     },
 
@@ -321,7 +321,7 @@ var SvgContainer = React.createClass({
                 hoverselector = '.building'+id;
 
                 tooltipTitle = hoveredBuildingName+" - (PHASE NOT LIVE)";
-                this.props.showTooltip(tooltipTitle,hoverselector);
+                this.props.showTooltip(tooltipTitle,hoverselector,false);
             }
 
             
@@ -387,7 +387,7 @@ var SvgContainer = React.createClass({
             
 
             
-            this.props.showTooltip(div,highlightedAmenitySelector);
+            this.props.showTooltip(div, highlightedAmenitySelector, true);
         }.bind(this));        
     },    
 
