@@ -53,6 +53,15 @@ var StepOne = React.createClass({
       this.setState(getStateData());
     },
 
+    componentDidUpdate:function() {
+
+        if($(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container").hasClass("swiper-container-horizontal")){
+              mySwiper = $('.swiper-container')[0].swiper;
+              slideToGotTo = this.state.data.unitIndexToHighlight;
+              mySwiper.slideTo(slideToGotTo);
+        }        
+    },
+
     componentWillUnmount: function() {
         // destroy tooltips if any
         this.destroyTooltip();

@@ -58,6 +58,15 @@ var StepTwo = React.createClass({
         this.setState(newState);
     },
 
+    componentDidUpdate:function() {
+
+        if($(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container").hasClass("swiper-container-horizontal")){
+              mySwiper = $('.swiper-container')[0].swiper;
+              slideToGotTo = this.state.data.unitIndexToHighlight;
+              mySwiper.slideTo(slideToGotTo);
+        }        
+    },    
+
     componentDidMount: function() {
         console.log("component mounted");
     },
