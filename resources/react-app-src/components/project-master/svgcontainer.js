@@ -22,7 +22,26 @@ var SvgContainer = React.createClass({
         }
         if((this.props.cardListFor==="project")&&(notLiveBuildings.length>0)){
             this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark);   
-        }            
+        } 
+
+        // show tooltip for highlighted building if not already shown
+        if(!$('.qtip').is(':visible')){
+            buildingToHighlight = this.props.buildingToHighlight;
+            imageType = this.props.imageType;
+            id =  buildingToHighlight.id;
+            highlightedBuildingName =  buildingToHighlight.building_name;
+            var selector= "";
+            if(imageType === "master"){
+              selector = '.building'+id;
+            }else if(imageType === "buildingFloorGrps"){
+              selector = '.floor_group'+id;  
+            }else{
+              selector = '.apartment'+id;
+            }
+
+            // apply tooltip only for higlighted building svg
+            this.props.showTooltip(highlightedBuildingName,selector);            
+        }           
     },
 
     applyGroupSpecificClasses : function(){

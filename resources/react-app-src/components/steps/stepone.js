@@ -68,6 +68,7 @@ var StepOne = React.createClass({
     },
 
     showTooltip: function(text, selector){
+        text = String(text);
 
         // first destroy tooltip
         this.destroyTooltip();
