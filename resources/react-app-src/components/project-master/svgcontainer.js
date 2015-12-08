@@ -21,8 +21,28 @@ var SvgContainer = React.createClass({
             notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
         }
         if((this.props.cardListFor==="project")&&(notLiveBuildings.length>0)){
-            this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark);   
+            this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark); 
+            // on mouse hover of building apply tooltip
+            $("building").mouseover(function(e){
+                var that = this;
+                id = parseInt(e.currentTarget.id);
+
+                // if classname is building and if it belong to not live building then show tooltip
+                notliveBuildingIndex = _.indexOf(notLiveBuildingsIdsToMark, id);
+                if(notliveBuildingIndex>-1){
+                    hoveredBuilding = notLiveBuildings[notliveBuildingIndex];
+                    hoveredBuildingName = hoveredBuilding.building_name;
+                    hoverselector = '.building'+id;
+
+                    tooltipTitle = hoveredBuildingName+" - (PHASE NOT LIVE)";
+                    this.props.showTooltip(tooltipTitle,hoverselector,false);
+                }
+
+                
+            }.bind(this));   
         } 
+
+
 
         // show tooltip for highlighted building if not already shown
         if(!$('.qtip').is(':visible')){
@@ -315,7 +335,7 @@ var SvgContainer = React.createClass({
 
             // if classname is building and if it belong to not live building then show tooltip
             notliveBuildingIndex = _.indexOf(notLiveBuildingsIdsToMark, id);
-            if(notliveBuildingIndex>-1){
+            if((classNameToSelect===".building")&&(notliveBuildingIndex>-1)){
                 hoveredBuilding = notLiveBuildings[notliveBuildingIndex];
                 hoveredBuildingName = hoveredBuilding.building_name;
                 hoverselector = '.building'+id;

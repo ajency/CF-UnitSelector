@@ -76,7 +76,7 @@ var StepTwo = React.createClass({
         this.destroyTooltip();
     },
 
-    showTooltip: function(text, selector, isHTML){
+    showTooltip: function(content, selector, isHTML){
         if(!isHTML){
             content = String(content);
         }
