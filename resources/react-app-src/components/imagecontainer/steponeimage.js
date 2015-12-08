@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var classNames = require('classnames');
 var SvgContainer = require('../project-master/svgcontainer');
+var Loader = require('../common/loader');
 var immutabilityHelpers = require('react-addons-update');
 var Router = require('react-router-component');
 
@@ -605,6 +606,7 @@ var SteponeImage = React.createClass({
                             />
 
                             <div ref="spritespin" id="spritespin" className={shadowImageClasses}></div>
+                            <Loader hide={this.state.hideSoloImage}/>
                             <img
                                 key={svgkey+1}
                                 src={soloImageUrl}
@@ -666,6 +668,7 @@ var SteponeImage = React.createClass({
                             />
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
+                            <Loader hide={this.state.hideSoloImage}/>
                             <img
                                 key={svgkey+1}
                                 src={soloImageUrl}
