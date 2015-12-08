@@ -231,10 +231,10 @@ div.spritespin-div {
   fill: #ffffff !important;
 }
 .loaderOuter {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.7);
   position: absolute;
   width: 100%;
-  z-index: 9;
+  z-index: 9999;
   height: 100%;
   left: 0;
   top: 0;
@@ -359,7 +359,6 @@ div.spritespin-div {
 .square:nth-child(3) {
   -webkit-animation-delay: 2.4s;
   animation-delay: 2.4s;
-  background: #fdc96f;
 }
 .square:nth-child(4) {
   -webkit-animation-delay: 0.9s;
