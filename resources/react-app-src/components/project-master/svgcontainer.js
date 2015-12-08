@@ -23,7 +23,7 @@ var SvgContainer = React.createClass({
         if((this.props.cardListFor==="project")&&(notLiveBuildings.length>0)){
             this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark); 
             // on mouse hover of building apply tooltip
-            $("building").mouseover(function(e){
+            $(".building").mouseover(function(e){
                 var that = this;
                 id = parseInt(e.currentTarget.id);
 
