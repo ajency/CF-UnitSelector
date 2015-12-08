@@ -53,12 +53,25 @@ var StepOne = React.createClass({
       this.setState(getStateData());
     },
 
+    componentDidUpdate:function() {
+
+        if($(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container").hasClass("swiper-container-horizontal")){
+              mySwiper = $('.swiper-container')[0].swiper;
+              slideToGotTo = this.state.data.unitIndexToHighlight;
+              mySwiper.slideTo(slideToGotTo);
+        }        
+    },
+
     componentWillUnmount: function() {
         // destroy tooltips if any
         this.destroyTooltip();
     },
 
-    showTooltip: function(text, selector){
+    showTooltip: function(content, selector, isHTML){
+        if(!isHTML){
+            content = String(content);
+        }
+
 
         // first destroy tooltip
         this.destroyTooltip();
@@ -66,7 +79,7 @@ var StepOne = React.createClass({
         // initialise qtip
         $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
             $(item).qtip({ // Grab some elements to apply the tooltip to
-                content: text,
+                content: content,
                 show: qtipSettings['show'],
                 hide: qtipSettings['hide'],
                 position:{
@@ -355,7 +368,7 @@ var StepOne = React.createClass({
         if(!_.isUndefined(buildingToHighlight)){
             buildingName = buildingToHighlight.building_name;
 
-            this.showTooltip(buildingName,".building"+buildingToHighlight.id);
+            this.showTooltip(buildingName,".building"+buildingToHighlight.id, false);
         }else{
             buildingToHighlight = buildings[0];
         }

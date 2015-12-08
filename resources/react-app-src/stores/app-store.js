@@ -11,9 +11,9 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
-var _groupStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 } };
-var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0 } };
-var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"notlive_buildings":[] ,"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0 } };
+var _groupStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 , "phases":[]} };
+var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0, "phases":[] } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"notlive_buildings":[] ,"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0, "phases":[] } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -1311,7 +1311,7 @@ function _updateGlobalState(newStateData,type){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "logoExist": false, "unitCount":0, "shadowImages":[],"buildings":[],"notlive_buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":""};
+	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "logoExist": false, "unitCount":0, "shadowImages":[],"buildings":[],"notlive_buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":"", "phases":[]};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -1324,6 +1324,7 @@ function _getProjectMasterData(){
 		projectMasterData.logoExist = projectData.logo_exist ;
 		projectMasterData.shadowImages = projectData.shadow_images ;
 		projectMasterData.projectMasterImages = projectData.project_master ;
+		projectMasterData.phases = projectData.settings.phases ;
 
 		projectMasterData.projectContactNo = projectData.builder_phone ;
 
@@ -1341,6 +1342,17 @@ function _getProjectMasterData(){
 		allUnits = projectData.units;
 
 		buildingsWithUnits = getBuildingUnits(buildings, allUnits, []);
+
+		// display card with higest available buildings as highlighted
+		var buildingIndexToHighlight = 0;
+		var buildingToHighlight = {};
+
+		highestFilterCountBuilding = getHighlightedBuilding(buildingsWithUnits);
+		buildingIndexToHighlight = highestFilterCountBuilding.index;
+		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+
+
+		projectMasterData.unitIndexToHighlight = buildingIndexToHighlight;
 
 		projectMasterData.buildings = buildingsWithUnits;
 
@@ -1398,33 +1410,37 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 
 	// return first building that has filtered units
-	var buildingIndexToHighlight = -1;
+	// var buildingIndexToHighlight = -1;
+	var buildingIndexToHighlight = 0;
 	var filteredCount = 0;
 	var buildingToHighlight = {};
 	var availableBuildingIndex = 0;
 
-	while(filteredCount==0){
-		buildingIndexToHighlight++;
+	highestFilterCountBuilding = getHighlightedBuilding(buildingsWithUnits);
+	buildingIndexToHighlight = highestFilterCountBuilding.index;
 
-		if(buildingIndexToHighlight >= (buildingsWithUnits.length-1))
-			break;
+	// while(filteredCount==0){
+	// 	buildingIndexToHighlight++;
+
+	// 	if(buildingIndexToHighlight >= (buildingsWithUnits.length-1))
+	// 		break;
 
 
 
-		// buildingToHighlight = getHighlightedBuilding(buildingsWithUnits);
+	// 	// buildingToHighlight = getHighlightedBuilding(buildingsWithUnits);
 
-		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
-		filteredCount = buildingToHighlight.filteredUnitData.length;
-		availableCount = buildingToHighlight.availableUnitData.length;
+	// 	buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+	// 	filteredCount = buildingToHighlight.filteredUnitData.length;
+	// 	availableCount = buildingToHighlight.availableUnitData.length;
 
-		if(availableCount>0){
-			availableBuildingIndex = buildingIndexToHighlight;
-		}
-	}
+	// 	if(availableCount>0){
+	// 		availableBuildingIndex = buildingIndexToHighlight;
+	// 	}
+	// }
 
-	if(_.isEmpty(buildingToHighlight)){
-		buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
-	}
+
+	buildingToHighlight = buildingsWithUnits[buildingIndexToHighlight];
+
 
 	newProjectData.unitIndexToHighlight = buildingIndexToHighlight
 
@@ -1451,6 +1467,69 @@ function getFilteredProjectMasterData(buildingId,groupId){
 
 }
 
+function getHighlightedBuilding(filteredUnits){
+
+	var allFilteredUnitsCount = {};
+	var allAvailableUnitsCount = {};
+	var filteredUnitsSum = [];
+	var availableUnitsSum = [];
+	var result = {};
+	var maxIndex = 0;
+	var totalFilteredUnits = 0; 
+	var totalAvailableUnits = 0; 
+
+	// default unit and index to return
+	var maxUnit = filteredUnits[0];
+	var maxIndex = 0;	
+	
+	_.each(filteredUnits, function(unit,index){
+		allFilteredUnitsCount[index] = unit.filteredUnitData.length;
+		filteredUnitsSum.push(unit.filteredUnitData.length);
+	});
+
+	totalFilteredUnits = filteredUnitsSum.reduce((a, b) => a + b);
+
+	if(totalFilteredUnits == 0){
+		
+		// check for available units count
+		_.each(filteredUnits, function(unit,index){
+			allAvailableUnitsCount[index] = unit.availableUnitData.length;
+			availableUnitsSum.push(unit.availableUnitData.length);
+		});
+
+		totalAvailableUnits = availableUnitsSum.reduce((a, b) => a + b);
+
+		if(totalAvailableUnits == 0){
+			maxUnit = filteredUnits[0];
+			maxIndex = 0;
+		}
+		else{
+			var maxValue = _.max(allAvailableUnitsCount);
+			_.findKey(allAvailableUnitsCount, function(x) {
+			   return x === maxValue;
+			});
+			maxKey = _.indexOf(availableUnitsSum,maxValue ) ;
+
+			var maxUnit = filteredUnits[maxKey];
+			maxIndex = maxKey; 
+		}
+
+
+	}
+	else{
+		var maxValue = _.max(allFilteredUnitsCount);
+		_.findKey(allFilteredUnitsCount, function(x) {
+		   return x === maxValue;
+		});
+		maxKey = _.indexOf(filteredUnitsSum,maxValue ) ;
+
+		var maxUnit = filteredUnits[maxKey];
+		maxIndex = maxKey; 
+	}
+	result.unit = maxUnit;
+	result.index = maxIndex;
+	return result;
+}
 
 
 
@@ -1895,6 +1974,17 @@ function formatBuildingStateData(stateDataToformat){
         newStateData.projectTitle = building.building_name;
         newStateData.breakpoints = building.breakpoints;
         newStateData.buildings = floorGroups;
+
+		// display card with higest available buildings as highlighted
+		var buildingIndexToHighlight = 0;
+		var buildingToHighlight = {};
+
+		highestFilterCountBuilding = getHighlightedBuilding(floorGroups);
+		buildingIndexToHighlight = highestFilterCountBuilding.index;
+		buildingToHighlight = floorGroups[buildingIndexToHighlight];
+		
+		newStateData.unitIndexToHighlight = buildingIndexToHighlight;
+        
         newStateData.shadowImages = building.shadow_images;
 		newStateData.primaryBreakPoint = building.primary_breakpoint;
 
@@ -1989,6 +2079,18 @@ function formatGroupStateData(stateDataToformat){
             newStateData.projectTitle = floorGroup.building_name;
             newStateData.breakpoints = stateDataToformat.data.breakpoints;
             newStateData.buildings = apartments;
+
+			// display card with higest available buildings as highlighted
+			var buildingIndexToHighlight = 0;
+			var buildingToHighlight = {};
+
+			highestFilterCountBuilding = getHighlightedBuilding(apartments);
+			buildingIndexToHighlight = highestFilterCountBuilding.index;
+			buildingToHighlight = apartments[buildingIndexToHighlight];
+
+			newStateData.unitIndexToHighlight = buildingIndexToHighlight;
+
+
             newStateData.shadowImages = stateDataToformat.data.shadowImages;
 
             newState.data = newStateData;

@@ -60,6 +60,15 @@ var StepThree = React.createClass({
         console.log("new state data");
     },
 
+    componentDidUpdate:function() {
+
+        if($(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container").hasClass("swiper-container-horizontal")){
+              mySwiper = $('.swiper-container')[0].swiper;
+              slideToGotTo = this.state.data.unitIndexToHighlight;
+              mySwiper.slideTo(slideToGotTo);
+        }        
+    },    
+
     componentDidMount: function() {
         console.log("component mounted");
     },
@@ -69,7 +78,10 @@ var StepThree = React.createClass({
         this.destroyTooltip();
     },
 
-    showTooltip: function(text, selector){
+    showTooltip: function(content, selector, isHTML){
+        if(!isHTML){
+            content = String(content);
+        }
 
         // first destroy tooltip
         this.destroyTooltip();
@@ -77,7 +89,7 @@ var StepThree = React.createClass({
         // initialise qtip
         $(selector).each(function(ind, item) { // Notice the .each() loop, discussed below
             $(item).qtip({ // Grab some elements to apply the tooltip to
-                content: text,
+                content: content,
                 show: qtipSettings['show'],
                 hide: qtipSettings['hide'],
                 position:{
@@ -357,7 +369,7 @@ var StepThree = React.createClass({
 
         if(!_.isUndefined((buildingToHighlight))){
             buildingName = buildingToHighlight.building_name;
-            this.showTooltip(buildingName,".apartment"+buildingToHighlight.id);
+            this.showTooltip(buildingName,".apartment"+buildingToHighlight.id, false);
         }else{
             console.log("Building to highlight is undefined");
         }
