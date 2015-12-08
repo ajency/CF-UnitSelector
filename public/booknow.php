@@ -395,7 +395,7 @@ $startTime= time();
                                 <label>
                                     <input type="checkbox" name="acceptterm"  id="acceptterm"  />
                                     <label class="checkboxLabel"></label>
-                                    <span class="accept">I accept the <a target="_blank" href="https://www.commonfloor.com/terms-conditions">Terms and Conditions</a></span>
+                                    <span class="accept">I accept the <a target="_blank" href="termsCondition.php">Terms and Conditions</a></span>
                                 </label>
                             </div>
                         </div>
@@ -424,7 +424,7 @@ $startTime= time();
                 </div>
                 <div class="bookingFooter">
                    Call <?php echo $unitData['builder_phone']?>
-                     <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commonfloor inc. </a>| <a href="https://www.commonfloor.com/privacy-policy">Privacy Policy</a></div>
+                     <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a  target="_blank" href="faq.php">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commonfloor inc. </a>| <a target="_blank" href="privacy.php">Privacy Policy</a></div>
                  </div>
             </div>
         </div>

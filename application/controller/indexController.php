@@ -1506,8 +1506,8 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                               
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Floor <br><br></td>
-                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.ordinalSuffix($unitData['unit']['floor_number']).' Floor <br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Floor </td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">'.ordinalSuffix($unitData['unit']['floor_number']).' Floor</td>
                               
                             </tr>
                           </table>
@@ -1527,8 +1527,8 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                               <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs. '.moneyFormatIndia($unitData['unit']['per_sq_ft_price']).' /-</td>
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Total Value <br><br></td>
-                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs. '.formatAmount($totalSaleValue).' <br><br></td>
+                              <td style="font-size: 14px; width:150px; color: #777; text-transform: capitalize; line-height:1;">Total Value </td>
+                              <td style="font-size: 14px; width:150px; color: #333; text-transform: capitalize; line-height:1;">Rs. '.formatAmount($totalSaleValue).' </td>
                             </tr>
                           </table>
                         </td>

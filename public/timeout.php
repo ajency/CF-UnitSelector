@@ -54,10 +54,10 @@ unset($_SESSION);
                     </div>
                     
                 </div>
-                <div class="bookingFooter sessionExpireFooter">
-                     Call <?php echo $unitData['builder_phone']?>
-                     <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a href="#">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commonfloor inc. </a>| <a href="https://www.commonfloor.com/privacy-policy">Privacy Policy</a></div>
-                </div>
+                <div class="bookingFooter">
+                   Call <?php echo $unitData['builder_phone']?>
+                     <div class="privacyOuter"><a href="https://www.commonfloor.com/">Commonfloor</a> | <a  target="_blank" href="faq.php">FAQ</a> | <a href="https://play.google.com/store/apps/details?id=com.commonfloor&hl=en">Mobile Apps © commonfloor inc. </a>| <a target="_blank" href="privacy.php">Privacy Policy</a></div>
+                 </div>
             </div>
         </div>                         
 
