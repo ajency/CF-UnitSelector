@@ -1,5 +1,6 @@
 var AppActions = require('../actions/app-actions.js');
 var request = require('superagent');
+var no_cache = require('superagent-no-cache');
 var API_URL = '/api/v1/';
 var BASE_URL = window.baseUrl;
 
@@ -20,6 +21,7 @@ var Api = {
 
     var data = request
 				.get(url)
+				.use(no_cache)
 				.end(function(err, res){
 					if (res.ok) {
 						AppActions.receiveProjectData(res.body);
