@@ -68,7 +68,7 @@ $startTime= time();
         <div class="absoluteLayout"></div>
             <div class="container">
                 <h3 class="text-center text-uppercase">3 Steps for booking your apartment</h3>
-                <span class="text-center col-md-12 col-sm-12 col-xs-12 spanText">Complete your booking safely with us. You will be redirected to the payment getway on click of Make Payment button</span>
+                <span class="text-center col-md-12 col-sm-12 col-xs-12 spanText">Complete your booking securely through our payment gateway</span>
                 <span class="text-center col-md-12 col-sm-12 col-xs-12 timerText">Current session will restart in <b><br><span id="timeCounter" class="orangeText "><?php echo EXPIREDURATION;echo ":00";?></b> minutes</span>
                 <div class="bookAptOuter">
                     <div class="row">
@@ -391,7 +391,7 @@ $startTime= time();
                       <div class="panel-body text-center">
                         <div class="col-md-12 col-sm-12 col-xs-12 termsConditions">
                             <div class="row">
-                                <div>Complete your booking safely with us.</div>
+                                <div>Complete your booking safely with us. You will be redirected to the payment getway on click of Make Payment button.</div>
                                 <label>
                                     <input type="checkbox" name="acceptterm"  id="acceptterm"  />
                                     <label class="checkboxLabel"></label>

@@ -47,7 +47,7 @@ $backlink = UNITSELECTOR_URL.'project/'.$projectId;
 		<div class="absoluteLayout"></div>
 			<div class="container">
 				<span class="logo text-center">
-					<img src="../../images/inner-header-logo.png"/>
+					<img src="image/inner-header-logo.png"/>
 				</span>
 				<h3 class="text-center text-uppercase">Faq</h3>
 				
@@ -210,10 +210,13 @@ $backlink = UNITSELECTOR_URL.'project/'.$projectId;
 			</div>
 		</div>
 	
-		<script src="../cf-mobile/js/jquery.min.js"></script>
+		 <script src="js/jquery.min.js"></script>
+ 
+   
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../cf-mobile/js/bootstrap.min.js"></script>
-    <script src="../cf-mobile/js/jquery.panzoom.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.panzoom.js"></script>
+    <script src="js/parsleyjs/dist/parsley.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			//$('.collapse').collapse()
 			$( document ).ready(function() {			
