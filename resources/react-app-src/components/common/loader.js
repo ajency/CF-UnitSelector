@@ -12,7 +12,19 @@ var Loader = React.createClass({
 
 
         return (
-			<div className={loaderClasses}><div className="loader">Loading...</div></div>
+            <div className={loaderClasses}>
+                <div className="loader">
+                  <div className="square" ></div>
+                  <div className="square"></div>
+                  <div className="square last"></div>
+                  <div className="square clear"></div>
+                  <div className="square"></div>
+                  <div className="square last"></div>
+                  <div className="square clear"></div>
+                  <div className="square "></div>
+                  <div className="square last"></div>                
+                </div>
+             </div>			
           );
     } 
 
