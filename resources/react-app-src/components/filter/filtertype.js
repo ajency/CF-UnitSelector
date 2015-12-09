@@ -163,15 +163,29 @@ var FilterType = React.createClass({
             );
         }
         else{
+            filterClasses = classNames({
+                "filterFloors" : filterType.type==="floor",
+                "filterCheckbox" : filterType.type!="floor"
+            });
+
+            if(filterType.filterDisplayType === "range"){
+                filterNodeToDisplay = (<div>{filterValueNodes}</div>);
+            }
+            else{
+                 filterNodeToDisplay = ( <li className={filterClasses}>
+                                            <ul className="list-inline sub-list">{filterValueNodes}</ul>
+                                        </li>
+                                      );
+            }
+
+
             domToDisplay = (
                     <div>
                         <li>
                             <h6 className="text-uppercase">{filterType.filterName}</h6>
                         </li>
+                        {filterNodeToDisplay}
 
-                        <li className="filterCheckbox">
-                            <ul className="list-inline sub-list">{filterValueNodes}</ul>
-                        </li>
                     </div>
             );
         }
