@@ -268,11 +268,10 @@ div.spritespin-div {
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -110px;
-  margin-top: -27.5px;
+  margin-left: -27.5px !important;
+  margin-top: -27.5px !important;
   width: 60px;
 }
-
 .square {
   background: white;
   width: 15px;
@@ -347,12 +346,15 @@ div.spritespin-div {
 .last {
   margin-right: 0;
 }
-.step3Loader .loader
+.step3Loader.image-contain .loader
 {
   -webkit-transform:scale(0.5);
   transform:scale(0.5);
 }
-
+.in-selection{
+      fill: rgba(16, 165, 169, 0.34) !important;
+      opacity: .9 !important;
+}
 .in-selection-orange {
   fill: rgba(254, 148, 62, 0.55) !important;
   opacity: .9 !important;
