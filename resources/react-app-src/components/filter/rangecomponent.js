@@ -100,7 +100,7 @@ var RangeComponent = React.createClass({
              </select>    
           </div>  
           <div className="col-xs-2 text-center horizontalArrow">
-                                               <i class="fa fa-arrows-h"></i>
+                                               <i className="fa fa-arrows-h"></i>
                                              </div>
           <div className="col-xs-5">
              <select data-filterstyle = 'range' data-filtertype = {listType} name = {'max-'+listType} onChange={this.change} value={selectedoption} data-type='max'>
