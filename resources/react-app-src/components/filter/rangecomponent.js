@@ -93,13 +93,16 @@ var RangeComponent = React.createClass({
     }else{
       rangeDom = (        
       <li className="budgetOuter">
-          <div className="col-xs-6">
+          <div className="col-xs-5">
              <select data-filterstyle = 'range' data-filtertype = {listType} name = {'min-'+listType} onChange={this.change} value={selectedoption} data-type='min'>
                <option>MIN</option>
                {minFilters}
              </select>    
           </div>  
-          <div className="col-xs-6">
+          <div className="col-xs-2 text-center horizontalArrow">
+                                               <i class="fa fa-arrows-h"></i>
+                                             </div>
+          <div className="col-xs-5">
              <select data-filterstyle = 'range' data-filtertype = {listType} name = {'max-'+listType} onChange={this.change} value={selectedoption} data-type='max'>
                <option>MAX</option>
                {maxFilters}
