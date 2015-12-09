@@ -386,7 +386,7 @@ div.spritespin-div {
 .last {
   margin-right: 0;
 }
-.step3Loader.image-contain .loader {
+.step3loader.image-contain .loader {
   -webkit-transform: scale(0.5);
   -ms-transform: scale(0.5);
       transform: scale(0.5);
@@ -877,7 +877,7 @@ body a {
 .contactModal .inputOuter .errorlist li {
   list-style: none;
   position: absolute;
-  top: 139px;
+  top: 140px;
   font-size: 11px;
   color: #ee1f3b;
 }
