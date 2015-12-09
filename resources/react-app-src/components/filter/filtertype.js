@@ -165,7 +165,7 @@ var FilterType = React.createClass({
         else{
             filterClasses = classNames({
                 "filterFloors" : filterType.type==="floor",
-                "filterCheckbox" : filterType.type!="floor"
+                "filterCheckbox" : true
             });
 
             if(filterType.filterDisplayType === "range"){
