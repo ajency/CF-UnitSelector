@@ -474,8 +474,9 @@ var SteponeImage = React.createClass({
         if((this.props.cardListFor === "project")&&(window.isMobile)){
             imageContainStyle = {
                 "height": "auto",
-                top: "inherit",
-                bottom: "152px"              
+                "top": "inherit",
+                "bottom": "152px" ,
+                "loader-container": !this.state.hideSoloImage             
             };            
             imageContainerStyle = {
               "height": "auto"
@@ -487,7 +488,8 @@ var SteponeImage = React.createClass({
             };
 
             imageContainStyle = {
-              "height": windowHeight
+              "height": windowHeight,
+              "loader-container": !this.state.hideSoloImage  
             };
         }
 
