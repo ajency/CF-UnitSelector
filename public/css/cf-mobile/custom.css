@@ -1009,7 +1009,7 @@ div.spritespin-div {
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -27.5px;
+  margin-left: -110px;
   margin-top: -27.5px;
   width: 60px;
 }
@@ -1068,9 +1068,17 @@ div.spritespin-div {
 .last {
   margin-right: 0;
 }
+.step3Loader .loader {
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+      transform: scale(0.5);
+}
 .in-selection-orange {
   fill: rgba(254, 148, 62, 0.55) !important;
   opacity: .9 !important;
+}
+.image-contain.loader-container {
+  z-index: 999999;
 }
 .tabHeader {
   position: fixed;
