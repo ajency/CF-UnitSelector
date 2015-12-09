@@ -568,6 +568,7 @@ var SteponeImage = React.createClass({
 
         imageContainClass = classNames({
             "loader-container": !this.state.hideSoloImage,
+            "step3loader": this.props.cardListFor === "group",
             "image-contain": true
         }) 
 
