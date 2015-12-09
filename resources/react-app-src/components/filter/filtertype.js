@@ -117,11 +117,21 @@ var FilterType = React.createClass({
                                         );
                                     }
                                     else{
+                                        checkboxClasses = classNames({
+                                            "col-xs-4" : true,
+                                            "filterFloorLi" : filterType.type === "floor",
+                                            "selected" : isSelected
+                                        });
+
+                                        filterTextClasses = classNames({
+                                            "filterFloorText" : filterType.type === "floor"
+                                        });
+
                                         filterUiDom = (
-                                                <li key={i} className="col-xs-4">
+                                                <li key={i} className={checkboxClasses}>
                                                     <input type="checkbox" checked={isSelected} data-filtertype = {filterType.type} onClick={this.props.selectFilter} value={filterValue.id}/>
                                                     <label className="checkboxLabel"></label>
-                                                    <label>{filterValue.name}</label>
+                                                    <label className={filterTextClasses}>{filterValue.name}</label>
                                                 </li>
                                         );
                                     }
@@ -153,15 +163,29 @@ var FilterType = React.createClass({
             );
         }
         else{
+            filterClasses = classNames({
+                "filterFloors" : filterType.type==="floor",
+                "filterCheckbox" : filterType.type!="floor"
+            });
+
+            if(filterType.filterDisplayType === "range"){
+                filterNodeToDisplay = (<div>{filterValueNodes}</div>);
+            }
+            else{
+                 filterNodeToDisplay = ( <li className={filterClasses}>
+                                            <ul className="list-inline sub-list">{filterValueNodes}</ul>
+                                        </li>
+                                      );
+            }
+
+
             domToDisplay = (
                     <div>
                         <li>
                             <h6 className="text-uppercase">{filterType.filterName}</h6>
                         </li>
+                        {filterNodeToDisplay}
 
-                        <li className="filterCheckbox">
-                            <ul className="list-inline sub-list">{filterValueNodes}</ul>
-                        </li>
                     </div>
             );
         }

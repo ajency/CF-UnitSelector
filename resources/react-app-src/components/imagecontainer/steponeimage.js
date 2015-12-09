@@ -474,8 +474,8 @@ var SteponeImage = React.createClass({
         if((this.props.cardListFor === "project")&&(window.isMobile)){
             imageContainStyle = {
                 "height": "auto",
-                top: "inherit",
-                bottom: "152px"              
+                "top": "inherit",
+                "bottom": "152px"         
             };            
             imageContainerStyle = {
               "height": "auto"
@@ -487,7 +487,7 @@ var SteponeImage = React.createClass({
             };
 
             imageContainStyle = {
-              "height": windowHeight
+              "height": windowHeight  
             };
         }
 
@@ -566,9 +566,14 @@ var SteponeImage = React.createClass({
         faqUrl = window.baseUrl+"/html/TermsPrivacyFaq/faq.html";
         privacyUrl = window.baseUrl+"/html/TermsPrivacyFaq/privacy.html"
 
-        if(window.isMobile){
-            var imageContainClass;
+        imageContainClass = classNames({
+            "loader-container": !this.state.hideSoloImage,
+            "step3loader": this.props.cardListFor === "group",
+            "image-contain": true
+        }) 
 
+        if(window.isMobile){
+            
             if(this.props.cardListFor === "project"){
                 imageContainerClass = classNames({
                   "image": true,
@@ -583,7 +588,7 @@ var SteponeImage = React.createClass({
             domToDisplay = (
 
                 <div className="us-right-content">
-                    <div className="image-contain" style={imageContainStyle}>
+                    <div className={imageContainClass} style={imageContainStyle}>
                         <div ref="imageContainer" className={imageContainerClass} style={imageContainerStyle}>
 
                             <SvgContainer
@@ -644,7 +649,7 @@ var SteponeImage = React.createClass({
                         <i id="next" className="i-icon i-icon-rotate" onClick={this.rotateSpriteSpin}></i> Press To Rotate
                     </div>
 
-                    <div ref="imageContain" className="image-contain" style={imageContainStyle}>
+                    <div ref="imageContain" className={imageContainClass} style={imageContainStyle}>
                         <div ref="imageContainer" className="image" style={imageContainerStyle}>
 
                             <SvgContainer

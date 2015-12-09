@@ -26,7 +26,7 @@ var Details = React.createClass({
 
 
   componentDidMount: function() {
-    if(!window.isMobile){
+ 
       $('.attributeList').each(function(event) {
         console.log('attribute list');
         $(this).readmore({
@@ -39,8 +39,26 @@ var Details = React.createClass({
           }
         });
       });
-    }
+
   },
+
+  componentDidUpdate: function() {
+ 
+      $('.attributeList').each(function(event) {
+        console.log('attribute list');
+        $(this).readmore({
+          moreLink: '<a href="#">More</a>',
+          collapsedHeight: 120,
+          afterToggle: function(trigger, element, expanded) {
+            if(! expanded) { // The "Close" link was clicked
+              $('html, body').animate({scrollTop: element.offset().top}, {duration: 100});
+            }
+          }
+        });
+      });
+
+  },
+
 
 
 
@@ -62,13 +80,15 @@ if(window.isMobile){
                                     <h5 className="text-uppercase">Apartment Attributes </h5>
                                 </div>
                                 <div className="projectDetails">
-                                    <div className="col-xs-12 roomHeading">
-                                        <h4 className="text-uppercase">{room.room_name}</h4>
-                                    </div>
+                                    <div  id={i} className="attributeList">
+                                      <div className="col-xs-12 roomHeading">
+                                          <h4 className="text-uppercase">{room.room_name}</h4>
+                                      </div>
 
-                                    <RoomAttributeList
-                                        attributes={room.atributes}
-                                    />
+                                      <RoomAttributeList
+                                          attributes={room.atributes}
+                                      />
+                                    </div>
                                 </div>
 
                             </div>
