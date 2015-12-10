@@ -550,7 +550,7 @@ var SteponeImage = React.createClass({
         svgBaseUrl = path["baseImagePath"];
 
         frames = this.getImageFrames();
-        soloImageUrl = frames[0];
+        soloImageUrl = frames[shadowIndex];
 
 
         if(svgKeyType==="random"){

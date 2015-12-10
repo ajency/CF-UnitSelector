@@ -1989,7 +1989,7 @@ function formatBuildingStateData(stateDataToformat){
 		newStateData.primaryBreakPoint = building.primary_breakpoint;
 
         newState.data = newStateData;
-        newState.data.chosenBreakpoint = building.primary_breakpoint;
+        newState.data.chosenBreakpoint = buildingToHighlight.primary_breakpoint;
 
 
     }
@@ -2094,6 +2094,7 @@ function formatGroupStateData(stateDataToformat){
             newStateData.shadowImages = stateDataToformat.data.shadowImages;
 
             newState.data = newStateData;
+        	newState.data.chosenBreakpoint = buildingToHighlight.primary_breakpoint;
 
 
         }

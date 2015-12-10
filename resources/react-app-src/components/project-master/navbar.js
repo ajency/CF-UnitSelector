@@ -189,7 +189,7 @@ var NavBar = React.createClass({
 
         logoclasses = classNames({
             "logoOuter" : true,
-            // "titleOuter" : !(this.props.cardListFor === "project")
+            "titleOuter" : !(this.props.cardListFor === "project")
         });
 
 
@@ -201,13 +201,13 @@ var NavBar = React.createClass({
                 </span>
             );
 
-            logoDisplay = "";
+            logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
         }
         else{
             facingDisplay = "";
 
             if(this.props.cardListFor === "group"){
-                logoDisplay = "";
+                logoDisplay = (<i className="sideBarLogo"><img className="img-responsive" src={this.props.projectLogo}/></i>);
             }
             else{
                 if(this.props.logoExist){
