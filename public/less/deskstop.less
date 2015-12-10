@@ -463,8 +463,13 @@ body {
 .contactModal 
 {
   left:0px !important;
-  top:15% !important;
+  top:0;
   z-index: 99999;
+  .modal-dialog
+  {
+    margin-top:15%;
+  }
+
   .modal-body
   {
     float:left;

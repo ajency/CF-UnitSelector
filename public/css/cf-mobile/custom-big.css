@@ -808,8 +808,11 @@ body a {
 }
 .contactModal {
   left: 0px !important;
-  top: 15% !important;
+  top: 0;
   z-index: 99999;
+}
+.contactModal .modal-dialog {
+  margin-top: 15%;
 }
 .contactModal .modal-body {
   float: left;
