@@ -27,6 +27,9 @@ var SvgContainer = React.createClass({
                 var that = this;
                 id = parseInt(e.currentTarget.id);
 
+                this.props.destroyTooltip();
+
+
                 // if classname is building and if it belong to not live building then show tooltip
                 notliveBuildingIndex = _.indexOf(notLiveBuildingsIdsToMark, id);
                 if(notliveBuildingIndex>-1){
@@ -328,14 +331,20 @@ var SvgContainer = React.createClass({
         $(classNameToSelect).mouseover(function(e){
             var that = this;
             id = parseInt(e.currentTarget.id);
-            $('.cardOuter').mCustomScrollbar("scrollTo",'#building'+id);
 
-            // update building to highlight
-            that.props.updateUnitIndexToHighlight(id);
+            notliveBuildingIndex = _.indexOf(notLiveBuildingsIdsToMark, id);
+            
+            if(notliveBuildingIndex==-1){
+                $('.cardOuter').mCustomScrollbar("scrollTo",'#building'+id);
+                // update building to highlight
+                that.props.updateUnitIndexToHighlight(id);                
+            }
+
 
             // if classname is building and if it belong to not live building then show tooltip
-            notliveBuildingIndex = _.indexOf(notLiveBuildingsIdsToMark, id);
             if((classNameToSelect===".building")&&(notliveBuildingIndex>-1)){
+                that.props.destroyTooltip();
+
                 hoveredBuilding = notLiveBuildings[notliveBuildingIndex];
                 hoveredBuildingName = hoveredBuilding.building_name;
                 hoverselector = '.building'+id;

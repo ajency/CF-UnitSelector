@@ -670,6 +670,7 @@ var SteponeImage = React.createClass({
                                 cardListFor = {cardListFor}
                                 cardListForId = {cardListForId}
                                 panToZoomedGroup = {this.panToZoomedGroup}
+                                destroyTooltip = {this.props.destroyTooltip}
                             />
 
                             <div ref="spritespin" id='spritespin' className={shadowImageClasses}></div>
