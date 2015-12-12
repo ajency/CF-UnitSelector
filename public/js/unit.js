@@ -25,18 +25,36 @@ function startTimer(duration, display){
 
 
 $( ".basic_info" ).change(function() {
- 
-    str = $("input[name='contact_first_name']").val()+' '+$("input[name='contact_last_name']").val()+'<br>';
-    str += $("input[name='contact_email']").val()+'<br>';
-    str += $("input[name='contact_mobile']").val()+'<br>';
-    str +=$("input[name='contact_pancard']").val()+'<br><br>';
-    str += '<b>Address</b><br>';
-    str += $("input[name='contact_address']").val()+' <br>';
-    str += ($("input[name='contact_city']").val()!='') ? $("input[name='contact_city']").val()+', <br>' :'';
-    str += $("input[name='contact_state']").val()+' '+$("input[name='contact_country']").val();
-    str += ($("input[name='contact_zipcode']").val()!='') ? ' - '+ $("input[name='contact_zipcode']").val()+'<br> ' :'';
+    str = '';
+
+    if($("input[name='contact_first_name']").val() !='' || $("input[name='contact_last_name']").val()!='')
+        str = $("input[name='contact_first_name']").val()+' '+$("input[name='contact_last_name']").val()+'<br>';
+    
+    if($("input[name='contact_email']").val() !='')
+        str += $("input[name='contact_email']").val()+'<br>';
+    
+    if($("input[name='contact_email']").val() !='')
+        str += $("input[name='contact_mobile']").val()+'<br>';
+
+    if($("input[name='contact_pancard']").val() !='')
+        str +=$("input[name='contact_pancard']").val()+'<br><br>';
+
+    if($("input[name='contact_address']").val()!='' ||  
+       $("input[name='contact_city']").val()!='' ||  
+       $("input[name='contact_state']").val()!='' ||  
+       $("input[name='contact_zipcode']").val()!='') 
+    {
+        str += '<b>Address</b><br>';
+        str += $("input[name='contact_address']").val()+' <br>';
+        str += ($("input[name='contact_city']").val()!='') ? $("input[name='contact_city']").val()+', <br>' :'';
+        str += $("input[name='contact_state']").val()+' '+$("input[name='contact_country']").val();
+        str += ($("input[name='contact_zipcode']").val()!='') ? ' - '+ $("input[name='contact_zipcode']").val()+'<br> ' :'';
+    }
     $(".userInfo").html(str);
-    $(".userInfo").removeClass('hidden');
+    if(str!='')
+        $(".userInfo").removeClass('hidden');
+    else
+       $(".userInfo").addClass('hidden'); 
 });
 
 function copyBillingInfo(obj){
@@ -319,6 +337,7 @@ function goToNextStep(anchor ,divClass)
             var data = {
                     toemail:"",
                     toname:"",
+                    project_id:$("input[name='project_id']").val(),
                     name:$("input[name='contact_first_name']").val()+' '+$("input[name='contact_last_name']").val(),
                     email:$("input[name='contact_email']").val(),
                     phone:$("input[name='contact_mobile']").val(),
