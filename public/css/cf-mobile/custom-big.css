@@ -230,6 +230,7 @@ div.spritespin-div {
   /* opacity:.2 !important;
   fill:@white !important;*/
   stroke: #fe943e;
+  stroke-width: 3px;
 }
 .loaderOuter {
   background: rgba(0, 0, 0, 0.7);
@@ -1020,7 +1021,7 @@ body a {
 .styled-select select {
   background: transparent;
   width: 100%;
-  padding: 5px;
+  padding: 5px 20px 5px 5px;
   font-size: 16px;
   line-height: 1;
   border: 0;
@@ -1030,6 +1031,10 @@ body a {
   -moz-appearance: none;
   cursor: pointer;
   text-transform: uppercase;
+  direction: rtl;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .styled-select select:focus {
   outline: none;
@@ -2151,6 +2156,10 @@ select::-ms-expand {
 .step4Desk .outsideView .floorDetails .plan {
   margin-top: 0;
   margin-bottom: 10px;
+}
+.step4Desk .outsideView .floorDetails .svg-light,
+.step4Desk .outsideView .floorDetails .svg-light:hover {
+  cursor: default !important;
 }
 .step4Desk .amenitiesDetails {
   padding: 20px 15px;

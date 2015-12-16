@@ -912,6 +912,7 @@ div.spritespin-div {
   /* opacity:.2 !important;
   fill:@white !important;*/
   stroke: #fe943e;
+  stroke-width: 3px;
 }
 .loaderOuter {
   background: rgba(0, 0, 0, 0.7);
