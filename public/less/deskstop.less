@@ -93,6 +93,7 @@ body {
 {
       font-size:12px;
       padding-top: 11px;
+      border:1px solid rgba(0,0,0,0);
       h4{
         transition: all 0.3s ease;
         font-size: 16px;
@@ -236,6 +237,11 @@ body {
     color:@gray-darker;
   }
 }      
+}
+
+#sidebar-wrapper .card-swipe:hover
+{
+  border:1px solid #999;
 }
 .not-released{
       background: #E4E4E4 !important;
@@ -650,6 +656,10 @@ body {
 .svg-area{
     width:264px !important;
 }
+.svg-light, .svg-light:hover
+{
+  cursor: default !important;
+}
   h6
   {
     margin-top: 15px;
@@ -799,13 +809,13 @@ select::-ms-expand {
     }
     .sideBarLogo
     {
-      width:53%;
+      width:45%;
       margin-left:-18px;
     }
     h4
     {
       float:right;
-      width:45%;
+      width:55%;
       margin-top:36px;
       text-align:right;
       text-transform:uppercase;

@@ -909,8 +909,9 @@ div.spritespin-div {
   opacity: 0.5 !important;
 }
 .step2-svg:hover {
-  opacity: .2 !important;
-  fill: #ffffff !important;
+  /* opacity:.2 !important;
+  fill:@white !important;*/
+  stroke: #fe943e;
 }
 .loaderOuter {
   background: rgba(0, 0, 0, 0.7);

@@ -68,6 +68,7 @@ body {
   background-size: cover;
   height: 300px;
   position: relative;
+  padding: 0 !important;
 }
 .bookFlowContent .absoluteLayout {
   height: 300px;
@@ -898,18 +899,20 @@ body {
   float: left;
   width: 100%;
   margin-top: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   font-size: 14px;
-  color: #565654;
+  color: #ffffff;
+  background: #fe943e;
+  padding: 15px;
 }
 .bookingFooter a {
   font-size: 12px;
-  color: #565654;
+  color: #ffffff;
   text-decoration: none;
   outline: none;
 }
 .bookingFooter a:hover {
-  color: #565654;
+  color: #ffffff;
   text-decoration: none;
 }
 .bookingFooter .privacyOuter {

@@ -11,6 +11,7 @@
       <link href='../../css/cf-mobile/custom-big.css' rel='stylesheet'/>
 
       <link href='../../css/cf-mobile/font-awesome.css' rel='stylesheet'/>
+      <link href='../../css/cf-mobile/jquery.classyscroll.css' rel='stylesheet'/>
       <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
       <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
       <!-- Bootstrap -->
@@ -509,7 +510,7 @@
       <script src="js/jquery.panzoom.js"></script>
       <script src="js/jquery.mousewheel.js"></script>   
       <script src="http://spritespin.ginie.eu/spritespin.js"></script>   
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/jquery.classyscroll.js"></script>
         <script type="text/javascript" src="js/src/core.js"></script>
         <script type="text/javascript" src="js/src/csscoordinates.js"></script>
         <script type="text/javascript" src="js/src/displaycontroller.js"></script>
@@ -593,14 +594,19 @@
           (function($){
          $(window).load(function(){
          
-         $("#content-1").mCustomScrollbar({
-         autoHideScrollbar:true,
-         theme:"rounded"
-         });
-         $("#filters .filterUl").mCustomScrollbar({
-          autoHideScrollbar:true,
-          theme:"rounded"
-        });
+        //  $("#content-1").mCustomScrollbar({
+        //  autoHideScrollbar:true,
+        //  theme:"rounded"
+        //  });
+        //  $("#filters .filterUl").mCustomScrollbar({
+        //   autoHideScrollbar:true,
+        //   theme:"rounded"
+        // });
+
+
+         $("#content-1").ClassyScroll();         
+         $("#filters .filterUl").ClassyScroll();
+
          
          });
          })(jQuery);
