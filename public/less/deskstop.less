@@ -717,24 +717,37 @@ body {
    background: url(../../images/arrowDown.png) no-repeat right;
    border: none;   
 */
+  position: relative;
+  z-index: 2;
+  .viewport
+  {
+      position: absolute;
+      width: 80%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      padding: 5px;
+     font-size: 16px;
+     line-height: 1.5;
+  }
   select
   {
    background: transparent;
-   width: 100%;
-   padding: 5px 20px 5px 5px;
-   font-size: 16px;
-   line-height: 1;
-   border: 0;
+   width: 100%;    
    border-radius: 0;
    height: 34px;
    -webkit-appearance: none;
    -moz-appearance: none;
    cursor:pointer;
    text-transform:uppercase;
-   direction: rtl;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+   direction: ltr;
+    z-index: 2;
+    opacity: 0;
+    position: relative;
    &:focus
    {
     outline:none;

@@ -29,8 +29,9 @@
             <i class="sideBarLogo "><img src="../../images/logo.jpg"/></i>
             <h4 class="margin-none"> 
               <div class="styled-select">
-                 <select>
-                    <option>Floor 1 - 7</option>
+                <div class="viewport"></div>
+                 <select id="selectOption">
+                    <option>Floor number group - 7</option>
                     <option>Floor 8 - 12</option>
                     <option>Floor 13 - 17</option>                    
                  </select>
@@ -628,7 +629,14 @@
             $(".sidebarCloseBtn").click(function(){
               $("#sidebar-wrapper").slideToggle();
             });
-          });
+            });
+            $(document).ready(function () {
+                $('div.viewport').text($('#selectOption')[0].textContent);
+                $('#selectOption').change(function () {
+                    $('div.viewport').text($("option:selected", this).text());
+                });            
+            });
+          
       </script>
    </body>
 </html>
