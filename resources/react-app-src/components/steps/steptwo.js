@@ -60,12 +60,14 @@ var StepTwo = React.createClass({
 
     componentDidUpdate:function() {
 
+      $('.viewport').html(this.state.data.projectTitle);
+
         if($(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container").hasClass("swiper-container-horizontal")){
               mySwiper = $('.swiper-container')[0].swiper;
               slideToGotTo = this.state.data.unitIndexToHighlight;
               mySwiper.slideTo(slideToGotTo);
-        }        
-    },    
+        }
+    },
 
     componentDidMount: function() {
         console.log("component mounted");
@@ -115,7 +117,7 @@ var StepTwo = React.createClass({
         if(_.isNull(rotateToBreakpoint)){
             rotateToBreakpoint = 0;
         }
-                
+
         unitId = unitData.id;
         dataToUpdate = [];
 
@@ -124,12 +126,12 @@ var StepTwo = React.createClass({
         // store previous shadow state, to later use it to update main shadow state
         window.prevShadowState = prevShowShadow;
 
-        
+
         if( prevShowShadow ){
             dataToSet = {property:"showShadow", value:false };
             dataToUpdate.push(dataToSet);
         }
-       
+
 
         // hide svg area
         allbuildings = this.state.data.buildings;
@@ -140,13 +142,13 @@ var StepTwo = React.createClass({
 
         // update chosen breakpoint to primary breakpoint of tower of current slide
         dataToSet = {property:"unitIndexToHighlight", value:unitIndexToHighlight };
-        dataToUpdate.push(dataToSet);  
-              
+        dataToUpdate.push(dataToSet);
+
         // update unit index to higlight
         dataToSet = {property:"chosenBreakpoint",value:rotateToBreakpoint};
         dataToUpdate.push(dataToSet);
 
-        this.updateStateData(dataToUpdate); 
+        this.updateStateData(dataToUpdate);
     },
 
     updateUnitIndexToHighlight: function(unitId){
@@ -328,7 +330,7 @@ var StepTwo = React.createClass({
 
         });
 
-        
+
         AppStore.updateGlobalState(newState,"buildingFloorGroups");
         this.setState(newState, this.projectDataUpdateCallBack);
 
@@ -348,7 +350,7 @@ var StepTwo = React.createClass({
             if(window.prevShadowState){
                 this.updateRotateShadow(window.prevShadowState);
                 window.prevShadowState = false;
-            }            
+            }
         }
 
 
@@ -374,6 +376,10 @@ var StepTwo = React.createClass({
     },
 
     showContactModal: function(){
+      $('.contact-form-content').show();
+      $('.pleasefill').show();
+      $('.errorMsg').html('');
+      $('.form-message').html('');
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
 
@@ -608,6 +614,7 @@ var StepTwo = React.createClass({
         allBuildings = AppStore.getProjectData();
         if(!_.isEmpty(allBuildings)){
         buildingDropwdownData = allBuildings.buildings;
+
         }else{
         buildingDropdownData = [];
         }
@@ -618,8 +625,10 @@ var StepTwo = React.createClass({
         if(data.showShadow){
             messageBoxMsg = "Shadow of Morning Sun";
         }else{
-            messageBoxMsg = "Click on tower to proceed";
+            messageBoxMsg = "Click on floor group to proceed";
         }
+
+
 
 
         if(window.isMobile){

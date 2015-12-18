@@ -62,12 +62,14 @@ var StepThree = React.createClass({
 
     componentDidUpdate:function() {
 
+      $('.viewport').html(this.state.data.projectTitle);
+
         if($(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container").hasClass("swiper-container-horizontal")){
               mySwiper = $('.swiper-container')[0].swiper;
               slideToGotTo = this.state.data.unitIndexToHighlight;
               mySwiper.slideTo(slideToGotTo);
-        }        
-    },    
+        }
+    },
 
     componentDidMount: function() {
         console.log("component mounted");
@@ -121,7 +123,7 @@ var StepThree = React.createClass({
 
         unitId = unitData.id;
 
-        dataToUpdate = [];        
+        dataToUpdate = [];
 
         prevShowShadow = this.state.data.showShadow;
 
@@ -132,7 +134,7 @@ var StepThree = React.createClass({
             dataToSet = {property:"showShadow", value:false };
             dataToUpdate.push(dataToSet);
         }
-     
+
         // hide svg area
         allbuildings = this.state.data.buildings;
         allbuildingIds = _.pluck(allbuildings,"id");
@@ -141,13 +143,13 @@ var StepThree = React.createClass({
 
         // update chosen breakpoint to primary breakpoint of tower of current slide
         dataToSet = {property:"unitIndexToHighlight", value:unitIndexToHighlight };
-        dataToUpdate.push(dataToSet);  
-              
+        dataToUpdate.push(dataToSet);
+
         // update unit index to higlight
         dataToSet = {property:"chosenBreakpoint",value:rotateToBreakpoint};
         dataToUpdate.push(dataToSet);
 
-        this.updateStateData(dataToUpdate);   
+        this.updateStateData(dataToUpdate);
     },
 
     updateUnitIndexToHighlight: function(unitId){
@@ -328,8 +330,8 @@ var StepThree = React.createClass({
             oldState = newState;
 
         });
-    
-    
+
+
         AppStore.updateGlobalState(newState,"singleUnits");
         this.setState(newState, this.projectDataUpdateCallBack);
 
@@ -351,7 +353,7 @@ var StepThree = React.createClass({
             if(window.prevShadowState){
                 this.updateRotateShadow(window.prevShadowState);
                 window.prevShadowState = false;
-            }            
+            }
         }
 
 
@@ -382,6 +384,10 @@ var StepThree = React.createClass({
     },
 
     showContactModal: function(){
+      $('.contact-form-content').show();
+      $('.pleasefill').show();
+      $('.errorMsg').html('');
+      $('.form-message').html('');
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
 
@@ -637,7 +643,7 @@ var StepThree = React.createClass({
         if(data.showShadow){
             messageBoxMsg = "Shadow of Morning Sun";
         }else{
-            messageBoxMsg = "Click on tower to proceed";
+            messageBoxMsg = "Click on unit to proceed";
         }
 
 

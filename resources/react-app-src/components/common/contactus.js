@@ -29,7 +29,7 @@ var ContactUs = React.createClass({
 
 	getInitialState: function() {
 		return {
-			"successfulSubmission": false, 
+			"successfulSubmission": false,
 			"formSubmit":false
 		};
 	},
@@ -39,18 +39,19 @@ var ContactUs = React.createClass({
 
 	    var form = this.refs.signupForm.getForm();
 	    var isValid = form.validate();
-	    
+
 	    if (isValid) {
-	    	this.submitContactData(form.cleanedData);
+	    	this.submitContactData(form.cleanedData,form);
 
 	    }
+
 	},
 
 	componentDidUpdate: function() {
 		$('#contactform')[0].reset();
 	},
 
-	submitContactData: function(data){
+	submitContactData: function(data,form){
 
 		var dataToSubmit = {
 		    "toemail": window.builder_email,
@@ -67,7 +68,7 @@ var ContactUs = React.createClass({
 		    "country": "",
 		    "pincode": ""
 		}
-		
+
 		if(data.hasOwnProperty("phone")){
 			dataToSubmit["phone"] = data["phone"];
 		}
@@ -82,20 +83,28 @@ var ContactUs = React.createClass({
 	   					.end(function(err, res){
 						     if(res.ok) {
 						        this.setState({"successfulSubmission": true, "formSubmit":true});
-						        this.props.hideContactModal();
+						        // this.props.hideContactModal();
+										$('.contact-form-content').hide();
+										$('.pleasefill').hide();
+										$('.form-message').html('<div>The form has been submitted successfully.</div>');
 
 						     }
 						     else {
-						       this.setState({"successfulSubmission": false, "formSubmit":true})
+						       this.setState({"successfulSubmission": false, "formSubmit":true});
+									 var rest = form.reset();
+						 			$('#contactform')[0].reset();
+									$('.contact-form-content').hide();
+									$('.pleasefill').hide();
+									$('.form-message').html('The form has been submitted successfully.');
 						     }
 	   					}.bind(this));
-			
-	},	
-  	
+
+	},
+
   	render: function() {
 
   		var errorClass = classNames({
-  			"errorMsg":(this.state.formSubmit)&&(!this.state.successfulSubmission),
+  			"errorMsgInvalid":(this.state.formSubmit)&&(!this.state.successfulSubmission),
   			"hidden": ((!this.state.formSubmit)&&(!this.state.successfulSubmission)) || ((this.state.formSubmit)&&(this.state.successfulSubmission))
   		})
 
@@ -104,12 +113,12 @@ var ContactUs = React.createClass({
   		if((this.state.formSubmit)&&(this.state.successfulSubmission)){
   			message = "Successfully submitted";
   		}else{
-  			message = "Not Successfully submitted";	
+  			message = "Not successfully submitted";
   		}
 		return (
 			<form onSubmit={this._onSubmit} id="contactform">
-		  		<forms.RenderForm 
-		  			form={SignupForm} 
+		  		<forms.RenderForm
+		  			form={SignupForm}
 		  			ref="signupForm"
 		  			className = "p-0 col-lg-12 inputOuter"
 		  		/>
@@ -124,4 +133,3 @@ var ContactUs = React.createClass({
 });
 
 module.exports = ContactUs;
-  

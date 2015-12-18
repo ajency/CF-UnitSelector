@@ -59,7 +59,7 @@ var StepOne = React.createClass({
               mySwiper = $('.swiper-container')[0].swiper;
               slideToGotTo = this.state.data.unitIndexToHighlight;
               mySwiper.slideTo(slideToGotTo);
-        }        
+        }
     },
 
     componentWillUnmount: function() {
@@ -108,7 +108,7 @@ var StepOne = React.createClass({
         if(_.isNull(rotateToBreakpoint)){
             rotateToBreakpoint = 0;
         }
-        
+
         unitId = unitData.id;
 
         prevShowShadow = this.state.data.showShadow;
@@ -131,8 +131,8 @@ var StepOne = React.createClass({
 
         // update chosen breakpoint to primary breakpoint of tower of current slide
         dataToSet = {property:"unitIndexToHighlight", value:unitIndexToHighlight };
-        dataToUpdate.push(dataToSet);  
-              
+        dataToUpdate.push(dataToSet);
+
         // update unit index to higlight
         dataToSet = {property:"chosenBreakpoint",value:rotateToBreakpoint};
         dataToUpdate.push(dataToSet);
@@ -330,7 +330,7 @@ var StepOne = React.createClass({
 
         AppStore.updateGlobalState(newState,"projectMaster");
         this.setState(newState, this.projectDataUpdateCallBack);
-        
+
 
     },
 
@@ -348,7 +348,7 @@ var StepOne = React.createClass({
             if(window.prevShadowState){
                 this.updateRotateShadow(window.prevShadowState);
                 window.prevShadowState = false;
-            }            
+            }
         }
 
 
@@ -376,17 +376,21 @@ var StepOne = React.createClass({
     },
 
     showFilterModal: function(){
-        $(ReactDOM.findDOMNode(this.refs.modal)).modal();        
+        $(ReactDOM.findDOMNode(this.refs.modal)).modal();
         $(".modal-body").scrollTop(0);
     },
 
     showContactModal: function(){
+      $('.contact-form-content').show();
+      $('.pleasefill').show();
+      $('.errorMsg').html('');
+      $('.form-message').html('');
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
 
     hideContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
-    }, 
+    },
 
     hideImageContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.imageModal)).modal('hide');
@@ -733,13 +737,13 @@ var StepOne = React.createClass({
                             modalPurpose = "contactModal"
                             hideContactModal = {this.hideContactModal}
                         />
-                        
+
                         <Modal
                             ref="imageModal"
                             modalData = {imageModalData}
                             modalPurpose = "imageModal"
                             hideImageModal = {this.hideImageContactModal}
-                        />                         
+                        />
 
 
                     </div>

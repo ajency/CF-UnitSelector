@@ -260,7 +260,7 @@ div.spritespin-div {
 .loader:after {
   border-radius: 50%;
     width: 40px;
-    height: 40px; 
+    height: 40px;
     background: rgba(0,0,0,0);
     position: absolute;
     top: 50%;
@@ -940,7 +940,7 @@ body a {
   margin-bottom: 20px;
 }
 .contactModal .errorMsg {
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   text-align: center;
   bottom: 5px;
@@ -1015,7 +1015,7 @@ body a {
    height: 34px;
    overflow: hidden;
    background: url(../../images/arrowDown.png) no-repeat right;
-   border: none;   
+   border: none;
 */
   position: relative;
   z-index: 2;

@@ -93,7 +93,16 @@ var UnitDetails = React.createClass({
 
 
     showContactModal: function(){
-        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
+      $('.contact-form-content').show();
+      $('.pleasefill').show();
+      $('.errorMsg').html('');
+      $('.form-message').html('');
+      $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
+    },
+
+
+    componentWillUnmount: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
     },
 
 
