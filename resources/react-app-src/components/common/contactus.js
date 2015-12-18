@@ -93,9 +93,9 @@ var ContactUs = React.createClass({
 						       this.setState({"successfulSubmission": false, "formSubmit":true});
 									 var rest = form.reset();
 						 			$('#contactform')[0].reset();
-									$('.contact-form-content').hide();
-									$('.pleasefill').hide();
-									$('.form-message').html('The form has been submitted successfully.');
+									// $('.contact-form-content').hide();
+									// $('.pleasefill').hide();
+									// $('.form-message').html('The form has been submitted successfully.');
 						     }
 	   					}.bind(this));
 
