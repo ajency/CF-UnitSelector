@@ -947,6 +947,14 @@ body a {
   color: #ee1f3b;
   font-size: 12px;
 }
+.contactModal .errorMsgInvalid {
+  position: relative;
+  bottom: 0;
+}
+.contactModal .form-message {
+  margin-top: 10px;
+  color: #fe943e;
+}
 .modal-backdrop.in {
   left: 0px;
 }
