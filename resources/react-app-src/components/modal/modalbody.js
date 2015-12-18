@@ -80,7 +80,7 @@ var ModalBody = React.createClass({
                                     </div>
                                     <div className="col-xs-6 rightSide">
                                         <div ref="contactusform">
-                                            <ContactUs hideContactModal = {this.props.hideContactModal}/>
+                                            <ContactUs projectId = {this.props.projectId} hideContactModal = {this.props.hideContactModal}/>
                                         </div>
                                     </div>
                                   </div>
@@ -102,7 +102,7 @@ var ModalBody = React.createClass({
                                         <div className="developers">{window.project_title}</div>
                                         <a className="text-center" href={callTel}><h5>Call for support {window.builder_phone}</h5></a>
                                         <div className="contactContent" ref="contactusform">
-                                            <ContactUs hideContactModal = {this.props.hideContactModal}/>
+                                            <ContactUs projectId = {this.props.projectId} hideContactModal = {this.props.hideContactModal}/>
                                         </div>
                                       </div>
                                    </div>

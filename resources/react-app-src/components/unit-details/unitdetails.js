@@ -264,7 +264,8 @@ var UnitDetails = React.createClass({
 	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "mobileContactModal"
-                        hideContactModal = {this.hideContactModal}
+                      projectId = {projectId}
+                      hideContactModal = {this.hideContactModal}
 	                />
 				</div>
 			)
@@ -302,7 +303,8 @@ var UnitDetails = React.createClass({
 	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "contactModal"
-                        hideContactModal = {this.hideContactModal}
+                      projectId = {projectId}
+                      hideContactModal = {this.hideContactModal}
 	                />
 				</div>
 		)

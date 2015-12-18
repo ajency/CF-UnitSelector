@@ -395,6 +395,10 @@ var StepThree = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
     },
 
+    componentWillUnmount: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },
+
     toggelSunView: function(evt){
         evt.preventDefault();
         $clickedDiv = $(evt.currentTarget);
@@ -828,6 +832,7 @@ var StepThree = React.createClass({
                             modalData = {modalData}
                             modalPurpose = "contactModal"
                             hideContactModal = {this.hideContactModal}
+                            projectId = {window.projectId}
                         />
 
                     </div>

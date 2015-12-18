@@ -392,6 +392,10 @@ var StepOne = React.createClass({
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
     },
 
+    componentWillUnmount: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },
+
     hideImageContactModal: function(){
         $(ReactDOM.findDOMNode(this.refs.imageModal)).modal('hide');
     },
@@ -743,6 +747,7 @@ var StepOne = React.createClass({
                             modalData = {imageModalData}
                             modalPurpose = "imageModal"
                             hideImageModal = {this.hideImageContactModal}
+                            projectId = {window.projectId}
                         />
 
 
