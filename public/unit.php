@@ -1,6 +1,7 @@
 <?php
-session_start();
-unset($_SESSION);
+require_once '../includes/include.php';
+require_once '../application/controller/indexController.php'; 
+
 ?>
 <!doctype html>
 <html>
@@ -35,7 +36,7 @@ unset($_SESSION);
         </div>
         <div class="container-fluid content">
             <div class="col-md-12 col-sm-12 col-xs-12 text-center mT20 mB15">
-                <a href="booknow.php?unitId=107&projectId=of905c"> <button class="btn btnOrange">Book Now</button>
+                <a href="booknow.php?unitId=15&projectId=s6yjsx"> <button class="btn btnOrange">Book Now</button>
              </div>
         </div>
     

@@ -587,7 +587,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
         curl_setopt($c, CURLOPT_URL, $sender_url);
         curl_setopt($c, CURLOPT_POST, 1);
         curl_setopt($c, CURLOPT_POSTFIELDS, $data);
-           curl_setopt($c,CURLOPT_HTTPHEADER,array('X-Authorization: '.$authKey));
+        curl_setopt($c,CURLOPT_HTTPHEADER,array('X-Authorization: '.$authKey));
         curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
@@ -1402,7 +1402,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                     <table cellspacing="0" cellpadding="0" width="630">
                       <tr>
                         <td style="text-transform: uppercase; font-size: 35px; font-weight: bold; color: #333; text-align: center;">
-                          <br>INVOICE     
+                          INVOICE     
                         </td>
                       </tr>
                     </table>
@@ -1543,7 +1543,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
                   <td>
                     <table width="630" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #ccc;">
                       <tr>                        
-                        <td align="right" style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking Amount : <span style="color:#FE943E">Rs. '.$booking_amount.' /-<br></span>
+                        <td align="right" style="font-size: 18px; font-weight: 500; color: #333; text-transform: uppercase;">Booking Amount : <span style="color:#FE943E">Rs. '.$booking_amount.' /-</span>
                         </td>
                       </tr>
                     </table>
