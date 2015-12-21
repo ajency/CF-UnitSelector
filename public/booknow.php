@@ -124,22 +124,22 @@ $startTime= time();
                         
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                           
-                                    <input class="basic_info form-control" type="text" id="first_name" name="contact_first_name" placeholder="First Name" data-parsley-pattern="^[A-Za-z ]*$" pattern="^[A-Za-z ]*$" data-parsley-required/>
+                                    <input class="basic_info form-control" type="text" id="first_name" name="contact_first_name" placeholder="First Name" data-parsley-pattern="^[A-Za-z ]*$" pattern="^[A-Za-z ]*$" data-parsley-required data-parsley-trigger="change"/>
  
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input class="basic_info form-control" type="text" id="last_name" name="contact_last_name" placeholder="Last Name" data-parsley-required data-parsley-pattern="^[A-Za-z ]*$" pattern="^[A-Za-z ]*$"/>
+                                    <input class="basic_info form-control" type="text" id="last_name" name="contact_last_name" placeholder="Last Name" data-parsley-required data-parsley-pattern="^[A-Za-z ]*$" pattern="^[A-Za-z ]*$" data-parsley-trigger="change"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                               
-                                    <input class="basic_info form-control" type="text"  id="email" name="contact_email" placeholder="Email ID" data-parsley-type="email" data-parsley-required/>
+                                    <input class="basic_info form-control" type="text"  id="email" name="contact_email" placeholder="Email ID" data-parsley-type="email" data-parsley-required data-parsley-trigger="change"/>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input class="basic_info form-control" type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-length="[10, 12]"/>
+                                    <input class="basic_info form-control" type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-length="[10, 12]" data-parsley-trigger="change"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                   <input class="basic_info form-control" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}"  data-parsley-maxlength="10" data-parsley-maxlength-message="This value is too long. It should have 10 characters" data-parsley-required/>
+                                   <input class="basic_info form-control" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}"  data-parsley-maxlength="10" data-parsley-maxlength-message="This value is too long. It should have 10 characters" data-parsley-required data-parsley-trigger="change"/>
                                 </div>
                             </div>
                                                             
