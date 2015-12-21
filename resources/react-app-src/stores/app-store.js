@@ -1475,13 +1475,13 @@ function getHighlightedBuilding(filteredUnits){
 	var availableUnitsSum = [];
 	var result = {};
 	var maxIndex = 0;
-	var totalFilteredUnits = 0; 
-	var totalAvailableUnits = 0; 
+	var totalFilteredUnits = 0;
+	var totalAvailableUnits = 0;
 
 	// default unit and index to return
 	var maxUnit = filteredUnits[0];
-	var maxIndex = 0;	
-	
+	var maxIndex = 0;
+
 	_.each(filteredUnits, function(unit,index){
 		allFilteredUnitsCount[index] = unit.filteredUnitData.length;
 		filteredUnitsSum.push(unit.filteredUnitData.length);
@@ -1490,7 +1490,7 @@ function getHighlightedBuilding(filteredUnits){
 	totalFilteredUnits = filteredUnitsSum.reduce((a, b) => a + b);
 
 	if(totalFilteredUnits == 0){
-		
+
 		// check for available units count
 		_.each(filteredUnits, function(unit,index){
 			allAvailableUnitsCount[index] = unit.availableUnitData.length;
@@ -1511,7 +1511,7 @@ function getHighlightedBuilding(filteredUnits){
 			maxKey = _.indexOf(availableUnitsSum,maxValue ) ;
 
 			var maxUnit = filteredUnits[maxKey];
-			maxIndex = maxKey; 
+			maxIndex = maxKey;
 		}
 
 
@@ -1524,7 +1524,7 @@ function getHighlightedBuilding(filteredUnits){
 		maxKey = _.indexOf(filteredUnitsSum,maxValue ) ;
 
 		var maxUnit = filteredUnits[maxKey];
-		maxIndex = maxKey; 
+		maxIndex = maxKey;
 	}
 	result.unit = maxUnit;
 	result.index = maxIndex;
@@ -1535,9 +1535,12 @@ function getHighlightedBuilding(filteredUnits){
 
 function getSimilarUnits(unitId){
 	var unitId = parseInt(unitId);
-	var allUnits = _projectData.units;
-	var unitData = _.findWhere(allUnits, {id: unitId});
+	var allUnitsBeforeFilter = _projectData.units;
+	var unitData = _.findWhere(allUnitsBeforeFilter, {id: unitId});
 
+
+	//var allUnits = _projectData.units;
+	var allUnits = _.reject(allUnitsBeforeFilter, function(el) { return el.id === unitData.id; });
 	var unitVariantId = unitData.unit_variant_id;
 	var propertyId = unitData.property_type_id ;
 	var propertyTypeName = getPropertyType(propertyId);
@@ -1982,9 +1985,9 @@ function formatBuildingStateData(stateDataToformat){
 		highestFilterCountBuilding = getHighlightedBuilding(floorGroups);
 		buildingIndexToHighlight = highestFilterCountBuilding.index;
 		buildingToHighlight = floorGroups[buildingIndexToHighlight];
-		
+
 		newStateData.unitIndexToHighlight = buildingIndexToHighlight;
-        
+
         newStateData.shadowImages = building.shadow_images;
 		newStateData.primaryBreakPoint = building.primary_breakpoint;
 

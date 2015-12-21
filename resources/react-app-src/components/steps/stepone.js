@@ -264,9 +264,9 @@ var StepOne = React.createClass({
                 if (indexOfELem > -1) {
 
 
-                  oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
+                  //oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
 
-                    //oldataTochange.splice(indexOfELem, 1);
+                    oldataTochange.splice(indexOfELem, 1);
 
                 }else{
 
@@ -471,6 +471,7 @@ var StepOne = React.createClass({
         this.destroyTooltip();
 
         var totalFilterApplied = AppStore.getFilteredCount(this.state.data.applied_filters);
+        var totalFilterSearched = AppStore.getFilteredCount(this.state.data.search_filters);
 
         dataToSet ={
             property: "reset_filters",
@@ -478,7 +479,7 @@ var StepOne = React.createClass({
         };
 
         //if(totalFilterApplied > 0){
-        if(!_.isEmpty(this.state.data.applied_filters)){
+        if(!_.isEmpty(this.state.data.applied_filters) || !_.isEmpty(this.state.data.search_filters)){
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();

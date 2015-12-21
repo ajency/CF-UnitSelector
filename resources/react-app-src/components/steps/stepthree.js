@@ -73,6 +73,7 @@ var StepThree = React.createClass({
 
     componentDidMount: function() {
         console.log("component mounted");
+        $('.viewport').html(this.state.data.projectTitle);
     },
 
     componentWillUnmount: function() {
@@ -270,9 +271,9 @@ var StepThree = React.createClass({
                 if (indexOfELem > -1) {
 
 
-                  oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
+                  //oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
 
-                    //oldataTochange.splice(indexOfELem, 1);
+                    oldataTochange.splice(indexOfELem, 1);
 
                 }else{
 
@@ -475,7 +476,7 @@ var StepThree = React.createClass({
         };
 
         //if(totalFilterApplied > 0){
-        if(!_.isEmpty(this.state.data.applied_filters)){
+        if(!_.isEmpty(this.state.data.applied_filters) || !_.isEmpty(this.state.data.search_filters)){
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();

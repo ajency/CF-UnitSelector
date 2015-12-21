@@ -85,6 +85,8 @@ var ContactUs = React.createClass({
 						     if(res.ok) {
 						        this.setState({"successfulSubmission": true, "formSubmit":true});
 						        // this.props.hideContactModal();
+										var rest = form.reset();
+ 						 				$('#contactform')[0].reset();
 										$('.contact-form-content').hide();
 										$('.pleasefill').hide();
 										$('.form-message').html('<div>The form has been submitted successfully.</div>');

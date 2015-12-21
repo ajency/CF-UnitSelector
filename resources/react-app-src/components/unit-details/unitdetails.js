@@ -30,6 +30,11 @@ var UnitDetails = React.createClass({
 
 
     componentDidMount: function() {
+      
+      $('.qtip').each(function(){
+        $(this).data('qtip').destroy();
+      });
+
       if(!window.isMobile){
 
         $(window).scroll(function() {
@@ -38,13 +43,33 @@ var UnitDetails = React.createClass({
 
             $('.click').each(function(event) {
               var currentTab = $(this).attr('id')+'_div';
-                if (y >= $('#'+currentTab).offset().top - 100) {
+               if (y >= $('#'+currentTab).offset().top - 100) {
                     $('.click').not(this).removeClass('active');
                     $('.click').not(this).css('color','#565654');
                     $(this).addClass('active');
                     $(this).css('color','#fe943e');
                 }
             });
+
+            //Home and End button press event
+            if($(window).scrollTop() + $(window).height() == $(document).height()) {
+              var lastMenu = $('#stickyHeader ul li:nth-last-child(2) a');
+              $('.click').each(function(event) {
+                $(this).removeClass('active');
+                $(this).css('color','#565654');
+              });
+              lastMenu.addClass('active');
+              lastMenu.css('color','#fe943e');
+            }else if($(window).scrollTop() == 0) {
+              var firstMenu = $('.tabHeader ul li:first a');
+              $('.click').each(function(event) {
+                $(this).removeClass('active');
+                $(this).css('color','#565654');
+              });
+              firstMenu.addClass('active');
+              firstMenu.css('color','#fe943e');
+            }
+
 
         });
 
@@ -75,6 +100,16 @@ var UnitDetails = React.createClass({
           sticky_relocate();
         });
       }
+
+
+      // $(window).scroll(function() {
+      //   if($(window).scrollTop() + $(window).height() == $(document).height()) {
+      //     alert("bottom!");
+      //   }
+      //   if($(window).scrollTop() == 0) {
+      //     alert("top!");
+      //   }
+      // });
 
   },
 
