@@ -36,11 +36,8 @@ if(window.isMobile){
           </div>
         </div>
         <div className="col-xs-12 floorDetails">
-          <div className="row">
-              <div className="col-xs-12 details">
-                    <img src="img/bldg-3d.png" />
-              </div>
-          </div>
+          <div class="row">
+            <iframe class="col-lg-12 col-md-12 col-sm-12" src={this.props.tourUrl}></iframe></div>
           </div>
         </div>
         );

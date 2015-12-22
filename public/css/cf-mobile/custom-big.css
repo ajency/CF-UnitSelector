@@ -227,8 +227,10 @@ div.spritespin-div {
   opacity: 0.5 !important;
 }
 .step2-svg:hover {
-  opacity: .2 !important;
-  fill: #ffffff !important;
+  /* opacity:.2 !important;
+  fill:@white !important;*/
+  stroke: #fe943e;
+  stroke-width: 3px;
 }
 .loaderOuter {
   background: rgba(0, 0, 0, 0.7);
@@ -258,7 +260,7 @@ div.spritespin-div {
 .loader:after {
   border-radius: 50%;
     width: 40px;
-    height: 40px; 
+    height: 40px;
     background: rgba(0,0,0,0);
     position: absolute;
     top: 50%;
@@ -432,6 +434,9 @@ body a {
   font-size: 12px;
   color: #fe943e;
 }
+*:focus {
+  outline: none;
+}
 #sidebar-wrapper {
   left: 320px;
 }
@@ -488,6 +493,7 @@ body a {
 .card-swipe {
   font-size: 12px;
   padding-top: 11px;
+  border: 1px solid rgba(0, 0, 0, 0);
 }
 .card-swipe h4 {
   -webkit-transition: all 0.3s ease;
@@ -616,6 +622,9 @@ body a {
 .card-swipe.not-released .swipe-footer {
   background: #f2f2f2;
   color: #565654;
+}
+#sidebar-wrapper .card-swipe:hover {
+  border: 1px solid #999;
 }
 .not-released {
   background: #E4E4E4 !important;
@@ -934,12 +943,24 @@ body a {
   margin-bottom: 20px;
 }
 .contactModal .errorMsg {
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   text-align: center;
   bottom: 5px;
   color: #ee1f3b;
   font-size: 12px;
+}
+.contactModal .errorMsgInvalid {
+  position: relative;
+  bottom: 0;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 4px;
+  color: #ee1f3b;
+}
+.contactModal .form-message {
+  margin-top: 10px;
+  color: #fe943e;
 }
 .modal-backdrop.in {
   left: 0px;
@@ -955,6 +976,10 @@ body a {
 }
 .outSideView .svg-area {
   width: 264px !important;
+}
+.outSideView .svg-light,
+.outSideView .svg-light:hover {
+  cursor: default !important;
 }
 .outSideView h6 {
   margin-top: 15px;
@@ -1005,22 +1030,38 @@ body a {
    height: 34px;
    overflow: hidden;
    background: url(../../images/arrowDown.png) no-repeat right;
-   border: none;   
+   border: none;
 */
+  position: relative;
+  z-index: 2;
+}
+.styled-select .viewport {
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  padding: 5px;
+  font-size: 16px;
+  line-height: 1.5;
 }
 .styled-select select {
   background: transparent;
   width: 100%;
-  padding: 5px;
-  font-size: 16px;
-  line-height: 1;
-  border: 0;
   border-radius: 0;
   height: 34px;
   -webkit-appearance: none;
   -moz-appearance: none;
   cursor: pointer;
   text-transform: uppercase;
+  direction: ltr;
+  z-index: 2;
+  opacity: 0;
+  position: relative;
 }
 .styled-select select:focus {
   outline: none;
@@ -1101,12 +1142,12 @@ select::-ms-expand {
   width: 50%;
 }
 .titleOuter .sideBarLogo {
-  width: 53%;
+  width: 45%;
   margin-left: -18px;
 }
 .titleOuter h4 {
   float: right;
-  width: 45%;
+  width: 55%;
   margin-top: 36px;
   text-align: right;
   text-transform: uppercase;
@@ -1379,6 +1420,11 @@ select::-ms-expand {
 .imageModal .modal-dialog {
   height: 400px;
   width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -200px;
+  margin-left: -250px;
 }
 .imageModal .modal-dialog .modal-content {
   height: 100%;
@@ -2107,7 +2153,7 @@ select::-ms-expand {
   text-decoration: none;
   outline: none;
 }
-.step4Desk .detailView .unit .roomDetails:nth-child(3n+4),
+.step4Desk .detailView .unit .roomDetails:nth-child(4n+4),
 .step4Desk .detailView .unit .roomDetails:last-child {
   border-right: none;
 }
@@ -2142,6 +2188,10 @@ select::-ms-expand {
 .step4Desk .outsideView .floorDetails .plan {
   margin-top: 0;
   margin-bottom: 10px;
+}
+.step4Desk .outsideView .floorDetails .svg-light,
+.step4Desk .outsideView .floorDetails .svg-light:hover {
+  cursor: default !important;
 }
 .step4Desk .amenitiesDetails {
   padding: 20px 15px;

@@ -42,7 +42,10 @@ class SvgElement extends Model {
             elseif($objectType=='floor_group')
                 $objectName = FloorGroup::find( $objectId )->name;
             elseif(in_array($objectType, $object_types))
-                $objectName = Unit::find($objectId)->unit_name;
+            {  
+                $unit = Unit::find($objectId); 
+                $objectName = ($unit === null)? '':$unit->unit_name;
+            }
             else
                 $objectName='';
         }

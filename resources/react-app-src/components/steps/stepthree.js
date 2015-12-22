@@ -62,15 +62,18 @@ var StepThree = React.createClass({
 
     componentDidUpdate:function() {
 
+      $('.viewport').html(this.state.data.projectTitle);
+
         if($(ReactDOM.findDOMNode(this.refs.cardList)).find(".swiper-container").hasClass("swiper-container-horizontal")){
               mySwiper = $('.swiper-container')[0].swiper;
               slideToGotTo = this.state.data.unitIndexToHighlight;
               mySwiper.slideTo(slideToGotTo);
-        }        
-    },    
+        }
+    },
 
     componentDidMount: function() {
         console.log("component mounted");
+        $('.viewport').html(this.state.data.projectTitle);
     },
 
     componentWillUnmount: function() {
@@ -121,7 +124,7 @@ var StepThree = React.createClass({
 
         unitId = unitData.id;
 
-        dataToUpdate = [];        
+        dataToUpdate = [];
 
         prevShowShadow = this.state.data.showShadow;
 
@@ -132,7 +135,7 @@ var StepThree = React.createClass({
             dataToSet = {property:"showShadow", value:false };
             dataToUpdate.push(dataToSet);
         }
-     
+
         // hide svg area
         allbuildings = this.state.data.buildings;
         allbuildingIds = _.pluck(allbuildings,"id");
@@ -141,13 +144,13 @@ var StepThree = React.createClass({
 
         // update chosen breakpoint to primary breakpoint of tower of current slide
         dataToSet = {property:"unitIndexToHighlight", value:unitIndexToHighlight };
-        dataToUpdate.push(dataToSet);  
-              
+        dataToUpdate.push(dataToSet);
+
         // update unit index to higlight
         dataToSet = {property:"chosenBreakpoint",value:rotateToBreakpoint};
         dataToUpdate.push(dataToSet);
 
-        this.updateStateData(dataToUpdate);   
+        this.updateStateData(dataToUpdate);
     },
 
     updateUnitIndexToHighlight: function(unitId){
@@ -268,9 +271,9 @@ var StepThree = React.createClass({
                 if (indexOfELem > -1) {
 
 
-                  oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
+                  //oldataTochange = immutabilityHelpers( oldataTochange,{$splice: [[indexOfELem]]});
 
-                    //oldataTochange.splice(indexOfELem, 1);
+                    oldataTochange.splice(indexOfELem, 1);
 
                 }else{
 
@@ -328,8 +331,8 @@ var StepThree = React.createClass({
             oldState = newState;
 
         });
-    
-    
+
+
         AppStore.updateGlobalState(newState,"singleUnits");
         this.setState(newState, this.projectDataUpdateCallBack);
 
@@ -351,7 +354,7 @@ var StepThree = React.createClass({
             if(window.prevShadowState){
                 this.updateRotateShadow(window.prevShadowState);
                 window.prevShadowState = false;
-            }            
+            }
         }
 
 
@@ -382,10 +385,18 @@ var StepThree = React.createClass({
     },
 
     showContactModal: function(){
+      $('.contact-form-content').show();
+      $('.pleasefill').show();
+      $('.errorMsg').html('');
+      $('.form-message').html('');
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
     },
 
     hideContactModal: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
+    },
+
+    componentWillUnmount: function(){
         $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
     },
 
@@ -465,7 +476,7 @@ var StepThree = React.createClass({
         };
 
         //if(totalFilterApplied > 0){
-        if(!_.isEmpty(this.state.data.applied_filters)){
+        if(!_.isEmpty(this.state.data.applied_filters) || !_.isEmpty(this.state.data.search_filters)){
         this.updateStateData([dataToSet]);
 
         this.updateProjectMasterData();
@@ -637,7 +648,7 @@ var StepThree = React.createClass({
         if(data.showShadow){
             messageBoxMsg = "Shadow of Morning Sun";
         }else{
-            messageBoxMsg = "Click on tower to proceed";
+            messageBoxMsg = "Click on unit to proceed";
         }
 
 
@@ -822,6 +833,7 @@ var StepThree = React.createClass({
                             modalData = {modalData}
                             modalPurpose = "contactModal"
                             hideContactModal = {this.hideContactModal}
+                            projectId = {window.projectId}
                         />
 
                     </div>

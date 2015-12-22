@@ -482,6 +482,7 @@ class UnitController extends ApiGuardController {
 
             $leads = new Leads();
         
+            $leads ->project_id = $request['project_id'];
             $leads ->name = $request['name'];
             $leads ->email = $request['email'];
             $leads ->phone = $request['phone'];

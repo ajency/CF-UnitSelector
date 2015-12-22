@@ -27,6 +27,20 @@ var UnitDropdown = React.createClass({
 
     },
 
+		componentDidMount: function(){
+			// var selectOption = $(ReactDOM.findDOMNode(this.refs.selectOption));
+			// $('div.viewport').text(selectOption[0].textContent);
+			// selectOption.change(function () {
+			// 		$('div.viewport').text($("option:selected", this).text());
+			// });
+			// $('div.viewport').text($('#selectOption')[0].textContent);
+			// $('#selectOption').change(function () {
+			// 		$('div.viewport').text($("option:selected", this).text());
+			// });
+			//$('.viewport').html(this.state.data.projectTitle);
+			//$('.viewport').html('this is test message');
+		},
+
 
 	render : function(){
 
@@ -62,9 +76,11 @@ var UnitDropdown = React.createClass({
 
 
 		return (
+
 			<h4 className="margin-none">
 	              <div className="styled-select">
-	                 <select onChange={this.change} value={selectedoption}>
+									<div className="viewport"></div>
+	                 <select id="selectOption" ref="selectOption" onChange={this.change} value={selectedoption}>
 	                    {buildingSelectNodes}
 	                 </select>
 	              </div>

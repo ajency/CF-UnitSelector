@@ -25,12 +25,14 @@
     right: 5px; 
     top: 0; 
     height: 100%; 
-    width: 10px; 
+    width: 2px; 
 }
 .scrollbar-path-vertical {
     box-shadow: inset 1px 0px 1 rgba(0,0,0,0.1);
     -moz-box-shadow: inset 1px 0px 1 rgba(0,0,0,0.1);
     -webkit-box-shadow: inset 1px 0px 0 rgba(0,0,0,0.1);
+    top: 0 !important;
+    height: 100% !important;
 }
 .scrollbar-path-horizontal {
     box-shadow: inset 0px 1px 1 rgba(0,0,0,0.1);
@@ -40,12 +42,13 @@
 .scrollbar-handle{
     position: relative;
     top: 0;
-    left: 0;
-    background-color: #58eebc; 
+    left: -6px;
+    background-color: #333; 
 }
 .scrollbar-path-vertical .scrollbar-handle {
-    height: 20%;
-    width: 100%;
+    height: 13px !important;
+    width: 13px;
+    border-radius: 50%;
 }
 .scrollbar-path-horizontal .scrollbar-handle {
     width: 20%;

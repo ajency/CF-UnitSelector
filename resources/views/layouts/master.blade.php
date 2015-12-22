@@ -162,9 +162,7 @@
                             </ul>
                         </li>
                         @endif
-                        <li class="">
-                            <li><a href="{{ url( 'admin/leads/' ) }}">Leads</a></li>
-                        </li>
+                        
                     </ul>
                     <!-- END SIDEBAR MENU -->
 

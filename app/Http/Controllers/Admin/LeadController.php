@@ -2,7 +2,7 @@
 
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
-
+use CommonFloor\Project;
 use Illuminate\Http\Request;
 use CommonFloor\Leads;
 
@@ -13,14 +13,15 @@ class LeadController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($id)
 	{
- 
-        $leads = Leads::orderBy('created_at')->get()->toArray();
+ 		$project = Project::find($id)->toArray();
+ 		$cf_project_id = $project['cf_project_id'];
+        $leads = Leads::where('project_id',$cf_project_id)->orderBy('created_at')->get()->toArray();
          
-        return view('admin.project.leads')
-                        ->with('leads', $leads)
-                        ->with('menuFlag', FALSE);
+        return view('admin.project.leads')->with('project', $project)
+                                          ->with('leads', $leads)
+                                          ->with('current', 'leads');
 	}
 
 	/**

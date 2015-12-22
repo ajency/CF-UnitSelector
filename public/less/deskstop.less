@@ -30,6 +30,9 @@ body {
       color:@brand-primary ;
     }
 }
+*:focus {
+    outline: none;
+   }
 #sidebar-wrapper
 {
   .bckArrow i
@@ -93,6 +96,7 @@ body {
 {
       font-size:12px;
       padding-top: 11px;
+      border:1px solid rgba(0,0,0,0);
       h4{
         transition: all 0.3s ease;
         font-size: 16px;
@@ -236,6 +240,11 @@ body {
     color:@gray-darker;
   }
 }      
+}
+
+#sidebar-wrapper .card-swipe:hover
+{
+  border:1px solid #999;
 }
 .not-released{
       background: #E4E4E4 !important;
@@ -627,6 +636,20 @@ body {
     color: @real-red;
     font-size: 12px;
   }
+  .errorMsgInvalid
+  {
+    position: relative;
+    bottom:0;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 4px;
+    color: @real-red;
+  }
+  .form-message
+  {
+    margin-top: 10px;
+    color: @brand-primary;
+  }
 }
 
 .modal-backdrop.in
@@ -649,6 +672,10 @@ body {
 .outSideView{
 .svg-area{
     width:264px !important;
+}
+.svg-light, .svg-light:hover
+{
+  cursor: default !important;
 }
   h6
   {
@@ -707,20 +734,37 @@ body {
    background: url(../../images/arrowDown.png) no-repeat right;
    border: none;   
 */
+  position: relative;
+  z-index: 2;
+  .viewport
+  {
+      position: absolute;
+      width: 80%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      padding: 5px;
+     font-size: 16px;
+     line-height: 1.5;
+  }
   select
   {
    background: transparent;
-   width: 100%;
-   padding: 5px;
-   font-size: 16px;
-   line-height: 1;
-   border: 0;
+   width: 100%;    
    border-radius: 0;
    height: 34px;
    -webkit-appearance: none;
    -moz-appearance: none;
    cursor:pointer;
    text-transform:uppercase;
+   direction: ltr;
+    z-index: 2;
+    opacity: 0;
+    position: relative;
    &:focus
    {
     outline:none;
@@ -799,13 +843,13 @@ select::-ms-expand {
     }
     .sideBarLogo
     {
-      width:53%;
+      width:45%;
       margin-left:-18px;
     }
     h4
     {
       float:right;
-      width:45%;
+      width:55%;
       margin-top:36px;
       text-align:right;
       text-transform:uppercase;

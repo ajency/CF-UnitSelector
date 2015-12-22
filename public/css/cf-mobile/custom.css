@@ -909,8 +909,10 @@ div.spritespin-div {
   opacity: 0.5 !important;
 }
 .step2-svg:hover {
-  opacity: .2 !important;
-  fill: #ffffff !important;
+  /* opacity:.2 !important;
+  fill:@white !important;*/
+  stroke: #fe943e;
+  stroke-width: 3px;
 }
 .loaderOuter {
   background: rgba(0, 0, 0, 0.7);
@@ -1801,6 +1803,11 @@ div.spritespin-div {
 .imageModal .modal-dialog {
   height: 400px;
   width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -200px;
+  margin-left: -250px;
 }
 .imageModal .modal-dialog .modal-content {
   height: 100%;

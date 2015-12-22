@@ -59,6 +59,17 @@
             <hr/>
             <div class="row">
                 <div class="m-l-5 no-border">
+                    <h3><i class="fa fa-angle-double-right text-primary"></i> Tour <span class="semi-bold">URL</span></h3>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="tour_url" class="form-control" placeholder="Tour Url" 
+                               value="{{ $project['tour_url'] }}" data-parsley-required>
+
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="m-l-5 no-border">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Measurement <span class="semi-bold">Units</span></h3>
                 </div>
                 <div class="col-md-12">
