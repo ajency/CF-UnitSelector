@@ -434,6 +434,9 @@ body a {
   font-size: 12px;
   color: #fe943e;
 }
+*:focus {
+  outline: none;
+}
 #sidebar-wrapper {
   left: 320px;
 }
@@ -950,6 +953,10 @@ body a {
 .contactModal .errorMsgInvalid {
   position: relative;
   bottom: 0;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 4px;
+  color: #ee1f3b;
 }
 .contactModal .form-message {
   margin-top: 10px;
@@ -1413,6 +1420,11 @@ select::-ms-expand {
 .imageModal .modal-dialog {
   height: 400px;
   width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -200px;
+  margin-left: -250px;
 }
 .imageModal .modal-dialog .modal-content {
   height: 100%;
