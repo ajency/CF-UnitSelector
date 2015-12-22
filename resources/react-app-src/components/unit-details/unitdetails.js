@@ -30,7 +30,7 @@ var UnitDetails = React.createClass({
 
 
     componentDidMount: function() {
-      
+
       $('.qtip').each(function(){
         $(this).data('qtip').destroy();
       });
@@ -116,14 +116,10 @@ var UnitDetails = React.createClass({
 
 
   componentWillReceiveProps: function(nextProps){
+    if(nextProps){
     //$(window).scrollTop(0);
-    var scrollStep = -window.scrollY / (600 / 15),
-        scrollInterval = setInterval(function(){
-        if ( window.scrollY != 0 ) {
-            window.scrollBy( 0, scrollStep );
-        }
-        else clearInterval(scrollInterval);
-    },15);
+    $("html, body").animate({ scrollTop: 0 }, 600);
+    }
   },
 
 
