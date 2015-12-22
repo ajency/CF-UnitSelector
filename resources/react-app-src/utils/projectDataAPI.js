@@ -17,7 +17,7 @@ var Api = {
 
 
   	var url = makeUrl(API_URL, 'project/' + projectId + '/project-data');
-  	// var url = BASE_URL+"/project-data.json";
+  	//var url = BASE_URL+"/project-data.json";
 
     var data = request
 				.get(url)

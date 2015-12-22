@@ -28,7 +28,7 @@
       ga('create', 'UA-70708949-1', 'auto');
       ga('send', 'pageview');
 
-    </script>    
+    </script>
 
 </head>
 <body>
@@ -71,12 +71,13 @@
         }else{
                 isMobile = true;
         }
-            
+
 
 
         window.isMobile = isMobile;
     	window.baseUrl = '{{url()}}';
         window.projectId = '{{$id}}';
+        window.projectCfId = '{{$project_cf_id}}';
     	window.unitSelectorAuthKey = '{{$unitSelectorAuthKey}}';
         window.prevShadowState = false;
         window.project_title = "";

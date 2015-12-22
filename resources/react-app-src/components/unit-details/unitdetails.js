@@ -30,6 +30,11 @@ var UnitDetails = React.createClass({
 
 
     componentDidMount: function() {
+      
+      $('.qtip').each(function(){
+        $(this).data('qtip').destroy();
+      });
+
       if(!window.isMobile){
 
         $(window).scroll(function() {
@@ -38,13 +43,33 @@ var UnitDetails = React.createClass({
 
             $('.click').each(function(event) {
               var currentTab = $(this).attr('id')+'_div';
-                if (y >= $('#'+currentTab).offset().top - 100) {
+               if (y >= $('#'+currentTab).offset().top - 100) {
                     $('.click').not(this).removeClass('active');
                     $('.click').not(this).css('color','#565654');
                     $(this).addClass('active');
                     $(this).css('color','#fe943e');
                 }
             });
+
+            //Home and End button press event
+            if($(window).scrollTop() + $(window).height() == $(document).height()) {
+              var lastMenu = $('#stickyHeader ul li:nth-last-child(2) a');
+              $('.click').each(function(event) {
+                $(this).removeClass('active');
+                $(this).css('color','#565654');
+              });
+              lastMenu.addClass('active');
+              lastMenu.css('color','#fe943e');
+            }else if($(window).scrollTop() == 0) {
+              var firstMenu = $('.tabHeader ul li:first a');
+              $('.click').each(function(event) {
+                $(this).removeClass('active');
+                $(this).css('color','#565654');
+              });
+              firstMenu.addClass('active');
+              firstMenu.css('color','#fe943e');
+            }
+
 
         });
 
@@ -76,6 +101,16 @@ var UnitDetails = React.createClass({
         });
       }
 
+
+      // $(window).scroll(function() {
+      //   if($(window).scrollTop() + $(window).height() == $(document).height()) {
+      //     alert("bottom!");
+      //   }
+      //   if($(window).scrollTop() == 0) {
+      //     alert("top!");
+      //   }
+      // });
+
   },
 
 
@@ -93,7 +128,16 @@ var UnitDetails = React.createClass({
 
 
     showContactModal: function(){
-        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
+      $('.contact-form-content').show();
+      $('.pleasefill').show();
+      $('.errorMsg').html('');
+      $('.form-message').html('');
+      $(ReactDOM.findDOMNode(this.refs.contactModal)).modal();
+    },
+
+
+    componentWillUnmount: function(){
+        $(ReactDOM.findDOMNode(this.refs.contactModal)).modal('hide');
     },
 
 
@@ -255,7 +299,8 @@ var UnitDetails = React.createClass({
 	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "mobileContactModal"
-                        hideContactModal = {this.hideContactModal}
+                      projectId = {projectId}
+                      hideContactModal = {this.hideContactModal}
 	                />
 				</div>
 			)
@@ -293,7 +338,8 @@ var UnitDetails = React.createClass({
 	                    ref="contactModal"
 	                    modalData = {modalData}
 	                    modalPurpose = "contactModal"
-                        hideContactModal = {this.hideContactModal}
+                      projectId = {projectId}
+                      hideContactModal = {this.hideContactModal}
 	                />
 				</div>
 		)
