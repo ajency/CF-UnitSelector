@@ -37,11 +37,13 @@ class SvgController extends Controller {
 	 */
 	public function store($projectId, Request $request)
 	{
+		
 		$svg = Svg::firstOrCreate( array('image_id' => $request['image_id']) );
 		$svg->save();
+		$svgId = $svg->id; 
 
 		$svgElement = new SvgElement();
-		$svgElement->svg_id = $svg->id;
+		$svgElement->svg_id = $svgId;
         $svgElement->object_type = $request['object_type'];
         $svgElement->object_id = $request['object_id'];
         $svgElement->points = $request['points'];

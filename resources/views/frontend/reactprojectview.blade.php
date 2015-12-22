@@ -77,6 +77,7 @@
         window.isMobile = isMobile;
     	window.baseUrl = '{{url()}}';
         window.projectId = '{{$id}}';
+        window.projectCfId = '{{$project_cf_id}}';
     	window.unitSelectorAuthKey = '{{$unitSelectorAuthKey}}';
         window.prevShadowState = false;
         window.project_title = "";
