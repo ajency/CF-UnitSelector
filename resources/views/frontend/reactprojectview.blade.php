@@ -28,7 +28,7 @@
       ga('create', 'UA-70708949-1', 'auto');
       ga('send', 'pageview');
 
-    </script>    
+    </script>
 
 </head>
 <body>
@@ -71,7 +71,7 @@
         }else{
                 isMobile = true;
         }
-            
+
 
 
         window.isMobile = isMobile;

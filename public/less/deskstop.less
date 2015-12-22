@@ -30,6 +30,9 @@ body {
       color:@brand-primary ;
     }
 }
+*:focus {
+    outline: none;
+   }
 #sidebar-wrapper
 {
   .bckArrow i
@@ -632,6 +635,20 @@ body {
     bottom: 5px;
     color: @real-red;
     font-size: 12px;
+  }
+  .errorMsgInvalid
+  {
+    position: relative;
+    bottom:0;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 4px;
+    color: @real-red;
+  }
+  .form-message
+  {
+    margin-top: 10px;
+    color: @brand-primary;
   }
 }
 

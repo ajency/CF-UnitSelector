@@ -140,7 +140,7 @@ var SteponeImage = React.createClass({
                         this.navigateOntap(e.target.id);
 
                     }
-                }.bind(this));                
+                }.bind(this));
             }
         }
         else if(cardListFor==="building"){
@@ -296,7 +296,7 @@ var SteponeImage = React.createClass({
         api = spin.spritespin("api");
 
         chosenBreakPoint = this.props.chosenBreakpoint;
-        api.playTo(chosenBreakPoint);    
+        api.playTo(chosenBreakPoint);
 
     },
 
@@ -398,7 +398,7 @@ var SteponeImage = React.createClass({
                 property: "showShadow",
                 value: false
             }
-            stateDataChanges.push(dataToSet); 
+            stateDataChanges.push(dataToSet);
 
             // this.props.updateRotateShadow(false);
         }
@@ -423,8 +423,8 @@ var SteponeImage = React.createClass({
         dataToSet = {
             property: "chosenBreakpoint",
             value: nextbreakpoint
-        };  
-        stateDataChanges.push(dataToSet);       
+        };
+        stateDataChanges.push(dataToSet);
         this.props.updateStateData(stateDataChanges);
 
         // this.props.updateChosenBreakPoint(nextbreakpoint);
@@ -475,11 +475,11 @@ var SteponeImage = React.createClass({
             imageContainStyle = {
                 "height": "auto",
                 "top": "inherit",
-                "bottom": "152px"         
-            };            
+                "bottom": "152px"
+            };
             imageContainerStyle = {
               "height": "auto"
-            };                          
+            };
         }else{
             imageContainerStyle = {
               "height": windowHeight,
@@ -487,7 +487,7 @@ var SteponeImage = React.createClass({
             };
 
             imageContainStyle = {
-              "height": windowHeight  
+              "height": windowHeight
             };
         }
 
@@ -570,21 +570,21 @@ var SteponeImage = React.createClass({
             "loader-container": !this.state.hideSoloImage,
             "step3loader": this.props.cardListFor === "group",
             "image-contain": true
-        }) 
+        })
 
         if(window.isMobile){
-            
+
             if(this.props.cardListFor === "project"){
                 imageContainerClass = classNames({
                   "image": true,
                   "step1MobileCls": true
-                });  
+                });
             }else{
                 imageContainerClass = classNames({
                   "image": true,
                   "step1MobileCls": false
-                });   
-            }            
+                });
+            }
             domToDisplay = (
 
                 <div className="us-right-content">
@@ -643,7 +643,7 @@ var SteponeImage = React.createClass({
                         <span className="footerLogo"><img src="../images/cflogo.png"/><br/>commonfloor.com</span>
                         <br/>
                         <a href={faqUrl} target="_blank">FAQ  </a> | <a href={privacyUrl} target="_blank"> Privacy Policy</a>
-                    </div>                   
+                    </div>
 
                     <div className={rotateClasses}>
                         <i id="next" className="i-icon i-icon-rotate" onClick={this.rotateSpriteSpin}></i> Press To Rotate

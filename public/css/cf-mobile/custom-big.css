@@ -260,7 +260,7 @@ div.spritespin-div {
 .loader:after {
   border-radius: 50%;
     width: 40px;
-    height: 40px; 
+    height: 40px;
     background: rgba(0,0,0,0);
     position: absolute;
     top: 50%;
@@ -433,6 +433,9 @@ body small {
 body a {
   font-size: 12px;
   color: #fe943e;
+}
+*:focus {
+  outline: none;
 }
 #sidebar-wrapper {
   left: 320px;
@@ -940,12 +943,24 @@ body a {
   margin-bottom: 20px;
 }
 .contactModal .errorMsg {
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   text-align: center;
   bottom: 5px;
   color: #ee1f3b;
   font-size: 12px;
+}
+.contactModal .errorMsgInvalid {
+  position: relative;
+  bottom: 0;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 4px;
+  color: #ee1f3b;
+}
+.contactModal .form-message {
+  margin-top: 10px;
+  color: #fe943e;
 }
 .modal-backdrop.in {
   left: 0px;
@@ -1015,7 +1030,7 @@ body a {
    height: 34px;
    overflow: hidden;
    background: url(../../images/arrowDown.png) no-repeat right;
-   border: none;   
+   border: none;
 */
   position: relative;
   z-index: 2;
@@ -1405,6 +1420,11 @@ select::-ms-expand {
 .imageModal .modal-dialog {
   height: 400px;
   width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -200px;
+  margin-left: -250px;
 }
 .imageModal .modal-dialog .modal-content {
   height: 100%;

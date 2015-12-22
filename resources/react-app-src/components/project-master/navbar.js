@@ -128,11 +128,11 @@ var NavBar = React.createClass({
                       <div className="navbar-header">
                         <div className="row">
                             {backBtnDom}
-                            <div className="col-xs-6 p-0">
+                            <div className="col-xs-7 p-0">
                                 <h3 ref="titleElem" className="normal margin-none" data-toggle="tooltip" data-placement="bottom" title={this.props.projectTitle}>{this.props.projectTitle} </h3>
                                 <small>{unitCount} {selectionText}</small>
                             </div>
-                            <div className="col-xs-4 p-0">
+                            <div className="col-xs-3 p-0">
                               <ul className="list-inline pull-right">
                                 <li onClick={this.props.showContactModal}> <i className="i-phone i-icon"></i></li>
                                 <li onClick={this.props.showFilterModal}> <i className="i-filter i-icon"></i>
@@ -228,7 +228,7 @@ var NavBar = React.createClass({
             domTodisplay = (<div/>);
         }
         else{
-            domTodisplay = (    <div> 
+            domTodisplay = (    <div>
                                 {backBtnDom}
                                 <div className={logoclasses}>
                                     {logoDisplay}
@@ -236,7 +236,7 @@ var NavBar = React.createClass({
                                 </div>
                                  <div className="col-xs-12 unitDetails">
                                      <small className="text-uppercase availableUnits text-success">{unitCount} {selectionText}{facingDisplay}</small>
-                                 </div>                                
+                                 </div>
                             </div>
                         );
         }

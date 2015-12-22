@@ -22,7 +22,7 @@ var Modal = React.createClass({
       show:false
     };
 
-    $modal.modal(modalSettings);      
+    $modal.modal(modalSettings);
   },
 
   render: function () {
@@ -71,6 +71,7 @@ var Modal = React.createClass({
                   selectFilter={this.props.selectFilter}
                   applyFilters = {this.props.applyFilters}
                   hideContactModal = {this.props.hideContactModal}
+                  projectId = {this.props.projectId}
                 />
           		</div>
         	</div>
