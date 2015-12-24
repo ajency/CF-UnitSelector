@@ -10,7 +10,7 @@ Marker = (function(superClass) {
   }
 
   Marker.prototype.generateMarkerTag = function(item) {
-    var circle, circle1, circle2, cx, cy, details, drawMarkerElements, ellipse, ellipseHeight, ellipseWidth, groupMarker, innerRadius, markerType, outerRadius, points, polygon, typeClass;
+    var circle1, circle2, cx, cy, details, drawMarkerElements, ellipse, ellipseHeight, ellipseWidth, groupMarker, innerRadius, markerType, outerRadius, points, polygon, typeClass;
     markerType = item.other_details.marker_type;
     cx = item.other_details.cx;
     cy = item.other_details.cy;
@@ -55,15 +55,25 @@ Marker = (function(superClass) {
         drawMarkerElements.push(circle2);
         break;
       case 'solid':
-        window.canvas_type = "solidMarker";
         groupMarker.addClass('solid');
         groupMarker.addClass(typeClass);
-        circle = draw.circle(outerRadius);
-        circle.attr({
+        circle1 = draw.circle(innerRadius);
+        circle1.attr({
+          fill: '#43FFF8',
           cx: points[0],
           cy: points[1]
         });
-        drawMarkerElements.push(circle);
+        circle2 = draw.circle(outerRadius);
+        circle2.attr({
+          fill: 'none',
+          cx: points[0],
+          cy: points[1],
+          stroke: "#43FFF8",
+          'stroke-width': 4,
+          'stroke-miterlimit': 10
+        });
+        drawMarkerElements.push(circle1);
+        drawMarkerElements.push(circle2);
         break;
       case 'location':
         window.canvas_type = "locationMarker";

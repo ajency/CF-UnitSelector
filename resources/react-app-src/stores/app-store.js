@@ -1487,7 +1487,11 @@ function getHighlightedBuilding(filteredUnits){
 		filteredUnitsSum.push(unit.filteredUnitData.length);
 	});
 
-	totalFilteredUnits = filteredUnitsSum.reduce((a, b) => a + b);
+	// totalFilteredUnits = filteredUnitsSum.reduce((a, b) => a + b);
+
+	_.each(filteredUnitsSum, function(filtersumValue){
+		totalFilteredUnits += filtersumValue 
+	});
 
 	if(totalFilteredUnits == 0){
 
@@ -1497,7 +1501,10 @@ function getHighlightedBuilding(filteredUnits){
 			availableUnitsSum.push(unit.availableUnitData.length);
 		});
 
-		totalAvailableUnits = availableUnitsSum.reduce((a, b) => a + b);
+		// totalAvailableUnits = availableUnitsSum.reduce((a, b) => a + b);
+		_.each(availableUnitsSum, function(availablesumValue){
+			totalAvailableUnits += availablesumValue 
+		});		
 
 		if(totalAvailableUnits == 0){
 			maxUnit = filteredUnits[0];

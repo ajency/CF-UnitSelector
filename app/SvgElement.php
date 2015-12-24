@@ -38,11 +38,21 @@ class SvgElement extends Model {
         if($objectId)
         {
             if($objectType=='building')
-                $objectName = Building::find( $objectId )->building_name;
+            {
+                $building = Building::find( $objectId ); 
+                $objectName = ($building === null)? '':$building->building_name;
+                
+            }
             elseif($objectType=='floor_group')
-                $objectName = FloorGroup::find( $objectId )->name;
+            {
+                $floorGroup = FloorGroup::find( $objectId ); 
+                $objectName = ($floorGroup === null)? '':$floorGroup->name;
+            }
             elseif(in_array($objectType, $object_types))
-                $objectName = Unit::find($objectId)->unit_name;
+            {  
+                $unit = Unit::find($objectId); 
+                $objectName = ($unit === null)? '':$unit->unit_name;
+            }
             else
                 $objectName='';
         }

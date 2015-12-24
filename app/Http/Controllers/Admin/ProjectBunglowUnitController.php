@@ -119,6 +119,7 @@ class ProjectBunglowUnitController extends Controller {
         $unit->phase_id = $request->input('phase');
         $unit->direction = $request->input('direction');
         $unit->property_type_group_id = $request->input('property_type_group');
+        $unit->tour_url = $request->input('tour_url');
         $views = $request->input('views');
         $unitviews=[];
         if(!empty($views))
@@ -243,6 +244,7 @@ class ProjectBunglowUnitController extends Controller {
             $unit->unit_variant_id = $request->input('unit_variant');
             $unit->phase_id = $request->input('phase');
             $unit->direction = $request->input('direction');
+            $unit->tour_url = $request->input('tour_url');
             $views = $request->input('views');
             $unitviews=[];
             if(!empty($views))

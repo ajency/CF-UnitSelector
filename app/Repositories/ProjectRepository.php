@@ -36,6 +36,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->area_code = $projectData['area_code'];
         $project->measurement_units = 'Sq. Ft.';
         $project->has_phase = 'no';
+
         $project->created_by = $project->updated_by = Auth::user()->id;
         $project->save();
 
