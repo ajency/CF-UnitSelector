@@ -785,7 +785,7 @@ jQuery(document).ready ($)->
             break
           
           when 'solid'
-            window.canvas_type = "concentricMarker"
+            window.canvas_type = "solidMarker"
             groupMarker.attr
                 class: 'concentric-marker-grp'            
             circle1 = draw.circle(window.innerRadius)

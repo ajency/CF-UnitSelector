@@ -55,7 +55,7 @@ Marker = (function(superClass) {
         drawMarkerElements.push(circle2);
         break;
       case 'solid':
-        groupMarker.addClass('concentric');
+        groupMarker.addClass('solid');
         groupMarker.addClass(typeClass);
         circle1 = draw.circle(innerRadius);
         circle1.attr({

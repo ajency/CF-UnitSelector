@@ -67,7 +67,7 @@ class Marker extends Backbone.Model
 
           when 'solid'
             # add class based on marker type 
-            groupMarker.addClass('concentric')
+            groupMarker.addClass('solid')
             groupMarker.addClass(typeClass)
             
 

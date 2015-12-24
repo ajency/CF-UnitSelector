@@ -767,7 +767,7 @@ jQuery(document).ready(function($) {
         drawMarkerElements.push(circle2);
         break;
       case 'solid':
-        window.canvas_type = "concentricMarker";
+        window.canvas_type = "solidMarker";
         groupMarker.attr({
           "class": 'concentric-marker-grp'
         });
