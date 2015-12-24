@@ -783,19 +783,45 @@ jQuery(document).ready ($)->
             drawMarkerElements.push circle2
 
             break
-                
+          
           when 'solid'
-            window.canvas_type = "solidMarker"
+            window.canvas_type = "concentricMarker"
             groupMarker.attr
-                class: 'solid-marker-grp'             
-            circle = draw.circle(15.002)
-            circle.attr
+                class: 'concentric-marker-grp'            
+            circle1 = draw.circle(window.innerRadius)
+            circle1.attr
+                fill: '#43FFF8'
                 cx: window.cx
-                cy: window.cy 
+                cy: window.cy
 
-            drawMarkerElements.push circle
 
-            break 
+            circle2 = draw.circle(window.outerRadius)
+            
+            circle2.attr
+                fill: 'none'
+                cx: window.cx
+                cy: window.cy
+                stroke: "#43FFF8"
+                'stroke-width':4 
+                'stroke-miterlimit':10
+
+            drawMarkerElements.push circle1
+            drawMarkerElements.push circle2
+
+            break
+                  
+          # when 'solid'
+          #   window.canvas_type = "solidMarker"
+          #   groupMarker.attr
+          #       class: 'solid-marker-grp'             
+          #   circle = draw.circle(15.002)
+          #   circle.attr
+          #       cx: window.cx
+          #       cy: window.cy 
+
+          #   drawMarkerElements.push circle
+
+          #   break 
 
           when 'location'
             groupLocation = draw.group()

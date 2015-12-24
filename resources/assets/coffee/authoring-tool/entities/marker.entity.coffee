@@ -64,21 +64,48 @@ class Marker extends Backbone.Model
             drawMarkerElements.push circle2
 
             break
-                
-          when 'solid'
-            window.canvas_type = "solidMarker"
- 
-            # add class based on marker type 
-            groupMarker.addClass('solid')
-            groupMarker.addClass(typeClass)            
 
-            circle = draw.circle(outerRadius)
-            circle.attr
+          when 'solid'
+            # add class based on marker type 
+            groupMarker.addClass('concentric')
+            groupMarker.addClass(typeClass)
+            
+
+            circle1 = draw.circle(innerRadius)
+            circle1.attr
+                fill: '#43FFF8'
                 cx: points[0]
                 cy: points[1]
 
-            drawMarkerElements.push circle
+            circle2 = draw.circle(outerRadius)
+            
+            circle2.attr
+                fill: 'none'
+                cx: points[0]
+                cy: points[1]
+                stroke: "#43FFF8"
+                'stroke-width':4 
+                'stroke-miterlimit':10
+
+            drawMarkerElements.push circle1
+            drawMarkerElements.push circle2
+
             break
+                
+          # when 'solid'
+          #   window.canvas_type = "solidMarker"
+ 
+          #   # add class based on marker type 
+          #   groupMarker.addClass('solid')
+          #   groupMarker.addClass(typeClass)            
+
+          #   circle = draw.circle(outerRadius)
+          #   circle.attr
+          #       cx: points[0]
+          #       cy: points[1]
+
+          #   drawMarkerElements.push circle
+          #   break
 
           when 'location'
             window.canvas_type = "locationMarker"
