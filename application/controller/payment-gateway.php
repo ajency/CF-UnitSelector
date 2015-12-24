@@ -33,6 +33,7 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $_SESSION["buyer_name"]=$_POST['udf3'];
         $_SESSION["buyer_email"]=$_POST['udf4'];
         $_SESSION["buyer_phone"]=$_POST['udf5'];
+        $bookingAmount = $_POST['udf6'];
         
         $payment_history_is_active=payment_history_active;
         updatePaymentStructure($booking_id);
@@ -44,6 +45,15 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         $subject = 'Congratulations on booking your property';
       // self::sendEmail($login_id,$name,$txt,$subject);
 
+        $unitinfo = json_decode(getUnitInfo($unitId),true);
+        $unitData =$unitinfo['data'] ; 
+
+        // $message = 'Thank you for booking unit “'.$unitData['unit']['name'].'” with Booking ID as '.$booking_id.' for Project "'.$unitData['project_title'].'". We have received your booking amount of Rs. '.moneyFormatIndia($bookingAmount).'/-.';
+        $message = 'You have successfully booked a '.$unitData['unit']['unit_type'].' '.$unitData['project_type'].' ('.$unitData['unit']['name'].') in '.$unitData['project_title'].'';
+        $to = array($_POST['udf5'],$unitData['builder_phone']);
+         
+
+        sendSms($message , $to);
         sendMail($_POST['udf4'],$_POST['udf3'],$subject,$booking_id,'success');
     }else{
         $payment_status = payment_status_unsuccessful;  
@@ -73,6 +83,15 @@ if ( count( $_POST ) && isset( $_POST['mihpayid'] ) && ! empty( $_POST['mihpayid
         updateUnitStatus($unitId ,$unit_status ,$booking_id);
         saveBookingHistory($booking_id,$old_status, $new_status, $comments,$buyer_name);
         savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid_Val);
+        
+
+        $unitinfo = json_decode(getUnitInfo($unitId),true);
+        $unitData =$unitinfo['data'] ; 
+
+        // $message = 'Thank you for booking unit “'.$unitData['unit']['name'].'” with Booking ID as '.$booking_id.' for Project "'.$unitData['project_title'].'". We have received your booking amount of Rs. '.moneyFormatIndia($bookingAmount).'/-.';
+        $message = 'Your payment to book a '.$unitData['unit']['unit_type'].' '.$unitData['project_type'].' ('.$unitData['unit']['name'].') in '.$unitData['project_title'].' is unsuccessful. Please try again.';
+        $to = array($_POST['udf5'],$unitData['builder_phone']);
+        sendSms($message , $to);
         
         // $txt = "Due to some reason payment process has been cancelled to book your property at commonfloor.com";
          $subject = 'Error while booking your property';

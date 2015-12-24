@@ -2,6 +2,7 @@
   function bookNow($bookingId,$unitId){
 
     $unitData = json_decode(getUnitInfo($unitId),true);
+   
     $status = $unitData['data']['unit']['status'];
     if($status=='available')
     {
@@ -45,6 +46,33 @@
          $number = $number .'th';
       }
       return $number;
+  }
+
+
+  function sendSms($msg , $to)
+  {
+    $postdata = http_build_query(
+        array(
+            'cf_external_sms_service_username' => '321@cfexternal',
+            'cf_external_sms_service_passwd' => '123@cfexternal',
+            'text'=> $msg,
+            'vendor' => 'PRP',
+            'mobile_numbers'=>$to
+        )
+    );
+
+      $opts = array(
+        'http' => array(
+          'method'  => 'POST',
+          'header'  => 'Content-type:  application/x-www-form-urlencoded',
+          'content' => $postdata
+        )
+      );
+
+      $context  = stream_context_create($opts);
+      $result = file_get_contents('https://www.commonfloor.com/sms-service/sendsms', false, $context);
+      return $result;
+      //echo var_dump($result);
   }
 
   function moneyFormatIndia($num){
@@ -451,7 +479,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
         }
 
         function refund_amount($unit_id){
-            $booking_amount=getBookingAmount($unit_id,"booking_amount"); //echo " booking_amount: ".$booking_amount; 
+            $booking_amount=getBookingAmount($unit_id,"booking_amount",'0'); //echo " booking_amount: ".$booking_amount; 
             $unitinfo = json_decode(getUnitInfo($unit_id),true);
             $unitData =$unitinfo['data'] ; 
             $merchantId =$unitData['merchant_id'] ; 
@@ -469,6 +497,7 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
             //$var3 = "10"; // to be used in case of refund
             $buyer_name=$_SESSION["buyer_name"];
             $buyer_email=$_SESSION["buyer_email"];
+            $buyer_phone=$_SESSION["buyer_phone"];
             //return $buyer_name;
             $hash_str = $key  . '|' . $command . '|' . $var1 . '|' . $salt ;
             $hash = strtolower(hash('sha512', $hash_str));
@@ -519,13 +548,18 @@ function saveBuyerInfo($buyer_id,$buyerData ,$billingData){
             $booking_payment_id=$_SESSION["booking_payment_id"];
             $mihpayid=$_SESSION["mihpayid"];
             saveBookingHistory($booking_id,$old_status, $new_status, $comments,$buyer_name);
-            savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid);
+            savePaymentHistory($booking_payment_id,$booking_id,$payment_status,$payment_history_is_active,$mihpayid,'','');
             
             $txt = "Booking successfully Cancelled.";
             $subject = 'Booking successfully canceled';
           // self::sendEmail($login_id,$name,$txt,$subject);
 
-            sendMail($buyer_email,$buyer_name,$subject,$booking_id,'cancel');
+            
+            $message = 'Your request to cancel the booking of   '.$unitData['unit']['unit_type'].'  ('.$unitData['unit']['name'].') in '.$unitData['project_title'].' is successful.For any further queries please contact '.$unitData['builder_email'].' or '.$unitData['builder_phone'];
+            $to = array($buyer_phone,$unitData['builder_phone']);
+            sendSms($message , $to);
+
+            sendMail($buyer_email,$buyer_name,$subject,$booking_id,'cancel');   
              
             return $data->status;
     }
