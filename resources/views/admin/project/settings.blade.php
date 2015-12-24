@@ -57,6 +57,7 @@
                 </div>
             </div>
             <hr/>
+            
             <div class="row">
                 <div class="m-l-5 no-border">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Measurement <span class="semi-bold">Units</span></h3>

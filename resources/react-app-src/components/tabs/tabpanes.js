@@ -41,11 +41,13 @@ var TabPanes = React.createClass({
       );
     }
 
-    if(_.isEmpty(unitData.basic.live_tour)){
+    if(_.isEmpty(unitData.basic.tour_url)){
       livetourcontent = "";
     }else{
       livetourcontent = (
-        <LiveTour />
+        <LiveTour
+          tourUrl = {unitData.basic.tour_url} 
+          />
       );
     }
 
