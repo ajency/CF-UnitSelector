@@ -91,6 +91,12 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Tour Url</label>
+                        <input {{ $disabled }} type="text" class="form-control" name="tour_url" placeholder="Enter Tour Url" value="{{ $unit['tour_url'] }}" data-parsley-required>
+                    </div> 
+                </div>
+                <div class="col-md-4">
                 <div class="form-group">
                         <label class="form-label">Direction<span class="text-primary">*</span></label>
                         <select {{ $disabled }}  class="select2 form-control m-b-5" name="direction" data-parsley-required>

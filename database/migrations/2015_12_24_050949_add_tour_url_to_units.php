@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTourUrlToProject extends Migration {
+class AddTourUrlToUnits extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class AddTourUrlToProject extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('projects', function(Blueprint $table) {
+		Schema::table('units', function(Blueprint $table) {
             $table->string('tour_url', 60);
         });
 	}
@@ -24,7 +24,7 @@ class AddTourUrlToProject extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table( 'projects', function(Blueprint $table) {
+		Schema::table( 'units', function(Blueprint $table) {
             $table->dropColumn( 'tour_url' );
         } );
 	}
