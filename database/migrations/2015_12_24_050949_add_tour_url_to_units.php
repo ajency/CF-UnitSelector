@@ -13,7 +13,7 @@ class AddTourUrlToUnits extends Migration {
 	public function up()
 	{
 		Schema::table('units', function(Blueprint $table) {
-            $table->string('tour_url', 60);
+            $table->text('tour_url');
         });
 	}
 
