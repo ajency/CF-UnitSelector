@@ -855,6 +855,7 @@ body a {
 .contactModal .modal-content {
   border-radius: 0;
   float: left;
+  width: 100%;
 }
 .contactModal .rightSide {
   border-left: 1px solid #d5d5d4;
