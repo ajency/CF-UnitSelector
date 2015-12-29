@@ -1490,7 +1490,7 @@ function getHighlightedBuilding(filteredUnits){
 	// totalFilteredUnits = filteredUnitsSum.reduce((a, b) => a + b);
 
 	_.each(filteredUnitsSum, function(filtersumValue){
-		totalFilteredUnits += filtersumValue 
+		totalFilteredUnits += filtersumValue
 	});
 
 	if(totalFilteredUnits == 0){
@@ -1503,8 +1503,8 @@ function getHighlightedBuilding(filteredUnits){
 
 		// totalAvailableUnits = availableUnitsSum.reduce((a, b) => a + b);
 		_.each(availableUnitsSum, function(availablesumValue){
-			totalAvailableUnits += availablesumValue 
-		});		
+			totalAvailableUnits += availablesumValue
+		});
 
 		if(totalAvailableUnits == 0){
 			maxUnit = filteredUnits[0];
