@@ -255,6 +255,7 @@ body {
   padding: 0;
   float: left;
   margin: auto;
+  margin-bottom: 100px;
 }
 .bookFlowContent .panel-inner {
   margin: auto;
