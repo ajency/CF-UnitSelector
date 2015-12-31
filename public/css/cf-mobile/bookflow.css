@@ -735,6 +735,7 @@ body {
   font-size: 12px;
   margin: auto;
   display: table;
+  margin-bottom: 100px;
   width: 100%;
 }
 .successOuter .bookApmt {
