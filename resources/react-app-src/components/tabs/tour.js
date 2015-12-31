@@ -36,8 +36,13 @@ if(window.isMobile){
           </div>
         </div>
         <div className="col-xs-12 floorDetails">
-          <div class="row">
-            <iframe class="col-lg-12 col-md-12 col-sm-12" src={this.props.tourUrl}></iframe></div>
+          <div className="row">
+
+
+            <iframe className="col-lg-12 col-md-12 col-sm-12" src={this.props.tourUrl} height="400"></iframe>
+
+            </div>
+
           </div>
         </div>
         );
