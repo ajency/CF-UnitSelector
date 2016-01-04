@@ -255,6 +255,7 @@ body {
   padding: 0;
   float: left;
   margin: auto;
+  margin-bottom: 100px;
 }
 .bookFlowContent .panel-inner {
   margin: auto;
@@ -734,6 +735,7 @@ body {
   font-size: 12px;
   margin: auto;
   display: table;
+  margin-bottom: 100px;
   width: 100%;
 }
 .successOuter .bookApmt {
