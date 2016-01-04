@@ -33,7 +33,7 @@
                  <div class="col-md-5">
                     <div class="form-group ">
                         <label class="form-label">Phone Number</label>
-                        <input data-parsley-type="number" data-parsley-length="[10, 12]" type="text" name="builder_phone" class="form-control" placeholder="Phone Number" 
+                        <input data-parsley-type="number" data-parsley-maxlength="10" data-parsley-maxlength-message="This value is too long. It should have 10 digits" data-parsley-minlength="10" data-parsley-minlength-message="This value is too short. It should have 10 digits"  type="text" name="builder_phone" class="form-control" placeholder="Phone Number" 
                                value="{{ array_get($project, 'builder_phone') }}" data-parsley-required>
                     </div>
                     <div class="form-group ">
