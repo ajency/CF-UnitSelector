@@ -11,9 +11,9 @@ var CHANGE_EVENT = 'change';
 // Define initial data points
 var _projectData = {}, _selected = null ;
 var _unitStateData = {};
-var _groupStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 , "phases":[]} };
-var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0, "phases":[] } };
-var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"notlive_buildings":[] ,"showShadow":false,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0, "phases":[] } };
+var _groupStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":window.showShadow,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0 , "phases":[]} };
+var _buildingMasterStateData = {"data":{"projectTitle":"", "projectLogo": "#", "logoExist": false, "shadowImages":[], "buildings":[],"showShadow":window.showShadow,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0, "phases":[] } };
+var _globalStateData = {"data":{"projectTitle":"", "projectLogo": "#", "shadowImages":[],"buildings":[],"notlive_buildings":[] ,"showShadow":window.showShadow,"breakpoints":[0], "chosenBreakpoint": 0, "filterTypes":[],"search_entity":"project", "search_filters":{} , "applied_filters":{} , "isFilterApplied":false, "applyFiltersSvgCheck": false, "unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":0, "phases":[] } };
 
 
 function getUnitTypeDetails(unitTypeId){
@@ -1287,7 +1287,7 @@ function _loadProjectData(data) {
 
 function _updateProjectData(dataToUpdate){
 
-	_globalStateData.data.showShadow = true;
+	_globalStateData.data.showShadow = window.showShadow;
 	_globalStateData = newProjectData;
 }
 
@@ -1311,7 +1311,7 @@ function _updateGlobalState(newStateData,type){
 function _getProjectMasterData(){
 	var projectData = _projectData;
 	var finalData = {};
-	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "logoExist": false, "unitCount":0, "shadowImages":[],"buildings":[],"notlive_buildings":[],"showShadow":false, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":"", "phases":[]};
+	var projectMasterData = {"projectTitle":"", "projectLogo": "#", "logoExist": false, "unitCount":0, "shadowImages":[],"buildings":[],"notlive_buildings":[],"showShadow":window.showShadow, "breakpoints":[0], "chosenBreakpoint": 0,"filterTypes":[],"search_filters":{},"applied_filters":{}, isFilterApplied:false,"unitIndexToHighlight":0, "projectMasterImages" : [], "primaryBreakPoint":"", "phases":[]};
 	var buildings = [];
 	var allUnits= [];
 	var unitTypes= [];
@@ -1357,6 +1357,7 @@ function _getProjectMasterData(){
 		projectMasterData.buildings = buildingsWithUnits;
 
         projectMasterData.filterTypes = getFilterTypes("Apartment",'','');
+        projectMasterData.showShadow = window.showShadow;
 	}
 
 	finalData = {"data": projectMasterData};
@@ -1462,6 +1463,8 @@ function getFilteredProjectMasterData(buildingId,groupId){
 		newProjectData.applyFiltersSvgCheck = true;
 
 	}
+
+	newProjectData.showShadow = window.showShadow;
 
     return newProjectData;
 
@@ -1997,6 +2000,7 @@ function formatBuildingStateData(stateDataToformat){
 
         newStateData.shadowImages = building.shadow_images;
 		newStateData.primaryBreakPoint = building.primary_breakpoint;
+		newStateData.showShadow = window.showShadow;
 
         newState.data = newStateData;
         newState.data.chosenBreakpoint = buildingToHighlight.primary_breakpoint;
@@ -2102,6 +2106,7 @@ function formatGroupStateData(stateDataToformat){
 
 
             newStateData.shadowImages = stateDataToformat.data.shadowImages;
+            newStateData.showShadow = window.showShadow;
 
             newState.data = newStateData;
         	newState.data.chosenBreakpoint = buildingToHighlight.primary_breakpoint;
@@ -2140,6 +2145,7 @@ var AppStore = merge(EventEmitter.prototype, {
 	},
 
 	getStateData: function(){
+		_globalStateData.data.showShadow = window.showShadow;
 		return _globalStateData;
 	},
 

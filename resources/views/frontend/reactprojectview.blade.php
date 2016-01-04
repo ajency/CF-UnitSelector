@@ -80,6 +80,7 @@
         window.projectCfId = '{{$project_cf_id}}';
     	window.unitSelectorAuthKey = '{{$unitSelectorAuthKey}}';
         window.prevShadowState = false;
+        window.showShadow = false
         window.project_title = "";
         window.builder_email = "";
         window.builder_phone = "";

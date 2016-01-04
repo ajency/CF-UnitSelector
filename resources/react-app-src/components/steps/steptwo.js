@@ -184,6 +184,8 @@ var StepTwo = React.createClass({
             value: showShadowStatus
         };
 
+        window.showShadow = showShadowStatus
+
         this.updateStateData([dataToSet]);
 
         // var delay=100000; //1 seconds
