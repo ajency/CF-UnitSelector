@@ -52,19 +52,19 @@ class SvgController extends Controller {
         if (isset($request['other_details'])) {
         	$svgElement->other_details = $request['other_details'];
         }
-
+         
         if (isset($request['primary_breakpoint'])) {
         	$svgbreakpointUpdate = SvgController::unset_primary_breakpoint($request['object_id'],$request['object_type'],$request['primary_breakpoint']);
 
         	if ($svgbreakpointUpdate) {
         		$svgElement->primary_breakpoint = $request['primary_breakpoint'];
         	}
-        	
+        	  
         }
         else{
-
+        	 
         	$has_primary = SvgController::has_primary_breakpoint($request['object_id'],$request['object_type']);
-        	
+        	 
         	if(!$has_primary){
         		$svgElement->primary_breakpoint = $request['breakpoint_position'];
         	}
@@ -79,7 +79,7 @@ class SvgController extends Controller {
         	$unit->floor_group_id = $floorGroupId;
         	$unit->save();
         }
- 
+ 		
 		return response()->json( [
 			'code' => 'svg_element_added',
 			'message' => 'SVG element '.$request['canvas_type'].' added for image', 
@@ -394,9 +394,10 @@ class SvgController extends Controller {
 	    	// check for all svg elements with this object type and object id
 			$svgElements = SvgElement::where( 'object_type', '!=', 'building' )->where( 'object_id', '=', $object_id )->get()->toArray(); 
 		}
-		else{
+		else{  
 			// get all svg elements
-			$svgElements = SvgElement::all()->toArray(); 			 
+			//$svgElements = SvgElement::all()->toArray(); 
+			$svgElements = [];			 
 		}
    	
 

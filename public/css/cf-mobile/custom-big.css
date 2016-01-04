@@ -260,7 +260,7 @@ div.spritespin-div {
 .loader:after {
   border-radius: 50%;
     width: 40px;
-    height: 40px;
+    height: 40px; 
     background: rgba(0,0,0,0);
     position: absolute;
     top: 50%;
@@ -854,6 +854,8 @@ body a {
 }
 .contactModal .modal-content {
   border-radius: 0;
+  float: left;
+  width: 100%;
 }
 .contactModal .rightSide {
   border-left: 1px solid #d5d5d4;
@@ -943,7 +945,7 @@ body a {
   margin-bottom: 20px;
 }
 .contactModal .errorMsg {
-  /*position: absolute;*/
+  position: absolute;
   width: 100%;
   text-align: center;
   bottom: 5px;
@@ -1030,7 +1032,7 @@ body a {
    height: 34px;
    overflow: hidden;
    background: url(../../images/arrowDown.png) no-repeat right;
-   border: none;
+   border: none;   
 */
   position: relative;
   z-index: 2;
@@ -1384,6 +1386,11 @@ select::-ms-expand {
   }
   .sun-toggle {
     margin-left: 20px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .messageBoxDesk {
+    margin-top: 60px;
   }
 }
 #overlay {
@@ -2349,11 +2356,11 @@ select::-ms-expand {
   .step4Desk .detailView .unit .roomDetails {
     width: 32%;
   }
-  .step4Desk .detailView .unit .roomDetails:nth-child(3n+3),
+  .step4Desk .detailView .unit .roomDetails:nth-child(4n+3),
   .step4Desk .detailView .unit .roomDetails:last-child {
     border-right: none;
   }
-  .step4Desk .detailView .unit .roomDetails:nth-child(3n+4) {
+  .step4Desk .detailView .unit .roomDetails:nth-child(4n+4) {
     border-right: 1px solid #d5d5d4;
   }
   .step4Desk .detailView .unit .roomDetails:nth-child(3n+1) {
@@ -2419,6 +2426,11 @@ select::-ms-expand {
   }
   .step4Desk .specificationOuter .textInner > div {
     width: 75%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .step4Desk .amenitiesDetails .text {
+    padding-left: 0;
   }
 }
 /*# sourceMappingURL=custom-big.css.map */

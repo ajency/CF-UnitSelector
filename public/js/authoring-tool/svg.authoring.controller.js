@@ -737,7 +737,7 @@ jQuery(document).ready(function($) {
     return myObject;
   };
   window.drawDefaultMarker = function(markerType) {
-    var circle, circle1, circle2, drawMarkerElements, ellipse, groupLocation, groupMarker, polygon;
+    var circle1, circle2, drawMarkerElements, ellipse, groupLocation, groupMarker, polygon;
     drawMarkerElements = [];
     window.markerPoints = [window.cx, window.cy];
     groupLocation = "";
@@ -769,14 +769,25 @@ jQuery(document).ready(function($) {
       case 'solid':
         window.canvas_type = "solidMarker";
         groupMarker.attr({
-          "class": 'solid-marker-grp'
+          "class": 'concentric-marker-grp'
         });
-        circle = draw.circle(15.002);
-        circle.attr({
+        circle1 = draw.circle(window.innerRadius);
+        circle1.attr({
+          fill: '#43FFF8',
           cx: window.cx,
           cy: window.cy
         });
-        drawMarkerElements.push(circle);
+        circle2 = draw.circle(window.outerRadius);
+        circle2.attr({
+          fill: 'none',
+          cx: window.cx,
+          cy: window.cy,
+          stroke: "#43FFF8",
+          'stroke-width': 4,
+          'stroke-miterlimit': 10
+        });
+        drawMarkerElements.push(circle1);
+        drawMarkerElements.push(circle2);
         break;
       case 'location':
         groupLocation = draw.group();

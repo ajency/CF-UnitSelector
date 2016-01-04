@@ -149,7 +149,6 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->measurement_units = $property_measurement_units;
         $project->has_phase = $property_has_phases;
         $project->has_master = $property_has_master;
-        $project->tour_url = $projectData['tour_url'];
         $project->updated_by = Auth::user()->id;
         $project->save();
         

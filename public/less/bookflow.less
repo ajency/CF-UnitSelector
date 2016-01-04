@@ -311,10 +311,10 @@ body
 	{
 		.BoxShadow(0, 1px, 2px);
 		background:@white;
-		padding:0;		
-		
+		padding:0;				
 		float:left;
-		margin:auto;		
+		margin:auto;
+		margin-bottom: 100px;		
 	}
 	.panel-inner
 	{
@@ -940,7 +940,8 @@ body
     color:@gray;
     font-size:12px;   
     margin:auto;
-    display:table;    
+    display:table;  
+    margin-bottom: 100px;  
     width:100%;
     .bookApmt
 	{
@@ -1139,7 +1140,10 @@ body
 .bookingFooter
 {	
     text-align: center;
-    float:left;
+    position: fixed;
+    /*float:left;*/
+    bottom: 0;
+    z-index: 5;
     width: 100%;
     margin-top:40px;
     margin-bottom:0px;

@@ -1493,7 +1493,7 @@ function getHighlightedBuilding(filteredUnits){
 	// totalFilteredUnits = filteredUnitsSum.reduce((a, b) => a + b);
 
 	_.each(filteredUnitsSum, function(filtersumValue){
-		totalFilteredUnits += filtersumValue 
+		totalFilteredUnits += filtersumValue
 	});
 
 	if(totalFilteredUnits == 0){
@@ -1506,8 +1506,8 @@ function getHighlightedBuilding(filteredUnits){
 
 		// totalAvailableUnits = availableUnitsSum.reduce((a, b) => a + b);
 		_.each(availableUnitsSum, function(availablesumValue){
-			totalAvailableUnits += availablesumValue 
-		});		
+			totalAvailableUnits += availablesumValue
+		});
 
 		if(totalAvailableUnits == 0){
 			maxUnit = filteredUnits[0];
@@ -1547,6 +1547,7 @@ function getSimilarUnits(unitId){
 	var unitId = parseInt(unitId);
 	var allUnitsBeforeFilter = _projectData.units;
 	var unitData = _.findWhere(allUnitsBeforeFilter, {id: unitId});
+	var buildingId = unitData.building_id;
 
 
 	//var allUnits = _projectData.units;
@@ -1567,7 +1568,7 @@ function getSimilarUnits(unitId){
 
 	//same variant logic
 	if(simUnits.length<4){
-		variantUnits = getAllVariantsUnits(allUnits,unitVariantId);
+		variantUnits = getAllVariantsUnits(allUnits,unitVariantId,buildingId);
 		simUnits = combinedUnits(simUnits,variantUnits);
 	}
 
@@ -1631,14 +1632,32 @@ function combinedUnits(preUnits,newUnits){
 
 
 
-function getAllVariantsUnits(allUnits,unitVariantId){
-	var variantUnits = _.filter(allUnits , function(unit){
-		if(unit.availability === "available" && unit.unit_variant_id === unitVariantId){
+function getAllVariantsUnits(allUnits,unitVariantId,buildingId){
+
+	var unitsvariants = _.filter(allUnits , function(unit){
+		if(unit.availability === "available" && unit.unit_variant_id === unitVariantId && unit.building_id === buildingId){
 			return unit;
 		}
 	});
-	return variantUnits;
+
+	if(unitsvariants.length<4){
+		var unitRemains = 4-unitsvariants.length;
+		var variantUnits = _.filter(allUnits , function(unit){
+			if(unit.availability === "available" && unit.unit_variant_id === unitVariantId && unit.building_id !== buildingId){
+				return unit;
+			}
+		});
+
+		if(variantUnits.length>unitRemains){
+			variantUnits.length = unitRemains;
+		}
+
+		unitsvariants = combinedUnits(unitsvariants,variantUnits);
+	}
+	return unitsvariants;
 }
+
+
 
 
 

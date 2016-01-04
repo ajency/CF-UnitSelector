@@ -557,11 +557,11 @@
 	{
 		width: 32%;
 	}
-	.step4Desk .detailView .unit .roomDetails:nth-child(3n+3), .step4Desk .detailView .unit .roomDetails:last-child
+	.step4Desk .detailView .unit .roomDetails:nth-child(4n+3), .step4Desk .detailView .unit .roomDetails:last-child
 	{
 		border-right: none;
 	}	
-	.step4Desk .detailView .unit .roomDetails:nth-child(3n+4)
+	.step4Desk .detailView .unit .roomDetails:nth-child(4n+4)
 	{
 		border-right: 1px solid @gray-lighter;
 	}
@@ -644,5 +644,12 @@
 	.step4Desk .specificationOuter .textInner > div
 	{
 		width: 75%;
+	}
+}
+@media screen and (min-width:768px) and (max-width:1024px) and (orientation:portrait)
+{
+	.step4Desk .amenitiesDetails .text
+	{
+		padding-left: 0;
 	}
 }

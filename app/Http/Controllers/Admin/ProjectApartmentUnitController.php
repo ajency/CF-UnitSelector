@@ -106,6 +106,7 @@ class ProjectApartmentUnitController extends Controller {
         $unit->position = $request->get('position');
         $unit->availability = $request->get('unit_status');
         $unit->direction = $request->input('direction');
+        $unit->tour_url = $request->input('tour_url');
         $views = $request->input('views');
         $unitviews=[];
         if(!empty($views))
@@ -240,6 +241,7 @@ class ProjectApartmentUnitController extends Controller {
             $unit->floor = $request->get('floor');
             $unit->position = $request->get('position');
             $unit->direction = $request->input('direction');
+            $unit->tour_url = $request->input('tour_url');
             $views = $request->input('views');
             $unitviews=[];
             if(!empty($views))
