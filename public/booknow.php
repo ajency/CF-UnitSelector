@@ -136,7 +136,7 @@ $startTime= time();
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
-                                    <input class="basic_info form-control" type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-length="[10, 12]" data-parsley-trigger="change"/>
+                                    <input class="basic_info form-control" type="text" id="mobile" name="contact_mobile" placeholder="Phone" data-parsley-required data-parsley-type="number" data-parsley-maxlength="10" data-parsley-maxlength-message="This value is too long. It should have 10 digits" data-parsley-minlength="10" data-parsley-minlength-message="This value is too short. It should have 10 digits"  data-parsley-trigger="change"/>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12">                                   
                                    <input class="basic_info form-control" type="text" id="pancard" name="contact_pancard" placeholder="Pan card" data-parsley-pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}"  data-parsley-maxlength="10" data-parsley-maxlength-message="This value is too long. It should have 10 characters" data-parsley-required data-parsley-trigger="change"/>
