@@ -59,12 +59,19 @@ var SteponeImage = React.createClass({
 
         rect = $(selectorClass)[0].getBoundingClientRect();
 
-        panTo = 0-rect.top+90;
+        // panTo = 0-rect.top;
+        panTo = 0-rect.top;
 
         $imageContainerDom.panzoom("pan", 0, panTo, {
-                      relative: true,
+                      relative: false,
                       animate: true
                   });
+
+        // $imageContainerDom.panzoom("resetPan", {
+        //   animate: false,
+        //   silent: true
+        // })
+        // $imageContainerDom.panzoom("pan", 0, panTo);
     },
 
     navigateOntap: function(targettedId){
@@ -192,7 +199,7 @@ var SteponeImage = React.createClass({
                 panZoomSettings = {
                         minScale : 0,
                         contain: "invert",
-                        startTransform: 'scale(2.1)'
+                        startTransform: 'scale(1.5)'
                         }
 
                 $imageContainerDom.panzoom(panZoomSettings);
