@@ -41,6 +41,9 @@ var SideBar = React.createClass({
       		sideContentBarHeight = windowHeight-460;
       		// sideContentBarHeight = windowHeight-250;
     	}
+    	else if(cardListFor === 'project'){
+    		sideContentBarHeight = windowHeight-220;
+    	}
     	else{
       		sideContentBarHeight = windowHeight-250;
     	}
@@ -70,7 +73,7 @@ var SideBar = React.createClass({
 	        });
 
 		var SideBarStyle = {
-		  maxHeight: sidebarHeightPx
+		  height: sidebarHeightPx
 		};
 
 
