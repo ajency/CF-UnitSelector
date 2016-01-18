@@ -10,6 +10,8 @@ var SvgContainer = React.createClass({
 
     mixins: [Router.NavigatableMixin],
 
+
+
     componentDidUpdate: function(prevProps, prevState) {
         console.log("did update svg container");
         
@@ -20,8 +22,20 @@ var SvgContainer = React.createClass({
 
             notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
         }
+
+        var notAvailableBuildingIds = [];
+        buildings = this.props.buildings;
+        _.each(buildings,function(building){
+           availableUnits = building.availableUnitData;
+           if(availableUnits.length==0){
+            notAvailableBuildingIds.push(building.id);
+            }
+        });   
+
+       
         if((this.props.cardListFor==="project")&&(notLiveBuildings.length>0)){
-            this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark); 
+            var array3 = notLiveBuildingsIdsToMark.concat(notAvailableBuildingIds);
+            this.applyNotLiveBuildingClasses(array3);  
             // on mouse hover of building apply tooltip
             $(".building").mouseover(function(e){
                 var that = this;
