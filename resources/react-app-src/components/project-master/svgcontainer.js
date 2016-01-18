@@ -62,23 +62,23 @@ var SvgContainer = React.createClass({
 
 
         // show tooltip for highlighted building if not already shown
-        if(!$('.qtip').is(':visible')){
-            buildingToHighlight = this.props.buildingToHighlight;
-            imageType = this.props.imageType;
-            id =  buildingToHighlight.id;
-            highlightedBuildingName =  buildingToHighlight.building_name;
-            var selector= "";
-            if(imageType === "master"){
-              selector = '.building'+id;
-            }else if(imageType === "buildingFloorGrps"){
-              selector = '.floor_group'+id;  
-            }else{
-              selector = '.apartment'+id;
-            }
+        // if(!$('.qtip').is(':visible')){
+        //     buildingToHighlight = this.props.buildingToHighlight;
+        //     imageType = this.props.imageType;
+        //     id =  buildingToHighlight.id;
+        //     highlightedBuildingName =  buildingToHighlight.building_name;
+        //     var selector= "";
+        //     if(imageType === "master"){
+        //       selector = '.building'+id;
+        //     }else if(imageType === "buildingFloorGrps"){
+        //       selector = '.floor_group'+id;  
+        //     }else{
+        //       selector = '.apartment'+id;
+        //     }
 
-            // apply tooltip only for higlighted building svg
-            this.props.showTooltip(highlightedBuildingName,selector,false);            
-        }           
+        //     // apply tooltip only for higlighted building svg
+        //     this.props.showTooltip(highlightedBuildingName,selector,false);            
+        // }           
     },
 
     applyGroupSpecificClasses : function(){
