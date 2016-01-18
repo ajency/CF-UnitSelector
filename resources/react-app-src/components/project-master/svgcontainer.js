@@ -10,8 +10,14 @@ var SvgContainer = React.createClass({
 
     mixins: [Router.NavigatableMixin],
 
+    componentDidMount: function() {
+        console.log("cdm of svgcontainer")
+    },
+
     componentDidUpdate: function(prevProps, prevState) {
         console.log("did update svg container");
+
+        // this.applyClassesForSvg();
         
         var notLiveBuildings = this.props.notlive_buildings; 
         var notLiveBuildingsIdsToMark = [];
@@ -20,8 +26,20 @@ var SvgContainer = React.createClass({
 
             notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
         }
+
+        var notAvailableBuildingIds = [];
+        buildings = this.props.buildings;
+        _.each(buildings,function(building){
+           availableUnits = building.availableUnitData;
+           if(availableUnits.length==0){
+            notAvailableBuildingIds.push(building.id);
+            }
+        });   
+
         if((this.props.cardListFor==="project")&&(notLiveBuildings.length>0)){
-            this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark); 
+
+            var array3 = notLiveBuildingsIdsToMark.concat(notAvailableBuildingIds);
+            this.applyNotLiveBuildingClasses(array3); 
             // on mouse hover of building apply tooltip
             $(".building").mouseover(function(e){
                 var that = this;
@@ -170,6 +188,12 @@ var SvgContainer = React.createClass({
 
     svgLoaded: function(buildingToHighlight,cardListFor){
         console.log("svg loaded");
+
+        this.applyClassesForSvg(buildingToHighlight,cardListFor);
+
+    },
+
+    applyClassesForSvg : function(buildingToHighlight,cardListFor){
         var highlightedBuildingId = 0 ;
         var highlightedBuildingName = "Loading.." ;
         var highlightedBuildingSelector = "";
@@ -305,6 +329,7 @@ var SvgContainer = React.createClass({
               svgElemClassName+=" not-in-selection";
             }
 
+            // $(selector).attr("class", '');
             $(selector).attr("class", svgElemClassName);
 
         });
@@ -372,8 +397,7 @@ var SvgContainer = React.createClass({
                 that.navigate('/units/'+id);
             }
             
-        }.bind(this));
-
+        }.bind(this));        
     },
 
     getSvgFilePrefix: function(imageType){
