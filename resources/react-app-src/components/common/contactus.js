@@ -18,7 +18,7 @@ var SignupForm = forms.Form.extend({
   	}),
 
 	clean: ['phone', function() {
-	    if (isNaN(this.cleanedData.phone) || (this.cleanedData.phone.length>12) || (this.cleanedData.phone.length<10)){
+	    if (!_.isEmpty(this.cleanedData.phone) && (isNaN(this.cleanedData.phone) || (this.cleanedData.phone.length>12) || (this.cleanedData.phone.length<10))){
 	       throw forms.ValidationError('Enter valid phone number.')
 	    }
 	}]
