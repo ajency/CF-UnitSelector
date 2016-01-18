@@ -10,14 +10,8 @@ var SvgContainer = React.createClass({
 
     mixins: [Router.NavigatableMixin],
 
-    componentDidMount: function() {
-        console.log("cdm of svgcontainer")
-    },
-
     componentDidUpdate: function(prevProps, prevState) {
         console.log("did update svg container");
-
-        // this.applyClassesForSvg();
         
         var notLiveBuildings = this.props.notlive_buildings; 
         var notLiveBuildingsIdsToMark = [];
@@ -26,20 +20,8 @@ var SvgContainer = React.createClass({
 
             notLiveBuildingsIdsToMark = _.pluck(notLiveBuildings,'id');
         }
-
-        var notAvailableBuildingIds = [];
-        buildings = this.props.buildings;
-        _.each(buildings,function(building){
-           availableUnits = building.availableUnitData;
-           if(availableUnits.length==0){
-            notAvailableBuildingIds.push(building.id);
-            }
-        });   
-
         if((this.props.cardListFor==="project")&&(notLiveBuildings.length>0)){
-
-            var array3 = notLiveBuildingsIdsToMark.concat(notAvailableBuildingIds);
-            this.applyNotLiveBuildingClasses(array3); 
+            this.applyNotLiveBuildingClasses(notLiveBuildingsIdsToMark); 
             // on mouse hover of building apply tooltip
             $(".building").mouseover(function(e){
                 var that = this;
@@ -65,24 +47,24 @@ var SvgContainer = React.createClass({
 
 
 
-        // // show tooltip for highlighted building if not already shown
-        // if(!$('.qtip').is(':visible')){
-        //     buildingToHighlight = this.props.buildingToHighlight;
-        //     imageType = this.props.imageType;
-        //     id =  buildingToHighlight.id;
-        //     highlightedBuildingName =  buildingToHighlight.building_name;
-        //     var selector= "";
-        //     if(imageType === "master"){
-        //       selector = '.building'+id;
-        //     }else if(imageType === "buildingFloorGrps"){
-        //       selector = '.floor_group'+id;  
-        //     }else{
-        //       selector = '.apartment'+id;
-        //     }
+        // show tooltip for highlighted building if not already shown
+        if(!$('.qtip').is(':visible')){
+            buildingToHighlight = this.props.buildingToHighlight;
+            imageType = this.props.imageType;
+            id =  buildingToHighlight.id;
+            highlightedBuildingName =  buildingToHighlight.building_name;
+            var selector= "";
+            if(imageType === "master"){
+              selector = '.building'+id;
+            }else if(imageType === "buildingFloorGrps"){
+              selector = '.floor_group'+id;  
+            }else{
+              selector = '.apartment'+id;
+            }
 
-        //     // apply tooltip only for higlighted building svg
-        //     this.props.showTooltip(highlightedBuildingName,selector,false);            
-        // }           
+            // apply tooltip only for higlighted building svg
+            this.props.showTooltip(highlightedBuildingName,selector,false);            
+        }           
     },
 
     applyGroupSpecificClasses : function(){
@@ -188,12 +170,6 @@ var SvgContainer = React.createClass({
 
     svgLoaded: function(buildingToHighlight,cardListFor){
         console.log("svg loaded");
-
-        this.applyClassesForSvg(buildingToHighlight,cardListFor);
-
-    },
-
-    applyClassesForSvg : function(buildingToHighlight,cardListFor){
         var highlightedBuildingId = 0 ;
         var highlightedBuildingName = "Loading.." ;
         var highlightedBuildingSelector = "";
@@ -329,7 +305,6 @@ var SvgContainer = React.createClass({
               svgElemClassName+=" not-in-selection";
             }
 
-            // $(selector).attr("class", '');
             $(selector).attr("class", svgElemClassName);
 
         });
@@ -397,7 +372,8 @@ var SvgContainer = React.createClass({
                 that.navigate('/units/'+id);
             }
             
-        }.bind(this));        
+        }.bind(this));
+
     },
 
     getSvgFilePrefix: function(imageType){
